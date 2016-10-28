@@ -17,11 +17,14 @@
 package de.bund.bva.isyfact.common.web.layout;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * Model für Quicklinks.
+ * @author Capgemini, Tobias Gröger
  */
 public class QuicklinksModel implements Serializable {
 
@@ -31,15 +34,88 @@ public class QuicklinksModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Die Quicklinks. Gruppe ID -> Gruppe Model.
+     * Die Quicklinks.
      */
-    private Map<String, QuicklinksGruppeModel> quicklinksGruppen = new HashMap<>();
+    private Map<String, QuicklinksGroup> quicklinkGruppen = new LinkedHashMap<String, QuicklinksGroup>();
 
-    public Map<String, QuicklinksGruppeModel> getQuicklinksGruppen() {
-        return this.quicklinksGruppen;
+    /**
+     * Erzeuge eine Quicklink Gruppe mit bestimmen Title und Group ID.
+     *
+     * @param groupId
+     *            ID der Gruppe
+     * @param title
+     *            der Title (header)
+     *
+     * @return erzeugte Gruppe
+     */
+    public QuicklinksGroup erzeugeGruppe(String groupId, String title) {
+        if (getGruppe(title) == null) {
+            QuicklinksGroup group = new QuicklinksGroup();
+            group.setName(title);
+            group.setId(groupId);
+            this.quicklinkGruppen.put(groupId, group);
+
+        }
+        return getGruppe(groupId);
     }
 
-    public void setQuicklinksGruppen(Map<String, QuicklinksGruppeModel> quicklinksGruppen) {
-        this.quicklinksGruppen = quicklinksGruppen;
+    /**
+     * Fügt ein neues QuicklinkselementModel am Anfang hinzu.
+     * @param quicklinkselementModel
+     *            Das neue QuicklinkselementModel
+     * @param groupId
+     *            Der anzuzeigende header.
+     * @param title
+     *            nach group ID
+     * 
+     * @return gelöschte Element
+     */
+    public QuicklinkselementModel quicklinkAmAnfangHinzufuegen(QuicklinkselementModel quicklinkselementModel,
+        String groupId, String title) {
+
+        QuicklinksGroup group = getGruppe(groupId);
+
+        if (group == null) {
+            group = new QuicklinksGroup();
+            group.setName(title);
+            group.setId(groupId);
+            this.quicklinkGruppen.put(groupId, group);
+        }
+
+        return group.elementAmAnfangHinzufuegen(quicklinkselementModel);
+
+    }
+
+    /**
+     * Liefert eine Quicklink Gruppe mit bestimmter ID.
+     *
+     * @param gruppeId
+     *            ID der Gruppe
+     *
+     * @return Quicklink Gruppe
+     */
+    public QuicklinksGroup getGruppe(String gruppeId) {
+        return this.quicklinkGruppen.get(gruppeId);
+    }
+
+    /**
+     * Liefert alle Quicklink Gruppen zurück.
+     *
+     * @return alle Quicklink Gruppen.
+     */
+    public Collection<QuicklinksGroup> getAlleGruppen() {
+        return new ArrayList<QuicklinksGroup>(this.quicklinkGruppen.values());
+    }
+
+    /**
+     * Liefert die Information ob bestimme Quicklink Gruppe existiert oder nicht.
+     *
+     * @param gruppeId
+     *            ID der Gruppe
+     *
+     * @return true wenn existiert
+     */
+    public boolean hatGruppe(String gruppeId) {
+        return getGruppe(gruppeId) != null;
     }
 }

@@ -71,13 +71,6 @@ public class ErrorController implements ApplicationContextAware {
     public void initialisiereModel(ErrorModel errorModel, Throwable t) {
 
         Throwable socketException = getClientAbortException(t);
-        if (socketException != null) {
-            // Fehler beim Verbindungsaufbau zum Client werden nicht in der GUI angezeigt. Diese Fehler können
-            // sporadisch auftreten, z.B. wenn der Browser des Nutzers Verbindungen schließt (mehrfacher Klick
-            // auf einen Download, usw.).
-            LOG.warn(EreignisSchluessel.E_CLIENT_VERBINDUNG, "Client-Verbindungsfehler", t);
-            return;
-        }
 
         // Erzeuge Fehler
         Map<String, String> parameters =
@@ -100,10 +93,19 @@ public class ErrorController implements ApplicationContextAware {
             errorModel.setFehlerText(fehlerInformation.getGuiErrorMessage());
 
         } else {
-            // Erzeuge neuen Fehler
-            fehlerInformation =
-                FehlertextUtil.schreibeLogEintragUndErmittleFehlerinformation(t,
-                    this.applicationContext.getBean(AusnahmeIdMapper.class), LOG);
+            // Unterscheidung eingebaut, da das BVA keine Error-Log-Einträge haben möchte, die auftreten, wenn
+            // der Browser des Nutzers Verbindungen schließt (mehrfacher Klick auf einen Download, usw.).
+            if (socketException != null) {
+                LOG.warn(EreignisSchluessel.E_CLIENT_VERBINDUNG, "Client-Verbindungsfehler", t);
+                fehlerInformation =
+                    FehlertextUtil.ermittleFehlerinformation(t,
+                        this.applicationContext.getBean(AusnahmeIdMapper.class));
+            } else {
+                // Erzeuge neuen Fehler
+                fehlerInformation =
+                    FehlertextUtil.schreibeLogEintragUndErmittleFehlerinformation(t,
+                        this.applicationContext.getBean(AusnahmeIdMapper.class), LOG);
+            }
         }
 
         // Ermittle den GUI-Fehlertext

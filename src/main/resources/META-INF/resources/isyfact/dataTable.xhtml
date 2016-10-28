@@ -14,6 +14,9 @@
 <!-- Die Data Table -->
 <composite:interface>
 
+  <!-- Eine Sortierfunktion, welche direkt auf dem Client ausgeführt werden kann. -->
+  <composite:attribute name="jsSortFunction" type="String" />
+
 	<!-- Der Inhalt der Toolbar -->
 	<composite:facet name="tableToolbar" />
 	<!-- Der Inhalt der Headerzeile -->
@@ -95,6 +98,10 @@
 
 				<h:inputHidden id="rfDataTableSortDirection"
 					value="#{cc.attrs.dataTableModel.sortModel.direction}" />
+
+        <ui:fragment rendered="#{not empty cc.attrs.jsSortFunction}">
+          <input type="hidden" jsf:id="rfDataTableJsSortFunction" value="#{cc.attrs.jsSortFunction}" disabled="true" />
+        </ui:fragment>
 
 				<!-- Hidden Button und Feld für Doppelklick einbauen -->
 				<h:commandButton id="rfDataTableDoubleClickButton"

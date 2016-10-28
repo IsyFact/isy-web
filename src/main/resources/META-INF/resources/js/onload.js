@@ -266,11 +266,6 @@ function refreshFunctions() {
         e.stopPropagation();
     });
     $panels.addClass('panel_ajaxtoken');
-    // brandest: DSD-1467 Hintergrund bei modalem Dialog wird dunkler
-    // Bei Aktionen in modalen Dialogen, die mittels AJAX das Formluar neu laden lassen, wird auch der modale Dialog neu angezeigt
-    // und dadurch erneut ein "modal-backdrop" hinzugefügt - diese überlagern sich. Durch das vorherige Entfernen wird sichergestellt,
-    // das maximal ein backdrop vorhanden ist.
-    $(".modal-backdrop").remove();
 
     // --------------------------------------------------------
     // Modale Dialoge
@@ -279,7 +274,20 @@ function refreshFunctions() {
     var $modalDialogs = $('#modal-add-personal').filter(':not(.modal_ajaxtoken)');
     $modalDialogs.modal('show');
     $modalDialogs.addClass('modal_ajaxtoken');
-
+    
+    // brandest: DSD-1467 Hintergrund bei modalem Dialog wird dunkler
+    // Bei Aktionen in modalen Dialogen, die mittels AJAX das Formluar neu laden lassen, wird auch der modale Dialog neu angezeigt
+    // und dadurch erneut ein "modal-backdrop" hinzugefügt - diese überlagern sich. Durch das vorherige Entfernen wird sichergestellt,
+    // das maximal ein backdrop vorhanden ist.
+    var $modalVisible = $('.modal-dialog').is(':visible');
+    $($(".modal-backdrop").get().reverse()).each(function(index, element){
+        // Entfernen wenn ein .modal-backdrop vorhanden ist, obwohl es keinen modalen Dialog gibt (passiert in edge-cases).
+        // Ansonsten mit get().reverse() entfernen wir die älteste .modal-backdrops, da nur der neuste mit dem button-event verbunden ist
+        if(!$modalVisible || index > 0) { 
+            element.remove();
+       }
+    });
+    
     // --------------------------------------------------------
     // FocusOnload
     // Initial das linke obere Element des Inhaltsbereichs auswählen.
@@ -472,17 +480,17 @@ function refreshFunctions() {
     $('.rf-data-table').each(function(){
         var $rfDataTable = $(this);
         var $sortFunction = $rfDataTable.find("[id$='rfDataTableJsSortFunction']");
-        
+
         if($sortFunction.length > 0) {
             
-            var $sortAttribute = $rfDataTable.find("[id$='rfDataTableSortAttribute']");
+            var $sortAttribute = $rfDataTable.find("[id$='rfDataTableSortProperty']");
             var $sortDirection = $rfDataTable.find("[id$='rfDataTableSortDirection']");
             var $jsSortedList = $rfDataTable.find("[id$='rfDataTableJsSortedList']");
         
             var $ths = $(this).find("th");
             $ths.each(function(index){
                 var $th = $(this);
-            
+                
                 if($th.hasClass("sortable")) {
             
                     var $thLink = $th.find("a");
@@ -498,6 +506,16 @@ function refreshFunctions() {
                         // Neu Sortierattribute und Richtung ermitteln
                         $rfDataTable.find("thead th.sorted").removeClass("sorted");
                         var newSortDirection = "";
+                        
+                        if ($sortDirection.val() == "ASCENDING") {
+                           $th.removeClass("sort-up");
+                           $th.addClass("sort-down");
+                        }
+                        if ($sortDirection.val() == "DESCENDING") {
+                            $th.removeClass("sort-down");
+                            $th.addClass("sort-up");
+                        }
+
                         if($th.hasClass("sort-up")) {
                             newSortDirection = "DESCENDING";
                             $th.removeClass("sort-up");
@@ -638,7 +656,6 @@ function refreshFunctions() {
         var $listpickerContent = $listpicker.find(".listpicker-content").first();
         var $listpickerFilter = $listpicker.find("[id$='listpickerFilter']");
         var $listpickerMinWidth = $listpicker.find("[id$='listpickerMinWidth']");
-        var $listpickerInputComplement = $listpicker.find("[id$='inputComplement']");
         var listpickerAjaxFormId = $listpicker.find("[id$='listpickerAjaxForm']").val();
         var $listpickerAjaxForm = null;
         if(typeof(listpickerAjaxFormId) != "undefined") {
@@ -834,87 +851,6 @@ function refreshFunctions() {
             // Die Auswahlliste liegt auf einer Ebene mit dem Input-Feld
             $(this).parent().find('.listpicker-button').click();
         });
-        
-        // Input Complement auswerten
-        if (parseInt($listpickerInputComplement.val()) > 0) {
-            
-            // Fokusaktionen definieren
-            // FocusOut - Schlüssel auflösen
-            var listpickerFocusOutAction = function(listpickerfield) {
-                if (listpickerfield.val().indexOf(" - ") >= 0) {
-                    // verhindere, dass Ziffern aus dem Wert im Feld verbleiben
-                    listpickerfield.val(listpickerfield.val().substring(0,
-                            listpickerfield.val().indexOf(" - ")));
-                }
-                var $id;
-                if (listpickerfield.attr('data-isymask-mask') !== undefined){
-                    listpickerfield.mask();
-                    $id = listpickerfield.val();
-                    listpickerfield.unmask();
-                    if (listpickerfield.val() == "null" || listpickerfield.val() == "nul") {
-                        listpickerfield.val("");
-                    }
-                }
-                var $parent = listpickerfield.parent();
-                var $tr = $parent.find("tr[id='" + $id + "']");
-                var $td = $tr.find("td:nth-child("+parseInt($listpickerInputComplement.val())+")");
-                var $value = $td.text();
-                if ($value !== '') {
-                    listpickerfield.val($id + ' - ' + $value);
-                } else {
-                    var $filter = $parent.find("input[id*='listpickerFilter']");
-                    var $listpickerContent = $parent.find(".listpicker-content");
-                    var $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");    
-                    if ($parent.find(".listpicker-content").css("display") === 'none'){
-                        if (listpickerfield.val() !== $listpickerLastFilter.val()){
-                            if ($(".ajax-status span").text() !== 'begin') { // Verhindere Kollision mit anderen AJAX-Requests
-                                $filter.val(listpickerfield.val());
-                                $filter.change();
-                            }
-                        }
-                    }
-                }
-            };
-            // Focus - Feld maskieren
-            var listpickerFocusAction = function(listpickerfield) {
-                if (listpickerfield.val().indexOf(" - ") >= 0) {
-                    // Verhindere, dass Ziffern aus dem Wert im Feld verbleiben
-                    listpickerfield.val(listpickerfield.val().substring(0,
-                            listpickerfield.val().indexOf(" - ")));
-                }
-                if (listpickerfield.attr('data-isymask-mask') !== undefined){
-                    listpickerfield.mask();
-                }
-            };
-            
-            // Filter: Nur sichtbare (oder in eingeklappten Panels versteckte) Listpicker
-            var filtereSichtbareListpicker = function () {
-                var $element = $(this);
-                return $element.is(":visible") || $element.parents().is(".panel-collapse.collapse");
-            };
-            
-            // Registrieren 
-            if ($listpickerField.attr('data-isymask-mask') !== undefined){
-                    $listpickerField.unmask();
-            }
-            // linke Fokusaktionen zu den Feldern
-            $listpickerField.focusout(function() {
-                listpickerFocusOutAction($(this));
-            });
-            $listpickerField.focus(function() {
-                listpickerFocusAction($(this));
-            });
-            
-            // Gezieltes Aufrufen der Fokusaktionen
-            var $listpickerFields = $listpickerField.filter(filtereSichtbareListpicker);
-            $listpickerFields.each(function() {
-                var $listpickerFieldIntern = $(this);
-                // rufe Fokusaktionen auf
-                listpickerFocusAction($listpickerFieldIntern);
-                listpickerFocusOutAction($listpickerFieldIntern);
-            });
-        }
-        
     });
     $listpickerContainer.addClass('rf-listpicker_ajaxtoken');
 

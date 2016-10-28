@@ -26,11 +26,12 @@
                         </h:outputLink></li>
                 </ui:fragment>
             </ui:repeat>
-            <ui:fragment rendered="#{not empty sessionScope.quicklinks}">               
-                <ui:repeat value="#{sessionScope.quicklinks.quicklinksGruppen.values().toArray()}" var="gruppe">
-                    <ui:fragment rendered="#{gruppe.quicklinksElemente.size() > 0 and gruppe.sichtbar}"> 
-                      <li class="group-header">#{gruppe.anzuzeigenderGruppenname}</li>                    
-                      <ui:repeat value="#{gruppe.quicklinksElemente}" var="quicklinkselement">
+            <ui:fragment rendered="#{not empty sessionScope.quicklinks}">  
+            <!-- TODO RAIS-47 Prüfung ob Gruppe gerendert werden soll -->             
+                <ui:repeat value="#{sessionScope.quicklinks.alleGruppen}" var="group">
+                    <ui:fragment rendered="#{group.groesse() > 0 and group.sichtbar}"> 
+                      <li class="group-header">#{group.name}</li>                    
+                      <ui:repeat value="#{group.elemente}" var="quicklinkselement">
                         <li>
                           <h:outputLink value="#{quicklinkselement.link}" styleClass="linksnavigation-option" tabindex="-1">
                             <h:outputText value="#{quicklinkselement.anzuzeigenderText}" />

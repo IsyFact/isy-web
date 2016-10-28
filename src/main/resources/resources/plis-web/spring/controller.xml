@@ -83,6 +83,5 @@
 
     <bean id="quicklinksController" class="de.bund.bva.isyfact.common.web.layout.QuicklinksController"
         parent="abstractGuiController">        
-        <property name="konfiguration" ref="konfiguration" />
     </bean>
 </beans>

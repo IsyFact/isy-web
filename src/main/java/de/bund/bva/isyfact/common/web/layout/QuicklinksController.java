@@ -16,25 +16,20 @@
  */
 package de.bund.bva.isyfact.common.web.layout;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
-import org.springframework.webflow.definition.FlowDefinition;
-import org.springframework.webflow.execution.RequestContextHolder;
-
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 
 import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 /**
  * Controller für die Quicklinks.
+ *
  */
+// REVIEW (JM) RAIS-47: Was ist mit Abwärtskompatibilität? Bitte wenn möglich so gestalten, dass man die
+// Methoden auch ohne die neue GroupID nutzen kann. Dann hat man nur eine Default-Group die visible ist (wegen
+// Legacy Systemen). Wo ist die Methode fuegeQuicklinksHinzu hin?
 public class QuicklinksController extends AbstractGuiController<ApplikationseiteModel> {
 
     /**
@@ -43,85 +38,10 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
     private static final String SESSION_KEY_QUICKLINKS = "quicklinks";
 
     /**
-     * Die Konfiguration.
-     */
-    private Konfiguration konfiguration;
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public void initialisiereModel(ApplikationseiteModel model) {
-        // Der aktuelle Flow. Wenn ein Subflow aufgerufen wurde, dann wird hier der ursprüngliche Flow
-        // ausgelesen.
-        FlowDefinition flowDefinition =
-            RequestContextHolder.getRequestContext().getFlowExecutionContext().getDefinition();
-
-        String flowName = flowDefinition.getId();
-
-        Splitter splitter = Splitter.on(",").trimResults();
-
-        String gruppenIdsKonfig = this.konfiguration.getAsString("gui.quicklinks.gruppenIds", null);
-
-        if (gruppenIdsKonfig != null) {
-            List<String> gruppenIds = Lists.newArrayList(splitter.split(gruppenIdsKonfig));
-
-            if (!gruppenIds.isEmpty()) {
-
-                // Gruppen existieren => Sessiondaten laden und synchronisieren
-                SharedAttributeMap<Object> sessionMap =
-                    ExternalContextHolder.getExternalContext().getSessionMap();
-                synchronized (sessionMap.getMutex()) {
-                    QuicklinksModel quicklinksModel =
-                        (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
-                    if (quicklinksModel == null) {
-                        quicklinksModel = new QuicklinksModel();
-                        sessionMap.put(SESSION_KEY_QUICKLINKS, quicklinksModel);
-                    }
-
-                    for (String gruppeId : gruppenIds) {
-
-                        QuicklinksGruppeModel quicklinksGruppeModel =
-                            quicklinksModel.getQuicklinksGruppen().get(gruppeId);
-                        if (quicklinksGruppeModel == null) {
-                            quicklinksGruppeModel = new QuicklinksGruppeModel();
-                            quicklinksGruppeModel.setGruppeId(gruppeId);
-                            quicklinksModel.getQuicklinksGruppen().put(gruppeId, quicklinksGruppeModel);
-                        }
-
-                        // Attribut contextflow laden
-                        String contextFlowKonfig = this.konfiguration
-                            .getAsString("gui.quicklinks." + gruppeId + ".contextflow", null);
-
-                        if (contextFlowKonfig != null) {
-                            List<String> contextFlows = Lists.newArrayList(splitter.split(contextFlowKonfig));
-                            quicklinksGruppeModel.setSichtbar(contextFlows.contains(flowName));
-                        } else {
-                            quicklinksGruppeModel.setSichtbar(true);
-                        }
-
-                        // Attribut text laden
-                        String text =
-                            this.konfiguration.getAsString("gui.quicklinks." + gruppeId + ".text", null);
-
-                        if (text == null) {
-                            // Fallback Gruppen ID verwenden
-                            quicklinksGruppeModel.setAnzuzeigenderGruppenname(gruppeId);
-                        } else {
-                            quicklinksGruppeModel.setAnzuzeigenderGruppenname(text);
-                        }
-
-                    }
-
-                    // Variable immer in Session schreiben, damit übergeordnete Sessionmanager auf jeden Fall
-                    // eine
-                    // Aktualisierung sehen.
-                    sessionMap.put(SESSION_KEY_QUICKLINKS, quicklinksModel);
-                }
-
-            }
-        }
-
     }
 
     /**
@@ -133,142 +53,259 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
     }
 
     /**
-     * Fügt einen Quicklink hinzu.
-     * @param quicklinkselementModel
-     *            der Quicklink
+     * Erzeuge Quicklink Gruppe.
+     *
      * @param gruppeId
-     *            Die Gruppen ID der Quicklinks (Oder der Headername, falls ohne Konfiguration gearbeitet
-     *            wird.)
+     *            ID der Gruppe
+     * @param title
+     *            der Titel (Header)
      * @param maxAnzahl
-     *            Die maximale Anzahl der anzuzeigenden Elemente.
-     * @return QuicklinkselementModel
+     *            max Anzahl der Elemente in der Gruppe
      */
-    public QuicklinksElementModel fuegeQuicklinkHinzu(QuicklinksElementModel quicklinkselementModel,
-        String gruppeId, int maxAnzahl) {
-
-        // Variable aus der Session holen
+    public void erzeugeLinkGruppe(String gruppeId, String title, int maxAnzahl) {
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
 
         synchronized (sessionMap.getMutex()) {
             QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
             if (quicklinksModel == null) {
                 quicklinksModel = new QuicklinksModel();
-                sessionMap.put(SESSION_KEY_QUICKLINKS, quicklinksModel);
             }
 
-            // Wenn der Quicklink breits vorhanden ist, dann wird er aktualisiert und nach oben gesetzt
-            entferneQuicklink(quicklinkselementModel.getId());
-
-            // Quicklink immer am Anfang einfügen
-            addQuicklinkselementModelAtTheBeginning(quicklinksModel, quicklinkselementModel, gruppeId,
-                maxAnzahl);
-
-            // Wenn die maximale Anzahl erreicht ist, wird das älteste Element entfernt
-            QuicklinksElementModel quicklinkselementModelGeloescht = null;
-
-            // Variable immer wieder in Session schreiben, damit übergeordnete Sessionmanager auf jeden Fall
-            // eine
-            // Aktualisierung sehen.
+            if (!quicklinksModel.hatGruppe(gruppeId)) {
+                quicklinksModel.erzeugeGruppe(gruppeId, title).setMaxAnzahlElemente(maxAnzahl);
+            }
             sessionMap.put(SESSION_KEY_QUICKLINKS, quicklinksModel);
-
-            return quicklinkselementModelGeloescht;
         }
+    }
+
+    /**
+     * Leere Quicklink Gruppe.
+     *
+     * @param gruppeId
+     *            ID der Gruppe
+     */
+    public void leereLinkGruppe(String gruppeId) {
+        SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
+
+        synchronized (sessionMap.getMutex()) {
+            QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
+
+            if (quicklinksModel != null && quicklinksModel.hatGruppe(gruppeId)) {
+                quicklinksModel.getGruppe(gruppeId).leeren();
+            }
+
+            sessionMap.put(SESSION_KEY_QUICKLINKS, quicklinksModel);
+        }
+    }
+
+    /**
+     * Setze max Anzahl der Elemente in der Gruppe.
+     *
+     * @param groupId
+     *            ID der Gruppe
+     * @param maxAnzahl
+     *            max Anzahl der Elemente in der Gruppe
+     */
+    public void setzteMaxAnzahlElemente(String groupId, int maxAnzahl) {
+        SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
+
+        synchronized (sessionMap.getMutex()) {
+            QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
+
+            if (quicklinksModel != null && quicklinksModel.hatGruppe(groupId)) {
+                quicklinksModel.getGruppe(groupId).setMaxAnzahlElemente(maxAnzahl);
+            }
+
+        }
+    }
+
+    /**
+     * Zeige bestimmte Gruppe.
+     *
+     * @param gruppeId
+     *            ID der Gruppe
+     */
+    public void zeigeGruppe(String gruppeId) {
+        setzetSichbarkeitFueGruppe(gruppeId, true);
+    }
+
+    /**
+     * Blende bestimmte Gruppe aus.
+     *
+     * @param gruppeId
+     *            ID der Gruppe
+     */
+    public void ausblendeGruppe(String gruppeId) {
+        setzetSichbarkeitFueGruppe(gruppeId, false);
+    }
+
+    /**
+     * Zeige alle Gruppen.
+     */
+    public void ausblendeAlleGruppen() {
+        setzeSichtbarkeitFuerAlleGruppen(false);
 
     }
 
     /**
-     * Entfernt einen Quicklink, der eine bestimmte ID besitzt. Diese Funktion iteriert über ALLE möglichen
-     * Quicklinksgruppen.
-     *
-     * @param id
-     *            die ID
+     * Blende alle Gruppen aus.
      */
-    public void entferneQuicklink(String id) {
+    public void zeigeAlleGruppen() {
+        setzeSichtbarkeitFuerAlleGruppen(true);
 
+    }
+
+    /**
+     * Setzte die Eigenschaft, ob alle Gruppen angezeigt werden sollen oder nicht.
+     *
+     * @param visible
+     *            die Wert der Flag
+     */
+    private void setzeSichtbarkeitFuerAlleGruppen(boolean visible) {
         // Variable aus der Session holen
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
 
         synchronized (sessionMap.getMutex()) {
             QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
-            if (quicklinksModel == null) {
-                return;
-            }
 
-            for (QuicklinksGruppeModel gruppe : quicklinksModel.getQuicklinksGruppen().values()) {
-                QuicklinksElementModel zuLoschendesElement = null;
-                for (QuicklinksElementModel element : gruppe.getQuicklinksElemente()) {
-                    if (element.getId().equals(id)) {
-                        zuLoschendesElement = element;
-                        break; // IDs innerhalb einer Gruppe zwingend eindeutig
-                    }
-                }
-                if (zuLoschendesElement != null) {
-                    gruppe.getQuicklinksElemente().remove(zuLoschendesElement);
+            if (quicklinksModel != null) {
+                for (QuicklinksGroup group : quicklinksModel.getAlleGruppen()) {
+                    group.setSichtbar(visible);
                 }
             }
+        }
+
+    }
+
+    /**
+     * Setzte die Eigenschaft, ob bestimme Gruppe angezeigt werden soll oder nicht.
+     *
+     * @param gruppeId
+     *            ID der Gruppe
+     * @param sichtbar
+     *            die Wert der Flag
+     */
+    public void setzetSichbarkeitFueGruppe(String gruppeId, boolean sichtbar) {
+        // Variable aus der Session holen
+        SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
+
+        synchronized (sessionMap.getMutex()) {
+            QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
+
+            if (quicklinksModel != null && quicklinksModel.hatGruppe(gruppeId)) {
+                quicklinksModel.getGruppe(gruppeId).setSichtbar(sichtbar);
+            }
+        }
+
+    }
+
+    /**
+     * Fügt einen Quicklink hinzu.
+     *
+     * @param quicklinkselementModel
+     *            der Quicklink
+     * @param gruppeId
+     *            ID der Gruppe
+     *
+     * @return gelöschte Element
+     */
+    public QuicklinkselementModel fuegeQuicklinkHinzu(QuicklinkselementModel quicklinkselementModel,
+        String gruppeId) {
+
+        // Variable aus der Session holen
+        SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
+
+        QuicklinkselementModel candidate = null;
+        synchronized (sessionMap.getMutex()) {
+            QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
+
+            // Wenn der Quicklink breits vorhanden ist, dann wird er aktualisiert und nach oben gesetzt
+            entferneQuicklinksIntern(quicklinkselementModel.getId(), gruppeId, quicklinksModel);
+
+            // Quicklink immer am Anfang einfügen
+            candidate = quicklinksModel.quicklinkAmAnfangHinzufuegen(quicklinkselementModel, gruppeId, null);
 
             // Variable immer wieder in Session schreiben, damit übergeordnete Sessionmanager auf jeden Fall
             // eine
             // Aktualisierung sehen.
             sessionMap.put(SESSION_KEY_QUICKLINKS, quicklinksModel);
+
         }
+
+        return candidate;
     }
 
     /**
      * Entfernt einen Quicklink, der eine bestimmte ID besitzt.
      *
+     * @param elementId
+     *            die ID des Elements
      * @param gruppeId
-     *            Die ID der Gruppe.
-     * @param id
-     *            die ID.
+     *            die ID der Gruppe
+     *
+     * @return gelöschte element
      */
-    public void entferneQuicklink(String gruppeId, String id) {
+    public QuicklinkselementModel entferneQuicklink(String elementId, String gruppeId) {
 
         // Variable aus der Session holen
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
 
+        QuicklinkselementModel candidate = null;
         synchronized (sessionMap.getMutex()) {
             QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
-            if (quicklinksModel == null) {
-                return;
-            }
 
-            QuicklinksGruppeModel gruppe = quicklinksModel.getQuicklinksGruppen().get(gruppeId);
-
-            if (gruppe == null) {
-                return;
-            }
-
-            QuicklinksElementModel zuLoschendesElement = null;
-            for (QuicklinksElementModel element : gruppe.getQuicklinksElemente()) {
-                if (element.getId().equals(id)) {
-                    zuLoschendesElement = element;
-                    break; // IDs innerhalb einer Gruppe zwingend eindeutig
-                }
-            }
-            if (zuLoschendesElement != null) {
-                gruppe.getQuicklinksElemente().remove(zuLoschendesElement);
-            }
+            candidate = entferneQuicklinksIntern(elementId, gruppeId, quicklinksModel);
 
             // Variable immer wieder in Session schreiben, damit übergeordnete Sessionmanager auf jeden Fall
-            // eine
-            // Aktualisierung sehen.
+            // eine Aktualisierung sehen.
             sessionMap.put(SESSION_KEY_QUICKLINKS, quicklinksModel);
         }
+        return candidate;
+    }
+
+    /**
+     * Entfernt einen Quicklink, der eine bestimmte ID besitzt.
+     *
+     * @param id
+     *            die ID
+     * @param gruppeId
+     *            die ID der Gruppe
+     *
+     * @return gelöschte element
+     */
+    private QuicklinkselementModel entferneQuicklinksIntern(String id, String gruppeId,
+        QuicklinksModel quicklinksModel) {
+        QuicklinkselementModel candidate = null;
+
+        if (quicklinksModel != null) {
+
+            QuicklinksGroup group = quicklinksModel.getGruppe(gruppeId);
+
+            if (group != null && group.istNichtLeer()) {
+                for (QuicklinkselementModel entry : group.getElemente()) {
+                    if (id.equals(entry.getId())) {
+                        candidate = entry;
+                    }
+                }
+                group.elementLoeschen(candidate);
+            }
+
+        }
+
+        return candidate;
     }
 
     /**
      * Verschiebt alle Quicklink-Elemente von einer Quicklink-Liste zu einer Anderen.
      *
-     * @param vonGruppeId
-     *            Die Gruppen ID der ursprünglichen Quicklinks-Liste (alternativ die Header-Bezeichnung)
-     * @param nachGruppeId
-     *            Die Gruppen ID der Quicklinks-Liste in welche die Element verschoben werden soll.
-     *            (alternativ die Header-Bezeichnung)
+     * @param von
+     *            Die Header-Bezeichnung der ursprünglichen Quicklinks-Liste.
+     * @param nach
+     *            Die Header-Bezeichnung der Quicklinks-Liste in welche die Element verschoben werden soll.
      * @param maxAnzahl
      *            Die maximale Anzahl der anzuzeigenden Elemente.
      */
-    public void verschiebeQuicklinks(String vonGruppeId, String nachGruppeId, int maxAnzahl) {
+    public void verschiebeQuicklinks(String von, String nach, String title, int maxAnzahl) {
 
         // Variable aus der Session holen
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
@@ -276,82 +313,20 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
         synchronized (sessionMap.getMutex()) {
             QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
 
-            if (quicklinksModel != null && quicklinksModel.getQuicklinksGruppen().get(vonGruppeId) != null) {
+            if (quicklinksModel != null && quicklinksModel.hatGruppe(von)) {
 
-                List<QuicklinksElementModel> elemente =
-                    quicklinksModel.getQuicklinksGruppen().get(vonGruppeId).getQuicklinksElemente();
-                ListIterator<QuicklinksElementModel> iterator = elemente.listIterator(elemente.size());
+                QuicklinksGroup vonGroup = quicklinksModel.getGruppe(von);
+                List<QuicklinkselementModel> elements = vonGroup.getElemente();
 
-                List<QuicklinksElementModel> elementeVerschieben = new ArrayList<>();
-                while (iterator.hasPrevious()) {
-                    elementeVerschieben.add(iterator.previous());
-                }
+                vonGroup.leeren();
 
-                for (QuicklinksElementModel model : elementeVerschieben) {
-                    entferneQuicklink(model.getId());
-                    fuegeQuicklinkHinzu(model, nachGruppeId, maxAnzahl);
+                for (QuicklinkselementModel model : elements) {
+                    quicklinksModel.quicklinkAmAnfangHinzufuegen(model, nach, title);
                 }
 
             }
 
-            // Variable immer wieder in Session schreiben, damit übergeordnete Sessionmanager auf jeden Fall
-            // eine
-            // Aktualisierung sehen.
-            sessionMap.put(SESSION_KEY_QUICKLINKS, quicklinksModel);
-
         }
 
-    }
-
-    /**
-     * Fügt ein neues QuicklinkselementModel am Anfang hinzu.
-     *
-     * @param quicklinksModel
-     *            Das QuicklinksModel.
-     * @param quicklinkselementModel
-     *            Das neue QuicklinksElementModel.
-     * @param gruppeId
-     *            Die ID der Gruppe.
-     * @param maxAnzahl
-     *            Die maximale Anzahl an Quicklinks in der Gruppe.
-     */
-    private void addQuicklinkselementModelAtTheBeginning(QuicklinksModel quicklinksModel,
-        QuicklinksElementModel quicklinkselementModel, String gruppeId, int maxAnzahl) {
-
-        QuicklinksGruppeModel quicklinksGruppeModel = quicklinksModel.getQuicklinksGruppen().get(gruppeId);
-
-        if (quicklinksGruppeModel == null) {
-            // Null, falls keine Konfiguration existiert. Fallback: Gruppe über die Gruppen ID erzeugen, damit
-            // ist auch der Fallback zu früheren Versionen der plis-web gewährleistet (gruppeId = headerName).
-            quicklinksGruppeModel = new QuicklinksGruppeModel();
-            quicklinksGruppeModel.setGruppeId(gruppeId);
-            quicklinksGruppeModel.setAnzuzeigenderGruppenname(gruppeId);
-            quicklinksGruppeModel.setSichtbar(true);
-            quicklinksModel.getQuicklinksGruppen().put(gruppeId, quicklinksGruppeModel);
-        }
-
-        quicklinksGruppeModel.getQuicklinksElemente().add(0, quicklinkselementModel);
-
-        limitiereAnzahl(maxAnzahl, quicklinksGruppeModel);
-
-    }
-
-    /**
-     * Limitiert die Anzahl an Quicklinks in einer Gruppe.
-     * @param maxAnzahl
-     *            Die maximale Anzahl.
-     * @param quicklinksGruppeModel
-     *            Die Gruppe.
-     */
-    private void limitiereAnzahl(int maxAnzahl, QuicklinksGruppeModel quicklinksGruppeModel) {
-        if (quicklinksGruppeModel.getQuicklinksElemente().size() > maxAnzahl) {
-            quicklinksGruppeModel.getQuicklinksElemente()
-                .remove(quicklinksGruppeModel.getQuicklinksElemente().size() - 1);
-        }
-    }
-
-    @Required
-    public void setKonfiguration(Konfiguration konfiguration) {
-        this.konfiguration = konfiguration;
     }
 }
