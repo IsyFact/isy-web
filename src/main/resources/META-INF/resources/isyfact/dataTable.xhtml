@@ -1,0 +1,135 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- Anmerkung: Aktuell ist die Angabe einer Laufvariablen fuer Zeilen der Trefferliste nicht moeglich. 
+        Dies soll mit SIS-226 gefixt werden. 
+        Aktuell herrscht daher folgende Namenskonvention fuer den Zugriff auf Inhalte der Laufvariablen: 
+        "dataTableItem". -->
+
+<!-- Die Data Table -->
+<composite:interface>
+
+	<!-- Der Inhalt der Toolbar -->
+	<composite:facet name="tableToolbar" />
+	<!-- Der Inhalt der Headerzeile -->
+	<composite:facet name="tableHeader" />
+	<!-- Das zugehörige, spezifische DataTableModel. -->
+	<composite:attribute name="dataTableModel" required="true"
+		type="de.bund.bva.isyfact.common.web.jsf.components.datatable.DataTableModel" />
+	<!-- Der zugehörige, spezifische DataTableController. -->
+	<composite:attribute name="dataTableController" required="true"
+		type="de.bund.bva.isyfact.common.web.jsf.components.datatable.DataTableController" />
+
+	<!-- Ob die Datatable selektierbar ist oder nicht. Diese Information wird benötigt, um das JavaScript Plug-In zu konfigurieren. -->
+	<composite:attribute name="selectable" type="Boolean" default="false" />
+	<!-- Der Modus für die Selektierung. Entweder 'single' oder 'multiple' -->
+	<composite:attribute name="selectionMode" type="String"
+		default="multiple" />
+	<!-- Der Modus für die Detailansicht. Entweder 'single' oder 'multiple' -->
+	<composite:attribute name="detailMode" type="String" default="multiple" />
+
+	<!-- Die Aktion, welche beim Doppelklick auf eine Zeile ausgeführt wird. -->
+	<composite:attribute name="action"
+		targets="rfDataTableDoubleClickButton" />
+	<!-- AJAX: Welches Form beim Doppelklick ausgeführt werden soll. -->
+	<composite:attribute name="execute" required="false" default="@form" />
+	<!-- AJAX: Welche Elemente beim Doppelklick gerendert werden sollen. -->
+	<composite:attribute name="render" required="false" default="@form" />
+	<!-- Schalter zum aktivieren der Hervorhebung von durch Doppel-Klick ausgewählten Zeilen. -->
+	<composite:attribute name="highlightDoubleclick" type="Boolean"
+		default="false" />
+
+	<!-- Tabelle ID. -->
+	<composite:attribute name="tableId" required="false" default="tableId" />
+
+	<!-- Die spezifische globale Konfiguration, falls notwendig. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+	<!-- Ob der "Mehr Anzeigen" Button verwendet werden soll -->
+	<composite:attribute name="showMore" required="false" type="Boolean"
+		default="false" />
+
+	<!-- Die zu ergänzenden Style-Klassen. -->
+	<composite:attribute name="styleClass" required="false" />
+
+</composite:interface>
+
+<composite:implementation>
+	<f:event
+		listener="#{cc.attrs.dataTableController.initialisiereModel(cc.attrs.dataTableModel)}"
+		type="preRenderView" />
+	<div class="table-container">
+		<ui:fragment rendered="#{not empty cc.facets.tableToolbar}">
+			<div role="toolbar" class="btn-toolbar">
+				<composite:renderFacet name="tableToolbar" />
+			</div>
+		</ui:fragment>
+		<h:panelGroup layout="block" id="#{cc.attrs.tableId}">
+			<table
+				class="table rf-data-table table-selectable #{cc.attrs.styleClass} #{cc.attrs.dataTableModel.mode eq 'CLIENT' and cc.attrs.globalConfig.jsEnabled?cc.attrs.dataTableModel.mode:''} 
+                 #{cc.attrs.highlightDoubleclick? 'highlight-doubleclick':''}
+                 #{cc.attrs.dataTableModel.mode eq 'CLIENT' and cc.attrs.globalConfig.jsEnabled?'datatable-filterrow-init':''}">
+
+				<!-- Parameter für JS Selektionsunterstützung aktivieren -->
+				<h:inputHidden id="rfDataTableSelectableOption"
+					value="#{cc.attrs.selectable}" />
+				<h:inputHidden id="rfDataTableSelectionMode"
+					value="#{cc.attrs.selectionMode}" />
+
+				<!-- Paginator -->
+				<h:inputHidden id="rfDataTableCurrentPage"
+					value="#{cc.attrs.dataTableModel.paginationModel.currentPage}" />
+
+				<!-- Detailmodus -->
+				<input type="hidden" jsf:id="rfDataTableDetailMode"
+					value="#{cc.attrs.detailMode}" disabled="true" />
+
+				<!-- Sortierung -->
+				<h:inputHidden id="rfDataTableSortProperty"
+					value="#{cc.attrs.dataTableModel.sortModel.property}" />
+
+				<h:inputHidden id="rfDataTableSortDirection"
+					value="#{cc.attrs.dataTableModel.sortModel.direction}" />
+
+				<!-- Hidden Button und Feld für Doppelklick einbauen -->
+				<h:commandButton id="rfDataTableDoubleClickButton"
+					style="display:none" rendered="#{not basisModel.showPrintView}">
+					<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
+						disabled="#{not cc.attrs.globalConfig.jsEnabled}" />
+				</h:commandButton>
+				<h:inputHidden id="rfDataTableDoubleClickSelectedRow"
+					value="#{cc.attrs.dataTableModel.selectionModel.doubleClickSelectedItem}" />
+				<span id="rfDataTableDoubleClickActive" style="display: none">#{cc.attrs.action
+					== null ? 'false' : 'true'}</span>
+
+				<thead>
+					<tr>
+						<composite:renderFacet name="tableHeader" />
+					</tr>
+					<tr class="filter-row">
+						<composite:renderFacet name="tableFilter" />
+					</tr>
+				</thead>
+				<tbody>
+					<h:panelGroup id="tableContent">
+						<ui:param name="clientIdTableContent"
+							value="#{jsfHelper.searchClientIdInParents(component,'tableContent')}" />
+						<composite:insertChildren />
+					</h:panelGroup>
+				</tbody>
+				<tfoot>
+					<tr>
+						<composite:renderFacet name="tablePagination" />
+					</tr>
+				</tfoot>
+			</table>
+		</h:panelGroup>
+	</div>
+</composite:implementation>
+
+</html>

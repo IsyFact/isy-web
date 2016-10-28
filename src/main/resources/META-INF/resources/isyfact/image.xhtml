@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Ein Bild zur Ansicht. Aktiviert eine Lightbox oder führt eine Action aus bei Bedarf. -->
+
+<composite:interface>
+
+	<!-- Das Bild. -->
+	<composite:attribute name="imgSrc" required="true" />
+	<!-- Das Bild zur Großansicht. -->
+	<composite:attribute name="imgPopupSrc" required="false" />
+	<!-- Der alternative Text, falls das Bild nicht geladen werden kann. -->
+	<composite:attribute name="alt" required="true" />
+	<!-- Der Title zum Bild. -->
+	<composite:attribute name="title" required="false" />
+	<!-- Ob ein Lazy Loading über JS aktiviert werden soll oder nicht. -->
+  <composite:attribute name="lazy" type="java.lang.Boolean" default="false" />
+	<!-- Die auszuführende Aktion. -->
+	<composite:attribute name="action" required="false" targets="image" />
+	<!-- zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+	<composite:attribute name="showPrintView" type="Boolean"
+		default="#{not empty basisModel and basisModel.showPrintView}" />
+	<!-- Das Action Event für den Button -->
+	<composite:actionSource name="imageActionEvent" targets="image" />
+	<!-- Die CSS-Klasse für das Bild. -->
+	<composite:attribute name="styleClass" type="String" default="" />
+	
+	<!-- Die spezifische globale Konfiguration, falls notwendig. -->
+  <composite:attribute name="globalConfig" required="false"
+    default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+  <ui:param name="lazyEnabled" value="#{cc.attrs.globalConfig.jsEnabled and cc.attrs.lazy and not cc.attrs.showPrintView}" />
+  <ui:param name="imgSrc" value="#{lazyEnabled ? '' : cc.attrs.imgSrc}" />
+  <ui:param name="imgDataSrc" value="#{lazyEnabled ? cc.attrs.imgSrc : ''}" />
+  <ui:param name="imgClass" value="#{lazyEnabled ? ('lazy ').concat(cc.attrs.styleClass) : cc.attrs.styleClass}" />
+
+	<ui:fragment
+		rendered="#{not empty cc.attrs.action and not cc.attrs.showPrintView}">
+		<button type="submit" jsf:id="image" jsf:action="DEFAULT_ACTION"
+			class="btn btn-icon-round btn-icon-round-large">
+			<img src="#{imgSrc}" alt="#{cc.attrs.alt}" title="#{cc.attrs.title}" data-src="#{imgDataSrc}"
+        class="#{imgClass}" />
+			<composite:insertChildren />
+		</button>
+	</ui:fragment>
+
+	<ui:fragment rendered="#{not empty cc.attrs.imgPopupSrc}">
+		<a class="rf-image-popup" href="#{cc.attrs.imgPopupSrc}"
+			target="_blank"> <img src="#{imgSrc}" alt="#{cc.attrs.alt}" title="#{cc.attrs.title}" data-src="#{imgDataSrc}"
+        class="#{imgClass}" />
+		</a>
+	</ui:fragment>
+
+	<ui:fragment
+		rendered="#{empty cc.attrs.action and empty cc.attrs.imgPopupSrc}">
+		<img src="#{imgSrc}" alt="#{cc.attrs.alt}" title="#{cc.attrs.title}" data-src="#{imgDataSrc}"
+        class="#{imgClass}" />
+	</ui:fragment>
+
+	<ui:fragment
+		rendered="#{cc.attrs.showPrintView and not empty cc.attrs.action and empty cc.attrs.imgPopupSrc}">
+		<img src="#{imgSrc}" alt="#{cc.attrs.alt}" title="#{cc.attrs.title}" data-src="#{imgDataSrc}"
+        class="#{imgClass}" />
+	</ui:fragment>
+
+
+</composite:implementation>
+
+</html>

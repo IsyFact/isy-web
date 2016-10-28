@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<composite:interface>
+
+	<!-- Die Property die gefiltert werden soll, i.A. gleich zur sortProperty im zugehörigen Header, falls nicht angegeben wird einfach eine Platzhalter-Spalte generiert. -->
+	<composite:attribute name="property" type="String" required="false"
+		default="" />
+	<!-- Ob eine Auswahlliste zur Filterung angezeigt werden soll, falls ja müssen die Auswähleinträge mittels selectItem(s) angegeben werden. -->
+	<composite:attribute name="dropdown" type="Boolean" required="false"
+		default="false" />
+	<!-- Tooltip, der über dem Icon "clear-filter" angezeigt werden soll. -->
+	<composite:attribute name="clearFilterTooltip" required="false"
+		type="java.lang.String" default="Filter aufheben" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<td><ui:fragment
+			rendered="#{not empty cc.attrs.property and not cc.attrs.dropdown}">
+			<div class="input-group">
+				<h:inputText
+					p:data-property="#{cc.parent.attrs.dataTableModel.filterModel.filters[cc.attrs.property]}"
+					styleClass="form-control table-filter"
+					value="#{cc.parent.attrs.dataTableModel.filterModel.filters[cc.attrs.property]}" />
+				<a class="btn btn-icon input-group-addon table-clear-filter"
+					style="display: #{empty cc.parent.attrs.dataTableModel.filterModel.filters[cc.attrs.property]?'none':'block'}"
+					title="#{cc.attrs.tooltip}"> <span class="icon icon-cancel"></span>
+				</a>
+				<isy:buttonIcon
+					action="#{cc.parent.attrs.dataTableController.filter(cc.parent.attrs.dataTableModel)}" />
+			</div>
+		</ui:fragment> <ui:fragment
+			rendered="#{not empty cc.attrs.property and cc.attrs.dropdown}">
+			<isy:selectOneDropdown
+				value="#{cc.parent.attrs.dataTableModel.filterModel.filters[cc.attrs.property]}"
+				reference="dataTable2Filter_selectOneDropdown"
+				dropdownStyleClass="filter-dropdown">
+				<composite:insertChildren />
+			</isy:selectOneDropdown>
+			<isy:buttonIcon
+				action="#{cc.parent.attrs.dataTableController.filter(cc.parent.attrs.dataTableModel)}" />
+		</ui:fragment></td>
+</composite:implementation>
+
+</html>

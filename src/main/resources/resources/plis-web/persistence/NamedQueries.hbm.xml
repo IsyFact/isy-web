@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    See the NOTICE file distributed with this work for additional
+    information regarding copyright ownership.
+    The Federal Office of Administration (Bundesverwaltungsamt, BVA)
+    licenses this file to you under the Apache License, Version 2.0 (the
+    License). You may not use this file except in compliance with the
+    License. You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+    implied. See the License for the specific language governing
+    permissions and limitations under the License.
+
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- ======================================================================
+    Named Queries der Bibliothek
+    
+    Autor Capgemini sd&m AG, Christoph Brehm
+    Version $Id: NamedQueries.hbm.xml 86888 2012-08-22 09:32:24Z sdm_asubasi $
+    ====================================================================== -->
+    <hibernate-mapping default-lazy="true">
+    
+    <!-- Sucht alle TempWebResources anhand von Benutzerkennung, Behördenkennzeichen und Kennzeichen. -->
+    <query name="tempwebresource.suchen"><![CDATA[SELECT d FROM TempWebResource d
+                                                    WHERE benutzerkennung = ?1 AND bhknz = ?2 AND KENNZEICHEN = ?3
+                                                    ORDER BY ZEITPUNKT DESC]]>                                                 
+    </query>
+    
+    <!-- Löscht alle TempWebResources, die älter als das angegebene Datum sind. -->
+    <query name="tempwebresource.loeschen.datum"><![CDATA[DELETE FROM TempWebResource WHERE zeitpunkt < ?1]]>                                                 
+    </query>
+
+    <!-- Löscht alle TempWebResources mit den gesuchten Kriterien. -->
+    <query name="tempwebresource.loeschen.kriterien"><![CDATA[DELETE FROM TempWebResource
+                                                    WHERE benutzerkennung = ?1 AND bhknz = ?2 AND KENNZEICHEN = ?3]]>                                                 
+    </query>
+   
+</hibernate-mapping>

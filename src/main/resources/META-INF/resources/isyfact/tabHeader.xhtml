@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Der Tab-Header. -->
+
+<composite:interface>
+
+    <!-- Der Name des Tabs, für welchen dieser Header definiert ist. -->
+    <composite:attribute name="name" required="true" type="java.lang.String" />
+    <!-- Der Titel des Tabs zur Anzeige. -->
+    <composite:attribute name="value" required="true" type="java.lang.String" />
+    <!-- Ein spezifischer Tab-Controller, falls notwendig. -->
+    <composite:attribute name="tabController" default="#{tabController}" />
+    <!-- Tooltip. -->
+    <composite:attribute name="tooltip" required="false"/>
+    
+    <!-- Ob die übergebene action ausgeführt werden soll. -->
+    <composite:attribute name="skipAction" required="false" default="true"/>
+    <!-- Die action kann überschrieben werden, um z.B. den aktuellen Reiter validieren zu können -->
+    <composite:attribute name="action" required="false" default="#{cc.attrs.tabController.changeTab(cc.parent.attrs.tabGroupModel,cc.attrs.name)}" targets="#{cc.parent.attrs.tabGroupId}-#{cc.attrs.name}" />
+
+    <!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+    <!-- Feststellen, ob das aktuelle Tab aktiv ist -->
+    <ui:param name="currentTab"
+        value="#{empty cc.parent.attrs.tabGroupModel.currentTab ? cc.parent.attrs.defaultTab : cc.parent.attrs.tabGroupModel.currentTab }" />
+    <ui:param name="isTabActive" value="#{currentTab.equals(cc.attrs.name)}" />
+
+    <ui:param name="liClass" value="#{isTabActive ? 'active' : '' }" />
+
+    <!-- Link erzeugen, wenn Javascript nicht aktiviert ist, werden alle Inhalte untereinander angezeigt -->
+    <ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView}">
+		   <ui:fragment rendered="#{not cc.attrs.skipAction}">
+		       <li class="#{liClass}" title="#{cc.attrs.tooltip}" id="#{'tabId'.concat(cc.attrs.name)}">
+		           <h:commandLink id="#{cc.parent.attrs.tabGroupId}-#{cc.attrs.name}" >
+		               
+		               <f:ajax execute="#{cc.parent.attrs.execute}" render="#{cc.parent.attrs.render}" />
+		               #{cc.attrs.value}
+		               
+		           </h:commandLink>
+		       </li>
+		   </ui:fragment>
+		   <ui:fragment rendered="#{cc.attrs.skipAction}">
+		       <li class="#{liClass} skipAction" title="#{cc.attrs.tooltip}" id="#{'tabId'.concat(cc.attrs.name)}">
+		           <h:commandLink id="#{cc.parent.attrs.tabGroupId}-#{cc.attrs.name}-skipAction" >
+		               
+		               <f:ajax execute="#{cc.parent.attrs.execute}" render="#{cc.parent.attrs.render}" />
+		               #{cc.attrs.value}
+		               
+		           </h:commandLink>
+		       </li>
+		   </ui:fragment>
+    </ui:fragment>
+
+</composite:implementation>
+
+</html>

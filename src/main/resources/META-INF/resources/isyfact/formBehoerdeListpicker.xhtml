@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+
+<!-- Ein Listpicker für Behörde zur Eingabe auf Formularseiten. Funktioniert nur mit AJAX und JS -->
+
+<composite:interface>
+
+	<!-- Die Referenz des Objekts. -->
+	<composite:attribute name="reference" required="true" />
+	<!-- Der Wert für das Databinding im Eingabefeld (Typ Listpickerangabe) -->
+	<composite:attribute name="value" required="true"
+		type="de.bund.bva.isyfact.common.web.jsf.components.listpicker.Listpickerangabe" />
+	<!-- Ob die Eingabe ein Pflichteingabe ist. -->
+	<composite:attribute name="required" type="Boolean" default="false" />
+	<!-- Der Text für das Label -->
+	<composite:attribute name="label" type="String" required="false" />
+	<!-- Die CSS-Klasse für das Label. -->
+	<composite:attribute name="labelStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Die CSS-Klasse für den Eingabebereich. -->
+	<composite:attribute name="inputStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+	<composite:attribute name="placeholder" type="String" required="false" />
+
+	<!-- Die Eingabemaske: ob text soll überschrieben werden beim eintippen.-->
+	<composite:attribute name="inputmaskInsertMode" type="Boolean"
+		required="false" default="true" />
+
+	<!-- Die Mindestbreite als Ganzzahl. -->
+	<composite:attribute name="minWidth" type="Integer" required="false" />
+	<!-- Die Maximalhoehe als Ganzzahl. -->
+	<composite:attribute name="maxHeight" type="Integer" default="200"
+		required="false" />
+
+	<!-- Der Tooltip, welcher angezeigt über den Button wird. -->
+	<composite:attribute name="tooltip" type="String" required="false" />
+	<!-- Der generelle Tooltip, welcher angezeigt über das Eingabefeld wird. -->
+	<composite:attribute name="title" type="String" required="false" />
+
+	<!-- Das Model für den Listpicker. -->
+	<composite:attribute name="listpickerModel"
+		type="de.bund.bva.isyfact.common.web.jsf.components.listpicker.behoerde.BehoerdeListpickerModel"
+		required="true" />
+	<!-- Der Controller für den Listpicker. -->
+	<composite:attribute name="listpickerController"
+		type="de.bund.bva.isyfact.common.web.jsf.components.listpicker.behoerde.AbstractBehoerdeListpickerController"
+		required="true" />
+
+	<!-- Das Form, wohin die Items dynamisch geladen werden. -->
+	<composite:attribute name="ajaxForm" type="String" />
+
+	<!-- Ob Autocomplete verwenden soll -->
+	<composite:attribute name="useAutocomplete" type="Boolean"
+		required="false" default="true" />
+
+	<!-- Ob die Druckansicht aktiv ist oder nicht. -->
+	<composite:attribute name="showPrintView" type="Boolean"
+		default="#{not empty basisModel and basisModel.showPrintView}" />
+
+	<!-- Ein spezifisches Validation-Model, falls benötigt. -->
+	<composite:attribute name="validationModel" required="false"
+		default="#{validationModel}" />
+
+	<!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<isy:formListpicker reference="#{cc.attrs.reference}"
+		required="#{cc.attrs.required}" ajaxLoading="true"
+		ajaxForm="#{cc.attrs.ajaxForm}"
+		listpickerController="#{cc.attrs.listpickerController}"
+		inputmask="9[99999]" labelStyleClass="#{cc.attrs.labelStyleClass}"
+		inputmaskInsertMode="#{cc.attrs.inputmaskInsertMode}"
+		inputStyleClass="#{cc.attrs.inputStyleClass}" placeholder="#{cc.attrs.placeholder}"
+		listpickerModel="#{cc.attrs.listpickerModel}"
+		useAutocomplete="#{cc.attrs.useAutocomplete}"
+		label="#{cc.attrs.label}" minWidth="#{cc.attrs.minWidth}"
+		maxHeight="#{cc.attrs.maxHeight}" value="#{cc.attrs.value}"
+		showPrintView="#{cc.attrs.showPrintView}"
+		validationModel="#{cc.attrs.validationModel}"
+		globalConfig="#{cc.attrs.globalConfig}" tooltip="#{cc.attrs.tooltip}"
+		title="#{cc.attrs.title}" inputComplement="2"
+		header="#{msg_currentflow.MEL_Bhknz_Listpicker_Kennzeichen},#{msg_currentflow.MEL_Bhknz_Listpicker_Name}" />
+
+</composite:implementation>
+
+</html>

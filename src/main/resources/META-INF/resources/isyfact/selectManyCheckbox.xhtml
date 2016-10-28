@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Mehrfach Checkboxen. Realisiert über Select-Items. -->
+
+<composite:interface>
+
+	<!-- Der Wert für das Data-Binding -->
+	<composite:attribute name="value" required="true" />
+	<!-- Ob das Widget in der Druckansicht angezeigt werden soll. -->
+	<composite:attribute name="showPrintView" type="Boolean"
+		default="#{not empty basisModel and basisModel.showPrintView}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<t:selectManyCheckbox id="selectOneCheckbox" layout="spread"
+		value="#{cc.attrs.value}" disabled="#{cc.attrs.showPrintView}">
+		<f:selectItems value="#{cc.attrs.selectItems}" />
+		<composite:insertChildren />
+	</t:selectManyCheckbox>
+
+
+	<t:dataList var="item" value="#{cc.attrs.selectItems}"
+		rowIndexVar="idx">
+		<div class="checkbox">
+			<label><t:checkbox
+					for="relative:super:super:selectOneCheckbox" index="#{idx}" /> <span>#{item.label}</span></label>
+		</div>
+	</t:dataList>
+
+</composite:implementation>
+
+</html>

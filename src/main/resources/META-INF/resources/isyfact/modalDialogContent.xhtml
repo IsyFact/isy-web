@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rf="http://java.sun.com/jsf/composite/isyfact"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- Der Inhalt eines modalen Dialoges. -->
+
+<composite:interface>
+
+	<!-- Der Inhalt des Headers. -->
+	<composite:facet name="modalHeader" />
+	<!-- Der Inhalt des Bodys. -->
+	<composite:facet name="modalBody" />
+	<!-- Der Inhalt der Fußzeile. -->
+	<composite:facet name="modalFooter" />
+	<!-- Die Breite des modalen Dialogs (optionale Angabe). -->
+	<composite:attribute name="width" type="String" default="auto" />
+
+	<!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- Unterscheide bei der Darstellung -->
+
+	<!-- Falls JS aktiviert ist, dann wird das Fenster als Popup gezeigt -->
+	<ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled}">
+
+		<div class="modal" id="modal-add-personal" tabindex="-1" role="dialog"
+			aria-labelledby="modalEditData" aria-hidden="true"
+			data-backdrop="static" data-keyboard="false">
+      
+      <h:panelGroup id="modalArea">
+			<div class="modal-dialog" style="width: #{cc.attrs.width}">
+				<div class="modal-content">
+					<div class="modal-header"
+						style="border-top-color: #{headerHelper.ermittleFarbwertAnwendungsgruppe()}">
+						<h4 id="modalEditData" class="modal-title">
+							<composite:renderFacet name="modalHeader" />
+						</h4>
+					</div>
+					<h:panelGroup id="modalBody">
+					 <div class="modal-body">
+						  <!-- Validierungsfehler -->
+						  <h:panelGroup id="messagesModalDialog">
+						    <isy:messages />
+						  </h:panelGroup>
+						  <composite:renderFacet name="modalBody" />
+					 </div>
+					</h:panelGroup>
+					<div class="modal-footer">
+						<composite:renderFacet name="modalFooter" />
+					</div>
+				</div>
+			</div>
+			</h:panelGroup>
+		</div>
+	</ui:fragment>
+
+	<!-- Falls JS nicht aktiviert ist, dann wird das modale Fenster als Teil der Seite angezeigt. -->
+	<ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
+
+		<div class="no-js-dialog">
+			<div class="content-heading">
+				<div class="heading-text">
+					<composite:renderFacet name="modalHeader" />
+				</div>
+				<span class="line-container"> <span class="line"></span>
+				</span>
+			</div>
+
+			<!-- Validierungsfehler -->
+			<isy:messages />
+
+			<composite:renderFacet name="modalBody" />
+
+			<hr />
+			<div class="nojs-modal-footer">
+				<composite:renderFacet name="modalFooter" />
+			</div>
+		</div>
+
+	</ui:fragment>
+
+</composite:implementation>
+
+</html>

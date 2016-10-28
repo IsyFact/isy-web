@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<!-- Eine Liste. Wird entweder über das Bootstrap Selectlist Plugin dargestellt oder über eine native Liste. -->
+
+<composite:interface>
+
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="reference" required="true" />
+    
+    <!-- Der Wert der Auswahl für das Databinding -->
+    <composite:attribute name="value" required="true" />
+
+    <!-- Ob die Liste deaktiviert ist. -->
+    <composite:attribute name="disabled" type="Boolean" default="false" />
+
+    <!-- Die CSS-Klasse für die Komponente. -->
+    <composite:attribute name="browsecollectStyleClass" type="String" required="false" />
+
+    <!-- dieses Attribut wird im Sinne von bootstrap-selectlist.js interpretiert, d.h. gibt die Anzahl der Zeilen die sichtbar sind -->
+    <composite:attribute name="size" />
+
+    <!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+</composite:interface>
+
+<composite:implementation>
+
+    <div class="#{cc.attrs.browsecollectStyleClass} #{cc.attrs.globalConfig.jsEnabled ? 'browsecollect' : ''}">
+        <h:selectManyListbox id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" value="#{cc.attrs.value}" p:data-size="#{cc.attrs.size}" 
+            styleClass="row-vertical-center-align #{cc.attrs.browsecollectStyleClass} #{cc.attrs.globalConfig.jsEnabled ? 'browsecollect' : 'browsecollect-native'} #{cc.attrs.disabled ? 'disabled' : ''}">
+            <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+            <composite:insertChildren />
+        </h:selectManyListbox>
+    </div>
+
+</composite:implementation>
+
+</html>

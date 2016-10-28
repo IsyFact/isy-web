@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:composite="http://java.sun.com/jsf/composite"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- Die Zelle einer Data-Table, d.h. der konkrete Inhalt des Datensatzes bezogen auf eine Spalte. -->
+
+<composite:interface>
+
+  <!-- Ob die Spalte angezeigt werden soll oder nicht. -->
+  <composite:attribute name="hidden" type="Boolean" default="false" />
+  <!-- Identifier. -->
+  <composite:attribute name="id" type="String" />
+
+  <!-- Optionalen Feld für die Clientseitige Sortierung, falls nicht nach dem Inhalt sortieren werden soll, z.B. bei Datum -->
+  <!-- Damit Client- und Server-Mode konsistent sind, sollte hier die sortProperty des Headers angegeben werden -->
+  <composite:attribute name="sortData" type="String" required="false" />
+  <!-- Optionalen Feld für die Clientseitige Filterung, falls nicht nach dem Inhalt gefiltert werden soll -->
+  <!-- Damit Client- und Server-Mode konsistent sind, sollte hier die property des zugehörigen Filters angegeben werden -->
+  <composite:attribute name="filterData" type="String" required="false" />
+
+</composite:interface>
+
+<composite:implementation>
+
+  <td style="#{cc.attrs.hidden ? 'display:none' : ''}" id="#{cc.attrs.id}" data-sort="#{cc.attrs.sortData}"
+    data-filter="#{cc.attrs.filterData}"><composite:insertChildren /></td>
+
+</composite:implementation>
+
+</html>

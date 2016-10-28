@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:composite="http://java.sun.com/jsf/composite"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- Die Checkbox zum Auswählen der aktuellen Zeile. Muss innerhalb des <isy:dataTableCell> Tags angegeben werden. -->
+
+<composite:interface>
+
+  <!-- Keine Parameter notwendig -->
+
+</composite:interface>
+
+<composite:implementation>
+
+  <!-- cc.parent: dataTableCell -->
+  <!-- cc.parent.parent: dataTableRows -->
+  <!-- cc.parent.parent.parent: dataTable -->
+  <div class="row-selection">
+    <!-- um einfach entscheiden zu können welche Checkboxes für die Selektion der Zeile zuständig sind, und welche nicht. -->
+    <isy:selectBooleanCheckbox id="dataTableRowSelection"
+      value="#{cc.parent.parent.parent.attrs.dataTableModel.selectionModel.selected[dataTableItem.identifierForItem]}" />
+  </div>
+
+</composite:implementation>
+
+</html>

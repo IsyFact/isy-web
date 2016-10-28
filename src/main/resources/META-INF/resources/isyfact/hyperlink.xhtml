@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Eine Komponente, um Hyperlinks zu erzeugen -->
+
+<composite:interface>
+
+	<!-- Die Action, die ausgeführt werden soll. -->
+	<composite:attribute name="action"
+		targets="hyperlinkComandLink hyperlinkCommandButton" />
+	<!-- Das Label des Links -->
+	<composite:attribute name="value" />
+	<!-- Der Alternativtext. -->
+	<composite:attribute name="title" />
+	<!--  Die Basistyleklasse zum Überschreiben -->
+	<composite:attribute name="baseStyleClass" required="false"
+		default="cmdbtn-link" />
+	<!-- Eine zusätzliche Styleklasse -->
+	<composite:attribute name="additionalStyleClass" required="false"
+		default="" />
+	<!-- Ob der Link in einem neuen Tab geöffnet werden soll. Funktioniert nur mit aktiviertem JavaScript. -->
+	<composite:attribute name="openInNewTab" required="false"
+		type="Boolean" default="false" />
+	<!-- Die Action-Source -->
+	<composite:actionSource name="hyperlink"
+		targets="hyperlinkComandLink hyperlinkCommandButton" />
+</composite:interface>
+
+<composite:implementation>
+  <!-- Normale Ansicht -->
+	<ui:fragment rendered="#{not basisModel.showPrintView}">
+    <ui:fragment rendered="#{globalConfigurationModel.jsEnabled}">
+      <h:commandLink id="hyperlinkComandLink" value="#{cc.attrs.value}"
+        title="#{cc.attrs.title}"
+        target="#{cc.attrs.openInNewTab ? '_blank' : '_self'}"
+        styleClass="#{cc.attrs.baseStyleClass} #{cc.attrs.additionalStyleClass}" />
+    </ui:fragment>
+
+    <ui:fragment rendered="#{not globalConfigurationModel.jsEnabled}">
+      <h:commandButton id="hyperlinkCommandButton" value="#{cc.attrs.value}"
+        title="#{cc.attrs.title}"
+        styleClass="#{cc.attrs.baseStyleClass} #{cc.attrs.additionalStyleClass}" />
+    </ui:fragment>
+  </ui:fragment>
+  
+  <!-- In der Druckansicht wird nur ein Outputtext gerendert -->
+	<ui:fragment rendered="#{basisModel.showPrintView}">
+    <h:outputText value="#{cc.attrs.value}" escape="false" title="#{cc.attrs.title}"
+      styleClass="#{cc.attrs.baseStyleClass} #{cc.attrs.additionalStyleClass}" />
+  </ui:fragment>
+</composite:implementation>
+
+</html>

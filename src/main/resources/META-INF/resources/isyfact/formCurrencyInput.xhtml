@@ -1,0 +1,127 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+
+<!-- Ein Eingabefeld innerhalb Formularen. -->
+
+<!-- 
+	Diese Komponente verhält sich bis auf wenige Ausnahmen wie die Komponente isy:formInput 
+	
+	Ausnahmen:
+	- formCurrencyInput besitzt kein Attribut inputmask, da sich die Inputmask nicht mit der JavaScript-Funktion formatData (components-js.js) verträgt.
+	- formCurrencyInput lässt nur die Eingabe von Zahlen und Kommas zu. Alle Anderen Zeichen werden sofort wieder gelöscht.
+	- formCurrencyInput besitzt das neue Attribut onblur - dort kann eine JavaScript-Funktion übergeben werden, die aufgerufen wird, sobald der Cursor das Feld verlässt
+	-->
+
+<composite:interface>
+
+	<!-- Die Referenz des Objekts. -->
+	<composite:attribute name="reference" required="true" />
+	<!-- Der Wert für das Databinding im Eingabefeld -->
+	<composite:attribute name="value" required="true" />
+	<!-- Ob die Eingabe ein Pflichteingabe ist. -->
+	<composite:attribute name="required" type="Boolean" default="false" />
+	<!-- Ob die Darstellung nur lesend erfolgen soll -->
+	<composite:attribute name="readonly" type="Boolean" default="false" />
+	<!-- Der Text für das Label -->
+	<composite:attribute name="label" type="String" required="false" />
+	<!-- Die CSS-Klasse für das Label. -->
+	<composite:attribute name="labelStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Die CSS-Klasse für den Eingabebereich. -->
+	<composite:attribute name="inputStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+	<composite:attribute name="placeholder" type="String" required="false" />
+
+	<!-- Die maximale Länge der Eingabe. -->
+	<composite:attribute name="maxlength" type="Integer" required="false"
+		default="255" />
+
+	<!-- Ein spezifisches Validation-Model, falls benötigt. -->
+	<composite:attribute name="validationModel" required="false"
+		default="#{validationModel}" />
+	<!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+	<!-- Änderungen an original formatInput  -->
+	<!-- onblur JavaScript-Funktion wird aufgerufen, wenn der Cursor das Feld verlässt -->
+	<composite:attribute name="onblur" required="false"
+		default="formatAmountOfMoney(this)" />
+	<!-- onkeyup JavaScript-Funktion wird aufgerufen, wenn eine Tastatureingabe in dem Feld gemacht wurde -->
+	<composite:attribute name="onkeyup" required="false"
+		default="deleteNonDigitCharacters(this)" />
+
+	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
+	<composite:attribute name="fourEyesMode" type="String" />
+	<composite:attribute name="fourEyesLastValue" type="String" />
+</composite:interface>
+
+<composite:implementation>
+
+	<ui:define name="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
+	<ui:define name="fourEyesColor"
+		value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+
+	<!-- Validierungsfehler bestimmen -->
+	<ui:param name="validationMessages"
+		value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+	<ui:param name="existsValidationError"
+		value="#{not empty validationMessages}" />
+
+	<div
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+
+		<isyi:formValidationLabel value="#{cc.attrs.label}"
+			forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+			required="#{cc.attrs.required}"
+			styleClass="#{cc.attrs.labelStyleClass}" />
+
+		<div class="#{cc.attrs.inputStyleClass}">
+			<div class=" input-group">
+				<ui:fragment rendered="#{not cc.attrs.readonly}">
+					<input type="text"
+						class="form-control#{existsValidationError ? ' invalid': ''} currency-input"
+						jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+						placeholder="#{cc.attrs.placeholder}"
+						jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
+						onkeyup="#{cc.attrs.onkeyup}" onblur="#{cc.attrs.onblur}">
+					<composite:insertChildren />
+					</input>
+
+					<!-- Four Eyes -->
+					<isyi:foureyesicon id="foureyes-#{cc.attrs.fourEyesMode}"
+						fourEyesMode="#{cc.attrs.fourEyesMode}"
+						fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+						buttonClass="#{not cc.attrs.disabled?'input-only':''}"
+						disabled="#{cc.attrs.disabled}" />
+						
+				</ui:fragment>
+				<ui:fragment rendered="#{cc.attrs.readonly}">
+					<input type="text" class="form-control readonly"
+						jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+						readonly="readonly" jsf:value="#{cc.attrs.value}" />
+
+					<!-- Four Eyes -->
+					<isyi:foureyesicon id="foureyes-#{cc.attrs.fourEyesMode}-readonly"
+						fourEyesMode="#{cc.attrs.fourEyesMode}"
+						fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+						buttonClass="#{not cc.attrs.disabled?'input-only':''}"
+						disabled="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}" />
+				</ui:fragment>
+
+			</div>
+		</div>
+
+		<!-- Bei Validierungsfehlern -->
+		<isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+			reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
+	</div>
+</composite:implementation>
+
+</html>

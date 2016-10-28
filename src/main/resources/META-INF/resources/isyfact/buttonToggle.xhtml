@@ -1,0 +1,137 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:composite="http://java.sun.com/jsf/composite"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- Eine Toggle-Button. -->
+
+<composite:interface>
+
+  <composite:attribute name="buttonId" required="false"/>
+
+  <!-- Die durchzuführende Aktion -->
+  <composite:attribute name="action" required="true"
+    targets="ajax_buttonToggle buttonToggle" />
+  <!-- Der Wert/Text des Buttons. -->
+  <composite:attribute name="value" required="false" default="" />
+  <!-- Das Icon aus der Icon-Bibliothek (ohne Präfix 'icon-'). -->
+  <composite:attribute name="icon" required="false" type="String"
+    default="placeholder" />
+  <!-- Ob ein Icon angezeigt werden soll oder nicht. -->
+  <composite:attribute name="showIcon" required="false" type="Boolean"
+    default="true" />
+  <!-- Ob das Icon rechts angezeigt werden soll. Standard: false. -->
+  <composite:attribute name="reverseIconPosition" required="false"
+    type="java.lang.Boolean" default="false" />
+  <!-- Ob der Button deaktiviert sein soll. Standard: false. -->
+  <composite:attribute name="disabled" required="false"
+    type="java.lang.Boolean" default="false" />
+  <!-- Ob der Button ausgewählt sein soll. Standard: false. -->
+  <composite:attribute name="active" required="false"
+    type="java.lang.Boolean" default="false" />
+  <!-- AJAX: Welches Felder ausgewertet werden sollen. -->
+  <composite:attribute name="execute" required="false" default="@form" />
+  <!-- AJAX: Welcher Teilbereich aktualisiert werden soll. -->
+  <composite:attribute name="render" required="false" default="@form" />
+  <!-- Eine spezifische globale Konfiguration, falls nötig. -->
+  <composite:attribute name="globalConfig" required="false"
+    default="#{globalConfigurationModel}" />
+
+  <!-- Ob der Button innerhalb einer Druckansicht angezeigt wird oder nicht. -->
+  <!-- Standard: Falls das BasisModel verfuegbar ist, extrahiere die Information -->
+  <!-- zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+  <composite:attribute name="showPrintView" type="Boolean"
+    default="#{not empty basisModel and basisModel.showPrintView}" />
+
+  <composite:actionSource name="toggleButton" targets="ajax_buttonToggle ajax_buttonToggleDisabled buttonToggle buttonToggleDisabled"/>
+</composite:interface>
+
+<composite:implementation>
+
+  <!-- Buttons werden deaktiviert, sofern eine der folgenden Bedingungen zutrifft  -->
+  <!-- 1) Das Attribut "disabled" ist true -->
+  <!-- 2) Das Attribut "disabled" ist false und das Attribut "showPrintView" ist true -->
+  <ui:param name="btnDisabled"
+    value="#{(cc.attrs.showPrintView and not cc.attrs.disabled) || cc.attrs.disabled}" />
+
+  <!-- HTML-Button-Tag mit JSF-Passthrough-Attributen. -->
+  <!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
+        Die Angabe ist dennoch Pflicht, da andernfalls kein JSF-Attribut "action" vorhanden waere. -->
+  <ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled}">
+
+    <ui:fragment rendered="#{not btnDisabled}">
+      <button type="submit" jsf:id="ajax_buttonToggle"
+        jsf:action="DEFAULT_ACTION"
+        class="btn btn-toggle #{cc.attrs.active ? 'active' : ''}"
+        data-button-id="#{cc.attrs.buttonId}">
+        <ui:fragment
+          rendered="#{cc.attrs.showIcon and not cc.attrs.reverseIconPosition}">
+          <span class="icon icon-#{cc.attrs.icon}"></span>
+        </ui:fragment>
+        #{cc.attrs.value}
+        <ui:fragment
+          rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
+          <span class="icon icon-#{cc.attrs.icon}"></span>
+        </ui:fragment>
+        <f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" />
+      </button>
+    </ui:fragment>
+    <ui:fragment rendered="#{btnDisabled}">
+      <button type="submit" jsf:id="ajax_buttonToggleDisabled"
+        jsf:action="DEFAULT_ACTION"
+        class="btn btn-toggle #{cc.attrs.active ? 'active' : ''}"
+        disabled="disabled"
+        data-button-id="#{cc.attrs.buttonId}">
+        <ui:fragment
+          rendered="#{cc.attrs.showIcon and not cc.attrs.reverseIconPosition}">
+          <span class="icon icon-#{cc.attrs.icon}"></span>
+        </ui:fragment>
+        #{cc.attrs.value}
+        <ui:fragment
+          rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
+          <span class="icon icon-#{cc.attrs.icon}"></span>
+        </ui:fragment>
+        <f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" />
+      </button>
+    </ui:fragment>
+  </ui:fragment>
+  <ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
+    <ui:fragment rendered="#{not btnDisabled}">
+      <button type="submit" jsf:id="buttonToggle"
+        jsf:action="DEFAULT_ACTION"
+        class="btn btn-toggle #{cc.attrs.active ? 'active' : ''}"
+        data-button-id="#{cc.attrs.buttonId}">
+        <ui:fragment
+          rendered="#{cc.attrs.showIcon and not cc.attrs.reverseIconPosition}">
+          <span class="icon icon-#{cc.attrs.icon}"></span>
+        </ui:fragment>
+        #{cc.attrs.value}
+        <ui:fragment
+          rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
+          <span class="icon icon-#{cc.attrs.icon}"></span>
+        </ui:fragment>
+      </button>
+    </ui:fragment>
+    <ui:fragment rendered="#{btnDisabled}">
+      <button type="submit" jsf:id="buttonToggleDisabled"
+        jsf:action="DEFAULT_ACTION"
+        class="btn btn-toggle #{cc.attrs.active ? 'active' : ''}"
+        disabled="disabled"
+        data-button-id="#{cc.attrs.buttonId}">
+        <ui:fragment
+          rendered="#{cc.attrs.showIcon and not cc.attrs.reverseIconPosition}">
+          <span class="icon icon-#{cc.attrs.icon}"></span>
+        </ui:fragment>
+        #{cc.attrs.value}
+        <ui:fragment
+          rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
+          <span class="icon icon-#{cc.attrs.icon}"></span>
+        </ui:fragment>
+      </button>
+    </ui:fragment>
+  </ui:fragment>
+</composite:implementation>
+
+</html>

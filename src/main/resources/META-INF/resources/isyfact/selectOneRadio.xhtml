@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Eine vertikale Gruppierung von Radio Buttons. -->
+
+<composite:interface>
+
+    <!-- Der Wert der Auswahl für das Data-Binding -->
+    <composite:attribute name="value" required="true" />
+    <!-- Die Select-Items. Jedes Item entspricht einem Radio-Button. -->
+    <composite:attribute name="selectItems" required="true" />
+    <!-- Ob die Darstellung nur lesend erfolgen soll -->
+    <composite:attribute name="disabled" type="Boolean" default="false" />
+
+</composite:interface>
+
+<composite:implementation>
+
+    <t:selectOneRadio id="selectOneRadio" layout="spread" value="#{cc.attrs.value}" disabled="#{cc.attrs.disabled}">
+        <f:selectItems value="#{cc.attrs.selectItems}" />
+    </t:selectOneRadio>
+
+    <t:dataList var="item" value="#{cc.attrs.selectItems}" rowIndexVar="idx">
+        <div class="radio">
+            <label><t:radio for="relative:super:super:selectOneRadio" index="#{idx}" /> <span>#{item.label}</span></label>
+        </div>
+    </t:dataList>
+
+</composite:implementation>
+
+</html>

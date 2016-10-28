@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Dieses Widget kann in ein 'form' eingebunden werden, um einen Defaultbutton für das Betätigen der Enter-Taste festzulegen -->
+
+<composite:interface>
+
+	<!-- Enthält die ID des Buttons, der bei Betätigen der Enter-Taste gedrückt werden soll. -->
+	<composite:attribute name="defaultButtonID" required="true" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	  <!-- Parameter für JS Selektionsunterstützung aktivieren -->
+	  <!-- Der Default-Button -->
+		<input type="hidden" jsf:id="defaultButtonID" value="#{cc.attrs.defaultButtonID}" disabled="true" />
+
+</composite:implementation>
+
+</html>

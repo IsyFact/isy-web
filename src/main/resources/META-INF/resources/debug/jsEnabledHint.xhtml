@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<composite:interface
+    shortDescription="Stellt ein Element zur Verfügung, das anzeigt, ob JavaScript de-/aktiviert ist.">
+
+    <composite:attribute name="enabled" required="false" default="true"
+        shortDescription="Aktiviert die JavaScript-De-/Aktiviert-Anzeige." />
+    <composite:attribute name="globalConfig" required="false"
+        default="#{globalConfigurationModel}" />
+</composite:interface>
+
+<composite:implementation>
+    <ui:fragment rendered="#{cc.attrs.enabled}">
+        <div style="border: 1px solid red;">
+            <h:panelGroup rendered="#{cc.attrs.globalConfig.jsEnabled}">JavaScript ist aktiviert und/oder der Browser ist ein IE &gt;= 9.</h:panelGroup>
+            <h:panelGroup rendered="#{not cc.attrs.globalConfig.jsEnabled}">IE-Version &lt; 9, JavaScript und/oder Cookies deaktiviert. Der JavaScript-Support ist serverseitig deaktiviert.</h:panelGroup>
+        </div>
+    </ui:fragment>
+
+</composite:implementation>
+
+</html>

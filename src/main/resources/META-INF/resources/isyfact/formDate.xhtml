@@ -1,0 +1,143 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+
+<!-- Datumsfeld für Formulareingaben. -->
+
+<composite:interface>
+
+	<!-- Tooltip. -->
+	<composite:attribute name="tooltip" type="String" default="" />
+
+	<!-- Die Referenz des Objekts. -->
+	<composite:attribute name="reference" required="true" />
+	<!-- Der Wert für das Databinding im Eingabefeld -->
+	<composite:attribute name="value" required="true" />
+	<!-- On die Eingabe ein Pflichteingabe ist. -->
+	<composite:attribute name="required" type="Boolean" default="false" />
+	<!-- Der Text für das Label -->
+	<composite:attribute name="label" type="String" required="false" />
+	<!-- Die CSS-Klasse für das Label. -->
+	<composite:attribute name="labelStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Die CSS-Klasse für den Eingabebereich. -->
+	<composite:attribute name="inputStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Die CSS-Klasse für das Input-Feld im Eingabebereich. -->
+	<composite:attribute name="inputFieldClass" type="String" default="" />
+	<!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+	<composite:attribute name="placeholder" type="java.lang.String"
+		required="false" default="TT.MM.JJJJ" />
+
+	<!-- Ob die Darstellung nur lesend erfolgen soll -->
+	<composite:attribute name="readonly" type="Boolean" default="false" />
+
+	<!-- Die Sprache für den Datepicker. -->
+	<composite:attribute name="language" type="java.lang.String"
+		required="false" default="de" />
+	<!-- Das Datumsformat für den Datepicker. -->
+	<composite:attribute name="dateFormat" type="java.lang.String"
+		required="false" default="dd.mm.yyyy" />
+
+	<!-- Das Maskenformat für das Eingabefeld. -->
+	<composite:attribute name="inputmask" type="java.lang.String"
+		required="false" default="99.99.9999" />
+	<!-- Die Eingabemaske: ob text soll überschrieben werden beim eintippen.-->
+	<composite:attribute name="inputmaskInsertMode" type="Boolean"
+		required="false" default="true" />
+	<!-- Die Eingabemaske: Ob beim Verlassen des Feldes die Maskierungsplatzhalter ausgeblendet werden sollen -->
+	<composite:attribute name="inputmaskClearOnBlur" type="Boolean"
+		required="false" default="true" />
+
+	<!-- Ob Picker angezeigt werden soll. -->
+	<composite:attribute name="showPicker" type="java.lang.Boolean"
+		required="false" default="true" />
+
+	<!-- Ein spezifisches Validation-Model, falls benötigt. -->
+	<composite:attribute name="validationModel" required="false"
+		default="#{validationModel}" />
+	<!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
+	<composite:attribute name="fourEyesMode" type="String" />
+	<composite:attribute name="fourEyesLastValue" type="String" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- Ob Validierungsfehler existieren. -->
+	<ui:param name="validationMessages"
+		value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+	<ui:param name="existsValidationError"
+		value="#{not empty validationMessages}" />
+
+	<div
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+
+		<!-- Das Label -->
+		<isyi:formValidationLabel value="#{cc.attrs.label}"
+			forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+			required="#{cc.attrs.required}"
+			styleClass="#{cc.attrs.labelStyleClass}" />
+
+		<div class="#{cc.attrs.inputStyleClass}">
+			<div class="rf-datepicker input-group"
+				language="#{cc.attrs.language}" dateformat="#{cc.attrs.dateFormat}">
+				<!-- Edit mode -->
+				<ui:fragment rendered="#{not cc.attrs.readonly}">
+					<input type="text"
+						class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.inputFieldClass}"
+						id="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+						placeholder="#{cc.attrs.placeholder}"
+						jsf:value="#{cc.attrs.value}" maxlength="10"
+						title="#{cc.attrs.tooltip}"
+						data-isymask-clearonblur="#{cc.attrs.inputmaskClearOnBlur}"
+						data-isymask-mask="#{cc.attrs.inputmask}"
+						data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}">
+					<composite:insertChildren />
+					</input>
+					<isyi:foureyesicon id="foureyes-#{cc.attrs.fourEyesMode}" fourEyesMode="#{cc.attrs.fourEyesMode}"
+						fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+						linkClass="formdatevieraugenlink"
+						buttonClass="#{not cc.attrs.disabled?'input-only':''} formdatevieraugenbutton" disabled="false" />
+					<ui:fragment
+						rendered="#{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView and cc.attrs.showPicker}">
+						<a
+							class="btn btn-icon input-group-addon #{not empty validationMessages ? 'formdatevieraugenicon' : ''}">
+							<span class="icon icon-calendar"></span>
+						</a>
+					</ui:fragment>
+				</ui:fragment>
+				
+				<!-- Read-Only mode -->
+				<ui:fragment rendered="#{cc.attrs.readonly}">
+					<input type="text" class="form-control readonly"
+						jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+						readonly="readonly" jsf:value="#{cc.attrs.value}">
+					<composite:insertChildren />
+					</input>
+
+					<isyi:foureyesicon id="foureyes-#{cc.attrs.fourEyesMode}-readonly" fourEyesMode="#{cc.attrs.fourEyesMode}"
+						fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+						linkClass="formdatevieraugenlink"
+						buttonClass="#{not cc.attrs.disabled?'input-only':''} formdatevieraugenbutton" disabled="#{cc.attrs.disabled}" />
+
+				</ui:fragment>
+			</div>
+		</div>
+
+		<!-- Bei Validierungsfehlern -->
+		<isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+			reference="#{cc.attrs.reference}" inputGroupAddonExistent="true" />
+	</div>
+</composite:implementation>
+
+</html>

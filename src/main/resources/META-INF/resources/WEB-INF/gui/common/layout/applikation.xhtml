@@ -1,0 +1,67 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:rf="http://java.sun.com/jsf/composite/registerfactory"
+    xmlns:isy="http://java.sun.com/jsf/composite/isyfact" 
+    xmlns:sf="http://www.springframework.org/tags/faces" 
+    template="/WEB-INF/gui/common/layout/basis.xhtml">
+
+    <ui:param name="nonJsModal"
+        value="#{(not globalConfigurationModel.jsEnabled) and (basisModel.showModalDialog)}" />
+
+    <!-- Die Seitentoolbar -->
+    <ui:define name="seitentoolbar">
+		    <ui:include src="/WEB-INF/gui/common/seitenelemente/seitentoolbar.xhtml" />
+    </ui:define>
+
+    <!-- Die Struktur der Applikationsseite. -->
+    <ui:define name="inhalt">
+
+        <div class="row row-df">
+            <ui:fragment rendered="#{not nonJsModal and basisModel.vertikalToolbarModel.anzeigen}">
+	            <div class="col-lg-2 linksNavigationAbstandRechts">
+	                <h:form id="linksnavigationForm">
+	                    <ui:include src="/WEB-INF/gui/common/seitenelemente/linksnavigation.xhtml" />
+	                </h:form>
+	            </div>
+	          </ui:fragment>
+            <div class="#{not nonJsModal and basisModel.vertikalToolbarModel.anzeigen ? 'col-lg-10' : 'col-lg-12'}">
+                <h:form id="inhaltsbereichForm" enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
+                    <!-- FocusOnload. -->
+                    <h:panelGroup id="focusOnloadActiveArea">
+                      <h:inputHidden id="focusOnloadActive" value="#{globalFlowModel.focusOnloadActive}" />
+                    </h:panelGroup>
+
+                    <ui:fragment rendered="#{not basisModel.showModalDialog}">
+                        <ui:include src="/WEB-INF/gui/common/seitenelemente/messages.xhtml" />
+                    </ui:fragment>
+
+                    <ui:fragment rendered="#{not nonJsModal}">
+                        <ui:insert name="inhaltsbereich" />
+                    </ui:fragment>
+
+                    <ui:fragment rendered="#{nonJsModal}">
+                        <h:form id="modalDialogPlaceholderForm" enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
+                            <ui:insert name="modalDialog" />
+                        </h:form>
+                    </ui:fragment>
+                </h:form>
+            </div>
+        </div>
+
+    </ui:define>
+
+  <ui:define name="modalDialogPlaceholder">
+    <h:form id="modalDialogPlaceholderForm" enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
+      <ui:param name="jsModal" value="#{(globalConfigurationModel.jsEnabled) and (basisModel.showModalDialog)}" />
+      <ui:fragment rendered="#{jsModal}">
+        <div style="position: relative">  
+            <ui:insert name="modalDialog" />
+        </div>  
+      </ui:fragment>
+    </h:form>
+  </ui:define>
+
+</ui:composition>

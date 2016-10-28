@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    See the NOTICE file distributed with this work for additional
+    information regarding copyright ownership.
+    The Federal Office of Administration (Bundesverwaltungsamt, BVA)
+    licenses this file to you under the Apache License, Version 2.0 (the
+    License). You may not use this file except in compliance with the
+    License. You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+    implied. See the License for the specific language governing
+    permissions and limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:webflow="http://www.springframework.org/schema/webflow-config" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:faces="http://www.springframework.org/schema/faces" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.4.xsd
+           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+           http://www.springframework.org/schema/faces http://www.springframework.org/schema/faces/spring-faces-2.2.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <mvc:annotation-driven/>
+
+    <!-- ========== -->
+    <!-- Spring MVC -->
+    <!-- ========== -->
+
+    <!-- Löst die XHTML Views auf -->
+    <bean id="jsfViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.faces.mvc.JsfView"/>
+        <property name="prefix" value="/WEB-INF/gui/"/>
+        <property name="suffix" value=".xhtml"/>
+    </bean>
+
+    <!-- Mapping für Ressourcen -->
+    <mvc:resources location="/" mapping="/resources/**"/>
+
+    <!-- Mapping für Flows -->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="flowRegistry" ref="flowRegistry"/>
+        <property name="defaultHandler">
+            <!-- If no flow match, map path to a view to render; e.g. the "/intro" path would map to the view named
+                "intro" -->
+            <bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+        </property>
+    </bean>
+
+    <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+    <bean class="org.springframework.faces.webflow.JsfFlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor"/>
+    </bean>
+
+    <!-- Exception Handler für Exceptions, außerhalb des GUI-Frameworks -->
+    <bean class="de.bund.bva.isyfact.common.web.exception.web.SimpleMappingExceptionResolverWithAdvancedLogging">
+        <property name="defaultErrorView" value="common/flow/error/errorViewState"/>
+        <property name="snapshotNotFoundView" value="common/flow/error/snapshotNotFoundViewState" />
+        <property name="accessDeniedView" value="common/flow/error/accessDeniedViewState" />
+        <property name="ausnahmeIdMapper" ref="ausnahmeIdMapper"/>
+    </bean>
+
+    <!-- ======= -->
+    <!-- Webflow -->
+    <!-- ======= -->
+    <webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices">
+        <webflow:flow-location-pattern value="/WEB-INF/gui/**/*Flow.xml"/>
+    </webflow:flow-registry>
+
+    <!-- Konfiguration des Flow-Executors per Spring Konfigurationsklasse um flexibel auf Konfigurationseinstellungen 
+        reagieren zu können. -->
+    <context:component-scan base-package="de.bund.bva.isyfact.common.web.spring"/>
+
+    <!-- Listener für den FacesContext -->
+    <bean id="facesContextListener" class="org.springframework.faces.webflow.FlowFacesContextLifecycleListener"/>
+
+    <!-- Configures the Spring Web Flow JSF integration -->
+    <faces:flow-builder-services id="flowBuilderServices"/>
+
+    <!-- Enable processing of JSF 2 resource requests. For example: /webflow-primefaces-showcase/app/javax.faces.resource/jsf.js?ln=javax.faces -->
+    <faces:resources/>
+
+    <!-- Security-Konfiguration für Webflow -->
+    <bean id="securityListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener">
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+    </bean>
+
+    <!-- Titles Listener. -->
+    <bean name="flowExecutionTitlesListener" class="de.bund.bva.isyfact.common.web.webflow.titles.TitlesListener">
+        <property name="dynamischerStartseitenLink" value="false"/>
+        <property name="breadcrumbAbschneider">
+            <bean class="de.bund.bva.isyfact.common.web.webflow.titles.BreadcrumbAbschneider"/>
+        </property>
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+
+</beans>

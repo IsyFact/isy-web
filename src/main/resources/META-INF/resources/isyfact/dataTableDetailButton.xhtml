@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:composite="http://java.sun.com/jsf/composite"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- Ein standardisierter Detail-Button für eine Zeile. Dieses Tag muss innerhalb eines <isy:dataTableCell> Tags verwendet werden. -->
+
+<composite:interface>
+
+  <!-- Ob die Detailansicht mehrfach angezeigt werden kann. -->
+  <composite:attribute name="allowMultipleDetailViews" type="Boolean"
+    default="true" />
+  <!-- Tooltip, der über dem Icon "HideDetail" angezeigt werden soll. -->
+  <composite:attribute name="tooltipHideDetail" required="false"
+    type="java.lang.String" default="" />
+  <!-- Tooltip, der über dem Icon "ShowDetail" angezeigt werden soll. -->
+  <composite:attribute name="tooltipShowDetail" required="false"
+    type="java.lang.String" default="" />
+</composite:interface>
+
+<composite:implementation>
+
+  <!-- cc.parent: dataTableCell -->
+  <!-- cc.parent.parent: dataTableRows -->
+  <!-- cc.parent.parent.parent: dataTable -->
+
+  <!-- die Tooltips sind nochmals hier für den Client-Mode -->
+  <div class="detailview-actions"
+    data-hide-tooltip="#{cc.attrs.tooltipHideDetail}"
+    data-show-tooltip="#{cc.attrs.tooltipShowDetail}">
+    <ui:fragment
+      rendered="#{cc.parent.parent.parent.attrs.dataTableModel.detailViewModel.isDetailView(dataTableItem.identifierForItem)}">
+      <isy:buttonIcon id="hideDetail"
+        action="#{cc.parent.parent.parent.attrs.dataTableController.hideDetails(cc.parent.parent.parent.attrs.dataTableModel,dataTableItem.identifierForItem)}"
+        size="small" icon="visible" tooltip="#{cc.attrs.tooltipHideDetail}" />
+    </ui:fragment>
+
+    <ui:fragment
+      rendered="#{not cc.parent.parent.parent.attrs.dataTableModel.detailViewModel.isDetailView(dataTableItem.identifierForItem)}">
+      <isy:buttonIcon id="showDetail"
+        action="#{cc.parent.parent.parent.attrs.dataTableController.showDetails(cc.parent.parent.parent.attrs.dataTableModel,dataTableItem.identifierForItem,cc.attrs.allowMultipleDetailViews)}"
+        size="small" icon="visible" tooltip="#{cc.attrs.tooltipShowDetail}" />
+    </ui:fragment>
+  </div>
+
+</composite:implementation>
+
+</html>

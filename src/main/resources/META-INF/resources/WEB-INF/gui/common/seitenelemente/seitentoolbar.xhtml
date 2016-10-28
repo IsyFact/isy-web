@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+	<ui:fragment rendered="#{basisModel.seitentoolbarModel.anzeigen}">
+		<div class="row-fluid">
+			<h:form id="seitenToolbarForm">
+				<div class="toolbar page">
+					<div class="row row-df">
+						<div class="col-lg-4">
+						  <!-- Weitere Buttons von Nutzer einbinden -->
+              <ui:insert name="seitentoolbarLinksButtons" />
+
+							<!-- Der Zurück-Button wird nur angezeigt, falls dieser erforderlich ist. -->
+							<ui:fragment
+								rendered="#{basisModel.seitentoolbarModel.zeigeZurueckButton}">
+								<isy:buttonIcon action="zurueck" value="Zurück" size="large" id="previous"
+									icon="previous" />
+							</ui:fragment>
+						</div>
+						<ui:fragment rendered="#{basisModel.seitentoolbarModel.zeigeMittlereButtongruppe}">
+							<div class="col-lg-4">
+								<!-- Weitere Buttons von Nutzer einbinden -->
+								<ui:insert name="seitentoolbarMitteButtons" />
+							</div>
+						</ui:fragment>
+						<div class="col-lg-#{basisModel.seitentoolbarModel.zeigeMittlereButtongruppe ? 4 : 8}">
+							<div class="btn-group pull-right">
+
+								<!-- Buttons von Nutzer einbinden -->
+								<ui:insert name="seitentoolbarRechtsButtons" />
+
+								<!-- Der Button für den Informationsbereich wird nur angezeigt, falls dies erforderlich ist. -->
+								<ui:fragment
+									rendered="#{basisModel.informationsbereichModel.inhalt != null}">
+									<isy:buttonIcon action="toggleInformationsbereich" size="large"
+										icon="info" render="@all" />
+								</ui:fragment>
+							</div>
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</div>
+	</ui:fragment>
+</ui:composition>

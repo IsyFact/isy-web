@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Der Inhalt eines Tabs. -->
+
+<composite:interface>
+
+	<!-- Der Name des Tabs, zu welchem dieser Inhalt gehört. -->
+	<composite:attribute name="name" required="true"
+		type="java.lang.String" />
+	<!-- Ein spezifischer Tab-Controller, falls notwendig. -->
+	<composite:attribute name="tabController" default="#{tabController}" />
+	
+	<!-- Ob das Tab im JS-Fall vorgeladen werden soll -->
+	<composite:attribute name="preload" default="false" type="java.lang.Boolean" />
+
+	<!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- Aktuelles Tab feststellen -->
+	<ui:param name="currentTab"
+		value="#{empty cc.parent.attrs.tabGroupModel.currentTab ? cc.parent.attrs.defaultTab : cc.parent.attrs.tabGroupModel.currentTab }" />
+
+	<!-- Überprüfen ob der aktuelle Content zu dem aktuellen Tab gehört und damit aktiv ist -->
+	<ui:param name="isTabActive"
+		value="#{currentTab.equals(cc.attrs.name)}" />
+
+	<!-- Überprüfen ob das aktuelle Tag wegen des globalen Tags aktiv ist -->
+	<ui:param name="isTabActiveGlobal"
+		value="#{currentTab.equals(cc.parent.attrs.globalTab) and jsfHelper.doesListContainString(cc.parent.attrs.globalTabContentRefs, cc.attrs.name)}" />
+
+	<!-- Überprüfen ob Java-Script deaktiviert ist -->
+	<ui:param name="isJsDisabled"
+		value="#{not cc.attrs.globalConfig.jsEnabled}" />
+
+	<!-- Wenn JS deaktiviert ist, wird hier noch der Header geschrieben -->
+	<ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled or basisModel.showPrintView}">
+		<h3>#{cc.attrs.tabController.retrieveTabTitle(cc, cc.attrs.name)}</h3>
+	</ui:fragment>
+	
+	<!-- Zusammgengesetzt: Soll das Tab gerendert werden? -->
+	<ui:param name="isActive" value="#{isTabActive or isTabActiveGlobal or isJsDisabled or basisModel.showPrintView}" />
+	<ui:param name="preloadingActive" value="#{cc.attrs.preload and not (isTabActive or isTabActiveGlobal or isJsDisabled or basisModel.showPrintView)}" />
+	<ui:param name="renderContent" value="#{isTabActive or isTabActiveGlobal or isJsDisabled or basisModel.showPrintView or preloadingActive}" />
+
+	<!-- Content bei Bedarf rendern -->
+	<ui:param name="divClass"
+		value="#{isActive ? 'active' : '' }" />
+	<div class="tab-pane #{divClass}" id="#{'tabId'.concat(cc.attrs.name)}">
+		<ui:fragment
+			rendered="#{renderContent}">
+			 <composite:insertChildren />
+		</ui:fragment>
+	</div>
+
+</composite:implementation>
+
+</html>

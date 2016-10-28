@@ -1,0 +1,240 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rf="http://java.sun.com/jsf/composite/isyfact"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- Der Wizard. -->
+
+<composite:interface>
+
+	<!-- Der Inhalt des Headers. -->
+	<composite:facet name="wizardHeader" />
+	<!-- Der Inhalt des Bodys. -->
+	<composite:facet name="wizardBody" />
+	<!-- Ergänzungen zu den angezeigten Buttons auf der linken Seite. -->
+	<composite:facet name="wizardFooterRightButtons" />
+	<!-- Ergänzungen zu den angezeigten Buttons auf der rechten Seite. -->
+	<composite:facet name="wizardFooterLeftButtons" />
+
+	<!-- Das Model des Wizards -->
+	<composite:attribute name="wizardDialogModel"
+		type="de.bund.bva.isyfact.common.web.jsf.components.wizard.WizardDialogModel"
+		required="true" />
+	<!-- Die Breite des modalen Dialogs (optionale Angabe). -->
+	<composite:attribute name="width" type="String" default="auto" />
+	<!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+	<!-- Ob die Step Nummer gezeigt ist oder nicht. -->
+  <composite:attribute name="stepVisible" type="Boolean" default="true" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<ui:param name="currentPage"
+		value="#{cc.attrs.wizardDialogModel.getActiveWizardDialogPage()}" />
+
+	<!-- Unterscheide bei der Darstellung -->
+
+	<!-- Falls JS aktiviert ist, dann wird das Fenster als Popup gezeigt -->
+	<ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled}">
+    
+		<div class="modal" id="modal-add-personal" tabindex="-1" role="dialog"
+			aria-labelledby="modalEditData" aria-hidden="true"
+			data-backdrop="static" data-keyboard="false">
+			
+      <h:panelGroup id="wizard">
+      
+        <ui:insert name="wizardScript" />
+      
+			<div class="modal-dialog" style="width: #{cc.attrs.width}">
+				<div class="modal-content">
+					<div class="modal-header"
+						style="border-top-color: #{headerHelper.ermittleFarbwertAnwendungsgruppe()}">
+						<h4 id="modalEditData" class="modal-title">
+							<composite:renderFacet name="wizardHeader" />
+						</h4>
+					</div>
+					<h:panelGroup id="wizardBody">
+					 <div class="modal-body">
+
+						<!-- Schrittanzeige -->
+						<ul class="nav nav-tabs nav-wizard" style="margin-bottom: 30px;">
+							 <ui:repeat var="page"
+								  value="#{cc.attrs.wizardDialogModel.wizardDialogPages}"
+								  varStatus="varPageStatus">
+
+								  <ui:param name="liClass"
+									 value="#{page.pageDone ? 'done' : ''}#{page.pageDisabled ? ' disabled' : ''}#{page.getWizardDialogPageId().equals(cc.attrs.wizardDialogModel.getActiveWizardDialogPageId()) ? ' active' : ''}" />
+
+								  <ui:param name="iconType"
+									 value="#{page.pageSuccessful ? 'icon-ok' : 'icon-error' }" />
+
+								  <li class="#{liClass}">
+								    <a tabindex="-1">
+								      <ui:fragment rendered="#{cc.attrs.stepVisible}">
+								        <span class="step">#{varPageStatus.index + 1}</span>
+								      </ui:fragment>
+								      <span>#{page.title}</span>
+								      <span class="icon #{iconType}"></span>
+								   </a>
+								  </li>
+
+			 				  </ui:repeat>
+		  				</ul>
+
+	 			     	<!-- Validierungsfehler -->
+  						<h:panelGroup id="messagesModalDialog">
+						    <isy:messages />
+						  </h:panelGroup>
+
+						  <composite:renderFacet name="wizardBody" />
+					 </div>
+					</h:panelGroup>
+					<div class="modal-footer">
+
+						<isy:buttonRow>
+							<isy:buttonGroup alignLeft="true">
+								<composite:renderFacet name="wizardFooterLeftButtons" />
+							</isy:buttonGroup>
+
+							<div class="pull-right">
+								<composite:renderFacet name="wizardFooterRightButtons" />
+								<isy:buttonGroup>
+              <ui:fragment rendered="#{currentPage.buttonPreviousVisible}">
+                <isy:button id="buttonPrevious" action="previous"
+                  ajax="#{currentPage.buttonPreviousAjaxActivated}"
+                  execute="#{currentPage.buttonPreviousAjaxAction}"
+                 render="#{jsfHelper.searchClientIdFromFirstChildInParents(component,currentPage.buttonPreviousAjaxRender,'wizard')}"
+                  block="#{currentPage.buttonPreviousAjaxBlock}"
+                  value="#{msg_plisweb.MEL_Wizard_Button_Previous}"
+                  disabled="#{not currentPage.buttonPreviousActivated}" 
+                  styleClass="#{not currentPage.buttonPreviousActivated ? 'initiallyDisabled' : ''}" />
+              </ui:fragment>
+              <ui:fragment rendered="#{currentPage.buttonNextVisible}">
+                <isy:button id="buttonNext" action="next"
+                  value="#{msg_plisweb.MEL_Wizard_Button_Next}"
+                  ajax="#{currentPage.buttonNextAjaxActivated}"
+                  execute="#{currentPage.buttonNextAjaxAction}"
+                  render="#{jsfHelper.searchClientIdFromFirstChildInParents(component,currentPage.buttonNextAjaxRender,'wizard')}"
+                  block="#{currentPage.buttonNextAjaxBlock}"
+                  disabled="#{not currentPage.buttonNextActivated}"
+                  rendered="#{not currentPage.buttonCompleteActivated}" />
+              </ui:fragment>
+              <ui:fragment rendered="#{currentPage.buttonCompleteVisible}">
+                <isy:button id="buttonFinish" action="finish"
+                  ajax="#{currentPage.buttonCompleteAjaxActivated}"
+                  execute="#{currentPage.buttonCompleteAjaxAction}"
+                  render="#{jsfHelper.searchClientIdFromFirstChildInParents(component,currentPage.buttonCompleteAjaxRender,'wizard')}"
+                  block="#{currentPage.buttonCompleteAjaxBlock}"
+                  value="#{not empty cc.attrs.wizardDialogModel.textButtonFinish ? cc.attrs.wizardDialogModel.textButtonFinish : msg_plisweb.MEL_Wizard_Button_Finish}"
+                  disabled="#{not currentPage.buttonCompleteActivated}"
+                  rendered="#{currentPage.buttonCompleteActivated}" />
+              </ui:fragment>
+            </isy:buttonGroup>
+            <isy:buttonGroup>
+              <ui:fragment rendered="#{currentPage.buttonAbortVisible}">
+                <isy:button id="buttonCancel" action="cancel"
+                  ajax="#{currentPage.buttonAbortAjaxActivated}"
+                  execute="#{currentPage.buttonAbortAjaxAction}"
+                  render="#{jsfHelper.searchClientIdFromFirstChildInParents(component,currentPage.buttonAbortAjaxRender,'wizard')}"
+                  block="#{currentPage.buttonAbortAjaxBlock}"
+                  value="#{msg_plisweb.MEL_Wizard_Button_Cancel}"
+                  disabled="#{not currentPage.buttonAbortActivated}" />
+              </ui:fragment>
+            </isy:buttonGroup>
+							</div>
+
+						</isy:buttonRow>
+					</div>
+				</div>
+			</div>
+			 </h:panelGroup>
+		</div>
+	
+	</ui:fragment>
+
+	<!-- Falls JS nicht aktiviert ist, dann wird das modale Fenster als Teil der Seite angezeigt. -->
+	<ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
+		<div class="no-js-dialog">
+			<div class="content-heading">
+				<div class="heading-text">
+					<composite:renderFacet name="wizardHeader" />
+				</div>
+				<span class="line-container"> <span class="line"></span>
+				</span>
+			</div>
+
+			<!-- Schrittanzeige -->
+			<ul class="nav nav-tabs nav-wizard" style="margin-bottom: 30px;">
+				<ui:repeat var="page"
+					value="#{cc.attrs.wizardDialogModel.wizardDialogPages}"
+					varStatus="varPageStatus">
+
+					<ui:param name="liClass"
+						value="#{page.pageDone ? 'done' : ''}#{page.pageDisabled ? ' disabled' : ''}#{page.getWizardDialogPageId().equals(cc.attrs.wizardDialogModel.getActiveWizardDialogPageId()) ? ' active' : ''}" />
+
+					<ui:param name="iconType"
+						value="#{page.pageSuccessful ? 'icon-ok' : 'icon-error' }" />
+
+					<li class="#{liClass}"><a tabindex="-1"><span class="step">#{varPageStatus.index
+								+ 1}</span> <span>#{page.title}</span> <span class="icon #{iconType}"></span></a></li>
+
+				</ui:repeat>
+			</ul>
+
+			<!-- Validierungsfehler -->
+			<isy:messages />
+
+			<composite:renderFacet name="wizardBody" />
+
+			<hr />
+			<div class="nojs-modal-footer">
+				<isy:buttonRow>
+					<isy:buttonGroup alignLeft="true">
+						<composite:renderFacet name="wizardFooterLeftButtons" />
+					</isy:buttonGroup>
+
+					<div class="pull-right">
+						<composite:renderFacet name="wizardFooterRightButtons" />
+						<isy:buttonGroup>
+							<ui:fragment rendered="#{currentPage.buttonPreviousVisible}">
+								<isy:button id="buttonPrevious" action="previous"
+									value="#{msg_plisweb.MEL_Wizard_Button_Previous}"
+									disabled="#{not currentPage.buttonPreviousActivated}" />
+							</ui:fragment>
+							<ui:fragment rendered="#{currentPage.buttonNextVisible}">
+								<isy:button id="buttonNext" action="next"
+									value="#{msg_plisweb.MEL_Wizard_Button_Next}"
+									disabled="#{not currentPage.buttonNextActivated}"
+									rendered="#{not currentPage.buttonCompleteActivated}" />
+							</ui:fragment>
+							<ui:fragment rendered="#{currentPage.buttonCompleteVisible}">
+								<isy:button id="buttonFinish" action="finish"
+									value="#{not empty cc.attrs.wizardDialogModel.textButtonFinish ? cc.attrs.wizardDialogModel.textButtonFinish : msg_plisweb.MEL_Wizard_Button_Finish}"
+									disabled="#{not currentPage.buttonCompleteActivated}"
+									rendered="#{currentPage.buttonCompleteActivated}" />
+							</ui:fragment>
+						</isy:buttonGroup>
+						<isy:buttonGroup>
+							<ui:fragment rendered="#{currentPage.buttonAbortVisible}">
+								<isy:button id="buttonCancel" action="cancel"
+									value="#{msg_plisweb.MEL_Wizard_Button_Cancel}"
+									disabled="#{not currentPage.buttonAbortActivated}" />
+							</ui:fragment>
+						</isy:buttonGroup>
+					</div>
+
+				</isy:buttonRow>
+			</div>
+		</div>
+
+	</ui:fragment>
+	
+</composite:implementation>
+
+</html>

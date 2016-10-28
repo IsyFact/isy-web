@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:rf="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- Tooltip - sollte um ein Hover-Element gelegt werden  -->
+<composite:interface>
+
+    <!-- Der Text, der bei Hover über das Element angezeigt werden soll. -->
+    <composite:attribute name="text" type="String" required="true" />
+    <!-- Eine optionalle Überschrift die fett über den Text angezeigt wird. -->
+    <composite:attribute name="title" type="String" required="false" />
+
+    <!-- Globale Konfiguration. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+    <a data-delay="100" data-trigger="hover" data-title="#{cc.attrs.title}" data-placement="top"
+        data-content="#{cc.attrs.text}" data-toggle="tooltip" class="btn btn-link rf-popover"
+        data-original-title="" title=""> <composite:insertChildren />
+    </a>
+</composite:implementation>
+
+</html>

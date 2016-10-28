@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- Der "Alle auswählen" Button für selektierbare Trefferlisten. Muss innerhalb eines <isy:dataTableHeader> Elements angegeben werden. -->
+
+<composite:interface>
+
+	<!-- Keine Parameter notwendig -->
+
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- cc.parent: dataTableHeader -->
+	<!-- cc.parent.parent: dataTable -->
+	<ui:fragment
+		rendered="#{cc.parent.parent.attrs.globalConfig.jsEnabled and not basisModel.showPrintView}">
+		<isy:selectBooleanCheckbox id="dataTableSelectAll"
+			value="#{cc.parent.parent.attrs.dataTableModel.selectionModel.selectAll}" />
+	</ui:fragment>
+
+</composite:implementation>
+
+</html>

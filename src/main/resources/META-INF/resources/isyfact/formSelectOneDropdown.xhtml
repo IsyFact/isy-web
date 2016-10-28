@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- Ein Dropdownmenü innerhalb Formularen. -->
+
+<composite:interface>
+
+	<!-- Die Referenz des Objekts. -->
+	<composite:attribute name="reference" required="true" />
+	<!-- Der Wert der Auswahl für das Databinding -->
+	<composite:attribute name="value" required="true" />
+	<!-- Ob die Auswahl invalide ist oder nicht. -->
+	<composite:attribute name="invalid" type="Boolean" default="false" />
+
+
+	<!-- Ob die Darstellung nur lesend erfolgen soll -->
+	<composite:attribute name="readonly" type="Boolean" required="false"
+		default="false" />
+	<!-- Evente müssen explizit deklariert werden -->
+	<composite:attribute name="valueChangeListener" required="false"
+		targets="isySelectOneDropdown:#{cc.attrs.reference}" />
+	<composite:clientBehavior name="change" event="change"
+		targets="isySelectOneDropdown:#{cc.attrs.reference}" />
+
+
+	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
+	<composite:attribute name="fourEyesMode" type="String" />
+	<composite:attribute name="fourEyesLastValue" type="String" />
+
+  <!-- Konverter-Bean für die angezeigten Elemente -->
+  <composite:attribute name="converter" />
+
+  <!-- Parameter für den Konverter -->
+  <composite:attribute name="converterAttribute" />
+
+	<!-- Formspezifisch -->
+	<!-- Der Text für das Label -->
+	<composite:attribute name="label" type="String" required="false" />
+	<!-- Die CSS-Klasse für das Label. -->
+	<composite:attribute name="labelStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Die CSS-Klasse für den Eingabebereich. -->
+	<composite:attribute name="inputStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Die CSS-Klasse 'dropdownStyleClass'. -->
+  <composite:attribute name="dropdownStyleClass" type="String"
+    default="form-selectonedropdown" />
+	<!-- Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+	<composite:attribute name="showPrintView" type="Boolean"
+		default="#{not empty basisModel and basisModel.showPrintView}" />
+
+	<!-- Ein spezifisches Validation-Model, falls benötigt. -->
+	<composite:attribute name="validationModel" required="false"
+		default="#{validationModel}" />
+	<!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- Validierungsfehler bestimmen -->
+	<ui:param name="validationMessages"
+		value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+	<ui:param name="existsValidationError"
+		value="#{not empty validationMessages}" />
+
+	<div
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+
+		<isyi:formValidationLabel value="#{cc.attrs.label}"
+			forField="#{cc.clientId}:isySelectOneDropdown:selectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+			required="#{cc.attrs.required}"
+			styleClass="#{cc.attrs.labelStyleClass}" />
+
+		<div class="#{cc.attrs.inputStyleClass}">
+			<isy:selectOneDropdown id="isySelectOneDropdown"
+				reference="#{cc.attrs.reference}"
+				referenceId="#{cc.attrs.reference}"
+				value="#{cc.attrs.value}" invalid="#{cc.attrs.invalid}"
+				disabled="#{cc.attrs.disabled}" title="#{cc.attrs.label}"
+				globalConfig="#{cc.attrs.globalConfig}"
+				dropdownStyleClass="#{cc.attrs.dropdownStyleClass}"
+				readonly="#{cc.attrs.readonly}"
+				fourEyesMode="#{cc.attrs.fourEyesMode}"
+				fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+				converter="#{cc.attrs.converter}"
+				converterAttribute="#{cc.attrs.converterAttribute}">
+				<composite:insertChildren />
+			</isy:selectOneDropdown>
+		</div>
+
+		<!-- Bei Validierungsfehlern -->
+		<isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+			reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
+	</div>
+</composite:implementation>
+
+</html>

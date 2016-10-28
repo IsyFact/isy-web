@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Ein Wrapper für klickbare Buttons oder ButtonIcons um vor dem eigentlichen Button ein zusätzliches POST durchzuführen. -->
+<!-- Pro Wrapper wird nur ein Button oder ButtonIcon unterstützt. -->
+
+<composite:interface>
+
+	<!-- Enthält die ID des Buttons, der die zusätzliche POST-Aktion durchführen soll. -->
+	<composite:attribute name="postButton" required="true" />
+	<!-- Über diesen Wert true/false kann gesteuert werden,
+	     ob nach der POST-Aktion auch tatsächlich der eigentliche Button geklickt werden soll. -->
+	<composite:attribute name="continueAfterPost" required="true" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<span jsf:id="buttonInjectPostGroup">
+	  
+	  <!-- Parameter für JS Selektionsunterstützung aktivieren -->
+	  <!-- Der zusätzliche POST-Button -->
+		<input type="hidden" jsf:id="postButton" value="#{cc.attrs.postButton}" disabled="true" />
+		<!-- In dieses Feld wird gespeichert, ob bereits die zusätzliche POST-Aktion durchgeführt wurde. -->
+		<input type="hidden" jsf:id="posted" value="false" disabled="true" />
+		<!-- In dieses Feld wird gespeichert, ob nach der POST-Aktion der eigentliche Button geklickt werden soll. -->
+		<input type="hidden" jsf:id="continue" value="#{cc.attrs.continueAfterPost}" disabled="true" />
+		
+		<!-- Der eigentliche Button. Wird nur geklickt, wenn "posted" und "continueAfterPost" den Wert true haben. -->
+		<composite:insertChildren />
+	</span>
+
+</composite:implementation>
+
+</html>

@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<!-- Ein Eingabefeld innerhalb Formularen. -->
+
+<composite:interface>
+
+	<!-- Die Referenz des Objekts. -->
+	<composite:attribute name="reference" required="true" />
+	<!-- Der Wert für das Databinding im Eingabefeld -->
+	<composite:attribute name="value" required="true" />
+	<!-- Ob die Eingabe ein Pflichteingabe ist. -->
+	<composite:attribute name="required" type="Boolean" default="false" />
+	<!-- Ob die Bearbeitung aktiviert ist oder nicht-->
+	<composite:attribute name="disabled" type="Boolean" default="false" />
+	<!--Ob auf das Feld nur lesend zugegriffen wird -->
+	<composite:attribute name="readonly" type="Boolean" default="false" />
+	<!-- Der Text für das Label -->
+	<composite:attribute name="label" type="String" required="false" />
+	<!-- Die CSS-Klasse für das Label. -->
+	<composite:attribute name="labelStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Die CSS-Klasse für den Eingabebereich. -->
+	<composite:attribute name="inputStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Die CSS-Klasse für die Textarea. -->
+	<composite:attribute name="textareaStyleClass" type="String" default="" />
+	<!-- Der Tooltip, welcher angezeigt wird. -->
+	<composite:attribute name="tooltip" type="String" required="false" />
+	<!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+	<composite:attribute name="placeholder" type="String" required="false" />
+
+	<!-- Die Anzahl an Zeilen. -->
+	<composite:attribute name="rows" type="Integer" required="false"
+		default="5" />
+	<!-- Die Anzahl an Spalten -->
+	<composite:attribute name="cols" type="Integer" required="false" />
+	<!-- Die maximal Anzahl von Zeichen -->
+	<composite:attribute name="maxlength" type="Integer" required="false"
+		default="4000" />
+	<!-- Id des Objekts -->
+	<composite:attribute name="id" type="String" required="false" />
+	<!-- Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+	<composite:attribute name="showPrintView" type="Boolean"
+		default="#{not empty basisModel and basisModel.showPrintView}" />
+	<!-- Ein spezifisches Validation-Model, falls benötigt. -->
+	<composite:attribute name="validationModel" required="false"
+		default="#{validationModel}" />
+	<!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
+	<composite:attribute name="fourEyesMode" type="String" />
+	<composite:attribute name="fourEyesLastValue" type="String" />
+</composite:interface>
+
+<composite:implementation>
+
+	<ui:define name="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
+	<ui:define name="fourEyesColor"
+		value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+	<!-- Validierungsfehler bestimmen -->
+	<ui:param name="validationMessages"
+		value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+	<ui:param name="existsValidationError"
+		value="#{not empty validationMessages}" />
+
+	<div
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+
+		<isyi:formValidationLabel value="#{cc.attrs.label}"
+			forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+			required="#{cc.attrs.required}"
+			styleClass="#{cc.attrs.labelStyleClass}" />
+
+		<div class="#{cc.attrs.inputStyleClass}">
+			<h:inputTextarea
+				styleClass="form-control#{existsValidationError ? ' invalid': ''} #{not empty cc.attrs.textareaStyleClass ? cc.attrs.textareaStyleClass : ''}"
+				cols="#{cc.attrs.cols}" readonly="#{cc.attrs.readonly}"
+				rows="#{cc.attrs.rows}" title="#{cc.attrs.tooltip}"
+				value="#{cc.attrs.value}" id="#{cc.attrs.id}"
+				p:maxlength="#{cc.attrs.maxlength}"
+				p:placeholder="#{cc.attrs.placeholder}"
+				disabled="#{cc.attrs.showPrintView or cc.attrs.disabled}" />
+
+			<!-- Four Eyes -->
+			<isyi:foureyesicon id="foureyes#{cc.attrs.fourEyesMode}"
+				linkClass="formtextareavieraugenlink #{existsValidationError ? 'formtextareavieraugenhaserror': ''}"
+				buttonClass="formtextareavieraugenbutton #{existsValidationError ? 'formtextareavieraugenhaserror': ''}"
+				fourEyesMode="#{cc.attrs.fourEyesMode}"
+				fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+				disabled="#{cc.attrs.disabled}" />
+
+		</div>
+
+		<!-- Bei Validierungsfehlern -->
+		<isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+			reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
+	</div>
+</composite:implementation>
+
+</html>

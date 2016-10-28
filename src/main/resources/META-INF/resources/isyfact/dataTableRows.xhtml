@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:composite="http://java.sun.com/jsf/composite"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Der eigentliche Inhalt der Datatable. Dieses Tag sollte nach den Headern in den Body der Data-Table geschrieben werden. -->
+<!-- Dieses Tag inkludiert für jede Zeile ein XHTML. In diesem kann über den UI-Parameter "dataTableItem" auf das Item der aktuellen Zeile zugegriffen werden. -->
+
+<composite:interface>
+
+  <!-- Die XHTML der Zeile. Wird mehrfach inkludiert. -->
+  <composite:attribute name="rowDefinition" />
+
+  <!-- Die XHTML der Detailansicht. Kann mehrfach inkludiert werden. -->
+  <composite:attribute name="detailDefinition" />
+
+  <!-- Die Anzahl an Elementen, die im JS Modus für die Detailansicht vorgeladen werden. -->
+  <composite:attribute name="preloadingSize" default="0"
+    type="java.lang.Integer" />
+
+  <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+  <composite:attribute name="globalConfig" required="false"
+    default="#{globalConfigurationModel}" />
+
+    
+</composite:interface>
+
+<composite:implementation>
+
+  <ui:param name="clientMode"
+    value="#{cc.parent.attrs.dataTableModel.mode eq 'CLIENT' and cc.parent.attrs.globalConfig.jsEnabled}" />
+  <ui:param name="itemsToShowMax"
+    value="#{(cc.parent.attrs.dataTableModel.paginationModel.type eq 'NONE'? cc.parent.attrs.dataTableModel.dataModel.filteredItemCount :cc.parent.attrs.dataTableModel.paginationModel.pageSize*(cc.parent.attrs.dataTableModel.paginationModel.type eq 'NORMAL'?1:cc.parent.attrs.dataTableModel.paginationModel.currentPage))-1}" />
+  <ui:param name="itemsToShowMin"
+    value="#{cc.parent.attrs.dataTableModel.paginationModel.type eq 'NORMAL'? (itemsToShowMax - cc.parent.attrs.dataTableModel.paginationModel.pageSize): 0}" />
+
+  <!-- Schleife über die Items -->
+  <ui:repeat var="dataTableItem" id="dataTableRows"
+    value="#{cc.parent.attrs.dataTableModel.dataModel.displayItems}"
+    varStatus="dataTableItemRepeatStatus">
+  
+    <ui:param name="detailViewEnabled"
+      value="#{cc.parent.attrs.dataTableModel.detailViewModel.isDetailView(dataTableItem.identifierForItem)}" />
+    <ui:param name="detailViewPreloadingJs"
+      value="#{cc.attrs.preloadingSize gt dataTableItemRepeatStatus.index and cc.attrs.globalConfig.jsEnabled}" />
+
+    <!-- Parameter für weitere Tags setzen -->
+    <ui:param name="dataTableModel"
+      value="#{cc.parent.attrs.dataTableModel}" />
+    <ui:param name="dataTableController"
+      value="#{cc.parent.attrs.dataTableController}" />
+
+    <!-- Row -->
+    <tr id="#{dataTableItem.identifierForItem}"
+      class="#{cc.parent.attrs.dataTableModel.selectionModel.doubleClickSelectedItem eq dataTableItem.identifierForItem? 'doubleClickSelectedItem':''}"
+      style="">
+      <ui:include src="#{cc.attrs.rowDefinition}" />
+    </tr>
+    <!-- DetailView -->
+    <ui:fragment rendered="#{detailViewEnabled or clientMode or detailViewPreloadingJs}">
+      <tr id="detail-#{dataTableItem.identifierForItem}"
+        class="details-preview #{not detailViewEnabled?'hidden':''} #{cc.parent.attrs.dataTableModel.selectionModel.doubleClickSelectedItem eq dataTableItem.identifierForItem? 'doubleClickSelectedItem':''}">
+
+        <ui:include src="#{cc.attrs.detailDefinition}"></ui:include>
+      </tr>
+    </ui:fragment>
+  </ui:repeat>
+
+</composite:implementation>
+
+</html>

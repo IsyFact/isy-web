@@ -1,0 +1,227 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Schreibt die Nachrichten und Validierungsfehler. -->
+
+<composite:interface>
+
+    <!-- Ein spezifisches Validierungsmodel, falls notwendig. -->
+    <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
+    <!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+
+
+</composite:interface>
+
+<composite:implementation>
+
+    <!-- Damit auch JS-Plugins Nachrichten rendern können, wird hier ein Platzhalter gesetzt -->
+    <h:inputHidden id="messagesPlaceholder" />
+
+    <ui:fragment rendered="#{messageController.getCurrentInfoMessages().size() > 0}">
+
+        <!-- INFO -->
+        <div class="alert alert-info" role="alert">
+
+            <div style="display:table;">
+                <ui:fragment rendered="#{messageController.getCurrentInfoMessages().size() > 1}">
+                  <span style="display:table-row;"><span class="icon icon-info" /><strong>Info</strong></span>
+                </ui:fragment>
+                <ui:fragment rendered="#{messageController.getCurrentInfoMessages().size() == 1}">
+		              <span style="display:table-cell; white-space: nowrap;"><span class="icon icon-info" /><strong>Info</strong></span>
+		            </ui:fragment>
+		
+		            <!-- Wenn es mehr als eine Nachricht gibt -->
+		            <ui:fragment rendered="#{messageController.getCurrentInfoMessages().size() > 1}">
+                    <div style="display:table-row;">
+				                <ui:repeat value="#{messageController.getCurrentInfoMessages()}" var="infoMessage">
+				                    <div>#{infoMessage.detail}</div>
+				                    <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+				                    <h:outputText value="#{infoMessage.rendered()}" />
+				                </ui:repeat>
+			              </div>
+		            </ui:fragment>
+		
+		            <!-- Wenn es nur eine Nachricht gibt -->
+		            <ui:fragment rendered="#{messageController.getCurrentInfoMessages().size() == 1}">
+		                <ui:repeat value="#{messageController.getCurrentInfoMessages()}" var="infoMessage">
+		                    <span style="display:table-cell;">#{infoMessage.detail}</span>
+		                    <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+		                    <h:outputText value="#{infoMessage.rendered()}" />
+		                </ui:repeat>
+		            </ui:fragment>
+            </div>
+            
+        </div>
+
+    </ui:fragment>
+
+    <ui:fragment rendered="#{messageController.getCurrentSuccessMessages().size() > 0}">
+
+        <!-- SUCCESS -->
+        <div class="alert alert-success" role="alert">
+
+            <div style="display:table;">
+                <ui:fragment rendered="#{messageController.getCurrentSuccessMessages().size() > 1}">
+			            <span style="display:table-row;"><span class="icon icon-checkmark" /><strong>Erfolgreich</strong></span>
+                </ui:fragment>
+                <ui:fragment rendered="#{messageController.getCurrentSuccessMessages().size() == 1}">
+			            <span style="display:table-cell; white-space: nowrap;"><span class="icon icon-checkmark" /><strong>Erfolgreich</strong></span>
+                </ui:fragment>
+		
+		            <!-- Wenn es mehr als eine Nachricht gibt -->
+		            <ui:fragment rendered="#{messageController.getCurrentSuccessMessages().size() > 1}">
+		                <div style="display:table-row;">
+				                <ui:repeat value="#{messageController.getCurrentSuccessMessages()}" var="successMessage">
+				                    <div>#{successMessage.detail}</div>
+				                    <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+				                    <h:outputText value="#{successMessage.rendered()}" />
+				                </ui:repeat>
+		                </div>
+		            </ui:fragment>
+		
+		            <!-- Wenn es nur eine Nachricht gibt -->
+		            <ui:fragment rendered="#{messageController.getCurrentSuccessMessages().size() == 1}">
+		                <ui:repeat value="#{messageController.getCurrentSuccessMessages()}" var="successMessage">
+		                    <span style="display:table-cell;">#{successMessage.detail}</span>
+		                    <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+		                    <h:outputText value="#{successMessage.rendered()}" />
+		                </ui:repeat>
+		            </ui:fragment>
+            </div>
+            
+        </div>
+
+    </ui:fragment>
+
+    <ui:fragment rendered="#{messageController.getCurrentWarnMessages().size() > 0}">
+
+        <!-- WARN -->
+        <div class="alert alert-warning" role="alert">
+
+            <div style="display:table;">
+		            <!-- Es wird die Summary des ersten Fehlers als Überschrift geschrieben. -->
+                <ui:fragment rendered="#{messageController.getCurrentWarnMessages().size() > 1}">
+			            <span style="display:table-row;"><span class="icon icon-placeholder" /><strong>#{messageController.getCurrentWarnMessages().get(0).summary}</strong></span>
+                </ui:fragment>
+                <ui:fragment rendered="#{messageController.getCurrentWarnMessages().size() == 1}">
+			            <span style="display:table-cell; white-space: nowrap;"><span class="icon icon-placeholder" /><strong>#{messageController.getCurrentWarnMessages().get(0).summary}</strong></span>
+                </ui:fragment>
+		
+		            <!-- Wenn es mehr als eine Nachricht gibt -->
+		            <ui:fragment rendered="#{messageController.getCurrentWarnMessages().size() > 1}">
+		                <div style="display:table-row;">
+				                <ui:repeat value="#{messageController.getCurrentWarnMessages()}" var="warnMessage">
+				                    <div>#{warnMessage.detail}</div>
+				                    <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+				                    <h:outputText value="#{warnMessage.rendered()}" />
+				                </ui:repeat>
+		                </div>
+		            </ui:fragment>
+		
+		            <!-- Wenn es nur eine Nachricht gibt -->
+		            <ui:fragment rendered="#{messageController.getCurrentWarnMessages().size() == 1}">
+		                <ui:repeat value="#{messageController.getCurrentWarnMessages()}" var="warnMessage">
+		                    <span style="display:table-cell;">#{warnMessage.detail}</span>
+		                    <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+		                    <h:outputText value="#{warnMessage.rendered()}" />
+		                </ui:repeat>
+		            </ui:fragment>
+            </div>
+            
+        </div>
+
+    </ui:fragment>
+
+    <ui:fragment rendered="#{messageController.getCurrentErrorMessages().size() > 0}">
+
+        <!-- ERROR -->
+        <div class="alert alert-danger" role="alert">
+
+            <div style="display:table;">
+		            <!-- Es wird die Summary des ersten Fehlers als Überschrift geschrieben. -->
+                <ui:fragment rendered="#{messageController.getCurrentErrorMessages().size() > 1}">
+			            <span style="display:table-row;"><span class="icon icon-placeholder" /><strong>#{messageController.getCurrentErrorMessages().get(0).summary}</strong></span>
+                </ui:fragment>
+                <ui:fragment rendered="#{messageController.getCurrentErrorMessages().size() == 1}">
+			            <span style="display:table-cell; white-space: nowrap;"><span class="icon icon-placeholder" /><strong>#{messageController.getCurrentErrorMessages().get(0).summary}</strong></span>
+                </ui:fragment>
+		
+		            <!-- Wenn es mehr als eine Nachricht gibt -->
+		            <ui:fragment rendered="#{messageController.getCurrentErrorMessages().size() > 1}">
+                    <div style="display:table-row;">
+				                <ui:repeat value="#{messageController.getCurrentErrorMessages()}" var="errorMessage">
+				                    <div>#{errorMessage.detail}</div>
+				                    <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+				                    <h:outputText value="#{errorMessage.rendered()}" />
+				                </ui:repeat>
+		                </div>
+		            </ui:fragment>
+		
+		            <!-- Wenn es nur eine Nachricht gibt -->
+		            <ui:fragment rendered="#{messageController.getCurrentErrorMessages().size() == 1}">
+		                <ui:repeat value="#{messageController.getCurrentErrorMessages()}" var="errorMessage">
+		                    <span style="display:table-cell;">#{errorMessage.detail}</span>
+		                    <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+		                    <h:outputText value="#{errorMessage.rendered()}" />
+		                </ui:repeat>
+		            </ui:fragment>
+            </div>
+        </div>
+
+    </ui:fragment>
+
+
+    <!-- Falls Validierungsnachrichten vorhanden sind, müssen diese angezeigt werden -->
+    <ui:fragment rendered="#{cc.attrs.validationModel != null}">
+
+        <!-- WARN -->
+        <div class="alert alert-warning" role="alert">
+
+            <!-- Es wird der Inhalt der globalen Validierungsnachricht geschrieben. -->
+            <div style="display:table;">
+		            <span style="display:table-cell; white-space: nowrap;"> <span class="icon icon-placeholder" /> <strong>#{cc.attrs.validationModel.globalValidationFacesMessage.summary}</strong></span>
+		            <span style="display:table-cell;">#{cc.attrs.validationModel.globalValidationFacesMessage.detail}</span>
+            </div>
+            <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+            <h:outputText value="#{cc.attrs.validationModel.globalValidationFacesMessage.rendered()}" />
+
+            <!-- Falls JavaScript nicht aktiviert ist, werden keine Popovers/Tooltips geschrieben. Daher werden die Nachrichten hier ergänzt -->
+            <ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
+                <div style="margin-top: 10px" />
+                <table class="rf-validation-messages-table">
+                    <ui:repeat value="#{cc.attrs.validationModel.validationFacesMessages}"
+                        var="validationMessage">
+                        <tr>
+                            <td>#{validationMessage.detail}</td>
+                            <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+                            <h:outputText value="#{validationMessage.rendered()}" />
+                        </tr>
+                    </ui:repeat>
+                </table>
+            </ui:fragment>
+
+             <!-- Falls JavaScript aktiviert ist, werden nur die Nachrichten ohne Referenz angezeigt werden. -->
+            <ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled and cc.attrs.validationModel.validationMessagesWithoutReference.size() > 0}">
+                <div style="margin-top: 10px" />
+                <table class="rf-validation-messages-table">
+                    <ui:repeat value="#{cc.attrs.validationModel.validationMessagesWithoutReference}"
+                        var="validationMessage">
+                        <tr>
+                            <td><strong>#{validationMessage.summary}</strong></td>
+                            <td>#{validationMessage.detail}</td>
+                            <!-- Markiere die Message als angezeigt, indem die "rendered" Methode aufgerufen wird. Rueckgabe ist void, daher wird kein Text dargestellt. -->
+                            <h:outputText value="#{validationMessage.rendered()}" />
+                        </tr>
+                    </ui:repeat>
+                </table>
+            </ui:fragment>
+
+        </div>
+
+    </ui:fragment>
+
+</composite:implementation>
+
+</html>

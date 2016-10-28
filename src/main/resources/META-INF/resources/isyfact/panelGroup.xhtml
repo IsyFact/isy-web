@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Eine Gruppierung an Panels auf einer Seite. Sorgt für das korrekte Layout. -->
+
+<composite:interface>
+
+    <!-- Ob die Gruppe als Container für einen bestimmten Inhaltesbereich dient. Falls ja werden entsprechende CSS-Klassen für das Layouting eingebunden. -->
+    <composite:attribute name="headerPanel" type="java.lang.Boolean" default="#{false}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+    <ui:param name="panelClass"
+        value="#{cc.attrs.headerPanel ? 'panel-grey-back reset-maincontent-padding' : ''}" />
+    <div class="panel-group #{panelClass}">
+        <composite:insertChildren />
+    </div>
+    
+</composite:implementation>
+
+</html>

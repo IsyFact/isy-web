@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+
+<!-- Ein Eingabefeld für eine Checkbox innerhalb von Formularen. -->
+
+<composite:interface>
+
+	<!-- Die Referenz des Objekts. -->
+	<composite:attribute name="reference" required="true" />
+	<!-- Der Wert für das Databinding im Eingabefeld -->
+	<composite:attribute name="value" required="true" />
+
+	<!-- Der Text für das Label -->
+	<composite:attribute name="label" type="String" required="false" />
+	
+	 <!-- Der Text für das Label rechts neben  -->
+  <composite:attribute name="labelRight" type="String" required="false" />
+  
+	<!-- Die CSS-Klasse für das Label. -->
+	<composite:attribute name="labelStyleClass" type="String"
+		default="col-lg-6" />
+
+	<!-- Die CSS-Klasse für den Eingabebereich. -->
+	<composite:attribute name="inputStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Ob die Eingabe ein Pflichteingabe ist. -->
+	<composite:attribute name="required" type="Boolean" default="false" />
+	<!-- Ob die Eingabe eine Optionale-Pflichteingabe ist. (blaues Sternchen) -->
+	<composite:attribute name="optional" required="false" default="false"
+		type="Boolean" />
+	<!-- Ob die Checkbox deaktiviert ist oder nicht. -->
+	<composite:attribute name="disabled" required="true" default="false" />
+
+	<!-- Ein spezifisches Validation-Model, falls benötigt. -->
+	<composite:attribute name="validationModel" required="false"
+		default="#{validationModel}" />
+	<!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+	<!-- change Event einfach durchwerfen -->
+	<composite:clientBehavior name="change" event="change"
+		targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
+	<composite:clientBehavior name="click" event="click"
+		targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
+	<composite:attribute name="valueChangeListener" required="false"
+		targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
+
+	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
+	<composite:attribute name="fourEyesMode" type="String" />
+	<composite:attribute name="fourEyesLastValue" type="String" />
+</composite:interface>
+
+<composite:implementation>
+
+	<ui:param name="validationMessages"
+		value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+	<ui:param name="existsValidationError"
+		value="#{not empty validationMessages}" />
+
+	<div
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+
+		<isyi:formValidationLabel value="#{cc.attrs.label}"
+			forField="#{cc.clientId}:isySelectBooleanCheckbox:selectBooleanCheckbox"
+			required="#{cc.attrs.required}"
+			styleClass="#{cc.attrs.labelStyleClass}#{not empty validationMessages ? ' has-error has-feedback': ''}#{cc.attrs.optional ? ' mandatory optional' : ''}" />
+
+		<div class="#{cc.attrs.inputStyleClass}">
+			<isy:selectBooleanCheckbox id="isySelectBooleanCheckbox"
+				value="#{cc.attrs.value}" label="#{cc.attrs.labelRight}"
+				required="#{existsValidationError}"
+				disabled="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}"
+				fourEyesMode="#{cc.attrs.fourEyesMode}"
+				fourEyesLastValue="#{cc.attrs.fourEyesLastValue}">
+				<composite:insertChildren />
+			</isy:selectBooleanCheckbox>
+		</div>
+
+		<!-- Bei Validierungsfehlern -->
+		<isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+			reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
+
+	</div>
+</composite:implementation>
+
+</html>

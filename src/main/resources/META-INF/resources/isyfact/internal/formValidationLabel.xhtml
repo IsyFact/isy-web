@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:rf="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- (Validierungs-)Label zur Benutzung in form-groups neben Input-Feldern.  -->
+<!-- Dieses Tag sollte nicht direkt benutzt werden, es wird von Tags für Formularfelder benutzt. -->
+<composite:interface>
+
+    <!-- Der Text des Labels. -->
+    <composite:attribute name="value" type="String" default="" />
+
+    <!-- Die CSS-Klasse welche für das Label verwendet werden. -->
+    <composite:attribute name="styleClass" type="String" default="col-lg-6" />
+
+    <!-- Ob es sich um ein Pflichtfeld handelt. -->
+    <composite:attribute name="required" type="Boolean" default="false" />
+
+    <!-- Die JSF-ID des Feldes, für welches dieses Label dargestellt wird. -->
+    <composite:attribute name="forField" type="String" required="true" />
+
+    <!-- Gibt an, ob Sonderzeichen escaped werden sollen (Mit Vorsicht einsetzen!). -->
+    <composite:attribute name="escape" type="Boolean" required="false" default="true" />
+
+</composite:interface>
+
+<composite:implementation>
+
+    <!-- Label rendern -->
+    <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.styleClass}"
+            for="#{cc.attrs.forField}"><h:outputText escape="#{cc.attrs.escape}" value="#{cc.attrs.value}"/>
+            </label>
+
+</composite:implementation>
+
+</html>

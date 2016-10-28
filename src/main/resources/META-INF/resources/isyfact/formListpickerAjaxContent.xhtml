@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+
+<!-- Der Inhalt des Listpickers bei Nachladen mit AJAX -->
+
+<composite:interface>
+
+	<!-- Das Model für den Listpicker. -->
+	<composite:attribute name="listpickerModel"
+		type="de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerModel"
+		required="true" />
+
+	<!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- Daten müssen nur ausgegeben werden, falls JS aktiviert ist. Ansonsten ist kein AJAX möglich. -->
+	<ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled}">
+		<table style="display:none">
+			<tbody>
+				<ui:repeat var="item" value="#{cc.attrs.listpickerModel.items}">
+					<tr id="#{item.getValueForItem()}" class="#{item.getCssClass()}">
+						<ui:repeat var="itemProperty"
+							value="#{cc.attrs.listpickerModel.getColumnPropertyKeys()}">
+							<td>#{jsfHelper.getPropertyValueForObject(item,itemProperty)}</td>
+						</ui:repeat>
+					</tr>
+				</ui:repeat>
+				<ui:fragment
+					rendered="#{cc.attrs.listpickerModel.items.size() lt cc.attrs.listpickerModel.itemCount}">
+					<tr>
+						<td
+							colspan="#{cc.attrs.listpickerModel.getColumnPropertyKeys().size()}">#{empty
+							cc.attrs.listpickerModel.messageMoreElements ? 'Es sind weitere
+							Elemente vorhanden.' :
+							cc.attrs.listpickerModel.messageMoreElements}</td>
+					</tr>
+				</ui:fragment>
+			</tbody>
+		</table>
+	</ui:fragment>
+
+</composite:implementation>
+
+</html>

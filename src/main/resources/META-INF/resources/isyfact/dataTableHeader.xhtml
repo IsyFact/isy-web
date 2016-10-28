@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<composite:interface>
+
+	<!-- Der Header-Name / Spaltenüberschrift. -->
+	<composite:attribute name="name" type="String" />
+
+	<!-- Ob der Header sortierbar ist oder nicht. -->
+	<composite:attribute name="sortable" type="Boolean"
+		default="#{not empty cc.attrs.sortProperty}" />
+
+	<!-- Ob die Spalte angezeigt werden soll oder nicht. -->
+	<composite:attribute name="hidden" type="Boolean" default="false" />
+
+	<!-- Falls der Header sortierbar sein soll, hier die Bean Property angeben. -->
+	<composite:attribute name="sortProperty" type="String" />
+
+
+	<!-- Die Breite der Spalte -->
+	<composite:attribute name="width" required="false" />
+
+	<!-- Tooltip, der über dem Button angezeigt werden soll. -->
+	<composite:attribute name="tooltip" required="false"
+		type="java.lang.String" default="" />
+
+</composite:interface>
+
+<composite:implementation>
+
+  <ui:param name="sort"
+      value="#{cc.attrs.sortable eq true and not empty cc.attrs.sortProperty}" />
+  
+  <!-- Falls die Spalte sortierbar ist. -->
+	<ui:fragment rendered="#{sort}">
+
+		<ui:param name="sortActivated"
+			value="#{cc.attrs.sortProperty.equals(cc.parent.attrs.dataTableModel.sortModel.property)}" />
+
+		<ui:param name="sortDirectionClass"
+			value="#{('ASCENDING' eq cc.parent.attrs.dataTableModel.sortModel.direction) ? 'sort-up' : 'sort-down'}" />
+		<ui:param name="sortDirection"
+			value="#{sortActivated ? sortDirectionClass : ''}" />
+		<!-- RF1.5:sort-up? -->
+		<ui:param name="sortedClass" value="#{sortActivated ? 'sorted' : ''}" />
+		<ui:param name="thStyle"
+			value="#{cc.attrs.hidden ? 'display:none' : ''}" />
+
+    <!-- ACHTUNG: ECLIPSE AUTO FORMAT LOESCHT DAS STYLE ATTRIBUT!!! -->
+		<th style="#{thStyle}" class="whiteSpaceNowrap sortable #{sortDirection} #{sortedClass}" width="#{cc.attrs.width}" data-property="#{cc.attrs.sortProperty}">
+      <isy:hyperlink 
+          value="#{cc.attrs.name}" 
+          action="#{cc.parent.attrs.dataTableController.sort(cc.parent.attrs.dataTableModel, cc.attrs.sortProperty)}"
+          title="#{cc.attrs.tooltip}" 
+          additionalStyleClass="hyperlink-green"/>
+    </th>
+
+	</ui:fragment>
+
+	<!-- Falls die Spalte nicht sortierbar ist -->
+	<!-- ACHTUNG: ECLIPSE AUTO FORMAT LOESCHT DAS STYLE ATTRIBUT!!! -->
+	<ui:fragment rendered="#{not sort}">
+		<th style="#{thStyle}" width="#{cc.attrs.width}">#{cc.attrs.name}<composite:insertChildren /></th>
+	</ui:fragment>
+
+</composite:implementation>
+
+</html>

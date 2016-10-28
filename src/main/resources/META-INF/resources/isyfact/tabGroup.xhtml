@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Eine Tabgruppe für die Tabnavigation -->
+
+<composite:interface>
+
+    <!-- Das Model für die Tabgruppe. -->
+    <composite:attribute name="tabGroupModel"
+        type="de.bund.bva.isyfact.common.web.jsf.components.tab.TabGroupModel" required="true" />
+    <!-- Der Name des Default-Tabs. -->
+    <composite:attribute name="defaultTab" type="String" required="false" />
+    <!-- Der Name des globalen Tabs. -->
+    <composite:attribute name="globalTab" type="String" required="false" />
+    <!-- Die Liste an Namen der Tabs, welche beim Anzeigen des globalen Tabs auch angezeigt werden sollen. -->
+    <composite:attribute name="globalTabContentRefs" type="String" required="false" />
+
+    <!-- AJAX: Welches Form ausgeführt werden soll. -->
+    <composite:attribute name="execute" required="false" default="@form" />
+    <!-- AJAX: Welche Elemente gerendert werden sollen. -->
+    <composite:attribute name="render" required="false" default="@form" />
+
+    <!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+</composite:interface>
+
+<composite:implementation>
+
+    <ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView}">
+        <ul class="nav nav-tabs isy-tab">
+            <composite:renderFacet name="tabHeader" />
+        </ul>
+    </ui:fragment>
+
+    <div class="tab-content">
+        <h:inputHidden id="isyTabCurrentActiveTab" value="#{cc.attrs.tabGroupModel.currentTab}"/>
+        <composite:insertChildren />
+    </div>
+
+</composite:implementation>
+
+</html>

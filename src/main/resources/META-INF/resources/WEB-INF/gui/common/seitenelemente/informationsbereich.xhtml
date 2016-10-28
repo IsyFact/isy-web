@@ -1,0 +1,19 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:form id="informationsbereichForm">
+        <div class="info-panel reset-maincontent-padding" data-toggle="infoPanel">
+            <div class="well-headline">
+                <span class="icon icon-#{basisModel.informationsbereichModel.iconTyp.cssSuffix}"></span>
+                #{basisModel.informationsbereichModel.ueberschrift}
+                <p>
+                    <h:outputText value="#{basisModel.informationsbereichModel.ueberschrift_2}" />
+                </p>
+            </div>
+            <p>
+                <h:outputText value="#{basisModel.informationsbereichModel.inhalt}" />
+            </p>
+        </div>
+    </h:form>
+</ui:composition>

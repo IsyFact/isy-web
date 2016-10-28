@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rf="http://java.sun.com/jsf/composite/registerfactory">
+
+	<ui:param name="cssKlasseNavbarColor"
+		value="#{not empty headline or not empty breadcrumb ? 'navbar-color navbar-color-content' : 'navbar-color'}" />
+	<div class="#{cssKlasseNavbarColor}"
+		style="background-color: #{headerHelper.ermittleFarbwertAnwendungsgruppe()}">
+		<!-- Headline -->
+
+		<ui:fragment rendered="#{not empty headline}">
+			<div class="row row-df" style="margin-left:0px;margin-right:0px;">
+				<div class="col-lg-6">
+					<strong> <h:outputText
+							value="#{headline}#{(not empty breadcrumb) ? ' - ' : ''}"
+							styleClass="white-color" />
+							<ui:insert name="titelzeileInfoLinks" />
+					</strong>
+				</div>
+				<div class="col-lg-6">
+					<strong> <ui:insert name="titelzeileInfoRechts" />
+					</strong>
+				</div>
+			</div>
+		</ui:fragment>
+
+		<!-- Breadcrumb -->
+		<ui:fragment id="breadcrumb" rendered="#{not empty breadcrumb}">
+			<ui:repeat value="#{breadcrumbAbgeschnitten}" var="entry"
+				varStatus="status">
+				<ui:fragment rendered="#{empty entry.titel}">
+					<span><h:outputText value="..." styleClass="white-color" /></span>
+					<span><h:outputText value="»" styleClass="white-color" /></span>
+				</ui:fragment>
+				<ui:fragment rendered="#{not empty entry.titel and not status.last}">
+					<strong> <h:outputLink value="#{entry.link}"
+							rendered="#{not empty entry.link}">
+							<h:outputText value="#{entry.titel}" styleClass="white-color" />
+						</h:outputLink>
+					</strong>
+					<h:outputLink rendered="#{empty entry.link}">
+						<t:outputText forceId="true" value="#{entry.titel}"
+							styleClass="white-color" />
+					</h:outputLink>
+					<span><h:outputText value="»" styleClass="white-color" /></span>
+				</ui:fragment>
+				<span><h:outputText value="#{entry.titel}"
+						rendered="#{status.last}" styleClass="white-color" /></span>
+			</ui:repeat>
+		</ui:fragment>
+
+	</div>
+</ui:composition>

@@ -1,0 +1,21 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:sf="http://www.springframework.org/tags/faces"
+    template="/WEB-INF/gui/common/layout/basis.xhtml">
+
+    <ui:define name="inhalt">
+    
+      <f:loadBundle var="msg_error" basename="resources.nachrichten.plisweb_fehler"></f:loadBundle>
+     
+      <div class="alert alert-warning" role="alert">
+          <span>
+            <span class="icon icon-placeholder" />
+            <strong>#{msg_error.PLWEB00110}</strong>            
+          </span>
+      </div>
+        
+        
+    </ui:define>
+    
+</ui:composition>

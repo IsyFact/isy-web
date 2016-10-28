@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:rf="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- Validierungs-Icon zur Benutzung in form-groups neben Input-Feldern.  -->
+<!-- Dieses Tag sollte nicht direkt benutzt werden, es wird von Tags für Formularfelden benutzt. -->
+<composite:interface>
+
+    <!-- Die Referenz des zu validierenden Felds. -->
+    <composite:attribute name="reference" required="true" />
+
+    <!-- Das Model zur Validierung. -->
+    <composite:attribute name="validationModel" required="true" />
+
+    <!-- Ob ein input-group-addon (z.B. Datepicker Button) existiert oder nicht. -->
+    <composite:attribute name="inputGroupAddonExistent" type="Boolean" default="false" />
+
+    <!-- Globale Konfiguration. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" /> 
+    
+    <composite:attribute name="withBoarder" required="false" default="true" />  
+
+</composite:interface>
+
+<composite:implementation>
+
+    <!-- Bestimmen, ob Validierungsfehler existieren -->
+    <ui:param name="validationMessages"
+        value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+    <ui:param name="existsValidationError" value="#{not empty validationMessages}" />
+
+    <!-- Bei Validierungsfehlern -->
+    <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
+        <span
+            class="form-control-feedback #{withBoarder ? '' : 'without-border'} #{cc.attrs.inputGroupAddonExistent ? 'with-input-group-addon' : 'without-input-group-addon'}">
+            <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
+            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title=""> <span
+                class="icon icon-info"></span>
+        </a>
+        </span>
+    </ui:fragment>
+
+</composite:implementation>
+
+</html>

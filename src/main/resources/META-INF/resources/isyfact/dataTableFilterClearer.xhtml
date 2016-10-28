@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<composite:interface>
+
+	<!-- Tooltip, der über dem Icon "clear-all-filter" angezeigt werden soll. -->
+	<composite:attribute name="tooltip" required="false"
+		type="java.lang.String" default="Alle Filter aufheben" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<td class="table-clear-all-filter"><isy:buttonIcon
+			action="#{cc.parent.attrs.dataTableController.filterClear(cc.parent.attrs.dataTableModel)}"
+			icon="cancel" tooltip="#{cc.attrs.tooltip}" size="small" /></td>
+</composite:implementation>
+
+</html>

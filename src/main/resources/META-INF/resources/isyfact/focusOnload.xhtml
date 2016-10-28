@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- Dient dazu, das initial zu fokussierende Element einer Seite anzugeben oder die initiale Fokussierung zu deaktivieren. -->
+<composite:interface>
+
+	<!-- Der Selektor für das Element, das initial fokussiert werden soll.  -->
+	<composite:attribute name="element" type="String" required="true" />
+	
+	<!-- Gibt an, ob die initiale Fokussierung deaktiviert werden soll.  -->
+	<composite:attribute name="deactivated" type="Boolean" required="false"	default="false" />
+	
+	<!-- Gibt an, ob das Element fokussiert sein soll, auch wenn im GlobalFlowModel die Fokussierung deaktiviert ist.  -->
+	<composite:attribute name="focus" type="Boolean" required="false"	default="false" />
+	
+	 <!-- Der Selektor für das Element, das initial fokussiert werden soll.  -->
+  <composite:attribute name="areaId" type="String" required="false" default="focusOnloadArea" />
+	
+</composite:interface>
+
+
+<composite:implementation>
+
+  <div id="#{cc.attrs.areaId}">
+		<ui:fragment rendered="#{cc.attrs.force}">
+			<h:inputHidden id="focusOnloadForce" value="true" />
+		</ui:fragment>
+		<ui:fragment rendered="#{cc.attrs.deactivated}">
+			<h:inputHidden id="focusOnloadDeactivated" value="true" />
+		</ui:fragment>
+		<ui:fragment rendered="#{not cc.attrs.deactivated}">
+			<h:inputHidden id="focusOnloadElement" value="#{cc.attrs.element}" />
+		</ui:fragment>
+	</div>
+	
+</composite:implementation>
+
+</html>

@@ -1,0 +1,183 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+
+<!-- Ein Eingabefeld innerhalb Formularen. -->
+
+<composite:interface>
+
+	<!-- Die Referenz des Objekts. -->
+	<composite:attribute name="reference" required="true" />
+	<!-- Der Wert für das Databinding im Eingabefeld -->
+	<composite:attribute name="value" required="true" />
+	<!-- Ob die Eingabe ein Pflichteingabe ist. -->
+	<composite:attribute name="required" type="Boolean" default="false" />
+	<!-- Ob die Darstellung nur lesend erfolgen soll -->
+	<composite:attribute name="readonly" type="Boolean" default="false" />
+	<!-- Der Text für das Label -->
+	<composite:attribute name="label" type="String" required="false" />
+	<!-- Die CSS-Klasse für das Label. -->
+	<composite:attribute name="labelStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Die CSS-Klasse für den Eingabebereich. -->
+	<composite:attribute name="inputStyleClass" type="String"
+		default="col-lg-6" />
+	<!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+	<composite:attribute name="placeholder" type="String" required="false" />
+	<!-- Die Eingabemaske.-->
+	<composite:attribute name="inputmask" type="String" required="false" />
+	<!-- Die Eingabemaske: ob text soll überschrieben werden beim eintippen.-->
+	<composite:attribute name="inputmaskInsertMode" type="Boolean"
+		required="false" default="true" />
+	<!-- Die maximale Länge der Eingabe. -->
+	<composite:attribute name="maxlength" type="Integer" required="false"
+		default="255" />
+	<!-- Die maximale Breite des Eingabefeldes. -->
+	<composite:attribute name="width" type="String" required="false"
+		default="100%" />
+	<!-- Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+	<composite:attribute name="showPrintView" type="Boolean"
+		default="#{not empty basisModel and basisModel.showPrintView}" />
+	<!-- Tooltip. -->
+	<composite:attribute name="tooltip" type="String" default="" />
+
+	<!-- Ein spezifisches Validation-Model, falls benötigt. -->
+	<composite:attribute name="validationModel" required="false"
+		default="#{validationModel}" />
+	<!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+	<!-- Die Referenz des Objekts. -->
+	<composite:attribute name="charpicker" required="false" type="Boolean"
+		default="false" />
+
+	<!-- Der Inhalt der rechts vom Listpicker angezeigt wird. -->
+	<composite:facet name="contentRight" required="false" />
+
+	<!-- Der Typ des Eingabefelds, so dass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann. Mögliche Werte alle Werte für das Feld type des HTML Input Felds. -->
+	<composite:attribute name="type" type="String" required="false"
+		default="text" />
+
+	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
+	<composite:attribute name="fourEyesMode" type="String" />
+	<composite:attribute name="fourEyesLastValue" type="String" />
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- Validierungsfehler bestimmen -->
+	<ui:param name="validationMessages"
+		value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+	<ui:param name="existsValidationError"
+		value="#{not empty validationMessages}" />
+
+	<div
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+
+		<ui:fragment
+			rendered="#{not (cc.attrs.readonly or cc.attrs.showPrintView)}">
+			<isyi:formValidationLabel value="#{cc.attrs.label}"
+				forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}_with_inputmask"
+				required="#{cc.attrs.required}"
+				styleClass="#{cc.attrs.labelStyleClass}"
+				rendered="#{not empty cc.attrs.inputmask}" />
+
+			<isyi:formValidationLabel value="#{cc.attrs.label}"
+				forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+				required="#{cc.attrs.required}"
+				styleClass="#{cc.attrs.labelStyleClass}"
+				rendered="#{empty cc.attrs.inputmask}" />
+		</ui:fragment>
+		<ui:fragment
+			rendered="#{cc.attrs.readonly and not cc.attrs.showPrintView}">
+			<isyi:formValidationLabel value="#{cc.attrs.label}"
+				forField="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+				required="#{cc.attrs.required}"
+				styleClass="#{cc.attrs.labelStyleClass}" />
+		</ui:fragment>
+		<ui:fragment rendered="#{cc.attrs.showPrintView}">
+			<isyi:formValidationLabel value="#{cc.attrs.label}"
+				forField="#{cc.clientId}:disabled_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+				required="#{cc.attrs.required}"
+				styleClass="#{cc.attrs.labelStyleClass}" />
+		</ui:fragment>
+
+
+		<div class="#{cc.attrs.inputStyleClass}">
+			<div class="input-group">
+				<ui:fragment
+					rendered="#{not (cc.attrs.readonly or cc.attrs.showPrintView)}">
+
+					<!-- input -->
+					<ui:fragment rendered="#{empty cc.attrs.inputmask}">
+						<input type="#{cc.attrs.type}"
+							class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled ? ' inputWithSpecialCharPicker': ''}"
+							jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+							placeholder="#{cc.attrs.placeholder}"
+							jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
+							style="width: #{cc.attrs.width}" title="#{cc.attrs.tooltip}" />
+					</ui:fragment>
+
+					<!-- input mit inputmask -->
+					<ui:fragment rendered="#{not empty cc.attrs.inputmask}">
+						<input type="#{cc.attrs.type}"
+							class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled ? ' inputWithSpecialCharPicker': ''}"
+							jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}_with_inputmask"
+							jsf:value="#{cc.attrs.value}"
+							placeholder="#{cc.attrs.placeholder}"
+							data-isymask-mask="#{cc.attrs.inputmask}"
+							data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}"
+							maxlength="#{cc.attrs.maxlength}" style="width: #{cc.attrs.width}"
+							title="#{cc.attrs.tooltip}" />
+					</ui:fragment>
+					<ui:fragment
+						rendered="#{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled}">
+						<a
+							class="btn btn-icon input-group-addon char-picker-button special-char-button"
+							title="#{msg_plisweb.MEL_Charpicker_Tooltip}"> <span
+							class="icon icon-char" />
+						</a>
+					</ui:fragment>
+					<composite:insertChildren />
+				</ui:fragment>
+				<ui:fragment
+					rendered="#{cc.attrs.readonly and not cc.attrs.showPrintView}">
+					<input type="#{cc.attrs.type}" class="form-control readonly"
+						jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+						readonly="readonly" jsf:value="#{cc.attrs.value}"
+						style="width: #{cc.attrs.width}" />
+
+				</ui:fragment>
+				<ui:fragment rendered="#{cc.attrs.showPrintView}">
+					<input type="#{cc.attrs.type}" class="form-control"
+						jsf:id="disabled_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+						disabled="disabled" jsf:value="#{cc.attrs.value}"
+						style="width: #{cc.attrs.width}" />
+				</ui:fragment>
+
+      <!-- Four Eyes -->
+      <isyi:foureyesicon
+          linkClass="#{not empty cc.attrs.icon ? 'formactioninputvieraugenlink' : 'formactioninputvieraugenlinkwithicon'} 
+          #{existsValidationError and not empty cc.attrs.icon ? 'formactioninputvieraugenhaserror': ''}"
+          buttonClass="#{not cc.attrs.disabled?'input-only':''} formactioninputvieraugenbutton"
+          fourEyesMode="#{cc.attrs.fourEyesMode}"
+          fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+          disabled="#{cc.attrs.disabled}" />
+			</div>
+			<!-- Bei Validierungsfehlern -->
+			<isyi:formValidationIcon
+				validationModel="#{cc.attrs.validationModel}"
+				reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
+		</div>
+		<composite:renderFacet name="contentRight" />
+	</div>
+</composite:implementation>
+
+</html>

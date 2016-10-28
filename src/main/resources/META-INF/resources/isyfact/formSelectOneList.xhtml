@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
+    xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+    >
+
+<!-- Ein Dropdownmenü innerhalb Formularen. -->
+
+<composite:interface>
+
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="reference" required="true" />
+    <!-- Der Wert der Auswahl für das Databinding -->
+    <composite:attribute name="value" required="true" />
+    <!-- Ob die Liste deaktiviert ist. -->
+    <composite:attribute name="disabled" type="Boolean" default="false" />
+    <!-- dieses Attribut wird im Sinne von bootstrap-selectlist.js interpretiert, d.h. gibt die Anzahl der Zeilen die sichtbar sind -->
+    <composite:attribute name="size" />
+    <!-- Falls <code>true</code> wird zusätzlich zum highlighting, auch checkboxes angezeigt  -->
+    <composite:attribute name="checkboxed" type="Boolean" default="false" />
+    <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+    <composite:attribute name="required" type="Boolean" default="false" />
+
+    <!-- Der Text für das Label -->
+    <composite:attribute name="label" type="String" required="false" />
+    <!-- Die CSS-Klasse für das Label. -->
+    <composite:attribute name="labelStyleClass" type="String" default="col-lg-6" />
+    <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <composite:attribute name="inputStyleClass" type="String" default="col-lg-6" />
+    <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+    <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
+    <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+    <!-- Validierungsfehler bestimmen -->
+    <ui:param name="validationMessages"
+        value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+    <ui:param name="existsValidationError" value="#{not empty validationMessages}" />
+
+    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+
+        <isyi:formValidationLabel value="#{cc.attrs.label}"
+            forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+            required="#{cc.attrs.required}" styleClass="#{cc.attrs.labelStyleClass}" />
+
+        <div class="#{cc.attrs.inputStyleClass}">
+            <div class="#{cc.attrs.selectlistStyleClass} #{cc.attrs.globalConfig.jsEnabled ? 'selectlist' : ''}">
+                <h:selectOneListbox id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" value="#{cc.attrs.value}" p:data-size="#{cc.attrs.size}" 
+                    styleClass="form-selectlist #{cc.attrs.globalConfig.jsEnabled ? 'selectlist' : 'selectlist-native'} #{cc.attrs.disabled ? 'disabled' : ''} #{cc.attrs.checkboxed ? 'checkboxed' : ''}">
+                    <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                    <composite:insertChildren />
+                </h:selectOneListbox>
+            </div>
+        </div>
+
+        <!-- Bei Validierungsfehlern -->
+        <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+            reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
+    </div>
+</composite:implementation>
+
+</html>

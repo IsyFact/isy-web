@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Eine horizontale Gruppierung von Radio Buttons. -->
+
+<composite:interface>
+
+    <!-- Der Wert der Auswahl für das Data-Binding -->
+    <composite:attribute name="value" required="true" />
+    <!-- Die Select-Items. Jedes Item entspricht einem Radio-Button. -->
+    <composite:attribute name="selectItems" required="true" />
+    <!-- Ob das Widget in der Druckansicht angezeigt werden soll. -->
+  <composite:attribute name="showPrintView" type="Boolean"
+    default="#{not empty basisModel and basisModel.showPrintView}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+    <t:selectOneRadio id="selectOneRadio" layout="spread" value="#{cc.attrs.value}" disabled="#{cc.attrs.showPrintView}">
+        <f:selectItems value="#{cc.attrs.selectItems}" />
+    </t:selectOneRadio>
+
+    <t:dataList var="item" value="#{cc.attrs.selectItems}" rowIndexVar="idx">
+            <label class="radio-inline"><t:radio for="relative:super:super:selectOneRadio" index="#{idx}" /> <span>#{item.label}</span></label>
+    </t:dataList>
+
+</composite:implementation>
+
+</html>

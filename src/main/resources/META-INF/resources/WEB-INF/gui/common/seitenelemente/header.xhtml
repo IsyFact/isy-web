@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rf="http://java.sun.com/jsf/composite/registerfactory">
+
+	<div class="header-colorbar"></div>
+
+	<div class="header-content" role="banner">
+
+		<img class="logo" alt="Bundesverwaltungsamt Logo"
+			src="${request.contextPath}/app/resources/img/logo.png" />
+
+		<div class="pull-right text-right">
+
+			<div class="brand">
+				<img alt="Register Portal Logo"
+					src="${request.contextPath}/app/resources/img/registerLogo.png" />
+				<span>Registerportal Bundesverwaltungsamt</span>
+			</div>
+
+			<ui:include src="#{headerHelper.ermittleXhtmlSrcNutzerbereich()}" />
+			
+			<div class="btn-group">
+				<ul aria-labelledby="dropdownMenu1" role="menu"
+					class="dropdown-menu">
+					<li role="presentation" class="selected"><a href="#"
+						tabindex="-1" role="menuitem">Logout</a></li>
+					<li role="presentation"><a href="#" tabindex="-1"
+						role="menuitem">Preferences</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</ui:composition>

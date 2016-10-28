@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Ein Button. Je nach JS-Status wird hier eine AJAX-Aktion oder ein Full-Page Reload durchgeführt. -->
+
+<composite:interface>
+
+	<!-- Die auszuführende Aktion. -->
+	<composite:attribute name="action" required="true"
+		targets="ajax_button button ajax_button_block" />
+	<!-- Die zu ergänzenden Style-Klassen. -->
+	<composite:attribute name="styleClass" required="false" />
+	<!-- Das Label des Buttons. -->
+	<composite:attribute name="value" required="true" />
+	<!-- Ob der Button deaktivert ist oder nicht. -->
+	<composite:attribute name="disabled" type="Boolean" default="false" />
+	<!-- zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+	<composite:attribute name="showPrintView" type="Boolean"
+		default="#{not empty basisModel and basisModel.showPrintView}" />
+
+	<!-- AJAX: Soll eine AJAX Aktion ausgeführt werden. -->
+	<composite:attribute name="ajax" required="false" default="true"
+		type="Boolean" />
+	<!-- AJAX: Welches Form ausgeführt werden soll. -->
+	<composite:attribute name="execute" required="false" default="@form" />
+	<!-- AJAX: Welche Elemente gerendert werden sollen. -->
+	<composite:attribute name="render" required="false" default="@form" />
+	<!-- AJAX: Ob ein Klick die GUI blockieren soll bis das Ergebnis eingetroffen ist. -->
+	<composite:attribute name="block" required="false" default="false"
+		type="Boolean" />
+	<!-- AJAX: Ob dieser Knopf die defaultAction des Formulars sein soll. -->
+  <composite:attribute name="defaultAction" required="false" default="false" type="Boolean" />
+
+	<!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- Buttons werden deaktiviert, sofern eine der folgenden Bedingungen zutrifft  -->
+	<!-- 1) Das Attribut "disabled" ist true -->
+	<!-- 2) Das Attribut "disabled" ist false und das Attribut "showPrintView" ist true -->
+	<ui:param name="btnDisabled"
+		value="#{(cc.attrs.showPrintView and not cc.attrs.disabled) || cc.attrs.disabled}" />
+
+	<ui:fragment
+		rendered="#{cc.attrs.globalConfig.jsEnabled and not cc.attrs.block}">
+		<h:commandButton id="ajax_button"
+			styleClass="btn btn-default #{cc.attrs.styleClass}"
+			value="#{cc.attrs.value}" disabled="#{btnDisabled}">
+			<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
+				disabled="#{not cc.attrs.ajax}" onevent="blockSingleButton" />
+		</h:commandButton>
+	</ui:fragment>
+	<ui:fragment
+		rendered="#{cc.attrs.globalConfig.jsEnabled and cc.attrs.block}">
+		<h:commandButton id="ajax_button_block"
+			styleClass="btn btn-default #{cc.attrs.styleClass}"
+			value="#{cc.attrs.value}" disabled="#{btnDisabled}">
+			<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
+				onevent="blockUi" disabled="#{not cc.attrs.ajax}" />
+		</h:commandButton>
+	</ui:fragment>
+	<ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled and cc.attrs.defaultAction}">
+		<input type="hidden" jsf:id="defaultButtonID" value="#{cc.clientId}:ajax_button#{cc.attrs.block?'_block':''}" disabled="disabled" />
+	</ui:fragment>
+	<ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
+		<h:commandButton id="button"
+			styleClass="btn btn-default #{cc.attrs.styleClass}"
+			value="#{cc.attrs.value}" disabled="#{btnDisabled}" />
+	</ui:fragment>
+
+</composite:implementation>
+
+</html>

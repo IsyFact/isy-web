@@ -1,0 +1,61 @@
+/*-------- Stylesheet f�r Sonderzeichen Overlay -------*/
+.clearfix {
+    clear: both;
+}
+
+.special-char-button {
+    float: right;
+    vertical-align: middle;
+    margin-top: 5px;
+    margin-right: 5px;
+    opacity: 0.6;
+    cursor: default;
+}
+
+.special-char-button.enabled {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.special-char-picker-widget {
+  background-color: #a1b26e;
+  position: absolute;
+  width: 60em;
+  display: none;
+  border-radius: 8px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.special-char-picker-widget > div {
+  padding: 0px;
+}
+
+.special-char, .filter-item {
+}
+
+.special-char {
+    display: block;
+    float: left;
+}
+
+.filter-item {
+    display: inline-block;
+}
+
+.filter-bar { 
+}
+
+.filter-table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.special-char-box {
+  border-top: 2px;
+}
+
+

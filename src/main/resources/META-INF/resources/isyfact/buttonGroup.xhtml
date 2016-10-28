@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Eine Gruppierung mehrerer Buttons -->
+
+<composite:interface>
+
+	<!-- Ob die Button Row eine Alignment nach Rechts besitzen soll oder nicht. -->
+	<composite:attribute name="alignRight" type="Boolean" default="false" />
+	<!-- Ob die Button Row eine Alignment nach Links besitzen soll oder nicht. -->
+	<composite:attribute name="alignLeft" type="Boolean" default="false" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<div
+		class="btn-group #{cc.attrs.alignRight ? 'pull-right' : ''}#{cc.attrs.alignLeft ? 'pull-left' : ''}">
+		<composite:insertChildren />
+	</div>
+
+</composite:implementation>
+
+</html>

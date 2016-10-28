@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<!-- Eine Checkbox mit Label. -->
+
+<composite:interface>
+
+	<!-- Der Wert der Checkbox für das Databinding in Models. -->
+	<composite:attribute name="value" required="true" />
+	<!-- Das Label der Checkbox -->
+	<composite:attribute name="label" required="false" />
+	<!-- Ob die Checkbox deaktiviert ist oder nicht. -->
+	<composite:attribute name="disabled" required="true" default="false"
+		type="Boolean" />
+	<!-- Ob das Widget in der Druckansicht angezeigt werden soll. -->
+	<composite:attribute name="showPrintView" type="Boolean"
+		default="#{not empty basisModel and basisModel.showPrintView}" />
+	<!-- Ob die Checkbox zwingend markiert werden muss oder nicht. -->
+	<composite:attribute name="required" required="true" default="false"
+		type="Boolean" />
+	<!-- Das onchange-Event der Checkbox -->
+	<composite:attribute name="onchange" required="false" />
+
+	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
+	<composite:attribute name="fourEyesMode" type="String" />
+
+	<!-- 4 Augen Prinzip Letzter Wert -->
+	<composite:attribute name="fourEyesLastValue" type="String" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<ui:param name="labelClass"
+		value="#{cc.attrs.required ? 'required' : ''}" />
+
+	<div class="checkbox">
+		<label class="#{labelClass} control-label"
+			for="#{cc.clientId}:selectBooleanCheckbox">
+			<t:selectBooleanCheckbox id="selectBooleanCheckbox"
+				value="#{cc.attrs.value}" styleClass="form-control"
+				disabled="#{cc.attrs.disabled or cc.attrs.showPrintView}"
+				onchange="#{cc.attrs.onchange}" /><span>#{cc.attrs.label}</span>
+		</label>
+		<isyi:foureyesicon id="foureyes#{cc.attrs.fourEyesMode}"
+			linkClass="formcheckboxvieraugen"
+			buttonClass="#{not cc.attrs.disabled?'input-only':''} formcheckboxvieraugen #{cc.attrs.disabled?'formcheckboxvieraugenabstand':''}"
+			fourEyesMode="#{cc.attrs.fourEyesMode}"
+			fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+			disabled="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}" />
+
+	</div>
+
+
+</composite:implementation>
+
+</html>

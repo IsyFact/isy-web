@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- Ein Panel. -->
+
+<composite:interface>
+
+    <!-- Das Panel Model. Nur notwendig falls das Panel einklappbar sein soll. -->
+    <composite:attribute name="panelModel"
+        type="de.bund.bva.isyfact.common.web.jsf.components.panel.PanelModel" />
+    <!-- Ob das Panel einklappbar sein soll. Falls ja, so muss auch ein panelModel angegeben werden. -->
+    <composite:attribute name="collapse" type="Boolean" default="false" />
+    <!-- ID des Panels. -->
+    <composite:attribute name="panelId" required="false" />
+
+    <!-- Der Header des Panels. -->
+    <composite:facet name="panelHeader" required="false" />
+     <!-- Die Buttons am Header des Panels. -->
+    <composite:facet name="panelButtons" required="false" />
+    <!-- Der Inhalt des Panels. Kann auch direkt, ohne angabe des Facets, über Kindelemente angegeben werden. -->
+    <composite:facet name="panelBody" required="false" />
+
+    <!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+    <div class="panel panel-default" id="#{cc.clientId}-panel-#{cc.attrs.panelId}">
+
+        <ui:param name="collapseActive" value="#{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView and cc.attrs.collapse}" />
+        <ui:fragment rendered="#{not empty cc.facets.panelHeader}">
+	        <div class="panel-heading ">
+	            <div class="panel-title clearfix">
+
+	                <ui:param name="dataToggleValuesEnabled" value="#{collapseActive ? 'collapse' : ''}" />
+	                <ui:param name="dataToggleValues" value="#{collapseActive ? dataToggleValuesEnabled : ''}" />
+
+	                <ui:param name="classValuesEnabled"
+	                    value="#{cc.attrs.panelModel.ausgeklappt ? '' : 'collapsed'}" />
+	                <ui:param name="classValues" value="#{collapseActive ? classValuesEnabled : ''}" />
+
+	                <ui:param name="hrefValuesEnabled"
+	                    value="##{jsfHelper.escapeIdentifier(cc.clientId)}PanelCollapse" />
+	                <ui:param name="hrefValues" value="#{collapseActive ? hrefValuesEnabled : ''}" />
+
+                <ui:fragment rendered="#{collapseActive}">
+	                  <a href="#{hrefValues}" data-toggle="#{dataToggleValues}" class="#{classValues}">
+	                          <span class="icon"></span>
+	                      <composite:renderFacet name="panelHeader" />
+	                  </a>
+	                  <div class="btn-toolbar"><div class="btn-group"><composite:renderFacet name="panelButtons" /></div></div>
+	                </ui:fragment>
+	                <ui:fragment rendered="#{not collapseActive}">
+	                  <span><composite:renderFacet name="panelHeader" /></span>
+	                  <div class="btn-toolbar"><div class="btn-group"><composite:renderFacet name="panelButtons" /></div></div>
+	                </ui:fragment>
+
+	                  <div class="panel-groupline-container">
+	                      <span class="panel-groupline"></span>
+	                  </div>
+
+	                <ui:fragment rendered="#{collapseActive}">
+	                    <h:inputHidden id="panelCollapseAttribute"
+	                        value="#{cc.attrs.panelModel.ausgeklappt}" />
+	                </ui:fragment>
+	            </div>
+	        </div>
+        </ui:fragment>
+        <ui:param name="classValuesEnabled"
+            value="panel-collapse #{cc.attrs.panelModel.ausgeklappt ? 'collapse in' : 'collapse'}" />
+        <ui:param name="classValues" value="#{collapseActive ? classValuesEnabled : ''}" />
+
+        <div id="#{jsfHelper.escapeIdentifier(cc.clientId)}PanelCollapse" class="#{classValues}">
+            <div class="panel-body">
+                <composite:renderFacet name="panelBody" />
+                <composite:insertChildren />
+            </div>
+        </div>
+    </div>
+
+</composite:implementation>
+
+</html>

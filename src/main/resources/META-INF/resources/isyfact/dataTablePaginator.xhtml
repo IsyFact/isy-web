@@ -1,0 +1,204 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+	xmlns:isyc="http://java.sun.com/jsf/isyfact2"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<composite:interface>
+
+	<!-- Alle Texte haben 2 optionale Parameter:  -->
+	<!-- {0}: Die Nummer der betroffenen Seite. -->
+	<!-- {1}: Die Anzahl der Seiten. -->
+	<composite:attribute name="showMoreText" type="String" required="false"
+		default="...Mehr Anzeigen..." />
+	<composite:attribute name="showMoreTooltip" type="String"
+		required="false"
+		default="Nächste Seite - Seite \#{0} von \#{1} anzeigen" />
+	<composite:attribute name="text" type="String" required="false"
+		default="Seite {0} von {1}" />
+	<composite:attribute name="firstPageText" type="String"
+		required="false" default="«" />
+	<composite:attribute name="firstPageTooltip" type="String"
+		required="false"
+		default="Erste Seite - Seite \#{0} von \#{1} anzeigen" />
+	<composite:attribute name="previousPageText" type="String"
+		required="false" default="‹" />
+	<composite:attribute name="previousPageTooltip" type="String"
+		required="false"
+		default="Vorherige Seite - Seite \#{0} von \#{1} anzeigen" />
+	<composite:attribute name="pageText" type="String" required="false"
+		default="{0}" />
+	<composite:attribute name="pageTooltip" type="String" required="false"
+		default="Seite \#{0} von \#{1} anzeigen" />
+	<composite:attribute name="nextPageText" type="String" required="false"
+		default="›" />
+	<composite:attribute name="nextPageTooltip" type="String"
+		required="false"
+		default="Nächste Seite - Seite \#{0} von \#{1} anzeigen" />
+	<composite:attribute name="lastPageText" type="String" required="false"
+		default="»" />
+	<composite:attribute name="lastPageTooltip" type="String"
+		required="false"
+		default="Letzte Seite - Seite \#{0} von \#{1} anzeigen" />
+		
+	<!-- Ergänzungen an der rechten Seite, links neben dem Paginator -->
+  <composite:facet name="paginatorRechts" required="false" />
+</composite:interface>
+
+<composite:implementation>
+
+	<!-- Falls <code>mode == 'CLIENT'</code> und JS deaktiviert, wird kein Paginator angezeigt. -->
+	<ui:fragment
+		rendered="#{(cc.parent.attrs.dataTableModel.mode eq 'SERVER' or cc.parent.attrs.globalConfig.jsEnabled) and (cc.parent.attrs.dataTableModel.dataModel.filteredItemCount gt cc.parent.attrs.dataTableModel.paginationModel.pageSize)}">
+
+		<td
+			class="#{cc.parent.attrs.dataTableModel.paginationModel.type} pagination-container"
+			colspan="20"
+			data-pagesize="#{cc.parent.attrs.dataTableModel.paginationModel.pageSize}"
+			data-currentpage="#{cc.parent.attrs.dataTableModel.paginationModel.currentPage}"
+			data-itemcount="#{cc.parent.attrs.dataTableModel.dataModel.filteredItemCount}"
+			data-paginatorsize="#{cc.parent.attrs.dataTableModel.paginationModel.paginatorSize}">
+			
+		
+
+			<ul class="pagination" style="">
+			 <composite:renderFacet name="paginatorRechts"/>
+				<ui:fragment
+					rendered="#{cc.parent.attrs.dataTableModel.paginationModel.type eq 'NORMAL'}">
+					<li class="pagination-text" data-text="#{cc.attrs.text}"><isyc:outputFormat
+							value="#{cc.attrs.text}" escape="false">
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.currentPage}" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat></li>
+					<li class="page-first" data-tooltip="#{cc.attrs.firstPageTooltip}"
+						data-text="#{cc.attrs.firstPageText}"><isyc:outputFormat
+							var="text" value="#{cc.attrs.firstPageText}" escape="false">
+							<f:param value="1" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isyc:outputFormat var="tooltip"
+							value="#{cc.attrs.firstPageTooltip}" escape="false">
+							<f:param value="1" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isy:buttonIcon value="#{text}"
+							disabled="#{cc.parent.attrs.dataTableModel.paginationModel.firstPageSelected}"
+							action="#{cc.parent.attrs.dataTableController.paginate(cc.parent.attrs.dataTableModel, 1)}"
+							showIcon="false" tooltip="#{tooltip}" /></li>
+					<li class="page-pre" data-tooltip="#{cc.attrs.previousPageTooltip}"
+						data-text="#{cc.attrs.previousPageText}"><isyc:outputFormat
+							var="text" value="#{cc.attrs.previousPageText}" escape="false">
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.currentPage-1}" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isyc:outputFormat var="tooltip"
+							value="#{cc.attrs.previousPageTooltip}" escape="false">
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.currentPage-1}" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isy:buttonIcon value="#{text}"
+							disabled="#{cc.parent.attrs.dataTableModel.paginationModel.firstPageSelected}"
+							action="#{cc.parent.attrs.dataTableController.paginate(cc.parent.attrs.dataTableModel, -1+cc.parent.attrs.dataTableModel.paginationModel.currentPage)}"
+							showIcon="false" tooltip="#{tooltip}" /></li>
+					<ui:fragment
+						rendered="#{cc.parent.attrs.dataTableModel.mode eq 'CLIENT'}">
+						<li class="page-number master hidden"
+							data-tooltip="#{cc.attrs.pageTooltip}"
+							data-text="#{cc.attrs.pageText}">
+							<button type="button" class="btn" />
+						</li>
+					</ui:fragment>
+					<ui:fragment
+						rendered="#{cc.parent.attrs.dataTableModel.mode eq 'SERVER'}">
+						<ui:repeat var="page"
+							value="#{cc.parent.attrs.dataTableModel.paginationModel.showPages}">
+							<li
+								class="page-number #{(page eq cc.parent.attrs.dataTableModel.paginationModel.currentPage)?'active':''}"
+								data-tooltip="#{cc.attrs.pageTooltip}"
+								data-text="#{cc.attrs.pageText}"><isyc:outputFormat
+									var="text" value="#{cc.attrs.pageText}" escape="false">
+									<f:param value="#{page}" />
+									<f:param
+										value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+								</isyc:outputFormat> <isyc:outputFormat var="tooltip"
+									value="#{cc.attrs.pageTooltip}" escape="false">
+									<f:param value="#{page}" />
+									<f:param
+										value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+								</isyc:outputFormat> <isy:buttonIcon value="#{text}"
+									disabled="#{page eq cc.parent.attrs.dataTableModel.paginationModel.currentPage}"
+									action="#{cc.parent.attrs.dataTableController.paginate(cc.parent.attrs.dataTableModel, page)}"
+									showIcon="false" tooltip="#{tooltip}" /></li>
+						</ui:repeat>
+					</ui:fragment>
+					<li class="page-next" data-tooltip="#{cc.attrs.nextPageTooltip}"
+						data-text="#{cc.attrs.nextPageText}"><isyc:outputFormat
+							var="text" value="#{cc.attrs.nextPageText}" escape="false">
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.currentPage+1}" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isyc:outputFormat var="tooltip"
+							value="#{cc.attrs.nextPageTooltip}" escape="false">
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.currentPage+1}" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isy:buttonIcon value="#{text}"
+							disabled="#{cc.parent.attrs.dataTableModel.paginationModel.lastPageSelected}"
+							action="#{cc.parent.attrs.dataTableController.paginate(cc.parent.attrs.dataTableModel, 1+cc.parent.attrs.dataTableModel.paginationModel.currentPage)}"
+							showIcon="false" tooltip="#{tooltip}" /></li>
+					<li class="page-last" data-tooltip="#{cc.attrs.lastPageTooltip}"
+						data-text="#{cc.attrs.lastPageText}"><isyc:outputFormat
+							var="text" value="#{cc.attrs.lastPageText}" escape="false">
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isyc:outputFormat var="tooltip"
+							value="#{cc.attrs.lastPageTooltip}" escape="false">
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isy:buttonIcon value="#{text}"
+							disabled="#{cc.parent.attrs.dataTableModel.paginationModel.lastPageSelected}"
+							action="#{cc.parent.attrs.dataTableController.paginate(cc.parent.attrs.dataTableModel, cc.parent.attrs.dataTableModel.paginationModel.pageCount)}"
+							showIcon="false" tooltip="#{tooltip}" /></li>
+				</ui:fragment>
+				<ui:fragment
+					rendered="#{cc.parent.attrs.dataTableModel.paginationModel.type eq 'SIMPLE' and not cc.parent.attrs.dataTableModel.paginationModel.lastPageSelected}">
+					<li class="page-next" data-tooltip="#{cc.attrs.showMoreTooltip}"
+						data-text="#{cc.attrs.showMoreText}"><isyc:outputFormat
+							var="text" value="#{cc.attrs.showMoreText}" escape="false">
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.currentPage+1}" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isyc:outputFormat var="tooltip"
+							value="#{cc.attrs.showMoreTooltip}" escape="false">
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.currentPage+1}" />
+							<f:param
+								value="#{cc.parent.attrs.dataTableModel.paginationModel.pageCount}" />
+						</isyc:outputFormat> <isy:buttonIcon value="#{cc.attrs.showMoreText}" showIcon="false"
+							tooltip="#{tooltip}"
+							action="#{cc.parent.attrs.dataTableController.paginate(cc.parent.attrs.dataTableModel,1+cc.parent.attrs.dataTableModel.paginationModel.currentPage)}" />
+					</li>
+				</ui:fragment>
+			</ul>
+		</td>
+
+	</ui:fragment>
+
+</composite:implementation>
+
+</html>
