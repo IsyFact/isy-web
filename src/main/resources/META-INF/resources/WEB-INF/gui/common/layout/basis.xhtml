@@ -27,61 +27,68 @@ vorhanden ist. -->
         <meta name="description" content="" />
         <meta name="HandheldFriendly" content="True" />
         <meta name="viewport" content="width=device-width" />
-
-        <ui:fragment rendered="#{not basisModel.showPrintView}">
-            <link rel="stylesheet" href="${request.contextPath}/app/resources/css/styles.css" type="text/css"
-                media="screen" />
+        
+        <ui:fragment>
+            <h:outputStylesheet
+            rendered="#{not basisModel.showPrintView}" name="css/styles.css" media="screen" />
             <!-- Custom Style Einbinden, falls vorhanden -->
-            <ui:fragment
-                rendered="#{not empty facesContext.externalContext.getResource('/css/custom-styles.css')}">
+            <h:outputStylesheet 
+            rendered="#{not empty facesContext.externalContext.getResource('/resources/default/css/custom-styles.css') and not basisModel.showPrintView}"
+            library="default" name="css/custom-styles.css" media="screen" />
+            <ui:fragment rendered="#{not basisModel.showPrintView and not empty facesContext.externalContext.getResource('/css/custom-styles.css') and empty facesContext.externalContext.getResource('/resources/default/css/custom-styles.css')}">
+            <!-- Fuer Isa-Ga ohne versionierung-->
                 <link rel="stylesheet" href="${request.contextPath}/app/resources/css/custom-styles.css"
                     type="text/css" media="screen" />
             </ui:fragment>
-            <link rel="stylesheet" href="${request.contextPath}/app/resources/css/print.css" type="text/css"
-                media="print" />
+            <h:outputStylesheet rendered="#{not basisModel.showPrintView}" name="css/print.css" media="print" />
             <!-- Custom Style Einbinden, falls vorhanden -->
-            <ui:fragment
-                rendered="#{not empty facesContext.externalContext.getResource('/css/custom-print.css')}">
-                <link rel="stylesheet" href="${request.contextPath}/app/resources/css/custom-print.css"
-                    type="text/css" media="print" />
+            <h:outputStylesheet
+            rendered="#{not empty facesContext.externalContext.getResource('/resources/default/css/custom-print.css') and not basisModel.showPrintView}"
+            library="default" name="css/custom-print.css" media="print" />
+            <ui:fragment rendered="#{not basisModel.showPrintView and not empty facesContext.externalContext.getResource('/css/custom-print.css') and empty facesContext.externalContext.getResource('/resources/default/css/custom-print.css')}">
+            <!-- Fuer Isa-Ga ohne versionierung-->
+              <link rel="stylesheet" href="${request.contextPath}/app/resources/css/custom-print.css"
+              type="text/css" media="print" />
             </ui:fragment>
         </ui:fragment>
-        <ui:fragment rendered="#{basisModel.showPrintView}">
-            <link rel="stylesheet" href="${request.contextPath}/app/resources/css/print.css" type="text/css"
-                media="screen, print" />
+        
+        <ui:fragment>
+            <h:outputStylesheet rendered="#{basisModel.showPrintView}" name="css/print.css" media="screen, print" />
             <!-- Custom Style Einbinden, falls vorhanden -->
-            <ui:fragment
-                rendered="#{not empty facesContext.externalContext.getResource('/css/custom-print.css')}">
-                <link rel="stylesheet" href="${request.contextPath}/app/resources/css/custom-print.css"
-                    type="text/css" media="screen, print" />
-            </ui:fragment>
+            <h:outputStylesheet rendered="#{not empty facesContext.externalContext.getResource('/resources/default/css/custom-print.css') and basisModel.showPrintView}"
+            library="default" name="css/custom-print.css" media="screen, print" />
+            <ui:fragment rendered="#{basisModel.showPrintView and not empty facesContext.externalContext.getResource('/css/custom-print.css') and empty facesContext.externalContext.getResource('/resources/default/css/custom-print.css')}">
+            <!-- Fuer Isa-Ga ohne versionierung-->
+            <link rel="stylesheet" href="${request.contextPath}/app/resources/css/custom-print.css"
+              type="text/css" media="screen, print" />
+          </ui:fragment>
         </ui:fragment>
+        
         <ui:fragment rendered="#{not empty globalConfigurationModel and globalConfigurationModel.jsEnabled}">
-            <script type="text/javascript" src="${request.contextPath}/app/resources/lib/jquery-1.11.0.js"/>
-            <script type="text/javascript" src="${request.contextPath}/app/resources/lib/bootstrap.min.js"/>
-            <script type="text/javascript" src="${request.contextPath}/app/resources/lib/modernizr.js"/>
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/functions.js"/>
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/bootstrap-datepicker.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/bootstrap-timepicker.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/bootstrap-select.min.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/bootstrap-selectlist.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/bootstrap-browsecollect.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/jquery.utils.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/jquery.inputmask.bundle.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/jquery.hotkeys.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/jquery.visible.min.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/extendedBootstrapTab.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/harmonizePanelHeadlineWidth.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/infoPanel.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/mainNavigation.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/plugins/magnific-popup.min.js" />
+            <h:outputScript name="lib/jquery-1.11.0.js"/>
+            <h:outputScript name="lib/bootstrap.min.js"/>
+            <h:outputScript name="lib/modernizr.js"/>
+            <h:outputScript name="plugins/functions.js"/>
+            <h:outputScript name="plugins/bootstrap-datepicker.js" />
+            <h:outputScript name="plugins/bootstrap-timepicker.js" />
+            <h:outputScript name="plugins/bootstrap-select.min.js" />
+            <h:outputScript name="plugins/bootstrap-selectlist.js" />
+            <h:outputScript name="plugins/bootstrap-browsecollect.js" />
+            <h:outputScript name="plugins/jquery.utils.js" />
+            <h:outputScript name="plugins/jquery.inputmask.bundle.js" />
+            <h:outputScript name="plugins/jquery.hotkeys.js" />
+            <h:outputScript name="plugins/jquery.visible.min.js" />
+            <h:outputScript name="plugins/extendedBootstrapTab.js" />
+            <h:outputScript name="plugins/harmonizePanelHeadlineWidth.js" />
+            <h:outputScript name="plugins/infoPanel.js" />
+            <h:outputScript name="plugins/mainNavigation.js" />
+            <h:outputScript name="plugins/magnific-popup.min.js" />
         </ui:fragment>
 
         <!-- Binde ie8fixes.css ein, sofern es sich um einen Internet-Explorer kleiner als IE8 handelt. -->
-        <ui:fragment
-            rendered="#{not empty globalConfigurationModel and globalConfigurationModel.webBrowserVersion.internetExplorerVersionKleinerGleich8}">
-            <link rel="stylesheet" type="text/css"
-                href="${request.contextPath}/app/resources/css/ie8fixes.css" media="all" />
+        <ui:fragment>
+                <h:outputStylesheet rendered="#{not empty globalConfigurationModel and globalConfigurationModel.webBrowserVersion.internetExplorerVersionKleinerGleich8}"
+                name="css/ie8fixes.css" media="all" />   
         </ui:fragment>
 
         <ui:insert name="headIncludes" />
@@ -164,9 +171,9 @@ vorhanden ist. -->
         </h:form>
 
         <ui:fragment rendered="#{not empty globalConfigurationModel and globalConfigurationModel.jsEnabled}">
-            <h:outputScript type="text/javascript" name="js/tastatursteuerung.js" />
-            <script type="text/javascript" src="${request.contextPath}/app/resources/js/onload.js"/>
-            <h:outputScript type="text/javascript" name="js/specialcharpicker.js" />
+            <h:outputScript name="js/tastatursteuerung.js" />
+            <h:outputScript name="js/onload.js"/>
+            <h:outputScript name="js/specialcharpicker.js" />
             <ui:insert name="script" />
         </ui:fragment>
 
