@@ -20,7 +20,7 @@ public class QuicklinksGroup implements Serializable {
 
     private int maxAnzahlElemente;
 
-    private List<QuicklinkselementModel> elemente = new LinkedList<QuicklinkselementModel>();
+    private List<QuicklinksElementModel> elemente = new LinkedList<QuicklinksElementModel>();
 
     public String getId() {
         return this.id;
@@ -46,31 +46,31 @@ public class QuicklinksGroup implements Serializable {
         this.sichtbar = sichtbar;
     }
 
-    public List<QuicklinkselementModel> getElemente() {
-        return new ArrayList<QuicklinkselementModel>(this.elemente);
+    public List<QuicklinksElementModel> getElemente() {
+        return new ArrayList<QuicklinksElementModel>(this.elemente);
     }
 
-    public void setElemente(List<QuicklinkselementModel> elements) {
+    public void setElemente(List<QuicklinksElementModel> elements) {
         this.elemente = elements;
     }
 
-    public void elementLoeschen(QuicklinkselementModel element) {
+    public void elementLoeschen(QuicklinksElementModel element) {
         this.elemente.remove(element);
     }
 
-    public void elementHinzufuegen(QuicklinkselementModel element) {
+    public void elementHinzufuegen(QuicklinksElementModel element) {
         maxAnzahlElementeGewahrleisten();
         this.elemente.add(element);
     }
 
-    public QuicklinkselementModel elementAmAnfangHinzufuegen(QuicklinkselementModel element) {
-        QuicklinkselementModel elem = maxAnzahlElementeGewahrleisten();
+    public QuicklinksElementModel elementAmAnfangHinzufuegen(QuicklinksElementModel element) {
+        QuicklinksElementModel elem = maxAnzahlElementeGewahrleisten();
         this.elemente.add(0, element);
         return elem;
     }
 
-    private QuicklinkselementModel maxAnzahlElementeGewahrleisten() {
-        QuicklinkselementModel elem = null;
+    private QuicklinksElementModel maxAnzahlElementeGewahrleisten() {
+        QuicklinksElementModel elem = null;
         if (this.elemente.size() > 0 && this.elemente.size() >= this.maxAnzahlElemente) {
             elem = this.elemente.remove(this.elemente.size() - 1);
         }

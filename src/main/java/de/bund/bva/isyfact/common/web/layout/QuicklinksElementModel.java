@@ -22,7 +22,7 @@ import java.io.Serializable;
  * Modell für ein Quicklinkselement.
  * @author Capgemini, Tobias Gröger
  */
-public class QuicklinkselementModel implements Serializable {
+public class QuicklinksElementModel implements Serializable {
 
     /**
      * ID.

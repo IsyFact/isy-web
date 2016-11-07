@@ -202,28 +202,28 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
     /**
      * Fügt einen Quicklink hinzu.
      *
-     * @param quicklinkselementModel
+     * @param QuicklinksElementModel
      *            der Quicklink
      * @param gruppeId
      *            ID der Gruppe
      *
      * @return gelöschte Element
      */
-    public QuicklinkselementModel fuegeQuicklinkHinzu(QuicklinkselementModel quicklinkselementModel,
+    public QuicklinksElementModel fuegeQuicklinkHinzu(QuicklinksElementModel QuicklinksElementModel,
         String gruppeId) {
 
         // Variable aus der Session holen
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
 
-        QuicklinkselementModel candidate = null;
+        QuicklinksElementModel candidate = null;
         synchronized (sessionMap.getMutex()) {
             QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
 
             // Wenn der Quicklink breits vorhanden ist, dann wird er aktualisiert und nach oben gesetzt
-            entferneQuicklinksIntern(quicklinkselementModel.getId(), gruppeId, quicklinksModel);
+            entferneQuicklinksIntern(QuicklinksElementModel.getId(), gruppeId, quicklinksModel);
 
             // Quicklink immer am Anfang einfügen
-            candidate = quicklinksModel.quicklinkAmAnfangHinzufuegen(quicklinkselementModel, gruppeId, null);
+            candidate = quicklinksModel.quicklinkAmAnfangHinzufuegen(QuicklinksElementModel, gruppeId, null);
 
             // Variable immer wieder in Session schreiben, damit übergeordnete Sessionmanager auf jeden Fall
             // eine
@@ -245,12 +245,12 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
      *
      * @return gelöschte element
      */
-    public QuicklinkselementModel entferneQuicklink(String elementId, String gruppeId) {
+    public QuicklinksElementModel entferneQuicklink(String elementId, String gruppeId) {
 
         // Variable aus der Session holen
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
 
-        QuicklinkselementModel candidate = null;
+        QuicklinksElementModel candidate = null;
         synchronized (sessionMap.getMutex()) {
             QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
 
@@ -273,16 +273,16 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
      *
      * @return gelöschte element
      */
-    private QuicklinkselementModel entferneQuicklinksIntern(String id, String gruppeId,
+    private QuicklinksElementModel entferneQuicklinksIntern(String id, String gruppeId,
         QuicklinksModel quicklinksModel) {
-        QuicklinkselementModel candidate = null;
+        QuicklinksElementModel candidate = null;
 
         if (quicklinksModel != null) {
 
             QuicklinksGroup group = quicklinksModel.getGruppe(gruppeId);
 
             if (group != null && group.istNichtLeer()) {
-                for (QuicklinkselementModel entry : group.getElemente()) {
+                for (QuicklinksElementModel entry : group.getElemente()) {
                     if (id.equals(entry.getId())) {
                         candidate = entry;
                     }
@@ -316,11 +316,11 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
             if (quicklinksModel != null && quicklinksModel.hatGruppe(von)) {
 
                 QuicklinksGroup vonGroup = quicklinksModel.getGruppe(von);
-                List<QuicklinkselementModel> elements = vonGroup.getElemente();
+                List<QuicklinksElementModel> elements = vonGroup.getElemente();
 
                 vonGroup.leeren();
 
-                for (QuicklinkselementModel model : elements) {
+                for (QuicklinksElementModel model : elements) {
                     quicklinksModel.quicklinkAmAnfangHinzufuegen(model, nach, title);
                 }
 
