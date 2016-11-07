@@ -96,7 +96,7 @@ public class ErrorController implements ApplicationContextAware {
             // Unterscheidung eingebaut, da das BVA keine Error-Log-Einträge haben möchte, die auftreten, wenn
             // der Browser des Nutzers Verbindungen schließt (mehrfacher Klick auf einen Download, usw.).
             if (socketException != null) {
-                LOG.warn(EreignisSchluessel.E_CLIENT_VERBINDUNG, "Client-Verbindungsfehler", t);
+                LOG.error(EreignisSchluessel.E_CLIENT_VERBINDUNG, "Client-Verbindungsfehler", t);
                 fehlerInformation =
                     FehlertextUtil.ermittleFehlerinformation(t,
                         this.applicationContext.getBean(AusnahmeIdMapper.class));
