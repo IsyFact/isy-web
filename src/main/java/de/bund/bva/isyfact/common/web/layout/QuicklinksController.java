@@ -202,14 +202,14 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
     /**
      * Fügt einen Quicklink hinzu.
      *
-     * @param QuicklinksElementModel
+     * @param quicklinksElementModel
      *            der Quicklink
      * @param gruppeId
      *            ID der Gruppe
      *
      * @return gelöschte Element
      */
-    public QuicklinksElementModel fuegeQuicklinkHinzu(QuicklinksElementModel QuicklinksElementModel,
+    public QuicklinksElementModel fuegeQuicklinkHinzu(QuicklinksElementModel quicklinksElementModel,
         String gruppeId) {
 
         // Variable aus der Session holen
@@ -220,10 +220,10 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
             QuicklinksModel quicklinksModel = (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
 
             // Wenn der Quicklink breits vorhanden ist, dann wird er aktualisiert und nach oben gesetzt
-            entferneQuicklinksIntern(QuicklinksElementModel.getId(), gruppeId, quicklinksModel);
+            entferneQuicklinksIntern(quicklinksElementModel.getId(), gruppeId, quicklinksModel);
 
             // Quicklink immer am Anfang einfügen
-            candidate = quicklinksModel.quicklinkAmAnfangHinzufuegen(QuicklinksElementModel, gruppeId, null);
+            candidate = quicklinksModel.quicklinkAmAnfangHinzufuegen(quicklinksElementModel, gruppeId, null);
 
             // Variable immer wieder in Session schreiben, damit übergeordnete Sessionmanager auf jeden Fall
             // eine

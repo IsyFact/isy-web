@@ -36,7 +36,7 @@ vorhanden ist. -->
             rendered="#{not empty facesContext.externalContext.getResource('/resources/default/css/custom-styles.css') and not basisModel.showPrintView}"
             library="default" name="css/custom-styles.css" media="screen" />
             <ui:fragment rendered="#{not basisModel.showPrintView and not empty facesContext.externalContext.getResource('/css/custom-styles.css') and empty facesContext.externalContext.getResource('/resources/default/css/custom-styles.css')}">
-            <!-- Fuer Isa-Ga ohne versionierung-->
+            <!-- Falls ohne Versionierung-->
                 <link rel="stylesheet" href="${request.contextPath}/app/resources/css/custom-styles.css"
                     type="text/css" media="screen" />
             </ui:fragment>
@@ -46,7 +46,7 @@ vorhanden ist. -->
             rendered="#{not empty facesContext.externalContext.getResource('/resources/default/css/custom-print.css') and not basisModel.showPrintView}"
             library="default" name="css/custom-print.css" media="print" />
             <ui:fragment rendered="#{not basisModel.showPrintView and not empty facesContext.externalContext.getResource('/css/custom-print.css') and empty facesContext.externalContext.getResource('/resources/default/css/custom-print.css')}">
-            <!-- Fuer Isa-Ga ohne versionierung-->
+            <!-- Falls ohne Versionierung-->
               <link rel="stylesheet" href="${request.contextPath}/app/resources/css/custom-print.css"
               type="text/css" media="print" />
             </ui:fragment>
@@ -58,7 +58,7 @@ vorhanden ist. -->
             <h:outputStylesheet rendered="#{not empty facesContext.externalContext.getResource('/resources/default/css/custom-print.css') and basisModel.showPrintView}"
             library="default" name="css/custom-print.css" media="screen, print" />
             <ui:fragment rendered="#{basisModel.showPrintView and not empty facesContext.externalContext.getResource('/css/custom-print.css') and empty facesContext.externalContext.getResource('/resources/default/css/custom-print.css')}">
-            <!-- Fuer Isa-Ga ohne versionierung-->
+            <!-- Falls ohne Versionierung-->
             <link rel="stylesheet" href="${request.contextPath}/app/resources/css/custom-print.css"
               type="text/css" media="screen, print" />
           </ui:fragment>

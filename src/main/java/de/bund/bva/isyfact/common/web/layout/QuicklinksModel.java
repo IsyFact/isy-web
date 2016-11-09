@@ -61,7 +61,7 @@ public class QuicklinksModel implements Serializable {
 
     /**
      * Fügt ein neues QuicklinksElementModel am Anfang hinzu.
-     * @param QuicklinksElementModel
+     * @param quicklinksElementModel
      *            Das neue QuicklinksElementModel
      * @param groupId
      *            Der anzuzeigende header.
@@ -70,7 +70,7 @@ public class QuicklinksModel implements Serializable {
      * 
      * @return gelöschte Element
      */
-    public QuicklinksElementModel quicklinkAmAnfangHinzufuegen(QuicklinksElementModel QuicklinksElementModel,
+    public QuicklinksElementModel quicklinkAmAnfangHinzufuegen(QuicklinksElementModel quicklinksElementModel,
         String groupId, String title) {
 
         QuicklinksGroup group = getGruppe(groupId);
@@ -82,7 +82,7 @@ public class QuicklinksModel implements Serializable {
             this.quicklinkGruppen.put(groupId, group);
         }
 
-        return group.elementAmAnfangHinzufuegen(QuicklinksElementModel);
+        return group.elementAmAnfangHinzufuegen(quicklinksElementModel);
 
     }
 
