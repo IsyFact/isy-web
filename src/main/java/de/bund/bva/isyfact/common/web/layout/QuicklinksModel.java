@@ -24,7 +24,6 @@ import java.util.Map;
 
 /**
  * Model für Quicklinks.
- * @author Capgemini, Tobias Gröger
  */
 public class QuicklinksModel implements Serializable {
 
@@ -36,7 +35,7 @@ public class QuicklinksModel implements Serializable {
     /**
      * Die Quicklinks.
      */
-    private Map<String, QuicklinksGroup> quicklinkGruppen = new LinkedHashMap<String, QuicklinksGroup>();
+    private Map<String, QuicklinksGroup> quicklinkGruppen = new LinkedHashMap<>();
 
     /**
      * Erzeuge eine Quicklink Gruppe mit bestimmen Title und Group ID.
@@ -53,7 +52,7 @@ public class QuicklinksModel implements Serializable {
             QuicklinksGroup group = new QuicklinksGroup();
             group.setName(title);
             group.setId(groupId);
-            this.quicklinkGruppen.put(groupId, group);
+            getGruppen().put(groupId, group);
 
         }
         return getGruppe(groupId);
@@ -67,7 +66,7 @@ public class QuicklinksModel implements Serializable {
      *            Der anzuzeigende header.
      * @param title
      *            nach group ID
-     * 
+     *
      * @return gelöschte Element
      */
     public QuicklinksElementModel quicklinkAmAnfangHinzufuegen(QuicklinksElementModel quicklinksElementModel,
@@ -79,7 +78,7 @@ public class QuicklinksModel implements Serializable {
             group = new QuicklinksGroup();
             group.setName(title);
             group.setId(groupId);
-            this.quicklinkGruppen.put(groupId, group);
+            getGruppen().put(groupId, group);
         }
 
         return group.elementAmAnfangHinzufuegen(quicklinksElementModel);
@@ -95,7 +94,7 @@ public class QuicklinksModel implements Serializable {
      * @return Quicklink Gruppe
      */
     public QuicklinksGroup getGruppe(String gruppeId) {
-        return this.quicklinkGruppen.get(gruppeId);
+        return getGruppen().get(gruppeId);
     }
 
     /**
@@ -104,7 +103,7 @@ public class QuicklinksModel implements Serializable {
      * @return alle Quicklink Gruppen.
      */
     public Collection<QuicklinksGroup> getAlleGruppen() {
-        return new ArrayList<QuicklinksGroup>(this.quicklinkGruppen.values());
+        return new ArrayList<>(getGruppen().values());
     }
 
     /**
@@ -117,5 +116,17 @@ public class QuicklinksModel implements Serializable {
      */
     public boolean hatGruppe(String gruppeId) {
         return getGruppe(gruppeId) != null;
+    }
+
+    /**
+     * Get Quicklinks Gruppen.
+     *
+     * @return Quicklinks Gruppen.
+     */
+    private Map<String, QuicklinksGroup> getGruppen() {
+        if (this.quicklinkGruppen == null) {
+            this.quicklinkGruppen = new LinkedHashMap<>();
+        }
+        return this.quicklinkGruppen;
     }
 }
