@@ -470,7 +470,11 @@ function refreshFunctions() {
                     if(!$currentTrs.is($hiddenTr)) {
                         $hiddenTr.slideToggle(0);
                     }
-                    lazyLoad();
+                    setTimeout(function() {
+                      // Der LazyLoad darf nicht direkt getriggert werden
+                      // Bilder in der Detailansicht sind erst NACH der click-Funktion "visible"
+                      lazyLoad();
+                    }, 50);
                 });
             });
         }
@@ -1605,7 +1609,7 @@ function lazyLoad() {
     // Bilder
     $("[data-src].lazy").each(function(){
         var $lazyImage = $(this);
-        if($lazyImage.visible(true)) {
+        if($lazyImage.visible()) {
             var src = $lazyImage.attr("data-src");
             $lazyImage.attr("src",src);
             $lazyImage.removeAttr("data-src");
