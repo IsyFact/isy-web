@@ -22,7 +22,7 @@ import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
 
 /**
  * Controller-Klasse fuer Operationen auf dem {@link ApplikationseiteModel}.
- * 
+ *
  * @author Capgemini, Jonas Zitz
  * @version $Id: ApplikationseiteController.java 123824 2014-10-13 10:05:13Z sdm_ahoerning $
  */
@@ -43,7 +43,8 @@ public class ApplikationseiteController extends AbstractGuiController<Applikatio
      */
     @Override
     public void initialisiereModel(ApplikationseiteModel model) {
-        linksnavigationController.initialisiereModel(model);
+        this.linksnavigationController.initialisiereModel(model);
+        this.quicklinksController.initialisiereModel(model);
     }
 
     /**
