@@ -24,13 +24,15 @@ import javax.faces.component.UINamingContainer;
 
 import com.google.common.base.Strings;
 
+import de.bund.bva.isyfact.common.web.GuiController;
+
 /**
  * Ein Kontroller, welcher für die Steuerung der rf:tabGroup und rf:tab Tags zuständig ist.
  *
  * @author Capgemini, Andreas Hörning
  * @version $Id: TabController.java 144628 2015-08-12 13:56:14Z sdm_ahoerning $
  */
-public class TabController {
+public class TabController implements GuiController {
 
     /**
      * Die Facete des Tab-Headers.

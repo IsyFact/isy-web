@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Required;
 
+import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.common.web.exception.common.FehlerInformation;
 import de.bund.bva.isyfact.common.web.exception.common.FehlerInformation.Fehlertyp;
@@ -38,7 +39,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  * @author Capgemini, Andreas Hörning
  * @version $Id: MessageController.java 137590 2015-05-27 11:23:46Z sdm_apheino $
  */
-public class MessageController {
+public class MessageController implements GuiController {
 
     /**
      * Der Logger.
@@ -198,12 +199,11 @@ public class MessageController {
      */
     private void writeErrorFacesMessage(FehlerInformation fehlerInformation) {
         // Schreibe Faces-Message
-        FacesContext.getCurrentInstance().addMessage(
-            null,
+        FacesContext.getCurrentInstance().addMessage(null,
             new FacesMessage(
                 fehlerInformation.getTyp().equals(Fehlertyp.TECHNISCH) ? FacesMessage.SEVERITY_ERROR
-                    : FacesMessage.SEVERITY_WARN, fehlerInformation.getGuiErrorMessageTitle(),
-                fehlerInformation.getGuiErrorMessage()));
+                    : FacesMessage.SEVERITY_WARN,
+                fehlerInformation.getGuiErrorMessageTitle(), fehlerInformation.getGuiErrorMessage()));
     }
 
     /**

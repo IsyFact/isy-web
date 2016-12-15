@@ -23,13 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
 
 /**
  * Controller-Klasse zur Darstellung von Bildern.
  *
  */
-public class BildController extends ResourceController {
+public class BildController extends ResourceController implements GuiController {
     /**
      * Diese Methode stellt Bilder zur direkten Anzeige in der GUI bereit.
      *

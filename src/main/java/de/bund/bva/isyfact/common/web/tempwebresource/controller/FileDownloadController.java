@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
 
 /**
@@ -30,7 +31,7 @@ import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
  * werden.
  *
  */
-public class FileDownloadController extends ResourceController {
+public class FileDownloadController extends ResourceController implements GuiController {
 
     /** Header zum Starten des "Speichern Unter"-Dialogs. */
     private static final String HEADER_CONTENT_DISPOSITION = "Content-Disposition";
