@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.comparator.NullSafeBeanComparator;
 import de.bund.bva.isyfact.common.web.jsf.components.datatable.DataTableModel.DatatableOperationMode;
 import de.bund.bva.isyfact.common.web.jsf.components.datatable.DataTablePaginationModel.PaginationType;
@@ -39,7 +40,8 @@ import de.bund.bva.isyfact.common.web.jsf.components.datatable.DataTablePaginati
  * @author Michael Moossen, msg
  * @author Capgemini, Andreas Hörning.
  */
-public abstract class DataTableController<I extends DataTableItem, M extends DataTableModel<I>> {
+public abstract class DataTableController<I extends DataTableItem, M extends DataTableModel<I>>
+    implements GuiController {
 
     private static final int DEFAULT_PAGE_SIZE = 10;
 
@@ -369,9 +371,9 @@ public abstract class DataTableController<I extends DataTableItem, M extends Dat
             && paginationModel.getType() != PaginationType.NONE) {
             // Aktualisiert die Anzahl der Seiten durch Angabe der Anzahl der Items.
             // Im Client-Mode passiert dass im Client
-            paginationModel.setPageCount((model.getDataModel().getFilteredItemCount()
-                + paginationModel.getPageSize() - 1)
-                / paginationModel.getPageSize());
+            paginationModel.setPageCount(
+                (model.getDataModel().getFilteredItemCount() + paginationModel.getPageSize() - 1)
+                    / paginationModel.getPageSize());
         }
     }
 

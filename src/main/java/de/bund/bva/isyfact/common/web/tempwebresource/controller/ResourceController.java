@@ -26,6 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
+import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.common.web.exception.ZugriffBerechtigungException;
 import de.bund.bva.isyfact.common.web.exception.common.FehlertextProviderImpl;
@@ -42,7 +43,7 @@ import de.bund.bva.pliscommon.exception.FehlertextProvider;
  * Abstrakte Oberklasse für Controller zum Herunterladen von Bildern und Dateien.
  *
  */
-public abstract class ResourceController implements Controller {
+public abstract class ResourceController implements Controller, GuiController {
 
     /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ResourceController.class);

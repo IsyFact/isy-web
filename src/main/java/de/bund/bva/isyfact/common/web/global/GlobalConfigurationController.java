@@ -25,16 +25,17 @@ import org.springframework.webflow.execution.RequestContextHolder;
 
 import com.google.common.base.Strings;
 
+import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
 
 /**
  * Der Controller zum Verwalten von globalen Einstellungen.
- * 
+ *
  * @author Capgemini, Andreas Hörning.
  * @author Capgemini, Jonas Zitz
  * @version $Id: GlobalConfigurationController.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
-public class GlobalConfigurationController {
+public class GlobalConfigurationController implements GuiController {
 
     /** Zur Identifizierung eines Internet Explorers aus einem UserAgent-String. */
     private String internetExplorerAgentIdentifier = "MSIE ";
@@ -57,7 +58,7 @@ public class GlobalConfigurationController {
 
     /**
      * Registiert die De-/Aktivierung von Javascript im {@link GlobalConfigurationModel}.
-     * 
+     *
      * @param globalConfigurationModel
      *            it das {@link GlobalConfigurationModel}
      */
@@ -73,7 +74,7 @@ public class GlobalConfigurationController {
 
     /**
      * Registriere die Client-{@link WebBrowserVersion}.
-     * 
+     *
      * @param globalConfigurationModel
      *            ist das {@link GlobalConfigurationModel}
      */
@@ -87,7 +88,7 @@ public class GlobalConfigurationController {
 
     /**
      * Ermittelt die Browser-Version.
-     * 
+     *
      * @return Die Browser-Version.
      */
     private WebBrowserVersion ermittleWebBrowserVersion() {
@@ -125,7 +126,7 @@ public class GlobalConfigurationController {
             return false;
         }
 
-        if (userAgent.contains(internetExplorerAgentIdentifier)) {
+        if (userAgent.contains(this.internetExplorerAgentIdentifier)) {
             return true;
         }
 
@@ -139,8 +140,8 @@ public class GlobalConfigurationController {
     private int getInternetExplorerVersion() {
         String userAgent =
             FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap().get("User-Agent");
-        int internetExplorerVersionStartPosition =
-            userAgent.indexOf(internetExplorerAgentIdentifier) + internetExplorerAgentIdentifier.length();
+        int internetExplorerVersionStartPosition = userAgent.indexOf(this.internetExplorerAgentIdentifier)
+            + this.internetExplorerAgentIdentifier.length();
         int internetExplorerVersionEndPosition = userAgent.indexOf(".", internetExplorerVersionStartPosition);
         String internetExplorerVersionString =
             userAgent.substring(internetExplorerVersionStartPosition, internetExplorerVersionEndPosition);
