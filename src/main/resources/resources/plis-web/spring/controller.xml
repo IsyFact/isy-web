@@ -17,8 +17,10 @@
     permissions and limitations under the License.
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
     <!-- ========== -->
     <!-- Controller -->
@@ -29,14 +31,21 @@
         class="de.bund.bva.isyfact.common.web.global.AbstractGuiController">
     </bean>
 
-    <bean id="errorController" class="de.bund.bva.isyfact.common.web.exception.web.ErrorController" />
+    <bean id="errorController" class="de.bund.bva.isyfact.common.web.exception.web.ErrorController">
+                    <aop:scoped-proxy proxy-target-class="true"/>
+     </bean>
 
     <bean id="validationController" class="de.bund.bva.isyfact.common.web.validation.ValidationController">
+                <aop:scoped-proxy proxy-target-class="true"/>
     </bean>
 
-    <bean id="tabController" class="de.bund.bva.isyfact.common.web.jsf.components.tab.TabController" />
+    <bean id="tabController" class="de.bund.bva.isyfact.common.web.jsf.components.tab.TabController">
+                <aop:scoped-proxy proxy-target-class="true"/>
+    </bean>
+    
 
     <bean id="messageController" class="de.bund.bva.isyfact.common.web.global.MessageController">
+        <aop:scoped-proxy proxy-target-class="true"/>   
         <property name="ausnahmeIdMapper" ref="ausnahmeIdMapper"/>
     </bean>
 
@@ -50,9 +59,12 @@
         <property name="konfiguration" ref="konfiguration"/>
     </bean>
 
-    <bean id="globalConfigurationController" class="de.bund.bva.isyfact.common.web.global.GlobalConfigurationController" />
+    <bean id="globalConfigurationController" class="de.bund.bva.isyfact.common.web.global.GlobalConfigurationController">
+            <aop:scoped-proxy proxy-target-class="true"/>
+    </bean>
 
     <bean id="globalFlowController" class="de.bund.bva.isyfact.common.web.global.GlobalFlowController">
+        <aop:scoped-proxy proxy-target-class="true"/>
         <property name="messageController" ref="messageController" />
         <property name="validationController" ref="validationController" />
         <property name="errorController" ref="errorController" />
@@ -61,27 +73,32 @@
 
     <bean id="basisController" class="de.bund.bva.isyfact.common.web.layout.BasisController"
         parent="abstractGuiController">
+        <aop:scoped-proxy proxy-target-class="true"/>
     </bean>
 
     <bean id="detailseiteController" class="de.bund.bva.isyfact.common.web.layout.DetailseiteController"
         parent="abstractGuiController">
+        <aop:scoped-proxy proxy-target-class="true"/>
         <property name="basisController" ref="basisController" />
     </bean>
 
  
     <bean id="applikationseiteController" class="de.bund.bva.isyfact.common.web.layout.ApplikationseiteController"
         parent="abstractGuiController">
+        <aop:scoped-proxy proxy-target-class="true"/>
         <property name="linksnavigationController" ref="linksnavigationController" />
         <property name="quicklinksController" ref="quicklinksController" />
     </bean>
 
     <bean id="linksnavigationController" class="de.bund.bva.isyfact.common.web.layout.LinksnavigationController"
         parent="abstractGuiController">
+        <aop:scoped-proxy proxy-target-class="true"/>
         <property name="konfiguration" ref="konfiguration" />
         <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter" />
     </bean>
 
     <bean id="quicklinksController" class="de.bund.bva.isyfact.common.web.layout.QuicklinksController"
         parent="abstractGuiController">        
+        <aop:scoped-proxy proxy-target-class="true"/>
     </bean>
 </beans>
