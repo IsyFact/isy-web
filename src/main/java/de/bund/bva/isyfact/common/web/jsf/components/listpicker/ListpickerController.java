@@ -16,13 +16,15 @@
  */
 package de.bund.bva.isyfact.common.web.jsf.components.listpicker;
 
+import de.bund.bva.isyfact.common.web.GuiController;
+
 /**
  * Der abstrakte Controller für Listpicker. Jedes Listpicker-Feld muss einen eigenen definieren.
  *
  * @param <T>
  *            Das spezifische Listpicker Model.
  */
-public abstract class ListpickerController<T extends ListpickerModel<?>> {
+public abstract class ListpickerController<T extends ListpickerModel<?>> implements GuiController {
 
     /**
      * Filtert das Model.

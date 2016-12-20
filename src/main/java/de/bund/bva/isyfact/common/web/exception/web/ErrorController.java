@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.common.web.exception.common.FehlerInformation;
@@ -40,7 +41,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  *
  * @author Capgemini, Andreas Hörning
  */
-public class ErrorController implements ApplicationContextAware {
+public class ErrorController implements ApplicationContextAware, GuiController {
 
     /** Der Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ErrorController.class);
@@ -97,14 +98,12 @@ public class ErrorController implements ApplicationContextAware {
             // der Browser des Nutzers Verbindungen schließt (mehrfacher Klick auf einen Download, usw.).
             if (socketException != null) {
                 LOG.error(EreignisSchluessel.E_CLIENT_VERBINDUNG, "Client-Verbindungsfehler", t);
-                fehlerInformation =
-                    FehlertextUtil.ermittleFehlerinformation(t,
-                        this.applicationContext.getBean(AusnahmeIdMapper.class));
+                fehlerInformation = FehlertextUtil.ermittleFehlerinformation(t,
+                    this.applicationContext.getBean(AusnahmeIdMapper.class));
             } else {
                 // Erzeuge neuen Fehler
-                fehlerInformation =
-                    FehlertextUtil.schreibeLogEintragUndErmittleFehlerinformation(t,
-                        this.applicationContext.getBean(AusnahmeIdMapper.class), LOG);
+                fehlerInformation = FehlertextUtil.schreibeLogEintragUndErmittleFehlerinformation(t,
+                    this.applicationContext.getBean(AusnahmeIdMapper.class), LOG);
             }
         }
 

@@ -16,6 +16,7 @@
  */
 package de.bund.bva.isyfact.common.web.jsf.components.wizard;
 
+import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.exception.IsyFactTechnicalRuntimeException;
 import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
 
@@ -26,7 +27,7 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
  * @author Capgemini, Andreas Hoerning
  * @version $Id: WizardDialogController.java 144104 2015-08-05 16:04:58Z sdm_ahoerning $
  */
-public abstract class WizardDialogController {
+public abstract class WizardDialogController implements GuiController {
 
     /**
      * Initialisiert die Pages des Wizards mit dem Standardverhalten.
@@ -100,8 +101,8 @@ public abstract class WizardDialogController {
                         FehlerSchluessel.ALLGEMEIN_KOMPONENTE_FALSCH_KONFIGURIERT,
                         "Diese Operation kann nicht auf der letzten Seite ausgeführt werden.");
                 }
-                model.setNextActiveWizardDialogPageId(model.getWizardDialogPages().get(i + 1)
-                    .getWizardDialogPageId());
+                model.setNextActiveWizardDialogPageId(
+                    model.getWizardDialogPages().get(i + 1).getWizardDialogPageId());
 
                 break;
 
@@ -134,8 +135,8 @@ public abstract class WizardDialogController {
                         FehlerSchluessel.ALLGEMEIN_KOMPONENTE_FALSCH_KONFIGURIERT,
                         "Diese Operation kann nicht auf der ersten Seite ausgeführt werden.");
                 }
-                model.setNextActiveWizardDialogPageId(model.getWizardDialogPages().get(i - 1)
-                    .getWizardDialogPageId());
+                model.setNextActiveWizardDialogPageId(
+                    model.getWizardDialogPages().get(i - 1).getWizardDialogPageId());
 
                 break;
 
