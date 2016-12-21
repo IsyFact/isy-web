@@ -17,8 +17,8 @@
 package de.bund.bva.isyfact.common.web.layout;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Model für Quicklinks.
@@ -33,7 +33,7 @@ public class QuicklinksModel implements Serializable {
     /**
      * Die Quicklinks. Gruppe ID -> Gruppe Model.
      */
-    private Map<String, QuicklinksGruppeModel> quicklinksGruppen = new HashMap<>();
+    private Map<String, QuicklinksGruppeModel> quicklinksGruppen = new TreeMap<>();
 
     public Map<String, QuicklinksGruppeModel> getQuicklinksGruppen() {
         return this.quicklinksGruppen;

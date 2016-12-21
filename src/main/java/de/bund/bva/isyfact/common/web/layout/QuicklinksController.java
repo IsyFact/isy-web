@@ -83,9 +83,8 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
                             quicklinksModel.getQuicklinksGruppen().put(gruppeId, quicklinksGruppeModel);
                         }
                         // Attribut contextflow laden
-                        String contextFlowKonfig =
-                            this.konfiguration.getAsString("gui.quicklinks." + gruppeId + ".contextflow",
-                                null);
+                        String contextFlowKonfig = this.konfiguration
+                            .getAsString("gui.quicklinks." + gruppeId + ".contextflow", null);
                         if (contextFlowKonfig != null) {
                             List<String> contextFlows = Lists.newArrayList(splitter.split(contextFlowKonfig));
                             quicklinksGruppeModel.setSichtbar(contextFlows.contains(flowName));
@@ -151,11 +150,9 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
             entferneQuicklink(quicklinkselementModel.getId());
 
             // Quicklink immer am Anfang einfügen
-            addQuicklinkselementModelAtTheBeginning(quicklinksModel, quicklinkselementModel, gruppeId,
-                maxAnzahl);
+            QuicklinksElementModel quicklinkselementModelGeloescht = addQuicklinkselementModelAtTheBeginning(
+                quicklinksModel, quicklinkselementModel, gruppeId, maxAnzahl);
 
-            // Wenn die maximale Anzahl erreicht ist, wird das älteste Element entfernt
-            QuicklinksElementModel quicklinkselementModelGeloescht = null;
             // Variable immer wieder in Session schreiben, damit übergeordnete Sessionmanager auf jeden Fall
             // eine
             // Aktualisierung sehen.
@@ -306,8 +303,10 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
      *            Die ID der Gruppe.
      * @param maxAnzahl
      *            Die maximale Anzahl an Quicklinks in der Gruppe.
+     *
+     * @return quicklinkselementModelGeloescht.
      */
-    private void addQuicklinkselementModelAtTheBeginning(QuicklinksModel quicklinksModel,
+    private QuicklinksElementModel addQuicklinkselementModelAtTheBeginning(QuicklinksModel quicklinksModel,
         QuicklinksElementModel quicklinkselementModel, String gruppeId, int maxAnzahl) {
 
         QuicklinksGruppeModel quicklinksGruppeModel = quicklinksModel.getQuicklinksGruppen().get(gruppeId);
@@ -324,7 +323,7 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
 
         quicklinksGruppeModel.getQuicklinksElemente().add(0, quicklinkselementModel);
 
-        limitiereAnzahl(maxAnzahl, quicklinksGruppeModel);
+        return limitiereAnzahl(maxAnzahl, quicklinksGruppeModel);
 
     }
 
@@ -334,12 +333,20 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
      *            Die maximale Anzahl.
      * @param quicklinksGruppeModel
      *            Die Gruppe.
+     *
+     * @return quicklinkselementModelGeloescht.
      */
-    private void limitiereAnzahl(int maxAnzahl, QuicklinksGruppeModel quicklinksGruppeModel) {
+    private QuicklinksElementModel limitiereAnzahl(int maxAnzahl,
+        QuicklinksGruppeModel quicklinksGruppeModel) {
+        QuicklinksElementModel quicklinkselementModelGeloescht = null;
         if (quicklinksGruppeModel.getQuicklinksElemente().size() > maxAnzahl) {
-            quicklinksGruppeModel.getQuicklinksElemente().remove(
-                quicklinksGruppeModel.getQuicklinksElemente().size() - 1);
+            quicklinkselementModelGeloescht = quicklinksGruppeModel.getQuicklinksElemente()
+                .get(quicklinksGruppeModel.getQuicklinksElemente().size() - 1);
+            quicklinksGruppeModel.getQuicklinksElemente()
+                .remove(quicklinksGruppeModel.getQuicklinksElemente().size() - 1);
         }
+
+        return quicklinkselementModelGeloescht;
     }
 
     @Required
