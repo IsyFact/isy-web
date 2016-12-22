@@ -21,6 +21,7 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
+import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 /**
@@ -45,7 +46,8 @@ public class ResourceCacheHeaderFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Parameter "urlsToCache"
-        String urlsToCacheWert = filterConfig.getInitParameter("urlsToCache");
+        String urlsToCacheWert =
+            filterConfig.getInitParameter(GuiParameterSchluessel.FILTER_PARAMETER_URLS_TO_CACHE);
 
         if (!Strings.isNullOrEmpty(urlsToCacheWert)) {
             this.urlsToCache =
