@@ -55,6 +55,13 @@ public class WizardDialogModel implements Serializable {
     private String textButtonFinish;
 
     /**
+     * Ob die Schritt-Anzeige angezeigt werden soll. Dies betrifft das komplette Segment, das die einzelnen
+     * Schritte des Wizards anzeigt (Titel, Schrittnummer und grüner Balken darunter). Standardmäßig auf
+     * {@code true}, so dass es aktiv ausgeschaltet werden muss, wenn die Schrittanzeige nicht erwünscht ist.
+     */
+    private boolean showWizardStepBar = true;
+
+    /**
      * Ob die Seite mit der angegebenen ID derzeit angezeigt wird oder werden soll.
      * @param id
      *            Die ID.
@@ -157,11 +164,19 @@ public class WizardDialogModel implements Serializable {
     }
 
     public String getTextButtonFinish() {
-        return textButtonFinish;
+        return this.textButtonFinish;
     }
 
     public void setTextButtonFinish(String textButtonFinish) {
         this.textButtonFinish = textButtonFinish;
+    }
+
+    public boolean isShowWizardStepBar() {
+        return this.showWizardStepBar;
+    }
+
+    public void setShowWizardStepBar(boolean showWizardStepBar) {
+        this.showWizardStepBar = showWizardStepBar;
     }
 
 }
