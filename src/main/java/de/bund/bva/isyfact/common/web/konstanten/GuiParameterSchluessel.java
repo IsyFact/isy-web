@@ -42,7 +42,15 @@ public abstract class GuiParameterSchluessel {
      */
     public static final String FILTER_PARAMETER_URLS_TO_SKIP = "urlsToSkip";
 
-    /** Identifiziert den Schluessel des Initialisierungs-Parameters zur Initialisierungsseite der Anwendung. */
+    /**
+     * Identifiziert den Schluessel des Initialisierungs-Parameters fuer zu cachende Url-Pfade, relativ zum
+     * ApplicationContext-Root.
+     */
+    public static final String FILTER_PARAMETER_URLS_TO_CACHE = "urlsToCache";
+
+    /**
+     * Identifiziert den Schluessel des Initialisierungs-Parameters zur Initialisierungsseite der Anwendung.
+     */
     public static final String FILTER_PARAMETER_URL_APPLICATION_INITIALISIERUNG =
         "urlApplicationInitialisierung";
 
