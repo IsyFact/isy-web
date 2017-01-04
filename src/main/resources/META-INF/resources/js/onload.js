@@ -1423,7 +1423,6 @@ function refreshFunctions() {
         // =============== START DETAILVIEW ===================== //
         var allowMultiple = $table.find("input[id$='rfDataTableSelectionMode']").val()=='multiple';
         $table.find('tbody div.detailview-actions button')
-          .attr('type','button')
           .attr('onclick', '');
         $table.on('click','div.detailview-actions button[id*=showDetail]', function(e) {
             var $this = $(this);
