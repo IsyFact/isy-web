@@ -283,8 +283,8 @@ function refreshFunctions() {
     $($(".modal-backdrop").get().reverse()).each(function(index, element){
         // Entfernen wenn ein .modal-backdrop vorhanden ist, obwohl es keinen modalen Dialog gibt (passiert in edge-cases).
         // Ansonsten mit get().reverse() entfernen wir die älteste .modal-backdrops, da nur der neuste mit dem button-event verbunden ist
-        if(!$modalVisible || index > 0) { 
-            element.remove();
+        if(!$modalVisible || index > 0) {
+            $(element).remove();
        }
     });
     
