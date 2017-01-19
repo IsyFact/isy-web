@@ -445,40 +445,61 @@ function refreshFunctions() {
             formatRowsFunction($rows,$(this),selectionMode);
         });
     };
-    // (4) Vorgeladene Elemente verknüpfen (auch bei AJAX Reload durchführen)
-    $('.rf-data-table').each(function(){
-        var $rfDataTable = $(this);
-        var $hiddenTrs = $(this).find(".details-preview");
-        var detailMode = $(this).find("[id$='rfDataTableDetailMode']").first().val();
-        var isClientMode = $rfDataTable.parent().attr('id').indexOf("dataTableServerMode") == -1;
-        
-        if(isClientMode){
-            $hiddenTrs.each(function(){
-                var $hiddenTr = $(this);
-                var $showDetailButton = $hiddenTr.prev().find("[id*='showDetail'],[id*='hideDetail']");
-                $showDetailButton.removeAttr("onclick");
-                $showDetailButton.unbind("click");
-                $showDetailButton.click(function(event){
-                    event.preventDefault();
-                    
-                    var $currentTrs = $rfDataTable.find(".details-preview:visible");
-                    
-                    if(detailMode === 'single') {
-                        $rfDataTable.find(".details-preview:visible").slideToggle(0);
-                    }
-                    
-                    if(!$currentTrs.is($hiddenTr)) {
-                        $hiddenTr.slideToggle(0);
-                    }
-                    setTimeout(function() {
-                      // Der LazyLoad darf nicht direkt getriggert werden
-                      // Bilder in der Detailansicht sind erst NACH der click-Funktion "visible"
-                      lazyLoad();
-                    }, 50);
-                });
-            });
+    // (4) Show-/Hide-Detail-Logik registrieren
+    var showDetail = function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+        var $this = $(this);
+        var $tr = $this.parents('tr');
+        var $table = $this.parents("table.CLIENT.rf-data-table");
+        var allowMultiple = $table.find("input[id$='rfDataTableDetailMode']").val()=='multiple';
+        if (!allowMultiple) {
+          // Alle Detailzeilen ausblenden
+            $table.find("tr[id*='detail-']").addClass('hidden');
+            // Eventhandler, Tooltip, ID für hideDetail-Buttons wechseln
+            var $hideDetailButtons = $table.find('div.detailview-actions button[id*=hideDetail]');
+            $hideDetailButtons.find('span').removeClass('icon-minus').addClass('icon-plus');
+            $hideDetailButtons.attr('title', $this.parents('div.detailview-actions').data('show-tooltip'));
+            $hideDetailButtons.attr('id', $this.attr('id').replace("hideDetail", "showDetail"));
+            $hideDetailButtons.off('click.hidedetail');
+            $hideDetailButtons.on('click.showdetail', showDetail);
         }
-
+        $tr.next().removeClass('hidden');
+        $this.attr('title', $this.parents('div.detailview-actions').data('hide-tooltip'));
+        $this.attr('id', $this.attr('id').replace("showDetail","hideDetail"));
+        $this.find('span').removeClass('icon-plus').addClass('icon-minus');
+        // Eventhandler wechseln
+        $this.off('click.showdetail');
+        $this.on('click.hidedetail', hideDetail);
+        // Lazy-Loading
+        setTimeout(function() {
+            // Der LazyLoad darf nicht direkt getriggert werden
+            // Bilder in der Detailansicht sind erst NACH der click-Funktion "visible"
+            lazyLoad();
+          }, 50);
+    };
+    var hideDetail = function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+        var $this = $(this);
+        var $tr = $this.parents('tr');
+        $tr.next().addClass('hidden');
+        $this.attr('title', $this.parents('div.detailview-actions').data('show-tooltip'));
+        $this.attr('id', $this.attr('id').replace("hideDetail", "showDetail"));
+        $this.find('span').removeClass('icon-minus').addClass('icon-plus');
+        // Eventhandler wechseln
+      $this.off('click.hidedetail');
+      $this.on('click.showdetail', showDetail);
+    };
+    $("table.CLIENT.rf-data-table").each(function (){
+      var $table=$(this);
+        // =============== START DETAILVIEW ===================== //
+      $table.find('tbody div.detailview-actions button').removeAttr('onclick', '');
+      var $showDetail = $table.find('div.detailview-actions button[id*=showDetail]');
+      $showDetail.on('click.showdetail', showDetail);
+      var $hideDetail = $table.find('div.detailview-actions button[id*=hideDetail]');
+      $hideDetail.on('click.hidedetail', hideDetail);
+      // =============== ENDE DETAILVIEW ===================== //
     });
     // (5) JS Sortierung aktivieren
     $('.rf-data-table').each(function(){
@@ -1419,34 +1440,6 @@ function refreshFunctions() {
             renderPage();
         });
         // =============== ENDE SORTIERUNG ===================== //
-
-        // =============== START DETAILVIEW ===================== //
-        var allowMultiple = $table.find("input[id$='rfDataTableSelectionMode']").val()=='multiple';
-        $table.find('tbody div.detailview-actions button')
-          .attr('onclick', '');
-        $table.on('click','div.detailview-actions button[id*=showDetail]', function(e) {
-            var $this = $(this);
-            var $tr = $this.parents('tr');
-            if (!allowMultiple) {
-                $table.find("tr[id*='detail-']").addClass('hidden');
-                $table.find("span[class*='icon-minus']").removeClass('icon-minus').addClass('icon-plus');
-            }
-            $tr.next().removeClass('hidden');
-            $this.attr('title', $this.parents('div.detailview-actions').data('hide-tooltip'));
-            $this.attr('id', $this.attr('id').replace("showDetail","hideDetail"));
-            $this.find('span').removeClass('icon-plus').addClass('icon-minus');
-            return false;
-        });
-        $table.on('click','div.detailview-actions button[id*=hideDetail]', function(e) {
-            var $this = $(this);
-            var $tr = $this.parents('tr');
-            $tr.next().addClass('hidden');
-            $this.attr('title', $this.parents('div.detailview-actions').data('show-tooltip'));
-            $this.attr('id', $this.attr('id').replace("hideDetail", "showDetail"));
-            $this.find('span').removeClass('icon-minus').addClass('icon-plus');
-            return false;
-        });
-        // =============== ENDE DETAILVIEW ===================== //
 
         // Hauptfunktion
         var doItAll = function(init) {
