@@ -16,6 +16,9 @@
 	<!-- Der Wert für das Databinding im Eingabefeld -->
 	<composite:attribute name="value" required="true" />
 
+  <!-- Die Custom Name. -->
+  <composite:attribute name="customId" required="false" />
+
 	<!-- Der Text für das Label -->
 	<composite:attribute name="label" type="String" required="false" />
 	
@@ -65,7 +68,7 @@
 		value="#{not empty validationMessages}" />
 
 	<div
-		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
 
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
 			forField="#{cc.clientId}:isySelectBooleanCheckbox:selectBooleanCheckbox"

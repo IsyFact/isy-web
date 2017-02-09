@@ -46,7 +46,9 @@
 	<!-- Parameter für den Konverter -->
 	<composite:attribute name="converterAttribute" />
 
-
+  <!-- Die Custom Name. -->
+  <composite:attribute name="customId" required="false" />
+  
 	<!-- 	4 Augen Prinzip Mode (locked, unlock) -->
 	<composite:attribute name="fourEyesMode" type="String" />
 	<composite:attribute name="fourEyesLastValue" type="String" />
@@ -60,7 +62,7 @@
 <composite:implementation>
 
 	<div
-		class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}">
+		class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''} #{cc.attrs.customId}">
 		<h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}"
 			value="#{cc.attrs.value}"
 			styleClass="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{cc.attrs.invalid ? 'invalid' : ''} #{cc.attrs.readonly ? 'disabled readonly' : ''}"

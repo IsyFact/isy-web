@@ -14,6 +14,10 @@
 
 	<!-- Die Referenz des Objekts. -->
 	<composite:attribute name="reference" required="true" />
+
+  <!-- Die Custom Name. -->
+  <composite:attribute name="customId" required="false" />
+
 	<!-- Der Wert für das Databinding im Eingabefeld -->
 	<composite:attribute name="value" required="true" />
 	<!-- Ob die Eingabe ein Pflichteingabe ist. -->
@@ -79,7 +83,7 @@
 		value="#{not empty validationMessages}" />
 
 	<div
-		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
 
 		<ui:fragment
 			rendered="#{not (cc.attrs.readonly or cc.attrs.showPrintView)}">

@@ -14,6 +14,9 @@
 	<!-- Tooltip. -->
 	<composite:attribute name="tooltip" type="String" default="" />
 
+  <!-- Die Custom Name. -->
+  <composite:attribute name="customId" required="false" />
+
 	<!-- Die Referenz des Objekts. -->
 	<composite:attribute name="reference" required="true" />
 	<!-- Der Wert für das Databinding im Eingabefeld -->
@@ -80,7 +83,7 @@
 		value="#{not empty validationMessages}" />
 
 	<div
-		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
 
 		<!-- Das Label -->
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
