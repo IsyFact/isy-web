@@ -11,7 +11,10 @@
 
 <composite:interface>
 
-	<!-- Die Referenz des Objekts. -->
+  <!-- Die Custom Name. -->
+  <composite:attribute name="customId" required="false" />
+    	
+  <!-- Die Referenz des Objekts. -->    
 	<composite:attribute name="reference" required="true" />
 	<!-- Der Wert für das Databinding im Eingabefeld -->
 	<composite:attribute name="value" required="true" />
@@ -91,7 +94,7 @@
 		value="#{not empty validationMessages}" />
 
 	<div
-		class="form-group #{existsValidationError ? ' has-error has-feedback': ''}">
+		class="form-group #{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
 
 		<!-- Label -->
 		<isyi:formValidationLabel value="#{cc.attrs.label}"

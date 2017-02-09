@@ -19,6 +19,8 @@
 	<!-- Ob die Auswahl invalide ist oder nicht. -->
 	<composite:attribute name="invalid" type="Boolean" default="false" />
 
+  <!-- Custom ID. -->
+  <composite:attribute name="customId" type="String" required="false" default="isySelectOneDropdown" />
 
 	<!-- Ob die Darstellung nur lesend erfolgen soll -->
 	<composite:attribute name="readonly" type="Boolean" required="false"
@@ -73,7 +75,7 @@
 		value="#{not empty validationMessages}" />
 
 	<div
-		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
 
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
 			forField="#{cc.clientId}:isySelectOneDropdown:selectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
@@ -81,7 +83,7 @@
 			styleClass="#{cc.attrs.labelStyleClass}" />
 
 		<div class="#{cc.attrs.inputStyleClass}">
-			<isy:selectOneDropdown id="isySelectOneDropdown"
+			<isy:selectOneDropdown id="#{cc.attrs.customId}"
 				reference="#{cc.attrs.reference}"
 				referenceId="#{cc.attrs.reference}"
 				value="#{cc.attrs.value}" invalid="#{cc.attrs.invalid}"

@@ -7,6 +7,9 @@
 
 <composite:interface>
     
+    <!-- Die Custom Name. -->
+    <composite:attribute name="customId" required="false" />
+    
     <!-- Der Wert der Auswahl für das Data-Binding -->
     <composite:attribute name="value" required="true" />
     <!-- Die Select-Items. Jedes Item entspricht einem Radio-Button. -->
@@ -40,7 +43,7 @@
         value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
     <ui:param name="existsValidationError" value="#{not empty validationMessages}" />
 
-    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
         <label class="#{cc.attrs.labelStyleClass} control-label#{cc.attrs.required ? ' mandatory' : ''}"
             for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">#{cc.attrs.label} </label>
         <div class="#{cc.attrs.inputStyleClass}">

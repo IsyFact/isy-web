@@ -12,6 +12,10 @@
 
     <!-- Die Referenz des Objekts. -->
     <composite:attribute name="reference" required="true" />
+
+    <!-- Die Custom Name. -->
+    <composite:attribute name="customId" required="false" />
+    
     <!-- Der Wert der Auswahl für das Databinding -->
     <composite:attribute name="value" required="true" />
     <!-- Ob die Liste deaktiviert ist. -->
@@ -43,7 +47,7 @@
         value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
     <ui:param name="existsValidationError" value="#{not empty validationMessages}" />
 
-    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
 
         <isyi:formValidationLabel value="#{cc.attrs.label}"
             forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
