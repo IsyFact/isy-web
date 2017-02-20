@@ -37,6 +37,8 @@
 		default="col-lg-6" />
 	<!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
 	<composite:attribute name="placeholder" type="String" required="false" />
+	<!-- Ob das Eingabefeld deaktiviert ist. -->
+  <composite:attribute name="disabled" type="Boolean" default="false" />
 
 	<!-- Die maximale Länge der Eingabe. -->
 	<composite:attribute name="maxlength" type="Integer" required="false"
@@ -92,6 +94,7 @@
 						jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
 						onkeyup="#{cc.attrs.onkeyup}" onblur="#{cc.attrs.onblur}">
 					<composite:insertChildren />
+					<f:attribute name="disabled" value="#{cc.attrs.disabled}" />
 					</input>
 
 					<!-- Four Eyes -->
