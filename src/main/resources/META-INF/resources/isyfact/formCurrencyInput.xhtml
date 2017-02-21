@@ -62,6 +62,10 @@
 	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
 	<composite:attribute name="fourEyesMode" type="String" />
 	<composite:attribute name="fourEyesLastValue" type="String" />
+	
+	<!-- Ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. Default ist false.-->
+	<composite:attribute name="alignright" type="Boolean" required="false" default="false" />
+    
 </composite:interface>
 
 <composite:implementation>
@@ -88,7 +92,7 @@
 			<div class=" input-group">
 				<ui:fragment rendered="#{not cc.attrs.readonly}">
 					<input type="text"
-						class="form-control#{existsValidationError ? ' invalid': ''} currency-input"
+						class="form-control#{existsValidationError ? ' invalid': ''} currency-input#{cc.attrs.alignright ? ' currency-input-text-align-right' : ''}"
 						jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 						placeholder="#{cc.attrs.placeholder}"
 						jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
@@ -106,7 +110,7 @@
 						
 				</ui:fragment>
 				<ui:fragment rendered="#{cc.attrs.readonly}">
-					<input type="text" class="form-control readonly"
+					<input type="text" class="form-control readonly#{cc.attrs.alignright ? ' currency-input-text-align-right' : ''}"
 						jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 						readonly="readonly" jsf:value="#{cc.attrs.value}" />
 
