@@ -14,3 +14,14 @@
 
 ## Neuerungen
 - Vereinfachung Quicklinksfunktionalität aus Version 4.1.2 wieder eingebaut.
+
+# v4.3.0
+
+## Neuerungen
+- IFS-29: 
+	* Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
+	* DataTable übernimmt Änderungen von DataTable3 (DAISY).
+	* Einführung von <h>-Tags für Überschriften von Panels.
+	* Korrigierter JS-Code für die Formatierung von Geldbeträgen.
+	* formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
+- IFS-18: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
