@@ -1622,15 +1622,50 @@ scriptLoadedOnload = function() {
  * bereits verhindert, dass Buchstaben eingegeben werden können.
  */
 function formatAmountOfMoney(ref) {
-    "use strict";
-    var inputField = document.getElementById(ref.id);
-    if (ref.value !== "") {
-        var result;
-        var value = ref.value.replace(',', '.');
-        var test = parseFloat(value).toFixed(2);
-        result = test.replace('.', ',');
-        inputField.value = result;
+	var inputField = document.getElementById(ref.id);
+	if (ref.value !== "") {
+		var result = formatiereInput(ref.value)
+		result = kuerzeInput(result, ref.maxLength);
+		result = setzeTausenderPunkte(result);
+		inputField.value = result;
+	}
+}
+
+/**
+ * formatiert einen Stundensatz auf zwei Nachkommastellen ohne Tausenderpunkte (z.B. xxxxx,xx)
+ */
+function formatiereInput(input){
+    var value = input.split(".").join("");
+    value = value.replace(',', '.');
+    var tmp = parseFloat(value).toFixed(2);
+    return tmp.replace('.', ',');
+}
+
+/**
+ * kürzt den Eingabewert auf die angegebene Länge
+ */
+function kuerzeInput(value, length){
+    var kommaPosition = value.indexOf(",");
+    var anzahlTausenderPunkte = parseInt(((kommaPosition-1)/3));
+    while(value.length > (length - anzahlTausenderPunkte)){
+        value = value.substring(0, kommaPosition-1) + value.substring(kommaPosition);
+        kommaPosition = value.indexOf(",");
+        anzahlTausenderPunkte = parseInt(((kommaPosition-1)/3));
     }
+    return value;
+}
+
+/**
+ * Setzt die Tausenderpunkte
+ */
+function setzeTausenderPunkte(value){
+    var kommaPosition = value.indexOf(",");
+    for(i=1; i < kommaPosition; i++){
+        if(i%3 == 0){
+            value = value.substring(0, kommaPosition-i) + "." + value.substring(kommaPosition-i);
+        }
+    }
+    return value;
 }
 
 /**
@@ -1642,34 +1677,33 @@ function formatAmountOfMoney(ref) {
  *            soll.
  */
 function deleteNonDigitCharacters(ref) {
-    "use strict";
-    if (ref.value !== "") {
-        // Speichert die aktuelle Cursor-Position in Variablen
-        // wird für die Browser-Kompatibilität von IE und Chrome benötigt
-        var start = ref.selectionStart;
-        var end = ref.selectionEnd;
+	if (ref.value !== "") {
+		// Speichert die aktuelle Cursor-Position in Variablen
+		// wird für die Browser-Kompatibilität von IE und Chrome benötigt
+		var start = ref.selectionStart;
+		var end = ref.selectionEnd;
 
-        // länge des Textes wird gespeichert, wird später benötigt um
-        // festzufellen wie viele Zeichen entfernt wurden und um wie viele
-        // Zeichen der Cursor verschoben werden muss.
-        var length = ref.value.length;
+		// länge des Textes wird gespeichert, wird später benötigt um
+		// festzufellen wie viele Zeichen entfernt wurden und um wie viele
+		// Zeichen der Cursor verschoben werden muss.
+		var length = ref.value.length;
 
-        // entfernt alle Zeichen auser Zahlen und Komma aus der Eingabe.
-        // Achtung auch Tausender-Punkte werden entfernt
-        ref.value = ref.value.replace(/[^\d,]/g, '');
+		// entfernt alle Zeichen auser Zahlen und Komma aus der Eingabe.
+		// Achtung auch Tausender-Punkte werden entfernt
+		ref.value = ref.value.replace(/[^\d,.]/g, '');
 
-        // Prüft ob Zeichen entfernt wurden und verschiebt den Cursor
-        // entsprechend - Wird für IE und Chrome benötigt, bei FF reicht das
-        // ersetzen des Textes aus.
-        var lengthAfterReplace = ref.value.length;
-        if (length > lengthAfterReplace) {
-            start = start - (length - lengthAfterReplace);
-            end = end - (length - lengthAfterReplace);
-        }
+		// Prüft ob Zeichen entfernt wurden und verschiebt den Cursor
+		// entsprechend - Wird für IE und Chrome benötigt, bei FF reicht das
+		// ersetzen des Textes aus.
+		var lengthAfterReplace = ref.value.length;
+		if (length > lengthAfterReplace) {
+			start = start - (length - lengthAfterReplace);
+			end = end - (length - lengthAfterReplace);
+		}
 
-        // setzt die Cursor-Position
-        ref.setSelectionRange(start, end);
-    }
+		// setzt die Cursor-Position
+		ref.setSelectionRange(start, end);
+	}
 }
 
 function refreshDatatableFilterRow() {

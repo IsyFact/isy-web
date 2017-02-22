@@ -45,7 +45,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  *
  * @author Michael Moossen, msg.
  */
-public abstract class DataTableInMemoryController<I extends DataTableItem, M extends DataTableInMemoryModel<I>>
+public class DataTableInMemoryController<I extends DataTableItem, M extends DataTableInMemoryModel<I>>
     extends DataTableController<I, M> {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(DataTableInMemoryController.class);
@@ -110,6 +110,26 @@ public abstract class DataTableInMemoryController<I extends DataTableItem, M ext
     }
 
     /**
+     * Setzt die Items für die Tabelle.
+     *
+     * <p>
+     * Das hat zufolge dass das Backend neu aufgerufen wird.
+     * <p>
+     *
+     * @param model
+     *            das Modell
+     * @param allItems
+     *            List<I> Liste aller Tabelleneinträge
+     */
+    public void setItems(M model, List<I> allItems) {
+
+        model.setAllitems(allItems);
+        invalidateModel(model);
+        updateDisplayItems(model);
+
+    }
+
+    /**
      * Invalidiert das Data Modell.
      * <p>
      * Hat zufolge dass beim nächsten Aufruf von {@link #updateDisplayItems(DataTable2Model)} das Backend neu
@@ -126,9 +146,10 @@ public abstract class DataTableInMemoryController<I extends DataTableItem, M ext
      *            das Modell
      */
     public void invalidateModel(M model) {
-
+        if (model.getMode() == DatatableOperationMode.SERVER) {
+            model.getDataModel().setAllItems(null);
+        }
         model.setSelectionModel(new DataTableSelectionModel());
-        model.getDataModel().setAllItems(null);
         model.getPaginationModel().setCurrentPage(1);
     }
 
@@ -207,7 +228,10 @@ public abstract class DataTableInMemoryController<I extends DataTableItem, M ext
      *
      * @return alle verfügbare Tabelleneinträge
      */
-    public abstract List<I> getAllItems(M model);
+    public List<I> getAllItems(M model) {
+
+        return model.getAllitems();
+    }
 
     /**
      * Sortiert die Tabelleneinträge nach der angegebenen Eigenschaft und Sortierrichtung.

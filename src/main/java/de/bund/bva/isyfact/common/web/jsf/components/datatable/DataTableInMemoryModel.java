@@ -16,6 +16,8 @@
  */
 package de.bund.bva.isyfact.common.web.jsf.components.datatable;
 
+import java.util.List;
+
 /**
  * Das Modell eines Tabellenkontrollers bei der alle möglichen Tabelleeinträgen im Hauptspeicher gespeichert
  * werden.
@@ -42,5 +44,17 @@ public class DataTableInMemoryModel<I extends DataTableItem> extends DataTableMo
     public void setDataModel(DataTableDataModel<I> dataModel) {
 
         this.dataModel = (DataTableInMemoryDataModel<I>) dataModel;
+    }
+
+    @SuppressWarnings("javadoc")
+    public List<I> getAllitems() {
+
+        return this.dataModel.getAllItems();
+    }
+
+    @SuppressWarnings("javadoc")
+    public void setAllitems(List<I> allItems) {
+
+        this.dataModel.setAllItems(allItems);
     }
 }
