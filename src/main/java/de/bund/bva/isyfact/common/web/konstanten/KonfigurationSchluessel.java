@@ -37,4 +37,20 @@ public abstract class KonfigurationSchluessel {
      */
     public static final String GUI_LANGUAGE_FORCED_LOCALE = "gui.language.forced.locale";
 
+    /**
+     * Die Systemversion.
+     */
+    public static final String SYSTEM_VERSION = "system.version";
+
+    /**
+     * Der Systemname.
+     */
+    public static final String SYSTEM_NAME = "system.name";
+
+    /**
+     * Ob die Versionsnummer im Seitentitel angezeigt werden soll.
+     */
+    public static final String GUI_VERSIONSANZEIGE_SEITENTITEL_AKTIV =
+        "gui.versionsanzeige.seitentitel.aktiv";
+
 }

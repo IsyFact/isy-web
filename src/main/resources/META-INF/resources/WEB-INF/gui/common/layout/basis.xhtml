@@ -21,7 +21,7 @@ vorhanden ist. -->
 
 <f:view contentType="text/html" locale="#{empty localeConfiguration.ermittleForcedLocale() ? '' : localeConfiguration.ermittleForcedLocale()}">
     <h:head>
-        <title><h:outputText value="${title}" /><ui:insert name="titel" /></title>
+        <title><h:outputText value="${title}" /><ui:insert name="titel" /><h:outputText value="#{titlesHelper.ermittleVersionsnummer()}" /></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="" />
