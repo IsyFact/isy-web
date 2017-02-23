@@ -1622,9 +1622,10 @@ scriptLoadedOnload = function() {
  * bereits verhindert, dass Buchstaben eingegeben werden können.
  */
 function formatAmountOfMoney(ref) {
+	'use strict';
 	var inputField = document.getElementById(ref.id);
 	if (ref.value !== "") {
-		var result = formatiereInput(ref.value)
+		var result = formatiereInput(ref.value);
 		result = kuerzeInput(result, ref.maxLength);
 		result = setzeTausenderPunkte(result);
 		inputField.value = result;
@@ -1635,6 +1636,7 @@ function formatAmountOfMoney(ref) {
  * formatiert einen Stundensatz auf zwei Nachkommastellen ohne Tausenderpunkte (z.B. xxxxx,xx)
  */
 function formatiereInput(input){
+	'use strict';
     var value = input.split(".").join("");
     value = value.replace(',', '.');
     var tmp = parseFloat(value).toFixed(2);
@@ -1645,6 +1647,7 @@ function formatiereInput(input){
  * kürzt den Eingabewert auf die angegebene Länge
  */
 function kuerzeInput(value, length){
+	'use strict';
     var kommaPosition = value.indexOf(",");
     var anzahlTausenderPunkte = parseInt(((kommaPosition-1)/3));
     while(value.length > (length - anzahlTausenderPunkte)){
@@ -1659,9 +1662,10 @@ function kuerzeInput(value, length){
  * Setzt die Tausenderpunkte
  */
 function setzeTausenderPunkte(value){
+	'use strict';
     var kommaPosition = value.indexOf(",");
     for(i=1; i < kommaPosition; i++){
-        if(i%3 == 0){
+        if(i%3 === 0){
             value = value.substring(0, kommaPosition-i) + "." + value.substring(kommaPosition-i);
         }
     }
@@ -1677,6 +1681,7 @@ function setzeTausenderPunkte(value){
  *            soll.
  */
 function deleteNonDigitCharacters(ref) {
+	'use strict';
 	if (ref.value !== "") {
 		// Speichert die aktuelle Cursor-Position in Variablen
 		// wird für die Browser-Kompatibilität von IE und Chrome benötigt
