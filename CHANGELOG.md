@@ -1,3 +1,14 @@
+# v4.3.0 (unveröffentlicht)
+
+## Neuerungen
+- `IFS-29`: 
+	* Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
+	* DataTable übernimmt Änderungen von DataTable3 (DAISY).
+	* Einführung von <h>-Tags für Überschriften von Panels.
+	* Korrigierter JS-Code für die Formatierung von Geldbeträgen.
+	* formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
+- `IFS-18`: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
+
 # v4.2.2
 
 # v4.2.1
