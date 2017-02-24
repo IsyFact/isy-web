@@ -27,9 +27,9 @@
 		default="false" />
 	<!-- Evente müssen explizit deklariert werden -->
 	<composite:attribute name="valueChangeListener" required="false"
-		targets="isySelectOneDropdown:#{cc.attrs.reference}" />
+		targets="isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
 	<composite:clientBehavior name="change" event="change"
-		targets="isySelectOneDropdown:#{cc.attrs.reference}" />
+		targets="isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
 
 
 	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
@@ -85,7 +85,6 @@
 		<div class="#{cc.attrs.inputStyleClass}">
 			<isy:selectOneDropdown id="#{cc.attrs.customId}"
 				reference="#{cc.attrs.reference}"
-				referenceId="#{cc.attrs.reference}"
 				value="#{cc.attrs.value}" invalid="#{cc.attrs.invalid}"
 				disabled="#{cc.attrs.disabled}" title="#{cc.attrs.label}"
 				globalConfig="#{cc.attrs.globalConfig}"
