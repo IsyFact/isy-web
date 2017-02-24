@@ -1,5 +1,9 @@
 # v4.3.0 (unveröffentlicht)
 
+## Bugfixes
+- `IFS-30`:
+	* Das Sortieren von DataTables im Client-Mode funktioniert wieder.
+
 ## Neuerungen
 - `IFS-29`: 
 	* Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
