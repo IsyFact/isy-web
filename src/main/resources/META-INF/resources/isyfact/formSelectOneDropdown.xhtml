@@ -20,7 +20,7 @@
 	<composite:attribute name="invalid" type="Boolean" default="false" />
 
   <!-- Custom ID. -->
-  <composite:attribute name="customId" type="String" required="false" default="isySelectOneDropdown" />
+  <composite:attribute name="customId" type="String" required="false" />
 
 	<!-- Ob die Darstellung nur lesend erfolgen soll -->
 	<composite:attribute name="readonly" type="Boolean" required="false"
@@ -83,7 +83,7 @@
 			styleClass="#{cc.attrs.labelStyleClass}" />
 
 		<div class="#{cc.attrs.inputStyleClass}">
-			<isy:selectOneDropdown id="#{cc.attrs.customId}"
+			<isy:selectOneDropdown id="isySelectOneDropdown"
 				reference="#{cc.attrs.reference}"
 				value="#{cc.attrs.value}" invalid="#{cc.attrs.invalid}"
 				disabled="#{cc.attrs.disabled}" title="#{cc.attrs.label}"
