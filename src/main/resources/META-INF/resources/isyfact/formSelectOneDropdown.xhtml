@@ -78,7 +78,7 @@
 		class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
 
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
-			forField="#{cc.clientId}:isySelectOneDropdown:selectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+			forField="#{cc.clientId}:isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 			required="#{cc.attrs.required}"
 			styleClass="#{cc.attrs.labelStyleClass}" />
 

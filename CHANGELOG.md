@@ -3,6 +3,10 @@
 ## Bugfixes
 - `IFS-30`:
 	* Das Sortieren von DataTables im Client-Mode funktioniert wieder.
+	* Fix: "." im Attribut reference bzw. referenceId führt dazu, dass AJAX Aufrufe nicht behandelt werden. Betrifft folgende Komponenten:
+		* formSelectOneDropdown.xhmtl
+		* selectOneDropdown.xhtml (referenceId)
+	* formSelectOneDropdown: Klick auf Label soll dropdown selektieren
 
 ## Neuerungen
 - `IFS-29`: 
