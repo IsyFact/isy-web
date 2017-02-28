@@ -58,6 +58,8 @@
 	<!-- onkeyup JavaScript-Funktion wird aufgerufen, wenn eine Tastatureingabe in dem Feld gemacht wurde -->
 	<composite:attribute name="onkeyup" required="false"
 		default="deleteNonDigitCharacters(this)" />
+	<!-- Die Anzahl der Nachkommstellen: Default ist 2. -->	
+	<composite:attribute name="decimalplaces" type="Integer" required="false" default="2" />
 
 	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
 	<composite:attribute name="fourEyesMode" type="String" />
@@ -96,7 +98,8 @@
 						jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 						placeholder="#{cc.attrs.placeholder}"
 						jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
-						onkeyup="#{cc.attrs.onkeyup}" onblur="#{cc.attrs.onblur}">
+						onkeyup="#{cc.attrs.onkeyup}" onblur="#{cc.attrs.onblur}"
+						data-decimalplaces="#{cc.attrs.decimalplaces}">
 					<composite:insertChildren />
 					<f:attribute name="disabled" value="#{cc.attrs.disabled}" />
 					</input>
