@@ -54,9 +54,9 @@
 	<composite:attribute name="fourEyesLastValue" type="String" />
 
 	<composite:clientBehavior name="change" event="change"
-		targets="#{cc.attrs.referenceId}" />
+		targets="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}" />
 	<composite:attribute name="valueChangeListener" required="false"
-		targets="#{cc.attrs.referenceId}" />
+		targets="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}" />
 </composite:interface>
 
 <composite:implementation>
