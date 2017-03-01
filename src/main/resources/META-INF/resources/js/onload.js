@@ -1625,7 +1625,8 @@ function formatAmountOfMoney(ref) {
 	'use strict';
 	var inputField = document.getElementById(ref.id);
 	if (ref.value !== "") {
-		var result = formatiereInput(ref.value);
+		var dezimalstellen = $(inputField).data("decimalplaces");
+		var result = formatiereInput(ref.value, dezimalstellen);
 		result = kuerzeInput(result, ref.maxLength);
 		result = setzeTausenderPunkte(result);
 		inputField.value = result;
@@ -1633,13 +1634,13 @@ function formatAmountOfMoney(ref) {
 }
 
 /**
- * formatiert einen Stundensatz auf zwei Nachkommastellen ohne Tausenderpunkte (z.B. xxxxx,xx)
+ * formatiert einen Stundensatz auf die angegebene Anzahl Nachkommastellen ohne Tausenderpunkte (z.B. xxxxx,xx)
  */
-function formatiereInput(input){
+function formatiereInput(input, dezimalstellen){
 	'use strict';
     var value = input.split(".").join("");
     value = value.replace(',', '.');
-    var tmp = parseFloat(value).toFixed(2);
+    var tmp = parseFloat(value).toFixed(dezimalstellen);
     return tmp.replace('.', ',');
 }
 
@@ -1664,7 +1665,7 @@ function kuerzeInput(value, length){
 function setzeTausenderPunkte(value){
 	'use strict';
     var kommaPosition = value.indexOf(",");
-    for(i=1; i < kommaPosition; i++){
+    for(var i=1; i < kommaPosition; i++){
         if(i%3 === 0){
             value = value.substring(0, kommaPosition-i) + "." + value.substring(kommaPosition-i);
         }
