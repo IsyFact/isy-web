@@ -1624,8 +1624,8 @@ scriptLoadedOnload = function() {
 function formatAmountOfMoney(ref) {
 	'use strict';
 	var inputField = document.getElementById(ref.id);
-	var dezimalstellen = $(inputField).data("decimalplaces");
 	if (ref.value !== "") {
+		var dezimalstellen = $(inputField).data("decimalplaces");
 		var result = formatiereInput(ref.value, dezimalstellen);
 		result = kuerzeInput(result, ref.maxLength);
 		result = setzeTausenderPunkte(result);
