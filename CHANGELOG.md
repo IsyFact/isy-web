@@ -1,4 +1,4 @@
-# v4.2.5 (unveröffentlicht)
+# v4.2.5
 
 ## Bugfixes
 - Fix für ViewState wenn Browser Zurück-Button gedrückt wird. Es wird jetzt ein Link angezeigt, der zurück zur Anwendung führt.

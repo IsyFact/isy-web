@@ -6,7 +6,7 @@
     <groupId>de.bund.bva.pliscommon</groupId>
     <artifactId>plis-web</artifactId>
     <packaging>jar</packaging>
-    <version>4.2.5-SNAPSHOT</version>
+    <version>4.2.5</version>
     <description>IsyFact Web</description>
 
     <parent>
