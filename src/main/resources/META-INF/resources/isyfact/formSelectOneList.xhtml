@@ -33,6 +33,8 @@
     <composite:attribute name="labelStyleClass" type="String" default="col-lg-6" />
     <!-- Die CSS-Klasse für den Eingabebereich. -->
     <composite:attribute name="inputStyleClass" type="String" default="col-lg-6" />
+    <!-- Die CSS-Klasse für die Liste. -->
+    <composite:attribute name="selectlistStyleClass" type="String" required="false" default="form-selectlist"/>
     <!-- Ein spezifisches Validation-Model, falls benötigt. -->
     <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
     <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
@@ -50,17 +52,21 @@
     <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
 
         <isyi:formValidationLabel value="#{cc.attrs.label}"
-            forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+            forField="#{cc.clientId}:selectOneList:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
             required="#{cc.attrs.required}" styleClass="#{cc.attrs.labelStyleClass}" />
 
         <div class="#{cc.attrs.inputStyleClass}">
-            <div class="#{cc.attrs.selectlistStyleClass} #{cc.attrs.globalConfig.jsEnabled ? 'selectlist' : ''}">
-                <h:selectOneListbox id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" value="#{cc.attrs.value}" p:data-size="#{cc.attrs.size}" 
-                    styleClass="form-selectlist #{cc.attrs.globalConfig.jsEnabled ? 'selectlist' : 'selectlist-native'} #{cc.attrs.disabled ? 'disabled' : ''} #{cc.attrs.checkboxed ? 'checkboxed' : ''}">
-                    <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
-                    <composite:insertChildren />
-                </h:selectOneListbox>
-            </div>
+          <!-- Die id muss fest vergeben werden, damit das Label zur Liste passt.
+               Wenn wir die id nicht setzen, wird nämlich eine von JSF generiert und dann
+               können wir das 'forField' des Labels nicht korrekt setzen. -->
+          <isy:selectOneList id="selectOneList" selectlistStyleClass="#{cc.attrs.selectlistStyleClass}"
+                              disabled="#{cc.attrs.disabled}"
+                              size="#{cc.attrs.size}"
+                              value="#{cc.attrs.value}"
+                              reference="#{cc.attrs.reference}"
+                              checkboxed="#{cc.attrs.checkboxed}">
+            <composite:insertChildren />
+          </isy:selectOneList>
         </div>
 
         <!-- Bei Validierungsfehlern -->

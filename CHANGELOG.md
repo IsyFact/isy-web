@@ -15,6 +15,7 @@
 	* Einführung von <h>-Tags für Überschriften von Panels.
 	* Korrigierter JS-Code für die Formatierung von Geldbeträgen.
 	* formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
+	* selectManyList und selectOneList übernommen (DAISY)
 - `IFS-18`: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
 - `IFS-23`: Eingabe von Geldbeträgen mit mehr als zwei Nachkommastellen
 
