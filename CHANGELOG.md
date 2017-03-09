@@ -1,3 +1,8 @@
+# v4.2.7
+
+## Bugfixes
+- `RAIS-2280`: Fix für Labels, die nicht zum dazugehörigen Input passen.
+
 # v4.2.6
 
 ## Bugfixes
