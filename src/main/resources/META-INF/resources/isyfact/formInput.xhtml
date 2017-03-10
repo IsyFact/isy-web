@@ -50,6 +50,8 @@
 		default="#{not empty basisModel and basisModel.showPrintView}" />
 	<!-- Tooltip. -->
 	<composite:attribute name="tooltip" type="String" default="" />
+	<!-- Ob das Eingabefeld deaktiviert ist. -->
+  <composite:attribute name="disabled" type="Boolean" default="false" />
 
 	<!-- Ein spezifisches Validation-Model, falls benötigt. -->
 	<composite:attribute name="validationModel" required="false"
@@ -126,7 +128,9 @@
 							id="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 							placeholder="#{cc.attrs.placeholder}"
 							jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
-							style="width: #{cc.attrs.width}" title="#{cc.attrs.tooltip}" />
+							style="width: #{cc.attrs.width}" title="#{cc.attrs.tooltip}">
+							<f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+						</input>
 					</ui:fragment>
 
 					<!-- input mit inputmask -->
@@ -139,7 +143,9 @@
 							data-isymask-mask="#{cc.attrs.inputmask}"
 							data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}"
 							maxlength="#{cc.attrs.maxlength}" style="width: #{cc.attrs.width}"
-							title="#{cc.attrs.tooltip}" />
+							title="#{cc.attrs.tooltip}">
+							<f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+							</input>
 					</ui:fragment>
 					<ui:fragment
 						rendered="#{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled}">

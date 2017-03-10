@@ -52,7 +52,7 @@
 			value="#{cc.attrs.hidden ? 'display:none' : ''}" />
 
     <!-- ACHTUNG: ECLIPSE AUTO FORMAT LOESCHT DAS STYLE ATTRIBUT!!! -->
-		<th style="#{thStyle}" class="whiteSpaceNowrap sortable #{sortDirection} #{sortedClass}" width="#{cc.attrs.width}" data-property="#{cc.attrs.sortProperty}">
+		<th style="#{thStyle}" class="whiteSpaceNowrap sortable #{sortDirection} #{sortedClass}" width="#{cc.attrs.width}" data-sortattribute="#{cc.attrs.sortProperty}">
       <isy:hyperlink 
           value="#{cc.attrs.name}" 
           action="#{cc.parent.attrs.dataTableController.sort(cc.parent.attrs.dataTableModel, cc.attrs.sortProperty)}"

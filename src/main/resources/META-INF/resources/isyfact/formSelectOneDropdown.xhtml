@@ -20,16 +20,16 @@
 	<composite:attribute name="invalid" type="Boolean" default="false" />
 
   <!-- Custom ID. -->
-  <composite:attribute name="customId" type="String" required="false" default="isySelectOneDropdown" />
+  <composite:attribute name="customId" type="String" required="false" />
 
 	<!-- Ob die Darstellung nur lesend erfolgen soll -->
 	<composite:attribute name="readonly" type="Boolean" required="false"
 		default="false" />
 	<!-- Evente müssen explizit deklariert werden -->
 	<composite:attribute name="valueChangeListener" required="false"
-		targets="isySelectOneDropdown:#{cc.attrs.reference}" />
+		targets="isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
 	<composite:clientBehavior name="change" event="change"
-		targets="isySelectOneDropdown:#{cc.attrs.reference}" />
+		targets="isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
 
 
 	<!-- 4 Augen Prinzip Mode (locked, unlock) -->
@@ -78,14 +78,13 @@
 		class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
 
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
-			forField="#{cc.clientId}:isySelectOneDropdown:selectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+			forField="#{cc.clientId}:isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 			required="#{cc.attrs.required}"
 			styleClass="#{cc.attrs.labelStyleClass}" />
 
 		<div class="#{cc.attrs.inputStyleClass}">
-			<isy:selectOneDropdown id="#{cc.attrs.customId}"
+			<isy:selectOneDropdown id="isySelectOneDropdown"
 				reference="#{cc.attrs.reference}"
-				referenceId="#{cc.attrs.reference}"
 				value="#{cc.attrs.value}" invalid="#{cc.attrs.invalid}"
 				disabled="#{cc.attrs.disabled}" title="#{cc.attrs.label}"
 				globalConfig="#{cc.attrs.globalConfig}"
