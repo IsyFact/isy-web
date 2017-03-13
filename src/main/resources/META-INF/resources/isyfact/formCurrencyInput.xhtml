@@ -88,7 +88,15 @@
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
 			forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 			required="#{cc.attrs.required}"
-			styleClass="#{cc.attrs.labelStyleClass}" />
+			styleClass="#{cc.attrs.labelStyleClass}"
+			rendered="#{not cc.attrs.readonly}" />
+			
+	  <!-- Das Label falls readonly. -->
+		<isyi:formValidationLabel value="#{cc.attrs.label}"
+      forField="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+      required="#{cc.attrs.required}"
+      styleClass="#{cc.attrs.labelStyleClass}"
+      rendered="#{cc.attrs.readonly}" />
 
 		<div class="#{cc.attrs.inputStyleClass}">
 			<div class=" input-group">
