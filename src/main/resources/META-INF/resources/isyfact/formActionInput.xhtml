@@ -71,10 +71,21 @@
 	<div
 		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
 
+    <!-- Die Labels müssen (je nach Fall) zum entsprechenden actionInput passen -->
+    
+    <!-- Das Label falls "normal" -->
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
 			forField="#{cc.clientId}:actionInput:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 			required="#{cc.attrs.required}"
-			styleClass="#{cc.attrs.labelStyleClass}" />
+			styleClass="#{cc.attrs.labelStyleClass}"
+			rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}" />
+			
+		<!-- Das Label falls readonly. -->	
+		<isyi:formValidationLabel value="#{cc.attrs.label}"
+      forField="#{cc.clientId}:actionInput:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly"
+      required="#{cc.attrs.required}"
+      styleClass="#{cc.attrs.labelStyleClass}"
+      rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}" />
 
 		<div class="#{cc.attrs.inputStyleClass}">
 			<isy:actionInput id="actionInput" reference="#{cc.attrs.reference}"
