@@ -40,11 +40,11 @@
     <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
 
         <isyi:formValidationLabel value="#{cc.attrs.label}"
-            forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+            forField="#{cc.clientId}:isyBrowseAndCollect:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
             required="#{cc.attrs.required}" styleClass="#{cc.attrs.labelStyleClass}" />
 
         <div class="#{cc.attrs.inputStyleClass}">
-            <isy:browseAndCollect reference="#{cc.attrs.reference}" value="#{cc.attrs.value}" size="#{cc.attrs.size}" disabled="#{cc.attrs.disabled}" browsecollectStyleClass="form-browsecollect">
+            <isy:browseAndCollect id="isyBrowseAndCollect" reference="#{cc.attrs.reference}" value="#{cc.attrs.value}" size="#{cc.attrs.size}" disabled="#{cc.attrs.disabled}" browsecollectStyleClass="form-browsecollect">
                <composite:insertChildren />
             </isy:browseAndCollect>
         </div>
