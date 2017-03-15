@@ -24,6 +24,7 @@
 		* formBrowseAndCollect		
 - `IFS-18`: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
 - `IFS-23`: Eingabe von Geldbeträgen mit mehr als zwei Nachkommastellen
+
 # v4.2.7
 
 ## Bugfixes
@@ -33,6 +34,7 @@
 
 ## Bugfixes
 - Fix für ViewState wenn Browser Zurück-Button gedrückt wird. Es wird jetzt ein Link angezeigt, der zurück zur Anwendung führt.
+
 # v4.2.2
 
 # v4.2.1
