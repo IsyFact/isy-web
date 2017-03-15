@@ -89,7 +89,15 @@
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
 			forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 			required="#{cc.attrs.required}"
-			styleClass="#{cc.attrs.labelStyleClass}" />
+			styleClass="#{cc.attrs.labelStyleClass}"
+			rendered="#{not cc.attrs.readonly}" />
+		
+		<!-- Das Label falls readonly -->	
+		<isyi:formValidationLabel value="#{cc.attrs.label}"
+      forField="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+      required="#{cc.attrs.required}"
+      styleClass="#{cc.attrs.labelStyleClass}"
+      rendered="#{cc.attrs.readonly}" />
 
 		<div class="#{cc.attrs.inputStyleClass}">
 			<div class="rf-datepicker input-group"
@@ -123,7 +131,7 @@
 				<!-- Read-Only mode -->
 				<ui:fragment rendered="#{cc.attrs.readonly}">
 					<input type="text" class="form-control readonly"
-						jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+						id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 						readonly="readonly" jsf:value="#{cc.attrs.value}">
 					<composite:insertChildren />
 					</input>
