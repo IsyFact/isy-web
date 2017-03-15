@@ -18,6 +18,10 @@
 	* selectManyList und selectOneList übernommen (DAISY)
 	* Labels gefixt für:
 		* formActionInput
+		* formTextarea
+		* formListpicker
+		* formCurrencyInput
+		* formBrowseAndCollect		
 - `IFS-18`: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
 - `IFS-23`: Eingabe von Geldbeträgen mit mehr als zwei Nachkommastellen
 
