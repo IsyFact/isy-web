@@ -125,7 +125,7 @@
 					<ui:fragment rendered="#{empty cc.attrs.inputmask}">
 						<input type="#{cc.attrs.type}"
 							class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled ? ' inputWithSpecialCharPicker': ''}"
-							jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+							id="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 							placeholder="#{cc.attrs.placeholder}"
 							jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
 							style="width: #{cc.attrs.width}" title="#{cc.attrs.tooltip}">
@@ -137,7 +137,7 @@
 					<ui:fragment rendered="#{not empty cc.attrs.inputmask}">
 						<input type="#{cc.attrs.type}"
 							class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled ? ' inputWithSpecialCharPicker': ''}"
-							jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}_with_inputmask"
+							id="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}_with_inputmask"
 							jsf:value="#{cc.attrs.value}"
 							placeholder="#{cc.attrs.placeholder}"
 							data-isymask-mask="#{cc.attrs.inputmask}"
@@ -160,14 +160,14 @@
 				<ui:fragment
 					rendered="#{cc.attrs.readonly and not cc.attrs.showPrintView}">
 					<input type="#{cc.attrs.type}" class="form-control readonly"
-						jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+						id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 						readonly="readonly" jsf:value="#{cc.attrs.value}"
 						style="width: #{cc.attrs.width}" />
 
 				</ui:fragment>
 				<ui:fragment rendered="#{cc.attrs.showPrintView}">
 					<input type="#{cc.attrs.type}" class="form-control"
-						jsf:id="disabled_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+						id="#{cc.clientId}:disabled_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 						disabled="disabled" jsf:value="#{cc.attrs.value}"
 						style="width: #{cc.attrs.width}" />
 				</ui:fragment>
