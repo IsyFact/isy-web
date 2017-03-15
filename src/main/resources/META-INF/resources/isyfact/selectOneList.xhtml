@@ -26,7 +26,7 @@
 
 <composite:implementation>
 
-    <div class="#{cc.attrs.selectlistStyleClass} #{cc.attrs.globalConfig.jsEnabled ? 'selectlist' : ''}">
+    <div class="#{cc.attrs.globalConfig.jsEnabled ? 'selectlist' : ''}">
         <h:selectOneListbox id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" value="#{cc.attrs.value}" p:data-size="#{cc.attrs.size}" 
             styleClass="#{cc.attrs.selectlistStyleClass} #{cc.attrs.globalConfig.jsEnabled ? 'selectlist' : 'selectlist-native'} #{cc.attrs.disabled ? 'disabled' : ''} #{cc.attrs.checkboxed ? 'checkboxed' : ''}">
             <f:attribute name="disabled" value="#{cc.attrs.disabled}" />

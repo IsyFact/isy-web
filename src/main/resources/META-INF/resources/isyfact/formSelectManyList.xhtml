@@ -32,8 +32,6 @@
     <composite:attribute name="labelStyleClass" type="String" default="col-lg-6" />
     <!-- Die CSS-Klasse für den Eingabebereich. -->
     <composite:attribute name="inputStyleClass" type="String" default="col-lg-6" />
-    <!-- Die CSS-Klasse für die Liste. -->
-    <composite:attribute name="selectlistStyleClass" type="String" required="false" default="form-selectlist"/>
     <!-- Ein spezifisches Validation-Model, falls benötigt. -->
     <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
     <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
@@ -58,7 +56,7 @@
           <!-- Die id muss fest vergeben werden, damit das Label zur Liste passt.
                Wenn wir die id nicht setzen, wird nämlich eine von JSF generiert und dann
                können wir das 'forField' des Labels nicht korrekt setzen. -->
-          <isy:selectManyList id="selectManyList" selectlistStyleClass="#{cc.attrs.selectlistStyleClass}"
+          <isy:selectManyList id="selectManyList" selectlistStyleClass="form-selectlist"
                               disabled="#{cc.attrs.disabled}"
                               size="#{cc.attrs.size}"
                               value="#{cc.attrs.value}"
