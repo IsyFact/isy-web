@@ -7,7 +7,7 @@
 
 <composite:interface>
     
-    <!-- Die Custom Name. -->
+    <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
     <composite:attribute name="customId" required="false" />
     
     <!-- Der Wert der Auswahl für das Data-Binding -->
@@ -43,7 +43,8 @@
         value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
     <ui:param name="existsValidationError" value="#{not empty validationMessages}" />
 
-    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
+    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+         data-isy-custom-id="#{cc.attrs.customId}" >
         <label class="#{cc.attrs.labelStyleClass} control-label#{cc.attrs.required ? ' mandatory' : ''}"
             for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">#{cc.attrs.label} </label>
         <div class="#{cc.attrs.inputStyleClass}">

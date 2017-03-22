@@ -14,7 +14,7 @@
 	<!-- Tooltip. -->
 	<composite:attribute name="tooltip" type="String" default="" />
 
-  <!-- Die Custom Name. -->
+  <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
   <composite:attribute name="customId" required="false" />
 
 	<!-- Die Referenz des Objekts. -->
@@ -83,7 +83,8 @@
 		value="#{not empty validationMessages}" />
 
 	<div
-		class="form-group#{existsValidationError ? ' has-error has-feedback': ''} #{cc.attrs.customId}">
+		class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+		data-isy-custom-id="#{cc.attrs.customId}">
 
 		<!-- Das Label -->
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
