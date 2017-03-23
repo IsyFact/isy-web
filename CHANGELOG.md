@@ -1,4 +1,4 @@
-# v4.3.0 (unveröffentlicht)
+# v4.3.0
 
 ## Bugfixes
 - `IFS-30`:
@@ -27,6 +27,9 @@
 		* formBrowseAndCollect		
 - `IFS-18`: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
 - `IFS-23`: Eingabe von Geldbeträgen mit mehr als zwei Nachkommastellen
+
+## Hinweise zum Upgrade
+- Tabs: Anwendungen die das Attribut preload (tabContent) auf true gesetzt haben, ohne das Attribut skipAction (tabHeader) explizit auch auf true gesetzt zu haben, müssen skipAction nun auch explizit auf true setzen (siehe oben: Bugfix IFRF-24). Generell ist darauf zu achten, dass beide Attribute denselben Wert haben. Wenn die Werte in der Anwendung überhaupt nicht explizit gesetzt werden, muss nichts unternommen werden.
 
 # v4.2.7
 
