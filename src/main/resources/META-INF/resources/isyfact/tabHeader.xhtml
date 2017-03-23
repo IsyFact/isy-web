@@ -15,8 +15,11 @@
     <!-- Tooltip. -->
     <composite:attribute name="tooltip" required="false"/>
     
-    <!-- Ob die übergebene action ausgeführt werden soll. -->
-    <composite:attribute name="skipAction" required="false" default="true"/>
+    <!-- Ob die übergebene action ausgelassen werden soll. 
+         Default ist false, die action wird standardmäßig also ausgeführt. -->
+    <!-- Achtung: es besteht eine Abhängigkeit zum Attribut 'preload' in tabContent.xhtml. -->
+    <!-- Die beiden Attribute müssen immer den gleichen Wert haben, damit der Tab korrekt funktioniert. -->
+    <composite:attribute name="skipAction" type="java.lang.Boolean" required="false" default="false"/>
     <!-- Die action kann überschrieben werden, um z.B. den aktuellen Reiter validieren zu können -->
     <composite:attribute name="action" required="false" default="#{cc.attrs.tabController.changeTab(cc.parent.attrs.tabGroupModel,cc.attrs.name)}" targets="#{cc.parent.attrs.tabGroupId}-#{cc.attrs.name}" />
 

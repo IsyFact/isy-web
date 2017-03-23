@@ -7,6 +7,9 @@
 		* formSelectOneDropdown.xhtml
 		* selectOneDropdown.xhtml (referenceId)
 	* formSelectOneDropdown: Klick auf Label selektiert wieder das entsprechende Dropdown.
+- `IFRF-24`:
+	* Tabs: Das Attribut skipAction (tabHeader) hat nun den Standardwert false und korrespondiert somit zum Standardwert des Attributs preload (tabContent).
+	  Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
 
 ## Neuerungen
 - `IFS-29`: 
