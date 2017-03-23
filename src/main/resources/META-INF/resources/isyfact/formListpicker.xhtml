@@ -110,7 +110,7 @@
 		<isyi:formValidationLabel value="#{cc.attrs.label}"
 			styleClass="#{cc.attrs.labelStyleClass}"
 			required="#{cc.attrs.required}"
-			forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField"
+			forField="#{cc.clientId}:selectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField"
 			rendered="#{not cc.attrs.globalConfig.jsEnabled}" />
 
 		<div class="#{cc.attrs.inputStyleClass}">
@@ -217,11 +217,10 @@
 				<!-- Falls JS nicht aktiviert ist, dann wird ein einfaches Dropdown angezeigt. -->
 				<div class="input-group">
 					<isy:selectOneDropdown
-						reference="#{cc.attrs.reference}_selectOneDropdown"
+						reference="#{cc.attrs.reference}-listpickerField"
 						value="#{cc.attrs.value}" invalid="#{existsValidationError}"
 						id="selectOneDropdown" dropdownStyleClass="form-selectonedropdown"
 						disabled="#{cc.attrs.showPrintView}"
-						referenceId="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField"
 						title="#{cc.attrs.title}">
 						<f:selectItems
 							value="#{cc.attrs.listpickerModel.itemsAsSelectItemsNonJs}" />

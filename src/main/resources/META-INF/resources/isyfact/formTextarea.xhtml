@@ -48,8 +48,6 @@
 	<!-- Die maximal Anzahl von Zeichen -->
 	<composite:attribute name="maxlength" type="Integer" required="false"
 		default="4000" />
-	<!-- Id des Objekts -->
-	<composite:attribute name="id" type="String" required="false" />
 	<!-- Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
 	<composite:attribute name="showPrintView" type="Boolean"
 		default="#{not empty basisModel and basisModel.showPrintView}" />
@@ -89,7 +87,7 @@
 				styleClass="form-control#{existsValidationError ? ' invalid': ''} #{not empty cc.attrs.textareaStyleClass ? cc.attrs.textareaStyleClass : ''}"
 				cols="#{cc.attrs.cols}" readonly="#{cc.attrs.readonly}"
 				rows="#{cc.attrs.rows}" title="#{cc.attrs.tooltip}"
-				value="#{cc.attrs.value}" id="#{cc.attrs.id}"
+				value="#{cc.attrs.value}" id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
 				p:maxlength="#{cc.attrs.maxlength}"
 				p:placeholder="#{cc.attrs.placeholder}"
 				disabled="#{cc.attrs.showPrintView or cc.attrs.disabled}" />
