@@ -46,7 +46,7 @@
 	<!-- Parameter für den Konverter -->
 	<composite:attribute name="converterAttribute" />
 
-  <!-- Die Custom Name. -->
+  <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
   <composite:attribute name="customId" required="false" />
   
 	<!-- 	4 Augen Prinzip Mode (locked, unlock) -->
@@ -62,7 +62,8 @@
 <composite:implementation>
 
 	<div
-		class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''} #{cc.attrs.customId}">
+		class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}"
+		data-isy-custom-id="#{cc.attrs.customId}" >
 		<h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}"
 			value="#{cc.attrs.value}"
 			styleClass="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{cc.attrs.invalid ? 'invalid' : ''} #{cc.attrs.readonly ? 'disabled readonly' : ''}"
