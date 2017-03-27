@@ -1,3 +1,8 @@
+# v4.3.1
+
+## Bugfixes
+- Attribut "customId" in Form-Komponenten wird nicht mehr in das class-Attribut, sondern ein data-Attribut (data-isy-custom-id) geschrieben
+
 # v4.3.0
 
 ## Bugfixes
