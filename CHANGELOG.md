@@ -1,3 +1,6 @@
+# v4.4.0
+- `IFS-17`: GroupID und ArtifactID geändert, Version hochgedreht
+
 # v4.3.1
 
 ## Bugfixes
