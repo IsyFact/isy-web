@@ -52,13 +52,13 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/plis-style</outputDirectory>
+                            <outputDirectory>${basedir}/target/isy-style</outputDirectory>
                             <stripVersion>true</stripVersion>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>de.bund.bva.pliscommon</groupId>
-                                    <artifactId>plis-style</artifactId>
-                                    <version>2.1.0</version>
+                                    <groupId>de.bund.bva.isyfact</groupId>
+                                    <artifactId>isy-style</artifactId>
+                                    <version>2.2.0</version>
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                 </artifactItem>
@@ -79,14 +79,14 @@
                         <phase>generate-sources</phase>
                         <configuration>
                             <tasks>
-                                <unzip dest="target/plis-style">
+                                <unzip dest="target/isy-style">
                                     <fileset dir="target">
-                                        <include name="plis-style/plis-style*.zip"/>
+                                        <include name="isy-style/isy-style*.zip"/>
                                     </fileset>
                                 </unzip>
                                 <!-- CSS -->
                                 <copy todir="src/main/resources/META-INF/resources/css">
-                                    <fileset dir="target/plis-style/css">
+                                    <fileset dir="target/isy-style/css">
                                         <include name="styles-jsf.css"/>
                                         <include name="print-jsf.css"/>
                                         <include name="ie8fixes.css"/>
@@ -98,19 +98,19 @@
                                     tofile="src\main\resources\META-INF\resources\css\print.css"/>
                                 <!-- Fonts -->
                                 <copy todir="src/main/resources/META-INF/resources/css/fonts">
-                                    <fileset dir="target/plis-style/css/fonts"/>
+                                    <fileset dir="target/isy-style/css/fonts"/>
                                 </copy>
                                 <!-- IMG -->
                                 <copy todir="src/main/resources/META-INF/resources/img">
-                                    <fileset dir="target/plis-style/img"/>
+                                    <fileset dir="target/isy-style/img"/>
                                 </copy>
                                 <!-- Lib -->
                                 <copy todir="src/main/resources/META-INF/resources/lib">
-                                    <fileset dir="target/plis-style/lib"/>
+                                    <fileset dir="target/isy-style/lib"/>
                                 </copy>
                                 <!-- IMG -->
                                 <copy todir="src/main/resources/META-INF/resources/plugins">
-                                    <fileset dir="target/plis-style/plugins"/>
+                                    <fileset dir="target/isy-style/plugins"/>
                                 </copy>
                                 <!-- Clean target-grunt folder -->
                                 <delete dir="target-grunt"/>
