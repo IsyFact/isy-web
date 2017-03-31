@@ -1,7 +1,7 @@
 {
   "name": "bva",
   "version": "0.0.0",
-  "description": "JS for plis-web",
+  "description": "JS for isy-web",
   "author": "Capgemini",
   "private": true,
   "dependencies": {

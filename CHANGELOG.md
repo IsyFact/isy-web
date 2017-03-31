@@ -1,3 +1,6 @@
+# v4.4.0
+- `IFS-17`: Masterpom-lib und isyfact-base aktualisiert, group-id und artifact-id geändert, Abhängigkeiten aktualisiert
+
 # v4.3.1
 
 ## Bugfixes
