@@ -1,5 +1,5 @@
-# v4.4.0
-- `IFS-17`: Masterpom-lib und isyfact-base aktualisiert, group-id und artifact-id geändert, Abhängigkeiten aktualisiert
+# v4.3.2 (UNVERÖFFENTLICHT)
+- `IFS-17`: Umbenennung der Artifact-ID und Group-ID
 
 # v4.3.1
 
@@ -15,9 +15,8 @@
 		* formSelectOneDropdown.xhtml
 		* selectOneDropdown.xhtml (referenceId)
 	* formSelectOneDropdown: Klick auf Label selektiert wieder das entsprechende Dropdown.
-- `IFRF-24`:
-	* Tabs: Das Attribut skipAction (tabHeader) hat nun den Standardwert false und korrespondiert somit zum Standardwert des Attributs preload (tabContent).
-	  Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
+- Tabs: Das Attribut skipAction (tabHeader) hat nun den Standardwert false und korrespondiert somit zum Standardwert des Attributs preload (tabContent).
+	Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
 
 ## Neuerungen
 - `IFS-29`: 
@@ -42,14 +41,12 @@
 # v4.2.7
 
 ## Bugfixes
-- `RAIS-2280`: Fix für Labels, die nicht zum dazugehörigen Input passen.
+- Fix für Labels, die nicht zum dazugehörigen Input passen.
 
 # v4.2.6
 
 ## Bugfixes
 - Fix für ViewState wenn Browser Zurück-Button gedrückt wird. Es wird jetzt ein Link angezeigt, der zurück zur Anwendung führt.
-
-# v4.2.2
 
 # v4.2.1
 
