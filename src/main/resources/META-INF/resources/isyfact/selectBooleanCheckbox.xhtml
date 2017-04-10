@@ -39,24 +39,32 @@
 
 <composite:implementation>
 
+  <c:set var="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
+  <c:set var="fourEyesColor" value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+
 	<ui:param name="labelClass"
 		value="#{cc.attrs.required ? 'required' : ''}" />
 
-	<div class="checkbox">
+	<div class="checkbox #{fourEyesActive? 'vieraugen': ''}">
 		<label class="#{labelClass} control-label"
 			for="#{cc.clientId}:selectBooleanCheckbox">
 			<t:selectBooleanCheckbox id="selectBooleanCheckbox"
 				value="#{cc.attrs.value}" styleClass="form-control"
 				disabled="#{cc.attrs.disabled or cc.attrs.showPrintView}"
 				onchange="#{cc.attrs.onchange}" /><span>#{cc.attrs.label}</span>
+				
+				<!-- Four Eyes -->
+				<ui:fragment rendered="#{fourEyesActive}">
+          <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+            data-content="#{cc.attrs.fourEyesLastValue}"
+            data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+            class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} #{cc.attrs.disabled?'formcheckboxvieraugendisabled':'formcheckboxvieraugen'}"
+            data-original-title="" title="">
+              <div class="icon icon-unlock" style="color: #{fourEyesColor}"></div>
+          </a>
+        </ui:fragment>
+				
 		</label>
-		<isyi:foureyesicon id="foureyes#{cc.attrs.fourEyesMode}"
-			linkClass="formcheckboxvieraugen"
-			buttonClass="#{not cc.attrs.disabled?'input-only':''} formcheckboxvieraugen #{cc.attrs.disabled?'formcheckboxvieraugenabstand':''}"
-			fourEyesMode="#{cc.attrs.fourEyesMode}"
-			fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
-			disabled="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}" />
-
 	</div>
 
 

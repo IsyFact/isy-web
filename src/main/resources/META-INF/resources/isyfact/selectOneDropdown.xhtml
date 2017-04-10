@@ -61,6 +61,10 @@
 
 <composite:implementation>
 
+  <c:set var="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
+  <c:set var="fourEyesColor"
+        value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+
 	<div
 		class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}"
 		data-isy-custom-id="#{cc.attrs.customId}" >
@@ -75,11 +79,19 @@
 		</h:selectOneMenu>
 
 		<!-- Four Eyes -->
-		<isyi:foureyesicon id="foureyes-#{cc.attrs.fourEyesMode}" linkClass="formselectonedropdownvieraugenlink"
-			buttonClass="formselectonedropdownvieraugenbutton"
-			fourEyesMode="#{cc.attrs.fourEyesMode}"
-			fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
-			disabled="#{cc.attrs.disabled}" />
+    <ui:fragment rendered="#{fourEyesActive}">
+      <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+        data-content="#{cc.attrs.fourEyesLastValue}"
+        data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+        class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} formselectonedropdownvieraugenlink"
+        data-original-title="" title="">
+          <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
+            class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formselectonedropdownvieraugenbutton">
+              <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+              <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+          </button>
+      </a>
+    </ui:fragment>
 
 	</div>
 

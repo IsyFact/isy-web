@@ -48,6 +48,9 @@
 
 <composite:implementation>
 
+  <c:set var="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
+  <c:set var="fourEyesColor" value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+
 	<div class="action-input input-group">
 
 		<!-- enabled and normal or input-only -->
@@ -95,12 +98,22 @@
 		</a>
 
 		<!-- Four Eyes -->
-		<isyi:foureyesicon id="foureyes"
-			fourEyesMode="#{cc.attrs.fourEyesMode}"
-			fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
-			linkClass="#{not empty cc.attrs.icon ? 'formactioninputvieraugenlink' : 'formactioninputvieraugenlinkwithicon'}"
-			buttonClass="formactioninputvieraugenbutton"
-			disabled="#{cc.attrs.disabled}" />
+    <ui:fragment rendered="#{fourEyesActive}">
+      <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+         data-content="#{cc.attrs.fourEyesLastValue}"
+         data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+         class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} 
+         #{not empty cc.attrs.icon ? 'formactioninputvieraugenlink' : 'formactioninputvieraugenlinkwithicon'}
+         #{existsValidationError and not empty cc.attrs.icon ? 'formactioninputvieraugenhaserror': ''}"
+         data-original-title="" title="">
+        <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
+          class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formactioninputvieraugenbutton">
+          <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+          <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+        </button>
+      </a>
+    </ui:fragment>
+
 	</div>
 	
 </composite:implementation>
