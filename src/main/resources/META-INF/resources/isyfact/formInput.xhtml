@@ -78,6 +78,9 @@
 
 <composite:implementation>
 
+  <c:set var="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
+  <c:set var="fourEyesColor" value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+
 	<!-- Validierungsfehler bestimmen -->
 	<ui:param name="validationMessages"
 		value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
@@ -172,15 +175,24 @@
 						disabled="disabled" jsf:value="#{cc.attrs.value}"
 						style="width: #{cc.attrs.width}" />
 				</ui:fragment>
-
-      <!-- Four Eyes -->
-      <isyi:foureyesicon
-          linkClass="#{not empty cc.attrs.icon ? 'formactioninputvieraugenlink' : 'formactioninputvieraugenlinkwithicon'} 
+				
+				<!-- Das FourEyesIcon -->
+        <ui:fragment rendered="#{fourEyesActive}">
+          <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+          data-content="#{cc.attrs.fourEyesLastValue}"
+          data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+          class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} 
+          #{not empty cc.attrs.icon ? 'formactioninputvieraugenlink' : 'formactioninputvieraugenlinkwithicon'}
           #{existsValidationError and not empty cc.attrs.icon ? 'formactioninputvieraugenhaserror': ''}"
-          buttonClass="#{not cc.attrs.disabled?'input-only':''} formactioninputvieraugenbutton"
-          fourEyesMode="#{cc.attrs.fourEyesMode}"
-          fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
-          disabled="#{cc.attrs.disabled}" />
+          data-original-title="" title="">
+            <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                    class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formactioninputvieraugenbutton">
+                    <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                    <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+            </button>
+          </a>
+        </ui:fragment>
+        
 			</div>
 			<!-- Bei Validierungsfehlern -->
 			<isyi:formValidationIcon

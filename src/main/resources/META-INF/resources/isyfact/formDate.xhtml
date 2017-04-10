@@ -76,6 +76,9 @@
 
 <composite:implementation>
 
+  <c:set var="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
+  <c:set var="fourEyesColor" value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+
 	<!-- Ob Validierungsfehler existieren. -->
 	<ui:param name="validationMessages"
 		value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
@@ -116,10 +119,22 @@
 						data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}">
 					<composite:insertChildren />
 					</input>
-					<isyi:foureyesicon id="foureyes-#{cc.attrs.fourEyesMode}" fourEyesMode="#{cc.attrs.fourEyesMode}"
-						fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
-						linkClass="formdatevieraugenlink"
-						buttonClass="#{not cc.attrs.disabled?'input-only':''} formdatevieraugenbutton" disabled="false" />
+    
+          <!-- Four Eyes -->
+          <ui:fragment rendered="#{fourEyesActive}">
+            <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+              data-content="#{cc.attrs.fourEyesLastValue}"
+              data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+              class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} formdatevieraugenlink}"
+              data-original-title="" title="">
+              <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formdatevieraugenbutton">
+                <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+              </button>
+            </a>
+          </ui:fragment>
+
 					<ui:fragment
 						rendered="#{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView and cc.attrs.showPicker}">
 						<a
@@ -137,11 +152,21 @@
 					<composite:insertChildren />
 					</input>
 
-					<isyi:foureyesicon id="foureyes-#{cc.attrs.fourEyesMode}-readonly" fourEyesMode="#{cc.attrs.fourEyesMode}"
-						fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
-						linkClass="formdatevieraugenlink"
-						buttonClass="#{not cc.attrs.disabled?'input-only':''} formdatevieraugenbutton" disabled="#{cc.attrs.disabled}" />
-
+          <!-- Four Eyes -->
+          <ui:fragment rendered="#{fourEyesActive}">
+            <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+              data-content="#{cc.attrs.fourEyesLastValue}"
+              data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+              class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} formdatevieraugenlink}"
+              data-original-title="" title="">
+              <button type="submit" jsf:id="fourEyesIconReadOnly" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formdatevieraugenbutton">
+                <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+              </button>
+            </a>
+          </ui:fragment>
+  
 				</ui:fragment>
 			</div>
 		</div>
