@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
@@ -65,9 +66,10 @@
 
 <composite:implementation>
 
-	<ui:define name="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
-	<ui:define name="fourEyesColor"
-		value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+  <c:set var="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
+  <c:set var="fourEyesColor"
+        value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+
 	<!-- Validierungsfehler bestimmen -->
 	<ui:param name="validationMessages"
 		value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
@@ -94,12 +96,22 @@
 				disabled="#{cc.attrs.showPrintView or cc.attrs.disabled}" />
 
 			<!-- Four Eyes -->
-			<isyi:foureyesicon id="foureyes#{cc.attrs.fourEyesMode}"
-				linkClass="formtextareavieraugenlink #{existsValidationError ? 'formtextareavieraugenhaserror': ''}"
-				buttonClass="formtextareavieraugenbutton #{existsValidationError ? 'formtextareavieraugenhaserror': ''}"
-				fourEyesMode="#{cc.attrs.fourEyesMode}"
-				fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
-				disabled="#{cc.attrs.disabled}" />
+      <ui:fragment rendered="#{fourEyesActive}">
+        <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+          data-content="#{cc.attrs.fourEyesLastValue}"
+          data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+          class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} formtextareavieraugenlink 
+          #{existsValidationError ? 'formtextareavieraugenhaserror': ''}"
+          data-original-title="" title="">
+            <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION"
+              disabled="disabled"
+              class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formtextareavieraugenbutton
+              #{existsValidationError ? 'formtextareavieraugenhaserror': ''}">
+                <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+            </button>
+        </a>
+      </ui:fragment>
 
 		</div>
 

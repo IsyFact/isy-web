@@ -1,5 +1,8 @@
-# v4.3.2 (UNVERÖFFENTLICHT)
+# v4.3.2
 - `IFS-17`: Umbenennung der Artifact-ID und Group-ID
+
+## Bugfixes
+- Fix für das Four-Eyes-Icon.
 
 # v4.3.1
 
