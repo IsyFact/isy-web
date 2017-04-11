@@ -24,11 +24,11 @@
 ## Neuerungen
 - `IFS-29`: 
 	* Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
-	* DataTable übernimmt Änderungen von DataTable3 (DAISY).
+	* DataTable übernimmt Änderungen von DataTable3.
 	* Einführung von <h>-Tags für Überschriften von Panels.
 	* Korrigierter JS-Code für die Formatierung von Geldbeträgen.
 	* formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
-	* selectManyList und selectOneList übernommen (DAISY)
+	* selectManyList und selectOneList übernommen.
 	* Labels gefixt für:
 		* formActionInput
 		* formTextarea
