@@ -15,7 +15,6 @@
  * permissions and limitations under the License.
  */
 /**
- * Enthält spezifische Logik für die RF-spezifischen Composite Components.
+ * Enthält spezifische Logik für die IsyFact-spezifischen Composite Components.
  */
 package de.bund.bva.isyfact.common.web.jsf.components;
-

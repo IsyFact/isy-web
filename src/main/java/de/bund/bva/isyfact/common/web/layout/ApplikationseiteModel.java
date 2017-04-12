@@ -26,7 +26,7 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
  */
 public class ApplikationseiteModel extends AbstractMaskenModel {
 
-    // TODO RAIS-47 Erweitern um gruppe aktiver quicklinks, bei leer default alle anzeigen
+    // TODO Erweitern um gruppe aktiver quicklinks, bei leer default alle anzeigen
 
     /**
      * ID.

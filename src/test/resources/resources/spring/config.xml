@@ -107,16 +107,6 @@
 			</map>
 		</property>
 	</bean>
-
-	<!-- bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="oracle.jdbc.OracleDriver" />
-		<property name="url"
-			value="jdbc:oracle:thin:@plis.local.vm:1521:VISA" />
-		<property name="username" value="sys as sysdba" />
-		<property name="password" value="sys" />
-	</bean -->
 	
 	<!-- Singleton for usage inside conversation container persistency -->
 	<bean id="webFlowConversationService"
