@@ -53,4 +53,21 @@ public abstract class KonfigurationSchluessel {
     public static final String GUI_VERSIONSANZEIGE_SEITENTITEL_AKTIV =
         "gui.versionsanzeige.seitentitel.aktiv";
 
+    /**
+     * Der relative Pfad zum Logo, das im Header rechts angezeigt werden soll. Bsp.:
+     * /resources/img/logo-rechts.png
+     */
+    public static final String GUI_HEADER_LOGO_RECHTS_PFAD = "gui.header.logo.rechts.pfad";
+
+    /**
+     * Der relative Pfad zum Logo, das im Header links angezeigt werden soll. Bsp.:
+     * /resources/img/logo-links.png
+     */
+    public static final String GUI_HEADER_LOGO_LINKS_PFAD = "gui.header.logo.links.pfad";
+
+    /**
+     * Der Text, der im span neben dem rechten Logo angezeigt werden soll.
+     */
+    public static final String GUI_HEADER_TEXT_LOGO_RECHTS = "gui.header.text.logo.rechts";
+
 }

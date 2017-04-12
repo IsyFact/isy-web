@@ -51,6 +51,30 @@ public class HeaderHelper {
         return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_NUTZERBEREICH_XHTML_SRC);
     }
 
+    /**
+     * Gibt den Pfad zum rechten Header Logo zurück.
+     * @return Den Pfad, der aus der Konfiguration stammt.
+     */
+    public String ermittlePfadHeaderLogoRechts() {
+        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_LOGO_RECHTS_PFAD, "");
+    }
+
+    /**
+     * Gibt den Pfad zum linken Header Logo zurück.
+     * @return Den Pfad, der aus der Konfiguration stammt.
+     */
+    public String ermittlePfadHeaderLogoLinks() {
+        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_LOGO_LINKS_PFAD, "");
+    }
+
+    /**
+     * Gibt den Text, der im span neben dem rechten Logo angezeigt werden soll, zurück.
+     * @return Den Text, der aus der Konfiguration stammt.
+     */
+    public String ermittleTextHeaderLogoRechts() {
+        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_TEXT_LOGO_RECHTS, "");
+    }
+
     @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;

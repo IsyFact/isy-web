@@ -8,15 +8,15 @@
 
 	<div class="header-content" role="banner">
 
-		<img class="logo" alt="Bundesverwaltungsamt Logo"
-			src="${request.contextPath}/app/resources/img/logo.png" />
+		<img class="logo" alt="Logo links"
+			src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoLinks()}" />
 
 		<div class="pull-right text-right">
 
 			<div class="brand">
-				<img alt="Register Portal Logo"
-					src="${request.contextPath}/app/resources/img/registerLogo.png" />
-				<span>Registerportal Bundesverwaltungsamt</span>
+				<img alt="Logo rechts"
+					src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoRechts()}" />
+				<span>#{headerHelper.ermittleTextHeaderLogoRechts()}</span>
 			</div>
 
 			<ui:include src="#{headerHelper.ermittleXhtmlSrcNutzerbereich()}" />
