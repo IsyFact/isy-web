@@ -28,8 +28,7 @@ import de.bund.bva.pliscommon.exception.FehlertextProvider;
  * Beispiele für die Fehler, welche nicht in der Anwendung speziell erzeugt werden: bestimmte Datenbankfehler,
  * Fehler durch Programmierfehler (NullPointerException,…).
  * <p>
- * <b>Als Fallback für undifferenzierte Fehler muss eine allgemeine Fehler-ID hinterlegt werden (z.B.
- * AZRGA99999).</b>
+ * <b>Als Fallback für undifferenzierte Fehler muss eine allgemeine Fehler-ID hinterlegt werden.</b>
  *
  * @author Capgemini, Artun Subasi
  * @version $Id: AusnahmeIdMapper.java 141870 2015-07-16 10:07:27Z sdm_jmalkiewicz $

@@ -2,22 +2,21 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rf="http://java.sun.com/jsf/composite/registerfactory">
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<div class="header-colorbar"></div>
 
 	<div class="header-content" role="banner">
 
-		<img class="logo" alt="Bundesverwaltungsamt Logo"
-			src="${request.contextPath}/app/resources/img/logo.png" />
+		<img class="logo" alt="Logo links"
+			src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoLinks()}" />
 
 		<div class="pull-right text-right">
 
 			<div class="brand">
-				<img alt="Register Portal Logo"
-					src="${request.contextPath}/app/resources/img/registerLogo.png" />
-				<span>Registerportal Bundesverwaltungsamt</span>
+				<img alt="Logo rechts"
+					src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoRechts()}" />
+				<span>#{headerHelper.ermittleTextHeaderLogoRechts()}</span>
 			</div>
 
 			<ui:include src="#{headerHelper.ermittleXhtmlSrcNutzerbereich()}" />

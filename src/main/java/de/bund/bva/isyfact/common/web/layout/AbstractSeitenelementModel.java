@@ -19,8 +19,8 @@ package de.bund.bva.isyfact.common.web.layout;
 import java.io.Serializable;
 
 /**
- * Abstrakte Oberklasse für RF-Seitenelemente.
- * 
+ * Abstrakte Oberklasse für IsyFact-Seitenelemente.
+ *
  * @author Capgemini, Jonas Zitz
  * @version $Id: AbstractSeitenelementModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
@@ -37,7 +37,7 @@ public abstract class AbstractSeitenelementModel implements Serializable {
     protected boolean anzeigen;
 
     public boolean isAnzeigen() {
-        return anzeigen;
+        return this.anzeigen;
     }
 
     public void setAnzeigen(boolean anzeigen) {
