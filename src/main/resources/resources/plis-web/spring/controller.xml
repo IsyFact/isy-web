@@ -62,6 +62,10 @@
     <bean id="titlesHelper" class="de.bund.bva.isyfact.common.web.webflow.titles.TitlesHelper">
         <property name="konfiguration" ref="konfiguration"/>
     </bean>
+    
+    <bean id="isyWebKonfigurationHelper" class="de.bund.bva.isyfact.common.web.global.IsyWebKonfigurationHelper">
+        <property name="konfiguration" ref="konfiguration"/>
+    </bean>
 
     <bean id="globalConfigurationController" class="de.bund.bva.isyfact.common.web.global.GlobalConfigurationController">
             <aop:scoped-proxy proxy-target-class="true"/>

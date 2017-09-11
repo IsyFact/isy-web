@@ -76,6 +76,11 @@
 
 <composite:implementation>
 
+  <!-- In dieses Feld wird die Grenze zum Ergänzen von zweistelligen Jahreszahlen bei Datumsangaben gespeichert.
+       Der Wert wird aus der Konfiguration ausgelesen. -->
+  <input type="hidden" id="formDateJahresZahlenErgaenzenGrenze"
+         value="#{isyWebKonfigurationHelper.getGuiDatumsangabeJahreszahlenErgaenzenGrenze()}" />
+
   <c:set var="fourEyesActive" value="#{not empty cc.attrs.fourEyesMode}" />
   <c:set var="fourEyesColor" value="#{fourEyesActive and 'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
 

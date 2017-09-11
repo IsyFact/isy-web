@@ -624,10 +624,16 @@ function refreshFunctions() {
         type: 'image'
     });
     $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)').addClass('rf-imagepopup_ajaxtoken');
-
+    
+    
+    
     // --------------------------------------------------------
     // Datepicker
     // --------------------------------------------------------
+    
+    //Lese den Grenzwert zum Vervollständigen von zweistelligen Jahreszahlen aus. Wird weiter unten verwendet.
+	var zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
+	
     var $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)');
     $datepickers.each(function() {
         $(this).datepicker({
@@ -660,16 +666,24 @@ function refreshFunctions() {
                         $(this).parent().datepicker('update');
                     }                    
                 });
+        
+        //Für die eigentlichen Input-Felder wird eine Funktion registriert, die beim Verlassen des Feldes
+        //zweistellige Jahresangaben automatisch (entsprechend eines konfigurierten Grenz-Wertes) ergänzt.
+    	//Falls die Grenze -1 ist, bedeutet das, dass der Wert in der Konfiguration überhaupt nicht hinterlegt ist.
+    	//Daher zunächst die Prüfung darauf und nur etwas tun, falls der Wert konfiguriert ist.
+        if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
+        	var $datumInputFeld = $(this).find('input');
+        	$datumInputFeld.focusout(function(event){
+        		datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
+        	});
+		}
+
     });
 
     $datepickers.on('changeDate', function(ev){
         $(this).find('input').val(ev.format());
     });
-
-
-    //
-
-
+    
     // --------------------------------------------------------
     // Listpicker
     // --------------------------------------------------------
@@ -1842,4 +1856,21 @@ function refreshDatatableFilterRow() {
         });
     });
 }
+
+//Die Funktion ergänzt zweistellige Jahresangaben innerhalb eines Datum-Inputfeld.
+datumErgaenzen = function(inputFeld, grenze) {
+	var aktuelleWerte = inputFeld.val().split('.');	
+	if(aktuelleWerte.length === 3 && aktuelleWerte[2].replace(/_/g, '').length === 2){
+		var praefix;
+		var jahresZahl = aktuelleWerte[2].replace(/_/g, '');
+		if(jahresZahl <= grenze){
+			praefix = "20";
+		}else if(jahresZahl > grenze){
+			praefix = "19";
+		}
+		var ergebnis = praefix + jahresZahl;
+		aktuelleWerte[2] = ergebnis;
+		inputFeld.val(aktuelleWerte[0] + "." + aktuelleWerte[1] + "." + aktuelleWerte[2]);
+	}
+} 
 

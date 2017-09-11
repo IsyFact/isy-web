@@ -1,3 +1,6 @@
+# 4.4.0
+- `IFS-55`: Datumseingabe mit zweistelligen Jahreszahlen wird automatisch ergänzt.
+
 # v4.3.3
 - Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
 

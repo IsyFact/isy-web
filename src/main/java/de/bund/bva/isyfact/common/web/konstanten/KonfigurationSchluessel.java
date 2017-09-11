@@ -70,4 +70,13 @@ public abstract class KonfigurationSchluessel {
      */
     public static final String GUI_HEADER_TEXT_LOGO_RECHTS = "gui.header.text.logo.rechts";
 
+    /**
+     * Zweistellige Jahreszahlen werden bei einer Datumsangabe ergänzt zu 19XX bzw. 20XX. Die Grenze legt
+     * fest, bis welchen Wert 20XX ergänzt wird bzw. ab welchem Wert 19XX ergänzt wird. Beispiel für
+     * konfigurierte Grenze 20: Eingaben 0-20 werden auf 2000-2020 ergänzt und Eingaben 21-99 werden auf
+     * 1921-1999 ergänzt.
+     */
+    public static final String GUI_DATUMSANGABE_JAHRESZAHLEN_ERGAENZEN_GRENZE =
+        "gui.datumsangabe.jahreszahlen.ergaenzen.grenze";
+
 }
