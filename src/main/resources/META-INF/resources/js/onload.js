@@ -669,14 +669,14 @@ function refreshFunctions() {
         
         //Für die eigentlichen Input-Felder wird eine Funktion registriert, die beim Verlassen des Feldes
         //zweistellige Jahresangaben automatisch (entsprechend eines konfigurierten Grenz-Wertes) ergänzt.
-    	//Falls die Grenze -1 ist, bedeutet das, dass der Wert in der Konfiguration überhaupt nicht hinterlegt ist.
-    	//Daher zunächst die Prüfung darauf und nur etwas tun, falls der Wert konfiguriert ist.
+        //Falls die Grenze -1 ist, bedeutet das, dass der Wert in der Konfiguration überhaupt nicht hinterlegt ist.
+        //Daher zunächst die Prüfung darauf und nur etwas tun, falls der Wert konfiguriert ist.
         if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
-        	var $datumInputFeld = $(this).find('input');
-        	$datumInputFeld.focusout(function(event){
-        		datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
-        	});
-		}
+			var $datumInputFeld = $(this).find('input');
+			$datumInputFeld.focusout(function(event){
+				datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
+			});
+        }
 
     });
 
@@ -1859,6 +1859,7 @@ function refreshDatatableFilterRow() {
 
 //Die Funktion ergänzt zweistellige Jahresangaben innerhalb eines Datum-Inputfeld.
 datumErgaenzen = function(inputFeld, grenze) {
+	"use strict";
 	var aktuelleWerte = inputFeld.val().split('.');	
 	if(aktuelleWerte.length === 3 && aktuelleWerte[2].replace(/_/g, '').length === 2){
 		var praefix;
@@ -1872,5 +1873,5 @@ datumErgaenzen = function(inputFeld, grenze) {
 		aktuelleWerte[2] = ergebnis;
 		inputFeld.val(aktuelleWerte[0] + "." + aktuelleWerte[1] + "." + aktuelleWerte[2]);
 	}
-} 
+}; 
 
