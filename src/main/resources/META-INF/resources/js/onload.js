@@ -1860,6 +1860,9 @@ function refreshDatatableFilterRow() {
 //Die Funktion ergänzt zweistellige Jahresangaben innerhalb eines Datum-Inputfeld.
 datumErgaenzen = function(inputFeld, grenze) {
 	"use strict";
+	//Der Grenzwert wird auf das aktuelle Jahr addiert, damit der resultierende Wert im Laufe der Jahre mitläuft.
+	var aktuellesJahr = parseInt(new Date().getFullYear().toString().substring(2, 4));
+	grenze = (aktuellesJahr + parseInt(grenze)).toString();
 	var aktuelleWerte = inputFeld.val().split('.');	
 	if(aktuelleWerte.length === 3 && aktuelleWerte[2].replace(/_/g, '').length === 2){
 		var praefix;
