@@ -1,3 +1,6 @@
+# v4.5.0 (unveröffentlicht)
+- `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
+
 # v4.3.3
 - Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
 
