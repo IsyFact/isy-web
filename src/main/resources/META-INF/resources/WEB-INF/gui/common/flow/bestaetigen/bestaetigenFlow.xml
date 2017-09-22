@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="applikationseiteParentFlow">
+
+    <input name="inhaltsbereichPfad" type="java.lang.String" required="false" />
+    <input name="dialogTitel" type="java.lang.String" required="true" />
+    <input name="dialogNachricht" type="java.lang.String" required="true" />
+    <input name="dialogKonsequenz" type="java.lang.String" required="false" />
+    <input name="submitActionName" type="java.lang.String" required="true" />
+    <input name="abbrechenActionName" type="java.lang.String" required="false"  />
+
+    <view-state id="bestaetigenViewState">
+        <on-entry>
+            <evaluate expression="basisController.showModalDialog()" />
+        </on-entry>
+
+        <transition on="submitAction" to="submitEndState" />
+
+        <transition on="abbrechenAction" to="abbrechenEndState" />
+
+        <on-exit>
+            <evaluate expression="basisController.hideModalDialog()" />
+        </on-exit>
+
+    </view-state>
+
+    <end-state id="submitEndState" />
+    <end-state id="abbrechenEndState" />
+
+</flow>
