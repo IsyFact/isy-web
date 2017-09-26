@@ -429,9 +429,9 @@ function refreshFunctions() {
     });
     // (3) 'Alle Auswählen' Checkbox registrieren
     var selectAllFunction = function($selectAllCheckbox, $rfDataTable) {
-    	//Auf jeden Fall erst einmal den Zustand 'teilweise' entfernen.
+		//Auf jeden Fall erst einmal den Zustand 'teilweise' entfernen.
 		$selectAllCheckbox.removeClass('tri-state-teilweise');
-    	
+		
         if($selectAllCheckbox.is(":checked")) {
             // Transition zu unchecked
             $rfDataTable.find("tbody").first().find(".checkbox input").prop("checked",false);
@@ -593,25 +593,25 @@ function refreshFunctions() {
     var tristateBerechnen = function($checkboxes, $selectAllCheckbox, $rfDataTable){
 		$selectAllCheckbox.removeClass('tri-state-teilweise');
 
-    	var alleAusgewaehlt = true;
-    	var keineAusgewahlt = true;
-    	$checkboxes.each(function(){
-    		if($(this).is(":checked")){
-    			keineAusgewahlt = false;
-    		}else{
-    			alleAusgewaehlt = false;
-    		}
-    	});
-    	
-    	if(keineAusgewahlt){
-    		$selectAllCheckbox.prop("checked",false);
-    	}else if(alleAusgewaehlt){
-    		$selectAllCheckbox.prop("checked",true);
-    	}else{
-    		$selectAllCheckbox.addClass('tri-state-teilweise');
-    		$selectAllCheckbox.prop("checked",false);
-    	}
-    };
+		var alleAusgewaehlt = true;
+		var keineAusgewahlt = true;
+		$checkboxes.each(function(){
+			if($(this).is(":checked")){
+				keineAusgewahlt = false;
+			}else{
+				alleAusgewaehlt = false;
+			}
+		});
+		
+		if(keineAusgewahlt){
+			$selectAllCheckbox.prop("checked",false);
+		}else if(alleAusgewaehlt){
+			$selectAllCheckbox.prop("checked",true);
+		}else{
+			$selectAllCheckbox.addClass('tri-state-teilweise');
+			$selectAllCheckbox.prop("checked",false);
+		}
+	};
     
 
 
@@ -627,9 +627,9 @@ function refreshFunctions() {
         //Click auf den restlichen Checkboxes registrieren.
         var $checkboxes = $rfDataTable.find("tbody").first().find(".checkbox input");
         $checkboxes.each(function(){
-        	$(this).click(function(){
-        		tristateBerechnen($checkboxes, $selectAllCheckbox, $rfDataTable);
-        	});
+			$(this).click(function(){
+				tristateBerechnen($checkboxes, $selectAllCheckbox, $rfDataTable);
+			});
         });
         
         //Den Zustand einmal initial berechnen. Sonst geht der Zustand u.U. bei einem Request an den Server verloren.
