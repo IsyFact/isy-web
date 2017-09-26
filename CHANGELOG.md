@@ -1,3 +1,6 @@
+# v4.0.0
+- `IFS-56`: Die Checkbox in Überschriftzeilen von Treffertabellen ist nun eine Tri-State-Checkbox.
+
 # v4.3.3
 - Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
 

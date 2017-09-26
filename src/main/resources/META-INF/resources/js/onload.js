@@ -586,13 +586,46 @@ function refreshFunctions() {
 
     });
     
+    //(6) Den Zustand der 'Alle Auswählen' Checkbox immer korrekt setzen.
+    var tristateBerechnen = function($checkboxes, $selectAllCheckbox, $rfDataTable){
+		$selectAllCheckbox.removeClass('tri-state-teilweise');
+
+    	var alleAusgewaehlt = true;
+    	var keineAusgewahlt = true;
+    	$checkboxes.each(function(){
+    		if($(this).is(":checked")){
+    			keineAusgewahlt = false;
+    		}else{
+    			alleAusgewaehlt = false;
+    		}
+    	});
+    	
+    	if(keineAusgewahlt){
+    		$selectAllCheckbox.prop("checked",false);
+    	}else if(alleAusgewaehlt){
+    		$selectAllCheckbox.prop("checked",true);
+    	}else{
+    		$selectAllCheckbox.addClass('tri-state-teilweise');
+    	}
+    };
+    
 
 
     $rfDataTables.each(function(){
         var $selectAllCheckbox = $(this).find("[id*='dataTableSelectAll']").first();
         var $rfDataTable = $(this);
+        
+        //Click auf der Tri-State-Checkbox registrieren.
         $selectAllCheckbox.parent().find("span").click(function(){
             selectAllFunction($selectAllCheckbox, $rfDataTable);
+        });
+        
+        //Click auf den restlichen Checkboxes registrieren.
+        var $checkboxes = $rfDataTable.find("tbody").first().find(".checkbox input");
+        $checkboxes.each(function(){
+        	$(this).click(function(){
+        		tristateBerechnen($checkboxes, $selectAllCheckbox, $rfDataTable);
+        	});
         });
 
     });
