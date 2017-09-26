@@ -683,6 +683,8 @@ function refreshFunctions() {
         var $listpickerMinWidth = $listpicker.find("[id$='listpickerMinWidth']");
         var listpickerAjaxFormId = $listpicker.find("[id$='listpickerAjaxForm']").val();
         var $listpickerAjaxForm = null;
+        //Finde das Hidden-Input, in dem hinterlegt ist, welche Spalte jeweils den Wert zum Schlüssel enthält.
+        var listpickerSchluesselwertSpalte = $listpicker.find("[id$='inputComplement']").val();
         if(typeof(listpickerAjaxFormId) != "undefined") {
             $listpickerAjaxForm = $("form[id$='"+listpickerAjaxFormId+"']");
         }
@@ -727,8 +729,15 @@ function refreshFunctions() {
 
             // Aktuelle Auswahl als aktiv markieren
             if($listpickerField.val() !== '') {
-                $listpickerContent.find("tbody tr[id='" + $listpickerField.val() + "']").addClass("active");
-                $listpickerContent.find("tbody tr").not("[id='" + $listpickerField.val() + "']").removeClass("active");
+            	var id;
+            	//Falls für das Feld bereits der Schlüssel aufgelöst wurde, müssen wir den Schlüssel isolieren.
+        		if ($listpickerField.val().indexOf(" - ") >= 0) {
+        			id = $listpickerField.val().substring(0, $listpickerField.val().indexOf(" - "));
+            	}else{
+            		id = $listpickerField.val();
+            	}
+                $listpickerContent.find("tbody tr[id='" + id + "']").addClass("active");
+                $listpickerContent.find("tbody tr").not("[id='" + id + "']").removeClass("active");
             }
 
         });
@@ -876,6 +885,20 @@ function refreshFunctions() {
             // Die Auswahlliste liegt auf einer Ebene mit dem Input-Feld
             $(this).parent().find('.listpicker-button').click();
         });
+        
+        //Bei Fokusverlust soll der Schlüssel aufgelöst werden. Das Feature gilt nur als aktiviert, wenn
+        //ein größerer Wert als 1 definiert ist, denn ansonsten macht es keinen Sinn.
+        if(listpickerSchluesselwertSpalte > 1){
+            $listpickerField.focusout(function(){
+            	listpickerLoeseSchluesselAuf($listpickerField, listpickerSchluesselwertSpalte);
+            });
+            
+            //Wenn das Feld den Fokus erhält, müssen wir maskieren, denn sonst wäre der
+            //aufgelöste Schlüssel immer noch im Feld und der Anwender müsste das zuerst manuell entfernen.
+            $listpickerField.focus(function(){
+            	listpickerMaskieren($listpickerField);
+            });
+        }
     });
     $listpickerContainer.addClass('rf-listpicker_ajaxtoken');
 
@@ -893,6 +916,65 @@ function refreshFunctions() {
         $listpickerContainer.removeClass('open');
     });
     
+    /**
+     * Die Funktion sorgt dafür, dass im Listpickerfeld der Schlüssel aufgelöst wird. Dazu wird in der
+     * zugrunde liegenden Tabelle der Wert zu dem übergebenen Spalten-Index extrahiert und im Listpickerfeld angefügt.
+     * @param listpickerfield Das Listpickerfeld.
+     * @param indexSpalteSchluesselWert Der Index der Spalte, die den Wert des Schlüssel-Wert enthält.
+     */
+    var listpickerLoeseSchluesselAuf = function(listpickerfield, indexSpalteSchluesselWert) {
+		'use strict';
+		if (listpickerfield.val().indexOf(" - ") >= 0) {
+			// verhindere, dass Ziffern aus dem Wert im Feld verbleiben
+			listpickerfield.val(listpickerfield.val().substring(0,
+					listpickerfield.val().indexOf(" - ")));
+		}
+		var $id;
+		if (listpickerfield.attr('data-isymask-mask') !== undefined){
+			listpickerfield.mask();
+			$id = listpickerfield.val();
+			listpickerfield.unmask();
+			if (listpickerfield.val() == "null" || listpickerfield.val() == "nul") {
+				listpickerfield.val("");
+			}
+		}
+		var $parent = listpickerfield.parent();
+		var $tr = $parent.find("tr[id='" + $id + "']");
+		var $td = $tr.find("td:nth-child(" + indexSpalteSchluesselWert + ")");
+		var $value = $td.text();
+		if ($value !== '') {
+			listpickerfield.val($id + ' - ' + $value);
+		} else {
+			var $filter = $parent.find("input[id*='listpickerFilter']");
+			var $listpickerContent = $parent.find(".listpicker-content");
+	        var $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");    
+			if ($parent.find(".listpicker-content").css("display") === 'none'){
+				if (listpickerfield.val() !== $listpickerLastFilter.val()){
+					if ($(".ajax-status span").text() !== 'begin') { // Verhindere Kollision mit anderen AJAX-Requests
+						$filter.val(listpickerfield.val());
+						$filter.change();
+					}
+				}
+			}
+		}
+	};
+	
+	/**
+	 * Die Funktion maskiert das Listpickerfeld, sofern eine Maske definiert ist.
+	 * @param listpickerfield Das Listpickerfeld.
+	 */
+	var listpickerMaskieren = function(listpickerfield) {
+		'use strict';
+		if (listpickerfield.val().indexOf(" - ") >= 0) {
+			// verhindere, dass Ziffern aus dem Wert im Feld verbleiben
+			listpickerfield.val(listpickerfield.val().substring(0,
+					listpickerfield.val().indexOf(" - ")));
+		}
+		if (listpickerfield.attr('data-isymask-mask') !== undefined){
+			listpickerfield.mask();
+		}
+	};
+
     // --------------------------------------------------------
     // Tabs
     // --------------------------------------------------------
