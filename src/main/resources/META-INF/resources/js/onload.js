@@ -667,12 +667,100 @@ function refreshFunctions() {
     });
 
 
-    //
+    // --------------------------------------------------------
+    // Input Masks
+    // --------------------------------------------------------
+    // Alle Input Elemente, welche ein Attribut 'inputmask' besitzen
+    var $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
+    $inputMasks.each(function(){
+        var $inputMask = $(this);
+        if ($inputMask.attr('name').indexOf('listpickerField') > -1 ) {
+            if ($inputMask.val().indexOf(" - ") >= 0) {
+                //verhindere, dass Ziffern aus dem Wert im Feld verbleiben
+                $inputMask.val($inputMask.val().substring(0,$inputMask.val().indexOf(" - ")));
+            }
+        }
+
+        $inputMask.mask();
+        
+        // Maximale Länge wird über Maske abgedeckt, ansonsten würde Strg+V nicht funktionieren.
+        $inputMask.removeAttr('maxlength');
+    });
+
+    $inputMasks.bind('keydown keypress', function(e) {
+        var $inputMask = $(this);
+
+        if (e.key === 'Enter') {
+            // Alle Platzhalter-Zeichen entfernen
+            var existentVal = $inputMask.val();
+            var newVal = existentVal.replace(/_/g,'');
+            $inputMask.val(newVal);
+        }
+    });
+
+    $inputMasks.addClass('isyfact-inputmask_ajaxtoken');
 
 
     // --------------------------------------------------------
     // Listpicker
     // --------------------------------------------------------
+    /**
+     * Die Funktion sorgt dafür, dass im Listpickerfeld der Schlüssel aufgelöst wird. Dazu wird in der
+     * zugrunde liegenden Tabelle der Wert zu dem übergebenen Spalten-Index extrahiert und im Listpickerfeld angefügt.
+     * @param listpickerfield Das Listpickerfeld.
+     * @param indexSpalteSchluesselWert Der Index der Headerspalte, deren Inhalt im Eingabefeld ergänzt werden soll.
+     */
+    var listpickerLoeseSchluesselAuf = function(listpickerfield, indexSpalteSchluesselWert) {
+		if (listpickerfield.val().indexOf(" - ") >= 0) {
+			// verhindere, dass Ziffern aus dem Wert im Feld verbleiben
+			listpickerfield.val(listpickerfield.val().substring(0,
+					listpickerfield.val().indexOf(" - ")));
+		}
+		var $id;
+		if (listpickerfield.attr('data-isymask-mask') !== undefined){
+			listpickerfield.mask();
+			$id = listpickerfield.val();
+			listpickerfield.unmask();
+			if (listpickerfield.val() == "null" || listpickerfield.val() == "nul") {
+				listpickerfield.val("");
+			}
+		}
+		var $parent = listpickerfield.parent();
+		var $tr = $parent.find("tr[id='" + $id + "']");
+		var $td = $tr.find("td:nth-child(" + indexSpalteSchluesselWert + ")");
+		var $value = $td.text();
+		if ($value !== '') {
+			listpickerfield.val($id + ' - ' + $value);
+		} else {
+			var $filter = $parent.find("input[id*='listpickerFilter']");
+			var $listpickerContent = $parent.find(".listpicker-content");
+			var $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");    
+			if ($parent.find(".listpicker-content").css("display") === 'none'){
+				if (listpickerfield.val() !== $listpickerLastFilter.val()){
+					if ($(".ajax-status span").text() !== 'begin') { // Verhindere Kollision mit anderen AJAX-Requests
+						$filter.val(listpickerfield.val());
+						$filter.change();
+					}
+				}
+			}
+		}
+	};
+	
+	/**
+	 * Die Funktion maskiert das Listpickerfeld, sofern eine Maske definiert ist.
+	 * @param listpickerfield Das Listpickerfeld.
+	 */
+	var listpickerMaskieren = function(listpickerfield) {
+		if (listpickerfield.val().indexOf(" - ") >= 0) {
+			// verhindere, dass Ziffern aus dem Wert im Feld verbleiben
+			listpickerfield.val(listpickerfield.val().substring(0,
+					listpickerfield.val().indexOf(" - ")));
+		}
+		if (listpickerfield.attr('data-isymask-mask') !== undefined){
+			listpickerfield.mask();
+		}
+	};
+    
     var $listpickerContainer = $(".listpicker-container").filter(':not(.rf-listpicker_ajaxtoken)');
     $listpickerContainer.each(function(){
 
@@ -729,18 +817,18 @@ function refreshFunctions() {
 
             // Aktuelle Auswahl als aktiv markieren
             if($listpickerField.val() !== '') {
-            	var id;
-            	//Falls für das Feld bereits der Schlüssel aufgelöst wurde, müssen wir den Schlüssel isolieren.
-        		if ($listpickerField.val().indexOf(" - ") >= 0) {
-        			id = $listpickerField.val().substring(0, $listpickerField.val().indexOf(" - "));
-            	}else{
-            		id = $listpickerField.val();
-            	}
-                $listpickerContent.find("tbody tr[id='" + id + "']").addClass("active");
-                $listpickerContent.find("tbody tr").not("[id='" + id + "']").removeClass("active");
-            }
+				var id;
+				//Falls für das Feld bereits der Schlüssel aufgelöst wurde, müssen wir den Schlüssel isolieren.
+				if ($listpickerField.val().indexOf(" - ") >= 0) {
+					id = $listpickerField.val().substring(0, $listpickerField.val().indexOf(" - "));
+				}else{
+					id = $listpickerField.val();
+				}
+				$listpickerContent.find("tbody tr[id='" + id + "']").addClass("active");
+				$listpickerContent.find("tbody tr").not("[id='" + id + "']").removeClass("active");
+			}
 
-        });
+		});
 
 
         // Klicks abfangen und Feld ggf. schließen
@@ -890,16 +978,21 @@ function refreshFunctions() {
         //ein größerer Wert als 1 definiert ist, denn ansonsten macht es keinen Sinn.
         if(listpickerSchluesselwertSpalte > 1){
             $listpickerField.focusout(function(){
-            	listpickerLoeseSchluesselAuf($listpickerField, listpickerSchluesselwertSpalte);
+				listpickerLoeseSchluesselAuf($listpickerField, listpickerSchluesselwertSpalte);
             });
             
             //Wenn das Feld den Fokus erhält, müssen wir maskieren, denn sonst wäre der
             //aufgelöste Schlüssel immer noch im Feld und der Anwender müsste das zuerst manuell entfernen.
             $listpickerField.focus(function(){
-            	listpickerMaskieren($listpickerField);
+				listpickerMaskieren($listpickerField);
             });
+            
+            //Einmalig lösen wir direkt initial den Schlüssel auf. Damit das Feld z.B. nach einem Request
+            //an den Server noch korrekt aussieht.
+            listpickerLoeseSchluesselAuf($listpickerField, listpickerSchluesselwertSpalte);
         }
     });
+    
     $listpickerContainer.addClass('rf-listpicker_ajaxtoken');
 
     // Scrollt innerhalb eines Elements zu einem bestimmten DIV
@@ -915,65 +1008,6 @@ function refreshFunctions() {
     $buttonSelectpicker.click(function(event) {
         $listpickerContainer.removeClass('open');
     });
-    
-    /**
-     * Die Funktion sorgt dafür, dass im Listpickerfeld der Schlüssel aufgelöst wird. Dazu wird in der
-     * zugrunde liegenden Tabelle der Wert zu dem übergebenen Spalten-Index extrahiert und im Listpickerfeld angefügt.
-     * @param listpickerfield Das Listpickerfeld.
-     * @param indexSpalteSchluesselWert Der Index der Spalte, die den Wert des Schlüssel-Wert enthält.
-     */
-    var listpickerLoeseSchluesselAuf = function(listpickerfield, indexSpalteSchluesselWert) {
-		'use strict';
-		if (listpickerfield.val().indexOf(" - ") >= 0) {
-			// verhindere, dass Ziffern aus dem Wert im Feld verbleiben
-			listpickerfield.val(listpickerfield.val().substring(0,
-					listpickerfield.val().indexOf(" - ")));
-		}
-		var $id;
-		if (listpickerfield.attr('data-isymask-mask') !== undefined){
-			listpickerfield.mask();
-			$id = listpickerfield.val();
-			listpickerfield.unmask();
-			if (listpickerfield.val() == "null" || listpickerfield.val() == "nul") {
-				listpickerfield.val("");
-			}
-		}
-		var $parent = listpickerfield.parent();
-		var $tr = $parent.find("tr[id='" + $id + "']");
-		var $td = $tr.find("td:nth-child(" + indexSpalteSchluesselWert + ")");
-		var $value = $td.text();
-		if ($value !== '') {
-			listpickerfield.val($id + ' - ' + $value);
-		} else {
-			var $filter = $parent.find("input[id*='listpickerFilter']");
-			var $listpickerContent = $parent.find(".listpicker-content");
-	        var $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");    
-			if ($parent.find(".listpicker-content").css("display") === 'none'){
-				if (listpickerfield.val() !== $listpickerLastFilter.val()){
-					if ($(".ajax-status span").text() !== 'begin') { // Verhindere Kollision mit anderen AJAX-Requests
-						$filter.val(listpickerfield.val());
-						$filter.change();
-					}
-				}
-			}
-		}
-	};
-	
-	/**
-	 * Die Funktion maskiert das Listpickerfeld, sofern eine Maske definiert ist.
-	 * @param listpickerfield Das Listpickerfeld.
-	 */
-	var listpickerMaskieren = function(listpickerfield) {
-		'use strict';
-		if (listpickerfield.val().indexOf(" - ") >= 0) {
-			// verhindere, dass Ziffern aus dem Wert im Feld verbleiben
-			listpickerfield.val(listpickerfield.val().substring(0,
-					listpickerfield.val().indexOf(" - ")));
-		}
-		if (listpickerfield.attr('data-isymask-mask') !== undefined){
-			listpickerfield.mask();
-		}
-	};
 
     // --------------------------------------------------------
     // Tabs
@@ -1015,39 +1049,6 @@ function refreshFunctions() {
             });
         });
     });
-        
-    // --------------------------------------------------------
-    // Input Masks
-    // --------------------------------------------------------
-    // Alle Input Elemente, welche ein Attribut 'inputmask' besitzen
-    var $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
-    $inputMasks.each(function(){
-        var $inputMask = $(this);
-        if ($inputMask.attr('name').indexOf('listpickerField') > -1 ) {
-            if ($inputMask.val().indexOf(" - ") >= 0) {
-                //verhindere, dass Ziffern aus dem Wert im Feld verbleiben
-                $inputMask.val($inputMask.val().substring(0,$inputMask.val().indexOf(" - ")));
-            }
-        }
-
-        $inputMask.mask();
-        
-        // Maximale Länge wird über Maske abgedeckt, ansonsten würde Strg+V nicht funktionieren.
-        $inputMask.removeAttr('maxlength');
-    });
-
-    $inputMasks.bind('keydown keypress', function(e) {
-        var $inputMask = $(this);
-
-        if (e.key === 'Enter') {
-            // Alle Platzhalter-Zeichen entfernen
-            var existentVal = $inputMask.val();
-            var newVal = existentVal.replace(/_/g,'');
-            $inputMask.val(newVal);
-        }
-    });
-
-    $inputMasks.addClass('isyfact-inputmask_ajaxtoken');
     
     // --------------------------------------------------------
     // Button Inject POST
