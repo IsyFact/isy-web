@@ -1,5 +1,6 @@
-# v4.4.0
+# v4.4.0 (unveröffentlicht)
 - `IFS-39`: Ein generischer Bestätigungsdialog ist nun verfügbar.
+- `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
 
 # v4.3.3
 - Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
