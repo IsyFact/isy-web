@@ -430,7 +430,7 @@ function refreshFunctions() {
     // (3) 'Alle Auswählen' Checkbox registrieren
     var selectAllFunction = function($selectAllCheckbox, $rfDataTable) {
 		//Auf jeden Fall erst einmal den Zustand 'teilweise' entfernen.
-		$selectAllCheckbox.removeClass('tri-state-teilweise');
+		$selectAllCheckbox.prop("indeterminate", false);
 		
         if($selectAllCheckbox.is(":checked")) {
             // Transition zu unchecked
@@ -591,7 +591,7 @@ function refreshFunctions() {
     
     //(6) Den Zustand der 'Alle Auswählen' Checkbox immer korrekt setzen.
     var tristateBerechnen = function($checkboxes, $selectAllCheckbox, $rfDataTable){
-		$selectAllCheckbox.removeClass('tri-state-teilweise');
+		$selectAllCheckbox.prop("indeterminate", false);
 
 		var alleAusgewaehlt = true;
 		var keineAusgewahlt = true;
@@ -608,7 +608,7 @@ function refreshFunctions() {
 		}else if(alleAusgewaehlt){
 			$selectAllCheckbox.prop("checked",true);
 		}else{
-			$selectAllCheckbox.addClass('tri-state-teilweise');
+			$selectAllCheckbox.prop("indeterminate", true);
 			$selectAllCheckbox.prop("checked",false);
 		}
 	};
