@@ -1,0 +1,18 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:sf="http://www.springframework.org/tags/faces" xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+    xmlns:isy-xt="http://java.sun.com/jsf/composite/components" xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:debug="http://java.sun.com/jsf/composite/debug"
+    template="/WEB-INF/gui/common/layout/applikation.xhtml">
+
+
+    <ui:define name="inhaltsbereich">
+        <ui:include src="#{inhaltsbereichPfad}" />
+    </ui:define>
+
+    <ui:define name="modalDialog">
+        <ui:include src="bestaetigenInhaltsbereichModal.xhtml" />
+    </ui:define>
+
+</ui:composition>

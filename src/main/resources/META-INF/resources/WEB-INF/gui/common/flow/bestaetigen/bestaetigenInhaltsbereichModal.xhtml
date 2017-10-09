@@ -1,0 +1,39 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+>
+
+    <isy:modalDialogContent width="100px">
+        <f:facet name="modalHeader">
+            #{dialogTitel}
+        </f:facet>
+        <f:facet name="modalBody">
+            <div class="form-horizontal">
+                
+                <isy:panelGroup>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <span class="icon icon-placeholder" style="font-size: 40px"/>
+                        </div>
+                        <div class="col-lg-10">
+                            #{dialogNachricht}
+                            <ui:fragment rendered="#{not empty dialogKonsequenz}">
+                                <p/>
+                                #{dialogKonsequenz}
+                            </ui:fragment>
+                        </div>
+                    </div>
+                </isy:panelGroup>
+            </div>
+        </f:facet>
+        <f:facet name="modalFooter">
+            <isy:buttonRow alignRight="true">
+                <isy:button value="#{submitActionName}"
+                    action="submitAction" />
+                <isy:button value="#{abbrechenActionName}"
+                    action="abbrechenAction" />
+            </isy:buttonRow>
+        </f:facet>
+    </isy:modalDialogContent>
+</ui:composition>
