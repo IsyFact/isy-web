@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:isy="http://java.sun.com/jsf/composite/isyfact" xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+
+<!-- Datei upload. -->
+
+<composite:interface>
+
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="reference" required="true" />
+    <!-- Der Wert für das Databinding im Eingabefeld -->
+    <composite:attribute name="value" required="true" type="javax.servlet.http.Part" />
+    <!-- Ob die auszuwählenden Dateien gefiltert werden sollen, z.B. "image/*", siehe auch http://stackoverflow.com/questions/11832930/html-input-file-accept-attribute-file-type-csv#11834872. -->
+    <composite:attribute name="accept" type="String" required="false" />
+    <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+    <composite:attribute name="required" type="Boolean" default="false" />
+    <!-- Ob die Eingabe deaktiviert ist. -->
+    <composite:attribute name="disabled" type="Boolean" default="false" />
+    <!-- Der Text für das Label -->
+    <composite:attribute name="label" type="String" required="false" />
+    <!-- Die CSS-Klasse für das Label. -->
+    <composite:attribute name="labelStyleClass" type="String" default="col-lg-6" />
+    <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <composite:attribute name="inputStyleClass" type="String" default="col-lg-6" />
+    <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+    <composite:attribute name="placeholder" type="String" required="false" />
+    <!-- Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+    <composite:attribute name="showPrintView" type="Boolean"
+        default="#{not empty basisModel and basisModel.showPrintView}" />
+    <!-- Der Tooltip, welcher angezeigt wird. -->
+    <composite:attribute name="tooltip" type="String" required="false" />
+
+    <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+    <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
+    <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+    <!-- Validierungsfehler bestimmen -->
+    <ui:param name="validationMessages"
+        value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+    <ui:param name="existsValidationError" value="#{not empty validationMessages}" />
+
+    <div class="form-group #{existsValidationError ? ' has-error has-feedback': ''}">
+
+        <!-- Label -->
+        <isyi:formValidationLabel value="#{cc.attrs.label}" styleClass="#{cc.attrs.labelStyleClass}"
+            required="#{cc.attrs.required}"
+            forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
+
+        <div class="#{cc.attrs.inputStyleClass}">
+            <ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled}">
+                <div class="input-group inputFile-container btn-file">
+                    <input type="text"
+                        jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-inputFileField"
+                        placeholder="#{cc.attrs.placeholder}" disabled="#{cc.attrs.disabled}"
+                        onclick="$(this).parent().children().last().trigger('click');"
+                        class="form-control #{existsValidationError ? ' invalid': ''}"></input>
+                    <a
+                        data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                        data-content="#{cc.attrs.tooltip}"
+                        data-toggle="#{empty cc.attrs.tooltip?'':'tooltip'}"
+                        class="btn btn-link btn-tooltip #{empty cc.attrs.tooltip?'':'rf-popover'}"
+                        data-original-title="" title="" 
+                        onclick="$(this).parent().children().last().trigger('click');">
+                        <span class="btn btn-icon btn-icon-small input-group-addon">
+                            <span class="icon icon-browse-folder" ></span>
+                        </span>
+                    </a> 
+                    <h:inputFile id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" 
+                        value="${cc.attrs.value}" disabled="#{cc.attrs.disabled}" p:accept="#{cc.attrs.accept}"
+                        onchange="$(this).parent().children().first().val($(this).val()); event.preventDefault();" />
+                </div>
+                <!-- Bei Validierungsfehlern -->
+                <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+                    reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
+            </ui:fragment>
+            <ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
+                <!-- Falls JS nicht aktiviert ist, dann wird ein einfaches Dropdown angezeigt. -->
+                <div class="input-group">
+                    <h:inputFile id="nojs_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" 
+                        disabled="#{cc.attrs.disabled or cc.attrs.showPrintView}" p:accept="#{cc.attrs.accept}"
+                        value="${cc.attrs.value}" />
+                </div>
+            </ui:fragment>
+        </div>
+    </div>
+</composite:implementation>
+
+</html>
