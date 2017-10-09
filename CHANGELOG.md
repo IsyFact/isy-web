@@ -1,4 +1,4 @@
-# v4.0.0
+# v4.4.0
 - `IFS-41`: In Listpickern kann der Schlüssel aufgelöst werden (siehe Attribut `inputComplement`). Das Feature funktioniert nur für Listpicker, die eine Inputmask definiert haben.
 
 # v4.3.3
