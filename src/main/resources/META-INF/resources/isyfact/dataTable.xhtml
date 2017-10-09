@@ -63,6 +63,9 @@
 </composite:interface>
 
 <composite:implementation>
+
+  <!-- Ermitteln ob der Hinweise "Keine Einträge vorhanden" angezeigt werden soll. -->
+  <ui:param name ="zeigeHinweisTabelleLeer" value ="#{empty cc.attrs.dataTableModel.dataModel.displayItems}"/>
 	<f:event
 		listener="#{cc.attrs.dataTableController.initialisiereModel(cc.attrs.dataTableModel)}"
 		type="preRenderView" />
@@ -123,16 +126,27 @@
 					</tr>
 				</thead>
 				<tbody>
-					<h:panelGroup id="tableContent">
-						<ui:param name="clientIdTableContent"
-							value="#{jsfHelper.searchClientIdInParents(component,'tableContent')}" />
-						<composite:insertChildren />
-					</h:panelGroup>
+				  <h:panelGroup id="tableContent">
+            <ui:param name="clientIdTableContent"
+                value="#{jsfHelper.searchClientIdInParents(component,'tableContent')}" />
+              <composite:insertChildren />
+            </h:panelGroup> 
 				</tbody>
 				<tfoot>
 					<tr>
 						<composite:renderFacet name="tablePagination" />
 					</tr>
+					
+					<!-- Zeige wenn nötig den Hinweis an. -->
+					<ui:fragment rendered="#{zeigeHinweisTabelleLeer}">
+					   <tr>
+					     <td colspan="20">
+					       <div align="center">
+                  <h:outputText value="Keine Einträge vorhanden" style="font-weight:bold"/>          					     
+					       </div>
+					     </td>
+					   </tr>
+          </ui:fragment>
 				</tfoot>
 			</table>
 		</h:panelGroup>
