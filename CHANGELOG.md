@@ -1,4 +1,8 @@
-# v4.4.0
+# v4.4.0 (unveröffentlicht)
+- `IFS-39`: Ein generischer Bestätigungsdialog ist nun verfügbar.
+- `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
+- `IFS-60`: Datatable zeigt einen Hinweis, wenn eine Tabelle keine Treffer enthält.
+- `IFS-56`: Die Checkbox in Überschriftzeilen von Treffertabellen ist nun eine Tri-State-Checkbox.
 - `IFS-61`: Die Darstellung sortierbarer Spalten von Tabellen wurde verbessert.
 
 # v4.3.3

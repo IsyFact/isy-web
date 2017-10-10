@@ -429,6 +429,9 @@ function refreshFunctions() {
     });
     // (3) 'Alle Auswählen' Checkbox registrieren
     var selectAllFunction = function($selectAllCheckbox, $rfDataTable) {
+		//Auf jeden Fall erst einmal den Zustand 'teilweise' entfernen.
+		$selectAllCheckbox.prop("indeterminate", false);
+		
         if($selectAllCheckbox.is(":checked")) {
             // Transition zu unchecked
             $rfDataTable.find("tbody").first().find(".checkbox input").prop("checked",false);
@@ -586,14 +589,51 @@ function refreshFunctions() {
 
     });
     
+    //(6) Den Zustand der 'Alle Auswählen' Checkbox immer korrekt setzen.
+    var tristateBerechnen = function($checkboxes, $selectAllCheckbox, $rfDataTable){
+		$selectAllCheckbox.prop("indeterminate", false);
+
+		var alleAusgewaehlt = true;
+		var keineAusgewahlt = true;
+		$checkboxes.each(function(){
+			if($(this).is(":checked")){
+				keineAusgewahlt = false;
+			}else{
+				alleAusgewaehlt = false;
+			}
+		});
+		
+		if(keineAusgewahlt){
+			$selectAllCheckbox.prop("checked",false);
+		}else if(alleAusgewaehlt){
+			$selectAllCheckbox.prop("checked",true);
+		}else{
+			$selectAllCheckbox.prop("indeterminate", true);
+			$selectAllCheckbox.prop("checked",false);
+		}
+	};
+    
 
 
     $rfDataTables.each(function(){
         var $selectAllCheckbox = $(this).find("[id*='dataTableSelectAll']").first();
         var $rfDataTable = $(this);
+        
+        //Click auf der Tri-State-Checkbox registrieren.
         $selectAllCheckbox.parent().find("span").click(function(){
             selectAllFunction($selectAllCheckbox, $rfDataTable);
         });
+        
+        //Click auf den restlichen Checkboxes registrieren.
+        var $checkboxes = $rfDataTable.find("tbody").first().find(".checkbox input");
+        $checkboxes.each(function(){
+			$(this).click(function(){
+				tristateBerechnen($checkboxes, $selectAllCheckbox, $rfDataTable);
+			});
+        });
+        
+        //Den Zustand einmal initial berechnen. Sonst geht der Zustand u.U. bei einem Request an den Server verloren.
+		tristateBerechnen($checkboxes, $selectAllCheckbox, $rfDataTable);
 
     });
 
