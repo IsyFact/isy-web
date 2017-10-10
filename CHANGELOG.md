@@ -1,3 +1,6 @@
+# v4.4.0
+- `IFS-61`: Die Darstellung sortierbarer Spalten von Tabellen wurde verbessert.
+
 # v4.3.3
 - Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
 
