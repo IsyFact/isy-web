@@ -4,6 +4,7 @@
 - `IFS-60`: Datatable zeigt einen Hinweis, wenn eine Tabelle keine Treffer enthält.
 - `IFS-56`: Die Checkbox in Überschriftzeilen von Treffertabellen ist nun eine Tri-State-Checkbox.
 - `IFS-61`: Die Darstellung sortierbarer Spalten von Tabellen wurde verbessert.
+- `IFS-41`: In Listpickern kann der Schlüssel aufgelöst werden (siehe Attribut `inputComplement`). Das Feature funktioniert nur für Listpicker, die eine Inputmask definiert haben.
 
 # v4.3.3
 - Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
