@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <name>IsyFact Web</name>
+
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-web</artifactId>
     <packaging>jar</packaging>
-    <version>4.4.0-SNAPSHOT</version>
-    <description>IsyFact Web</description>
+    <version>4.4.0</version>
+    <name>IsyFact-Web</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
@@ -27,7 +27,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.5.0-SNAPSHOT</version>
+                <version>1.5.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -410,5 +410,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
