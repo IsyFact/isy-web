@@ -1,4 +1,7 @@
-# v4.4.0 (unveröffentlicht)
+# v4.5.0 (unveröffentlicht)
+- `IFS-34`: formUpload übernommen.
+
+# v4.4.0
 - `IFS-39`: Ein generischer Bestätigungsdialog ist nun verfügbar.
 - `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
 - `IFS-60`: Datatable zeigt einen Hinweis, wenn eine Tabelle keine Treffer enthält.
