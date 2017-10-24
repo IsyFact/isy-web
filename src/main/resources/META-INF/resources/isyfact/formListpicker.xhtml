@@ -65,9 +65,12 @@
 	<!-- Die sortierte Liste der Spaltenüberschriften. -->
 	<composite:attribute name="header" type="java.lang.String"
 		required="false" />
-	<!-- Die Nummer der Headerspalte, wessen Inhalt per Javascript im Eingabefeld ergänzt werden soll. Standardmäßig 0 = deaktiviert. -->
+	<!-- Die Nummer der Headerspalte, wessen Inhalt per Javascript im Eingabefeld ergänzt werden soll. Standardmäßig 1 = deaktiviert. -->
+	<!-- Anmerkung zu 1 = deaktiviert. Dies erscheint nicht intuitiv, ist aber richtig. Denn der Zugriff
+	     auf die Headerspalten mittels JavaScript ist nicht nullbasiert. Somit würde man für den Wert '1'
+	     wieder nur den Schlüssel erhalten, was keinen Sinn macht. Werte ab '2' sind zulässig. -->
 	<!-- Falls diese Feld verwendet wird, dann muss das value auf ein Objekt vom Typ Listpickerangabe zeigen. -->
-	<composite:attribute name="inputComplement" type="Integer" default="0" />
+	<composite:attribute name="inputComplement" type="Integer" default="1" />
 
 	<!-- Der Inhalt der rechts vom Listpicker angezeigt wird. -->
 	<composite:facet name="contentRight" required="false" />
