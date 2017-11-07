@@ -1,4 +1,4 @@
-# v4.5.0 (unveröffentlicht)
+# v4.5.0
 - `IFS-34`: formUpload übernommen.
 
 ## Hinweise zum Upgrade
