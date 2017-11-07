@@ -1,5 +1,9 @@
-# v4.5.0 (unveröffentlicht)
+# v4.5.0
 - `IFS-34`: formUpload übernommen.
+
+## Hinweise zum Upgrade
+- Der Tag isy:upload ist entfallen, stattdessen ist nun formUpload zu nutzen.
+- formUpload: Zur Nutzung der Komponente muss die Anwendung javax.servlet-api mindestens in Version 3.0.1 einbinden und überall die servlet-api 2.5 exkludieren, da sich der Name des Artefakts geändert hat. In der Context-Konfiguration des Tomcats muss `allowCasualMultipartParsing=true` gesetzt werden. In der web.xml muss das FacesServlet um Parameter zur `multipart-config` erweitert werden. Im entsprechenden Flow muss das Flag `multipartForm` des `globalFlowModel`s auf true gesetzt werden.
 
 # v4.4.0
 - `IFS-39`: Ein generischer Bestätigungsdialog ist nun verfügbar.
