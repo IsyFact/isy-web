@@ -6,7 +6,7 @@
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-web</artifactId>
     <packaging>jar</packaging>
-    <version>4.5.0</version>
+    <version>4.5.2</version>
     <name>IsyFact-Web</name>
 
     <parent>
@@ -27,7 +27,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.5.1</version>
+                <version>1.5.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -65,7 +65,7 @@
                                 <artifactItem>
                                     <groupId>de.bund.bva.isyfact</groupId>
                                     <artifactId>isy-style</artifactId>
-                                    <version>2.3.0</version>
+                                    <version>3.0.0</version>
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                 </artifactItem>
@@ -104,8 +104,8 @@
                                 <move file="src\main\resources\META-INF\resources\css\print-jsf.css"
                                     tofile="src\main\resources\META-INF\resources\css\print.css"/>
                                 <!-- Fonts -->
-                                <copy todir="src/main/resources/META-INF/resources/css/fonts">
-                                    <fileset dir="target/isy-style/css/fonts"/>
+                                <copy todir="src/main/resources/META-INF/resources/fonts">
+                                    <fileset dir="target/isy-style/fonts"/>
                                 </copy>
                                 <!-- IMG -->
                                 <copy todir="src/main/resources/META-INF/resources/img">
