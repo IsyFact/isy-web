@@ -1,66 +1,78 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:isy="http://java.sun.com/jsf/composite/isyfact" 
-    xmlns:sf="http://www.springframework.org/tags/faces" 
-    template="/WEB-INF/gui/common/layout/basis.xhtml">
-
-    <ui:param name="nonJsModal"
-        value="#{(not globalConfigurationModel.jsEnabled) and (basisModel.showModalDialog)}" />
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+                template="/WEB-INF/gui/common/layout/basis.xhtml">
 
     <!-- Die Seitentoolbar -->
     <ui:define name="seitentoolbar">
-		    <ui:include src="/WEB-INF/gui/common/seitenelemente/seitentoolbar.xhtml" />
+        <ui:include src="/WEB-INF/gui/common/seitenelemente/seitentoolbar.xhtml" />
     </ui:define>
 
     <!-- Die Struktur der Applikationsseite. -->
     <ui:define name="inhalt">
 
         <div class="row row-df">
-            <ui:fragment rendered="#{not nonJsModal and basisModel.vertikalToolbarModel.anzeigen}">
-	            <div class="col-lg-2 linksNavigationAbstandRechts">
-	                <h:form id="linksnavigationForm">
-	                    <ui:include src="/WEB-INF/gui/common/seitenelemente/linksnavigation.xhtml" />
-	                </h:form>
-	            </div>
-	          </ui:fragment>
-            <div class="#{not nonJsModal and basisModel.vertikalToolbarModel.anzeigen ? 'col-lg-10' : 'col-lg-12'}">
-                <h:form id="inhaltsbereichForm" enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
-                    <!-- FocusOnload. -->
-                    <h:panelGroup id="focusOnloadActiveArea">
-                      <h:inputHidden id="focusOnloadActive" value="#{globalFlowModel.focusOnloadActive}" />
-                    </h:panelGroup>
 
-                    <ui:fragment rendered="#{not basisModel.showModalDialog}">
-                        <ui:include src="/WEB-INF/gui/common/seitenelemente/messages.xhtml" />
-                    </ui:fragment>
-
-                    <ui:fragment rendered="#{not nonJsModal}">
-                        <ui:insert name="inhaltsbereich" />
-                    </ui:fragment>
-
-                    <ui:fragment rendered="#{nonJsModal}">
-                        <h:form id="modalDialogPlaceholderForm" enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
-                            <ui:insert name="modalDialog" />
-                        </h:form>
-                    </ui:fragment>
+            <div class="col-lg-2 linksNavigationAbstandRechts">
+                <h:form id="linksnavigationForm">
+                    <ui:include src="/WEB-INF/gui/common/seitenelemente/linksnavigation.xhtml" />
                 </h:form>
+            </div>
+            <div class="col-lg-10">
+                <h:form id="toolbarForm" >
+                    <div class="inhaltsseitenToolbar-content">
+                        <isy:buttonRow alignRight="true">
+                            <ui:fragment rendered="#{historisierungModel.isHistoryButtonAvailable()}">
+                                <isy:buttonIcon tooltip="#{msg.MEL_Button_Historie}" action="historyAction"
+                                        icon="view-details" btnClass="btn btn-icon-round btn-icon-round-small" />
+                            </ui:fragment>
+                            <h:commandLink value="" onclick="window.print(); return false;"
+                                    title="#{msg.MEL_Button_Drucken}" action="druckenAction" target="_blank"
+                                    styleClass="btn btn-icon-round btn-icon-round-small">
+                                <span class="icon icon-print" />
+                            </h:commandLink>
+                        </isy:buttonRow>
+                    </div>
+                </h:form>
+
+                <c:if test="#{(globalConfigurationModel.jsEnabled) or (not basisModel.showModalDialog)}">
+                    <h:form id="inhaltsbereichForm"
+                            enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
+                        <!-- FocusOnload. -->
+                        <h:inputHidden id="focusOnloadActive" value="#{globalFlowModel.focusOnloadActive}" />
+
+                        <c:if test="#{not basisModel.showModalDialog}">
+                            <ui:include src="/WEB-INF/gui/common/seitenelemente/messages.xhtml" />
+                        </c:if>
+
+                        <ui:insert name="inhaltsbereich" />
+                    </h:form>
+                </c:if>
+
+                <c:if test="#{(not globalConfigurationModel.jsEnabled) and (basisModel.showModalDialog)}">
+                    <h:form id="modalDialogPlaceholderForm"
+                            enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
+                        <ui:insert name="modalDialog" />
+                    </h:form>
+                </c:if>
             </div>
         </div>
 
     </ui:define>
 
-  <ui:define name="modalDialogPlaceholder">
-    <h:form id="modalDialogPlaceholderForm" enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
-      <ui:param name="jsModal" value="#{(globalConfigurationModel.jsEnabled) and (basisModel.showModalDialog)}" />
-      <ui:fragment rendered="#{jsModal}">
-        <div style="position: relative">  
-            <ui:insert name="modalDialog" />
-        </div>  
-      </ui:fragment>
-    </h:form>
-  </ui:define>
+    <ui:define name="modalDialogPlaceholder">
+
+        <c:if test="#{(globalConfigurationModel.jsEnabled) and (basisModel.showModalDialog)}">
+            <h:form id="modalDialogPlaceholderForm"
+                    enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
+                <div style="position: relative">
+                    <ui:insert name="modalDialog" />
+                </div>
+            </h:form>
+        </c:if>
+
+    </ui:define>
 
 </ui:composition>

@@ -1,49 +1,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-<!-- Ein Ausgabefeld innerhalb von Formularen für Bilder. -->
+    <!-- Ein Ausgabefeld innerhalb von Formularen für Bilder. -->
 
-<composite:interface>
-	<!-- Die Referenz des Objekts. -->
-	<composite:attribute name="reference" required="true" />
-  <!-- Das Bild. -->
-  <composite:attribute name="imgSrc" required="true" />
-  <!-- Der alternative Text, falls das Bild nicht geladen werden kann. -->
-  <composite:attribute name="alt" required="true" />
-	<!-- Der Text für das Label -->
-	<composite:attribute name="label" type="String" required="false" />
-	<!-- Die CSS-Klasse für das Label. -->
-	<composite:attribute name="labelStyleClass" type="String"
-		default="col-lg-6" />
-	<!-- Die CSS-Klasse für den Eingabebereich. -->
-	<composite:attribute name="inputStyleClass" type="String"
-		default="col-lg-6" />
-	<!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-	<composite:attribute name="globalConfig" required="false"
-		default="#{globalConfigurationModel}" />
+    <composite:interface>
+        <!-- Die Referenz des Objekts. -->
+        <composite:attribute name="reference" required="true" />
+        <!-- Das Bild. -->
+        <composite:attribute name="imgSrc" required="true" />
+        <!-- Der alternative Text, falls das Bild nicht geladen werden kann. -->
+        <composite:attribute name="alt" required="true" />
+        <!-- Der Text für das Label -->
+        <composite:attribute name="label" type="String" required="false" />
+        <!-- Die CSS-Klasse für das Label. -->
+        <composite:attribute name="labelStyleClass" type="String" default="col-lg-6" />
+        <!-- Die CSS-Klasse für den Eingabebereich. -->
+        <composite:attribute name="inputStyleClass" type="String" default="col-lg-6" />
+        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+        <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
 
-</composite:interface>
+    </composite:interface>
 
-<composite:implementation>
+    <composite:implementation>
 
-	<div id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-formlabel">
-		<isyi:formValidationLabel value="#{cc.attrs.label}"
-			forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-			styleClass="#{cc.attrs.labelStyleClass}" />
-		<div class="#{cc.attrs.inputStyleClass}">
-			<div>
-				<div class="form-label form-control readonly"
-					jsf:id="form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
-          <img src="#{cc.attrs.imgSrc}" alt="#{cc.attrs.alt}"/>
-				</div>
-			</div>
-		</div>
-	</div>
-</composite:implementation>
+        <div id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-formlabel">
+            <label class="control-label #{cc.attrs.labelStyleClass}"
+                    for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+                <h:outputText value="#{cc.attrs.label}"/>
+            </label>
+
+            <div class="#{cc.attrs.inputStyleClass}">
+                <div>
+                    <div class="form-label form-control readonly"
+                            jsf:id="form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+                        <img src="#{cc.attrs.imgSrc}" alt="#{cc.attrs.alt}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </composite:implementation>
 
 </html>

@@ -1,9 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
         xmlns:composite="http://java.sun.com/jsf/composite"
         xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:jsf="http://xmlns.jcp.org/jsf">
+        xmlns:jsf="http://xmlns.jcp.org/jsf"
+        xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
 
     <!-- Ein Eingabefeld innerhalb Formularen. -->
 
@@ -42,11 +44,6 @@
         <!-- Die maximale Länge der Eingabe. -->
         <composite:attribute name="maxlength" type="Integer" required="false"
                 default="255" />
-        <!-- Die maximale Breite des Eingabefeldes. -->
-        <composite:attribute name="width" type="String" required="false"
-                default="100%" />
-        <!-- Tooltip. -->
-        <composite:attribute name="tooltip" type="String" default="" />
 
         <!-- Ein spezifisches Validation-Model, falls benötigt. -->
         <composite:attribute name="validationModel" required="false"
@@ -65,6 +62,10 @@
         <!-- Die Anzahl der Nachkommastellen: Default ist 2. -->
         <composite:attribute name="decimalplaces" type="Integer" required="false" default="2" />
 
+        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
+        <composite:attribute name="fourEyesMode" type="String" required="true" />
+        <composite:attribute name="fourEyesLastValue" type="String" />
+
         <!-- Ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. Default ist false.-->
         <composite:attribute name="alignright" type="Boolean" required="false" default="false" />
 
@@ -72,28 +73,29 @@
 
     <composite:implementation>
 
+        <c:set var="fourEyesColor" value="#{'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+
         <!-- Validierungsfehler bestimmen -->
         <ui:param name="validationMessages"
                 value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
         <ui:param name="existsValidationError"
                 value="#{not empty validationMessages}" />
 
-        <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+        <div
+                class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
 
-            <ui:fragment rendered="#{not cc.attrs.readonly}">
-                <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
-                    <h:outputText value="#{cc.attrs.label}"/>
-                </label>
-            </ui:fragment>
+            <isyi:formValidationLabel value="#{cc.attrs.label}"
+                    forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                    required="#{cc.attrs.required}"
+                    styleClass="#{cc.attrs.labelStyleClass}"
+                    rendered="#{not cc.attrs.readonly}" />
 
             <!-- Das Label falls readonly. -->
-            <ui:fragment rendered="#{cc.attrs.readonly}">
-                <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
-                    <h:outputText value="#{cc.attrs.label}"/>
-                </label>
-            </ui:fragment>
+            <isyi:formValidationLabel value="#{cc.attrs.label}"
+                    forField="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                    required="#{cc.attrs.required}"
+                    styleClass="#{cc.attrs.labelStyleClass}"
+                    rendered="#{cc.attrs.readonly}" />
 
             <div class="#{cc.attrs.inputStyleClass}">
                 <div class=" input-group">
@@ -109,27 +111,48 @@
                             <composite:insertChildren />
                             <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
                         </input>
+
+                        <!-- Four Eyes -->
+                        <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                                data-content="#{cc.attrs.fourEyesLastValue}"
+                                data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+                                class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} "
+                                data-original-title="" title="">
+                            <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                                    class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} ">
+                                <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                                <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+                            </button>
+                        </a>
+
                     </ui:fragment>
                     <ui:fragment rendered="#{cc.attrs.readonly}">
                         <input type="text" class="form-control readonly#{cc.attrs.alignright ? ' currency-input-text-align-right' : ''}"
                                 jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-                                readonly="readonly" jsf:value="#{cc.attrs.value}" />
+                                readonly="readonly" jsf:value="#{cc.attrs.value}"
+                                data-decimalplaces="#{cc.attrs.decimalplaces}" />
+
+                        <!-- Four Eyes -->
+                        <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                                data-content="#{cc.attrs.fourEyesLastValue}"
+                                data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+                                class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} "
+                                data-original-title="" title="">
+                            <button type="submit" jsf:id="fourEyesIconReadOnly" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                                    class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} ">
+                                <f:attribute name="disabled" value="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}" />
+                                <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+                            </button>
+                        </a>
+
                     </ui:fragment>
 
                 </div>
             </div>
 
             <!-- Bei Validierungsfehlern -->
-            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
-                <span class="form-control-feedback without-input-group-addon">
-                    <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
-                            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
-                            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
-                        <span class="icon icon-info"></span>
-                    </a>
-                </span>
-            </ui:fragment>
-
+            <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+                    reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
         </div>
     </composite:implementation>
 
