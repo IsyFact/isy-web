@@ -41,7 +41,7 @@
     </bean>
 
     <!-- Mapping für Ressourcen -->
-    <mvc:resources location="/" mapping="/resources/**"/>
+    <mvc:resources location="/" mapping="/resources/**" cache-period="86400"/>
 
     <!-- Mapping für Flows -->
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
