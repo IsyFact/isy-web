@@ -16,8 +16,12 @@
  */
 package de.bund.bva.isyfact.common.web.global;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Required;
 
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikation;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModelHolder;
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
@@ -34,13 +38,26 @@ public class HeaderHelper {
     private Konfiguration konfiguration;
 
     /**
+     * Das NavigationMenu welches geladen ist.
+     */
+    private NavigationMenuModelHolder navigationMenuModelHolder;
+
+    /**
      * Ermittelt den Farbwert der Anwendungsgruppe. Der Wert wird aus der Konfiguration gelesen. Wenn kein
      * Wert konfiguriert ist, dann wird "#337299" verwendet.
      * @return der Farbwert der Anwendungsgruppe
      */
     public String ermittleFarbwertAnwendungsgruppe() {
-        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPE_FARBWERT,
-            "#337299");
+
+        List<Applikation> applikationListe =
+            this.navigationMenuModelHolder.getNavigationMenuModel().getApplikationsListe();
+
+        for (Applikation applikation : applikationListe) {
+            if (applikation.isAktiv()) {
+                return applikation.getFarbe();
+            }
+        }
+        return "#337299";
     }
 
     /**
@@ -78,5 +95,10 @@ public class HeaderHelper {
     @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
+    }
+
+    @Required
+    public void setNavigationMenuModelHolder(NavigationMenuModelHolder navigationMenuModelHolder) {
+        this.navigationMenuModelHolder = navigationMenuModelHolder;
     }
 }

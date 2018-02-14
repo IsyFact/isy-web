@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+<!-- Beinhaltet das Navigationsmenu -->
+
+<composite:interface>
+<!-- NavigationMenuModel -->
+  <composite:attribute name="navMenuModel" />
+</composite:interface>
+
+<composite:implementation>
+  <ul class="nav nav-tabs pull-right">
+    <ui:repeat value="#{cc.attrs.navMenuModel.applikationsListe}" var="applikation">
+      <!--  Setze Klasse active, falls die Applikation aktiv ist   -->
+      <li class="#{applikation.aktiv ? 'active menustart' : ''}"><a href="#{applikation.link}" >#{applikation.name}</a>
+        <!--Applikation enthält mindestens eine Anwendung. Ein Menu wird gezeigt. -->
+        <ui:fragment rendered="#{not empty applikation.anwendungen}">
+          <div class="navbar-submenu" Style="border-color:#{applikation.farbe}">
+            <div class="row row-df">
+              <div class="hidden-xs col-lg-3" >
+                <div class="submenu-text">
+                  <span class="#{applikation.imgTag}"></span>
+                  <p>#{applikation.beschreibung} Das ist ein Text, um zu gucken ob Zeilenumbrüche funktionieren.</p>
+                </div> 
+              </div>
+              <div class="col-lg-9">
+              <!--Es werden immer drei Anwendungen in eine Zeile geschrieben. -->
+                <ui:repeat value="#{applikation.anwendungen}" var="anwendung" varStatus="anwendungsnumber">
+                  <h:outputText value="&lt;div class='row row-df' &gt;" escape="false" rendered="#{anwendungsnumber.index % 3 == 0}" />
+                    <div class="col-lg-4">
+                      <a href="#{anwendung.link}" class="search-option">#{anwendung.name}</a>
+                    </div>
+                      <h:outputText value="&lt;/div&gt;" escape="false" rendered="#{anwendungsnumber.index % 3 == 2 or anwendungsnumber.last}" />
+                </ui:repeat>
+              </div>
+            </div>
+          </div>
+        </ui:fragment>
+        <!--Applikation enthält keine Anwendung. Kein Menü wird angezeigt. -->
+        <ui:fragment rendered="#{empty applikation.anwendungen}">
+          <div class="navbar-submenu " Style="border-color:#{applikation.farbe};min-height: 0px;padding: 0px 0px;"/>    
+        </ui:fragment>
+      </li>
+    </ui:repeat>
+  </ul>        
+</composite:implementation>
+
+</html>

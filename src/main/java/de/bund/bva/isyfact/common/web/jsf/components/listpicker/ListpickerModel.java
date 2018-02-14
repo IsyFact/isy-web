@@ -39,7 +39,7 @@ public abstract class ListpickerModel<T extends ListpickerItem> implements Seria
     /**
      * Die Liste an auswählbaren Items.
      */
-    private List<T> items = new ArrayList<T>();
+    private List<T> items = new ArrayList<>();
 
     /**
      * Die Gesamtanzahl an Items.
@@ -71,7 +71,7 @@ public abstract class ListpickerModel<T extends ListpickerItem> implements Seria
      */
     public List<SelectItem> getItemsAsSelectItems() {
 
-        List<SelectItem> selectItems = new ArrayList<SelectItem>();
+        List<SelectItem> selectItems = new ArrayList<>();
 
         for (T item : this.items) {
             selectItems.add(new SelectItem(item.getValueForItem(), item.getReadableValueForItem()));
@@ -87,7 +87,7 @@ public abstract class ListpickerModel<T extends ListpickerItem> implements Seria
      */
     public List<SelectItem> getItemsAsSelectItemsNonJs() {
 
-        List<SelectItem> selectItems = new ArrayList<SelectItem>();
+        List<SelectItem> selectItems = new ArrayList<>();
 
         // Leeres SelectItem hinzufügen
         SelectItem nullSelect = new SelectItem(null, "");
@@ -95,8 +95,8 @@ public abstract class ListpickerModel<T extends ListpickerItem> implements Seria
         selectItems.add(nullSelect);
 
         for (T item : this.items) {
-            selectItems.add(new SelectItem(item.getListpickerValueForItem(), item.getValueForItem() + " - "
-                + item.getReadableValueForItem()));
+            selectItems.add(new SelectItem(item.getListpickerValueForItem(),
+                item.getValueForItem() + " - " + item.getReadableValueForItem()));
         }
 
         return selectItems;

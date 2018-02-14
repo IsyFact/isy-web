@@ -16,6 +16,8 @@
  */
 package de.bund.bva.isyfact.common.web.global;
 
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
+
 /**
  * Ein globales Model, welches für jeden Flow erzeugt wird und im Flow-Scope liegt.
  *
@@ -33,6 +35,11 @@ public class GlobalFlowModel extends AbstractMaskenModel {
      * Die Fehlermeldungen bei AJAX-Fehlern.
      */
     private String ajaxErrorMessage;
+
+    /**
+     * navigationMenuModel zum Aufbau des Menüs
+     */
+    private NavigationMenuModel navigationMenuModel;
 
     /**
      * Der Titel der Fehlermeldung bei AJAX-Fehlern.
@@ -109,6 +116,14 @@ public class GlobalFlowModel extends AbstractMaskenModel {
 
     public void setMultipartForm(boolean multipartForm) {
         this.multipartForm = multipartForm;
+    }
+
+    public NavigationMenuModel getNavigationMenuModel() {
+        return this.navigationMenuModel;
+    }
+
+    public void setNavigationMenuModel(NavigationMenuModel navigationMenuModel) {
+        this.navigationMenuModel = navigationMenuModel;
     }
 
 }

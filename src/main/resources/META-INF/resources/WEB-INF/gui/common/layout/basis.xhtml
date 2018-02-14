@@ -123,10 +123,9 @@ vorhanden ist. -->
                 <ui:include src="/WEB-INF/gui/common/seitenelemente/header.xhtml" />
 
                 <div id="main-nav" class="navbar navbar-default" role="navigation" tabindex="-1">
-                    <ui:include src="/WEB-INF/gui/common/seitenelemente/navigation.xhtml" />
+                    <isy:navigationMenu navMenuModel="#{globalFlowModel.navigationMenuModel}" />
                     <ui:include src="/WEB-INF/gui/common/seitenelemente/breadcrumb.xhtml" />
                 </div>
-
                 <ui:include src="/WEB-INF/gui/common/seitenelemente/headline.xhtml" />
                 <ui:insert name="printMetaInformation" />
             </div>
