@@ -51,7 +51,7 @@ module.exports = function (grunt) {
 					{src: 'www/onload.js', dest: '../target/classes/META-INF/resources/js/onload.js'},
 					{src: 'www/specialcharpicker.js',dest: '../target/classes/META-INF/resources/js/specialcharpicker.js'},
 					{src: 'www/tastatursteuerung.js', dest: '../target/classes/META-INF/resources/js/tastatursteuerung.js'},
-					{src: 'www/styles.css', dest: '../src/main/resources/META-INF/resources/css/styles.css'}
+					{src: 'www/specialcharpicker.css', dest: '../src/main/resources/META-INF/resources/css/specialcharpicker.css'}
 				]
 			}    			
 		},
@@ -86,7 +86,7 @@ module.exports = function (grunt) {
                     sourceMap: false
                 },
                 files: {
-                    "www/styles.css": "src/main/resources/grunt/less/styles.less",
+                    "www/specialcharpicker.css": "src/main/resources/grunt/less/specialcharpicker.less",
                 }
             }
         },
