@@ -52,4 +52,7 @@ public class EreignisSchluessel {
     /** behalte Sitemap Daten für: {} */
     public static final String E_SITEMAP_DATEN_ERHALT = "EPLWEB00010";
 
+    /** Applikationsrollen wurden aufgrund von ein oder mehrerer Anwendungen ignoriert. */
+    public static final String E_NAVMENU_ROLLEN_IGNORE = "EPLWEB00011";
+
 }

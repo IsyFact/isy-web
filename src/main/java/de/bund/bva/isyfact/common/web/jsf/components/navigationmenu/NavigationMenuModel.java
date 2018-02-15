@@ -21,7 +21,7 @@ public class NavigationMenuModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Liste von Applikationen
+     * Liste von {@link Applikation}en
      */
     private List<Applikation> applikationsListe;
 
@@ -36,7 +36,7 @@ public class NavigationMenuModel implements Serializable {
      * Konstruktor
      *
      * @param appListe
-     *            Enthält eine vorsortierte Liste der Applikationen
+     *            Enthält eine vorsortierte Liste der {@link Applikation}en
      */
     public NavigationMenuModel(List<Applikation> appListe) {
         this.applikationsListe = appListe;

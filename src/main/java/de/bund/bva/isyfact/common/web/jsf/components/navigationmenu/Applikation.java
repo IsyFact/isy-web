@@ -50,7 +50,7 @@ public class Applikation implements Serializable {
     private String imgTag;
 
     /**
-     * Liste von Anwendungen, welche zu dieser Applikation gehören
+     * Liste von {@link Anwendung}en, welche zu dieser Applikation gehören
      */
     private List<Anwendung> anwendungen;
 
@@ -85,7 +85,7 @@ public class Applikation implements Serializable {
      * @param wert
      *            Ein Wert für die Sortierung der Menüpunkte (links=klein nach rechts=groß)
      * @param anwendungen
-     *            Liste von Anwendungen welche zu dieser Applikation gehören
+     *            Liste von {@link Anwendung}en welche zu dieser Applikation gehören
      */
     public Applikation(String name, String beschreibung, String link, String imgTag, String farbe,
         String rolle, boolean aktiv, Integer wert, List<Anwendung> anwendungen) {

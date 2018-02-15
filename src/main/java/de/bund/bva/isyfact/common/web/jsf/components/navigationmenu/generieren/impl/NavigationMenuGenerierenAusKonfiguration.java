@@ -6,11 +6,15 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Required;
 
+import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Anwendung;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikation;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.AbstractNavigationMenuGenerierenStrategie;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuPropertySchluesselKonstanten;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
@@ -20,6 +24,10 @@ import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
  * Konfigurations-Datei muss von der Anwendung bereitgestellt werden.
  */
 public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigationMenuGenerierenStrategie {
+
+    /** Der Logger. */
+    private static final IsyLogger LOG =
+        IsyLoggerFactory.getLogger(NavigationMenuGenerierenAusKonfiguration.class);
 
     /**
      * Bean: Zugriff auf die {@link Konfiguration}.
@@ -46,24 +54,24 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
         int anwReihenfolge;
         Applikation applikation;
 
-        Set<String> allKeys = this.konfiguration.getSchluessel();
-        ArrayList<Integer> appnumbers = getAnzahlApps(allKeys);
+        Set<String> alleSchluessel = this.konfiguration.getSchluessel();
+        ArrayList<Integer> appNummern = getAnzahlApps(alleSchluessel);
 
         String[] userRollen = this.aufrufKontextVerwalter.getAufrufKontext().getRolle();
         List<Applikation> appListe = new ArrayList<>();
-        for (int i : appnumbers) {
+        for (int i : appNummern) {
             appRolle = this.konfiguration
                 .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
                     + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.ROLLE, "");
 
             List<Anwendung> anwendungen = new ArrayList<>();
-            ArrayList<Integer> anwNumbers = getAnzahlAnwendungen(allKeys, i);
-            for (int j : anwNumbers) {
+            ArrayList<Integer> anwNummern = getAnzahlAnwendungen(alleSchluessel, i);
+            for (int j : anwNummern) {
                 anwRolle = this.konfiguration
                     .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
                         + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.ANWENDUNG
                         + Integer.toString(j) + NavigationMenuPropertySchluesselKonstanten.ROLLE, "");
-                if (userHasRight(userRollen, anwRolle.split(","))) {
+                if (isUserBerechtigt(userRollen, anwRolle.split(","))) {
                     anwWert = this.konfiguration
                         .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
                             + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.ANWENDUNG
@@ -81,7 +89,12 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
                 }
             }
 
-            if (userHasRight(userRollen, appRolle.split(",")) || anwendungen.size() > 0) {
+            if (isUserBerechtigt(userRollen, appRolle.split(",")) || anwendungen.size() > 0) {
+                if (!isUserBerechtigt(userRollen, appRolle.split(","))) {
+                    LOG.info(LogKategorie.SICHERHEIT, EreignisSchluessel.E_CLIENT_VERBINDUNG,
+                        "Applikationsrollen wurden aufgrund von ein oder mehrerer Anwendungen ignoriert.");
+                }
+
                 appWert = this.konfiguration
                     .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
                         + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.WERT, "");
@@ -119,8 +132,10 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
 
     /**
      * @param allKeys
-     * @param i
-     * @return
+     *            Alle Schlüssel aus der {@link Konfiguration}
+     * @param appnumber
+     *            Nummer der {@link Applikation} für die die {@link Anwendung}en gezählt werden.
+     * @return Gibt eine Liste der {@link Anwendung}snummern für {@link Applikation} mit der Zahl appnumber
      */
     private ArrayList<Integer> getAnzahlAnwendungen(Set<String> allKeys, int appnumber) {
         int keyNumber;
@@ -137,6 +152,12 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
         return anwNumbers;
     }
 
+    /**
+     * @param allKeys
+     *            Alle Schlüssel aus der {@link Konfiguration}
+     * @return Gibt eine Liste der {@link Applikation}snummern zurück welche in der {@link Konfiguration}
+     *         geladen werden.
+     */
     private ArrayList<Integer> getAnzahlApps(Set<String> allKeys) {
 
         int keyNumber;

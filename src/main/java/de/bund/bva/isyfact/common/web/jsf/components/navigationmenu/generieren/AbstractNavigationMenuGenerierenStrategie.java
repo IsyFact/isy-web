@@ -16,68 +16,68 @@ public abstract class AbstractNavigationMenuGenerierenStrategie implements Navig
      * Sortiert eine Liste von Anwendungen nach dem Wert den sie hat von klein nach groß.
      *
      * @param anwendungen
-     *            Liste von Anwendungen
-     * @return Sortierte Liste von Anwendungen
+     *            Liste von {@link Anwendung}en
+     * @return Sortierte Liste von {@link Anwendung}en
      */
     protected List<Anwendung> sortAnwendungen(List<Anwendung> anwendungen) {
-        List<Anwendung> tempList = new ArrayList<>();
+        List<Anwendung> sortierteListe = new ArrayList<>();
         for (Anwendung anwendung : anwendungen) {
-            if (tempList.size() < 1) {
-                tempList.add(anwendung);
+            if (sortierteListe.size() < 1) {
+                sortierteListe.add(anwendung);
             } else {
-                for (Anwendung placedAnwendung : tempList) {
-                    if (anwendung.getWert() <= placedAnwendung.getWert()) {
-                        tempList.add(tempList.indexOf(placedAnwendung), anwendung);
+                for (Anwendung gesetzteAnwendung : sortierteListe) {
+                    if (anwendung.getWert() <= gesetzteAnwendung.getWert()) {
+                        sortierteListe.add(sortierteListe.indexOf(gesetzteAnwendung), anwendung);
                         break;
                     }
-                    if (tempList.indexOf(placedAnwendung) == tempList.size() - 1) {
-                        tempList.add(anwendung);
+                    if (sortierteListe.indexOf(gesetzteAnwendung) == sortierteListe.size() - 1) {
+                        sortierteListe.add(anwendung);
                         break;
                     }
                 }
 
             }
         }
-        return tempList;
+        return sortierteListe;
     }
 
     /**
-     * Sortiert eine Liste von Applikationen nach dem Wert den sie hat von klein nach groß.
+     * Sortiert eine Liste von {@link Applikation}en nach dem Wert den sie hat von klein nach groß.
      *
      * @param appListe
-     *            Liste von Applikationen
-     * @return Sortierte Liste von Applikationen
+     *            Liste von {@link Applikation}en
+     * @return Sortierte Liste von {@link Applikation}en
      */
     protected ArrayList<Applikation> sortApps(List<Applikation> appListe) {
-        ArrayList<Applikation> tempListe = new ArrayList<>();
+        ArrayList<Applikation> sortierteListe = new ArrayList<>();
         for (Applikation applikation : appListe) {
-            if (tempListe.size() < 1) {
-                tempListe.add(applikation);
+            if (sortierteListe.size() < 1) {
+                sortierteListe.add(applikation);
             } else {
-                for (Applikation placedApplikation : tempListe) {
-                    if (applikation.getWert() <= placedApplikation.getWert()) {
-                        tempListe.add(tempListe.indexOf(placedApplikation), applikation);
+                for (Applikation gesetzteApplikation : sortierteListe) {
+                    if (applikation.getWert() <= gesetzteApplikation.getWert()) {
+                        sortierteListe.add(sortierteListe.indexOf(gesetzteApplikation), applikation);
                         break;
                     }
-                    if (tempListe.indexOf(placedApplikation) == tempListe.size() - 1) {
-                        tempListe.add(applikation);
+                    if (sortierteListe.indexOf(gesetzteApplikation) == sortierteListe.size() - 1) {
+                        sortierteListe.add(applikation);
                         break;
                     }
                 }
             }
         }
-        return tempListe;
+        return sortierteListe;
     }
 
     /**
      * @param userRollen
      *            Rollen die der User besitzt
      * @param erlaubteRollen
-     *            Rollen, die die App bzw. Anwendung benötigen
+     *            Rollen, die die {@link Applikation} bzw. {@link Anwendung} benötigen
      * @return true= User besitzt eine Rolle die Zugriff hat false= User besitzt keine Rolle mit Zugriff
      *
      */
-    protected boolean userHasRight(String[] userRollen, String[] erlaubteRollen) {
+    protected boolean isUserBerechtigt(String[] userRollen, String[] erlaubteRollen) {
         if (erlaubteRollen[0].equals("") && erlaubteRollen.length == 1) {
             return true;
         }
