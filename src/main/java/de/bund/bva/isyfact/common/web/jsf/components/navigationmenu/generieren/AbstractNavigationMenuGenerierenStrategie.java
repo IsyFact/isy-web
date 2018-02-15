@@ -1,14 +1,16 @@
-package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu;
+package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Anwendung;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikation;
+
 /**
- *
- * @author Capgemini, Lars Chojnowska
- * @version $Id:$
+ * Abstrakte Oberklasse, von der geerbt werden sollte, um {@link NavigationMenuGenerierenStrategie} zu
+ * implementieren.
  */
-public abstract class NavigationAusleseHelperImpl implements NavigationAusleseHelper {
+public abstract class AbstractNavigationMenuGenerierenStrategie implements NavigationMenuGenerierenStrategie {
 
     /**
      * Sortiert eine Liste von Anwendungen nach dem Wert den sie hat von klein nach groß.
@@ -17,7 +19,6 @@ public abstract class NavigationAusleseHelperImpl implements NavigationAusleseHe
      *            Liste von Anwendungen
      * @return Sortierte Liste von Anwendungen
      */
-
     protected List<Anwendung> sortAnwendungen(List<Anwendung> anwendungen) {
         List<Anwendung> tempList = new ArrayList<>();
         for (Anwendung anwendung : anwendungen) {

@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu;
+package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten;
 
 /**
  * Die Klasse enthält Konstanten um das NavigationMenu aus den Properties zu lesen Die Properties sind dabei
@@ -11,7 +11,7 @@ package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu;
  * @author Capgemini, Lars Chojnowska
  * @version $Id:$
  */
-public abstract class AbstractNavigationMenuPropSchluessel {
+public abstract class NavigationMenuPropertySchluesselKonstanten {
 
     /**
      * Start aller Einträge (gefolgt von einer Zahl darum ein Punkt am Ende)

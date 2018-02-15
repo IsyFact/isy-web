@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu;
+package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.webflow.context.ExternalContextHolder;
@@ -6,6 +6,10 @@ import org.springframework.webflow.core.collection.SharedAttributeMap;
 import org.springframework.webflow.definition.FlowDefinition;
 import org.springframework.webflow.execution.RequestContextHolder;
 
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Anwendung;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikation;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.NavigationMenuGenerierenStrategie;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 
 /**
@@ -15,16 +19,16 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.N
 public class NavigationMenuController {
 
     /**
-     * Bean: Ein {@link NavigationAusleseHelper}.
+     * Bean: Eine {@link NavigationMenuGenerierenStrategie}.
      */
-    private NavigationAusleseHelper navigationAusleseHelper;
+    private NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie;
 
     /**
      * Erstellt ein {@link NavigationMenuModel} mithilfe von
-     * {@link NavigationAusleseHelper#bildeNavigationMenu()} und legt es in der Session ab. Wenn in der
-     * Session bereits ein initialisiertes {@link NavigationMenuModel} vorhanden ist, entfällt der Aufruf des
-     * {@link NavigationAusleseHelper}s. Schließlich wird die aktive Applikation ermittelt. Dies findet in
-     * jedem Fall statt.
+     * {@link NavigationMenuGenerierenStrategie#generiereNavigationMenu()} und legt es in der Session ab. Wenn in
+     * der Session bereits ein initialisiertes {@link NavigationMenuModel} vorhanden ist, entfällt der Aufruf
+     * von {@link NavigationMenuGenerierenStrategie}. Schließlich wird die aktive Applikation ermittelt. Dies
+     * findet in jedem Fall statt.
      */
     public void initialisiereNavigationMenue() {
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
@@ -32,7 +36,7 @@ public class NavigationMenuController {
             NavigationMenuModel model =
                 (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
             if (model == null) {
-                model = this.navigationAusleseHelper.bildeNavigationMenu();
+                model = this.navigationMenuGenerierenStrategie.generiereNavigationMenu();
             }
             ermittleAktiveApplikation(model);
             sessionMap.put(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU, model);
@@ -72,7 +76,8 @@ public class NavigationMenuController {
     }
 
     @Required
-    public void setNavigationAusleseHelper(NavigationAusleseHelper navigationAusleseHelper) {
-        this.navigationAusleseHelper = navigationAusleseHelper;
+    public void setNavigationMenuGenerierenStrategie(
+        NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie) {
+        this.navigationMenuGenerierenStrategie = navigationMenuGenerierenStrategie;
     }
 }

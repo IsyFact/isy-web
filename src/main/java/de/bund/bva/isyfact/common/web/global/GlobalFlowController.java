@@ -25,7 +25,7 @@ import org.springframework.webflow.definition.FlowDefinition;
 import org.springframework.webflow.execution.RequestContextHolder;
 
 import de.bund.bva.isyfact.common.web.exception.web.ErrorController;
-import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuController;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller.NavigationMenuController;
 import de.bund.bva.isyfact.common.web.validation.ValidationController;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
