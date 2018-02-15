@@ -58,6 +58,10 @@
           action="#{cc.parent.attrs.dataTableController.sort(cc.parent.attrs.dataTableModel, cc.attrs.sortProperty)}"
           title="#{cc.attrs.tooltip}" 
           additionalStyleClass="hyperlink-green"/>
+          
+      <!-- Der span Tag dient dazu, die Sortierpfeile (Dreiecke) anzuzeigen, falls eine Spalte sortierbar ist,
+           aber noch nicht sortiert wurde bzw. aktuell eine andere Spalte als sortiert ausgewählt ist. -->
+      <span style="position: relative; display: inline; width: 0;"/>    
     </th>
 
 	</ui:fragment>

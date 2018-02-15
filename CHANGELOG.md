@@ -1,5 +1,19 @@
-# 4.4.0
+# 4.6.0 (unveröffentlicht)
 - `IFS-55`: Datumseingabe mit zweistelligen Jahreszahlen wird automatisch ergänzt.
+# v4.5.0
+- `IFS-34`: formUpload übernommen.
+
+## Hinweise zum Upgrade
+- Der Tag isy:upload ist entfallen, stattdessen ist nun formUpload zu nutzen.
+- formUpload: Zur Nutzung der Komponente muss die Anwendung javax.servlet-api mindestens in Version 3.0.1 einbinden und überall die servlet-api 2.5 exkludieren, da sich der Name des Artefakts geändert hat. In der Context-Konfiguration des Tomcats muss `allowCasualMultipartParsing=true` gesetzt werden. In der web.xml muss das FacesServlet um Parameter zur `multipart-config` erweitert werden. Im entsprechenden Flow muss das Flag `multipartForm` des `globalFlowModel`s auf true gesetzt werden.
+
+# v4.4.0
+- `IFS-39`: Ein generischer Bestätigungsdialog ist nun verfügbar.
+- `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
+- `IFS-60`: Datatable zeigt einen Hinweis, wenn eine Tabelle keine Treffer enthält.
+- `IFS-56`: Die Checkbox in Überschriftzeilen von Treffertabellen ist nun eine Tri-State-Checkbox.
+- `IFS-61`: Die Darstellung sortierbarer Spalten von Tabellen wurde verbessert.
+- `IFS-41`: In Listpickern kann der Schlüssel aufgelöst werden (siehe Attribut `inputComplement`). Das Feature funktioniert nur für Listpicker, die eine Inputmask definiert haben.
 
 # v4.3.3
 - Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
