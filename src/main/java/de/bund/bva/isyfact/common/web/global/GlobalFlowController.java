@@ -71,7 +71,7 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
         model.setAjaxErrorMessage(this.errorController.getAjaxErrorMessage());
         model.setAjaxErrorMessageTitle(this.errorController.getAjaxErrorMessageTitle());
 
-        this.navigationMenuController.initialisiereModel(model.getNavigationMenuModel());
+        this.navigationMenuController.initialisiereNavigationMenue();
         // Resource-Bundles initialisieren
         initialisiereResourcesBundleCurrentFlow(model);
 
