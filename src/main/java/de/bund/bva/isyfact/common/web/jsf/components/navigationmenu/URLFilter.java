@@ -11,13 +11,18 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.webflow.context.ExternalContextHolder;
+import org.springframework.webflow.context.servlet.ServletExternalContext;
+import org.springframework.webflow.core.collection.SharedAttributeMap;
+import org.springframework.webflow.mvc.servlet.MvcExternalContext;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
 
 /**
@@ -28,11 +33,6 @@ import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
  * @version $Id:$
  */
 public class URLFilter implements Filter {
-
-    /**
-     * Ein Holder, welcher alle Informationen zum erstellen eineres Navigationsmenüs besitzt.
-     */
-    private NavigationMenuModelHolder navigationMenuModelHolder;
 
     /**
      * Liste von url-requests welche nicht berücksichtigt werden. (Requests auf Ressourcen)
@@ -60,9 +60,15 @@ public class URLFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        checkActivApplication(req.getRequestURI());
+        String url = httpRequest.getRequestURI();
+        if (checkURL(url)) {
+            ServletExternalContext context = new MvcExternalContext(null, httpRequest, httpResponse, null);
+            ExternalContextHolder.setExternalContext(context);
+            checkActivApplication(url);
+        }
         chain.doFilter(request, response);
     }
 
@@ -75,10 +81,11 @@ public class URLFilter implements Filter {
      *
      */
     public void checkActivApplication(String URI) {
-        boolean check = checkURL(URI);
         boolean firstfound = false;
-        if (check) {
-            NavigationMenuModel model = this.navigationMenuModelHolder.getNavigationMenuModel();
+        SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
+        synchronized (sessionMap.getMutex()) {
+            NavigationMenuModel model =
+                (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
             if (model != null) {
                 for (Applikation app : model.getApplikationsListe()) {
                     app.setAktiv(false);
@@ -111,11 +118,6 @@ public class URLFilter implements Filter {
             }
         }
         return true;
-    }
-
-    @Required
-    public void setNavigationMenuModelHolder(NavigationMenuModelHolder navigationMenuModelHolder) {
-        this.navigationMenuModelHolder = navigationMenuModelHolder;
     }
 
     @Override

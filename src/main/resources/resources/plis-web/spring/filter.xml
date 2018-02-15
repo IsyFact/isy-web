@@ -2,27 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd ">
-
-
-    <!-- liest Menüeinträge aus der konfiguration -->
-    <bean id="navigationAusleseHelper" class="de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationAusleseHelperProp">
-        <property name="konfiguration" ref="konfiguration"/>
-        <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
-    </bean>
     
     <!-- Filter um aus aktueller URL das aktuelle Menu zu bestimmen -->
-    <bean id="URLFilter" class="de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.URLFilter">
-        <property name="navigationMenuModelHolder" ref="navigationMenuModelHolder"/>
-    </bean>
-
+    <bean id="URLFilter" class="de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.URLFilter" />
 
     <bean id="resourceCacheHeaderFilter" class="de.bund.bva.isyfact.common.web.servlet.filter.ResourceCacheHeaderFilter">
         <property name="konfiguration" ref="konfiguration"/>
     </bean>
-
-    <!-- wird einmalig mit allen Daten die für das Navigationsmenü befüllt -->
-    <bean id="navigationMenuModelHolder" class="de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModelHolder">
-        <property name="navigationAusleseHelper" ref="navigationAusleseHelper"/>
-    </bean>
-
 </beans>

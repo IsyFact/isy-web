@@ -1,8 +1,10 @@
 package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.webflow.context.ExternalContextHolder;
+import org.springframework.webflow.core.collection.SharedAttributeMap;
 
-import de.bund.bva.isyfact.common.web.global.GlobalFlowModel;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 
 /**
  * Der NavigationMenuController wird verwendet um das NavigationMenu zu befüllen und gegebenenfalls auch zu
@@ -15,25 +17,30 @@ import de.bund.bva.isyfact.common.web.global.GlobalFlowModel;
 public class NavigationMenuController {
 
     /**
-     * Ein Holder, welcher alle Informationen zum erstellen eineres Navigationsmenüs besitzt.
+     * Ein NavigationAusleseHelper
      */
-    private NavigationMenuModelHolder navigationMenuModelHolder;
+    private NavigationAusleseHelper navigationAusleseHelper;
 
     /**
-     * Schreibt das NavigationMenuModel in das vorgesehene FlowModel
+     * Initialisiert das {@link NavigationMenuModel}.
      *
      * @param model
-     *            Das verwendete GlobalFlowModel
+     *            Das {@link NavigationMenuModel}.
      *
      */
-    public void initialisiereModel(GlobalFlowModel model) {
-
-        NavigationMenuModel navModel = this.navigationMenuModelHolder.getNavigationMenuModel();
-        model.setNavigationMenuModel(navModel);
+    public void initialisiereModel(NavigationMenuModel model) {
+        if (model == null) {
+            model = this.navigationAusleseHelper.bildeNavigationMenu();
+            SharedAttributeMap<Object> sessionMap =
+                ExternalContextHolder.getExternalContext().getSessionMap();
+            synchronized (sessionMap.getMutex()) {
+                sessionMap.put(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU, model);
+            }
+        }
     }
 
     @Required
-    public void setNavigationMenuModelHolder(NavigationMenuModelHolder navigationMenuModelHolder) {
-        this.navigationMenuModelHolder = navigationMenuModelHolder;
+    public void setNavigationAusleseHelper(NavigationAusleseHelper navigationAusleseHelper) {
+        this.navigationAusleseHelper = navigationAusleseHelper;
     }
 }

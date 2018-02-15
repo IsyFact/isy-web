@@ -53,7 +53,6 @@
 
     <bean id="headerHelper" class="de.bund.bva.isyfact.common.web.global.HeaderHelper">
         <property name="konfiguration" ref="konfiguration"/>
-         <property name="navigationMenuModelHolder" ref="navigationMenuModelHolder"/>
     </bean>
     
     <bean id="localeConfiguration" class="de.bund.bva.isyfact.common.web.locale.LocaleConfiguration">
@@ -81,14 +80,11 @@
         parent="abstractGuiController">
         <aop:scoped-proxy proxy-target-class="true"/>
     </bean>
-    
-
-    
-    
+      
     <bean id="navigationMenuController" class="de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuController">
-        <property name="navigationMenuModelHolder" ref="navigationMenuModelHolder" />
-    </bean>
-    
+      <!-- Die konkrete Strategie zum Auslesen der Navigation muss als Bean in der jeweiligen Anwendung bereitgestellt werden! -->
+      <property name="navigationAusleseHelper" ref="navigationAusleseHelper"/>
+    </bean>    
 
     <bean id="detailseiteController" class="de.bund.bva.isyfact.common.web.layout.DetailseiteController"
         parent="abstractGuiController">

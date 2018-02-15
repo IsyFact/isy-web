@@ -19,9 +19,12 @@ package de.bund.bva.isyfact.common.web.global;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.webflow.context.ExternalContextHolder;
+import org.springframework.webflow.core.collection.SharedAttributeMap;
 
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikation;
-import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModelHolder;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
@@ -38,26 +41,34 @@ public class HeaderHelper {
     private Konfiguration konfiguration;
 
     /**
-     * Das NavigationMenu welches geladen ist.
+     * Der Farbwert, der standardmäßig gesetzt wird, wenn sich anhand des {@link NavigationMenuModel} kein
+     * Farbwert ermitteln lässt. Siehe {@link #ermittleFarbwertAnwendungsgruppe(NavigationMenuModel)}.
      */
-    private NavigationMenuModelHolder navigationMenuModelHolder;
+    private static final String DEFAULT_FARBWERT = "#337299";
 
     /**
-     * Ermittelt den Farbwert der Anwendungsgruppe. Der Wert wird aus der Konfiguration gelesen. Wenn kein
-     * Wert konfiguriert ist, dann wird "#337299" verwendet.
+     * Ermittelt den Farbwert der Anwendungsgruppe. Der Wert wird dem {@link NavigationMenuModel} entnommen,
+     * das in der Session abgelegt ist. Genauer wird der Wert der aktiven {@link Applikation} genommen. Sollte
+     * (theoretisch) keine {@link Applikation} aktiv sein, dann wird "#337299" verwendet.
      * @return der Farbwert der Anwendungsgruppe
      */
     public String ermittleFarbwertAnwendungsgruppe() {
 
-        List<Applikation> applikationListe =
-            this.navigationMenuModelHolder.getNavigationMenuModel().getApplikationsListe();
-
-        for (Applikation applikation : applikationListe) {
-            if (applikation.isAktiv()) {
-                return applikation.getFarbe();
+        SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
+        synchronized (sessionMap.getMutex()) {
+            NavigationMenuModel navigationMenuModel =
+                (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
+            if (navigationMenuModel != null) {
+                List<Applikation> applikationListe = navigationMenuModel.getApplikationsListe();
+                for (Applikation applikation : applikationListe) {
+                    if (applikation.isAktiv()) {
+                        return applikation.getFarbe();
+                    }
+                }
             }
         }
-        return "#337299";
+
+        return DEFAULT_FARBWERT;
     }
 
     /**
@@ -95,10 +106,5 @@ public class HeaderHelper {
     @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
-    }
-
-    @Required
-    public void setNavigationMenuModelHolder(NavigationMenuModelHolder navigationMenuModelHolder) {
-        this.navigationMenuModelHolder = navigationMenuModelHolder;
     }
 }
