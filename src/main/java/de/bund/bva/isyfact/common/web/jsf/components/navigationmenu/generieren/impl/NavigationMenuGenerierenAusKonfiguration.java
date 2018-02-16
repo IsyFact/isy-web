@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -8,10 +9,10 @@ import org.springframework.beans.factory.annotation.Required;
 
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Anwendung;
-import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikation;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.AbstractNavigationMenuGenerierenStrategie;
-import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuPropertySchluesselKonstanten;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonfigurationSchluesselKonstanten;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
@@ -39,6 +40,10 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
      */
     private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
 
+    /**
+     * Generiert ein {@link NavigationMenuModel}. Die benötigten Daten werden hierbei aus der
+     * {@link Konfiguration} bezogen.
+     */
     @Override
     public NavigationMenuModel generiereNavigationMenu() {
         String beschreibung;
@@ -47,102 +52,105 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
         String appRolle;
         String appIcon;
         String farbe;
-        Integer reihenfolge;
+        int reihenfolge;
         String anwWert;
         String anwLink;
         String anwRolle;
         int anwReihenfolge;
-        Applikation applikation;
+        Applikationsgruppe applikation;
 
+        // TODO IFS-99 Kann man das nicht eleganter lösen?
         Set<String> alleSchluessel = this.konfiguration.getSchluessel();
         ArrayList<Integer> appNummern = getAnzahlApps(alleSchluessel);
 
         String[] userRollen = this.aufrufKontextVerwalter.getAufrufKontext().getRolle();
-        List<Applikation> appListe = new ArrayList<>();
+        List<Applikationsgruppe> appListe = new ArrayList<>();
         for (int i : appNummern) {
             appRolle = this.konfiguration
-                .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                    + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.ROLLE, "");
+                .getAsString(NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                    + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLE, "");
 
             List<Anwendung> anwendungen = new ArrayList<>();
             ArrayList<Integer> anwNummern = getAnzahlAnwendungen(alleSchluessel, i);
             for (int j : anwNummern) {
                 anwRolle = this.konfiguration
-                    .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                        + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.ANWENDUNG
-                        + Integer.toString(j) + NavigationMenuPropertySchluesselKonstanten.ROLLE, "");
+                    .getAsString(NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                        + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
+                        + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLE, "");
                 if (isUserBerechtigt(userRollen, anwRolle.split(","))) {
                     anwWert = this.konfiguration
-                        .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                            + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.ANWENDUNG
-                            + Integer.toString(j) + NavigationMenuPropertySchluesselKonstanten.WERT, "");
+                        .getAsString(NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                            + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
+                            + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.WERT, "");
                     anwLink = this.konfiguration
-                        .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                            + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.ANWENDUNG
-                            + Integer.toString(j) + NavigationMenuPropertySchluesselKonstanten.LINK, "");
+                        .getAsString(NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                            + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
+                            + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.LINK, "");
                     anwReihenfolge = this.konfiguration.getAsInteger(
-                        NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                            + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.ANWENDUNG
-                            + Integer.toString(j) + NavigationMenuPropertySchluesselKonstanten.REIHENFOLGE,
-                        NavigationMenuPropertySchluesselKonstanten.DEFAULT_REIHENFOLGE);
+                        NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                            + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
+                            + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.REIHENFOLGE,
+                        NavigationMenuKonfigurationSchluesselKonstanten.DEFAULT_REIHENFOLGE);
                     anwendungen.add(new Anwendung(anwWert, anwLink, anwRolle, anwReihenfolge));
                 }
             }
 
             if (isUserBerechtigt(userRollen, appRolle.split(",")) || anwendungen.size() > 0) {
                 if (!isUserBerechtigt(userRollen, appRolle.split(","))) {
-                    LOG.info(LogKategorie.SICHERHEIT, EreignisSchluessel.E_CLIENT_VERBINDUNG,
+                    LOG.info(LogKategorie.SICHERHEIT, EreignisSchluessel.E_NAVMENU_ROLLEN_IGNORE,
                         "Applikationsrollen wurden aufgrund von ein oder mehrerer Anwendungen ignoriert.");
                 }
 
                 appWert = this.konfiguration
-                    .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                        + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.WERT, "");
+                    .getAsString(NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                        + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.WERT, "");
                 beschreibung =
                     this.konfiguration.getAsString(
-                        NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                            + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.BESCHREIBUNG,
+                        NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                            + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.BESCHREIBUNG,
                         "");
                 appLink = this.konfiguration
-                    .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                        + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.LINK, "");
+                    .getAsString(NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                        + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.LINK, "");
                 appIcon = this.konfiguration
-                    .getAsString(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                        + Integer.toString(i) + NavigationMenuPropertySchluesselKonstanten.ICON, "");
+                    .getAsString(NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                        + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ICON, "");
                 farbe = this.konfiguration.getAsString(
-                    NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION + Integer.toString(i)
-                        + NavigationMenuPropertySchluesselKonstanten.FARBE,
-                    NavigationMenuPropertySchluesselKonstanten.DEFAULT_FARBE);
+                    NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE + Integer.toString(i)
+                        + NavigationMenuKonfigurationSchluesselKonstanten.FARBE,
+                    NavigationMenuKonfigurationSchluesselKonstanten.DEFAULT_FARBE);
                 reihenfolge = this.konfiguration.getAsInteger(
-                    NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION + Integer.toString(i)
-                        + NavigationMenuPropertySchluesselKonstanten.REIHENFOLGE,
-                    NavigationMenuPropertySchluesselKonstanten.DEFAULT_REIHENFOLGE);
+                    NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE + Integer.toString(i)
+                        + NavigationMenuKonfigurationSchluesselKonstanten.REIHENFOLGE,
+                    NavigationMenuKonfigurationSchluesselKonstanten.DEFAULT_REIHENFOLGE);
 
-                anwendungen = (sortAnwendungen(anwendungen));
-                applikation = new Applikation(appWert, beschreibung, appLink, appIcon, farbe, appRolle, false,
+                Collections.sort(anwendungen);
+                applikation = new Applikationsgruppe(appWert, beschreibung, appLink, appIcon, farbe, appRolle,
                     reihenfolge, anwendungen);
                 appListe.add(applikation);
             }
         }
 
-        appListe = sortApps(appListe);
+        Collections.sort(appListe);
         return new NavigationMenuModel(appListe);
 
     }
 
     /**
+     * TODO IFS-99 Dokumentieren.
      * @param allKeys
      *            Alle Schlüssel aus der {@link Konfiguration}
      * @param appnumber
-     *            Nummer der {@link Applikation} für die die {@link Anwendung}en gezählt werden.
-     * @return Gibt eine Liste der {@link Anwendung}snummern für {@link Applikation} mit der Zahl appnumber
+     *            Nummer der {@link Applikationsgruppe} für die die {@link Anwendung}en gezählt werden.
+     * @return Gibt eine Liste der {@link Anwendung}snummern für {@link Applikationsgruppe} mit der Zahl
+     *         appnumber
      */
     private ArrayList<Integer> getAnzahlAnwendungen(Set<String> allKeys, int appnumber) {
         int keyNumber;
         ArrayList<Integer> anwNumbers = new ArrayList<>();
         for (String key : allKeys) {
-            if (key.startsWith(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION
-                + Integer.toString(appnumber) + NavigationMenuPropertySchluesselKonstanten.ANWENDUNG)) {
+            if (key.startsWith(NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                + Integer.toString(appnumber) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG)) {
                 keyNumber = Integer.parseInt(key.split("\\.")[5]);
                 if (!anwNumbers.contains(keyNumber)) {
                     anwNumbers.add(keyNumber);
@@ -153,17 +161,18 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
     }
 
     /**
+     * TODO IFS-99 Dokumentieren.
      * @param allKeys
      *            Alle Schlüssel aus der {@link Konfiguration}
-     * @return Gibt eine Liste der {@link Applikation}snummern zurück welche in der {@link Konfiguration}
-     *         geladen werden.
+     * @return Gibt eine Liste der {@link Applikationsgruppe}snummern zurück welche in der
+     *         {@link Konfiguration} geladen werden.
      */
     private ArrayList<Integer> getAnzahlApps(Set<String> allKeys) {
 
         int keyNumber;
         ArrayList<Integer> appNumbers = new ArrayList<>();
         for (String key : allKeys) {
-            if (key.startsWith(NavigationMenuPropertySchluesselKonstanten.GUI_NAVBAR_APPLIKATION)) {
+            if (key.startsWith(NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE)) {
                 keyNumber = Integer.parseInt(key.split("\\.")[3]);
                 if (!appNumbers.contains(keyNumber)) {
                     appNumbers.add(keyNumber);

@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
 
-import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikation;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
@@ -48,8 +48,8 @@ public class HeaderHelper {
 
     /**
      * Ermittelt den Farbwert der Anwendungsgruppe. Der Wert wird dem {@link NavigationMenuModel} entnommen,
-     * das in der Session abgelegt ist. Genauer wird der Wert der aktiven {@link Applikation} genommen. Sollte
-     * (theoretisch) keine {@link Applikation} aktiv sein, dann wird "#337299" verwendet.
+     * das in der Session abgelegt ist. Genauer wird der Wert der aktiven {@link Applikationsgruppe} genommen. Sollte
+     * (theoretisch) keine {@link Applikationsgruppe} aktiv sein, dann wird "#337299" verwendet.
      * @return der Farbwert der Anwendungsgruppe
      */
     public String ermittleFarbwertAnwendungsgruppe() {
@@ -59,8 +59,8 @@ public class HeaderHelper {
             NavigationMenuModel navigationMenuModel =
                 (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
             if (navigationMenuModel != null) {
-                List<Applikation> applikationListe = navigationMenuModel.getApplikationsListe();
-                for (Applikation applikation : applikationListe) {
+                List<Applikationsgruppe> applikationListe = navigationMenuModel.getApplikationsListe();
+                for (Applikationsgruppe applikation : applikationListe) {
                     if (applikation.isAktiv()) {
                         return applikation.getFarbe();
                     }

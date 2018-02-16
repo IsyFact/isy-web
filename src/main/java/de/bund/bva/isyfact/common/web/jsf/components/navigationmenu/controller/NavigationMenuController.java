@@ -7,14 +7,14 @@ import org.springframework.webflow.definition.FlowDefinition;
 import org.springframework.webflow.execution.RequestContextHolder;
 
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Anwendung;
-import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikation;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.NavigationMenuGenerierenStrategie;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 
 /**
  * Die Klasse dient dazu ein {@link NavigationMenuModel} zu erstellen und in der Session abzulegen. Außerdem
- * wird die aktive {@link Applikation} hier ermittelt.
+ * wird die aktive {@link Applikationsgruppe} hier ermittelt.
  */
 public class NavigationMenuController {
 
@@ -25,10 +25,10 @@ public class NavigationMenuController {
 
     /**
      * Erstellt ein {@link NavigationMenuModel} mithilfe von
-     * {@link NavigationMenuGenerierenStrategie#generiereNavigationMenu()} und legt es in der Session ab. Wenn in
-     * der Session bereits ein initialisiertes {@link NavigationMenuModel} vorhanden ist, entfällt der Aufruf
-     * von {@link NavigationMenuGenerierenStrategie}. Schließlich wird die aktive Applikation ermittelt. Dies
-     * findet in jedem Fall statt.
+     * {@link NavigationMenuGenerierenStrategie#generiereNavigationMenu()} und legt es in der Session ab. Wenn
+     * in der Session bereits ein initialisiertes {@link NavigationMenuModel} vorhanden ist, entfällt der
+     * Aufruf von {@link NavigationMenuGenerierenStrategie}. Schließlich wird die aktive Applikationsgruppe
+     * ermittelt. Dies findet in jedem Fall statt.
      */
     public void initialisiereNavigationMenue() {
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
@@ -38,17 +38,17 @@ public class NavigationMenuController {
             if (model == null) {
                 model = this.navigationMenuGenerierenStrategie.generiereNavigationMenu();
             }
-            ermittleAktiveApplikation(model);
+            ermittleAktiveApplikationsgruppe(model);
             sessionMap.put(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU, model);
         }
     }
 
     /**
-     * Ermittelt die aktive {@link Applikation} anhand des aktuellen Flows.
+     * Ermittelt die aktive {@link Applikationsgruppe} anhand des aktuellen Flows.
      * @param model
-     *            Das {@link NavigationMenuModel}, das alle {@link Applikation}en enthält.
+     *            Das {@link NavigationMenuModel}, das alle {@link Applikationsgruppe}en enthält.
      */
-    private void ermittleAktiveApplikation(NavigationMenuModel model) {
+    private void ermittleAktiveApplikationsgruppe(NavigationMenuModel model) {
         // Der aktuelle Flow. Wenn ein Subflow aufgerufen wurde, dann wird hier der ursprüngliche Flow
         // ausgelesen.
         FlowDefinition flowDefinition =
@@ -57,7 +57,7 @@ public class NavigationMenuController {
         String flowName = flowDefinition.getId();
         boolean treffer = false;
         if (model != null) {
-            for (Applikation app : model.getApplikationsListe()) {
+            for (Applikationsgruppe app : model.getApplikationsListe()) {
                 app.setAktiv(false);
                 if (!treffer && flowName.contains(app.getLink())) {
                     app.setAktiv(true);

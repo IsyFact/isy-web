@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 
 /**
- * Die Klasse enthält Konstanten rund um das Navigation-Menü.
+ * Die Klasse enthält Konstanten rund um das Navigationsmenü.
  */
 public abstract class NavigationMenuKonstanten {
 

@@ -5,13 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Capgemini, Lars Chojnowska
- * @version $Id:$
- */
-
-/**
- * Enthält alle Einträge und Infos um ein Navigationsmenü zu erstellen
+ * Enthält eine Liste von {@link Applikationsgruppe}n um ein Navigationsmenü zu darzustellen.
  */
 public class NavigationMenuModel implements Serializable {
 
@@ -21,32 +15,32 @@ public class NavigationMenuModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Liste von {@link Applikation}en
+     * Liste von {@link Applikationsgruppe}en.
      */
-    private List<Applikation> applikationsListe;
+    private List<Applikationsgruppe> applikationsListe;
 
     /**
-     * Konstruktor
+     * Konstruktor.
      */
     public NavigationMenuModel() {
         this.applikationsListe = new ArrayList<>();
     }
 
     /**
-     * Konstruktor
+     * Konstruktor, der die Liste der {@link Applikationsgruppe}en, direkt setzt.
      *
      * @param appListe
-     *            Enthält eine vorsortierte Liste der {@link Applikation}en
+     *            Enthält eine vorsortierte Liste der {@link Applikationsgruppe}en.
      */
-    public NavigationMenuModel(List<Applikation> appListe) {
+    public NavigationMenuModel(List<Applikationsgruppe> appListe) {
         this.applikationsListe = appListe;
     }
 
-    public List<Applikation> getApplikationsListe() {
+    public List<Applikationsgruppe> getApplikationsListe() {
         return this.applikationsListe;
     }
 
-    public void setApplikationsListe(List<Applikation> applikationsListe) {
+    public void setApplikationsListe(List<Applikationsgruppe> applikationsListe) {
         this.applikationsListe = applikationsListe;
     }
 

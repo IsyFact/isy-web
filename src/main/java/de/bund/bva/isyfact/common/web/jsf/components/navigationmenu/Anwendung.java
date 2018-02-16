@@ -3,15 +3,9 @@ package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu;
 import java.io.Serializable;
 
 /**
- *
- * @author Capgemini, Lars Chojnowska
- * @version $Id:$
+ * Eine Anwendung zum Einbinden in das Navigationsmenü.
  */
-
-/**
- * Eine Anwendung zum einbinden in das Navigationsmenü
- */
-public class Anwendung implements Serializable {
+public class Anwendung implements Serializable, Comparable<Anwendung> {
 
     /**
      * Die SerialVersionUID
@@ -19,43 +13,41 @@ public class Anwendung implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Name der Anwendung
+     * Name der Anwendung.
      */
-    String name;
+    private String name;
 
     /**
-     * Ein Integerwert der angibt an welcher Stelle im Menü dieser Eintrag steht (links-oben=klein nach
-     * rechts-unten=groß)
+     * Gibt die Reihenfolge der Anwendung an (links-oben=klein nach rechts-unten=groß).
      */
-    int wert;
+    private int reihenfolge;
 
     /**
-     * Das Linkziel einer Anwendung
+     * Der Link, der geöffnet wird, wenn die Anwendung ausgewählt wird.
      */
-    String link;
+    private String link;
 
     /**
      * Eine mit Komma getrennte Liste von Rollen, welche für diese Anwendung berechtigt sind. Ist die Liste
      * leer so ist jeder berechtigt.
      */
-    String rolle;
+    private String rolle;
 
     /**
-     * Konstruktor
-     *
+     * Der Konstruktor initialisiert direkt alle Variablen mit den übergebenen Werten.
      *
      * @param name
-     *            Name der Anwendung
+     *            Name der Anwendung.
      * @param link
-     *            Linkziel der Anwendung
+     *            Linkziel der Anwendung.
      * @param rolle
-     *            Zulässige Rollen für diese Anwendung
-     * @param wert
-     *            Wert zur Bestimmung der Auflistung im Menu (links-oben=klein nach rechts-unten=groß)
+     *            Zulässige Rollen für diese Anwendung.
+     * @param reihenfolge
+     *            Die Reihenfolge der Anwendung.
      */
-    public Anwendung(String name, String link, String rolle, int wert) {
+    public Anwendung(String name, String link, String rolle, int reihenfolge) {
         this.name = name;
-        this.wert = wert;
+        this.reihenfolge = reihenfolge;
         this.link = link;
         this.rolle = rolle;
     }
@@ -68,12 +60,12 @@ public class Anwendung implements Serializable {
         this.name = name;
     }
 
-    public int getWert() {
-        return this.wert;
+    public int getReihenfolge() {
+        return this.reihenfolge;
     }
 
-    public void setWert(Integer wert) {
-        this.wert = wert;
+    public void setReihenfolge(int reihenfolge) {
+        this.reihenfolge = reihenfolge;
     }
 
     public String getLink() {
@@ -90,6 +82,11 @@ public class Anwendung implements Serializable {
 
     public void setRolle(String rolle) {
         this.rolle = rolle;
+    }
+
+    @Override
+    public int compareTo(Anwendung andereAnwendung) {
+        return Integer.compare(this.reihenfolge, andereAnwendung.getReihenfolge());
     }
 
 }

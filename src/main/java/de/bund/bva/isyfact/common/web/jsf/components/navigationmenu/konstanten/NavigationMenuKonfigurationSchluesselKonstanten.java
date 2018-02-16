@@ -1,40 +1,40 @@
 package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten;
 
 /**
- * Die Klasse enthält Konstanten um das NavigationMenu aus den Properties zu lesen Die Properties sind dabei
- * wie folgt aufgebaut:
+ * Die Klasse enthält Konstanten, die beim Auslesen des Navigationsmenüs aus der Konfiguration verwendet
+ * werden. Die Properties sind dabei wie folgt aufgebaut:
  *
- * Applikation: gui.navbar.applikation.<Integer>.<Eigenschaft>
+ * Applikationsgruppe: gui.navbar.applikationsgruppe.<Integer>.<Eigenschaft>
  *
- * Anwendung: gui.navbar.applikation.<Integer>.anwendung.<Eigenschaft>
+ * Anwendung: gui.navbar.applikationsgruppe.<Integer>.anwendung.<Eigenschaft>
  *
  * @author Capgemini, Lars Chojnowska
  * @version $Id:$
  */
-public abstract class NavigationMenuPropertySchluesselKonstanten {
+public abstract class NavigationMenuKonfigurationSchluesselKonstanten {
 
     /**
-     * Start aller Einträge (gefolgt von einer Zahl darum ein Punkt am Ende)
+     * Start aller Einträge (gefolgt von einer Zahl darum ein Punkt am Ende).
      */
-    public static final String GUI_NAVBAR_APPLIKATION = "gui.navbar.applikation.";
+    public static final String GUI_NAVBAR_APPLIKATIONSGRUPPE = "gui.navbar.applikationsgruppe.";
 
     /**
-     * Mitteltag für eine anwendung (gefolgt von einer Zahl darum ein Punkt am Ende)
+     * Mitteltag für eine Anwendung (gefolgt von einer Zahl darum ein Punkt am Ende).
      */
     public static final String ANWENDUNG = ".anwendung.";
 
     /**
-     * Ende für einen Rolleneigenschaft
+     * Postfix für eine Rolleneigenschaft.
      */
     public static final String ROLLE = ".rolle";
 
     /**
-     * Ende für einen Linkeigenschaft
+     * Postfix für eine Linkeigenschaft.
      */
     public static final String LINK = ".link";
 
     /**
-     * Ende für einen Farbeneigenschaft
+     * Postfix für eine Farbeneigenschaft.
      */
     public static final String FARBE = ".farbe";
 
@@ -44,17 +44,17 @@ public abstract class NavigationMenuPropertySchluesselKonstanten {
     public static final String DEFAULT_FARBE = "#337299";
 
     /**
-     * Ende für einen Iconeigenschaft
+     * Postfix für eine Iconeigenschaft.
      */
     public static final String ICON = ".icon";
 
     /**
-     * Ende für einen Werteigenschaft
+     * Postfix für eine Werteigenschaft.
      */
     public static final String WERT = ".wert";
 
     /**
-     * Ende für einen Reihenfolgeneigenschaft
+     * Postfix für eine Reihenfolgeneigenschaft.
      */
     public static final String REIHENFOLGE = ".reihenfolge";
 
@@ -64,7 +64,7 @@ public abstract class NavigationMenuPropertySchluesselKonstanten {
     public static final int DEFAULT_REIHENFOLGE = 1;
 
     /**
-     * Ende für einen Beschreibungseigenschaft
+     * Postfix für eine Beschreibungseigenschaft.
      */
     public static final String BESCHREIBUNG = ".beschreibung";
 }
