@@ -1,10 +1,11 @@
 package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
-import org.springframework.webflow.definition.FlowDefinition;
-import org.springframework.webflow.execution.RequestContextHolder;
 
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Anwendung;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
@@ -44,28 +45,32 @@ public class NavigationMenuController {
     }
 
     /**
-     * Ermittelt die aktive {@link Applikationsgruppe} anhand des aktuellen Flows.
+     * Ermittelt die aktive {@link Applikationsgruppe} anhand der aktuellen URL.
      * @param model
      *            Das {@link NavigationMenuModel}, das alle {@link Applikationsgruppe}en enthält.
      */
     private void ermittleAktiveApplikationsgruppe(NavigationMenuModel model) {
-        // Der aktuelle Flow. Wenn ein Subflow aufgerufen wurde, dann wird hier der ursprüngliche Flow
-        // ausgelesen.
-        FlowDefinition flowDefinition =
-            RequestContextHolder.getRequestContext().getFlowExecutionContext().getDefinition();
-
-        String flowName = flowDefinition.getId();
+        // Ermittle die aktuelle URL beginnend mit dem Kontext-Pfad (siehe
+        // HttpServletRequest.getContextPath()).
+        StringBuffer requestURL =
+            ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+                .getRequestURL();
+        String contextPath =
+            ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+                .getContextPath();
+        String aktuelleRelativeUrl =
+            requestURL.substring(requestURL.indexOf(contextPath), requestURL.length());
         boolean treffer = false;
         if (model != null) {
             for (Applikationsgruppe app : model.getApplikationsListe()) {
                 app.setAktiv(false);
-                if (!treffer && flowName.contains(app.getLink())) {
+                if (!treffer && aktuelleRelativeUrl.equals(app.getLink())) {
                     app.setAktiv(true);
                     treffer = true;
                 }
                 if (!treffer) {
                     for (Anwendung anw : app.getAnwendungen()) {
-                        if (!treffer && flowName.contains(anw.getLink())) {
+                        if (!treffer && aktuelleRelativeUrl.equals(anw.getLink())) {
                             app.setAktiv(true);
                             treffer = true;
                         }
