@@ -23,11 +23,6 @@ package de.bund.bva.isyfact.common.web.konstanten;
 public abstract class KonfigurationSchluessel {
 
     /**
-     * Der Farbwert der Anwendungsgruppe.
-     */
-    public static final String GUI_ANWENDUNGSGRUPPE_FARBWERT = "gui.anwendungsgrupppe.farbwert";
-
-    /**
      * Der zu inkludierende Nutzerbereich.
      */
     public static final String GUI_HEADER_NUTZERBEREICH_XHTML_SRC = "gui.header.nutzerbereich.xhtml.src";
