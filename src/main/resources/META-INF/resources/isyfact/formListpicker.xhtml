@@ -112,7 +112,7 @@
 
             <ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
                 <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField">
+                        for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-nojs">
                     <h:outputText value="#{cc.attrs.label}"/>
                 </label>
             </ui:fragment>
@@ -222,12 +222,10 @@
 
                 </ui:fragment>
                 <ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
-
                     <!-- Falls JS nicht aktiviert ist, dann wird ein einfaches Dropdown angezeigt. -->
                     <div class="input-group">
-                        <div
-                                class="form-selectonedropdown #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}">
-                            <h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField"
+                        <div class="form-selectonedropdown #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}">
+                            <h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-nojs"
                                     value="#{cc.attrs.value}"
                                     styleClass="form-selectonedropdown #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{existsValidationError ? 'invalid' : ''}"
                                     disabled="#{cc.attrs.showPrintView}"
