@@ -46,82 +46,43 @@
 
     <build>
         <plugins>
-            <!-- Das Grunt Plugin führt grunt aus und modifiziert die JS Dateien für das Deployment -->
             <plugin>
-                <groupId>pl.allegro</groupId>
-                <artifactId>grunt-maven-plugin</artifactId>
-                <version>1.5.1</version>
-                <configuration>
-                    <sourceDirectory>${project.basedir}</sourceDirectory>
-                    <jsSourceDirectory>./</jsSourceDirectory>
-                </configuration>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
                 <executions>
-                    <!-- Da man von Maven aus nur ein grunt target konfigurieren kann, wird grunt zweimal aufgerufen
-                        (für generate-sources und process-resources). Dies hat keine Auswirkung auf die Semantik. -->
+
                     <execution>
-                        <id>generateStyle</id>
-                        <phase>generate-sources</phase>
+                        <id>install node and npm</id>
                         <goals>
-                            <goal>create-resources</goal>
-                            <goal>npm</goal>
-                            <goal>grunt</goal>
+                            <goal>install-node-and-npm</goal>
                         </goals>
+                        <configuration>
+                            <nodeVersion>v8.9.4</nodeVersion>
+                        </configuration>
                     </execution>
+
                     <execution>
-                        <id>uglifyJs</id>
-                        <phase>process-resources</phase>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>grunt build</id>
                         <goals>
                             <goal>grunt</goal>
                         </goals>
+
                     </execution>
                 </executions>
             </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence
-                    on the Maven build itself. -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-dependency-plugin</artifactId>
-                                        <versionRange>[2.8,)</versionRange>
-                                        <goals>
-                                            <goal>copy</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>pl.allegro</groupId>
-                                        <artifactId>grunt-maven-plugin</artifactId>
-                                        <versionRange>[1.5.1,)</versionRange>
-                                        <goals>
-                                            <goal>npm</goal>
-                                            <goal>grunt</goal>
-                                            <goal>create-resources</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
     <dependencies>
