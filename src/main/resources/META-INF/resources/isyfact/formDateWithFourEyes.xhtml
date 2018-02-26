@@ -1,8 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
         xmlns:composite="http://java.sun.com/jsf/composite"
         xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:jsf="http://xmlns.jcp.org/jsf">
+        xmlns:jsf="http://xmlns.jcp.org/jsf"
+        xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
 
     <!-- Datumsfeld für Formulareingaben. -->
 
@@ -65,9 +68,15 @@
         <composite:attribute name="globalConfig" required="false"
                 default="#{globalConfigurationModel}" />
 
+        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
+        <composite:attribute name="fourEyesMode" type="String" required="true" />
+        <composite:attribute name="fourEyesLastValue" type="String" />
+
     </composite:interface>
 
     <composite:implementation>
+
+        <c:set var="fourEyesColor" value="#{'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
 
         <!-- In dieses Feld wird die Grenze zum Ergänzen von zweistelligen Jahreszahlen bei Datumsangaben gespeichert.
              Der Wert wird aus der Konfiguration ausgelesen. -->
@@ -80,24 +89,23 @@
         <ui:param name="existsValidationError"
                 value="#{not empty validationMessages}" />
 
-        <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+        <div
+                class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
                 data-isy-custom-id="#{cc.attrs.customId}">
 
             <!-- Das Label -->
-            <ui:fragment rendered="#{not cc.attrs.readonly}">
-                <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
-                    <h:outputText value="#{cc.attrs.label}"/>
-                </label>
-            </ui:fragment>
+            <isyi:formValidationLabel value="#{cc.attrs.label}"
+                    forField="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                    required="#{cc.attrs.required}"
+                    styleClass="#{cc.attrs.labelStyleClass}"
+                    rendered="#{not cc.attrs.readonly}" />
 
             <!-- Das Label falls readonly -->
-            <ui:fragment rendered="#{cc.attrs.readonly}">
-                <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
-                    <h:outputText value="#{cc.attrs.label}"/>
-                </label>
-            </ui:fragment>
+            <isyi:formValidationLabel value="#{cc.attrs.label}"
+                    forField="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                    required="#{cc.attrs.required}"
+                    styleClass="#{cc.attrs.labelStyleClass}"
+                    rendered="#{cc.attrs.readonly}" />
 
             <div class="#{cc.attrs.inputStyleClass}">
                 <div class="rf-datepicker input-group"
@@ -116,6 +124,19 @@
                             <composite:insertChildren />
                         </input>
 
+                        <!-- Four Eyes -->
+                        <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                                data-content="#{cc.attrs.fourEyesLastValue}"
+                                data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+                                class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} formdatevieraugenlink}"
+                                data-original-title="" title="">
+                            <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                                    class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formdatevieraugenbutton">
+                                <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                                <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+                            </button>
+                        </a>
+
                         <ui:fragment
                                 rendered="#{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView and cc.attrs.showPicker}">
                             <a
@@ -132,20 +153,27 @@
                                 readonly="readonly" jsf:value="#{cc.attrs.value}">
                             <composite:insertChildren />
                         </input>
+
+                        <!-- Four Eyes -->
+                        <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                                data-content="#{cc.attrs.fourEyesLastValue}"
+                                data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+                                class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} formdatevieraugenlink}"
+                                data-original-title="" title="">
+                            <button type="submit" jsf:id="fourEyesIconReadOnly" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                                    class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formdatevieraugenbutton">
+                                <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                                <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+                            </button>
+                        </a>
+
                     </ui:fragment>
                 </div>
             </div>
 
             <!-- Bei Validierungsfehlern -->
-            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
-                <span class="form-control-feedback with-input-group-addon">
-                    <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
-                            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
-                            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
-                        <span class="icon icon-info"></span>
-                    </a>
-                </span>
-            </ui:fragment>
+            <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+                    reference="#{cc.attrs.reference}" inputGroupAddonExistent="true" />
         </div>
     </composite:implementation>
 

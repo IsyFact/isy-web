@@ -66,15 +66,18 @@
                         data-content="#{cc.attrs.tooltip}"
                         data-toggle="#{empty cc.attrs.tooltip?'':'tooltip'}"
                         class="btn btn-link btn-tooltip #{empty cc.attrs.tooltip?'':'rf-popover'}"
-                        data-original-title="" title="" 
+                        data-original-title="" title=""
                         onclick="$(this).parent().children().last().trigger('click');">
                         <span class="btn btn-icon btn-icon-small input-group-addon">
                             <span class="icon icon-browse-folder" ></span>
                         </span>
-                    </a> 
-                    <h:inputFile id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" 
+                    </a>
+                    <h:inputFile id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
                         value="${cc.attrs.value}" disabled="#{cc.attrs.disabled}" p:accept="#{cc.attrs.accept}"
-                        onchange="$(this).parent().children().first().val($(this).val()); event.preventDefault();" />
+                        onchange="
+                        var str = $(this).val();
+                        var filename = str.replace(/^.*\\/, '');
+                        $(this).parent().children().first().val(filename); event.preventDefault();" />
                 </div>
                 <!-- Bei Validierungsfehlern -->
                 <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
