@@ -2,7 +2,11 @@
         xmlns:composite="http://java.sun.com/jsf/composite"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:ui="http://java.sun.com/jsf/facelets">
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:jsf="http://xmlns.jcp.org/jsf"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
+        xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
 
     <!-- Ein Dropdownmenü innerhalb Formularen. -->
 
@@ -23,9 +27,14 @@
                 default="false" />
         <!-- Evente müssen explizit deklariert werden -->
         <composite:attribute name="valueChangeListener" required="false"
-                targets="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
+                targets="isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
         <composite:clientBehavior name="change" event="change"
-                targets="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
+                targets="isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
+
+
+        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
+        <composite:attribute name="fourEyesMode" type="String" required="true" />
+        <composite:attribute name="fourEyesLastValue" type="String" />
 
         <!-- Konverter-Bean für die angezeigten Elemente -->
         <composite:attribute name="converter" />
@@ -65,37 +74,34 @@
         <ui:param name="existsValidationError"
                 value="#{not empty validationMessages}" />
 
-        <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+        <div
+                class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
                 data-isy-custom-id="#{cc.attrs.customId}" >
 
-            <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                    for="#{cc.clientId}:isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
-                <h:outputText value="#{cc.attrs.label}"/>
-            </label>
+            <isyi:formValidationLabel value="#{cc.attrs.label}"
+                    forField="#{cc.clientId}:isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                    required="#{cc.attrs.required}"
+                    styleClass="#{cc.attrs.labelStyleClass}" />
 
             <div class="#{cc.attrs.inputStyleClass}">
-                <div class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}">
-                    <h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-                            value="#{cc.attrs.value}"
-                            styleClass="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{cc.attrs.invalid ? 'invalid' : ''} #{cc.attrs.readonly ? 'disabled readonly' : ''}"
-                            converter="#{cc.attrs.converter}" disabled="#{cc.attrs.disabled}"
-                            title="#{cc.attrs.label}">
-                        <composite:insertChildren />
-                        <f:attribute name="converterAttribute" value="#{cc.attrs.converterAttribute}" />
-                    </h:selectOneMenu>
-                </div>
+                <isy:selectOneDropdownWithFourEyes id="isySelectOneDropdown"
+                        reference="#{cc.attrs.reference}"
+                        value="#{cc.attrs.value}" invalid="#{cc.attrs.invalid}"
+                        disabled="#{cc.attrs.disabled}" title="#{cc.attrs.label}"
+                        globalConfig="#{cc.attrs.globalConfig}"
+                        dropdownStyleClass="#{cc.attrs.dropdownStyleClass}"
+                        readonly="#{cc.attrs.readonly}"
+                        fourEyesMode="#{cc.attrs.fourEyesMode}"
+                        fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+                        converter="#{cc.attrs.converter}"
+                        converterAttribute="#{cc.attrs.converterAttribute}">
+                    <composite:insertChildren />
+                </isy:selectOneDropdownWithFourEyes>
             </div>
 
             <!-- Bei Validierungsfehlern -->
-            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
-                <span class="form-control-feedback without-input-group-addon">
-                    <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
-                            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
-                            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
-                        <span class="icon icon-info"></span>
-                    </a>
-                </span>
-            </ui:fragment>
+            <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+                    reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
         </div>
     </composite:implementation>
 

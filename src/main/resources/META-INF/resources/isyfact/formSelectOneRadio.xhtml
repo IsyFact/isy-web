@@ -1,62 +1,102 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<!-- Eine Gruppierung von Radio Buttons innerhalb von Formularen. -->
+    <!-- Eine Gruppierung von Radio Buttons innerhalb von Formularen. -->
 
-<composite:interface>
-    
-    <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
-    <composite:attribute name="customId" required="false" />
-    
-    <!-- Der Wert der Auswahl für das Data-Binding -->
-    <composite:attribute name="value" required="true" />
-    <!-- Die Select-Items. Jedes Item entspricht einem Radio-Button. -->
-    <composite:attribute name="selectItems" required="true" />
-    <!-- Ob die Radio-Buttons inline angezeigt werden sollen oder nicht. -->
-    <composite:attribute name="inline" type="Boolean" default="false" />
-    <!-- Ob die Darstellung nur lesend erfolgen soll -->
-    <composite:attribute name="disabled" type="Boolean" default="false" />
+    <composite:interface>
 
-    <!-- Die Referenz des Objekts. -->
-    <composite:attribute name="reference" required="true" />
-    <!-- Der Text für das Label -->
-    <composite:attribute name="label" type="String" required="false" />
-    <!-- Die CSS-Klasse für das Label. -->
-    <composite:attribute name="labelStyleClass" type="String" default="col-lg-6" />
-    <!-- Die CSS-Klasse für den Eingabebereich. -->
-    <composite:attribute name="inputStyleClass" type="String" default="col-lg-6" />
-    <!-- On die Eingabe ein Pflichteingabe ist. -->
-    <composite:attribute name="required" type="Boolean" default="false" />
+        <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
+        <composite:attribute name="customId" required="false" />
 
-    <!-- Ein spezifisches Validation-Model, falls benötigt. -->
-    <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
-    <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+        <!-- Der Wert der Auswahl für das Data-Binding -->
+        <composite:attribute name="value" required="true" />
+        <!-- Die Select-Items. Jedes Item entspricht einem Radio-Button. -->
+        <composite:attribute name="selectItems" required="true" />
+        <!-- Ob die Radio-Buttons inline angezeigt werden sollen oder nicht. -->
+        <composite:attribute name="inline" type="Boolean" default="false" />
+        <!-- Ob die Darstellung nur lesend erfolgen soll -->
+        <composite:attribute name="disabled" type="Boolean" default="false" />
 
-</composite:interface>
+        <!-- Die Referenz des Objekts. -->
+        <composite:attribute name="reference" required="true" />
+        <!-- Der Text für das Label -->
+        <composite:attribute name="label" type="String" required="false" />
+        <!-- Die CSS-Klasse für das Label. -->
+        <composite:attribute name="labelStyleClass" type="String" default="col-lg-6" />
+        <!-- Die CSS-Klasse für den Eingabebereich. -->
+        <composite:attribute name="inputStyleClass" type="String" default="col-lg-6" />
+        <!-- Die CSS-Klasse für den Eingabebereich eines einzelnen Inline-Radio-Buttons. -->
+        <composite:attribute name="inlineInputStyleClass" type="String" default="" />
+        <!-- On die Eingabe ein Pflichteingabe ist. -->
+        <composite:attribute name="required" type="Boolean" default="false" />
 
-<composite:implementation>
+        <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+        <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
+        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+        <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
 
-    <ui:param name="validationMessages"
-        value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
-    <ui:param name="existsValidationError" value="#{not empty validationMessages}" />
+        <!-- change Event einfach durchwerfen -->
+        <composite:clientBehavior name="change" event="change"
+                targets="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
+        <!-- click Event einfach durchwerfen -->
+        <composite:clientBehavior name="click" event="click"
+                targets="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
+        <!-- valueChangeListener Event einfach durchwerfen -->
+        <composite:attribute name="valueChangeListener" required="false"
+                targets="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
 
-    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
-         data-isy-custom-id="#{cc.attrs.customId}" >
-        <label class="#{cc.attrs.labelStyleClass} control-label#{cc.attrs.required ? ' mandatory' : ''}"
-            for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">#{cc.attrs.label} </label>
-        <div class="#{cc.attrs.inputStyleClass}">
-            <ui:fragment rendered="#{not cc.attrs.inline}">
-                <isy:selectOneRadio value="#{cc.attrs.value}" selectItems="#{cc.attrs.selectItems}" disabled="#{cc.attrs.disabled}" />
-            </ui:fragment>
-            <ui:fragment rendered="#{cc.attrs.inline}">
-                <isy:selectOneRadioInline value="#{cc.attrs.value}" selectItems="#{cc.attrs.selectItems}" />
-            </ui:fragment>
+    </composite:interface>
+
+    <composite:implementation>
+
+        <ui:param name="validationMessages"
+                value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+        <ui:param name="existsValidationError" value="#{not empty validationMessages}" />
+
+        <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+                data-isy-custom-id="#{cc.attrs.customId}">
+            <label class="#{cc.attrs.labelStyleClass} control-label#{cc.attrs.required ? ' mandatory' : ''}"
+                    for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">#{cc.attrs.label} </label>
+            <div class="#{cc.attrs.inputStyleClass}">
+
+                <t:selectOneRadio id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" layout="spread" value="#{cc.attrs.value}"
+                        disabled="#{(not cc.attrs.inline and cc.attrs.disabled) or (cc.attrs.inline and cc.attrs.showPrintView)}">
+                    <f:selectItems value="#{cc.attrs.selectItems}" />
+                </t:selectOneRadio>
+
+                <ui:fragment rendered="#{not cc.attrs.inline}">
+                    <t:dataList var="item" value="#{cc.attrs.selectItems}" rowIndexVar="idx">
+                        <div class="radio">
+                            <label>
+                                <t:radio for="relative:super:super:super:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" index="#{idx}" />
+                                <span>#{item.label}</span>
+                            </label>
+                        </div>
+                    </t:dataList>
+                </ui:fragment>
+                <ui:fragment rendered="#{cc.attrs.inline}">
+                    <t:dataList var="item" value="#{cc.attrs.selectItems}" rowIndexVar="idx">
+                        <ui:fragment rendered="#{empty cc.attrs.inlineInputStyleClass}">
+                            <label class="radio-inline">
+                                <t:radio for="relative:super:super:super:super:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" index="#{idx}" />
+                                <span>#{item.label}</span>
+                            </label>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{not empty cc.attrs.inlineInputStyleClass}">
+                            <div class="#{cc.attrs.inlineInputStyleClass}">
+                                <label class="radio-inline">
+                                    <t:radio for="relative:super:super:super:super:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" index="#{idx}" />
+                                    <span>#{item.label}</span>
+                                </label>
+                            </div>
+                        </ui:fragment>
+                    </t:dataList>
+                </ui:fragment>
+            </div>
         </div>
-    </div>
 
-</composite:implementation>
+    </composite:implementation>
 
 </html>

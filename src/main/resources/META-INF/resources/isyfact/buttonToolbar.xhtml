@@ -30,6 +30,8 @@
   <composite:attribute name="showPrintView" type="Boolean"
     default="#{not empty basisModel and basisModel.showPrintView}" />
 
+	<!-- AJAX: Soll eine AJAX Aktion ausgeführt werden. -->
+	<composite:attribute name="ajax" required="false" default="true" />
 
 	<!-- AJAX: Welches Felder ausgewertet werden sollen. -->
 	<composite:attribute name="execute" required="false" default="@form" />
@@ -68,7 +70,7 @@
 					rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
 					<span class="icon icon-#{cc.attrs.icon}"></span>
 				</ui:fragment>
-				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" 
+				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"  disabled="#{not cc.attrs.ajax}"
 				  onevent="blockSingleButton" />
 			</button>
 		</ui:fragment>
@@ -84,7 +86,7 @@
 					rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
 					<span class="icon icon-#{cc.attrs.icon}"></span>
 				</ui:fragment>
-				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" />
+				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" disabled="#{not cc.attrs.ajax}"/>
 			</button>
 		</ui:fragment>
 	</ui:fragment>
