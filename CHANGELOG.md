@@ -1,5 +1,6 @@
-# 4.6.0 (unveröffentlicht)
-- `IFS-55`: Datumseingabe mit zweistelligen Jahreszahlen wird automatisch ergänzt.
+# v4.5.2
+- `IFS-92`: Austausch des Icon-Fonts durch Font Awesome.
+
 # v4.5.0
 - `IFS-34`: formUpload übernommen.
 
