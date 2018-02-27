@@ -38,11 +38,17 @@
         <!-- Ob die Komponente deaktivert ist oder nicht. -->
         <composite:attribute name="disabled" type="Boolean" default="false" />
 
+        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
+        <composite:attribute name="fourEyesMode" type="String" required="true" />
+        <composite:attribute name="fourEyesLastValue" type="String" />
+
         <!-- Die CSS-Klasse für den Eingabebereich. -->
         <composite:attribute name="inputStyleClass" type="String" />
     </composite:interface>
 
     <composite:implementation>
+
+        <c:set var="fourEyesColor" value="#{'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
 
         <div class="action-input input-group">
 
@@ -87,6 +93,21 @@
                             value="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}" />
                     <span class="icon icon-#{cc.attrs.icon}"
                             style="color: #{cc.attrs.iconColor}"> </span>
+                </button>
+            </a>
+
+            <!-- Four Eyes -->
+            <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                    data-content="#{cc.attrs.fourEyesLastValue}"
+                    data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+                    class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'}
+     #{not empty cc.attrs.icon ? 'formactioninputvieraugenlink' : 'formactioninputvieraugenlinkwithicon'}
+     #{existsValidationError and not empty cc.attrs.icon ? 'formactioninputvieraugenhaserror': ''}"
+                    data-original-title="" title="">
+                <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                        class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formactioninputvieraugenbutton">
+                    <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                    <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
                 </button>
             </a>
 

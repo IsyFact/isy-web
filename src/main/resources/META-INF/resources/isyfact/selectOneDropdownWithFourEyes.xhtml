@@ -49,6 +49,10 @@
         <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
         <composite:attribute name="customId" required="false" />
 
+        <!-- 	4 Augen Prinzip Mode (locked, unlock) -->
+        <composite:attribute name="fourEyesMode" type="String" required="true" />
+        <composite:attribute name="fourEyesLastValue" type="String" />
+
         <composite:clientBehavior name="change" event="change"
                 targets="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}" />
         <composite:attribute name="valueChangeListener" required="false"
@@ -56,6 +60,9 @@
     </composite:interface>
 
     <composite:implementation>
+
+        <c:set var="fourEyesColor" value="#{'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+
         <div
                 class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}"
                 data-isy-custom-id="#{cc.attrs.customId}" >
@@ -68,6 +75,20 @@
                 <f:attribute name="converterAttribute"
                         value="#{cc.attrs.converterAttribute}" />
             </h:selectOneMenu>
+
+            <!-- Four Eyes -->
+            <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                    data-content="#{cc.attrs.fourEyesLastValue}"
+                    data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+                    class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} formselectonedropdownvieraugenlink"
+                    data-original-title="" title="">
+                <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                        class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formselectonedropdownvieraugenbutton">
+                    <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                    <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+                </button>
+            </a>
+
         </div>
 
     </composite:implementation>

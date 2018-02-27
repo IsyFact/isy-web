@@ -1,59 +1,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html">
 
-<!-- Ein Ausgabefeld innerhalb von Formularen. Text wird gewrappt ausgegeben -->
+    <!-- Ein Ausgabefeld innerhalb von Formularen. Text wird gewrappt ausgegeben -->
 
-<composite:interface>
-	<!-- Die Referenz des Objekts. -->
-	<composite:attribute name="reference" required="false" />
-	<!-- Der Text für das Label -->
-	<composite:attribute name="label" type="String" required="false" />
-	<!-- Die CSS-Klasse für das Label. -->
-	<composite:attribute name="labelStyleClass" type="String"
-		default="col-lg-6" />
-	<!-- Die CSS-Klasse für den Eingabebereich. -->
-	<composite:attribute name="inputStyleClass" type="String"
-		default="col-lg-6" />
-	<!-- Gibt an, ob Sonderzeichen für das Label escaped werden sollen (Mit Vorsicht einsetzen!). -->
-	<composite:attribute name="escapeLabel" type="Boolean" required="false"
-		default="true" />
-	<!-- Eine spezifische globale Konfiguration, falls benötigt. -->
-	<composite:attribute name="globalConfig" required="false"
-		default="#{globalConfigurationModel}" />
-	<!-- Erlaubt das Deaktivieren des Wrappings von Text. -->
-	<composite:attribute name="breakWords" type="Boolean" default="true"
-		required="false" />
-	<!-- Der Inhalt der rechts vom Eingabefeld angezeigt wird. -->
-	<composite:facet name="contentRight" required="false" />
-</composite:interface>
+    <composite:interface>
+        <!-- Die Referenz des Objekts. -->
+        <composite:attribute name="reference" required="false" />
+        <!-- Der Text für das Label -->
+        <composite:attribute name="label" type="String" required="false" />
+        <!-- Die CSS-Klasse für das Label. -->
+        <composite:attribute name="labelStyleClass" type="String"
+                default="col-lg-6" />
+        <!-- Die CSS-Klasse für den Eingabebereich. -->
+        <composite:attribute name="inputStyleClass" type="String"
+                default="col-lg-6" />
+        <!-- Gibt an, ob Sonderzeichen für das Label escaped werden sollen (Mit Vorsicht einsetzen!). -->
+        <composite:attribute name="escapeLabel" type="Boolean" required="false"
+                default="true" />
+        <!-- Eine spezifische globale Konfiguration, falls benötigt. -->
+        <composite:attribute name="globalConfig" required="false"
+                default="#{globalConfigurationModel}" />
+        <!-- Erlaubt das Deaktivieren des Wrappings von Text. -->
+        <composite:attribute name="breakWords" type="Boolean" default="true"
+                required="false" />
+        <!-- Der Inhalt der rechts vom Eingabefeld angezeigt wird. -->
+        <composite:facet name="contentRight" required="false" />
+    </composite:interface>
 
-<composite:implementation>
+    <composite:implementation>
 
-	<div id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-formlabel"
-		class="clearfix">
-		<isyi:formValidationLabel value="#{cc.attrs.label}"
-			forField="#{cc.clientId}:form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-			styleClass="#{cc.attrs.labelStyleClass}"
-			escape="#{cc.attrs.escapeLabel}" />
-		<div class="#{cc.attrs.inputStyleClass}">
-			<div>
-				<div
-					class="#{cc.attrs.breakWords ? 'form-label' : 'form-label-no-break'} form-control readonly"
-					id="#{cc.clientId}:form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+        <div id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-formlabel"
+                class="clearfix">
+            <label class="control-label #{cc.attrs.labelStyleClass}"
+                    for="#{cc.clientId}:form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+                <h:outputText escape="#{cc.attrs.escapeLabel}" value="#{cc.attrs.label}"/>
+            </label>
 
-					<composite:insertChildren />
+            <div class="#{cc.attrs.inputStyleClass}">
+                <div>
+                    <div
+                            class="#{cc.attrs.breakWords ? 'form-label' : 'form-label-no-break'} form-control readonly"
+                            id="#{cc.clientId}:form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
 
-				</div>
-			</div>
-		</div>
-		<composite:renderFacet name="contentRight" />
-	</div>
-</composite:implementation>
+                        <composite:insertChildren />
 
+                    </div>
+                </div>
+            </div>
+            <composite:renderFacet name="contentRight" />
+        </div>
+    </composite:implementation>
 
 </html>
