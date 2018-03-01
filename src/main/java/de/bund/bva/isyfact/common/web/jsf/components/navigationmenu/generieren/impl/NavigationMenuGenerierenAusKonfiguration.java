@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Required;
 
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
@@ -47,42 +48,35 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
      */
     @Override
     public NavigationMenuModel generiereNavigationMenu() {
-        String applikationsgruppeBeschreibung;
         String applikationsgruppeWert;
         String applikationsgruppeLink;
-        String applikationsgruppeRolle;
-        String applikationsgruppeIcon;
+        String[] applikationsgruppeRollen;
         String applikationsgruppeFarbe;
         int applikationsgruppeReihenfolge;
         String anwendungWert;
         String anwendungLink;
-        String anwendungRolle;
+        String[] anwendungRollen;
         int anwendungReihenfolge;
         Applikationsgruppe applikationsgruppe;
+        List<Applikationsgruppe> applikationsgruppen = new ArrayList<>();
 
         Set<String> alleSchluessel = this.konfiguration.getSchluessel();
         Set<Integer> idsApplikationsgruppen = ermittleIdsApplikationsgruppen(alleSchluessel);
 
         String[] userRollen = this.aufrufKontextVerwalter.getAufrufKontext().getRolle();
-        List<Applikationsgruppe> applikationsgruppen = new ArrayList<>();
         for (int i : idsApplikationsgruppen) {
-            applikationsgruppeRolle =
-                this.konfiguration
-                    .getAsString(
-                        NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
-                            + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLE,
-                        "");
-
+            // Lies zuerst die Anwendungen. Eine Applikationsgruppe muss jedoch nicht zwingend Anwendungen
+            // haben.
             List<Anwendung> anwendungen = new ArrayList<>();
             Set<Integer> idsAnwendungen = ermittleIdsAnwendungen(alleSchluessel, i);
             for (int j : idsAnwendungen) {
-                anwendungRolle = this.konfiguration
-                    .getAsString(
+                anwendungRollen =
+                    StringUtils.deleteWhitespace(this.konfiguration.getAsString(
                         NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                             + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
                             + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLE,
-                        "");
-                if (isUserBerechtigt(userRollen, anwendungRolle.split(","))) {
+                        "")).split(",");
+                if (isUserBerechtigt(userRollen, anwendungRollen)) {
                     anwendungWert = this.konfiguration.getAsString(
                         NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                             + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
@@ -99,37 +93,29 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
                             + Integer.toString(j)
                             + NavigationMenuKonfigurationSchluesselKonstanten.REIHENFOLGE,
                         NavigationMenuKonfigurationSchluesselKonstanten.DEFAULT_REIHENFOLGE);
-                    anwendungen.add(new Anwendung(anwendungWert, anwendungLink, anwendungRolle, anwendungReihenfolge));
+                    anwendungen.add(new Anwendung(anwendungWert, anwendungLink, anwendungReihenfolge));
                 }
             }
 
-            if (isUserBerechtigt(userRollen, applikationsgruppeRolle.split(",")) || anwendungen.size() > 0) {
-                if (!isUserBerechtigt(userRollen, applikationsgruppeRolle.split(","))) {
-                    LOG.info(LogKategorie.SICHERHEIT, EreignisSchluessel.E_NAVMENU_ROLLEN_IGNORE,
-                        "Applikationsrollen wurden aufgrund von ein oder mehrerer Anwendungen ignoriert.");
-                }
-
+            applikationsgruppeRollen =
+                StringUtils
+                    .deleteWhitespace(this.konfiguration.getAsString(
+                        NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
+                            + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLE,
+                        ""))
+                    .split(",");
+            if (isUserBerechtigt(userRollen, applikationsgruppeRollen) || anwendungen.size() > 0) {
                 applikationsgruppeWert =
                     this.konfiguration
                         .getAsString(
                             NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                                 + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.WERT,
                             "");
-                applikationsgruppeBeschreibung = this.konfiguration.getAsString(
-                    NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
-                        + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.BESCHREIBUNG,
-                    "");
                 applikationsgruppeLink =
                     this.konfiguration
                         .getAsString(
                             NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                                 + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.LINK,
-                            "");
-                applikationsgruppeIcon =
-                    this.konfiguration
-                        .getAsString(
-                            NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
-                                + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ICON,
                             "");
                 applikationsgruppeFarbe = this.konfiguration.getAsString(
                     NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
@@ -140,9 +126,20 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
                         + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.REIHENFOLGE,
                     NavigationMenuKonfigurationSchluesselKonstanten.DEFAULT_REIHENFOLGE);
 
+                if (!isUserBerechtigt(userRollen, applikationsgruppeRollen)) {
+                    // Der Benutzer ist eigentlich nicht berechtigt für diese Applikationsgruppe. Er darf
+                    // aber mindestens eine Anwendung innerhalb der Gruppe sehen, deshalb muss die Gruppe
+                    // grundsätzlich angezeigt werden. Der Link der Gruppe selbst wird geleert, damit er
+                    // gar nicht erst im HTML gerendert wird.
+                    applikationsgruppeLink = "";
+                    LOG.info(LogKategorie.SICHERHEIT, EreignisSchluessel.E_NAVMENU_ROLLEN_IGNORE,
+                        "Rollen für die Applikationsgruppe '{}' wurden aufgrund einer oder mehrerer Anwendungen innerhalb der Gruppe ignoriert.",
+                        applikationsgruppeWert);
+                }
+
                 Collections.sort(anwendungen);
-                applikationsgruppe = new Applikationsgruppe(applikationsgruppeWert, applikationsgruppeBeschreibung, applikationsgruppeLink, applikationsgruppeIcon, applikationsgruppeFarbe, applikationsgruppeRolle,
-                    applikationsgruppeReihenfolge, anwendungen);
+                applikationsgruppe = new Applikationsgruppe(applikationsgruppeWert, applikationsgruppeLink,
+                    applikationsgruppeFarbe, applikationsgruppeReihenfolge, anwendungen);
                 applikationsgruppen.add(applikationsgruppe);
             }
         }

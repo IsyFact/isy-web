@@ -28,28 +28,19 @@ public class Anwendung implements Serializable, Comparable<Anwendung> {
     private String link;
 
     /**
-     * Eine mit Komma getrennte Liste von Rollen, welche für diese Anwendung berechtigt sind. Ist die Liste
-     * leer so ist jeder berechtigt.
-     */
-    private String rolle;
-
-    /**
      * Der Konstruktor initialisiert direkt alle Variablen mit den übergebenen Werten.
      *
      * @param name
      *            Name der Anwendung.
      * @param link
      *            Linkziel der Anwendung.
-     * @param rolle
-     *            Zulässige Rollen für diese Anwendung.
      * @param reihenfolge
      *            Die Reihenfolge der Anwendung.
      */
-    public Anwendung(String name, String link, String rolle, int reihenfolge) {
+    public Anwendung(String name, String link, int reihenfolge) {
         this.name = name;
         this.reihenfolge = reihenfolge;
         this.link = link;
-        this.rolle = rolle;
     }
 
     public String getName() {
@@ -74,14 +65,6 @@ public class Anwendung implements Serializable, Comparable<Anwendung> {
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    public String getRolle() {
-        return this.rolle;
-    }
-
-    public void setRolle(String rolle) {
-        this.rolle = rolle;
     }
 
     @Override

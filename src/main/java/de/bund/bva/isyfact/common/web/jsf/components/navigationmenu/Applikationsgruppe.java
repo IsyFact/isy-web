@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,58 +41,31 @@ public class Applikationsgruppe implements Serializable, Comparable<Applikations
     private int reihenfolge;
 
     /**
-     * Die Bezeichnung des Icons der Applikationsgruppe, welches im Flyout angezeigt wird. Wenn kein Icon
-     * konfiguriert ist, wird nichts angezeigt, auch kein Platzhalter. Das Icon muss namentlich in der
-     * Icon-Library vorhanden sein, damit es aufgelöst werden kann.
-     */
-    private String icon;
-
-    /**
      * Liste von {@link Anwendung}en, welche zu dieser Applikationsgruppe gehören. Diese kann auch leer sein.
      */
-    private List<Anwendung> anwendungen;
-
-    /**
-     * Eine Beschreibung der Applikationsgruppe.
-     */
-    private String beschreibung;
-
-    /**
-     * Eine mit Komma getrennte Liste von Rollen, welche für diese Applikationsgruppe berechtigt sind. Ist die
-     * Liste leer so ist jeder berechtigt.
-     */
-    private String rolle;
+    private List<Anwendung> anwendungen = new ArrayList<>();
 
     /**
      * Der Konstruktor initialisiert direkt alle Variablen mit den übergebenen Werten.
      *
      * @param name
      *            Name der Applikationsgruppe.
-     * @param beschreibung
-     *            Beschreibung der Applikationsgruppe.
      * @param link
      *            Der Link, der geöffnet wird, wenn die Applikationsgruppe ausgewählt wird.
-     * @param icon
-     *            Die Bezeichnung des Icons der Applikationsgruppe.
      * @param farbe
      *            Farbe der Menüleiste.
-     * @param rolle
-     *            Zulässige Rollen der Applikationsgruppe.
      * @param reihenfolge
      *            Die Reihenfolge der Applikationsgruppe.
      * @param anwendungen
      *            Liste von {@link Anwendung}en welche zu dieser Applikationsgruppe gehören.
      */
-    public Applikationsgruppe(String name, String beschreibung, String link, String icon, String farbe,
-        String rolle, int reihenfolge, List<Anwendung> anwendungen) {
+    public Applikationsgruppe(String name, String link, String farbe, int reihenfolge,
+        List<Anwendung> anwendungen) {
         this.name = name;
-        this.beschreibung = beschreibung;
         this.link = link;
-        this.icon = icon;
         this.farbe = farbe;
         this.reihenfolge = reihenfolge;
         this.anwendungen = anwendungen;
-        this.rolle = rolle;
     }
 
     public String getLink() {
@@ -118,14 +92,6 @@ public class Applikationsgruppe implements Serializable, Comparable<Applikations
         this.reihenfolge = reihenfolge;
     }
 
-    public String getIcon() {
-        return this.icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
     public List<Anwendung> getAnwendungen() {
         return this.anwendungen;
     }
@@ -142,28 +108,12 @@ public class Applikationsgruppe implements Serializable, Comparable<Applikations
         this.name = name;
     }
 
-    public String getBeschreibung() {
-        return this.beschreibung;
-    }
-
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
-    }
-
     public boolean isAktiv() {
         return this.aktiv;
     }
 
     public void setAktiv(boolean aktiv) {
         this.aktiv = aktiv;
-    }
-
-    public String getRolle() {
-        return this.rolle;
-    }
-
-    public void setRolle(String rolle) {
-        this.rolle = rolle;
     }
 
     @Override

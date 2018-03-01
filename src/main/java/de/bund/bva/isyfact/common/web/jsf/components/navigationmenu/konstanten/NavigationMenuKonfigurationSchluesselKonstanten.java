@@ -44,11 +44,6 @@ public abstract class NavigationMenuKonfigurationSchluesselKonstanten {
     public static final String DEFAULT_FARBE = "#337299";
 
     /**
-     * Postfix für eine Iconeigenschaft.
-     */
-    public static final String ICON = ".icon";
-
-    /**
      * Postfix für eine Werteigenschaft.
      */
     public static final String WERT = ".wert";
@@ -62,9 +57,4 @@ public abstract class NavigationMenuKonfigurationSchluesselKonstanten {
      * Der Reihenfolgenwert, welche gewählt wird, falls keine Reihenfolgenwert gesetzt ist.
      */
     public static final int DEFAULT_REIHENFOLGE = 1;
-
-    /**
-     * Postfix für eine Beschreibungseigenschaft.
-     */
-    public static final String BESCHREIBUNG = ".beschreibung";
 }

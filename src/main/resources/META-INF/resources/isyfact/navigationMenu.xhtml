@@ -18,14 +18,6 @@
         <ui:fragment rendered="#{not empty applikation.anwendungen}">
           <div class="navbar-submenu" style="border-color:#{applikation.farbe}">
             <div class="row row-df">
-              <div class="hidden-xs col-lg-3" >
-                <div class="submenu-text">
-                  <ui:fragment rendered="#{not empty applikation.icon}">
-                    <span class="icon icon-#{applikation.icon}"></span>
-                  </ui:fragment>
-                  <p>#{applikation.beschreibung}</p>
-                </div> 
-              </div>
               <div class="col-lg-9">
                 <ui:repeat value="#{applikation.anwendungen}" var="anwendung" varStatus="anwendungsnumber">
                   <!--Es werden immer drei Anwendungen in eine Zeile geschrieben. Die beiden h:outputText, die das innere div
