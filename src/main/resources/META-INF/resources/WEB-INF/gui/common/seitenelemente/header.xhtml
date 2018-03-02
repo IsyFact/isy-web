@@ -1,33 +1,33 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<div class="header-colorbar"></div>
 
 	<div class="header-content" role="banner">
 
 		<img class="logo" alt="Logo links"
-			src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoLinks()}" />
+			 src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoLinks(request)}" />
 
 		<div class="pull-right text-right">
 
 			<div class="brand">
 				<img alt="Logo rechts"
-					src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoRechts()}" />
+					 src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoRechts()}" />
 				<span>#{headerHelper.ermittleTextHeaderLogoRechts()}</span>
 			</div>
 
 			<ui:include src="#{headerHelper.ermittleXhtmlSrcNutzerbereich()}" />
-			
+
 			<div class="btn-group">
 				<ul aria-labelledby="dropdownMenu1" role="menu"
 					class="dropdown-menu">
 					<li role="presentation" class="selected"><a href="#"
-						tabindex="-1" role="menuitem">Logout</a></li>
+																tabindex="-1" role="menuitem">Logout</a></li>
 					<li role="presentation"><a href="#" tabindex="-1"
-						role="menuitem">Preferences</a></li>
+											   role="menuitem">Preferences</a></li>
 				</ul>
 			</div>
 
