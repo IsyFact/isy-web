@@ -26,7 +26,7 @@ public abstract class NavigationMenuKonfigurationSchluesselKonstanten {
     /**
      * Postfix für eine Rolleneigenschaft.
      */
-    public static final String ROLLE = ".rolle";
+    public static final String ROLLEN = ".rollen";
 
     /**
      * Postfix für eine Linkeigenschaft.

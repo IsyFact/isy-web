@@ -48,21 +48,9 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
      */
     @Override
     public NavigationMenuModel generiereNavigationMenu() {
-        String applikationsgruppeWert;
-        String applikationsgruppeLink;
-        String[] applikationsgruppeRollen;
-        String applikationsgruppeFarbe;
-        int applikationsgruppeReihenfolge;
-        String anwendungWert;
-        String anwendungLink;
-        String[] anwendungRollen;
-        int anwendungReihenfolge;
-        Applikationsgruppe applikationsgruppe;
-        List<Applikationsgruppe> applikationsgruppen = new ArrayList<>();
-
         Set<String> alleSchluessel = this.konfiguration.getSchluessel();
         Set<Integer> idsApplikationsgruppen = ermittleIdsApplikationsgruppen(alleSchluessel);
-
+        List<Applikationsgruppe> applikationsgruppen = new ArrayList<>();
         String[] userRollen = this.aufrufKontextVerwalter.getAufrufKontext().getRolle();
         for (int i : idsApplikationsgruppen) {
             // Lies zuerst die Anwendungen. Eine Applikationsgruppe muss jedoch nicht zwingend Anwendungen
@@ -70,24 +58,24 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
             List<Anwendung> anwendungen = new ArrayList<>();
             Set<Integer> idsAnwendungen = ermittleIdsAnwendungen(alleSchluessel, i);
             for (int j : idsAnwendungen) {
-                anwendungRollen =
+                String[] anwendungRollen =
                     StringUtils.deleteWhitespace(this.konfiguration.getAsString(
                         NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                             + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
-                            + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLE,
+                            + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLEN,
                         "")).split(",");
                 if (isUserBerechtigt(userRollen, anwendungRollen)) {
-                    anwendungWert = this.konfiguration.getAsString(
+                    String anwendungWert = this.konfiguration.getAsString(
                         NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                             + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
                             + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.WERT,
                         "");
-                    anwendungLink = this.konfiguration.getAsString(
+                    String anwendungLink = this.konfiguration.getAsString(
                         NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                             + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
                             + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.LINK,
                         "");
-                    anwendungReihenfolge = this.konfiguration.getAsInteger(
+                    int anwendungReihenfolge = this.konfiguration.getAsInteger(
                         NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                             + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
                             + Integer.toString(j)
@@ -97,31 +85,31 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
                 }
             }
 
-            applikationsgruppeRollen =
+            String[] applikationsgruppeRollen =
                 StringUtils
                     .deleteWhitespace(this.konfiguration.getAsString(
                         NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
-                            + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLE,
+                            + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLEN,
                         ""))
                     .split(",");
             if (isUserBerechtigt(userRollen, applikationsgruppeRollen) || anwendungen.size() > 0) {
-                applikationsgruppeWert =
+                String applikationsgruppeWert =
                     this.konfiguration
                         .getAsString(
                             NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                                 + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.WERT,
                             "");
-                applikationsgruppeLink =
+                String applikationsgruppeLink =
                     this.konfiguration
                         .getAsString(
                             NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                                 + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.LINK,
                             "");
-                applikationsgruppeFarbe = this.konfiguration.getAsString(
+                String applikationsgruppeFarbe = this.konfiguration.getAsString(
                     NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                         + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.FARBE,
                     NavigationMenuKonfigurationSchluesselKonstanten.DEFAULT_FARBE);
-                applikationsgruppeReihenfolge = this.konfiguration.getAsInteger(
+                int applikationsgruppeReihenfolge = this.konfiguration.getAsInteger(
                     NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                         + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.REIHENFOLGE,
                     NavigationMenuKonfigurationSchluesselKonstanten.DEFAULT_REIHENFOLGE);
@@ -138,8 +126,9 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
                 }
 
                 Collections.sort(anwendungen);
-                applikationsgruppe = new Applikationsgruppe(applikationsgruppeWert, applikationsgruppeLink,
-                    applikationsgruppeFarbe, applikationsgruppeReihenfolge, anwendungen);
+                Applikationsgruppe applikationsgruppe =
+                    new Applikationsgruppe(applikationsgruppeWert, applikationsgruppeLink,
+                        applikationsgruppeFarbe, applikationsgruppeReihenfolge, anwendungen);
                 applikationsgruppen.add(applikationsgruppe);
             }
         }
