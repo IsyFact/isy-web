@@ -10,7 +10,10 @@
 </composite:interface>
 
 <composite:implementation>
-  <ul class="nav nav-tabs pull-right">
+  <ul class="nav nav-tabs">
+<!--   Abstandhalter um bündig mit Hauptinhalt zusein -->
+  <li class="col-lg-2">
+  </li>
     <ui:repeat value="#{cc.attrs.navMenuModel.applikationsListe}" var="applikation">
       <!--  Setze Klasse active, falls die Applikation aktiv ist   -->
       <li class="#{applikation.aktiv ? 'active menustart' : ''}"><a href="#{applikation.link}" >#{applikation.name}</a>
@@ -18,15 +21,15 @@
         <ui:fragment rendered="#{not empty applikation.anwendungen}">
           <div class="navbar-submenu" style="border-color:#{applikation.farbe}">
             <div class="row row-df">
-              <div class="col-lg-9">
+              <div>
                 <ui:repeat value="#{applikation.anwendungen}" var="anwendung" varStatus="anwendungsnumber">
                   <!--Es werden immer drei Anwendungen in eine Zeile geschrieben. Die beiden h:outputText, die das innere div
                   umschließen, öffnen bzw. schließen das entsprechende div, das die Zeile bildet. -->
-                  <h:outputText value="&lt;div class='row row-df' &gt;" escape="false" rendered="#{anwendungsnumber.index % 3 == 0}" />
-                    <div class="col-lg-4">
+                  <div class='row row-df'>
+                    <div>
                       <a href="#{anwendung.link}" class="search-option">#{anwendung.name}</a>
                     </div>
-                  <h:outputText value="&lt;/div&gt;" escape="false" rendered="#{anwendungsnumber.index % 3 == 2 or anwendungsnumber.last}" />
+                  </div>
                 </ui:repeat>
               </div>
             </div>
