@@ -15,11 +15,11 @@
 
 			<div class="brand">
 				<img alt="Logo rechts"
-					 src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoRechts()}" />
-				<span>#{headerHelper.ermittleTextHeaderLogoRechts()}</span>
+					 src="${request.contextPath}/app#{headerHelper.ermittlePfadHeaderLogoRechts(request)}" />
+				<span>#{headerHelper.ermittleTextHeaderLogoRechts(request)}</span>
 			</div>
 
-			<ui:include src="#{headerHelper.ermittleXhtmlSrcNutzerbereich()}" />
+			<ui:include src="#{headerHelper.ermittleXhtmlSrcNutzerbereich(request)}" />
 
 			<div class="btn-group">
 				<ul aria-labelledby="dropdownMenu1" role="menu"

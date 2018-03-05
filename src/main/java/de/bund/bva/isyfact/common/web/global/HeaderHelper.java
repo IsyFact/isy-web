@@ -31,14 +31,12 @@ import org.springframework.util.ObjectUtils;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * Helper-Klasse für den Header.
- *
- * @author Capgemini, Tobias Groeger
- * @version $Id: HeaderHelper.java 132237 2015-03-09 10:19:17Z sdm_tgroeger $
  */
 public class HeaderHelper {
 
@@ -50,91 +48,127 @@ public class HeaderHelper {
     private Konfiguration konfiguration;
 
     /**
-     * Liste zulaessiger Anwendungsgruppen (ausgelesen aus Konfigurationsdatei)
+     * Aktueller Flowname.
+     */
+    private String flowname;
+
+    /**
+     * Flag, ob AnwendungsgruppenIds ueberhaupt konfiguriert sind.
+     */
+    private boolean hatAnwendungsgruppenIds = false;
+
+    /**
+     * Liste konfigurierter Anwendungsgruppen (ausgelesen aus Konfigurationsdatei)
      */
     private List<String> konfigurierteGuiAnwendungsgruppenIds = new ArrayList<>();
 
-
-
     /**
-     * Zuordnung von URL-Request-(Flows)  zu AnwendungsgruppenIds.
+     * Zuordnung von URL-Request-(Flows) zu AnwendungsgruppenIds.
      */
-    private Map flowToAnwendungsgruppe = new Hashtable();
+    private Map<String, String> flowToAnwendungsgruppe = new Hashtable<String, String>();
 
-    ;
 
     /**
      * Ermittelt den Farbwert der Anwendungsgruppe. Der Wert wird aus der Konfiguration gelesen. Wenn kein
      * Wert konfiguriert ist, dann wird "#337299" verwendet.
      *
+     * @param request ist der {@link HttpServletRequest}
      * @return der Farbwert der Anwendungsgruppe
      */
-    public String ermittleFarbwertAnwendungsgruppe() {
-        return this.konfiguration
-            .getAsString(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPE_FARBWERT, "#337299");
+    public String ermittleFarbwertAnwendungsgruppe(HttpServletRequest request) {
+        this.flowname = getFlownameFromRequest(request);
+        String konfigValue =
+            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPE_FARBWERT);
+
+        if (konfigValue != null) {
+            return konfigValue;
+        } else {
+            return this.konfiguration
+                .getAsString(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPE_FARBWERT, "#337299");
+        }
     }
 
     /**
      * Gibt die XHTML Quelle für den Nutzerbereich zurück.
      *
+     * @param request ist der {@link HttpServletRequest}
      * @return Die Quelle.
      */
-    public String ermittleXhtmlSrcNutzerbereich() {
+    public String ermittleXhtmlSrcNutzerbereich(HttpServletRequest request) {
+        this.flowname = getFlownameFromRequest(request);
         return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_NUTZERBEREICH_XHTML_SRC);
     }
 
     /**
      * Gibt den Pfad zum rechten Header Logo zurück.
      *
-     * @return Den Pfad, der aus der Konfiguration stammt.
+     * @param request ist der {@link HttpServletRequest}
+     * @return Pfad, der aus der Konfiguration stammt, Fallback auf Defaultpfad.
      */
-    public String ermittlePfadHeaderLogoRechts() {
-        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_LOGO_RECHTS_PFAD, "");
+    public String ermittlePfadHeaderLogoRechts(HttpServletRequest request) {
+        this.flowname = getFlownameFromRequest(request);
+        String konfigValue =
+            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_RECHTS_PFAD);
+
+        if (konfigValue != null) {
+            return konfigValue;
+        } else {
+            return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_LOGO_RECHTS_PFAD, "");
+        }
     }
 
     /**
      * Gibt den Pfad zum linken Header Logo zurück.
      *
-     * @return Den Pfad, der aus der Konfiguration stammt.
+     * @param request ist der {@link HttpServletRequest}
+     * @return Den Pfad, der aus der Konfiguration stammt, Fallback auf Defaultpfad.
      */
     public String ermittlePfadHeaderLogoLinks(HttpServletRequest request) {
-        System.out.print("--------aa---------" + request.getRequestURI().toString() + "----");
+        this.flowname = getFlownameFromRequest(request);
+        String konfigValue =
+            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_LINKS_PFAD);
 
-        boolean anwendungsgruppenSindVorhanden = ermittleGueltigeAnwendungsgruppenIds();
-        System.out.print("-------bool--------" + anwendungsgruppenSindVorhanden + "----");
-
-        boolean urlsSindVorhanden = ermittleKonfigurierteAnwendungsgruppnUrls();
-
-        //String applicationContextPfad = request.getContextPath();
-        System.out.println(konfigurierteGuiAnwendungsgruppenIds);
-        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_LOGO_LINKS_PFAD, "");
+        if (konfigValue != null) {
+            return konfigValue;
+        } else {
+            return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_LOGO_LINKS_PFAD, "");
+        }
     }
 
 
     /**
      * Gibt den Text, der im span neben dem rechten Logo angezeigt werden soll, zurück.
      *
-     * @return Den Text, der aus der Konfiguration stammt.
+     * @param request ist der {@link HttpServletRequest}
+     * @return Den Text, der aus der Konfiguration stammt, Fallback auf Defaultpfad.
      */
-    public String ermittleTextHeaderLogoRechts() {
-        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_TEXT_LOGO_RECHTS, "");
+    public String ermittleTextHeaderLogoRechts(HttpServletRequest request) {
+        this.flowname = getFlownameFromRequest(request);
+        String konfigValue =
+            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_TEXT_LOGO_RECHTS);
+
+        if (konfigValue != null) {
+            return konfigValue;
+        } else {
+            return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_TEXT_LOGO_RECHTS, "");
+        }
     }
 
 
     /**
-     * Ermittle die zulässigen AnwendungsgruppenIds.
+     * Ermittle die zulässigen AnwendungsgruppenIds und schreibe diese in konfigurierteGuiAnwendungsgruppenIds.
      *
-     * @param
      * @return true, wenn GUI-Anwendungsgruppen-Ids definiert sind.
      */
     private boolean ermittleGueltigeAnwendungsgruppenIds() {
         // Liste der Anwendungsgruppen Ids existiert schon
-        if (!ObjectUtils.isEmpty(konfigurierteGuiAnwendungsgruppenIds)) {
+        if (hatAnwendungsgruppenIds) {
             return true;
+        }else{
+            setHatAnwendungsgruppenIds(true);
         }
 
-        String anwendungsgruppenIds =
-            this.konfiguration.getAsString(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_IDS);
+        String anwendungsgruppenIds = getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_IDS);
 
         if (!Strings.isNullOrEmpty(anwendungsgruppenIds)) {
             this.konfigurierteGuiAnwendungsgruppenIds = Lists
@@ -145,37 +179,124 @@ public class HeaderHelper {
     }
 
     /**
-     * Ermittle die zulässigen AnwendungsgruppenUrls.
+     * Ermittle die zulässigen AnwendungsgruppenUrls und schreibe diese in flowToAnwendungsgruppe (MAP).
+     *
+     * @return true, wenn GUI-Anwendungsgruppen-Urls definiert sind.
+     */
+    private List<String> ermittleKonfigurierteAnwendungsgruppnUrls(String gruppenId) {
+        // Liste zulaessiger Anwendungsgruppen (ausgelesen aus Konfigurationsdatei)
+        List<String> anwendungsgruppenUrlListe = new ArrayList<>();
+
+        String anwendungsgruppenUrls = getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_URLS + "." + gruppenId);
+
+        if (!Strings.isNullOrEmpty(anwendungsgruppenUrls)) {
+            anwendungsgruppenUrlListe = Lists
+                .newArrayList(Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenUrls));
+        }
+
+        return anwendungsgruppenUrlListe;
+    }
+
+
+    /**
+     * Ermittelt den Flownamen aus dem RequestUri.
+     *
+     * @param request ist der {@link HttpServletRequest}
+     * @return Flownamen.
+     */
+    private String getFlownameFromRequest(HttpServletRequest request) {
+        String flownameWithSelvletPath = request.getRequestURI().toString();
+        String servletPath = request.getServletPath().toString();
+        String flowname = flownameWithSelvletPath.substring(servletPath.length() + 1);
+        return flowname;
+    }
+
+    /**
+     * Existenz der Map von Flownamen zu AnwendungsgruppenIds prüfen.
+     * (ggf. initiale Erstellung der Zuordnungsmap).
+     *
+     * @return true ().
+     */
+    private boolean hasFlowToAnwendungsgruppe() {
+        // Liste der Anwendungsgruppen Ids existiert schon
+        if (!ObjectUtils.isEmpty(flowToAnwendungsgruppe)) {
+            return true;
+        }
+
+        if(ermittleGueltigeAnwendungsgruppenIds()){
+            erzeugeFlowToAnwendungsgruppe();
+        }
+        return true;
+    }
+
+    /**
+     * Ermittle die zulässigen AnwendungsgruppenUrls und schreibe diese in flowToAnwendungsgruppe (MAP).
      *
      * @param
      * @return true, wenn GUI-Anwendungsgruppen-Urls definiert sind.
      */
-    private boolean ermittleKonfigurierteAnwendungsgruppnUrls() {
-        /**
-         * Liste zulaessiger Anwendungsgruppen (ausgelesen aus Konfigurationsdatei)
-         */
-        List<String> anwendungsgruppenUrlListe = new ArrayList<>();
+    private boolean erzeugeFlowToAnwendungsgruppe() {
+        List<String> anwendungsgruppenUrlListe;
 
         for (String id : this.konfigurierteGuiAnwendungsgruppenIds) {
-            String anwendungsgruppenUrls =
-                this.konfiguration.getAsString(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_URLS + "." + id);
-            if (!Strings.isNullOrEmpty(anwendungsgruppenUrls)) {
-                anwendungsgruppenUrlListe = Lists.newArrayList(
-                    Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenUrls));
-            }
-
+            anwendungsgruppenUrlListe = ermittleKonfigurierteAnwendungsgruppnUrls(id);
             for (String url : anwendungsgruppenUrlListe) {
                 flowToAnwendungsgruppe.put(url, id);
             }
             anwendungsgruppenUrlListe.clear();
         }
-
-        return false;
+        return true;
     }
 
+    /**
+     * Hole den Wert für einen gegebenen Konfigurationsschluessel aus Konfiguration.
+     *
+     * @param flowname  Name des aktuellen WebFlows
+     * @param konfigurationsSchluessel  Key in der Klasse Konfiguration
+     * @return true, wenn GUI-Anwendungsgruppen-Urls definiert sind.
+     */
+    private String getKonfigurationsWert(String flowname, String konfigurationsSchluessel) {
+
+        if (hasFlowToAnwendungsgruppe()) {
+            String gruppenId = flowToAnwendungsgruppe.get(flowname);
+            String konfigParam = konfigurationsSchluessel + "." + gruppenId;
+            try {
+                return this.konfiguration.getAsString(konfigParam);
+            } catch (KonfigurationException ex) {
+                log.error(
+                    "Konfigurationsparameter " + konfigParam + " ist in Properties-Datei nicht vorhanden.");
+                // Fallbackfall: weiter im Code und auf die jeweiligen Standardwerte zugreifen
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Hole den Wert für einen gegebenen Konfigurationsschluessel aus Konfiguration.
+     *
+     * @param konfigParam  Name des Konfigurationsparameters
+     * @return Der Konfigurationswert für den übergebenen Konfigurationsparameter.
+     */
+    private String getKonfigurationsWert(String konfigParam) {
+
+            try {
+                return this.konfiguration.getAsString(konfigParam);
+            } catch (KonfigurationException ex) {
+                log.error(
+                    "Konfigurationsparameter " + konfigParam + " ist in Properties-Datei nicht vorhanden.");
+                // Fallbackfall: weiter im Code und auf die jeweiligen Standardwerte zugreifen
+                return null;
+            }
+    }
+
+    public void setHatAnwendungsgruppenIds(boolean boolWert) {
+        this.hatAnwendungsgruppenIds = boolWert;
+    }
 
     @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }
+
 }
