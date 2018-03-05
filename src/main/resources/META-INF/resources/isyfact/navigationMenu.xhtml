@@ -19,13 +19,14 @@
       <li class="#{applikation.aktiv ? 'active menustart' : ''}"><a href="#{applikation.link}" >#{applikation.name}</a>
         <!--Applikation enthält mindestens eine Anwendung. Ein Menu wird gezeigt. -->
         <ui:fragment rendered="#{not empty applikation.anwendungen}">
-          <div class="navbar-submenu" style="border-color:#{applikation.farbe}">
+          <div class="navbar-submenu">
+          <div style="background-color:#{applikation.farbe}; height:15px" />
             <div class="row row-df">
               <div>
                 <ui:repeat value="#{applikation.anwendungen}" var="anwendung" varStatus="anwendungsnumber">
                   <!--Es werden immer drei Anwendungen in eine Zeile geschrieben. Die beiden h:outputText, die das innere div
                   umschließen, öffnen bzw. schließen das entsprechende div, das die Zeile bildet. -->
-                  <div class='row row-df'>
+                  <div class='row row-df navbar-anwendung'>
                     <div>
                       <a href="#{anwendung.link}" class="search-option">#{anwendung.name}</a>
                     </div>
