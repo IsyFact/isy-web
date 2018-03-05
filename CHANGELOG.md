@@ -1,3 +1,6 @@
+# v4.6.0 (unveröffentlicht)
+- `IFS-99`: Es wurde eine vereinheitlichte horizontale Navigation implementiert. Um das Feature zu nutzen, muss eine Bean vom Typ NavigationMenuGenerierenAusKonfiguration im Applikationskontext vorhanden und korrekt konfiguriert sein. Außerdem muss die Anwendungskonfiguration, um entsprechende Parameter erweitert werden, die die Konfiguration der Navigationsleiste darstellen.
+
 # v4.5.0
 - `IFS-34`: formUpload übernommen.
 
