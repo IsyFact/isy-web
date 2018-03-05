@@ -1,9 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:composite="http://java.sun.com/jsf/composite"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <!-- Die Zelle einer Data-Table, d.h. der konkrete Inhalt des Datensatzes bezogen auf eine Spalte. -->
 
@@ -21,12 +21,20 @@
   <!-- Damit Client- und Server-Mode konsistent sind, sollte hier die property des zugehörigen Filters angegeben werden -->
   <composite:attribute name="filterData" type="String" required="false" />
 
+  <!-- Gibt die horizontale Ausrichtung des Inhalts der Tabellenzelle an; mögliche Werte
+       sind left, right und center; Defaultwert ist left -->
+  <composite:attribute name="align" type="String" required="false" default="left" />
+
 </composite:interface>
 
 <composite:implementation>
 
-  <td style="#{cc.attrs.hidden ? 'display:none' : ''}" id="#{cc.attrs.id}" data-sort="#{cc.attrs.sortData}"
-    data-filter="#{cc.attrs.filterData}"><composite:insertChildren /></td>
+  <ui:param name="tdStyle"
+            value="#{cc.attrs.hidden ? 'display:none;' : ''}#{empty cc.attrs.align or cc.attrs.align eq '' ? 'text-align:left' : 'text-align:'.concat(cc.attrs.align)}" />
+
+  <td style="#{tdStyle}"
+      id="#{cc.attrs.id}" data-sort="#{cc.attrs.sortData}"
+      data-filter="#{cc.attrs.filterData}"><composite:insertChildren /></td>
 
 </composite:implementation>
 
