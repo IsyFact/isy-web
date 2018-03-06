@@ -104,8 +104,8 @@
                                 <move file="src\main\resources\META-INF\resources\css\print-jsf.css"
                                     tofile="src\main\resources\META-INF\resources\css\print.css"/>
                                 <!-- Fonts -->
-                                <copy todir="src/main/resources/META-INF/resources/css/fonts">
-                                    <fileset dir="target/isy-style/css/fonts"/>
+                                <copy todir="src/main/resources/META-INF/resources/fonts">
+                                    <fileset dir="target/isy-style/fonts"/>
                                 </copy>
                                 <!-- IMG -->
                                 <copy todir="src/main/resources/META-INF/resources/img">
