@@ -1757,6 +1757,24 @@ function formatAmountOfMoney(ref) {
 }
 
 /**
+ * Formatiert eine Numerische-/Fliesskomma Zahl
+ *
+ * parseFloat funktioniert, da die Komponente formNumericInput
+ * mit "onkeyup" bereits verhindert, dass Buchstaben eingegeben werden können.
+ */
+function formatNumericValue(ref) {
+    'use strict';
+    var inputField = document.getElementById(ref.id);
+    if (ref.value !== "") {
+        var dezimalstellen = $(inputField).data("decimalplaces");
+        var result = formatiereInput(ref.value, dezimalstellen);
+        result = kuerzeInput(result, ref.maxLength);
+        result = setzeTausenderPunkte(result);
+        inputField.value = result;
+    }
+}
+
+/**
  * formatiert einen Stundensatz auf die angegebene Anzahl Nachkommastellen ohne Tausenderpunkte (z.B. xxxxx,xx)
  */
 function formatiereInput(input, dezimalstellen){
