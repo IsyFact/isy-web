@@ -94,7 +94,7 @@
             </ui:fragment>
             <ui:fragment rendered="#{not cc.attrs.showPrintView and cc.attrs.readonly}">
                 <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}_readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+                        for="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
                     <h:outputText value="#{cc.attrs.label}"/>
                 </label>
             </ui:fragment>
@@ -147,9 +147,10 @@
                         <composite:insertChildren />
                     </ui:fragment>
                     <ui:fragment rendered="#{not cc.attrs.showPrintView and cc.attrs.readonly}">
-                        <h:outputText value="#{cc.attrs.value}" styleClass="form-control readonly"
-                                      style="width: #{cc.attrs.width}"
-                                      id="#{cc.clientId}_readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"/>
+                        <span class="form-control readonly" style="width: #{cc.attrs.width}"
+                              id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+                             #{cc.attrs.value}
+                        </span>
                     </ui:fragment>
                     <ui:fragment rendered="#{cc.attrs.showPrintView}">
                         <input type="#{cc.attrs.type}" class="form-control"
