@@ -193,18 +193,4 @@ public class SpecialCharPickerRenderer extends Renderer {
         return false;
     }
 
-    /**
-     * Rendert das Ende eines BreadCrumbTrail-Elements.
-     *
-     * @param context
-     *            der aktuelle FacesContext.
-     * @param component
-     *            die zu rendernde Komponente.
-     *
-     * @throws IOException
-     *             wenn es ein IO-Problem beim Rendern gibt.
-     */
-    @Override
-    public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
-    }
 }
