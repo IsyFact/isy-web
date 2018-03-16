@@ -56,6 +56,11 @@ public class GlobalFlowModel extends AbstractMaskenModel {
     private boolean focusOnloadActive;
 
     /**
+     * Angabe, ob die Linksnavigation-Sidebar einklappbar sein soll.
+     */
+    private boolean enableCollapsingLinksnavigation = true;
+
+    /**
      * Angabe ob ein Multipart Form verwendet werden soll. Ein Multipart sollte nur bei Dateiuploads verwendet
      * werden. In diesem Falle sollte kein AJAX verwendet werden, da der JSF AJAX Client kein Fehlerhandling
      * bei Multipart Requests durchführen kann (Stand JSF 2.2.11) und die Anwendung daher bei z.B. einem
@@ -109,6 +114,14 @@ public class GlobalFlowModel extends AbstractMaskenModel {
 
     public void setMultipartForm(boolean multipartForm) {
         this.multipartForm = multipartForm;
+    }
+
+    public void setEnableCollapsingLinksnavigation(boolean enableCollapsingLinksnavigation) {
+        this.enableCollapsingLinksnavigation = enableCollapsingLinksnavigation;
+    }
+
+    public boolean isEnableCollapsingLinksnavigation() {
+        return enableCollapsingLinksnavigation;
     }
 
 }
