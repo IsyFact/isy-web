@@ -45,20 +45,16 @@ module.exports = function (grunt) {
                     {src: 'src/main/resources/META-INF/resources/js/sidebar-collapse.js', dest: 'www/sidebar-collapse.debug.js'}
 				]
 			},
-			
-			toproject: {
-				files: [
-					{src: 'www/onload.js', dest: '../target/classes/META-INF/resources/js/onload.js'},
-					{src: 'www/specialcharpicker.js',dest: '../target/classes/META-INF/resources/js/specialcharpicker.js'},
-					{src: 'www/tastatursteuerung.js', dest: '../target/classes/META-INF/resources/js/tastatursteuerung.js'},
-                    {src: 'www/sidebar-collapse.js', dest: '../target/classes/META-INF/resources/js/sidebar-collapse.js'},
-					{src: 'www/styles.css', dest: '../src/main/resources/META-INF/resources/css/styles.css'}
-					{src: 'www/onload.js', dest: 'target/classes/META-INF/resources/js/onload.js'},
-					{src: 'www/specialcharpicker.js',dest: 'target/classes/META-INF/resources/js/specialcharpicker.js'},
-					{src: 'www/tastatursteuerung.js', dest: 'target/classes/META-INF/resources/js/tastatursteuerung.js'},
-					{src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
-				]
-			}    			
+
+            toproject: {
+                files: [
+                    {src: 'www/onload.js', dest: 'target/classes/META-INF/resources/js/onload.js'},
+                    {src: 'www/specialcharpicker.js',dest: 'target/classes/META-INF/resources/js/specialcharpicker.js'},
+                    {src: 'www/tastatursteuerung.js', dest: 'target/classes/META-INF/resources/js/tastatursteuerung.js'},
+                    {src: 'www/sidebar-collapse.js', dest: 'target/classes/META-INF/resources/js/sidebar-collapse.js'},
+                    {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
+                ]
+            }
 		},
 
         // Uglify
