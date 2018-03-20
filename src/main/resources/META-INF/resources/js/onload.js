@@ -1757,7 +1757,29 @@ function formatAmountOfMoney(ref) {
 }
 
 /**
- * formatiert einen Stundensatz auf die angegebene Anzahl Nachkommastellen ohne Tausenderpunkte (z.B. xxxxx,xx)
+ * Formatiert eine Numerische-/Fliesskomma Zahl
+ *
+ * parseFloat funktioniert, da die Komponente formNumericInput
+ * mit "onkeyup" bereits verhindert, dass Buchstaben eingegeben werden können.
+ */
+function formatNumericValue(ref) {
+    'use strict';
+    var inputField = document.getElementById(ref.id);
+    if (ref.value !== "") {
+        var dezimalstellen = $(inputField).data("decimalplaces");
+        var tausenderpunktGewuenscht = $(inputField).data("tausenderpunkt");
+        var result = formatiereInput(ref.value, dezimalstellen);
+        result = kuerzeInput(result, ref.maxLength);
+        if(tausenderpunktGewuenscht){
+            result = setzeNumerischeTausenderPunkte(result);
+        }
+        inputField.value = result;
+    }
+}
+
+/**
+ * formatiert den Eingabewert auf die angegebene Anzahl Nachkommastellen ohne Tausenderpunkte (z.B. xxxxx,xx)
+ * Wird von der formCurrencyInput- und der formNumericinput-Komponente aufgerufen.
  */
 function formatiereInput(input, dezimalstellen){
 	'use strict';
@@ -1783,7 +1805,7 @@ function kuerzeInput(value, length){
 }
 
 /**
- * Setzt die Tausenderpunkte
+ * Setzt die Tausenderpunkte bei Geldbeträgen
  */
 function setzeTausenderPunkte(value){
 	'use strict';
@@ -1797,8 +1819,25 @@ function setzeTausenderPunkte(value){
 }
 
 /**
+ * Setzt die Tausenderpunkte bei Numerischen- und Fliesskommazahlen
+ */
+function setzeNumerischeTausenderPunkte(value){
+    'use strict';
+    var kommaPosition = value.indexOf(",");
+    if(kommaPosition === -1){
+        kommaPosition = value.length;
+    }
+    for(var i=1; i < kommaPosition; i++){
+        if(i%3 === 0){
+            value = value.substring(0, kommaPosition-i) + "." + value.substring(kommaPosition-i);
+        }
+    }
+    return value;
+}
+
+/**
  * Löscht alle Zeichen außer Zahlen und Kommas aus der Einabe eines Textfeldes.
- * Wird von der formCurrencyInput-Komponente beim onkeyup-Event aufgerufen.
+ * Wird von der formCurrencyInput- und formNumericInput-Komponente beim onkeyup-Event aufgerufen.
  * 
  * @param ref -
  *            Referenz auf das Textfeld, in dem die Ersetzung vorgenommen werden
@@ -1817,7 +1856,7 @@ function deleteNonDigitCharacters(ref) {
 		// Zeichen der Cursor verschoben werden muss.
 		var length = ref.value.length;
 
-		// entfernt alle Zeichen auser Zahlen und Komma aus der Eingabe.
+		// entfernt alle Zeichen ausser Zahlen und Komma aus der Eingabe.
 		// Achtung auch Tausender-Punkte werden entfernt
 		ref.value = ref.value.replace(/[^\d,.]/g, '');
 
@@ -1833,6 +1872,14 @@ function deleteNonDigitCharacters(ref) {
 		// setzt die Cursor-Position
 		ref.setSelectionRange(start, end);
 	}
+}
+
+/**
+ * JavaScript Typkonvertierung String = "true" zu Boolean = true
+ */
+function stringToBoolean(str){
+    "use strict";
+    return ((str == "true") ? true : false);
 }
 
 function refreshDatatableFilterRow() {

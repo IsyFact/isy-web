@@ -45,7 +45,7 @@
 
 	<!-- Wenn JS deaktiviert ist, wird hier noch der Header geschrieben -->
 	<ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled or basisModel.showPrintView}">
-		<h3>#{cc.attrs.tabController.retrieveTabTitle(cc, cc.attrs.name)}</h3>
+		<h3 class="tab-header-headline">#{cc.attrs.tabController.retrieveTabTitle(cc, cc.attrs.name)}</h3>
 	</ui:fragment>
 	
 	<!-- Zusammgengesetzt: Soll das Tab gerendert werden? -->

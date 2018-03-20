@@ -17,15 +17,16 @@
     permissions and limitations under the License.
 
 -->
-<faces-config   
-    xmlns="http://java.sun.com/xml/ns/javaee" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-    version="2.0">
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+              version="2.2">
 
     <!-- Exception Handler -->
     <factory>
         <exception-handler-factory>de.bund.bva.isyfact.common.web.exception.web.JsfExceptionHandlerFactory</exception-handler-factory>
+        <view-declaration-language-factory>de.bund.bva.isyfact.common.web.common.gui.context.FaceletViewHandlingStrategyPatch</view-declaration-language-factory>
     </factory>
 
     <component>

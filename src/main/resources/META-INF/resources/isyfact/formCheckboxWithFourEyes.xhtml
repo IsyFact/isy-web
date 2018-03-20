@@ -1,8 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
         xmlns:composite="http://java.sun.com/jsf/composite"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:t="http://myfaces.apache.org/tomahawk"
-        xmlns:ui="http://java.sun.com/jsf/facelets">
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:jsf="http://xmlns.jcp.org/jsf"
+        xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+        xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
 
     <!-- Ein Eingabefeld für eine Checkbox innerhalb von Formularen. -->
 
@@ -45,9 +48,16 @@
                 default="#{globalConfigurationModel}" />
 
         <!-- change Event einfach durchwerfen -->
-        <composite:clientBehavior name="change" event="change" targets="selectBooleanCheckbox" />
-        <composite:clientBehavior name="click" event="click" targets="selectBooleanCheckbox" />
-        <composite:attribute name="valueChangeListener" required="false" targets="selectBooleanCheckbox" />
+        <composite:clientBehavior name="change" event="change"
+                targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
+        <composite:clientBehavior name="click" event="click"
+                targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
+        <composite:attribute name="valueChangeListener" required="false"
+                targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
+
+        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
+        <composite:attribute name="fourEyesMode" type="String" required="true" />
+        <composite:attribute name="fourEyesLastValue" type="String" />
     </composite:interface>
 
     <composite:implementation>
@@ -61,33 +71,25 @@
                 class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
                 data-isy-custom-id="#{cc.attrs.customId}">
 
-            <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}#{not empty validationMessages ? ' has-error has-feedback': ''}#{cc.attrs.optional ? ' mandatory optional' : ''}"
-                    for="#{cc.clientId}:isySelectBooleanCheckbox:selectBooleanCheckbox">
-                <h:outputText value="#{cc.attrs.label}"/>
-            </label>
+            <isyi:formValidationLabel value="#{cc.attrs.label}"
+                    forField="#{cc.clientId}:isySelectBooleanCheckbox:selectBooleanCheckbox"
+                    required="#{cc.attrs.required}"
+                    styleClass="#{cc.attrs.labelStyleClass}#{not empty validationMessages ? ' has-error has-feedback': ''}#{cc.attrs.optional ? ' mandatory optional' : ''}" />
 
             <div class="#{cc.attrs.inputStyleClass}">
-                <div class="checkbox">
-                    <label class="#{existsValidationError ? 'required' : ''} control-label"
-                            for="#{cc.clientId}:selectBooleanCheckbox">
-                        <t:selectBooleanCheckbox id="selectBooleanCheckbox"
-                                value="#{cc.attrs.value}" styleClass="form-control"
-                                disabled="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only' or cc.attrs.showPrintView}" />
-                        <span>#{cc.attrs.labelRight}</span>
-                    </label>
-                </div>
+                <isy:selectBooleanCheckbox id="isySelectBooleanCheckbox"
+                        value="#{cc.attrs.value}" label="#{cc.attrs.labelRight}"
+                        required="#{existsValidationError}"
+                        disabled="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}"
+                        fourEyesMode="#{cc.attrs.fourEyesMode}"
+                        fourEyesLastValue="#{cc.attrs.fourEyesLastValue}">
+                    <composite:insertChildren />
+                </isy:selectBooleanCheckbox>
             </div>
 
             <!-- Bei Validierungsfehlern -->
-            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
-                <span class="form-control-feedback without-input-group-addon">
-                    <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
-                            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
-                            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
-                        <span class="icon icon-info"></span>
-                    </a>
-                </span>
-            </ui:fragment>
+            <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+                    reference="#{cc.attrs.reference}" inputGroupAddonExistent="false" />
 
         </div>
     </composite:implementation>

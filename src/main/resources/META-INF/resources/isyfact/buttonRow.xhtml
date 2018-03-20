@@ -11,12 +11,14 @@
 
 	<!-- Ob die Button Row eine Alignment nach Rechts besitzen soll oder nicht. -->
 	<composite:attribute name="alignRight" type="Boolean" default="false" />
+	<!-- zusätzliche Style-Klassen für die Button-Row -->
+	<composite:attribute name="styleClass" type="String" default="" />
 
 </composite:interface>
 
 <composite:implementation>
 
-	<div class="row row-df button-row">
+	<div class="row row-df button-row #{cc.attrs.styleClass}">
 		<div class="col-lg-12">
 			<span class="#{cc.attrs.alignRight ? 'pull-right' : ''}"> <composite:insertChildren /></span>
 		</div>

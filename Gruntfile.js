@@ -15,8 +15,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
-		
-        //clean tmp and output directories
+
         clean: {
             build: {
                 src: ["www/*"]
@@ -48,10 +47,10 @@ module.exports = function (grunt) {
 			
 			toproject: {
 				files: [
-					{src: 'www/onload.js', dest: '../target/classes/META-INF/resources/js/onload.js'},
-					{src: 'www/specialcharpicker.js',dest: '../target/classes/META-INF/resources/js/specialcharpicker.js'},
-					{src: 'www/tastatursteuerung.js', dest: '../target/classes/META-INF/resources/js/tastatursteuerung.js'},
-					{src: 'www/styles.css', dest: '../src/main/resources/META-INF/resources/css/styles.css'}
+					{src: 'www/onload.js', dest: 'target/classes/META-INF/resources/js/onload.js'},
+					{src: 'www/specialcharpicker.js',dest: 'target/classes/META-INF/resources/js/specialcharpicker.js'},
+					{src: 'www/tastatursteuerung.js', dest: 'target/classes/META-INF/resources/js/tastatursteuerung.js'},
+					{src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
 				]
 			}    			
 		},
@@ -75,24 +74,23 @@ module.exports = function (grunt) {
                 files: {
                     'www/tastatursteuerung.js':['www/tastatursteuerung.debug.js']
                 }
-            },
+            }
         },
-		
-		// Styles um CSS für Charpicker erweitern
+
 		less: {
-            production: {
+            specialcharpicker: {
                 options: {
                     cleancss: true,
                     sourceMap: false
                 },
                 files: {
-                    "www/styles.css": "src/main/resources/grunt/less/styles.less",
+                    "www/specialcharpicker.css": "src/main/resources/grunt/css/specialcharpicker.css"
                 }
             }
-        },
+        }
 		
     });
 	
-    grunt.registerTask('default', ['clean', 'jshint', 'copy:towww','uglify','less','copy:toproject','less']);
+    grunt.registerTask('default', ['clean', 'jshint', 'copy:towww','uglify','less','copy:toproject']);
 
 };

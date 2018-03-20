@@ -1,10 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+	  xmlns:composite="http://java.sun.com/jsf/composite"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
 
 <composite:interface>
 
@@ -13,7 +13,7 @@
 
 	<!-- Ob der Header sortierbar ist oder nicht. -->
 	<composite:attribute name="sortable" type="Boolean"
-		default="#{not empty cc.attrs.sortProperty}" />
+						 default="#{not empty cc.attrs.sortProperty}" />
 
 	<!-- Ob die Spalte angezeigt werden soll oder nicht. -->
 	<composite:attribute name="hidden" type="Boolean" default="false" />
@@ -27,42 +27,46 @@
 
 	<!-- Tooltip, der über dem Button angezeigt werden soll. -->
 	<composite:attribute name="tooltip" required="false"
-		type="java.lang.String" default="" />
+						 type="java.lang.String" default="" />
+
+	<!-- Gibt die horizontale Ausrichtung der Spaltenüberschrift an; mögliche Werte
+         sind left, right und center; Defaultwert ist left -->
+	<composite:attribute name="align" type="String" required="false" default="left" />
 
 </composite:interface>
 
 <composite:implementation>
 
-  <ui:param name="sort"
-      value="#{cc.attrs.sortable eq true and not empty cc.attrs.sortProperty}" />
-  
-  <!-- Falls die Spalte sortierbar ist. -->
+	<ui:param name="sort"
+			  value="#{cc.attrs.sortable eq true and not empty cc.attrs.sortProperty}" />
+
+	<!-- Falls die Spalte sortierbar ist. -->
 	<ui:fragment rendered="#{sort}">
 
 		<ui:param name="sortActivated"
-			value="#{cc.attrs.sortProperty.equals(cc.parent.attrs.dataTableModel.sortModel.property)}" />
+				  value="#{cc.attrs.sortProperty.equals(cc.parent.attrs.dataTableModel.sortModel.property)}" />
 
 		<ui:param name="sortDirectionClass"
-			value="#{('ASCENDING' eq cc.parent.attrs.dataTableModel.sortModel.direction) ? 'sort-up' : 'sort-down'}" />
+				  value="#{('ASCENDING' eq cc.parent.attrs.dataTableModel.sortModel.direction) ? 'sort-up' : 'sort-down'}" />
 		<ui:param name="sortDirection"
-			value="#{sortActivated ? sortDirectionClass : ''}" />
+				  value="#{sortActivated ? sortDirectionClass : ''}" />
 		<!-- RF1.5:sort-up? -->
 		<ui:param name="sortedClass" value="#{sortActivated ? 'sorted' : ''}" />
 		<ui:param name="thStyle"
-			value="#{cc.attrs.hidden ? 'display:none' : ''}" />
+				  value="#{cc.attrs.hidden ? 'display:none;' : ''}#{empty cc.attrs.align or cc.attrs.align eq '' ? 'text-align:left' : 'text-align:'.concat(cc.attrs.align)}" />
 
-    <!-- ACHTUNG: ECLIPSE AUTO FORMAT LOESCHT DAS STYLE ATTRIBUT!!! -->
+		<!-- ACHTUNG: ECLIPSE AUTO FORMAT LOESCHT DAS STYLE ATTRIBUT!!! -->
 		<th style="#{thStyle}" class="whiteSpaceNowrap sortable #{sortDirection} #{sortedClass}" width="#{cc.attrs.width}" data-sortattribute="#{cc.attrs.sortProperty}">
-      <isy:hyperlink 
-          value="#{cc.attrs.name}" 
-          action="#{cc.parent.attrs.dataTableController.sort(cc.parent.attrs.dataTableModel, cc.attrs.sortProperty)}"
-          title="#{cc.attrs.tooltip}" 
-          additionalStyleClass="hyperlink-green"/>
-          
-      <!-- Der span Tag dient dazu, die Sortierpfeile (Dreiecke) anzuzeigen, falls eine Spalte sortierbar ist,
-           aber noch nicht sortiert wurde bzw. aktuell eine andere Spalte als sortiert ausgewählt ist. -->
-      <span style="position: relative; display: inline; width: 0;"/>    
-    </th>
+			<isy:hyperlink
+					value="#{cc.attrs.name}"
+					action="#{cc.parent.attrs.dataTableController.sort(cc.parent.attrs.dataTableModel, cc.attrs.sortProperty)}"
+					title="#{cc.attrs.tooltip}"
+					additionalStyleClass="hyperlink-green"/>
+
+			<!-- Der span Tag dient dazu, die Sortierpfeile (Dreiecke) anzuzeigen, falls eine Spalte sortierbar ist,
+                 aber noch nicht sortiert wurde bzw. aktuell eine andere Spalte als sortiert ausgewählt ist. -->
+			<span style="position: relative; display: inline; width: 0;"/>
+		</th>
 
 	</ui:fragment>
 

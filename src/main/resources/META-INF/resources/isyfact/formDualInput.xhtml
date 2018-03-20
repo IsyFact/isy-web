@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+
+<!-- Zwei zusammengefasste formInputs, wobei die Labels und die Input-Felder jeweils gruppiert werden. -->
+
+<composite:interface>
+
+    <!-- Der Text für das Label -->
+    <composite:attribute name="firstLabel" type="String" required="false" />
+    <!-- Die CSS-Klasse für das Label - Siehe auch Attribut labelsStyleClass. -->
+    <composite:attribute name="firstLabelStyleClass" type="String" />
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="firstReference" required="true" />
+    <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+    <composite:attribute name="firstRequired" type="Boolean" default="false" />
+    <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <composite:attribute name="firstStyleClass" type="String" default="col-lg-3" />
+    <!-- Ob ein input-group-addon (z.B. Datepicker Button) existiert oder nicht. -->
+    <composite:attribute name="firstInputGroupAddonExistent" type="Boolean" default="false" />
+
+    <!-- Optionale Trennzeichen für die Labels -->
+    <composite:attribute name="labelSeparator" type="String" required="false" default=" / " />
+    <!-- Die CSS-Klasse für die zusammengefasste Labels -->
+    <composite:attribute name="labelsStyleClass" type="String" required="false" default="col-lg-6" />
+
+    <!-- Der Text für das Label -->
+    <composite:attribute name="secondLabel" type="String" required="false" />
+    <!-- Die CSS-Klasse für das Label - Siehe auch Attribut labelsStyleClass. -->
+    <composite:attribute name="secondLabelStyleClass" type="String" />
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="secondReference" required="true" />
+    <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+    <composite:attribute name="secondRequired" type="Boolean" default="false" />
+    <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <composite:attribute name="secondStyleClass" type="String" default="col-lg-3" />
+    <!-- Ob ein input-group-addon (z.B. Datepicker Button) existiert oder nicht. -->
+    <composite:attribute name="secondInputGroupAddonExistent" type="Boolean" default="false" />
+
+    <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+    <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
+    <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+
+</composite:interface>
+
+<composite:implementation>
+
+    <!-- Validierungsfehler bestimmen -->
+    <ui:param name="validationMessages"
+        value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.firstReference)}#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.secondReference)}" />
+
+    <ui:param name="firstValidationMessages"
+        value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.firstReference)}" />
+
+    <ui:param name="secondValidationMessages"
+        value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.secondReference)}" />
+
+    <div class="form-group">
+        <div class="#{cc.attrs.labelsStyleClass} control-labels">
+            <isyi:formValidationLabel value="#{cc.attrs.firstLabel}"
+                forField="#{cc.facets['first'].clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.firstReference)}"
+                required="#{cc.attrs.firstRequired}"
+                styleClass="#{cc.attrs.firstLabelStyleClass}#{not empty validationMessages ? ' has-error has-feedback': ''}" />
+            &#160;#{cc.attrs.labelSeparator}
+            <isyi:formValidationLabel value="#{cc.attrs.secondLabel}"
+                forField="#{cc.facets['second'].clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.secondReference)}"
+                required="#{cc.attrs.secondRequired}"
+                styleClass="#{cc.attrs.secondLabelStyleClass}#{not empty validationMessages ? ' has-error has-feedback': ''}" />
+        </div>
+        <div class="#{cc.attrs.firstStyleClass}#{not empty firstValidationMessages ? ' has-feedback': ''}#{not empty firstValidationMessages? ' invalid': ''}">
+            <composite:renderFacet name="first" required="true" />
+        </div>
+        <div class="#{cc.attrs.secondStyleClass}#{not empty secondValidationMessages ? ' has-error has-feedback': ''}#{not empty secondValidationMessages? ' invalid': ''}">
+            <composite:renderFacet name="second" required="true" />
+            <!-- Bei Validierungsfehlern -->
+            <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+                rendered="#{not empty firstValidationMessages}"
+                reference="#{cc.attrs.firstReference}"
+                inputGroupAddonExistent="#{cc.attrs.firstInputGroupAddonExistent}" />
+            <!-- Bei Validierungsfehlern -->
+            <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+                rendered="#{empty firstValidationMessages and not empty secondValidationMessages}"
+                reference="#{cc.attrs.secondReference}"
+                inputGroupAddonExistent="#{cc.attrs.secondInputGroupAddonExistent}" />
+                
+        </div>
+    </div>
+
+</composite:implementation>
+
+</html>

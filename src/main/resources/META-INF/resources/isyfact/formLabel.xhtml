@@ -1,82 +1,78 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal">
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html">
 
-<!-- Ein Ausgabefeld innerhalb von Formularen. Text wird gewrappt ausgegeben -->
+    <!-- Ein Ausgabefeld innerhalb von Formularen. Text wird gewrappt ausgegeben -->
 
-<composite:interface>
-	<!-- Die Referenz des Objekts. -->
-	<composite:attribute name="reference" required="false" />
-	<!-- Der Wert für die Ausgabe -->
-	<composite:attribute name="value" required="false" />
-	<!-- Der Text für das Label -->
-	<composite:attribute name="label" type="String" required="false" />
-	<!-- Die CSS-Klasse für das Label. -->
-	<composite:attribute name="labelStyleClass" type="String"
-		default="col-lg-6" />
-	<!-- Die CSS-Klasse für den Ausgabebereich. -->
-	<composite:attribute name="inputStyleClass" type="String"
-		default="col-lg-6" />
-	<!-- Die CSS-Klasse für den auszugebenden Text. -->
-	<composite:attribute name="textStyleClass" type="String"
-		required="false" />
-	<!-- Gibt den Tooltip für die Ausgabe an. -->
-	<composite:attribute name="tooltip" type="String" required="false"
-		default="" />
-	<!-- Gibt an, ob Sonderzeichen für das Label escaped werden sollen (Mit Vorsicht einsetzen!). -->
-	<composite:attribute name="escapeLabel" type="Boolean" required="false"
-		default="true" />
-	<!-- Erlaubt das Deaktivieren des Wrappings von Text. -->
-	<composite:attribute name="breakWords" type="Boolean" default="true"
-		required="false" />
-	<!-- Erlaubt das Wert (value) zu konvertieren. -->
-	<composite:attribute name="converter" type="String" required="false"
-		default="" />
-	<!-- Eine spezifische globale Konfiguration, falls benötigt. -->
-	<composite:attribute name="globalConfig" required="false"
-		default="#{globalConfigurationModel}" />
-</composite:interface>
+    <composite:interface>
+        <!-- Die Referenz des Objekts. -->
+        <composite:attribute name="reference" required="false" />
+        <!-- Der Wert für die Ausgabe -->
+        <composite:attribute name="value" required="false" />
+        <!-- Der Text für das Label -->
+        <composite:attribute name="label" type="String" required="false" />
+        <!-- Die CSS-Klasse für das Label. -->
+        <composite:attribute name="labelStyleClass" type="String"
+                default="col-lg-6" />
+        <!-- Die CSS-Klasse für den Ausgabebereich. -->
+        <composite:attribute name="inputStyleClass" type="String"
+                default="col-lg-6" />
+        <!-- Die CSS-Klasse für den auszugebenden Text. -->
+        <composite:attribute name="textStyleClass" type="String"
+                required="false" />
+        <!-- Gibt den Tooltip für die Ausgabe an. -->
+        <composite:attribute name="tooltip" type="String" required="false"
+                default="" />
+        <!-- Gibt an, ob Sonderzeichen für das Label escaped werden sollen (Mit Vorsicht einsetzen!). -->
+        <composite:attribute name="escapeLabel" type="Boolean" required="false"
+                default="true" />
+        <!-- Erlaubt das Deaktivieren des Wrappings von Text. -->
+        <composite:attribute name="breakWords" type="Boolean" default="true"
+                required="false" />
+        <!-- Erlaubt das Wert (value) zu konvertieren. -->
+        <composite:attribute name="converter" type="String" required="false"
+                default="" />
+        <!-- Eine spezifische globale Konfiguration, falls benötigt. -->
+        <composite:attribute name="globalConfig" required="false"
+                default="#{globalConfigurationModel}" />
+    </composite:interface>
 
-<composite:implementation>
+    <composite:implementation>
 
-	<div id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-formlabel"
-		class="clearfix">
-		<isyi:formValidationLabel value="#{cc.attrs.label}"
-			forField="#{cc.clientId}:form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-			styleClass="#{cc.attrs.labelStyleClass}"
-			escape="#{cc.attrs.escapeLabel}" />
-		<div class="#{cc.attrs.inputStyleClass}">
-			<div>
-				<div
-					class="#{cc.attrs.breakWords ? 'form-label' : 'form-label-no-break'} form-control readonly"
-					id="#{cc.clientId}:form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+        <div id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-formlabel" class="clearfix">
+            <label class="control-label #{cc.attrs.labelStyleClass}"
+                    for="#{cc.clientId}:form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+                <h:outputText escape="#{cc.attrs.escapeLabel}" value="#{cc.attrs.label}"/>
+            </label>
 
-					<!-- Value leer, dann ein &nbsp rendern. -->
-					<h:outputText value="&#160;"
-						rendered="#{empty cc.attrs.value}"
-						styleClass="#{cc.attrs.textStyleClass}"
-						style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''}" />
+            <div class="#{cc.attrs.inputStyleClass}">
+                <div>
+                    <div
+                            class="#{cc.attrs.breakWords ? 'form-label' : 'form-label-no-break'} form-control readonly"
+                            id="#{cc.clientId}:form-label_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
 
-					<h:outputText value="#{cc.attrs.value}"
-						rendered="#{not empty cc.attrs.value and empty cc.attrs.converter}"
-						styleClass="#{cc.attrs.textStyleClass}"
-						style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''}"
-						title="#{cc.attrs.tooltip}" />
-					<h:outputText value="#{cc.attrs.value}"
-						rendered="#{not empty cc.attrs.value and not empty cc.attrs.converter}"
-						converter="#{cc.attrs.converter}"
-						styleClass="#{cc.attrs.textStyleClass}"
-						style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''}"
-						title="#{cc.attrs.tooltip}" />
+                        <!-- Value leer, dann ein &nbsp rendern. -->
+                        <h:outputText value="&#160;"
+                                rendered="#{empty cc.attrs.value}"
+                                styleClass="#{cc.attrs.textStyleClass}"
+                                style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''}" />
 
-				</div>
-			</div>
-		</div>
-	</div>
-</composite:implementation>
+                        <h:outputText value="#{cc.attrs.value}"
+                                rendered="#{not empty cc.attrs.value and empty cc.attrs.converter}"
+                                styleClass="#{cc.attrs.textStyleClass}"
+                                style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''}"
+                                title="#{cc.attrs.tooltip}" />
+                        <h:outputText value="#{cc.attrs.value}"
+                                rendered="#{not empty cc.attrs.value and not empty cc.attrs.converter}"
+                                converter="#{cc.attrs.converter}"
+                                styleClass="#{cc.attrs.textStyleClass}"
+                                style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''}"
+                                title="#{cc.attrs.tooltip}" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </composite:implementation>
 
 </html>
