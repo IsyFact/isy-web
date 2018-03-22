@@ -205,10 +205,9 @@ public class HeaderHelper {
      * @return Flownamen.
      */
     private String getFlownameFromRequest(HttpServletRequest request) {
-        String flownameWithSelvletPath = request.getRequestURI().toString();
-        String servletPath = request.getServletPath().toString();
-        String flowname = flownameWithSelvletPath.substring(servletPath.length() + 1);
-        return flowname;
+        return request.getRequestURI().substring(request.getContextPath().length() +
+                                                 request.getServletPath().length() +
+                                                 1);
     }
 
     /**
