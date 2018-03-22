@@ -58,7 +58,7 @@ public class GlobalFlowModel extends AbstractMaskenModel {
     /**
      * Angabe, ob die Linksnavigation-Sidebar einklappbar sein soll.
      */
-    private boolean enableCollapsingLinksnavigation = true;
+    private boolean enableCollapsingLinksnavigation = false;
 
     /**
      * Angabe ob ein Multipart Form verwendet werden soll. Ein Multipart sollte nur bei Dateiuploads verwendet

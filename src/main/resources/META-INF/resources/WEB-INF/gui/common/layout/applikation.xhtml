@@ -37,11 +37,9 @@
                         <!-- FocusOnload. -->
                         <h:inputHidden id="focusOnloadActive" value="#{globalFlowModel.focusOnloadActive}"/>
 
-                        <c:if test="#{(globalFlowModel.enableCollapsingLinksnavigation)}">
-                            <ui:define name="collapse-seitenbereich">
-                                <!-- Klappbare Linksnavigation. -->
-                                <ui:include src="/WEB-INF/gui/common/seitenelemente/collapse.xhtml"/>
-                            </ui:define>
+                        <c:if test="#{globalFlowModel.enableCollapsingLinksnavigation}">
+                            <!-- Klappbare Linksnavigation. -->
+                            <ui:include src="/WEB-INF/gui/common/seitenelemente/collapse.xhtml"/>
                         </c:if>
 
                         <c:if test="#{not basisModel.showModalDialog}">
