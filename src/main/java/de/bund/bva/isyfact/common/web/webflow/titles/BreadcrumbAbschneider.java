@@ -31,7 +31,6 @@ import java.util.LinkedList;
  * @version $Id: BreadcrumbAbschneider.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @since 2.1.2
  */
-@Deprecated
 public class BreadcrumbAbschneider {
 
     /** Die Anzahl der maximal sichtbaren Breadcrumbs (inkl. Startseitenlink wenn vorhanden). */

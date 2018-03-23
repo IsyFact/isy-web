@@ -92,13 +92,12 @@
     </bean>
 
     <!-- Titles Listener. -->
-    <!-- Obsolet - wird in der IsyFact 2.x entfernt und nicht mehr standardmäßig eingebunden -->
-    <!--<bean name="flowExecutionTitlesListener" class="de.bund.bva.isyfact.common.web.webflow.titles.TitlesListener">-->
-        <!--<property name="dynamischerStartseitenLink" value="false"/>-->
-        <!--<property name="breadcrumbAbschneider">-->
-            <!--<bean class="de.bund.bva.isyfact.common.web.webflow.titles.BreadcrumbAbschneider"/>-->
-        <!--</property>-->
-        <!--<property name="messageSource" ref="messageSource"/>-->
-    <!--</bean>-->
+    <bean name="flowExecutionTitlesListener" class="de.bund.bva.isyfact.common.web.webflow.titles.TitlesListener">
+        <property name="dynamischerStartseitenLink" value="false"/>
+        <property name="breadcrumbAbschneider">
+            <bean class="de.bund.bva.isyfact.common.web.webflow.titles.BreadcrumbAbschneider"/>
+        </property>
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
 
 </beans>

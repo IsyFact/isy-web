@@ -36,7 +36,6 @@ import org.springframework.webflow.execution.repository.support.CompositeFlowExe
  * @author Capgemini, Tobias Waller
  * @version $Id: BreadcrumbAwareFlowExecutionRepository.java 105410 2013-07-19 14:38:58Z sdm_ahoerning
  */
-@Deprecated
 public class BreadcrumbAwareFlowExecutionRepository extends DefaultFlowExecutionRepository {
 
     /**
