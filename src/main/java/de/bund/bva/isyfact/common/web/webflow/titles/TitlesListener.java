@@ -65,7 +65,6 @@ import de.bund.bva.isyfact.logging.LogKategorie;
  * @author Capgemini, Tobias Waller
  * @version $Id: TitlesListener.java 143397 2015-07-30 08:49:32Z sdm_apheino $
  */
-@Deprecated
 public class TitlesListener extends FlowExecutionListenerAdapter {
 
     /**
