@@ -56,9 +56,7 @@ public class WebflowExecutorConfiguration extends AbstractFlowConfiguration {
                 .addFlowExecutionListener(
                     (FlowExecutionListener) getApplicationContext().getBean("facesContextListener"))
                 .addFlowExecutionListener(
-                    (FlowExecutionListener) getApplicationContext().getBean("securityListener"))
-                .addFlowExecutionListener(
-                    (FlowExecutionListener) getApplicationContext().getBean("flowExecutionTitlesListener"));
+                    (FlowExecutionListener) getApplicationContext().getBean("securityListener"));
 
         // Benutze spezifische Werte nur, falls diese konfiguriert wurden. Ansonsten wird automatisch der
         // Spring-Standard verwendet.
