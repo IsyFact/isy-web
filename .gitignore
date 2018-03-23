@@ -19,8 +19,6 @@ hs_err_pid*
 
 # Ignore Maven-specific files
 target/
-build/
 
-www/
-node/
-node_modules/
+# Ignore Grunt-specific files
+target-grunt/
