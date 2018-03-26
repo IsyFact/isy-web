@@ -207,7 +207,7 @@ public class DataTableInMemoryController<I extends DataTableItem, M extends Data
 
         // 1. filter according to filter model
         List<I> items = filterDisplayItems(allItems, request.getFilter());
-        // actualize count
+        // update count
         result.setItemCount(items.size());
 
         // 2. sort according to sort model

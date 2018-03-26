@@ -1,4 +1,5 @@
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -6,51 +7,57 @@
                 template="/WEB-INF/gui/common/layout/basis.xhtml">
 
     <ui:param name="nonJsModal"
-              value="#{(not globalConfigurationModel.jsEnabled) and (basisModel.showModalDialog)}" />
+              value="#{(not globalConfigurationModel.jsEnabled) and (basisModel.showModalDialog)}"/>
 
     <!-- Die Seitentoolbar -->
     <ui:define name="seitentoolbar">
-		    <ui:include src="/WEB-INF/gui/common/seitenelemente/seitentoolbar.xhtml" />
+        <ui:include src="/WEB-INF/gui/common/seitenelemente/seitentoolbar.xhtml"/>
     </ui:define>
 
     <!-- Die Struktur der Applikationsseite. -->
     <ui:define name="inhalt">
 
         <div class="row row-df">
-            <ui:fragment rendered="#{not nonJsModal and basisModel.vertikalToolbarModel.anzeigen}">
-                <div class="col-lg-2 linksNavigationAbstandRechts">
-                    <h:form id="linksnavigationForm">
-                        <ui:include src="/WEB-INF/gui/common/seitenelemente/linksnavigation.xhtml" />
-                    </h:form>
-                </div>
-            </ui:fragment>
+            <nav id="sidebar">
+                <ui:fragment rendered="#{not nonJsModal and basisModel.vertikalToolbarModel.anzeigen}">
+                    <div class="col-lg-2 linksNavigationAbstandRechts">
+                        <h:form id="linksnavigationForm">
+                            <ui:include src="/WEB-INF/gui/common/seitenelemente/linksnavigation.xhtml"/>
+                        </h:form>
+                    </div>
+                </ui:fragment>
+            </nav>
 
-            <div class="#{not nonJsModal and basisModel.vertikalToolbarModel.anzeigen ? 'col-lg-10' : 'col-lg-12'}">
+            <div id="main"
+                 class="#{not nonJsModal and basisModel.vertikalToolbarModel.anzeigen ? 'col-lg-10' : 'col-lg-12'}">
 
                 <c:if test="#{(globalConfigurationModel.jsEnabled) or (not basisModel.showModalDialog)}">
                     <h:form id="inhaltsbereichForm"
                             enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
                         <!-- FocusOnload. -->
-                        <h:inputHidden id="focusOnloadActive" value="#{globalFlowModel.focusOnloadActive}" />
+                        <h:inputHidden id="focusOnloadActive" value="#{globalFlowModel.focusOnloadActive}"/>
 
-                        <c:if test="#{not basisModel.showModalDialog}">
-                            <ui:include src="/WEB-INF/gui/common/seitenelemente/messages.xhtml" />
+                        <c:if test="#{globalFlowModel.enableCollapsingLinksnavigation}">
+                            <!-- Klappbare Linksnavigation. -->
+                            <ui:include src="/WEB-INF/gui/common/seitenelemente/collapse.xhtml"/>
                         </c:if>
 
-                        <ui:insert name="inhaltsbereich" />
+                        <c:if test="#{not basisModel.showModalDialog}">
+                            <ui:include src="/WEB-INF/gui/common/seitenelemente/messages.xhtml"/>
+                        </c:if>
+
+                        <ui:insert name="inhaltsbereich"/>
                     </h:form>
                 </c:if>
 
                 <c:if test="#{nonJsModal}">
                     <h:form id="modalDialogPlaceholderForm"
                             enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
-                        <ui:insert name="modalDialog" />
+                        <ui:insert name="modalDialog"/>
                     </h:form>
                 </c:if>
 
             </div>
-
-
         </div>
 
     </ui:define>
@@ -60,7 +67,7 @@
             <h:form id="modalDialogPlaceholderForm"
                     enctype="#{globalFlowModel.multipartForm ? 'multipart/form-data' : ''}">
                 <div style="position: relative">
-                    <ui:insert name="modalDialog" />
+                    <ui:insert name="modalDialog"/>
                 </div>
             </h:form>
         </c:if>

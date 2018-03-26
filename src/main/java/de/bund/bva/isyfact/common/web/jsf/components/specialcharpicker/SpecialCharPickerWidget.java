@@ -21,12 +21,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponentBase;
@@ -38,8 +41,6 @@ import com.google.common.collect.TreeMultimap;
 import de.bund.bva.isyfact.common.web.exception.IsyFactTechnicalRuntimeException;
 import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
 
-// TODO: Diese Klasse vermisst Refactoring.
-
 /**
  * Zeigt das Overlay für eine Sonderzeichenliste an.
  */
@@ -47,9 +48,6 @@ public class SpecialCharPickerWidget extends UIComponentBase {
 
     /** Default resource für den Zugriff auf die Sonderzeichen. */
     private static final String DEFAULT_RESOURCE = "/resources/plis-web/sonderzeichen/sonderzeichen.txt";
-
-    /** Trennzeichen für die Sonderzeichen-Mappings. */
-    private static final char SEPARATOR = ';';
 
     /** Das Basiszeichen, das verwendet wird, wenn keines definiert ist. */
     public static final char DEFAULT_BASISZEICHEN = '*';
@@ -62,6 +60,10 @@ public class SpecialCharPickerWidget extends UIComponentBase {
 
     /** Das Mapping für die Sonderzeichen. */
     private transient Multimap<Character, String> basiszeichenZuSonderzeichen;
+
+    private static final Pattern zeichen = Pattern.compile("[^;]+");
+    private static final Pattern zeichenMapping = Pattern.compile("([^;]+);([^;])");
+    private static final Pattern zeichenMappingTitel = Pattern.compile("([^;]+);([^;]?);(.+)");
 
     /**
      * Gibt die Id der Familie der Komponente zurück.
@@ -165,7 +167,7 @@ public class SpecialCharPickerWidget extends UIComponentBase {
      * @return die Liste aller Basiszeichen, nicht null, enthält nicht null.
      */
     public Collection<Character> getBasiszeichenListe() {
-        List<Character> basiszeichenListe = new ArrayList<Character>();
+        List<Character> basiszeichenListe = new ArrayList<>();
         for (Map.Entry<String, SpecialCharPickerMapping> mapping : getSonderzeichenMappings().entrySet()) {
             Character basiszeichen = mapping.getValue().getBasiszeichen();
             String sonderzeichen = mapping.getKey();
@@ -206,94 +208,56 @@ public class SpecialCharPickerWidget extends UIComponentBase {
      * @return das eingelesene Sonderzeichen-Mapping.
      */
     public Map<String, SpecialCharPickerMapping> getSonderzeichenMappings() {
-        if (this.sonderzeichenMapping != null) {
-            return this.sonderzeichenMapping;
+        if (sonderzeichenMapping != null) {
+            return sonderzeichenMapping;
         }
-        InputStream mappingStream = null;
-        BufferedReader reader = null;
-        this.sonderzeichenMapping = new TreeMap<String, SpecialCharPickerMapping>();
-        this.basiszeichenZuSonderzeichen = TreeMultimap.create();
-        try {
-            mappingStream = SpecialCharPickerWidget.class.getResourceAsStream(getResource());
-            if (mappingStream == null) {
-                throw new IllegalStateException("Auf die Ressource " + getResource()
-                    + " kann nicht zugegriffen werden");
+
+        sonderzeichenMapping = new TreeMap<>();
+        basiszeichenZuSonderzeichen = TreeMultimap.create();
+
+        try (InputStream mappingResource = SpecialCharPickerWidget.class.getResourceAsStream(getResource());
+             BufferedReader reader = new BufferedReader(new InputStreamReader(mappingResource, StandardCharsets.UTF_8))) {
+            for(String line = reader.readLine(); line != null; line = reader.readLine()) {
+                String[] mapping = leseMappingZeile(line);
+
+                sonderzeichenMapping.put(mapping[0], new SpecialCharPickerMapping(mapping[1].charAt(0), mapping[2]));
+                basiszeichenZuSonderzeichen.put(mapping[1].charAt(0), mapping[0]);
             }
-            try {
-                reader = new BufferedReader(new InputStreamReader(mappingStream, "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                // wird nicht passieren
-                throw new RuntimeException(e);
-            }
-            while (true) {
-                String line = reader.readLine();
-                if (line == null) {
-                    break;
-                }
-                if (line.length() == 0) {
-                    continue;
-                }
-                String sonderzeichen = line.substring(0, 1);
-                int parsePos = 1;
-                while (parsePos < line.length() && SEPARATOR != line.charAt(parsePos)) {
-                    sonderzeichen += line.charAt(parsePos);
-                    parsePos++;
-                }
-                if (line.length() == parsePos) {
-                    // nur Zeichen, kein Mapping, kein Titel
-                    this.sonderzeichenMapping.put(sonderzeichen, new SpecialCharPickerMapping(
-                        DEFAULT_BASISZEICHEN, null));
-                    this.basiszeichenZuSonderzeichen.put(DEFAULT_BASISZEICHEN, sonderzeichen);
-                    continue;
-                }
-                // parsePos zeigt auf erstes Semikolon
-                parsePos++;
-                // parsePos zeigt auf basiszeichen
-                Character basiszeichen = line.charAt(parsePos);
-                parsePos++;
-                String titel;
-                if (SEPARATOR == basiszeichen) {
-                    basiszeichen = DEFAULT_BASISZEICHEN;
-                } else {
-                    parsePos++;
-                }
-                if (line.length() <= parsePos) {
-                    // nur Zeichen und Mapping, kein Titel
-                    titel = null;
-                } else {
-                    if (SEPARATOR != line.charAt(parsePos - 1)) {
-                        throw new IllegalStateException("Trennzeichen" + SEPARATOR + " als " + parsePos
-                            + ". Zeichen der Zeile" + line + " erwartet");
-                    }
-                    titel = line.substring(parsePos);
-                }
-                this.sonderzeichenMapping.put(sonderzeichen,
-                    new SpecialCharPickerMapping(basiszeichen, titel));
-                this.basiszeichenZuSonderzeichen.put(basiszeichen, sonderzeichen);
-            }
-        } catch (IOException e) {
-            throw new IllegalStateException("Konnte sonderzeichen-Mapping nicht einlesen", e);
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (Exception e) {
-                    throw new IsyFactTechnicalRuntimeException(
-                        FehlerSchluessel.ALLGEMEINER_TECHNISCHER_FEHLER_MIT_PARAMETER, e,
-                        "Fehler beim schließen des Streams");
-                }
-            }
-            if (mappingStream != null) {
-                try {
-                    mappingStream.close();
-                } catch (Exception e) {
-                    throw new IsyFactTechnicalRuntimeException(
-                        FehlerSchluessel.ALLGEMEINER_TECHNISCHER_FEHLER_MIT_PARAMETER, e,
-                        "Fehler beim schließen des Streams");
-                }
-            }
+
+        } catch (NullPointerException | IOException e) {
+            throw new IllegalStateException("Konnte Sonderzeichen-Mapping nicht einlesen", e);
         }
-        return this.sonderzeichenMapping;
+
+        return sonderzeichenMapping;
+    }
+
+    private String[] leseMappingZeile(String zeile) {
+
+        String[] mapping = new String[3];
+        mapping[1] = "" + DEFAULT_BASISZEICHEN;
+
+        if (";".equals(zeile)) {
+            mapping[0] = ";";
+            return mapping;
+        }
+
+        Matcher matcher;
+        if ((matcher = zeichen.matcher(zeile)).matches()) {
+            mapping[0] = matcher.group();
+        } else if ((matcher = zeichenMapping.matcher(zeile)).matches()) {
+            mapping[0] = matcher.group(1);
+            mapping[1] = matcher.group(2);
+        } else if ((matcher = zeichenMappingTitel.matcher(zeile)).matches()) {
+            mapping[0] = matcher.group(1);
+            if (!matcher.group(2).isEmpty()) {
+                mapping[1] = matcher.group(2);
+            }
+            mapping[2] = matcher.group(3);
+        } else {
+            throw new IllegalStateException("Die Zeile <" + zeile + "> ist nicht im erwarteten Format <Sonderzeichen>[;<Basiszeichen>][;<Titel>]");
+        }
+
+        return mapping;
     }
 
     public Multimap<Character, String> getBasiszeichenZuSonderzeichen() {

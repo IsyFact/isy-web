@@ -15,8 +15,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
-		
-        //clean tmp and output directories
+
         clean: {
             build: {
                 src: ["www/*"]
@@ -42,18 +41,20 @@ module.exports = function (grunt) {
 				files: [
 					{src: 'src/main/resources/META-INF/resources/js/onload.js', dest: 'www/onload.debug.js'},
 					{src: 'src/main/resources/META-INF/resources/js/specialcharpicker.js', dest: 'www/specialcharpicker.debug.js'},
-					{src: 'src/main/resources/META-INF/resources/js/tastatursteuerung.js', dest: 'www/tastatursteuerung.debug.js'}
+					{src: 'src/main/resources/META-INF/resources/js/tastatursteuerung.js', dest: 'www/tastatursteuerung.debug.js'},
+                    {src: 'src/main/resources/META-INF/resources/js/sidebar-collapse.js', dest: 'www/sidebar-collapse.debug.js'}
 				]
 			},
-			
-			toproject: {
-				files: [
-					{src: 'www/onload.js', dest: '../target/classes/META-INF/resources/js/onload.js'},
-					{src: 'www/specialcharpicker.js',dest: '../target/classes/META-INF/resources/js/specialcharpicker.js'},
-					{src: 'www/tastatursteuerung.js', dest: '../target/classes/META-INF/resources/js/tastatursteuerung.js'},
-					{src: 'www/styles.css', dest: '../src/main/resources/META-INF/resources/css/styles.css'}
-				]
-			}    			
+
+            toproject: {
+                files: [
+                    {src: 'www/onload.js', dest: 'target/classes/META-INF/resources/js/onload.js'},
+                    {src: 'www/specialcharpicker.js',dest: 'target/classes/META-INF/resources/js/specialcharpicker.js'},
+                    {src: 'www/tastatursteuerung.js', dest: 'target/classes/META-INF/resources/js/tastatursteuerung.js'},
+                    {src: 'www/sidebar-collapse.js', dest: 'target/classes/META-INF/resources/js/sidebar-collapse.js'},
+                    {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
+                ]
+            }
 		},
 
         // Uglify
@@ -71,28 +72,32 @@ module.exports = function (grunt) {
                     'www/specialcharpicker.js':['www/specialcharpicker.debug.js']
                 }
             },
+            collapse: {
+                files: {
+                    'www/sidebar-collapse.js':['www/sidebar-collapse.debug.js']
+                }
+            },
 			tastatur: {
                 files: {
                     'www/tastatursteuerung.js':['www/tastatursteuerung.debug.js']
                 }
-            },
+            }
         },
-		
-		// Styles um CSS für Charpicker erweitern
+
 		less: {
-            production: {
+            specialcharpicker: {
                 options: {
                     cleancss: true,
                     sourceMap: false
                 },
                 files: {
-                    "www/styles.css": "src/main/resources/grunt/less/styles.less",
+                    "www/specialcharpicker.css": "src/main/resources/grunt/css/specialcharpicker.css"
                 }
             }
-        },
+        }
 		
     });
 	
-    grunt.registerTask('default', ['clean', 'jshint', 'copy:towww','uglify','less','copy:toproject','less']);
+    grunt.registerTask('default', ['clean', 'jshint', 'copy:towww','uglify','less','copy:toproject']);
 
 };

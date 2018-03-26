@@ -23,11 +23,6 @@ package de.bund.bva.isyfact.common.web.konstanten;
 public abstract class KonfigurationSchluessel {
 
     /**
-     * Der Farbwert der Anwendungsgruppe.
-     */
-    public static final String GUI_ANWENDUNGSGRUPPE_FARBWERT = "gui.anwendungsgrupppe.farbwert";
-
-    /**
      * Der zu inkludierende Nutzerbereich.
      */
     public static final String GUI_HEADER_NUTZERBEREICH_XHTML_SRC = "gui.header.nutzerbereich.xhtml.src";
@@ -79,5 +74,20 @@ public abstract class KonfigurationSchluessel {
      */
     public static final String GUI_DATUMSANGABE_JAHRESZAHLEN_ERGAENZEN_GRENZE =
         "gui.datumsangabe.jahreszahlen.ergaenzen.grenze";
+
+    /**
+     * Schluesselwert fuer die Extraktion der Anwendungsgruppen-Ids aus der Konfigurationsdatei.
+     */
+    public static final String GUI_ANWENDUNGSGRUPPEN_IDS = "gui.anwendungsgruppen.ids";
+
+    /**
+     * Schluesselwert fuer die Extraktion der Anwendungsgruppen-URLs aus der Konfigurationsdatei.
+     */
+    public static final String GUI_ANWENDUNGSGRUPPEN_URLS = "gui.anwendungsgruppen.urls";
+
+    /**
+     * Der Farbwert der Anwendungsgruppe.
+     */
+    public static final String GUI_ANWENDUNGSGRUPPE_FARBWERT = "gui.anwendungsgruppe.farbwert";
 
 }

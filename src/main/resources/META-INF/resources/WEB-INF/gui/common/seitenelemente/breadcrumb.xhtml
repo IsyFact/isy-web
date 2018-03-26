@@ -7,7 +7,7 @@
 	<ui:param name="cssKlasseNavbarColor"
 		value="#{not empty headline or not empty breadcrumb ? 'navbar-color navbar-color-content' : 'navbar-color'}" />
 	<div class="#{cssKlasseNavbarColor}"
-		style="background-color: #{headerHelper.ermittleFarbwertAnwendungsgruppe()}">
+		style="background-color: #{headerHelper.ermittleFarbwertAnwendungsgruppe(request)}">
 		<!-- Headline -->
 
 		<ui:fragment rendered="#{not empty headline}">
