@@ -52,7 +52,7 @@
     <bean id="jsfHelper" class="de.bund.bva.isyfact.common.web.global.JsfHelper" />
 
     <bean id="headerHelper" class="de.bund.bva.isyfact.common.web.global.HeaderHelper">
-        <property name="konfiguration" ref="konfiguration"/>
+        <constructor-arg ref="konfiguration"/>
     </bean>
     
     <bean id="localeConfiguration" class="de.bund.bva.isyfact.common.web.locale.LocaleConfiguration">

@@ -41,18 +41,20 @@ module.exports = function (grunt) {
 				files: [
 					{src: 'src/main/resources/META-INF/resources/js/onload.js', dest: 'www/onload.debug.js'},
 					{src: 'src/main/resources/META-INF/resources/js/specialcharpicker.js', dest: 'www/specialcharpicker.debug.js'},
-					{src: 'src/main/resources/META-INF/resources/js/tastatursteuerung.js', dest: 'www/tastatursteuerung.debug.js'}
+					{src: 'src/main/resources/META-INF/resources/js/tastatursteuerung.js', dest: 'www/tastatursteuerung.debug.js'},
+                    {src: 'src/main/resources/META-INF/resources/js/sidebar-collapse.js', dest: 'www/sidebar-collapse.debug.js'}
 				]
 			},
-			
-			toproject: {
-				files: [
-					{src: 'www/onload.js', dest: 'target/classes/META-INF/resources/js/onload.js'},
-					{src: 'www/specialcharpicker.js',dest: 'target/classes/META-INF/resources/js/specialcharpicker.js'},
-					{src: 'www/tastatursteuerung.js', dest: 'target/classes/META-INF/resources/js/tastatursteuerung.js'},
-					{src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
-				]
-			}    			
+
+            toproject: {
+                files: [
+                    {src: 'www/onload.js', dest: 'target/classes/META-INF/resources/js/onload.js'},
+                    {src: 'www/specialcharpicker.js',dest: 'target/classes/META-INF/resources/js/specialcharpicker.js'},
+                    {src: 'www/tastatursteuerung.js', dest: 'target/classes/META-INF/resources/js/tastatursteuerung.js'},
+                    {src: 'www/sidebar-collapse.js', dest: 'target/classes/META-INF/resources/js/sidebar-collapse.js'},
+                    {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
+                ]
+            }
 		},
 
         // Uglify
@@ -68,6 +70,11 @@ module.exports = function (grunt) {
             picker: {
                 files: {
                     'www/specialcharpicker.js':['www/specialcharpicker.debug.js']
+                }
+            },
+            collapse: {
+                files: {
+                    'www/sidebar-collapse.js':['www/sidebar-collapse.debug.js']
                 }
             },
 			tastatur: {
