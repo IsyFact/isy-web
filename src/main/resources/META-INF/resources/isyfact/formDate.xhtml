@@ -69,6 +69,11 @@
 
     <composite:implementation>
 
+        <!-- In dieses Feld wird die Grenze zum Ergänzen von zweistelligen Jahreszahlen bei Datumsangaben gespeichert.
+             Der Wert wird aus der Konfiguration ausgelesen. -->
+        <input type="hidden" id="formDateJahresZahlenErgaenzenGrenze"
+               value="#{isyWebKonfigurationHelper.getGuiDatumsangabeJahreszahlenErgaenzenGrenze()}" />
+
         <!-- Ob Validierungsfehler existieren. -->
         <ui:param name="validationMessages"
                 value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
