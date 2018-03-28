@@ -1,5 +1,18 @@
 # v4.6.0
+- `IFS-55`: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
+- `IFS-58`: Alte Breadcrumb-Implementierung als Deprecated erklärt.
+- `IFS-74`: isy-style aus Build herausgelöst. Die isy-style muss als zusätzliche Maven-Dependency eingebunden werden.
+- `IFS-82`: Ausrichtung von Tabelleninhalten mittig, links- und rechtsbündig möglich.
+- `IFS-86`: GUI-Performance-Optimmierung.
+- `IFS-87`: Ajax-Funktionalität im buttonToolbar.xhtml deaktivierbar gemacht.
+- `IFS-91`: Patch für JSF Composite Components und JSTL-Tags.
+- `IFS-93`: Rendering von Eingabefeldern im Readonly-Modus auf Label geändert.
 - `IFS-94`: Neue Widgets: formsNumericInput und formNumericInputWithFourEyes.
+- `IFS-97`: Einklappbare Linksnavigation.
+- `IFS-100`: Cache-Period auf 24 Stunden gesetzt.
+- `IFS-101`: Tab-Widgets blockieren bei Tab-Wechsel.
+- `IFS-107`: Konfiguration von Farben, Texten und Logos. 
+- `IFS-112`: Grunt Maven Plugin durch Frontend Maven Plugin ersetzt.
 
 # v4.5.2
 - `IFS-92`: Austausch des Icon-Fonts durch Font Awesome.
