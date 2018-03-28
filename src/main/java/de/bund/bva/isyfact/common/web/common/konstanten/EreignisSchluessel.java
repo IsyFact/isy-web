@@ -52,4 +52,21 @@ public class EreignisSchluessel {
     /** behalte Sitemap Daten für: {} */
     public static final String E_SITEMAP_DATEN_ERHALT = "EPLWEB00010";
 
+    /**
+     * Rollen für die Applikationsgruppe '{}' wurden aufgrund einer oder mehrerer Anwendungen innerhalb der
+     * Gruppe ignoriert.
+     */
+    public static final String E_NAVMENU_ROLLEN_IGNORE = "EPLWEB00011";
+
+    /**
+     * Die Navigation konnte nicht geladen werden, weil der benötigte Schlüsselkatalog nicht abgerufen werden
+     * konnte.
+     */
+    public static final String E_NAVMENU_SCHLUSSELKATALOG_NICHT_VORHANDEN = "EPLWEB00012";
+
+    /**
+     * Beim Laden der Navigation wurde versucht, die Eigenschaft '{}' auszulesen. Dabei konnte der Wert '{}'
+     * nicht in eine Zahl umgewandelt werden. Es wurde auf einen Standardwert zurückgegriffen.
+     */
+    public static final String E_NAVMENU_SCHLUSSELKATALOG_WERT_NICHT_KORREKT_AUSGELESEN = "EPLWEB00013";
 }

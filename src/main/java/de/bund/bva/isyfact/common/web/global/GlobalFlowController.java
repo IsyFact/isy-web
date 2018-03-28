@@ -25,6 +25,7 @@ import org.springframework.webflow.definition.FlowDefinition;
 import org.springframework.webflow.execution.RequestContextHolder;
 
 import de.bund.bva.isyfact.common.web.exception.web.ErrorController;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller.NavigationMenuController;
 import de.bund.bva.isyfact.common.web.validation.ValidationController;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
@@ -58,6 +59,11 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
      */
     private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
 
+    /**
+     * Zugriff auf navigationMenuController
+     */
+    private NavigationMenuController navigationMenuController;
+
     @Override
     public void initialisiereModel(GlobalFlowModel model) {
 
@@ -65,12 +71,13 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
         model.setAjaxErrorMessage(this.errorController.getAjaxErrorMessage());
         model.setAjaxErrorMessageTitle(this.errorController.getAjaxErrorMessageTitle());
 
+        this.navigationMenuController.initialisiereNavigationMenue();
         // Resource-Bundles initialisieren
         initialisiereResourcesBundleCurrentFlow(model);
 
         // Benutzernamen merken
-        model.setSachbearbeiterName(this.aufrufKontextVerwalter.getAufrufKontext()
-            .getDurchfuehrenderSachbearbeiterName());
+        model.setSachbearbeiterName(
+            this.aufrufKontextVerwalter.getAufrufKontext().getDurchfuehrenderSachbearbeiterName());
 
         // Beim Laden soll ein bestimmtes Element des Inhaltsbereichs fokussiert werden
         model.setFocusOnloadActive(true);
@@ -89,9 +96,8 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
         // Laden der Maskentexte für den aktuellen Flow
         ResourceBundle resourcesBundleCurrentFlow = null;
         try {
-            resourcesBundleCurrentFlow =
-                ResourceBundle
-                    .getBundle("resources.nachrichten.maskentexte." + flowName, Locale.getDefault());
+            resourcesBundleCurrentFlow = ResourceBundle
+                .getBundle("resources.nachrichten.maskentexte." + flowName, Locale.getDefault());
         } catch (MissingResourceException e) {
             // Wenn keine Ressource gefunden wurde ist das in Ordnung.
         }
@@ -130,6 +136,11 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
     @Required
     public void setAufrufKontextVerwalter(AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+    }
+
+    @Required
+    public void setNavigationMenuController(NavigationMenuController navigationMenuController) {
+        this.navigationMenuController = navigationMenuController;
     }
 
     @Override

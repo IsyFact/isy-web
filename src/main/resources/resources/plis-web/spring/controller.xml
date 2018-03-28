@@ -52,7 +52,7 @@
     <bean id="jsfHelper" class="de.bund.bva.isyfact.common.web.global.JsfHelper" />
 
     <bean id="headerHelper" class="de.bund.bva.isyfact.common.web.global.HeaderHelper">
-        <property name="konfiguration" ref="konfiguration"/>
+        <constructor-arg ref="konfiguration"/>
     </bean>
     
     <bean id="localeConfiguration" class="de.bund.bva.isyfact.common.web.locale.LocaleConfiguration">
@@ -77,12 +77,18 @@
         <property name="validationController" ref="validationController" />
         <property name="errorController" ref="errorController" />
         <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter" />
+        <property name="navigationMenuController" ref="navigationMenuController" />
     </bean>
 
     <bean id="basisController" class="de.bund.bva.isyfact.common.web.layout.BasisController"
         parent="abstractGuiController">
         <aop:scoped-proxy proxy-target-class="true"/>
     </bean>
+      
+    <bean id="navigationMenuController" class="de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller.NavigationMenuController">
+      <!-- Die konkrete Strategie zum Auslesen der Navigation muss als Bean in der jeweiligen Anwendung bereitgestellt werden! -->
+      <property name="navigationMenuGenerierenStrategie" ref="navigationMenuGenerierenStrategie"/>
+    </bean>    
 
     <bean id="detailseiteController" class="de.bund.bva.isyfact.common.web.layout.DetailseiteController"
         parent="abstractGuiController">
@@ -104,7 +110,7 @@
         <property name="konfiguration" ref="konfiguration" />
         <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter" />
     </bean>
-
+    
     <bean id="quicklinksController" class="de.bund.bva.isyfact.common.web.layout.QuicklinksController"
         parent="abstractGuiController">        
         <aop:scoped-proxy proxy-target-class="true"/>
