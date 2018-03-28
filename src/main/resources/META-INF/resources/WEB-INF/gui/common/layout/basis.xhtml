@@ -26,11 +26,11 @@ vorhanden ist. -->
         <meta name="description" content="" />
         <meta name="HandheldFriendly" content="True" />
         <meta name="viewport" content="width=device-width" />
-        
+
         <ui:fragment>
             <h:outputStylesheet name="css/specialcharpicker.css" />
-            <h:outputStylesheet
-            rendered="#{not basisModel.showPrintView}" name="css/styles.css" media="screen" />
+            <h:outputStylesheet rendered="#{not basisModel.showPrintView}" name="css/styles.css" media="screen" />
+            <link rel="stylesheet" href="${request.contextPath}/app/resources/color.css" type="text/css" media="screen" />
             <!-- Custom Style Einbinden, falls vorhanden -->
             <h:outputStylesheet 
             rendered="#{not empty facesContext.externalContext.getResource('/resources/default/css/custom-styles.css') and not basisModel.showPrintView}"

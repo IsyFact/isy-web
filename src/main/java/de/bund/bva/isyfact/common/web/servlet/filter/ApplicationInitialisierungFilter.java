@@ -260,7 +260,7 @@ public class ApplicationInitialisierungFilter implements Filter {
      * @return ist der gesamte aktuelle Anfrage-Url-Pfad.
      */
     private String getGesamteRequestUrl(HttpServletRequest request) {
-        String gesamteUri = request.getRequestURI().toString();
+        String gesamteUri = request.getRequestURI();
         if (!Strings.isNullOrEmpty(request.getQueryString())) {
             gesamteUri += "?" + request.getQueryString();
         }

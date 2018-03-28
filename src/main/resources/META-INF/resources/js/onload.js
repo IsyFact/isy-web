@@ -664,10 +664,16 @@ function refreshFunctions() {
         type: 'image'
     });
     $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)').addClass('rf-imagepopup_ajaxtoken');
-
+    
+    
+    
     // --------------------------------------------------------
     // Datepicker
     // --------------------------------------------------------
+    
+    //Lese den Grenzwert zum Vervollständigen von zweistelligen Jahreszahlen aus. Wird weiter unten verwendet.
+	var zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
+	
     var $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)');
     $datepickers.each(function() {
         $(this).datepicker({
@@ -700,6 +706,18 @@ function refreshFunctions() {
                         $(this).parent().datepicker('update');
                     }                    
                 });
+        
+        //Für die eigentlichen Input-Felder wird eine Funktion registriert, die beim Verlassen des Feldes
+        //zweistellige Jahresangaben automatisch (entsprechend eines konfigurierten Grenz-Wertes) ergänzt.
+        //Falls die Grenze -1 ist, bedeutet das, dass der Wert in der Konfiguration überhaupt nicht hinterlegt ist.
+        //Daher zunächst die Prüfung darauf und nur etwas tun, falls der Wert konfiguriert ist.
+        if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
+			var $datumInputFeld = $(this).find('input');
+			$datumInputFeld.focusout(function(event){
+				datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
+			});
+        }
+
     });
 
     $datepickers.on('changeDate', function(ev){
@@ -863,12 +881,12 @@ function refreshFunctions() {
 					id = $listpickerField.val().substring(0, $listpickerField.val().indexOf(" - "));
 				}else{
 					id = $listpickerField.val();
-				}
+            }
 				$listpickerContent.find("tbody tr[id='" + id + "']").addClass("active");
 				$listpickerContent.find("tbody tr").not("[id='" + id + "']").removeClass("active");
 			}
 
-		});
+        });
 
 
         // Klicks abfangen und Feld ggf. schließen
@@ -1019,7 +1037,7 @@ function refreshFunctions() {
         if(listpickerSchluesselwertSpalte > 1){
             $listpickerField.focusout(function(){
 				listpickerLoeseSchluesselAuf($listpickerField, listpickerSchluesselwertSpalte);
-            });
+    });
             
             //Wenn das Feld den Fokus erhält, müssen wir maskieren, denn sonst wäre der
             //aufgelöste Schlüssel immer noch im Feld und der Anwender müsste das zuerst manuell entfernen.
@@ -1089,7 +1107,7 @@ function refreshFunctions() {
             });
         });
     });
-    
+        
     // --------------------------------------------------------
     // Button Inject POST
     // --------------------------------------------------------
@@ -2012,4 +2030,25 @@ function refreshDatatableFilterRow() {
         });
     });
 }
+
+//Die Funktion ergänzt zweistellige Jahresangaben innerhalb eines Datum-Inputfeld.
+datumErgaenzen = function(inputFeld, grenze) {
+	"use strict";
+	//Der Grenzwert wird auf das aktuelle Jahr addiert, damit der resultierende Wert im Laufe der Jahre mitläuft.
+	var aktuellesJahr = parseInt(new Date().getFullYear().toString().substring(2, 4));
+	grenze = (aktuellesJahr + parseInt(grenze)).toString();
+	var aktuelleWerte = inputFeld.val().split('.');	
+	if(aktuelleWerte.length === 3 && aktuelleWerte[2].replace(/_/g, '').length === 2){
+		var praefix;
+		var jahresZahl = aktuelleWerte[2].replace(/_/g, '');
+		if(jahresZahl <= grenze){
+			praefix = "20";
+		}else if(jahresZahl > grenze){
+			praefix = "19";
+		}
+		var ergebnis = praefix + jahresZahl;
+		aktuelleWerte[2] = ergebnis;
+		inputFeld.val(aktuelleWerte[0] + "." + aktuelleWerte[1] + "." + aktuelleWerte[2]);
+	}
+}; 
 
