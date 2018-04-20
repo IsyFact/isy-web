@@ -4,14 +4,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-compress');
-	grunt.loadNpmTasks('grunt-write-bower-json');
-	grunt.loadNpmTasks('grunt-rename');
-	grunt.loadNpmTasks('grunt-artifactory-artifact');
-	
+
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
