@@ -664,16 +664,16 @@ function refreshFunctions() {
         type: 'image'
     });
     $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)').addClass('rf-imagepopup_ajaxtoken');
-    
-    
-    
+
+
+
     // --------------------------------------------------------
     // Datepicker
     // --------------------------------------------------------
-    
+
     //Lese den Grenzwert zum Vervollständigen von zweistelligen Jahreszahlen aus. Wird weiter unten verwendet.
-	var zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
-	
+    var zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
+
     var $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)');
     $datepickers.each(function() {
         $(this).datepicker({
@@ -683,39 +683,45 @@ function refreshFunctions() {
             todayHighlight: true,
             autoclose: true,
             componentButtonOnly: true,
-        });       
-        
+        });
+
         $(this).children("a").click(
-                function() {// Öffnen eines Datepickers
-                    var dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
-                    var inputField = $(this).prev();
-                    var date = inputField.val().split('.');
-                    if(!inputField.val().match(dateReg)) {// wenn kein Datum im InputField gesetzt ist, 
-                        // soll auch kein Datum als 'active' im datepicker gesetzt werden.
-                        $(this).parent().datepicker('setDate', null);                    
-                    } else if (date[2] < 70) {// ein Datum mit dieser Jahreszahl würde
-                        // im Datepicker einen Fehler
-                        // verursachen
-                        // setze Fokus des Datepickers auf das aktuelle Datum
-                        var currentDate = new Date();
-                        var dateCurrent = currentDate.getDate();
-                        var month = currentDate.getMonth() + 1;
-                        var year = currentDate.getFullYear();
-                        var dateString = dateCurrent.toString() + '.' + month.toString() + '.' + year.toString();
-                        $(this).parent().datepicker('setDate', dateString);
-                        $(this).parent().datepicker('update');
-                    }                    
-                });
-        
+            function() {// Öffnen eines Datepickers
+                var dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
+                var inputField = $(this).prev();
+                var date = inputField.val().split('.');
+
+                // eleminiere die Unterstrich-Platzhalterzeichen
+                var placeholderReg = /_/gi;
+                date[0] = date[0].replace(placeholderReg, "");
+                date[1] = date[1].replace(placeholderReg, "");
+                date[2] = date[2].replace(placeholderReg, "");
+
+                if (date[0] === "99") {
+                    // Secret-Code: 99 = setze Fokus des Datepickers auf das aktuelle Datum
+                    var currentDate = new Date();
+                    var dateCurrent = currentDate.getDate();
+                    var month = currentDate.getMonth() + 1;
+                    var year = currentDate.getFullYear();
+                    var dateString = dateCurrent.toString() + '.' + month.toString() + '.' + year.toString();
+                    $(this).parent().datepicker('setDate', dateString);
+                    $(this).parent().datepicker('update');
+                } else{
+                    // uebernehme das manuell eingegebene Datum als Datumswert für den Datepicker
+                    $(this).parent().datepicker();
+                    $(this).parent().datepicker('update');
+                }
+            });
+
         //Für die eigentlichen Input-Felder wird eine Funktion registriert, die beim Verlassen des Feldes
         //zweistellige Jahresangaben automatisch (entsprechend eines konfigurierten Grenz-Wertes) ergänzt.
         //Falls die Grenze -1 ist, bedeutet das, dass der Wert in der Konfiguration überhaupt nicht hinterlegt ist.
         //Daher zunächst die Prüfung darauf und nur etwas tun, falls der Wert konfiguriert ist.
         if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
-			var $datumInputFeld = $(this).find('input');
-			$datumInputFeld.focusout(function(event){
-				datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
-			});
+            var $datumInputFeld = $(this).find('input');
+            $datumInputFeld.focusout(function(event){
+                datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
+            });
         }
 
     });
