@@ -19,8 +19,8 @@ package de.bund.bva.isyfact.common.web.global;
 import java.io.Serializable;
 
 /**
- * Das globale Model für Einstellungen der Applikationen. Enthält z.B. Informationen über die Aktivierung von
- * JavaScript oder die Web-Browser-Version.
+ * Das globale Model für Einstellungen der Applikationen. Enthält Informationen über die Aktivierung von
+ * JavaScript.
  *
  * Anzeigespezifische/Flowspezifische Einstellungen befinden sich nicht hier sondern im
  * {@link GlobalFlowModel}.
@@ -40,11 +40,6 @@ public class GlobalConfigurationModel implements Serializable {
      */
     private boolean jsEnabled;
 
-    /**
-     * Die Web-Browser-Version.
-     */
-    private WebBrowserVersion webBrowserVersion = WebBrowserVersion.SONSTIGER_WEBBROWSER;
-
     public boolean isJsEnabled() {
         return this.jsEnabled;
     }
@@ -52,13 +47,4 @@ public class GlobalConfigurationModel implements Serializable {
     public void setJsEnabled(boolean jsEnabled) {
         this.jsEnabled = jsEnabled;
     }
-
-    public WebBrowserVersion getWebBrowserVersion() {
-        return this.webBrowserVersion;
-    }
-
-    public void setWebBrowserVersion(WebBrowserVersion webBrowserVersion) {
-        this.webBrowserVersion = webBrowserVersion;
-    }
-
 }
