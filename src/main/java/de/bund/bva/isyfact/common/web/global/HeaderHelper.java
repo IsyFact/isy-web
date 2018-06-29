@@ -27,9 +27,12 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
+import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
+import org.springframework.webflow.context.ExternalContextHolder;
+import org.springframework.webflow.core.collection.SharedAttributeMap;
 
 /**
  * Helper-Klasse für den Header.
@@ -38,7 +41,7 @@ public class HeaderHelper {
 
     /**
      * Der Farbwert, der standardmäßig gesetzt wird, wenn sich anhand des Konfiguration kein
-     * Farbwert ermitteln lässt. Siehe {@link #ermittleFarbwertAnwendungsgruppe(HttpServletRequest)}.
+     * Farbwert ermitteln lässt. Siehe {@link #ermittleFarbwertAnwendungsgruppe()}.
      */
     private static final String DEFAULT_FARBWERT = "#337299";
 
@@ -76,20 +79,24 @@ public class HeaderHelper {
      * das in der Session abgelegt ist. Genauer wird der Wert der aktiven {@link Applikationsgruppe} genommen. Sollte
      * (theoretisch) keine {@link Applikationsgruppe} aktiv sein, dann wird "#337299" verwendet.
      *
-     * @param request ist der {@link HttpServletRequest}
      * @return der Farbwert der Anwendungsgruppe
      */
-    public String ermittleFarbwertAnwendungsgruppe(HttpServletRequest request) {
-        String flowname = getFlownameFromRequest(request);
-        String konfigValue =
-            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPE_FARBWERT);
-
-        if (konfigValue != null) {
-            return konfigValue;
-        } else {
-            return konfiguration
-                .getAsString(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPE_FARBWERT, DEFAULT_FARBWERT);
+    public String ermittleFarbwertAnwendungsgruppe() {
+        SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
+        synchronized (sessionMap.getMutex()) {
+            NavigationMenuModel navigationMenuModel =
+                (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
+            if (navigationMenuModel != null) {
+                List<Applikationsgruppe> applikationListe = navigationMenuModel.getApplikationsListe();
+                for (Applikationsgruppe applikation : applikationListe) {
+                    if (applikation.isAktiv()) {
+                        return applikation.getFarbe();
+                    }
+                }
+            }
         }
+
+        return DEFAULT_FARBWERT;
     }
 
     /**
