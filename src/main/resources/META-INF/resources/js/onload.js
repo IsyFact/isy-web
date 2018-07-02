@@ -1,6 +1,8 @@
 $(document).ready(function () {
     'use strict';
 
+    // Reaktion auf AJAX Requests
+    // jsf = JSF JavaScript Library  von SUN Microsystems
     if (typeof(jsf) != "undefined") {
         // --------------------------------------------------------
         // Fehlerbehandlung
