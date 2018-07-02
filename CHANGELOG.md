@@ -1,3 +1,6 @@
+# v4.7.0
+- `IFS-153`: Listpicker Positions-Autofocus im Dropdownfenster 
+
 # v4.6.0
 - `IFS-55`: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
 - `IFS-58`: Alte Breadcrumb-Implementierung als Deprecated erklärt.
