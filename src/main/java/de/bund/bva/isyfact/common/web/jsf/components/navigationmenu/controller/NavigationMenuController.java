@@ -50,34 +50,38 @@ public class NavigationMenuController {
      *            Das {@link NavigationMenuModel}, das alle {@link Applikationsgruppe}en enthält.
      */
     private void ermittleAktiveApplikationsgruppe(NavigationMenuModel model) {
-        // Ermittle die aktuelle URL beginnend mit dem Kontext-Pfad (siehe
-        // HttpServletRequest.getContextPath()).
+        if (model == null) {
+            return;
+        }
+
+        String aktuelleRelativeUrl = ermittleAktuelleUrlMitKontextPfad();
+
+        boolean treffer = false;
+        for (Applikationsgruppe app : model.getApplikationsListe()) {
+            app.setAktiv(false);
+            if (!treffer && aktuelleRelativeUrl.equals(app.getLink())) {
+                app.setAktiv(true);
+                treffer = true;
+            }
+            if (!treffer) {
+                for (Anwendung anw : app.getAnwendungen()) {
+                    if (!treffer && aktuelleRelativeUrl.equals(anw.getLink())) {
+                        app.setAktiv(true);
+                        treffer = true;
+                    }
+                }
+            }
+        }
+    }
+
+    private String ermittleAktuelleUrlMitKontextPfad() {
         StringBuffer requestURL =
             ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
                 .getRequestURL();
         String contextPath =
             ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
                 .getContextPath();
-        String aktuelleRelativeUrl =
-            requestURL.substring(requestURL.indexOf(contextPath), requestURL.length());
-        boolean treffer = false;
-        if (model != null) {
-            for (Applikationsgruppe app : model.getApplikationsListe()) {
-                app.setAktiv(false);
-                if (!treffer && aktuelleRelativeUrl.equals(app.getLink())) {
-                    app.setAktiv(true);
-                    treffer = true;
-                }
-                if (!treffer) {
-                    for (Anwendung anw : app.getAnwendungen()) {
-                        if (!treffer && aktuelleRelativeUrl.equals(anw.getLink())) {
-                            app.setAktiv(true);
-                            treffer = true;
-                        }
-                    }
-                }
-            }
-        }
+        return requestURL.substring(requestURL.indexOf(contextPath), requestURL.length());
     }
 
     @Required

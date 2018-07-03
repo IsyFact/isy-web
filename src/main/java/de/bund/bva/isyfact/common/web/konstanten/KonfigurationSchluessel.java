@@ -84,10 +84,4 @@ public abstract class KonfigurationSchluessel {
      * Schluesselwert fuer die Extraktion der Anwendungsgruppen-URLs aus der Konfigurationsdatei.
      */
     public static final String GUI_ANWENDUNGSGRUPPEN_URLS = "gui.anwendungsgruppen.urls";
-
-    /**
-     * Der Farbwert der Anwendungsgruppe.
-     */
-    public static final String GUI_ANWENDUNGSGRUPPE_FARBWERT = "gui.anwendungsgruppe.farbwert";
-
 }
