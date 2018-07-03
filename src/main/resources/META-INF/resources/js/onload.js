@@ -893,7 +893,10 @@ function refreshFunctions() {
 
                 // Cursor im Listpickerwidget auf aktive Zeile setzen
                 var $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
-                scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow.nextAll('tr:visible:first[id]'));
+                scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow);
+            }else{
+                // bei leerem bzw. geloeschtem $listpickerField sind ehem. active-Eintraege zu loeschen
+                $listpickerContent.find("tbody tr[id=").removeClass("active");
             }
 
         });
@@ -2062,4 +2065,3 @@ datumErgaenzen = function (inputFeld, grenze) {
         inputFeld.val(aktuelleWerte[0] + "." + aktuelleWerte[1] + "." + aktuelleWerte[2]);
     }
 };
-
