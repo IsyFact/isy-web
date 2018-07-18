@@ -8,8 +8,7 @@
     xmlns:sf="http://www.springframework.org/tags/faces"
     xmlns:debug="http://java.sun.com/jsf/composite/debug">
 
-    <html
-        class="#{not empty globalConfigurationModel ? globalConfigurationModel.webBrowserVersion.htmlTagCssKlassen : 'no-js'}">
+    <html class="no-js">
 <!-- Lädt übergreifende Maskentexte in die Variable 'msg'-->
 <f:loadBundle basename="resources.nachrichten.maskentexte" var="msg"/>
 <f:loadBundle basename="resources.nachrichten.plisweb_maskentexte" var="msg_plisweb" />
@@ -85,20 +84,10 @@ vorhanden ist. -->
             <h:outputScript name="plugins/magnific-popup.min.js" />
         </ui:fragment>
 
-        <!-- Binde ie8fixes.css ein, sofern es sich um einen Internet-Explorer kleiner als IE8 handelt. -->
-        <ui:fragment>
-                <h:outputStylesheet rendered="#{not empty globalConfigurationModel and globalConfigurationModel.webBrowserVersion.internetExplorerVersionKleinerGleich8}"
-                name="css/ie8fixes.css" media="all" />   
-        </ui:fragment>
-
         <ui:insert name="headIncludes" />
     </h:head>
     <h:body role="document">
-
-        <ui:fragment rendered="#{not empty globalConfigurationModel and not globalConfigurationModel.webBrowserVersion.internetExplorerVersionKleinerGleich8}">
-          <!-- Widget initialisieren -->    
-          <isy:specialCharPicker />
-        </ui:fragment>
+        <isy:specialCharPicker />
         
         <!-- Multipart Variable zur Verfügung stellen -->
         <h:panelGroup id="multipartArea">

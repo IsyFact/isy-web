@@ -14,8 +14,8 @@
 <composite:implementation>
     <ui:fragment rendered="#{cc.attrs.enabled}">
         <div style="border: 1px solid red;">
-            <h:panelGroup rendered="#{cc.attrs.globalConfig.jsEnabled}">JavaScript ist aktiviert und/oder der Browser ist ein IE &gt;= 9.</h:panelGroup>
-            <h:panelGroup rendered="#{not cc.attrs.globalConfig.jsEnabled}">IE-Version &lt; 9, JavaScript und/oder Cookies deaktiviert. Der JavaScript-Support ist serverseitig deaktiviert.</h:panelGroup>
+            <h:panelGroup rendered="#{cc.attrs.globalConfig.jsEnabled}">JavaScript ist aktiviert.</h:panelGroup>
+            <h:panelGroup rendered="#{not cc.attrs.globalConfig.jsEnabled}">JavaScript und/oder Cookies deaktiviert. Der JavaScript-Support ist serverseitig deaktiviert.</h:panelGroup>
         </div>
     </ui:fragment>
 

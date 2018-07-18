@@ -64,27 +64,6 @@ public class GlobalConfigurationControllerTest {
     }
 
     @Test
-    public void initializeConfigurationModelWebBrowserVersion() {
-        GlobalConfigurationController controller = new GlobalConfigurationController();
-
-        requestHeaderMap.put("User-Agent", SONSTIGER_BROWSER);
-        GlobalConfigurationModel model = controller.initializeConfigurationModel();
-        assertEquals(WebBrowserVersion.SONSTIGER_WEBBROWSER, model.getWebBrowserVersion());
-
-        requestHeaderMap.put("User-Agent", IE_KLEINER_7);
-        model = controller.initializeConfigurationModel();
-        assertEquals(WebBrowserVersion.INTERNET_EXPLORER_VERSION_KLEINER_7, model.getWebBrowserVersion());
-
-        requestHeaderMap.put("User-Agent", IE_7);
-        model = controller.initializeConfigurationModel();
-        assertEquals(WebBrowserVersion.INTERNET_EXPLORER_VERSION_7, model.getWebBrowserVersion());
-
-        requestHeaderMap.put("User-Agent", IE_8);
-        model = controller.initializeConfigurationModel();
-        assertEquals(WebBrowserVersion.INTERNET_EXPLORER_VERSION_8, model.getWebBrowserVersion());
-    }
-
-    @Test
     public void getModelZuController() {
         RequestContext requestContext = mock(RequestContext.class);
         MutableAttributeMap<Object> flowScope = new LocalAttributeMap<>();

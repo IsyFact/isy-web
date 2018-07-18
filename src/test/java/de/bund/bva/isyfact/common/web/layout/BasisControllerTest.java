@@ -1,7 +1,6 @@
 package de.bund.bva.isyfact.common.web.layout;
 
 import de.bund.bva.isyfact.common.web.global.GlobalConfigurationModel;
-import de.bund.bva.isyfact.common.web.global.WebBrowserVersion;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.webflow.core.collection.LocalAttributeMap;
@@ -110,7 +109,6 @@ public class BasisControllerTest {
 
         GlobalConfigurationModel globalConfigurationModel = new GlobalConfigurationModel();
         globalConfigurationModel.setJsEnabled(true);
-        globalConfigurationModel.setWebBrowserVersion(WebBrowserVersion.INTERNET_EXPLORER_VERSION_KLEINER_7);
 
         conversationScope.put("globalConfigurationModel", globalConfigurationModel);
 
@@ -123,7 +121,5 @@ public class BasisControllerTest {
 
         assertNotNull(flowScopeGlobalConfigModel);
         assertTrue(flowScopeGlobalConfigModel.isJsEnabled());
-        assertEquals(WebBrowserVersion.INTERNET_EXPLORER_VERSION_KLEINER_7,
-            flowScopeGlobalConfigModel.getWebBrowserVersion());
     }
 }
