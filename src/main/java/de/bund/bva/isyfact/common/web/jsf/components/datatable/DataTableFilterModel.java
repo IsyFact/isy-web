@@ -19,8 +19,7 @@ package de.bund.bva.isyfact.common.web.jsf.components.datatable;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
+import java.util.Objects;
 
 /**
  * Das Filtermodell einer Tabelle mit Filter-Zeile.
@@ -32,7 +31,8 @@ public class DataTableFilterModel implements Serializable {
     /** Die Serial-Version UID. */
     private static final long serialVersionUID = 1L;
 
-    private Map<String, String> filters = new HashMap<String, String>();
+    /** Menge der Filter. */
+    private Map<String, String> filters = new HashMap<>();
 
     /**
      * Liefert die eingegebene Filter zurück.
@@ -43,7 +43,6 @@ public class DataTableFilterModel implements Serializable {
      * @return die eingegebene Filter
      */
     public Map<String, String> getFilters() {
-
         return filters;
     }
 
@@ -56,18 +55,11 @@ public class DataTableFilterModel implements Serializable {
      * @return <code>true</code> falls keine Filter gesetzt sind, sonst <code>false</code>
      */
     public boolean isEmpty() {
-
-        for(String value: filters.values()) {
-            if (StringUtils.isNotBlank(value)) {
-                return false;
-            }
-        }
-        return true;
+        return filters.values().stream().filter(Objects::nonNull).map(String::trim).allMatch(String::isEmpty);
     }
 
     @SuppressWarnings("javadoc")
     public void setFilters(Map<String, String> filters) {
-
         this.filters = filters;
     }
 }

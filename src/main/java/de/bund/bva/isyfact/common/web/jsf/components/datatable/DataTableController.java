@@ -22,7 +22,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.Strings;
 
 import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.comparator.NullSafeBeanComparator;
@@ -43,6 +43,7 @@ import de.bund.bva.isyfact.common.web.jsf.components.datatable.DataTablePaginati
 public abstract class DataTableController<I extends DataTableItem, M extends DataTableModel<I>>
     implements GuiController {
 
+    /** Standardgröße einer Seite. */
     private static final int DEFAULT_PAGE_SIZE = 10;
 
     /**
@@ -327,14 +328,13 @@ public abstract class DataTableController<I extends DataTableItem, M extends Dat
      */
     @Deprecated
     public void sortInvoked(M model) {
-
-        if (StringUtils.isBlank(model.getSortModel().getProperty())) {
+        if (Strings.nullToEmpty(model.getSortModel().getProperty()).trim().isEmpty()) {
             return;
         }
         boolean isAscending = (SortDirection.ASCENDING == model.getSortModel().getDirection());
-        Comparator<I> comparator = new NullSafeBeanComparator<I>(model.getSortModel().getProperty());
-        Collections.sort(model.getDataModel().getDisplayItems(),
-            isAscending ? comparator : Collections.reverseOrder(comparator));
+        Comparator<I> comparator = new NullSafeBeanComparator<>(model.getSortModel().getProperty());
+        model.getDataModel().getDisplayItems()
+            .sort(isAscending ? comparator : Collections.reverseOrder(comparator));
     }
 
     /**

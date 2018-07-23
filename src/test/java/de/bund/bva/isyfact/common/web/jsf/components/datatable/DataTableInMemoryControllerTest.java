@@ -55,9 +55,29 @@ public class DataTableInMemoryControllerTest {
 
     @Test
     public void filterDisplayItemsEmptyFilter() {
-        List<DataTableItem> result =
-            controller.filterDisplayItems(testItems, Collections.<String, String> emptyMap());
+        List<DataTableItem> result;
+        Map<String, String> filter = new HashMap<>();
 
+        result = controller.filterDisplayItems(testItems, null);
+        assertEquals(testItems, result);
+
+        result = controller.filterDisplayItems(testItems, filter);
+        assertEquals(testItems, result);
+
+        filter.put("id", "");
+        result = controller.filterDisplayItems(testItems, filter);
+        assertEquals(testItems, result);
+
+        filter.put("", "5");
+        result = controller.filterDisplayItems(testItems, filter);
+        assertEquals(testItems, result);
+
+        filter.put("id", null);
+        result = controller.filterDisplayItems(testItems, filter);
+        assertEquals(testItems, result);
+
+        filter.put(null, "5");
+        result = controller.filterDisplayItems(testItems, filter);
         assertEquals(testItems, result);
     }
 
@@ -113,7 +133,7 @@ public class DataTableInMemoryControllerTest {
 
         controller.emptyTable(model);
 
-        verify(inMemoryDataModel).setAllItems(Collections.<DataTableItem> emptyList());
+        verify(inMemoryDataModel).setAllItems(Collections.emptyList());
         verify(model).setSelectionModel(any(DataTableSelectionModel.class));
         verify(paginationModel).setCurrentPage(1);
 
