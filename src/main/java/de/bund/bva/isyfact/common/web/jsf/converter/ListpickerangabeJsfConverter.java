@@ -21,8 +21,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import org.apache.commons.lang3.StringUtils;
-
 import de.bund.bva.isyfact.common.web.jsf.components.listpicker.Listpickerangabe;
 
 /**
@@ -37,7 +35,7 @@ public class ListpickerangabeJsfConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 
-        if (StringUtils.contains(value, "-")) {
+        if (value != null && value.contains("-")) {
             String[] inhalt = value.split(" ");
             if (inhalt[1].equals("-")) {
                 // Die Angabe ist gültig. Erstelle ein gültiges Objekt.

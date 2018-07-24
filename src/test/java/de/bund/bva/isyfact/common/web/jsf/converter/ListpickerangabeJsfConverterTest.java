@@ -9,6 +9,15 @@ import static org.junit.Assert.assertNull;
 public class ListpickerangabeJsfConverterTest {
 
     @Test
+    public void getAsObjectNull() {
+        ListpickerangabeJsfConverter listpickerangabeJsfConverter = new ListpickerangabeJsfConverter();
+
+        Listpickerangabe angabe =
+            (Listpickerangabe) listpickerangabeJsfConverter.getAsObject(null, null, null);
+        assertNull(angabe.getText());
+    }
+
+    @Test
     public void getAsObjectNurSchluessel() {
         String schluessel = "schluessel";
 

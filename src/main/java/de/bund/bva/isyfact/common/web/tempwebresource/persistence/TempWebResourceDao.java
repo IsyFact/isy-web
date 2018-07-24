@@ -22,9 +22,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
@@ -131,16 +131,16 @@ public class TempWebResourceDao {
      *            das Kennzeichen der TempWebResource
      * @return die gesuchten TempWebResource absteigend nach Erstellungszeitpunkt sortiert.
      */
-    @SuppressWarnings("unchecked")
     public List<TempWebResource> sucheTempWebResources(String benutzerkennung, String bhknz,
         String kennzeichen) {
 
-        if (StringUtils.isEmpty(benutzerkennung) || StringUtils.isEmpty(bhknz)
-            || StringUtils.isEmpty(kennzeichen)) {
+        if (benutzerkennung == null || benutzerkennung.isEmpty() || bhknz == null || bhknz.isEmpty() ||
+            kennzeichen == null || kennzeichen.isEmpty()) {
             throw new IllegalArgumentException();
         }
 
-        Query query = this.em.createNamedQuery(NamedQueries.TEMP_WEB_RESOURCE_SUCHEN);
+        TypedQuery<TempWebResource> query =
+            this.em.createNamedQuery(NamedQueries.TEMP_WEB_RESOURCE_SUCHEN, TempWebResource.class);
         query.setParameter(1, benutzerkennung);
         query.setParameter(2, bhknz);
         query.setParameter(3, kennzeichen);

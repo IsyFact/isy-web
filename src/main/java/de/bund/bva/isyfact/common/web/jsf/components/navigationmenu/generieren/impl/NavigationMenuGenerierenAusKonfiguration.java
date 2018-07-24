@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.CharMatcher;
 import org.springframework.beans.factory.annotation.Required;
 
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
@@ -58,8 +58,7 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
             List<Anwendung> anwendungen = new ArrayList<>();
             Set<Integer> idsAnwendungen = ermittleIdsAnwendungen(alleSchluessel, i);
             for (int j : idsAnwendungen) {
-                String[] anwendungRollen =
-                    StringUtils.deleteWhitespace(this.konfiguration.getAsString(
+                String[] anwendungRollen = CharMatcher.whitespace().removeFrom(this.konfiguration.getAsString(
                         NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                             + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ANWENDUNG
                             + Integer.toString(j) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLEN,
@@ -86,8 +85,7 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
             }
 
             String[] applikationsgruppeRollen =
-                StringUtils
-                    .deleteWhitespace(this.konfiguration.getAsString(
+                CharMatcher.whitespace().removeFrom(this.konfiguration.getAsString(
                         NavigationMenuKonfigurationSchluesselKonstanten.GUI_NAVBAR_APPLIKATIONSGRUPPE
                             + Integer.toString(i) + NavigationMenuKonfigurationSchluesselKonstanten.ROLLEN,
                         ""))

@@ -18,11 +18,10 @@ package de.bund.bva.isyfact.common.web.jsf.components.datatable;
 
 import java.io.Serializable;
 import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import com.google.common.collect.Sets;
 
@@ -44,9 +43,9 @@ public class DataTableSelectionModel implements Serializable {
         @Override
         public Set<Map.Entry<Long, Boolean>> entrySet() {
 
-            HashSet<Map.Entry<Long, Boolean>> set = new HashSet<Map.Entry<Long, Boolean>>();
+            HashSet<Map.Entry<Long, Boolean>> set = new HashSet<>();
             for (Long id : getSelectedItems()) {
-                set.add(new ImmutablePair<Long, Boolean>(id, Boolean.TRUE));
+                set.add(new HashMap.SimpleImmutableEntry<>(id, Boolean.TRUE));
             }
             return set;
         }
@@ -81,7 +80,7 @@ public class DataTableSelectionModel implements Serializable {
     private transient Map<Long, Boolean> selected;
 
     /** Die IDs der ausgewählten Items. */
-    private Set<Long> selectedItems = new HashSet<Long>();
+    private Set<Long> selectedItems = new HashSet<>();
 
     @SuppressWarnings("javadoc")
     public Long getDoubleClickSelectedItem() {

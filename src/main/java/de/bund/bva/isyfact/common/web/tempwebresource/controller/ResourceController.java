@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.Strings;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -147,7 +147,7 @@ public abstract class ResourceController implements Controller, GuiController {
      */
     private Long parseObjectId(HttpServletRequest request) {
         String objectIdString = request.getParameter(SESSION_ATTRIBUTE_KEY);
-        if (StringUtils.isBlank(objectIdString)) {
+        if (Strings.nullToEmpty(objectIdString).trim().isEmpty()) {
             LOG.warn(EreignisSchluessel.E_OBJEKT_ID, "Keine Objekt-ID im Request-String {} gefunden.",
                 request.getRequestURI());
             return null;
