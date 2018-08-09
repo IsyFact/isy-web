@@ -671,19 +671,23 @@ function refreshFunctions() {
     // Datepicker
     // --------------------------------------------------------
 
-    //Lese den Grenzwert zum Vervollständigen von zweistelligen Jahreszahlen aus. Wird weiter unten verwendet.
-    var zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
-
     var $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)');
     $datepickers.each(function () {
         $(this).datepicker({
             format: $(this).attr('dateformat'),
             weekStart: 1,
+            // in Version 1.8. gibt es kein Attribut componentButtonOnly mehr
+            // componentButtonOnly: true,
+            todayBtn: "linked",
             language: $(this).attr('language'),
-            todayHighlight: true,
             autoclose: true,
-            componentButtonOnly: true,
+            todayHighlight: true,
+            // showOnFocus: If false, the datepicker will be prevented from showing when the input field associated with it receives focus.
+            showOnFocus: false,
+            // enableOnReadonly: If false the datepicker will not show on a readonly datepicker field.
+            enableOnReadonly: false
         });
+
 
         $(this).children("a").click(
             function () {// Öffnen eines Datepickers
@@ -694,16 +698,9 @@ function refreshFunctions() {
                 // eleminiere die Unterstrich-Platzhalterzeichen
                 var placeholderReg = /_/gi;
                 date[0] = date[0].replace(placeholderReg, "");
-                date[1] = date[1].replace(placeholderReg, "");
-                date[2] = date[2].replace(placeholderReg, "");
-
                 if (date[0] === "99") {
                     // Secret-Code: 99 = setze Fokus des Datepickers auf das aktuelle Datum
-                    var currentDate = new Date();
-                    var dateCurrent = currentDate.getDate();
-                    var month = currentDate.getMonth() + 1;
-                    var year = currentDate.getFullYear();
-                    var dateString = dateCurrent.toString() + '.' + month.toString() + '.' + year.toString();
+                    var dateString = currentDateAsString();
                     $(this).parent().datepicker('setDate', dateString);
                     $(this).parent().datepicker('update');
                 } else {
@@ -713,17 +710,20 @@ function refreshFunctions() {
                 }
             });
 
-        //Für die eigentlichen Input-Felder wird eine Funktion registriert, die beim Verlassen des Feldes
-        //zweistellige Jahresangaben automatisch (entsprechend eines konfigurierten Grenz-Wertes) ergänzt.
-        //Falls die Grenze -1 ist, bedeutet das, dass der Wert in der Konfiguration überhaupt nicht hinterlegt ist.
-        //Daher zunächst die Prüfung darauf und nur etwas tun, falls der Wert konfiguriert ist.
-        if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
-            var $datumInputFeld = $(this).find('input');
-            $datumInputFeld.focusout(function (event) {
+        //Lese den Grenzwert zum Vervollständigen von zweistelligen Jahreszahlen aus. Wird weiter unten verwendet.
+        var zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
+        var $datumInputFeld = $(this).find('input');
+        $datumInputFeld.focusout(function (event) {
+            if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
                 datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
-            });
-        }
+            }
 
+            // Magic Number: setze Datum auf Tagesdatum
+            var date = $datumInputFeld.val().split('.');
+            if(date[0] === "99"){
+                $datumInputFeld.val(currentDateAsString());
+            }
+        });
     });
 
     $datepickers.on('changeDate', function (ev) {
@@ -895,7 +895,7 @@ function refreshFunctions() {
                 var $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
                 scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow);
             }else{
-                // bei leerem bzw. geloeschtem $listpickerField sind ehem. active-Eintraege zu loeschen
+                // bei leerem bzw. geloeschten $listpickerField sind ehem. active-Eintraege zu loeschen
                 $listpickerContent.find("tbody tr[id=").removeClass("active");
             }
 
@@ -1884,7 +1884,7 @@ function deleteNonDigitCharacters(ref) {
         var end = ref.selectionEnd;
 
         // länge des Textes wird gespeichert, wird später benötigt um
-        // festzufellen wie viele Zeichen entfernt wurden und um wie viele
+        // festzustellen wie viele Zeichen entfernt wurden und um wie viele
         // Zeichen der Cursor verschoben werden muss.
         var length = ref.value.length;
 
@@ -1912,6 +1912,18 @@ function deleteNonDigitCharacters(ref) {
 function stringToBoolean(str) {
     "use strict";
     return ((str == "true") ? true : false);
+}
+
+function currentDateAsString(){
+    "use strict";
+    var currentDate = new Date();
+    var dayOfMonth = currentDate.getDate();
+    var month = currentDate.getMonth() + 1;
+    var year = currentDate.getFullYear();
+    var heute = dayOfMonth.toString() + '.' + month.toString() + '.' + year.toString();
+    var heuteMitFuehrendenNullen = heute.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
+
+    return heuteMitFuehrendenNullen;
 }
 
 function refreshDatatableFilterRow() {
@@ -2065,3 +2077,4 @@ datumErgaenzen = function (inputFeld, grenze) {
         inputFeld.val(aktuelleWerte[0] + "." + aktuelleWerte[1] + "." + aktuelleWerte[2]);
     }
 };
+
