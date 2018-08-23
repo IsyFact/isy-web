@@ -51,6 +51,9 @@ public abstract class FehlerSchluessel {
     /** Der Fehlertext, welcher auf der Clientseite bei AJAX-Fehlern angezeigt wird. */
     public static final String FEHLERTEXT_GUI_AJAX = "PLWEB00106";
 
+    /** Der Fehlertext der bei einem nicht erfolgreichen Download angezeigt wird */
+    public static final String DOWNLOAD_WAR_NICHT_ERFOLGREICH = "PLWEB00112";
+
     /** Der Benutzer {0} darf auf die TempWebResource {1} nicht zugreifen, da sie Benutzer {2} gehört. */
     public static final String KEINE_BERECHTIGUNG_FUER_TEMP_WEB_RESOURCE = "PLWEB01000";
 
@@ -62,6 +65,7 @@ public abstract class FehlerSchluessel {
 
     /** Es muss genau ein Treffer ausgewählt sein. */
     public static final String GENAU_EIN_TREFFER = "PLWEB10001";
+
 
     // /////////// Initialisierungs-Filter Fehler /////////////
 
