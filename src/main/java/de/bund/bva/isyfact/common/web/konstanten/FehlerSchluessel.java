@@ -54,6 +54,9 @@ public abstract class FehlerSchluessel {
     /** Der Fehlertext der bei einem nicht erfolgreichen Download angezeigt wird */
     public static final String DOWNLOAD_WAR_NICHT_ERFOLGREICH = "PLWEB00112";
 
+    /** Der Fehlertext der bei einem konkurrierendem Zugriff angezeigt wird */
+    public static final String KONKURRIERENDER_ZUGRIFF = "PLWEB00113";
+
     /** Der Benutzer {0} darf auf die TempWebResource {1} nicht zugreifen, da sie Benutzer {2} gehört. */
     public static final String KEINE_BERECHTIGUNG_FUER_TEMP_WEB_RESOURCE = "PLWEB01000";
 
