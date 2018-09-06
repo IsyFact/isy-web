@@ -49,6 +49,8 @@ public class BasisController extends AbstractGuiController<BasisModel> {
 
         // Vertikale Toolbar initialisieren
         initialisiereVertikalToolbar(model);
+
+        model.setLocationBreadcrumbModel(new LocationBreadcrumbModel());
     }
 
     /**
