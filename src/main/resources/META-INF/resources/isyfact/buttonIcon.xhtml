@@ -108,7 +108,8 @@
 				#{cc.attrs.value}
 				<composite:insertChildren />
 				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
-					disabled="#{not cc.attrs.globalConfig.jsEnabled or not cc.attrs.ajax}" onevent="blockUi" />
+					disabled="#{not cc.attrs.globalConfig.jsEnabled or not cc.attrs.ajax}" onevent="blockUi"
+					onerror="unblockUi"/>
 			</button>
 		</ui:fragment>
 	</ui:fragment>

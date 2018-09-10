@@ -44,7 +44,7 @@
 				<h:commandLink id="#{cc.parent.attrs.tabGroupId}-#{cc.attrs.name}" >
 
 					<f:ajax execute="#{cc.parent.attrs.execute}" render="#{cc.parent.attrs.render}"
-							onevent="blockUi" />
+							onevent="blockUi" onerror="unblockUi" />
 					#{cc.attrs.value}
 
 				</h:commandLink>
@@ -55,7 +55,7 @@
 				<h:commandLink id="#{cc.parent.attrs.tabGroupId}-#{cc.attrs.name}-skipAction" >
 
 					<f:ajax execute="#{cc.parent.attrs.execute}" render="#{cc.parent.attrs.render}"
-							onevent="blockUi" />
+							onevent="blockUi" onerror="unblockUi"/>
 					#{cc.attrs.value}
 
 				</h:commandLink>

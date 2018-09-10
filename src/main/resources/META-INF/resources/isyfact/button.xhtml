@@ -64,7 +64,7 @@
 			styleClass="btn btn-default #{cc.attrs.styleClass}"
 			value="#{cc.attrs.value}" disabled="#{btnDisabled}">
 			<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
-				onevent="blockUi" disabled="#{not cc.attrs.ajax}" />
+				onevent="blockUi" onerror="unblockUi" disabled="#{not cc.attrs.ajax}" />
 		</h:commandButton>
 	</ui:fragment>
 	<ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled and cc.attrs.defaultAction}">
