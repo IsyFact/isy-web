@@ -57,6 +57,11 @@ public class BasisModel extends AbstractMaskenModel {
     private VertikalToolbarModel vertikalToolbarModel;
 
     /**
+     * Enthält den Zugriff auf den Location-Breadcrumb.
+     */
+    private LocationBreadcrumbModel locationBreadcrumbModel;
+
+    /**
      * Enthält Name von modaler Dialog, der angezeigt werden soll.
      */
     private String modalDialogName;
@@ -83,6 +88,14 @@ public class BasisModel extends AbstractMaskenModel {
 
     public void setVertikalToolbarModel(VertikalToolbarModel vertikalToolbarModel) {
         this.vertikalToolbarModel = vertikalToolbarModel;
+    }
+
+    public LocationBreadcrumbModel getLocationBreadcrumbModel() {
+        return locationBreadcrumbModel;
+    }
+
+    public void setLocationBreadcrumbModel(LocationBreadcrumbModel locationBreadcrumbModel) {
+        this.locationBreadcrumbModel = locationBreadcrumbModel;
     }
 
     public boolean isShowModalDialog() {

@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <div class="#{cssKlasseNavbarColor}"
+         style="background-color: #{headerHelper.ermittleFarbwertAnwendungsgruppe()}">
+        <c:set var="hierachiebene" value="#{basisModel.locationBreadcrumbModel.hierarchieebene}"/>
+        <c:set var="objektname" value="#{basisModel.locationBreadcrumbModel.objektname}"/>
+        <ui:fragment id="locationBreadcrumb" rendered="#{not empty hierachiebene or not empty objektname}">
+            <div class="row row-df" style="margin-left:0px;margin-right:0px;">
+                <div class="col-lg-6">
+                    <strong><h:outputText rendered="#{not empty hierachiebene}" value="#{hierachiebene}: "
+                                          styleClass="white-color"/>
+                    </strong>
+                    <h:outputText rendered="#{not empty objektname}" value="#{objektname}"
+                                  styleClass="white-color"/>
+                </div>
+            </div>
+        </ui:fragment>
+    </div>
+</ui:composition>
