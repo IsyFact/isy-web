@@ -35,6 +35,7 @@
 
     <!-- Globale Übergänge die in jedem View-State ausgeführt werden können. -->
     <global-transitions>
+        <transition on-exception="org.springframework.webflow.execution.ActionExecutionException" to="#{optimisticLockHandler.behandleKonkurrierendenZugriffFehler(flowRequestContext)}" />
         <!-- Bei Fehlern wird in den Error-Flow gewechselt -->
         <transition on-exception="java.lang.Exception" to="fehler" />
     </global-transitions>
