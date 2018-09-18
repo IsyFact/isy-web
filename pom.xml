@@ -15,7 +15,7 @@
     </parent>
 
     <properties>
-        <spring.webflow.version>2.4.5.RELEASE</spring.webflow.version>
+        <spring.webflow.version>2.4.8.RELEASE</spring.webflow.version>
         <spring.security.version>4.0.4.RELEASE</spring.security.version>
         <spring.version>4.2.9.RELEASE</spring.version>
         <hibernate.version>5.1.1.Final</hibernate.version>
