@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <!-- Eine Tabgruppe für die Tabnavigation -->
 
@@ -8,34 +8,45 @@
 
     <!-- Das Model für die Tabgruppe. -->
     <composite:attribute name="tabGroupModel"
-        type="de.bund.bva.isyfact.common.web.jsf.components.tab.TabGroupModel" required="true" />
+                         type="de.bund.bva.isyfact.common.web.jsf.components.tab.TabGroupModel"
+                         required="true"/>
+    <!-- Das Widget tabGroup.xhtml ist das Parent-Widget von tabHeader.xhtml. Das Attribut tabGroupId wird zwar in tabGroup.xhtml nicht implementiert, ist aber als composite:attribute Deklaration unbedingt erforderlich, da von tabHeader.xhtml über cc.parent.attrs.tabGroupId darauf zugegriffen wird! -->
+    <composite:attribute name="tabGroupId" type="String" required="false"/>
     <!-- Der Name des Default-Tabs. -->
-    <composite:attribute name="defaultTab" type="String" required="false" />
+    <composite:attribute name="defaultTab" type="String" required="false"/>
     <!-- Der Name des globalen Tabs. -->
-    <composite:attribute name="globalTab" type="String" required="false" />
+    <composite:attribute name="globalTab" type="String" required="false"/>
     <!-- Die Liste an Namen der Tabs, welche beim Anzeigen des globalen Tabs auch angezeigt werden sollen. -->
-    <composite:attribute name="globalTabContentRefs" type="String" required="false" />
+    <composite:attribute name="globalTabContentRefs" type="String" required="false"/>
 
-    <!-- AJAX: Welches Form ausgeführt werden soll. -->
-    <composite:attribute name="execute" required="false" default="@form" />
+    <!-- AJAX: Welche Form ausgeführt werden soll. -->
+    <composite:attribute name="execute" required="false" default="@form"/>
     <!-- AJAX: Welche Elemente gerendert werden sollen. -->
-    <composite:attribute name="render" required="false" default="@form" />
+    <composite:attribute name="render" required="false" default="@form"/>
+    <!-- Ob der Tabbereich nach oben verschoben werden soll, um den Inhaltsbereich größtmöglich zu sehen. -->
+    <composite:attribute name="scrollTabUpwards" type="java.lang.Boolean" required="false" default="false"/>
+
 
     <!-- Eine spezifische globale Konfiguration, falls notwendig. -->
-    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}"/>
 </composite:interface>
 
 <composite:implementation>
+    <!-- Anmerk.: Auf cc.attrs.tabGroupId wird von tabHeader.xhtml aus zugegriffen -->
+    <!-- Anmerk.: cc.attrs.execute, cc.attrs.render sind AJAX-Attribute. Keine Implementierung in composite:implementation -->
+    <!-- Anmerk.: cc.attrs.defaultTab, cc.attrs.globalTab, cc.attrs.globalTabContentRefs sind Attribute ohne Implementierung in composite:implementation -->
+
+    <ui:param name="scrollClass" value="#{cc.attrs.scrollTabUpwards ? 'tabHochScrollen' : '' }" />
 
     <ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView}">
-        <ul class="nav nav-tabs isy-tab">
-            <composite:renderFacet name="tabHeader" />
+        <ul class="nav nav-tabs isy-tab #{scrollClass}">
+            <composite:renderFacet name="tabHeader"/>
         </ul>
     </ui:fragment>
 
     <div class="tab-content">
         <h:inputHidden id="isyTabCurrentActiveTab" value="#{cc.attrs.tabGroupModel.currentTab}"/>
-        <composite:insertChildren />
+        <composite:insertChildren/>
     </div>
 
 </composite:implementation>
