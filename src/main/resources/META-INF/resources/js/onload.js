@@ -720,7 +720,7 @@ function refreshFunctions() {
 
             // Magic Number: setze Datum auf Tagesdatum
             var date = $datumInputFeld.val().split('.');
-            if(date[0] === "99"){
+            if (date[0] === "99") {
                 $datumInputFeld.val(currentDateAsString());
             }
         });
@@ -894,7 +894,7 @@ function refreshFunctions() {
                 // Cursor im Listpickerwidget auf aktive Zeile setzen
                 var $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
                 scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow);
-            }else{
+            } else {
                 // bei leerem bzw. geloeschten $listpickerField sind ehem. active-Eintraege zu loeschen
                 $listpickerContent.find("tbody tr[id=").removeClass("active");
             }
@@ -1082,9 +1082,13 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Vorgeladene Tabs steuern
     $('.isy-tab').each(function () {
-
         var $isyTab = $(this);
 
+        // TabAutoscroll: Ist in tabGroup ein Tab-Inhaltsbereich-HochScrollen gewünscht?
+        var $tabHochScrollen = false;
+        if ($isyTab.hasClass('tabHochScrollen')) {
+            $tabHochScrollen = true;
+        }
 
         $isyTab.children().each(function () {
             var $li = $(this);
@@ -1108,12 +1112,21 @@ function refreshFunctions() {
                 // Tab aktivieren
                 var liIdNeu = $li.attr('id');
                 $li.addClass("active");
-                $isyTab.next().find("#" + liIdNeu).addClass("active");
+                //$isyTab.next().find("#" + liIdNeu).addClass("active");
+
+                var aktiverTab = $isyTab.next().find("#" + liIdNeu);
+                aktiverTab.addClass("active");
+
+                // Tab-Autoscroll unterstützen
+                if ($tabHochScrollen) {
+                    $('html, body').animate({
+                        scrollTop: $(aktiverTab).offset().top - 50
+                    }, 'slow');
+                }
 
                 // Zustand merken
                 $isyTab.next().find("[id$='isyTabCurrentActiveTab']").first().val(liIdNeu.replace("tabId", ""));
                 lazyLoad();
-
             });
         });
     });
@@ -1914,7 +1927,7 @@ function stringToBoolean(str) {
     return ((str == "true") ? true : false);
 }
 
-function currentDateAsString(){
+function currentDateAsString() {
     "use strict";
     var currentDate = new Date();
     var dayOfMonth = currentDate.getDate();
