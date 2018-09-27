@@ -1,5 +1,13 @@
 # v4.7.0
-- `IFS-153`: Listpicker Positions-Autofocus im Dropdownfenster 
+- `IFS-96`: Autoscroll Funtion für Tab-Controls
+- `IFS-142`: Neuimplementierung Breadcrumb
+- `IFS-150`: OptmisticLockHandler zur Behandlung von OptimisticLockExceptions
+- `IFS-153`: Listpicker Positions-Autofocus im Dropdownfenster
+- `IFS-154`: Datepicker zeigt nach manueller Eingabe eingegebenes Datum
+- `IFS-163`: Unterstützung für IE8 eingestellt
+- `IFS-165`: UI-Block wird bei manchen Fehlermeldungen nicht deaktiviert 
+- `IFS-182`: Datepicker um Übernahme des heutigen Datums erweitert
+- `IFS-202`: DownloadHelper hinzugefügt
 
 # v4.6.0
 - `IFS-55`: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
