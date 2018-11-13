@@ -1,14 +1,11 @@
 package de.bund.bva.isyfact.common.web.exception;
 
+import javax.persistence.OptimisticLockException;
+
 import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
 import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
-
-import javax.persistence.OptimisticLockException;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
-import org.springframework.stereotype.Component;
 import org.springframework.webflow.definition.StateDefinition;
 import org.springframework.webflow.engine.SubflowState;
 import org.springframework.webflow.engine.support.TransitionExecutingFlowExecutionExceptionHandler;
@@ -31,15 +28,17 @@ import org.springframework.webflow.execution.RequestContext;
  *
  * @author Timo Brandes, msg
  */
-@Component
 public class OptimisticLockHandler {
 
     private static final String STATE_FEHLER_ALLGEMEIN = "fehler";
 
     private static final String STATE_FEHLER_KONKURRIERENDER_ZUGRIFF = "abbrechenEndState";
 
-    @Autowired
-    GlobalFlowController globalFlowController;
+    private final GlobalFlowController globalFlowController;
+
+    public OptimisticLockHandler(GlobalFlowController globalFlowController) {
+        this.globalFlowController = globalFlowController;
+    }
 
     /**
      * Sucht im übergebenen {@link Throwable} rekursiv nach einer {@link ObjectOptimisticLockingFailureException} und
