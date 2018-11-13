@@ -1,7 +1,7 @@
 # v4.7.0
 - `IFS-96`: Autoscroll Funtion für Tab-Controls
 - `IFS-142`: Neuimplementierung Breadcrumb
-- `IFS-150`: OptmisticLockHandler zur Behandlung von OptimisticLockExceptions
+- `IFS-150`: OptimisticLockHandler zur Behandlung von OptimisticLockExceptions
 - `IFS-153`: Listpicker Positions-Autofocus im Dropdownfenster
 - `IFS-154`: Datepicker zeigt nach manueller Eingabe eingegebenes Datum
 - `IFS-163`: Unterstützung für IE8 eingestellt

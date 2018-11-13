@@ -5,13 +5,13 @@
 
     <artifactId>isy-web</artifactId>
     <packaging>jar</packaging>
-    <version>4.7.0.RC1</version>
+    <version>4.7.0.RC2</version>
     <name>IsyFact-Web</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0.RC1</version>
+        <version>1.6.0.RC2</version>
     </parent>
 
     <properties>
@@ -26,7 +26,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-standards-bom</artifactId>
-                <version>1.6.0.RC1</version>
+                <version>1.6.0.RC2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
