@@ -17,9 +17,14 @@
                             <span class="icon icon-placeholder" style="font-size: 40px"/>
                         </div>
                         <div class="col-lg-10">
-                            #{dialogNachricht}
+                            <ui:fragment rendered="#{not empty dialogNachrichtPfad}">
+                                <ui:include src="#{dialogNachrichtPfad}" />
+                            </ui:fragment>
+                            <ui:fragment rendered="#{empty dialogNachrichtPfad}">
+                                #{dialogNachricht}
+                            </ui:fragment>
                             <ui:fragment rendered="#{not empty dialogKonsequenz}">
-                                <p/>
+                                <p />
                                 #{dialogKonsequenz}
                             </ui:fragment>
                         </div>
