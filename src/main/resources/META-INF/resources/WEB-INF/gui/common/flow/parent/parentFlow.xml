@@ -23,12 +23,15 @@
 
     <!-- Der Parent-Flow. -->
     <var name="globalFlowModel" class="de.bund.bva.isyfact.common.web.global.GlobalFlowModel" />
+    <var name="hilfeModel" class="de.bund.bva.isyfact.common.web.layout.HilfeModel" />
 
     <on-start>
         <!-- Initialisierung der globalen Konfiguration (mehrfaches Initialisieren hat keine Auswirkung) in den Conversation-Scope. -->
         <evaluate expression="globalConfigurationController.initializeConfigurationModel()" result="conversationScope.globalConfigurationModel" />
         <!-- Initialisierung der Flow-bezogenen Konfiguration in den Flow-Scope -->
         <evaluate expression="globalFlowController.initialisiereModel(globalFlowModel)" />
+        <!-- Initialisiert das HilfeModel. Zum Ein-, Ausblenden des Hilfe-Buttons. -->
+        <evaluate expression="hilfeController.initialisiereModel(hilfeModel)" />
     </on-start>
 
     <subflow-state id="fehler" subflow="errorFlow" />

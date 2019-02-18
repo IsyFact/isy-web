@@ -57,6 +57,9 @@ public abstract class FehlerSchluessel {
     /** Der Fehlertext der bei einem konkurrierendem Zugriff angezeigt wird */
     public static final String KONKURRIERENDER_ZUGRIFF = "PLWEB00113";
 
+    /** Der Konfigurationsparameter 'portalhilfe.url' wurde nicht gesetzt.*/
+    public static final String INFO_PARAMETER_HILFEPORTAL_URL_NICHT_GESETZT = "PLWEB00114";
+
     /** Der Benutzer {0} darf auf die TempWebResource {1} nicht zugreifen, da sie Benutzer {2} gehört. */
     public static final String KEINE_BERECHTIGUNG_FUER_TEMP_WEB_RESOURCE = "PLWEB01000";
 
