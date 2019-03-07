@@ -78,6 +78,7 @@ $(document).ready(function () {
         self.data(tag, timer);
     });
 
+    initialisierenListpickerServlet();
 
     // --------------------------------------------------------
     // Funktionen initial aktivieren
