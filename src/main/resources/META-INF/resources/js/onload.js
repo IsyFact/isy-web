@@ -78,12 +78,13 @@ $(document).ready(function () {
         self.data(tag, timer);
     });
 
-    initialisierenListpickerServlet();
+
 
     // --------------------------------------------------------
     // Funktionen initial aktivieren
     // --------------------------------------------------------
     refreshFunctions();
+    initialisierenListpickerServlet();
 
 });
 
@@ -2136,9 +2137,8 @@ registerListpickerfilter = function (identifier) {
 	var $listpickerField=$listpickerContainer.find('*[id*=listpickerField]')
 	
     //hat man sich im Dropdownmenü befunden und clickt anschließen außerhalb werden die Felder synchronisiert
-	$(listpickerFilterInput).focusout(function() {
-		listpickerWerteAnzeigen();
-		
+$(listpickerFilterInput).focusout(function() {
+	$listpickerFilter.parent().parent().siblings('.form-control').focusout();
 	});
 	    
     //Die Filtermethode, die die Liste aktualisiert
@@ -2196,7 +2196,7 @@ createListpickerTable = function (responseText, listfilter, first) {
 			$table.append(tr);
 		}
 	}
-	listpickerWerteAnzeigen();	
+	$(listfilter).parent().parent().siblings('.form-control').focusout();	
 }
 
 $(document).click(function(e) {
@@ -2205,7 +2205,8 @@ $(document).click(function(e) {
     var $listpickerContent=$listpickerContainer.find('.listpicker-content')
     if($listpickerContent.has($target).length <= 0 && $listpickerContainer.hasClass('open')) {
     	$listpickerContainer.removeClass('open');
-    	listpickerWerteAnzeigen();
+    	$listpickerContent.siblings('.form-control').focusout();
+    	
     	$target.focus();
     	
     } 

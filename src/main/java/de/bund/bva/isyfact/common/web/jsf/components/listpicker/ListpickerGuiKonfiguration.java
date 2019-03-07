@@ -51,7 +51,7 @@ public class ListpickerGuiKonfiguration {
      *            Anzahl erreicht wird, wird messageItem am Ende der gefilterten Liste angezeigt.
      */
     public ListpickerGuiKonfiguration(List<ListpickerGuiItem> items, String messageItem, int maxElemente) {
-        this.items = items;
+        this.items = items.subList(0, Math.min(maxElemente, items.size()));
         this.messageItem = messageItem;
         this.maxElemente = maxElemente;
     }
