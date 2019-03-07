@@ -11,7 +11,10 @@
 
         <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
         <composite:attribute name="customId" required="false" />
-
+        <!-- Erlaubt das laden über ein Servlet. Ist eine Url gesetzt, so funktioniert kein Ajax Loading -->
+        <!-- die Url auf die das Servlet laut web.xml reagiert mit ggf. Attributen die übergeben werden müssen. 
+        (bsp. /app/listpicker?kennung=02 oder /app/listpicker?kennung=#{model.variable}) -->   
+        <composite:attribute name="servletUrl" type="String" required="false" />
         <!-- Die Referenz des Objekts. -->
         <composite:attribute name="reference" required="true" />
         <!-- Der Wert für das Databinding im Eingabefeld -->
@@ -80,7 +83,7 @@
         <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
         <composite:attribute name="globalConfig" required="false"
                 default="#{globalConfigurationModel}" />
-
+  
     </composite:interface>
 
     <composite:implementation>
@@ -90,6 +93,7 @@
                 value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
         <ui:param name="existsValidationError"
                 value="#{not empty validationMessages}" />
+        <ui:param name="servletLoading" value="#{not empty cc.attrs.servletUrl}" />
 
         <div
                 class="form-group #{existsValidationError ? ' has-error has-feedback': ''}"
@@ -155,11 +159,11 @@
                         <div
                                 class="picker listpicker dropdown-menu picker-dropdown picker-orient-left picker-orient-top listpicker-content">
                             <div class="listpicker-list">
-                                <div class="listpicker-filter">
-                                    <input type="text" jsf:id="listpickerFilter"
-                                            jsf:value="#{cc.attrs.listpickerModel.filter}"
-                                            placeholder="Filter" class="listpicker-filter-input"
-                                            autocomplete="off">
+                                <div class="listpicker-filter #{servletLoading ? 'servlet' : ''}">
+                                   <input type="text" jsf:id="listpickerFilter"
+                                        jsf:value="#{cc.attrs.listpickerModel.filter}"
+                                        placeholder="Filter" class="listpicker-filter-input"
+                                        autocomplete="off">
                                         <f:ajax render=":#{cc.attrs.ajaxForm}" execute="@form"
                                                 event="change" disabled="#{not cc.attrs.ajaxLoading}"
                                                 delay="600"
@@ -167,7 +171,7 @@
                                                 listener="#{cc.attrs.listpickerController.filter(cc.attrs.listpickerModel)}" />
                                     </input>
                                     <h:inputHidden value="#{cc.attrs.displaySize}" /> <!-- TODO TF woher kommt displaySize? -> Gibt es nicht! -->
-                                    <ui:fragment rendered="#{cc.attrs.ajaxLoading}">
+                                    <ui:fragment rendered="#{cc.attrs.ajaxLoading and not servletLoading}">
                                         <!-- In dieses Feld wird die letzte Filterung per AJAX gespeichert, damit sie nicht mehrfach durchgeführt wird -->
                                         <input type="hidden" jsf:id="lastfilter" value=""
                                                 disabled="true" />
@@ -186,9 +190,9 @@
                                                 </ui:repeat>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <!-- Muss nur gerendert werden, falls kein AJAX Loading aktiv ist, ansonsten sind die Inhalte über das isy:formListpickerAjaxContent einzubinden. -->
-                                            <ui:fragment rendered="#{not cc.attrs.ajaxLoading}">
+                                        <tbody class="#{servletLoading ? 'servletTable' : ''}" data-servletUrl="#{empty cc.attrs.servletUrl ? '':request.contextPath.concat(cc.attrs.servletUrl)}"  >
+                                            <!-- Muss nur gerendert werden, falls weder AJAX noch Servlet Loading aktiv ist. Bei Ajax sind die Inhalte über das isy:formListpickerAjaxContent einzubinden. -->
+                                            <ui:fragment rendered="#{not cc.attrs.ajaxLoading and not servletLoading}">
                                                 <ui:repeat var="item"
                                                         value="#{cc.attrs.listpickerModel.items}">
                                                     <tr id="#{item.getValueForItem()}"

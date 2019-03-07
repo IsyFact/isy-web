@@ -958,7 +958,7 @@ function refreshFunctions() {
         });
 
         // Reagiere auf Eingaben im Eingabefeld (auch bei AJAX-Widgets)
-        $listpickerFilter.bind('keydown keypress', function () {
+        $listpickerFilter.bind('keydown.ajaxFilter keypress.ajaxFilter', function () {
 
             setTimeout(function () {
 
@@ -2091,3 +2091,122 @@ datumErgaenzen = function (inputFeld, grenze) {
     }
 };
 
+//Code der das Initialisieren eines Listpickers über das Servlet anstößt
+initialisierenListpickerServlet=function() {
+	$listpicker=$( ".servlet.listpicker-filter" );
+	$listpicker.each(function (i, listpicker) {
+		registerListpickerfilter(listpicker);
+	});
+}
+
+
+//registrieren eines Listpickers
+registerListpickerfilter = function (identifier) {
+	var $listpickerFilter = $(identifier);
+	var listpickerFilterInput = $(identifier).children()[0];
+	var url = $listpickerFilter.siblings("div.rf-listpicker-table-container").find(".servletTable")[0].getAttribute("data-servleturl");
+	
+	//Im Folgenden werden die einzelnen Parameter, die in der URL enthalten sind encoded.
+	//Es wird jeweils der Wert des Parameters encoded, nicht der Parameter selbst.
+	var urlsplit=url.split("?");
+	
+	//Der erste Teil der URL (alles ohne Paramater) bleibt unverändert.
+	var urlEncoded=urlsplit[0]+'?';
+	
+	
+	//Splitte den zweiten Teil
+	if(urlsplit.length > 1){
+	var attributeGesetzt=urlsplit[1].split("&");
+	attributeGesetzt.forEach(function(attribut){
+		attributSplit=attribut.split("=");
+		urlEncoded=urlEncoded+attributSplit[0]+'='+encodeURIComponent(attributSplit[1])+"&";	
+	});
+	}
+	
+	//initiale Befüllung des Listpickers
+	$.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter, true)})
+	listpickerFilterInput.dataset.oldvalue = listpickerFilterInput.value;
+	
+	//Deaktiviere Standardfilter
+	$(listpickerFilterInput).off('keydown.ajaxFilter keypress.ajaxFilter');
+	
+	var $listpickerContent = $listpickerFilter.parent().parent();
+	var $listpickerContainer=$listpickerContent.parent();
+	var $listpickerField=$listpickerContainer.find('*[id*=listpickerField]')
+	
+    //hat man sich im Dropdownmenü befunden und clickt anschließen außerhalb werden die Felder synchronisiert
+	$(listpickerFilterInput).focusout(function() {
+		listpickerWerteAnzeigen();
+		
+	});
+	    
+    //Die Filtermethode, die die Liste aktualisiert
+    //Zunächst deaktivieren wir den Handler für den Fall, dass er schon existiert und aktualisiert
+    //werden muss. Dies ist beim Sonderfall von Integrations- und Arbeitsvermittlungsdaten der Fall.
+    //Da muss der Picker nämlich je nach aktueller Kennung ggf. immer wieder neu initialisiert werden
+    //(Wechsel zwischen Beruf und Studium, dabei ändert sich die Servlet-URL; siehe zeigeKennungstextAttribute()).
+    //Wenn wir den Handler nicht vorher deaktivieren, bleibt die Servlet-URL effektiv unverändert und
+    //der Filter funktioniert dann nicht korrekt.
+    $(listpickerFilterInput).off('change keyup', servletListpickerFilterChanged);
+    //Die benötigten Daten (die URL und der Filter selbst) geben wir als Data-Attribute rein.
+	$(listpickerFilterInput).on('change keyup', {url: urlEncoded, listpickerfilter: $listpickerFilter}, servletListpickerFilterChanged);
+}
+
+/**
+ * Die Funktion behandelt change und keyup Events für die Listpicker, die per Servlet filtern.
+ * @param event Das change/keyup Event.
+ */
+function servletListpickerFilterChanged(event){
+	event.stopImmediatePropagation();
+	//Hole die benötigten Daten aus den Data-Attributen des Events (wurden im Aufruf gesetzt).
+	var servletUrl = event.data.url;
+	var listpickerFilter = event.data.listpickerfilter
+	$this = $(this);
+	var delay = 500;
+	timer = window.setTimeout(function(filter) {
+		var input = $this[0]
+		if (input.dataset.oldvalue == "undefined" || input.value != input.dataset.oldvalue) {
+			$.get( servletUrl+"filter="+encodeURIComponent(input.value)).success(function(data){createListpickerTable(data, listpickerFilter, true)})
+			input.dataset.oldvalue=input.value;
+		}
+	},delay, $this);
+}
+
+
+//Erstellt einen ListpickerTable anhand des responseTextes. First steht für die erste Iteration.
+createListpickerTable = function (responseText, listfilter, first) {
+	
+	var $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
+	var $table = $tablecontainer.find(".servletTable");
+	$table.empty();
+	tableJson = JSON.parse(responseText);
+	for(var j in tableJson.items) {
+		item = tableJson.items[j];
+		var tr = $('<tr>').attr('id', item.id);
+		for(var i = 0; i < item.attrs.length; i++) {
+			var td = $('<td>').text(item.attrs[i].trim());
+			tr.append(td);
+		}
+		$table.append(tr);
+		if(j == tableJson.maxElemente - 1) {
+			var tr = $('<tr>');	
+			var td = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
+			tr.append(td);
+			$table.append(tr);
+		}
+	}
+	listpickerWerteAnzeigen();	
+}
+
+$(document).click(function(e) {
+    var $target = $(e.target);
+    var $listpickerContainer=$('.listpicker-container.open');
+    var $listpickerContent=$listpickerContainer.find('.listpicker-content')
+    if($listpickerContent.has($target).length <= 0 && $listpickerContainer.hasClass('open')) {
+    	$listpickerContainer.removeClass('open');
+    	listpickerWerteAnzeigen();
+    	$target.focus();
+    	
+    } 
+
+});
