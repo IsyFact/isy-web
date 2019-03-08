@@ -46,6 +46,7 @@ $(document).ready(function () {
 
             if (callback.status === 'success') {
                 refreshFunctions();
+                initialisierenListpickerServlet();
             }
 
         });
@@ -2182,7 +2183,7 @@ createListpickerTable = function (responseText, listfilter, first) {
 	$table.empty();
 	tableJson = JSON.parse(responseText);
 	for(var j in tableJson.items) {
-		item = tableJson.items[j];
+		var item = tableJson.items[j];
 		var tr = $('<tr>').attr('id', item.id);
 		for(var i = 0; i < item.attrs.length; i++) {
 			var td = $('<td>').text(item.attrs[i].trim());
