@@ -960,45 +960,69 @@ function refreshFunctions() {
             }
         });
 
-        // Reagiere auf Eingaben im Eingabefeld (auch bei AJAX-Widgets)
-        $listpickerFilter.bind('keydown.ajaxFilter keypress.ajaxFilter', function () {
+		// Reagiere auf Eingaben im Eingabefeld (auch bei AJAX-Widgets).
+        //Für die Picker, die per Servlet filtern, ist dies nicht nötig!
+        if (!$listpickerFilter.parent().hasClass('servlet')) {
+			$listpickerFilter
+					.bind(
+							'keydown.ajaxFilter keypress.ajaxFilter',
+							function() {
 
-            setTimeout(function () {
+								setTimeout(
+										function() {
 
-                // Filter
-                var $rows = $listpickerContent.find(".rf-listpicker-table tbody tr");
+											// Filter
+											var $rows = $listpickerContent
+													.find(".rf-listpicker-table tbody tr");
 
-                var filterFunction = function ($row, inverse) {
+											var filterFunction = function($row,
+													inverse) {
 
-                    var $tdsAfterFilter = $row.find('td').filter(function () {
-                        var $td = $(this);
-                        var text = $td.text();
-                        var listpickerVal = $listpickerFilter.val();
-                        var compare = text.toLowerCase().indexOf(listpickerVal.toLowerCase());
-                        return compare != -1;
-                    });
+												var $tdsAfterFilter = $row
+														.find('td')
+														.filter(
+																function() {
+																	var $td = $(this);
+																	var text = $td
+																			.text();
+																	var listpickerVal = $listpickerFilter
+																			.val();
+																	var compare = text
+																			.toLowerCase()
+																			.indexOf(
+																					listpickerVal
+																							.toLowerCase());
+																	return compare != -1;
+																});
 
-                    if (inverse) {
-                        return $tdsAfterFilter.length > 0;
-                    } else {
-                        return $tdsAfterFilter.length <= 0;
-                    }
-                };
+												if (inverse) {
+													return $tdsAfterFilter.length > 0;
+												} else {
+													return $tdsAfterFilter.length <= 0;
+												}
+											};
 
-                var $filteredRows = $rows.filter(function () {
-                    return filterFunction($(this), false);
-                });
-                var $unfilteredRows = $rows.filter(function () {
-                    return filterFunction($(this), true);
-                });
+											var $filteredRows = $rows
+													.filter(function() {
+														return filterFunction(
+																$(this), false);
+													});
+											var $unfilteredRows = $rows
+													.filter(function() {
+														return filterFunction(
+																$(this), true);
+													});
 
-                $filteredRows.css("display", "none");
-                $unfilteredRows.css("display", "table-row");
-            }, 0);
+											$filteredRows
+													.css("display", "none");
+											$unfilteredRows.css("display",
+													"table-row");
+										}, 0);
 
-        });
-
-        $listpickerFilter.bind('keydown', function (e) {
+							});
+		}
+        
+		$listpickerFilter.bind('keydown', function (e) {
 
             var keyPressed = e.which;
 
@@ -2129,9 +2153,6 @@ registerListpickerfilter = function (identifier) {
 	//initiale Befüllung des Listpickers
 	$.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter, true)})
 	listpickerFilterInput.dataset.oldvalue = listpickerFilterInput.value;
-	
-	//Deaktiviere Standardfilter
-	$(listpickerFilterInput).off('keydown.ajaxFilter keypress.ajaxFilter');
 	
 	var $listpickerContent = $listpickerFilter.parent().parent();
 	var $listpickerContainer=$listpickerContent.parent();
