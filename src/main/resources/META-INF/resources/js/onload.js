@@ -2130,7 +2130,7 @@ initialisierenListpickerServlet=function() {
 //registrieren eines Listpickers
 registerListpickerfilter = function (identifier) {
 	var $listpickerFilter = $(identifier);
-	var listpickerFilterInput = $(identifier).children()[0];
+	var listpickerFilterInput = $listpickerFilter.children()[0];
 	var url = $listpickerFilter.siblings("div.rf-listpicker-table-container").find(".servletTable")[0].getAttribute("data-servleturl");
 	
 	//Im Folgenden werden die einzelnen Parameter, die in der URL enthalten sind encoded.
@@ -2143,31 +2143,30 @@ registerListpickerfilter = function (identifier) {
 	
 	//Splitte den zweiten Teil
 	if(urlsplit.length > 1){
-	var attributeGesetzt=urlsplit[1].split("&");
-	attributeGesetzt.forEach(function(attribut){
-		attributSplit=attribut.split("=");
-		urlEncoded=urlEncoded+attributSplit[0]+'='+encodeURIComponent(attributSplit[1])+"&";	
-	});
+		var attributeGesetzt = urlsplit[1].split("&");
+		attributeGesetzt.forEach(function(attribut){
+			var attributSplit = attribut.split("=");
+			urlEncoded=urlEncoded+attributSplit[0]+'='+encodeURIComponent(attributSplit[1])+"&";	
+		});
 	}
 	
 	//initiale Befüllung des Listpickers
-	$.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter, true)})
+	//Hier wird der eigentliche Request abgeschickt!
+	$.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter, true)});
 	listpickerFilterInput.dataset.oldvalue = listpickerFilterInput.value;
 	
 	var $listpickerContent = $listpickerFilter.parent().parent();
-	var $listpickerContainer=$listpickerContent.parent();
-	var $listpickerField=$listpickerContainer.find('*[id*=listpickerField]')
+	var $listpickerContainer = $listpickerContent.parent();
+	var $listpickerField = $listpickerContainer.find('*[id*=listpickerField]');
 	
-    //hat man sich im Dropdownmenü befunden und clickt anschließen außerhalb werden die Felder synchronisiert
-$(listpickerFilterInput).focusout(function() {
-	$listpickerFilter.parent().parent().siblings('.form-control').focusout();
+    //Hat man sich im Dropdownmenü befunden und klickt anschließend außerhalb, werden die Felder synchronisiert.
+	$(listpickerFilterInput).focusout(function() {
+		$listpickerFilter.parent().parent().siblings('.form-control').focusout();
 	});
 	    
     //Die Filtermethode, die die Liste aktualisiert
     //Zunächst deaktivieren wir den Handler für den Fall, dass er schon existiert und aktualisiert
-    //werden muss. Dies ist beim Sonderfall von Integrations- und Arbeitsvermittlungsdaten der Fall.
-    //Da muss der Picker nämlich je nach aktueller Kennung ggf. immer wieder neu initialisiert werden
-    //(Wechsel zwischen Beruf und Studium, dabei ändert sich die Servlet-URL; siehe zeigeKennungstextAttribute()).
+    //werden muss.
     //Wenn wir den Handler nicht vorher deaktivieren, bleibt die Servlet-URL effektiv unverändert und
     //der Filter funktioniert dann nicht korrekt.
     $(listpickerFilterInput).off('change keyup', servletListpickerFilterChanged);
@@ -2183,19 +2182,19 @@ function servletListpickerFilterChanged(event){
 	event.stopImmediatePropagation();
 	//Hole die benötigten Daten aus den Data-Attributen des Events (wurden im Aufruf gesetzt).
 	var servletUrl = event.data.url;
-	var listpickerFilter = event.data.listpickerfilter
+	var listpickerFilter = event.data.listpickerfilter;
 	$this = $(this);
 	var delay = 500;
 	timer = window.setTimeout(function(filter) {
-		var input = $this[0]
+		var input = $this[0];
 		if (input.dataset.oldvalue == "undefined" || input.value != input.dataset.oldvalue) {
-			$.get( servletUrl+"filter="+encodeURIComponent(input.value)).success(function(data){createListpickerTable(data, listpickerFilter, true)})
+			$.get( servletUrl+"filter="+encodeURIComponent(input.value)).success(function(data){createListpickerTable(data, listpickerFilter, true)});
 			input.dataset.oldvalue=input.value;
 		}
 	},delay, $this);
 }
 
-
+//REVIEW IFE-35: Brauchen wir das "first"? Falls du es entfernt, unbedingt auch in allen Aufrufen entfernen!
 //Erstellt einen ListpickerTable anhand des responseTextes. First steht für die erste Iteration.
 createListpickerTable = function (responseText, listfilter, first) {
 	
@@ -2221,10 +2220,11 @@ createListpickerTable = function (responseText, listfilter, first) {
 	$(listfilter).parent().parent().siblings('.form-control').focusout();	
 }
 
+//REVIEW IFE-35: Wofür genau brauchen wir das noch gleich?
 $(document).click(function(e) {
     var $target = $(e.target);
-    var $listpickerContainer=$('.listpicker-container.open');
-    var $listpickerContent=$listpickerContainer.find('.listpicker-content')
+    var $listpickerContainer = $('.listpicker-container.open');
+    var $listpickerContent = $listpickerContainer.find('.listpicker-content');
     if($listpickerContent.has($target).length <= 0 && $listpickerContainer.hasClass('open')) {
     	$listpickerContainer.removeClass('open');
     	$listpickerContent.siblings('.form-control').focusout();
