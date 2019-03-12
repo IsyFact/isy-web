@@ -2152,7 +2152,7 @@ registerListpickerfilter = function (identifier) {
 	
 	//initiale Befüllung des Listpickers
 	//Hier wird der eigentliche Request abgeschickt!
-	$.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter, true)});
+	$.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter)});
 	listpickerFilterInput.dataset.oldvalue = listpickerFilterInput.value;
 	
 	var $listpickerContent = $listpickerFilter.parent().parent();
@@ -2166,7 +2166,7 @@ registerListpickerfilter = function (identifier) {
 	    
     //Die Filtermethode, die die Liste aktualisiert
     //Zunächst deaktivieren wir den Handler für den Fall, dass er schon existiert und aktualisiert
-    //werden muss. (Dies ist beispielsweise der Fall, wenn sich ein weiteres Filteritem durch JS ändert.)
+    //werden muss. (Dies ist beispielsweise der Fall, wenn die URL per JavaScript manipuliert wurde, ohne dass die gesamte Seite neu gerendert wird.)
     //Wenn wir den Handler nicht vorher deaktivieren, bleibt die Servlet-URL effektiv unverändert und
     //der Filter funktioniert dann nicht korrekt.
     $(listpickerFilterInput).off('change keyup', servletListpickerFilterChanged);
@@ -2188,15 +2188,14 @@ function servletListpickerFilterChanged(event){
 	timer = window.setTimeout(function(filter) {
 		var input = $this[0];
 		if (input.dataset.oldvalue == "undefined" || input.value != input.dataset.oldvalue) {
-			$.get( servletUrl+"filter="+encodeURIComponent(input.value)).success(function(data){createListpickerTable(data, listpickerFilter, true)});
+			$.get( servletUrl+"filter="+encodeURIComponent(input.value)).success(function(data){createListpickerTable(data, listpickerFilter)});
 			input.dataset.oldvalue=input.value;
 		}
 	},delay, $this);
 }
 
-//REVIEW IFE-35: Brauchen wir das "first"? Falls du es entfernt, unbedingt auch in allen Aufrufen entfernen!
 //Erstellt einen ListpickerTable anhand des responseTextes. First steht für die erste Iteration.
-createListpickerTable = function (responseText, listfilter, first) {
+createListpickerTable = function (responseText, listfilter) {
 	
 	var $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
 	var $table = $tablecontainer.find(".servletTable");
@@ -2220,7 +2219,8 @@ createListpickerTable = function (responseText, listfilter, first) {
 	$(listfilter).parent().parent().siblings('.form-control').focusout();	
 }
 
-//REVIEW IFE-35: Wofür genau brauchen wir das noch gleich?
+//Bei einem Klick im Dokument, wird ein Listpicker, falls dieser geöffnet war geschlossen und zusätzlich die 
+//Focusout-Methode getriggert, um das Auflösen des Schlüssels zu bewirken.
 $(document).click(function(e) {
     var $target = $(e.target);
     var $listpickerContainer = $('.listpicker-container.open');
@@ -2228,7 +2228,6 @@ $(document).click(function(e) {
     if($listpickerContent.has($target).length <= 0 && $listpickerContainer.hasClass('open')) {
     	$listpickerContainer.removeClass('open');
     	$listpickerContent.siblings('.form-control').focusout();
-    	
     	$target.focus();
     	
     } 
