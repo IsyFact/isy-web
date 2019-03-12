@@ -2194,7 +2194,7 @@ function servletListpickerFilterChanged(event){
 	},delay, $this);
 }
 
-//Erstellt einen ListpickerTable anhand des responseTextes. First steht für die erste Iteration.
+//Erstellt einen ListpickerTable anhand des responseTextes.
 createListpickerTable = function (responseText, listfilter) {
 	
 	var $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
@@ -2219,7 +2219,7 @@ createListpickerTable = function (responseText, listfilter) {
 	$(listfilter).parent().parent().siblings('.form-control').focusout();	
 }
 
-//Bei einem Klick im Dokument, wird ein Listpicker, falls dieser geöffnet war geschlossen und zusätzlich die 
+//Bei einem Klick im Dokument, wird ein Listpicker, falls dieser geöffnet war, geschlossen und zusätzlich die 
 //Focusout-Methode getriggert, um das Auflösen des Schlüssels zu bewirken.
 $(document).click(function(e) {
     var $target = $(e.target);

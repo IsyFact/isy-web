@@ -71,9 +71,10 @@ public abstract class AbstractListpickerProviderRequestHandler implements HttpRe
      * @param filterWert
      *            Der Wert des Filterfeldes, der vom Anwender eingeben wurde.
      * @param weitereFilterKriterien
-     *            Optional: Eine Zuordnung von weiteren Filter-Parametern und deren jeweiligem Wert. Dies kann
-     *            auch {@code null} sein, falls die konkrete Implementierung diese nicht benötigt. Siehe
-     *            {@link #getWeitereFilterParameter()}.
+     *            Optional: Eine Zuordnung von weiteren Filter-Parametern und deren jeweiligem Wert
+     *            (extrahiert aus der URL in {@link #handleRequest(HttpServletRequest, HttpServletResponse)}).
+     *            Dies kann auch {@code null} sein, falls die konkrete Implementierung diese nicht benötigt.
+     *            Siehe {@link #getWeitereFilterParameter()}.
      * @return Die gefilterte Liste von {@link ListpickerGuiItem}s. Die Begrenzung (falls gewünscht; siehe
      *         {@link #getMaxElemente()}) wird von der abstrakten Oberklasse vorgenommen und ist somit von der
      *         konkreten Implementierung NICHT zu leisten.
