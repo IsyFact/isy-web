@@ -10,19 +10,16 @@ import org.springframework.web.HttpRequestHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerGuiKonfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 /**
  * Servlet das Listpicker mit Informationen befüllt. </br>
  * Um ein Listpicker als Servlet nutzen zu können, muss folgendes getan werden:
  * <ul>
- * <li>ein Requesthandler der von AbstractListpickerProviderRequestHandler erbt muss die handleRequest methode
- * implementieren.</li>
- * <li>die response muss ein Json von {@link ListpickerGuiKonfiguration} sein. Benutze hierzu die Methode
- * wandleInJson</li>
- * <li>in der web.xml ein Servlet mit Servlet-Mapping für den entsprechenden Requesthandler gesetzt werden.
- * (Dafür muss es eine Bean geben)</li>
+ * <li>Eine konkrete Implementierung dieser Klasse bereitstellen.</li>
+ * <li>In der web.xml der Anwendung ein Servlet mit Servlet-Mapping (URL(-Pattern), für das das Servlet
+ * "zuständig" ist) für den entsprechenden Requesthandler eintragen. Die Bean des Handlers muss dazu im
+ * SpringContext vorhanden sein.</li>
  * </ul>
  */
 public abstract class AbstractListpickerProviderRequestHandler implements HttpRequestHandler {

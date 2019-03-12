@@ -2,10 +2,13 @@ package de.bund.bva.isyfact.common.web.jsf.components.listpicker;
 
 import java.util.List;
 
+import de.bund.bva.isyfact.common.web.servlet.requesthandler.AbstractListpickerProviderRequestHandler;
+
 /**
  * Die Klasse enthält eine Liste von {@link ListpickerGuiItem}s und enthält zusätzlich Attribute, die benutzt
  * werden, falls der Listpicker begrenzbar sein soll, was die maximale Anzahl angezeigter Elemente angeht. Die
- * Klasse wird für ein Listpickerservlet benötigt.
+ * Klasse wird von {@link AbstractListpickerProviderRequestHandler} verwendet und in JSON umgewandelt, so dass
+ * die Informationen in JavaScript verfügbar sind.
  */
 
 public class ListpickerGuiKonfiguration {
@@ -14,17 +17,17 @@ public class ListpickerGuiKonfiguration {
      * Die Nachricht die angezeigt wird, falls das Limit der anzuzeigenden Elemente erreicht ist. Siehe
      * {@link #getMaxElemente()}.
      */
-    String messageItem;
+    private String messageItem;
 
     /**
      * Die Anzahl von Elementen, die maximal angezeigt werden sollen. Der Wert -1 bedeutet keine Begrenzung.
      */
-    int maxElemente;
+    private int maxElemente;
 
     /**
      * Die {@link ListpickerGuiItem}s.
      */
-    List<ListpickerGuiItem> items;
+    private List<ListpickerGuiItem> items;
 
     /**
      * Konstruktor für Listpicker, die keine Begrenzung bzgl. der Anzahl der angezeigten Elemente haben
@@ -51,6 +54,7 @@ public class ListpickerGuiKonfiguration {
      *            Anzahl erreicht wird, wird messageItem am Ende der gefilterten Liste angezeigt.
      */
     public ListpickerGuiKonfiguration(List<ListpickerGuiItem> items, String messageItem, int maxElemente) {
+        // TODO IFE-35: Begrenzen wird im Handler selbst stattfinden!
         this.items = items.subList(0, Math.min(maxElemente, items.size()));
         this.messageItem = messageItem;
         this.maxElemente = maxElemente;

@@ -11,9 +11,12 @@
 
         <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
         <composite:attribute name="customId" required="false" />
-        <!-- Erlaubt das laden über ein Servlet. Ist eine Url gesetzt, so funktioniert kein Ajax Loading -->
-        <!-- die Url auf die das Servlet laut web.xml reagiert mit ggf. Attributen die übergeben werden müssen. 
-        (bsp. /app/listpicker?kennung=02 oder /app/listpicker?kennung=#{model.variable}) -->   
+        <!-- Erlaubt das Laden über ein Servlet. Ist eine Url gesetzt, so funktioniert kein Ajax Loading. -->
+        <!-- Die Url, auf die das Servlet laut web.xml reagiert. -->
+        <!-- Etwaige Attribute, die das Servlet zum Filtern braucht müssen hier ebenfalls mitgegeben werden
+        (bsp. /app/listpicker?kennung=02 oder /app/listpicker?kennung=#{model.variable}). -->
+        <!-- AUSNAHME: Das Attribut "filter" wird automatisch im JavaScript an die URL angehängt, sobald etwas
+        im Listpickerfilter-Feld eingegeben wird. Dieses Attribut muss also nicht selbst gesetzt werden. -->   
         <composite:attribute name="servletUrl" type="String" required="false" />
         <!-- Die Referenz des Objekts. -->
         <composite:attribute name="reference" required="true" />
