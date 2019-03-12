@@ -51,7 +51,7 @@ public abstract class AbstractListpickerProviderRequestHandler implements HttpRe
         // Ggf. begrenzen.
         boolean begrenzt = false;
         int maxElemente = getMaxElemente();
-        if (guiItems.size() > maxElemente) {
+        if (guiItems.size() > maxElemente && maxElemente > 0) {
             guiItems = Lists.newArrayList(guiItems.subList(0, maxElemente).iterator());
             begrenzt = true;
         }
