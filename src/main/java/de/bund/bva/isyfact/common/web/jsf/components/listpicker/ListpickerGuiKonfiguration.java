@@ -15,14 +15,16 @@ public class ListpickerGuiKonfiguration {
 
     /**
      * Die Nachricht die angezeigt wird, falls das Limit der anzuzeigenden Elemente erreicht ist. Siehe
-     * {@link #getMaxElemente()}.
+     * {@link #isWeiterFiltern()}.
      */
     private String messageItem;
 
     /**
-     * Die Anzahl von Elementen, die maximal angezeigt werden sollen. Der Wert -1 bedeutet keine Begrenzung.
+     * Legt fest, ob messageItem angezeigt werden soll oder nicht. Das Flag muss auf {@code true} gesetzt
+     * werden, falls anhand der Filterkriterien eigentlich noch mehr {@link ListpickerGuiItem}s sichtbar
+     * wären, die Anzahl der sichtbaren Items aber begrenzt wurde.
      */
-    private int maxElemente;
+    private boolean weiterFiltern;
 
     /**
      * Die {@link ListpickerGuiItem}s.
@@ -31,7 +33,7 @@ public class ListpickerGuiKonfiguration {
 
     /**
      * Konstruktor für Listpicker, die keine Begrenzung bzgl. der Anzahl der angezeigten Elemente haben
-     * sollen. maxElemente wird mit -1 initialisiert und messageItem mit dem leeren String.
+     * sollen. weiterFiltern wird mit {@code false} initialisiert und messageItem mit dem leeren String.
      *
      * @param items
      *            Liste von GuiItems die angezeigt werden sollen.
@@ -40,7 +42,7 @@ public class ListpickerGuiKonfiguration {
         this.items = items;
         this.messageItem = "";
         // -1 bedeutet das es keine Obergrenze für die angezeigten Items gibt
-        this.maxElemente = -1;
+        this.weiterFiltern = false;
     }
 
     /**
@@ -48,16 +50,23 @@ public class ListpickerGuiKonfiguration {
      * @param items
      *            Liste von GuiItems die angezeigt werden sollen.
      * @param messageItem
-     *            Der Text der angezeigt werden soll, falls maxElemente erreicht ist.
-     * @param maxElemente
-     *            Die maximale Anzahl an Elementen, die in der gefilterten Liste erscheinen sollen. Falls die
-     *            Anzahl erreicht wird, wird messageItem am Ende der gefilterten Liste angezeigt.
+     *            Der Text der angezeigt werden soll, falls weiterFiltern {@code true} ist.
+     * @param weiterFiltern
+     *            Legt fest, ob messageItem angezeigt werden soll oder nicht.
      */
-    public ListpickerGuiKonfiguration(List<ListpickerGuiItem> items, String messageItem, int maxElemente) {
-        // TODO IFE-35: Begrenzen wird im Handler selbst stattfinden!
-        this.items = items.subList(0, Math.min(maxElemente, items.size()));
+    public ListpickerGuiKonfiguration(List<ListpickerGuiItem> items, String messageItem,
+        boolean weiterFiltern) {
+        this.items = items;
         this.messageItem = messageItem;
-        this.maxElemente = maxElemente;
+        this.weiterFiltern = weiterFiltern;
+    }
+
+    public boolean isWeiterFiltern() {
+        return this.weiterFiltern;
+    }
+
+    public void setWeiterFiltern(boolean weiterFiltern) {
+        this.weiterFiltern = weiterFiltern;
     }
 
     public String getMessageItem() {
@@ -66,14 +75,6 @@ public class ListpickerGuiKonfiguration {
 
     public void setMessageItem(String messageItem) {
         this.messageItem = messageItem;
-    }
-
-    public int getMaxElemente() {
-        return this.maxElemente;
-    }
-
-    public void setMaxElemente(int maxElemente) {
-        this.maxElemente = maxElemente;
     }
 
     public List<ListpickerGuiItem> getItems() {

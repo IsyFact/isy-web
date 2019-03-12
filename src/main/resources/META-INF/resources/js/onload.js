@@ -2210,12 +2210,12 @@ createListpickerTable = function (responseText, listfilter, first) {
 			tr.append(td);
 		}
 		$table.append(tr);
-		if(j == tableJson.maxElemente - 1) {
-			var tr = $('<tr>');	
-			var td = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
-			tr.append(td);
-			$table.append(tr);
-		}
+	}
+	if(tableJson.weiterFiltern === true) {
+		var tr = $('<tr>');	
+		var td = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
+		tr.append(td);
+		$table.append(tr);
 	}
 	$(listfilter).parent().parent().siblings('.form-control').focusout();	
 }
