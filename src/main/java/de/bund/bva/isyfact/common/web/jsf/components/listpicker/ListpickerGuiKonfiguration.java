@@ -41,7 +41,6 @@ public class ListpickerGuiKonfiguration {
     ListpickerGuiKonfiguration(List<ListpickerGuiItem> items) {
         this.items = items;
         this.messageItem = "";
-        // -1 bedeutet das es keine Obergrenze für die angezeigten Items gibt
         this.weiterFiltern = false;
     }
 

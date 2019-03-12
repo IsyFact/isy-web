@@ -2166,7 +2166,7 @@ registerListpickerfilter = function (identifier) {
 	    
     //Die Filtermethode, die die Liste aktualisiert
     //Zunächst deaktivieren wir den Handler für den Fall, dass er schon existiert und aktualisiert
-    //werden muss.
+    //werden muss. (Dies ist beispielsweise der Fall, wenn sich ein weiteres Filteritem durch JS ändert.)
     //Wenn wir den Handler nicht vorher deaktivieren, bleibt die Servlet-URL effektiv unverändert und
     //der Filter funktioniert dann nicht korrekt.
     $(listpickerFilterInput).off('change keyup', servletListpickerFilterChanged);
