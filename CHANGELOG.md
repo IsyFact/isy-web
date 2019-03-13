@@ -1,3 +1,6 @@
+# v4.X.X
+- `IFE-35`: Es wurde die Möglichkeit geschaffen, Listpicker mithilfe eines Servlets zu filtern. Dies stellt eine Alternative zum Filtern mittels Ajax dar.
+
 # v4.7.0
 - `IFS-96`: Autoscroll Funtion für Tab-Controls
 - `IFS-142`: Neuimplementierung Breadcrumb
