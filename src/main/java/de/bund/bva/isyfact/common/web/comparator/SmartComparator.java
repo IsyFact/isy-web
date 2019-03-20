@@ -23,9 +23,10 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 /**
  * Smart comparator.
  *
- * @param <T>
- *            Typ des Objekts.
+ * @param <T> Typ des Objekts.
+ * @Deprecated Die Klasse SmartComparator steht ab der Version IsyFact 2.0 nicht mehr zur Verfügung.
  */
+@Deprecated
 public abstract class SmartComparator<T> implements Comparator<T> {
 
     /** Comparator. */
@@ -34,10 +35,8 @@ public abstract class SmartComparator<T> implements Comparator<T> {
     /**
      * Erzeuge comparator.
      *
-     * @param o1
-     *            erste Objekt
-     * @param o2
-     *            zweite Objekt
+     * @param o1 erste Objekt
+     * @param o2 zweite Objekt
      */
     protected abstract void buildComparator(T o1, T o2);
 
@@ -54,11 +53,8 @@ public abstract class SmartComparator<T> implements Comparator<T> {
     /**
      * Gibt true zurück, wenn beide Objekte nicht null sind.
      *
-     * @param o1
-     *            erste Objekt
-     * @param o2
-     *            zweite Objekt
-     *
+     * @param o1 erste Objekt
+     * @param o2 zweite Objekt
      * @return true wenn beide Objekte nicht null sind.
      */
     protected boolean pruefeBeideNichtNull(Object o1, Object o2) {
