@@ -14,11 +14,9 @@
   <!-- Identifier. -->
   <composite:attribute name="id" type="String" />
 
-  <!-- Optionalen Feld für die Clientseitige Sortierung, falls nicht nach dem Inhalt sortieren werden soll, z.B. bei Datum -->
-  <!-- Damit Client- und Server-Mode konsistent sind, sollte hier die sortProperty des Headers angegeben werden -->
+    <!-- Optionalen Feld für die Clientseitige Sortierung, falls nicht nach dem Inhalt sortieren werden soll, z.B. bei Datum. Damit Client- und Server-Mode konsistent sind, sollte hier die sortProperty des Headers angegeben werden -->
   <composite:attribute name="sortData" type="String" required="false" />
-  <!-- Optionalen Feld für die Clientseitige Filterung, falls nicht nach dem Inhalt gefiltert werden soll -->
-  <!-- Damit Client- und Server-Mode konsistent sind, sollte hier die property des zugehörigen Filters angegeben werden -->
+    <!-- Optionalen Feld für die Clientseitige Filterung, falls nicht nach dem Inhalt gefiltert werden soll. Damit Client- und Server-Mode konsistent sind, sollte hier die property des zugehörigen Filters angegeben werden -->
   <composite:attribute name="filterData" type="String" required="false" />
 
   <!-- Gibt die horizontale Ausrichtung des Inhalts der Tabellenzelle an; mögliche Werte

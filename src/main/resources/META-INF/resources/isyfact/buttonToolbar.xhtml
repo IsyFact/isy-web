@@ -9,7 +9,7 @@
 
 <composite:interface>
 
-	<!-- Die durchzuführende Aktion -->
+    <!-- Techn. erforderliches Attribut (JSF-Passthrough Attribut), wird jedoch vom System auf action="DEFAULT_ACTION" umgeschrieben -->
 	<composite:attribute name="action" required="true"
 		targets="ajax_buttonToolbar buttonToolbar" />
 	<!-- Der Wert/Text des Buttons. -->
@@ -47,6 +47,9 @@
 </composite:interface>
 
 <composite:implementation>
+    <!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
+         Die Angabe ist dennoch Pflicht, da andernfalls kein JSF-Attribut jsp:action, welches
+         "cc.attrs.action" entspricht, möglich wäre. -->
 
 <!-- Buttons werden deaktiviert, sofern eine der folgenden Bedingungen zutrifft  -->
   <!-- 1) Das Attribut "disabled" ist true -->
