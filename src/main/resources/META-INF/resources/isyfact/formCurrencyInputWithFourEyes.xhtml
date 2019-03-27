@@ -40,6 +40,8 @@
         <composite:attribute name="placeholder" type="String" required="false" />
         <!-- Ob das Eingabefeld deaktiviert ist. -->
         <composite:attribute name="disabled" type="Boolean" default="false" />
+    <!-- Steuert das Verhalten: '', input-only -->
+    <composite:attribute name="mode" type="String" default=""/>
 
         <!-- Die maximale Länge der Eingabe. -->
         <composite:attribute name="maxlength" type="Integer" required="false"
@@ -48,12 +50,8 @@
         <!-- Ein spezifisches Validation-Model, falls benötigt. -->
         <composite:attribute name="validationModel" required="false"
                 default="#{validationModel}" />
-        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-        <composite:attribute name="globalConfig" required="false"
-                default="#{globalConfigurationModel}" />
 
-        <!-- Änderungen an original formatInput  -->
-        <!-- onchange JavaScript-Funktion wird aufgerufen, wenn der Cursor das Feld verlässt -->
+    <!-- Änderungen an original formatInput: onchange JavaScript-Funktion wird aufgerufen, wenn der Cursor das Feld verlässt -->
         <composite:attribute name="onchange" required="false"
                 default="formatAmountOfMoney(this)" />
         <!-- onkeyup JavaScript-Funktion wird aufgerufen, wenn eine Tastatureingabe in dem Feld gemacht wurde -->
@@ -62,8 +60,9 @@
         <!-- Die Anzahl der Nachkommastellen: Default ist 2. -->
         <composite:attribute name="decimalplaces" type="Integer" required="false" default="2" />
 
-        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
+    <!-- Attribut: fourEyesMode, 4 Augen Prinzip Mode (locked, unlock) -->
         <composite:attribute name="fourEyesMode" type="String" required="true" />
+    <!-- Attribut: fourEyesLastValue, 4 Augen Prinzip Mode (locked, unlock) -->
         <composite:attribute name="fourEyesLastValue" type="String" />
 
         <!-- Ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. Default ist false.-->

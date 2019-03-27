@@ -23,7 +23,7 @@
         <composite:attribute name="maxlength" type="Integer" required="false"
                 default="20" />
 
-        <!-- Die auszulösende Aktion. -->
+    <!-- Techn. erforderliches Attribut (JSF-Passthrough Attribut), wird jedoch vom System auf action="DEFAULT_ACTION" umgeschrieben -->
         <composite:attribute name="action" targets="buttonIcon" required="true" />
         <!-- Das benutzte Icon. -->
         <composite:attribute name="icon" type="String" required="true" />
@@ -38,11 +38,15 @@
         <!-- Ob die Komponente deaktivert ist oder nicht. -->
         <composite:attribute name="disabled" type="Boolean" default="false" />
 
-        <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <!-- Die CSS-Klasse für den Eingabebereich. Zur Zeit nicht implementiert-->
         <composite:attribute name="inputStyleClass" type="String" />
     </composite:interface>
 
     <composite:implementation>
+    <!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
+         Die Angabe ist dennoch Pflicht, da andernfalls kein JSF-Attribut jsp:action, welches
+         "cc.attrs.action" entspricht, möglich wäre. -->
+    <!-- cc.attrs.inputStyleClass ist nicht implementiert -->
 
         <div class="action-input input-group">
 

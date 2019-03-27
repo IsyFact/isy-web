@@ -36,6 +36,9 @@
         <!-- Die Maximalhoehe als Ganzzahl. -->
         <composite:attribute name="maxHeight" type="Integer" default="200"
                 required="false" />
+    <!-- DisplaySize wird als Hidden-Feld gesetzt. Bei Implementierungen nach Styleguide mit dynamischen Breiten nicht erforderlich. -->
+    <composite:attribute name="displaySize" type="Integer" default="1024"
+                         required="false" />
 
         <!-- Der Tooltip, welcher angezeigt über den Button wird. -->
         <composite:attribute name="tooltip" type="String" required="false" />
@@ -152,7 +155,7 @@
                                                 onevent="function(data) { listpickerAjaxReload(data, event.keyCode) }"
                                                 listener="#{cc.attrs.listpickerController.filter(cc.attrs.listpickerModel)}" />
                                     </input>
-                                    <h:inputHidden value="#{cc.attrs.displaySize}" /> <!-- TODO TF woher kommt displaySize? -> Gibt es nicht! -->
+                                <h:inputHidden value="#{cc.attrs.displaySize}" />
                                     <!-- In dieses Feld wird die letzte Filterung per AJAX gespeichert, damit sie nicht mehrfach durchgeführt wird -->
                                     <input type="hidden" jsf:id="lastfilter" value="" disabled="true" />
                                     <h:inputHidden id="listpickerAjaxForm" value="#{cc.attrs.ajaxForm}" />

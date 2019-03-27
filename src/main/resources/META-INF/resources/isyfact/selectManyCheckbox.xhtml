@@ -11,6 +11,8 @@
 
 	<!-- Der Wert für das Data-Binding -->
 	<composite:attribute name="value" required="true" />
+    <!-- Die Select-Items. Jedes Item entspricht einer Checkbox. -->
+    <composite:attribute name="selectItems" required="false" />
 	<!-- Ob das Widget in der Druckansicht angezeigt werden soll. -->
 	<composite:attribute name="showPrintView" type="Boolean"
 		default="#{not empty basisModel and basisModel.showPrintView}" />

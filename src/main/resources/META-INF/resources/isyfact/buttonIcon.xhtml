@@ -9,7 +9,7 @@
 
 <composite:interface>
 
-	<!-- Die auszuführende Aktion. -->
+    <!-- Techn. erforderliches Attribut (JSF-Passthrough Attribut), wird jedoch vom System auf action="DEFAULT_ACTION" umgeschrieben -->
 	<composite:attribute name="action" required="true"
 		targets="buttonIcon buttonIcon_block" />
 	<!-- Das Label des Buttons. -->
@@ -30,7 +30,7 @@
 	<composite:attribute name="disabled" type="Boolean" default="false" />
   <!-- Die CSS-Klasse, welceh für Buttons ergänzt werden soll. -->
   <composite:attribute name="btnClass" type="String" required="false"
-    default="" />	
+    default="" />
 
 	<!-- AJAX: Soll eine AJAX Aktion ausgeführt werden. -->
 	<composite:attribute name="ajax" required="false" default="true"
@@ -58,6 +58,9 @@
 </composite:interface>
 
 <composite:implementation>
+    <!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
+         Die Angabe ist dennoch Pflicht, da andernfalls kein JSF-Attribut jsp:action, welches
+         "cc.attrs.action" entspricht, möglich wäre. -->
 
 	<!-- HTML-Button-Tag mit JSF-Passthrough-Attributen. -->
 	<!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
@@ -85,7 +88,7 @@
 		</button>
 	</ui:fragment>
 	<ui:fragment rendered="#{not btnDisabled}">
-	
+
 		<ui:fragment rendered="#{not cc.attrs.block}">
 			<button type="submit" jsf:id="buttonIcon" jsf:action="DEFAULT_ACTION"
 				class="btn #{btnClass}" title="#{cc.attrs.tooltip}">
