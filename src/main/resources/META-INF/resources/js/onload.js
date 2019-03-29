@@ -2120,15 +2120,17 @@ datumErgaenzen = function (inputFeld, grenze) {
 
 //Code der das Initialisieren eines Listpickers über das Servlet anstößt
 initialisierenListpickerServlet = function() {
+	"use strict";
 	$listpicker = $( ".servlet.listpicker-filter" );
 	$listpicker.each(function (i, listpicker) {
 		registerListpickerfilter(listpicker);
 	});
-}
+};
 
 
 //registrieren eines Listpickers
 registerListpickerfilter = function (identifier) {
+	"use strict";
 	var $listpickerFilter = $(identifier);
 	var listpickerFilterInput = $listpickerFilter.children()[0];
 	var url = $listpickerFilter.siblings("div.rf-listpicker-table-container").find(".servletTable")[0].getAttribute("data-servleturl");
@@ -2152,7 +2154,7 @@ registerListpickerfilter = function (identifier) {
 	
 	//initiale Befüllung des Listpickers
 	//Hier wird der eigentliche Request abgeschickt!
-	$.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter)});
+	$.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter);});
 	listpickerFilterInput.dataset.oldvalue = listpickerFilterInput.value;
 	
 	var $listpickerContent = $listpickerFilter.parent().parent();
@@ -2171,32 +2173,33 @@ registerListpickerfilter = function (identifier) {
     //der Filter funktioniert dann nicht korrekt.
     $(listpickerFilterInput).off('change keyup', servletListpickerFilterChanged);
     //Die benötigten Daten (die URL und der Filter selbst) geben wir als Data-Attribute rein.
-	$(listpickerFilterInput).on('change keyup', {url: urlEncoded, listpickerfilter: $listpickerFilter}, servletListpickerFilterChanged);
-}
+	$(listpickerFilterInput).on('change keyup', {url: urlEncoded, listpickerfilter: $listpickerFilter, listpickerFilterInput: $(listpickerFilterInput) }, servletListpickerFilterChanged);
+};
 
 /**
  * Die Funktion behandelt change und keyup Events für die Listpicker, die per Servlet filtern.
  * @param event Das change/keyup Event.
  */
 function servletListpickerFilterChanged(event){
+	"use strict";
 	event.stopImmediatePropagation();
 	//Hole die benötigten Daten aus den Data-Attributen des Events (wurden im Aufruf gesetzt).
 	var servletUrl = event.data.url;
 	var listpickerFilter = event.data.listpickerfilter;
-	$this = $(this);
+	var listpickerFilterInput = event.data.listpickerfilter;
 	var delay = 500;
 	timer = window.setTimeout(function(filter) {
 		var input = $this[0];
 		if (input.dataset.oldvalue == "undefined" || input.value != input.dataset.oldvalue) {
-			$.get( servletUrl+"filter="+encodeURIComponent(input.value)).success(function(data){createListpickerTable(data, listpickerFilter)});
+			$.get( servletUrl+"filter="+encodeURIComponent(input.value)).success(function(data){createListpickerTable(data, listpickerFilter);});
 			input.dataset.oldvalue=input.value;
 		}
-	},delay, $this);
+	},delay, listpickerFilterInput);
 }
 
 //Erstellt einen ListpickerTable anhand des responseTextes.
 createListpickerTable = function (responseText, listfilter) {
-	
+	"use strict";
 	var $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
 	var $table = $tablecontainer.find(".servletTable");
 	$table.empty();
@@ -2211,17 +2214,18 @@ createListpickerTable = function (responseText, listfilter) {
 		$table.append(tr);
 	}
 	if(tableJson.weiterFiltern === true) {
-		var tr = $('<tr>');	
-		var td = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
-		tr.append(td);
-		$table.append(tr);
+		var trWeiterFiltern = $('<tr>');	
+		var tdWeiterFiltern = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
+		trWeiterFiltern.append(tdWeiterFiltern);
+		$table.append(trWeiterFiltern);
 	}
 	$(listfilter).parent().parent().siblings('.form-control').focusout();	
-}
+};
 
 //Bei einem Klick im Dokument, wird ein Listpicker, falls dieser geöffnet war, geschlossen und zusätzlich die 
 //Focusout-Methode getriggert, um das Auflösen des Schlüssels zu bewirken.
 $(document).click(function(e) {
+	"use strict";
     var $target = $(e.target);
     var $listpickerContainer = $('.listpicker-container.open');
     var $listpickerContent = $listpickerContainer.find('.listpicker-content');
