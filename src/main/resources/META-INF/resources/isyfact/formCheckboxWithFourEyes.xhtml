@@ -39,28 +39,34 @@
                 type="Boolean" />
         <!-- Ob die Checkbox deaktiviert ist oder nicht. -->
         <composite:attribute name="disabled" required="true" default="false" />
+    <!-- Ob es ein Read-Only Feld ist. Mögliche Werte: ['input-only' | ''] -->
+    <composite:attribute name="mode" type="String" required="false"
+                         default="" />
 
         <!-- Ein spezifisches Validation-Model, falls benötigt. -->
         <composite:attribute name="validationModel" required="false"
                 default="#{validationModel}" />
-        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-        <composite:attribute name="globalConfig" required="false"
-                default="#{globalConfigurationModel}" />
 
-        <!-- change Event einfach durchwerfen -->
+    <!-- Attribut: fourEyesMode, 4 Augen Prinzip Mode (locked, unlock) -->
+    <composite:attribute name="fourEyesMode" type="String" required="true" />
+    <!-- Attribut: fourEyesLastValue, 4 Augen Prinzip Mode (locked, unlock) -->
+    <composite:attribute name="fourEyesLastValue" type="String" />
+
+    <!-- change Event einfach durchwerfen. z.Zt. nicht implementiert -->
+    <composite:attribute name="valueChangeListener" required="false"
+                         targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
+    <!-- clientBehavior: change -->
         <composite:clientBehavior name="change" event="change"
                 targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
+    <!-- clientBehavior: click -->
         <composite:clientBehavior name="click" event="click"
                 targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
-        <composite:attribute name="valueChangeListener" required="false"
-                targets="isySelectBooleanCheckbox:selectBooleanCheckbox" />
 
-        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
-        <composite:attribute name="fourEyesMode" type="String" required="true" />
-        <composite:attribute name="fourEyesLastValue" type="String" />
+
     </composite:interface>
 
     <composite:implementation>
+    <!-- cc.attrs.valueChangeListener ist z.Zt. nicht implementiert -->
 
         <ui:param name="validationMessages"
                 value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />

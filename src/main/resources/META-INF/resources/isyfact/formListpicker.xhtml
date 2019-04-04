@@ -1,243 +1,249 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:composite="http://java.sun.com/jsf/composite"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:jsf="http://xmlns.jcp.org/jsf"
-        xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <!-- Ein Listpicker zur Eingabe auf Formularseiten. -->
+<!-- Ein Listpicker zur Eingabe auf Formularseiten. -->
 
-    <composite:interface>
+<composite:interface>
 
-        <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
-        <composite:attribute name="customId" required="false" />
+    <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
+    <composite:attribute name="customId" required="false"/>
 
-        <!-- Die Referenz des Objekts. -->
-        <composite:attribute name="reference" required="true" />
-        <!-- Der Wert für das Databinding im Eingabefeld -->
-        <composite:attribute name="value" required="true" />
-        <!-- Ob die Eingabe ein Pflichteingabe ist. -->
-        <composite:attribute name="required" type="Boolean" default="false" />
-        <!-- Der Text für das Label -->
-        <composite:attribute name="label" type="String" required="false" />
-        <!-- Die CSS-Klasse für das Label. -->
-        <composite:attribute name="labelStyleClass" type="String"
-                default="col-lg-6" />
-        <!-- Die CSS-Klasse für den Eingabebereich. -->
-        <composite:attribute name="inputStyleClass" type="String"
-                default="col-lg-6" />
-        <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
-        <composite:attribute name="placeholder" type="String" required="false" />
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="reference" required="true"/>
+    <!-- Der Wert für das Databinding im Eingabefeld -->
+    <composite:attribute name="value" required="true"/>
+    <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+    <composite:attribute name="required" type="Boolean" default="false"/>
+    <!-- Der Text für das Label -->
+    <composite:attribute name="label" type="String" required="false"/>
+    <!-- Die CSS-Klasse für das Label. -->
+    <composite:attribute name="labelStyleClass" type="String"
+                         default="col-lg-6"/>
+    <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <composite:attribute name="inputStyleClass" type="String"
+                         default="col-lg-6"/>
+    <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+    <composite:attribute name="placeholder" type="String" required="false"/>
 
-        <!-- Die Eingabemaske.-->
-        <composite:attribute name="inputmask" type="String" required="false" />
-        <!-- Die Eingabemaske: ob text soll überschrieben werden beim eintippen.-->
-        <composite:attribute name="inputmaskInsertMode" type="Boolean"
-                required="false" default="true" />
+    <!-- Die Eingabemaske.-->
+    <composite:attribute name="inputmask" type="String" required="false"/>
+    <!-- Die Eingabemaske: ob text beim Eintippen überschrieben werden soll.-->
+    <composite:attribute name="inputmaskInsertMode" type="Boolean"
+                         required="false" default="true"/>
 
-        <!-- Die Mindestbreite als Ganzzahl. -->
-        <composite:attribute name="minWidth" type="Integer" required="false" default="0" />
-        <!-- Die Maximalhoehe als Ganzzahl. -->
-        <composite:attribute name="maxHeight" type="Integer" default="200"
-                required="false" />
-        <composite:attribute name="showPrintView" type="Boolean"
-                default="#{not empty basisModel and basisModel.showPrintView}" />
-        <!-- Der Tooltip, welcher angezeigt über den Button wird. -->
-        <composite:attribute name="tooltip" type="String" required="false" />
-        <!-- Der generelle Tooltip, welcher angezeigt über das Eingabefeld wird. -->
-        <composite:attribute name="title" type="String" required="false" />
+    <!-- Die Mindestbreite als Ganzzahl. -->
+    <composite:attribute name="minWidth" type="Integer" required="false" default="0"/>
+    <!-- Die Maximalhoehe als Ganzzahl. -->
+    <composite:attribute name="maxHeight" type="Integer" default="200"
+                         required="false"/>
+    <composite:attribute name="showPrintView" type="Boolean"
+                         default="#{not empty basisModel and basisModel.showPrintView}"/>
+    <!-- Der Tooltip, welcher über dem Button angezeigt wird. -->
+    <composite:attribute name="tooltip" type="String" required="false"/>
+    <!-- Der generelle Tooltip, welcher über dem Eingabefeld angezeigt wird. -->
+    <composite:attribute name="title" type="String" required="false"/>
 
-        <!-- Das Model für den Listpicker. -->
-        <composite:attribute name="listpickerModel"
-                type="de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerModel"
-                required="true" />
-        <!-- Der Controller für den Listpicker. -->
-        <composite:attribute name="listpickerController"
-                type="de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerController"
-                required="true" />
-        <!-- Ob Items dynamisch nachgeladen werden sollen. -->
-        <composite:attribute name="ajaxLoading" type="Boolean" default="false" />
-        <!-- Das Form, wohin die Items dynamisch geladen werden. -->
-        <composite:attribute name="ajaxForm" type="String" />
+    <!-- Das Model für den Listpicker. -->
+    <composite:attribute name="listpickerModel"
+                         type="de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerModel"
+                         required="true"/>
+    <!-- Der Controller für den Listpicker. -->
+    <composite:attribute name="listpickerController"
+                         type="de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerController"
+                         required="true"/>
+    <!-- Ob Items dynamisch nachgeladen werden sollen. -->
+    <composite:attribute name="ajaxLoading" type="Boolean" default="false"/>
+    <!-- Das Form, wohin die Items dynamisch geladen werden. -->
+    <composite:attribute name="ajaxForm" type="String"/>
 
-        <!-- Die sortierte Liste der Spaltenüberschriften. -->
-        <composite:attribute name="header" type="java.lang.String"
-                required="false" />
-        <!-- Die Nummer der Headerspalte, wessen Inhalt per Javascript im Eingabefeld ergänzt werden soll. Standardmäßig 0 = deaktiviert. -->
-        <!-- Falls diese Feld verwendet wird, dann muss das value auf ein Objekt vom Typ Listpickerangabe zeigen. -->
-        <composite:attribute name="inputComplement" type="Integer" default="0" />
+    <!-- Die sortierte Liste der Spaltenüberschriften. -->
+    <composite:attribute name="header" type="java.lang.String"
+                         required="false"/>
+    <!-- Die Nummer der Headerspalte, wessen Inhalt per Javascript im Eingabefeld ergänzt werden soll. Standardmäßig 0 = deaktiviert. Falls diese Feld verwendet wird, dann muss das value auf ein Objekt vom Typ Listpickerangabe zeigen. -->
+    <composite:attribute name="inputComplement" type="Integer" default="0"/>
 
-        <!-- Der Inhalt der rechts vom Listpicker angezeigt wird. -->
-        <composite:facet name="contentRight" required="false" />
+    <!-- Der Inhalt der rechts vom Listpicker angezeigt wird. -->
+    <composite:facet name="contentRight" required="false"/>
 
-        <!-- Ob Autocomplete verwenden soll -->
-        <composite:attribute name="useAutocomplete" type="Boolean"
-                required="false" default="true" />
+    <!-- DisplaySize wird als Hidden-Feld gesetzt. Bei Implementierungen nach Styleguide mit dynamischen Breiten nicht erforderlich. -->
+    <composite:attribute name="displaySize" type="Integer" default="1024"
+                         required="false"/>
 
-        <!-- Ein spezifisches Validation-Model, falls benötigt. -->
-        <composite:attribute name="validationModel" required="false"
-                default="#{validationModel}" />
-        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-        <composite:attribute name="globalConfig" required="false"
-                default="#{globalConfigurationModel}" />
+    <!-- Ob Autocomplete verwenden soll -->
+    <composite:attribute name="useAutocomplete" type="Boolean"
+                         required="false" default="true"/>
 
-    </composite:interface>
+    <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+    <composite:attribute name="validationModel" required="false"
+                         default="#{validationModel}"/>
+    <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+    <composite:attribute name="globalConfig" required="false"
+                         default="#{globalConfigurationModel}"/>
 
-    <composite:implementation>
+</composite:interface>
 
-        <!-- Validierungsfehler bestimmen -->
-        <ui:param name="validationMessages"
-                value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
-        <ui:param name="existsValidationError"
-                value="#{not empty validationMessages}" />
+<composite:implementation>
 
-        <div
-                class="form-group #{existsValidationError ? ' has-error has-feedback': ''}"
-                data-isy-custom-id="#{cc.attrs.customId}" >
+    <!-- Validierungsfehler bestimmen -->
+    <ui:param name="validationMessages"
+              value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}"/>
+    <ui:param name="existsValidationError"
+              value="#{not empty validationMessages}"/>
 
-            <!-- Label -->
-            <ui:fragment rendered="#{not basisModel.showPrintView and cc.attrs.globalConfig.jsEnabled}">
-                <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField">
-                    <h:outputText value="#{cc.attrs.label}"/>
-                </label>
-            </ui:fragment>
+    <div
+            class="form-group #{existsValidationError ? ' has-error has-feedback': ''}"
+            data-isy-custom-id="#{cc.attrs.customId}">
 
-            <ui:fragment rendered="#{basisModel.showPrintView and cc.attrs.globalConfig.jsEnabled}">
-                <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-printView">
-                    <h:outputText value="#{cc.attrs.label}"/>
-                </label>
-            </ui:fragment>
+        <!-- Label -->
+        <ui:fragment rendered="#{not basisModel.showPrintView and cc.attrs.globalConfig.jsEnabled}">
+            <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
+                   for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField">
+                <h:outputText value="#{cc.attrs.label}"/>
+            </label>
+        </ui:fragment>
 
-            <ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
-                <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-nojs">
-                    <h:outputText value="#{cc.attrs.label}"/>
-                </label>
-            </ui:fragment>
+        <ui:fragment rendered="#{basisModel.showPrintView and cc.attrs.globalConfig.jsEnabled}">
+            <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
+                   for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-printView">
+                <h:outputText value="#{cc.attrs.label}"/>
+            </label>
+        </ui:fragment>
 
-            <div class="#{cc.attrs.inputStyleClass}">
+        <ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
+            <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
+                   for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-nojs">
+                <h:outputText value="#{cc.attrs.label}"/>
+            </label>
+        </ui:fragment>
 
-                <ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled}">
-                    <div class="input-group listpicker-container">
-                        <!-- Die Mindestbreite für das JS Plugin rendern -->
-                        <h:inputHidden type="hidden" id="listpickerMinWidth"
-                                value="#{cc.attrs.minWidth}" />
-                        <h:inputHidden type="inputComplement" id="inputComplement" value="#{cc.attrs.inputComplement}" />
+        <div class="#{cc.attrs.inputStyleClass}">
 
-                        <ui:fragment rendered="#{not basisModel.showPrintView}">
-                            <input type="text"
-                                    jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField"
-                                    placeholder="#{cc.attrs.placeholder}"
-                                    class="form-control #{existsValidationError ? ' invalid': ''}"
-                                    jsf:value="#{cc.attrs.value}"
-                                    data-isymask-mask="#{cc.attrs.inputmask}"
-                                    data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}"
-                                    autocomplete="#{cc.attrs.useAutocomplete ? 'on' : 'off'}"
-                                    title="#{cc.attrs.title}" />
-                            <a data-toggle="dropdown" title="#{cc.attrs.tooltip}"
-                                    class="btn btn-icon input-group-addon listpicker-button"> <span
-                                    class="icon icon-list-2" />
-                            </a>
-                        </ui:fragment>
-                        <ui:fragment rendered="#{basisModel.showPrintView}">
-                            <input type="text"
-                                    jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-printView"
-                                    placeholder="#{cc.attrs.placeholder}" disabled="disabled"
-                                    class="form-control #{existsValidationError ? ' invalid': ''}"
-                                    jsf:value="#{cc.attrs.value}"
-                                    data-isymask-mask="#{cc.attrs.inputmask}"
-                                    data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}"
-                                    autocomplete="#{cc.attrs.useAutocomplete ? 'on' : 'off'}">
-                            </input>
-                        </ui:fragment>
-                        <div
-                                class="picker listpicker dropdown-menu picker-dropdown picker-orient-left picker-orient-top listpicker-content">
-                            <div class="listpicker-list">
-                                <div class="listpicker-filter">
-                                    <input type="text" jsf:id="listpickerFilter"
-                                            jsf:value="#{cc.attrs.listpickerModel.filter}"
-                                            placeholder="Filter" class="listpicker-filter-input"
-                                            autocomplete="off">
-                                        <f:ajax render=":#{cc.attrs.ajaxForm}" execute="@form"
-                                                event="change" disabled="#{not cc.attrs.ajaxLoading}"
-                                                delay="600"
-                                                onevent="function(data) { listpickerAjaxReload(data, event.keyCode) }"
-                                                listener="#{cc.attrs.listpickerController.filter(cc.attrs.listpickerModel)}" />
-                                    </input>
-                                    <h:inputHidden value="#{cc.attrs.displaySize}" /> <!-- TODO TF woher kommt displaySize? -> Gibt es nicht! -->
-                                    <ui:fragment rendered="#{cc.attrs.ajaxLoading}">
-                                        <!-- In dieses Feld wird die letzte Filterung per AJAX gespeichert, damit sie nicht mehrfach durchgeführt wird -->
-                                        <input type="hidden" jsf:id="lastfilter" value=""
-                                                disabled="true" />
-                                        <h:inputHidden id="listpickerAjaxForm"
-                                                value="#{cc.attrs.ajaxForm}" />
-                                    </ui:fragment>
-                                </div>
-                                <div class="rf-listpicker-table-container"
-                                        style="max-height: #{cc.attrs.maxHeight}px">
-                                    <table class="rf-listpicker-table table">
-                                        <thead>
-                                            <tr>
-                                                <ui:repeat var="headerField"
-                                                        value="#{jsfHelper.convertToList(cc.attrs.header)}">
-                                                    <th>#{headerField}</th>
+            <ui:fragment rendered="#{cc.attrs.globalConfig.jsEnabled}">
+                <div class="input-group listpicker-container">
+                    <!-- Die Mindestbreite für das JS Plugin rendern -->
+                    <h:inputHidden type="hidden" id="listpickerMinWidth"
+                                   value="#{cc.attrs.minWidth}"/>
+                    <h:inputHidden type="inputComplement" id="inputComplement"
+                                   value="#{cc.attrs.inputComplement}"/>
+
+                    <ui:fragment rendered="#{not basisModel.showPrintView}">
+                        <input type="text"
+                               jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField"
+                               placeholder="#{cc.attrs.placeholder}"
+                               class="form-control #{existsValidationError ? ' invalid': ''}"
+                               jsf:value="#{cc.attrs.value}"
+                               data-isymask-mask="#{cc.attrs.inputmask}"
+                               data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}"
+                               autocomplete="#{cc.attrs.useAutocomplete ? 'on' : 'off'}"
+                               title="#{cc.attrs.title}"/>
+                        <a data-toggle="dropdown" title="#{cc.attrs.tooltip}"
+                           class="btn btn-icon input-group-addon listpicker-button"> <span
+                                class="icon icon-list-2"/>
+                        </a>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{basisModel.showPrintView}">
+                        <input type="text"
+                               jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-printView"
+                               placeholder="#{cc.attrs.placeholder}" disabled="disabled"
+                               class="form-control #{existsValidationError ? ' invalid': ''}"
+                               jsf:value="#{cc.attrs.value}"
+                               data-isymask-mask="#{cc.attrs.inputmask}"
+                               data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}"
+                               autocomplete="#{cc.attrs.useAutocomplete ? 'on' : 'off'}">
+                        </input>
+                    </ui:fragment>
+                    <div
+                            class="picker listpicker dropdown-menu picker-dropdown picker-orient-left picker-orient-top listpicker-content">
+                        <div class="listpicker-list">
+                            <div class="listpicker-filter">
+                                <input type="text" jsf:id="listpickerFilter"
+                                       jsf:value="#{cc.attrs.listpickerModel.filter}"
+                                       placeholder="Filter" class="listpicker-filter-input"
+                                       autocomplete="off">
+                                    <f:ajax render=":#{cc.attrs.ajaxForm}" execute="@form"
+                                            event="change" disabled="#{not cc.attrs.ajaxLoading}"
+                                            delay="600"
+                                            onevent="function(data) { listpickerAjaxReload(data, event.keyCode) }"
+                                            listener="#{cc.attrs.listpickerController.filter(cc.attrs.listpickerModel)}"/>
+                                </input>
+                                <h:inputHidden value="#{cc.attrs.displaySize}"/>
+                                <ui:fragment rendered="#{cc.attrs.ajaxLoading}">
+                                    <!-- In dieses Feld wird die letzte Filterung per AJAX gespeichert, damit sie nicht mehrfach durchgeführt wird -->
+                                    <input type="hidden" jsf:id="lastfilter" value=""
+                                           disabled="true"/>
+                                    <h:inputHidden id="listpickerAjaxForm"
+                                                   value="#{cc.attrs.ajaxForm}"/>
+                                </ui:fragment>
+                            </div>
+                            <div class="rf-listpicker-table-container"
+                                 style="max-height: #{cc.attrs.maxHeight}px">
+                                <table class="rf-listpicker-table table">
+                                    <thead>
+                                    <tr>
+                                        <ui:repeat var="headerField"
+                                                   value="#{jsfHelper.convertToList(cc.attrs.header)}">
+                                            <th>#{headerField}</th>
+                                        </ui:repeat>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Muss nur gerendert werden, falls kein AJAX Loading aktiv ist, ansonsten sind die Inhalte über das isy:formListpickerAjaxContent einzubinden. -->
+                                    <ui:fragment rendered="#{not cc.attrs.ajaxLoading}">
+                                        <ui:repeat var="item"
+                                                   value="#{cc.attrs.listpickerModel.items}">
+                                            <tr id="#{item.getValueForItem()}"
+                                                class="#{item.getCssClass()}">
+                                                <ui:repeat var="itemProperty"
+                                                           value="#{cc.attrs.listpickerModel.getColumnPropertyKeys()}">
+                                                    <td>#{jsfHelper.getPropertyValueForObject(item,itemProperty)}</td>
                                                 </ui:repeat>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Muss nur gerendert werden, falls kein AJAX Loading aktiv ist, ansonsten sind die Inhalte über das isy:formListpickerAjaxContent einzubinden. -->
-                                            <ui:fragment rendered="#{not cc.attrs.ajaxLoading}">
-                                                <ui:repeat var="item"
-                                                        value="#{cc.attrs.listpickerModel.items}">
-                                                    <tr id="#{item.getValueForItem()}"
-                                                            class="#{item.getCssClass()}">
-                                                        <ui:repeat var="itemProperty"
-                                                                value="#{cc.attrs.listpickerModel.getColumnPropertyKeys()}">
-                                                            <td>#{jsfHelper.getPropertyValueForObject(item,itemProperty)}</td>
-                                                        </ui:repeat>
-                                                    </tr>
-                                                </ui:repeat>
-                                            </ui:fragment>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </ui:repeat>
+                                    </ui:fragment>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="listpicker-ajax-spinner"
-                                style="display: none; z-index: 1100; background: rgba(255, 255, 255, .8) url(../img/controls/spinner.gif) 50% 50% no-repeat" />
                     </div>
+                    <div class="listpicker-ajax-spinner"
+                         style="display: none; z-index: 1100; background: rgba(255, 255, 255, .8) url(../img/controls/spinner.gif) 50% 50% no-repeat"/>
+                </div>
 
-                    <!-- Bei Validierungsfehlern -->
-                    <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
+                <!-- Bei Validierungsfehlern -->
+                <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
                         <span class="form-control-feedback without-input-group-addon">
                             <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
-                                    data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
-                                    data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
+                               data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
+                               data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title=""
+                               title="">
                                 <span class="icon icon-info"></span>
                             </a>
                         </span>
-                    </ui:fragment>
+                </ui:fragment>
 
-                </ui:fragment>
-                <ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
-                    <!-- Falls JS nicht aktiviert ist, dann wird ein einfaches Dropdown angezeigt. -->
-                    <div class="input-group">
-                        <div class="form-selectonedropdown #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}">
-                            <h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-nojs"
-                                    value="#{cc.attrs.value}"
-                                    styleClass="form-selectonedropdown #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{existsValidationError ? 'invalid' : ''}"
-                                    disabled="#{cc.attrs.showPrintView}"
-                                    title="#{cc.attrs.title}">
-                                <f:selectItems value="#{cc.attrs.listpickerModel.itemsAsSelectItemsNonJs}" />
-                            </h:selectOneMenu>
-                        </div>
+            </ui:fragment>
+            <ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled}">
+                <!-- Falls JS nicht aktiviert ist, dann wird ein einfaches Dropdown angezeigt. -->
+                <div class="input-group">
+                    <div class="form-selectonedropdown #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}">
+                        <h:selectOneMenu
+                                id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-listpickerField-nojs"
+                                value="#{cc.attrs.value}"
+                                styleClass="form-selectonedropdown #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{existsValidationError ? 'invalid' : ''}"
+                                disabled="#{cc.attrs.showPrintView}"
+                                title="#{cc.attrs.title}">
+                            <f:selectItems value="#{cc.attrs.listpickerModel.itemsAsSelectItemsNonJs}"/>
+                        </h:selectOneMenu>
                     </div>
-                </ui:fragment>
-            </div>
-            <composite:renderFacet name="contentRight" />
+                </div>
+            </ui:fragment>
         </div>
-    </composite:implementation>
+        <composite:renderFacet name="contentRight"/>
+    </div>
+</composite:implementation>
 
 </html>

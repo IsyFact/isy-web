@@ -7,9 +7,9 @@
 
 <!-- Ein Eingabefeld innerhalb Formularen. -->
 
-<!-- 
+<!--
 	Diese Komponente verhält sich bis auf wenige Ausnahmen wie die Komponente isy:formInput
-	
+
 	Ausnahmen:
 	- formCurrencyInput besitzt kein Attribut inputmask, da sich die Inputmask nicht mit der JavaScript-Funktion formatData (components-js.js) verträgt.
 	- formCurrencyInput lässt nur die Eingabe von Zahlen und Kommas zu. Alle Anderen Zeichen werden sofort wieder gelöscht.
@@ -42,11 +42,6 @@
 	<!-- Die maximale Länge der Eingabe. -->
 	<composite:attribute name="maxlength" type="Integer" required="false"
 		default="255" />
-        <!-- Die maximale Breite des Eingabefeldes. -->
-        <composite:attribute name="width" type="String" required="false"
-                default="100%" />
-        <!-- Tooltip. -->
-        <composite:attribute name="tooltip" type="String" default="" />
 
 	<!-- Ein spezifisches Validation-Model, falls benötigt. -->
 	<composite:attribute name="validationModel" required="false"
@@ -67,10 +62,10 @@
 
 	<!-- Ist ein Tausender-Punkt gewünscht. -->
 	<composite:attribute name="tausenderpunkt" type="Boolean" required="false" default="false" />
-	
+
 	<!-- Ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. Default ist false.-->
 	<composite:attribute name="alignright" type="Boolean" required="false" default="false" />
-    
+
 </composite:interface>
 
 <composite:implementation>
@@ -90,7 +85,7 @@
                     <h:outputText value="#{cc.attrs.label}"/>
                 </label>
             </ui:fragment>
-			
+
 	  <!-- Das Label falls readonly. -->
             <ui:fragment rendered="#{cc.attrs.readonly}">
                 <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
