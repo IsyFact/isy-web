@@ -21,10 +21,10 @@
         <ui:fragment rendered="#{not empty applikation.anwendungen}">
           <div class="navbar-submenu">
           <div style="background-color:#{applikation.farbe}; height:15px" />
-            <div class="row row-df">
+            <div class="row">
               <div>
                 <ui:repeat value="#{applikation.anwendungen}" var="anwendung" varStatus="anwendungsnumber">
-                  <div class='row row-df navbar-anwendung'>
+                  <div class='row navbar-anwendung'>
                     <div>
                       <a href="#{anwendung.link}" class="search-option">#{anwendung.name}</a>
                     </div>
