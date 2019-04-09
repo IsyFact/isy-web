@@ -1,3 +1,6 @@
+# v4.8.0
+- `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
+
 # v4.7.0
 - `IFS-96`: Autoscroll Funtion für Tab-Controls
 - `IFS-142`: Neuimplementierung Breadcrumb
