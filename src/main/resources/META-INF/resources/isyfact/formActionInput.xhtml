@@ -38,7 +38,7 @@
         <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
         <composite:attribute name="placeholder" type="java.lang.String"
                 required="false" />
-        <!-- Die auszulösende Aktion. -->
+    <!-- Techn. erforderliches Attribut (JSF-Passthrough Attribut), wird jedoch vom System auf action="DEFAULT_ACTION" umgeschrieben -->
         <composite:attribute name="action" targets="buttonIcon"
                 required="false" />
         <!-- Das benutzte Icon. -->
@@ -51,10 +51,12 @@
                 type="java.lang.String" />
         <!-- Steuert das Verhalten: normal, button-only, input-only -->
         <composite:attribute name="mode" type="String" default="normal" />
+    <!-- Attribut: disabled -->
         <composite:attribute name="disabled" type="Boolean" default="false" />
     </composite:interface>
 
     <composite:implementation>
+    <!-- Hinweis: Das Attribut cc.attrs.action ist ein JSP-Passthrough Attribut -->
 
         <!-- Ob Validierungsfehler existieren. -->
         <ui:param name="validationMessages"

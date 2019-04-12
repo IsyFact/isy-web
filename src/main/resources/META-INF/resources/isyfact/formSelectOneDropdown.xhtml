@@ -21,13 +21,13 @@
     <!-- Ob die Darstellung nur lesend erfolgen soll -->
     <composite:attribute name="readonly" type="Boolean" required="false"
                          default="false"/>
-    <!-- Ob die Darstellung deaktiviert sein soll -->
-    <composite:attribute name="disabled" type="Boolean" required="false"
-                         default="false"/>
+    <!-- Ob die Liste deaktiviert ist. -->
+    <composite:attribute name="disabled" type="Boolean" default="false" />
 
     <!-- Evente müssen explizit deklariert werden -->
     <composite:attribute name="valueChangeListener" required="false"
                          targets="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"/>
+    <!-- clientBehavior: change-->
     <composite:clientBehavior name="change" event="change"
                               targets="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"/>
 
@@ -38,6 +38,8 @@
     <composite:attribute name="converterAttribute"/>
 
     <!-- Formspezifisch -->
+    <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+    <composite:attribute name="required" type="Boolean" default="false" />
     <!-- Der Text für das Label -->
     <composite:attribute name="label" type="String" required="false"/>
     <!-- Die CSS-Klasse für das Label. -->

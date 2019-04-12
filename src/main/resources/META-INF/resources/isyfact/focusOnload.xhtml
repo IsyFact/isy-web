@@ -10,16 +10,16 @@
 
 	<!-- Der Selektor für das Element, das initial fokussiert werden soll.  -->
 	<composite:attribute name="element" type="String" required="true" />
-	
+
 	<!-- Gibt an, ob die initiale Fokussierung deaktiviert werden soll.  -->
 	<composite:attribute name="deactivated" type="Boolean" required="false"	default="false" />
-	
+
 	<!-- Gibt an, ob das Element fokussiert sein soll, auch wenn im GlobalFlowModel die Fokussierung deaktiviert ist.  -->
-	<composite:attribute name="focus" type="Boolean" required="false"	default="false" />
-	
+    <composite:attribute name="force" type="Boolean" required="false"	default="false" />
+
 	 <!-- Der Selektor für das Element, das initial fokussiert werden soll.  -->
   <composite:attribute name="areaId" type="String" required="false" default="focusOnloadArea" />
-	
+
 </composite:interface>
 
 
@@ -36,7 +36,7 @@
 			<h:inputHidden id="focusOnloadElement" value="#{cc.attrs.element}" />
 		</ui:fragment>
 	</div>
-	
+
 </composite:implementation>
 
 </html>

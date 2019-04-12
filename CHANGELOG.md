@@ -1,5 +1,6 @@
 # v4.8.0
 - `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
+- `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
 
 # v4.7.0
 - `IFS-96`: Autoscroll Funtion für Tab-Controls

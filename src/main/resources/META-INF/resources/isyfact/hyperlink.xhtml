@@ -9,7 +9,7 @@
 
 <composite:interface>
 
-	<!-- Die Action, die ausgeführt werden soll. -->
+    <!-- Nicht implementiert! Die Action, die ausgeführt werden soll. -->
 	<composite:attribute name="action"
 		targets="hyperlinkComandLink hyperlinkCommandButton" />
 	<!-- Das Label des Links -->
@@ -25,7 +25,7 @@
 	<!-- Ob der Link in einem neuen Tab geöffnet werden soll. Funktioniert nur mit aktiviertem JavaScript. -->
 	<composite:attribute name="openInNewTab" required="false"
 		type="Boolean" default="false" />
-	<!-- Die Action-Source -->
+    <!-- Nicht implementiert! Die Action-Source -->
 	<composite:actionSource name="hyperlink"
 		targets="hyperlinkComandLink hyperlinkCommandButton" />
 </composite:interface>
@@ -46,7 +46,7 @@
         styleClass="#{cc.attrs.baseStyleClass} #{cc.attrs.additionalStyleClass}" />
     </ui:fragment>
   </ui:fragment>
-  
+
   <!-- In der Druckansicht wird nur ein Outputtext gerendert -->
 	<ui:fragment rendered="#{basisModel.showPrintView}">
     <h:outputText value="#{cc.attrs.value}" escape="false" title="#{cc.attrs.title}"
