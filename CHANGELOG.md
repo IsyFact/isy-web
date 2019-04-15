@@ -3,6 +3,7 @@
 - `IFE-34`: Fehler bei deaktivierten Default Buttons behoben
 - `IFE-35`: Es wurde die Möglichkeit geschaffen, Listpicker mithilfe eines Servlets zu filtern. Dies stellt eine Alternative zum Filtern mittels Ajax dar.
 - `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
+- `IFE-51`: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
 
 # v4.7.0
 - `IFS-96`: Autoscroll Funtion für Tab-Controls
