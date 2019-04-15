@@ -1,5 +1,6 @@
 # v4.8.0
 - `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
+- `IFE-44`: Anhebung der commons-fileupload Version auf 1.3.3
 
 # v4.7.0
 - `IFS-96`: Autoscroll Funtion für Tab-Controls
