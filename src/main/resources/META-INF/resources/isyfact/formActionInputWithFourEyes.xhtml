@@ -1,107 +1,116 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:composite="http://java.sun.com/jsf/composite"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:c="http://java.sun.com/jstl/core"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:jsf="http://xmlns.jcp.org/jsf"
-        xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
-        xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
+      xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-    <!-- Datumsfeld für Formulareingaben. -->
+<!-- Datumsfeld für Formulareingaben. -->
 
-    <composite:interface>
+<composite:interface>
 
-        <!-- Die Referenz des Objekts. -->
-        <composite:attribute name="reference" required="true" />
-        <!-- Ob die Eingabe ein Pflichteingabe ist. -->
-        <composite:attribute name="required" type="Boolean" default="false" />
-        <!-- Der Text für das Label -->
-        <composite:attribute name="label" type="String" required="false" />
-        <!-- Die CSS-Klasse für das Label. -->
-        <composite:attribute name="labelStyleClass" type="String"
-                default="col-lg-6" />
-        <!-- Die CSS-Klasse für den Eingabebereich. -->
-        <composite:attribute name="inputStyleClass" type="String"
-                default="col-lg-6" />
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="reference" required="true"/>
+    <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+    <composite:attribute name="required" type="Boolean" default="false"/>
+    <!-- Der Text für das Label -->
+    <composite:attribute name="label" type="String" required="false"/>
+    <!-- Die CSS-Klasse für das Label. -->
+    <composite:attribute name="labelStyleClass" type="String"
+                         default="col-lg-6"/>
+    <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <composite:attribute name="inputStyleClass" type="String"
+                         default="col-lg-6"/>
 
-        <!-- Ein spezifisches Validation-Model, falls benötigt. -->
-        <composite:attribute name="validationModel" required="false"
-                default="#{validationModel}" />
-        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-        <composite:attribute name="globalConfig" required="false"
-                default="#{globalConfigurationModel}" />
+    <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+    <composite:attribute name="validationModel" required="false"
+                         default="#{validationModel}"/>
+    <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+    <composite:attribute name="globalConfig" required="false"
+                         default="#{globalConfigurationModel}"/>
 
-        <!-- Die maximale Länge der Eingabe. -->
-        <composite:attribute name="maxlength" type="Integer" required="false"
-                default="20" />
-        <!-- Der Wert für das Databinding im Eingabefeld -->
-        <composite:attribute name="value" required="true" />
-        <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
-        <composite:attribute name="placeholder" type="java.lang.String"
-                required="false" />
-        <!-- Die auszulösende Aktion. -->
-        <composite:attribute name="action" targets="actionInput:buttonIcon"
-                required="false" />
-        <!-- Das benutzte Icon. -->
-        <composite:attribute name="icon" type="String" required="true" />
-        <!-- Die Farbe des Icons. -->
-        <composite:attribute name="iconColor" type="String" required="false"
-                default="#45484D" />
-        <!-- Tooltip, der über dem Icon angezeigt werden soll. -->
-        <composite:attribute name="tooltip" required="false"
-                type="java.lang.String" />
-        <!-- Steuert das Verhalten: normal, button-only, input-only -->
-        <composite:attribute name="mode" type="String" default="normal" />
-        <composite:attribute name="disabled" type="Boolean" default="false" />
+    <!-- Die maximale Länge der Eingabe. -->
+    <composite:attribute name="maxlength" type="Integer" required="false"
+                         default="20"/>
+    <!-- Der Wert für das Databinding im Eingabefeld -->
+    <composite:attribute name="value" required="true"/>
+    <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+    <composite:attribute name="placeholder" type="java.lang.String"
+                         required="false"/>
+    <!-- Die auszulösende Aktion. -->
+    <composite:attribute name="action" targets="actionInput:buttonIcon"
+                         required="false"/>
+    <!-- Das benutzte Icon. -->
+    <composite:attribute name="icon" type="String" required="true"/>
+    <!-- Die Farbe des Icons. -->
+    <composite:attribute name="iconColor" type="String" required="false"
+                         default="#45484D"/>
+    <!-- Tooltip, der über dem Icon angezeigt werden soll. -->
+    <composite:attribute name="tooltip" required="false"
+                         type="java.lang.String"/>
+    <!-- Steuert das Verhalten: normal, button-only, input-only -->
+    <composite:attribute name="mode" type="String" default="normal"/>
+    <!-- Attribut: disabled-->
+    <composite:attribute name="disabled" type="Boolean" default="false"/>
 
-        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
-        <composite:attribute name="fourEyesMode" type="String" required="true" />
-        <composite:attribute name="fourEyesLastValue" type="String" />
-    </composite:interface>
+    <!-- Attribut: fourEyesMode, 4 Augen Prinzip Mode (locked, unlock) -->
+    <composite:attribute name="fourEyesMode" type="String" required="true"/>
+    <!-- Attribut: fourEyesLastValue, 4 Augen Prinzip Mode (locked, unlock) -->
+    <composite:attribute name="fourEyesLastValue" type="String"/>
+</composite:interface>
 
-    <composite:implementation>
+<composite:implementation>
 
-        <!-- Ob Validierungsfehler existieren. -->
-        <ui:param name="validationMessages"
-                value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
-        <ui:param name="existsValidationError"
-                value="#{not empty validationMessages}" />
+    <!-- Ob Validierungsfehler existieren. -->
+    <ui:param name="validationMessages"
+              value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}"/>
+    <ui:param name="existsValidationError"
+              value="#{not empty validationMessages}"/>
 
-        <div
-                class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+    <!-- Icon-Name-Switch für fontawesome [4 | 5] -->
+    <ui:param name="fontawesome5"
+              value="#{fn:startsWith(cc.attrs.icon, 'fa-') or fn:startsWith(cc.attrs.icon, 'fab-') or fn:startsWith(cc.attrs.icon, 'fas-') or fn:startsWith(cc.attrs.icon, 'far-') or fn:startsWith(cc.attrs.icon, 'fal-')} "/>
+    <ui:param name="iconName"
+              value="#{(fn:startsWith(fontawesome5, 'true')) ?  cc.attrs.icon : 'icon-'.concat(cc.attrs.icon)}"/>
 
-            <!-- Die Labels müssen (je nach Fall) zum entsprechenden actionInput passen -->
+    <div
+            class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
 
-            <!-- Das Label falls "normal" -->
-            <isyi:formValidationLabel value="#{cc.attrs.label}"
-                    forField="#{cc.clientId}:actionInput:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-                    required="#{cc.attrs.required}"
-                    styleClass="#{cc.attrs.labelStyleClass}"
-                    rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}" />
+        <!-- Die Labels müssen (je nach Fall) zum entsprechenden actionInput passen -->
 
-            <!-- Das Label falls readonly. -->
-            <isyi:formValidationLabel value="#{cc.attrs.label}"
-                    forField="#{cc.clientId}:actionInput:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly"
-                    required="#{cc.attrs.required}"
-                    styleClass="#{cc.attrs.labelStyleClass}"
-                    rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}" />
+        <!-- Das Label falls "normal" -->
+        <isyi:formValidationLabel value="#{cc.attrs.label}"
+                                  forField="#{cc.clientId}:actionInput:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                                  required="#{cc.attrs.required}"
+                                  styleClass="#{cc.attrs.labelStyleClass}"
+                                  rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}"/>
 
-            <div class="#{cc.attrs.inputStyleClass}">
-                <isy:actionInputWithFourEyes id="actionInput" reference="#{cc.attrs.reference}"
-                        value="#{cc.attrs.value}" action="#{cc.attrs.action}"
-                        icon="#{cc.attrs.icon}" maxlength="#{cc.attrs.maxlength}"
-                        placeholder="#{cc.attrs.placeholder}"
-                        iconColor="#{cc.attrs.iconColor}" tooltip="#{cc.attrs.tooltip}"
-                        mode="#{cc.attrs.mode}" disabled="#{cc.attrs.disabled}"
-                        fourEyesMode="#{cc.attrs.fourEyesMode}"
-                        fourEyesLastValue="#{cc.attrs.fourEyesLastValue}" />
-            </div>
+        <!-- Das Label falls readonly. -->
+        <isyi:formValidationLabel value="#{cc.attrs.label}"
+                                  forField="#{cc.clientId}:actionInput:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly"
+                                  required="#{cc.attrs.required}"
+                                  styleClass="#{cc.attrs.labelStyleClass}"
+                                  rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}"/>
 
-            <!-- Bei Validierungsfehlern -->
-            <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
-                    reference="#{cc.attrs.reference}" inputGroupAddonExistent="true" />
+        <div class="#{cc.attrs.inputStyleClass}">
+            <isy:actionInputWithFourEyes id="actionInput" reference="#{cc.attrs.reference}"
+                                         value="#{cc.attrs.value}" action="#{cc.attrs.action}"
+                                         icon="#{cc.attrs.icon}" maxlength="#{cc.attrs.maxlength}"
+                                         placeholder="#{cc.attrs.placeholder}"
+                                         iconColor="#{cc.attrs.iconColor}" tooltip="#{cc.attrs.tooltip}"
+                                         mode="#{cc.attrs.mode}" disabled="#{cc.attrs.disabled}"
+                                         fourEyesMode="#{cc.attrs.fourEyesMode}"
+                                         fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"/>
         </div>
-    </composite:implementation>
+
+        <!-- Bei Validierungsfehlern -->
+        <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
+                                 reference="#{cc.attrs.reference}" inputGroupAddonExistent="true"/>
+    </div>
+</composite:implementation>
 
 </html>
