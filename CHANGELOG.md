@@ -1,3 +1,5 @@
+# v4.6.2
+
 # v4.6.0
 - `IFS-55`: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
 - `IFS-58`: Alte Breadcrumb-Implementierung als Deprecated erklärt.
