@@ -1,4 +1,5 @@
 # v4.6.2
+- `IFE-51`: Fontawesome 4 und 5 Kompatibilität
 
 # v4.6.0
 - `IFS-55`: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
