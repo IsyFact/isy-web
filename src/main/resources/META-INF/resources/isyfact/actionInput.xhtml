@@ -6,7 +6,8 @@
         xmlns:jsf="http://xmlns.jcp.org/jsf"
         xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
         xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
-        xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <!-- Datumsfeld für Formulareingaben. -->
 
@@ -23,7 +24,7 @@
         <composite:attribute name="maxlength" type="Integer" required="false"
                 default="20" />
 
-        <!-- Die auszulösende Aktion. -->
+    <!-- Techn. erforderliches Attribut (JSF-Passthrough Attribut), wird jedoch vom System auf action="DEFAULT_ACTION" umgeschrieben -->
         <composite:attribute name="action" targets="buttonIcon" required="true" />
         <!-- Das benutzte Icon. -->
         <composite:attribute name="icon" type="String" required="true" />
@@ -38,11 +39,21 @@
         <!-- Ob die Komponente deaktivert ist oder nicht. -->
         <composite:attribute name="disabled" type="Boolean" default="false" />
 
-        <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <!-- Die CSS-Klasse für den Eingabebereich. Zur Zeit nicht implementiert-->
         <composite:attribute name="inputStyleClass" type="String" />
     </composite:interface>
 
     <composite:implementation>
+    <!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
+         Die Angabe ist dennoch Pflicht, da andernfalls kein JSF-Attribut jsp:action, welches
+         "cc.attrs.action" entspricht, möglich wäre. -->
+    <!-- cc.attrs.inputStyleClass ist nicht implementiert -->
+
+    <!-- Icon-Name-Switch für fontawesome [4 | 5] -->
+    <ui:param name="fontawesome5"
+              value="#{fn:startsWith(cc.attrs.icon, 'fa-') or fn:startsWith(cc.attrs.icon, 'fab-') or fn:startsWith(cc.attrs.icon, 'fas-') or fn:startsWith(cc.attrs.icon, 'far-') or fn:startsWith(cc.attrs.icon, 'fal-')} "/>
+    <ui:param name="iconName"
+              value="#{(fn:startsWith(fontawesome5, 'true')) ?  cc.attrs.icon : 'icon-'.concat(cc.attrs.icon)}"/>
 
         <div class="action-input input-group">
 
@@ -85,7 +96,7 @@
                         class="btn btn-icon btn-icon-small input-group-addon #{cc.attrs.mode eq 'input-only' and not cc.attrs.disabled?'input-only':''}">
                     <f:attribute name="disabled"
                             value="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}" />
-                    <span class="icon icon-#{cc.attrs.icon}"
+                <span class="icon #{iconName}"
                             style="color: #{cc.attrs.iconColor}"> </span>
                 </button>
             </a>

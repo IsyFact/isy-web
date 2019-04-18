@@ -3,7 +3,8 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 <!-- Eine Toggle-Button. -->
 
@@ -16,7 +17,7 @@
     targets="ajax_buttonToggle buttonToggle" />
   <!-- Der Wert/Text des Buttons. -->
   <composite:attribute name="value" required="false" default="" />
-  <!-- Das Icon aus der Icon-Bibliothek (ohne Präfix 'icon-'). -->
+    <!-- Das Icon aus der Icon-Bibliothek (bei Fontawesome-4 ohne Präfix 'icon-'). -->
   <composite:attribute name="icon" required="false" type="String"
     default="placeholder" />
   <!-- Ob ein Icon angezeigt werden soll oder nicht. -->
@@ -49,12 +50,21 @@
 </composite:interface>
 
 <composite:implementation>
+    <!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
+         Die Angabe ist dennoch Pflicht, da andernfalls kein JSF-Attribut jsp:action, welches
+         "cc.attrs.action" entspricht, möglich wäre. -->
 
   <!-- Buttons werden deaktiviert, sofern eine der folgenden Bedingungen zutrifft  -->
   <!-- 1) Das Attribut "disabled" ist true -->
   <!-- 2) Das Attribut "disabled" ist false und das Attribut "showPrintView" ist true -->
   <ui:param name="btnDisabled"
     value="#{(cc.attrs.showPrintView and not cc.attrs.disabled) || cc.attrs.disabled}" />
+
+    <!-- Icon-Name-Switch für fontawesome [4 | 5] -->
+    <ui:param name="fontawesome5"
+              value="#{fn:startsWith(cc.attrs.icon, 'fa-') or fn:startsWith(cc.attrs.icon, 'fab-') or fn:startsWith(cc.attrs.icon, 'fas-') or fn:startsWith(cc.attrs.icon, 'far-') or fn:startsWith(cc.attrs.icon, 'fal-')} "/>
+    <ui:param name="iconName"
+              value="#{(fn:startsWith(fontawesome5, 'true')) ?  cc.attrs.icon : 'icon-'.concat(cc.attrs.icon)}"/>
 
   <!-- HTML-Button-Tag mit JSF-Passthrough-Attributen. -->
   <!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
@@ -68,12 +78,12 @@
         data-button-id="#{cc.attrs.buttonId}">
         <ui:fragment
           rendered="#{cc.attrs.showIcon and not cc.attrs.reverseIconPosition}">
-          <span class="icon icon-#{cc.attrs.icon}"></span>
+                    <span class="icon #{iconName}"></span>
         </ui:fragment>
         #{cc.attrs.value}
         <ui:fragment
           rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
-          <span class="icon icon-#{cc.attrs.icon}"></span>
+                    <span class="icon #{iconName}"></span>
         </ui:fragment>
         <f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" />
       </button>
@@ -86,12 +96,12 @@
         data-button-id="#{cc.attrs.buttonId}">
         <ui:fragment
           rendered="#{cc.attrs.showIcon and not cc.attrs.reverseIconPosition}">
-          <span class="icon icon-#{cc.attrs.icon}"></span>
+                    <span class="icon #{iconName}"></span>
         </ui:fragment>
         #{cc.attrs.value}
         <ui:fragment
           rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
-          <span class="icon icon-#{cc.attrs.icon}"></span>
+                    <span class="icon #{iconName}"></span>
         </ui:fragment>
         <f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" />
       </button>
@@ -105,12 +115,12 @@
         data-button-id="#{cc.attrs.buttonId}">
         <ui:fragment
           rendered="#{cc.attrs.showIcon and not cc.attrs.reverseIconPosition}">
-          <span class="icon icon-#{cc.attrs.icon}"></span>
+                    <span class="icon #{iconName}"></span>
         </ui:fragment>
         #{cc.attrs.value}
         <ui:fragment
           rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
-          <span class="icon icon-#{cc.attrs.icon}"></span>
+                    <span class="icon #{iconName}"></span>
         </ui:fragment>
       </button>
     </ui:fragment>
@@ -122,12 +132,12 @@
         data-button-id="#{cc.attrs.buttonId}">
         <ui:fragment
           rendered="#{cc.attrs.showIcon and not cc.attrs.reverseIconPosition}">
-          <span class="icon icon-#{cc.attrs.icon}"></span>
+                    <span class="icon #{iconName}"></span>
         </ui:fragment>
         #{cc.attrs.value}
         <ui:fragment
           rendered="#{cc.attrs.showIcon and cc.attrs.reverseIconPosition}">
-          <span class="icon icon-#{cc.attrs.icon}"></span>
+                    <span class="icon #{iconName}"></span>
         </ui:fragment>
       </button>
     </ui:fragment>
