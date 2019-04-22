@@ -114,12 +114,17 @@
 
         <!-- Bei readonly den Dropdownwert als Label rendern. -->
         <ui:fragment rendered="#{cc.attrs.readonly and not empty cc.attrs.value}">
-            <div class="#{cc.attrs.inputStyleClass} #{cc.attrs.dropdownStyleClass}">
-                <h:outputText
-                        value="#{cc.attrs.value}"
-                        styleClass="formselectonedropdownlabel #{cc.attrs.textStyleClass} icon fa-unlock"
-                        style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : '' } color:#{fourEyesColor}"
-                        title="#{cc.attrs.tooltip}"/>
+            <div class="#{cc.attrs.inputStyleClass} input-group">
+                <div class="col-lg-11" style="padding-top:4px">
+                    <h:outputText
+                            value="#{cc.attrs.value}"
+                            styleClass="formcontrol readonly #{cc.attrs.textStyleClass}"
+                            style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''  } "
+                            title="#{cc.attrs.tooltip}"/>
+                </div>
+                <div class="col-lg-1" style="color:#{fourEyesColor}; padding-top:4px">
+                    <span class="icon fa-unlock"></span>
+                </div>
             </div>
         </ui:fragment>
 
