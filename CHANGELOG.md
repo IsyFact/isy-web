@@ -1,10 +1,11 @@
 # v4.8.0
+- `IFE-66`: Dropdown-4-Eyes Readonly-Label um Icon ergänzt
 - `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
 - `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
 - `IFE-35`: Es wurde die Möglichkeit geschaffen, Listpicker mithilfe eines Servlets zu filtern. Dies stellt eine Alternative zum Filtern mittels Ajax dar.
 
 # v4.7.0
-- `IFS-96`: Autoscroll Funtion für Tab-Controls
+- `IFS-96` : Autoscroll Funktion für Tab-Controls
 - `IFS-142`: Neuimplementierung Breadcrumb
 - `IFS-150`: OptimisticLockHandler zur Behandlung von OptimisticLockExceptions
 - `IFS-153`: Listpicker Positions-Autofocus im Dropdownfenster
@@ -13,6 +14,8 @@
 - `IFS-165`: UI-Block wird bei manchen Fehlermeldungen nicht deaktiviert 
 - `IFS-182`: Datepicker um Übernahme des heutigen Datums erweitert
 - `IFS-202`: DownloadHelper hinzugefügt
+
+
 
 # v4.6.0
 - `IFS-55`: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
