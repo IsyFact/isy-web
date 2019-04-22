@@ -77,12 +77,18 @@
         </ui:fragment>
 
         <!-- Bei readonly den Dropdownwert als Label rendern. -->
-        <ui:fragment rendered="#{cc.attrs.readonly and not empty cc.attrs.value}">
-            <div class="#{cc.attrs.inputStyleClass}">
-                <h:outputText value="#{cc.attrs.value}"
-                              styleClass="formselectonedropdownlabel #{cc.attrs.textStyleClass}"
-                              style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''}"
-                              title="#{cc.attrs.tooltip}"/>
+        <ui:fragment rendered="#{cc.attrs.readonly and not empty cc.attrs.fourEyesLastValue}">
+            <div class="#{cc.attrs.inputStyleClass} input-group">
+                <div class="col-lg-11" style="padding-top:4px">
+                    <h:outputText
+                            value="#{cc.attrs.fourEyesLastValue}"
+                            styleClass="formcontrol readonly #{cc.attrs.textStyleClass}"
+                            style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''  } "
+                            title="#{cc.attrs.tooltip}"/>
+                </div>
+                <div class="col-lg-1" style="color:#{fourEyesColor}; padding-top:4px">
+                    <span class="icon fa-unlock"></span>
+                </div>
             </div>
         </ui:fragment>
 
