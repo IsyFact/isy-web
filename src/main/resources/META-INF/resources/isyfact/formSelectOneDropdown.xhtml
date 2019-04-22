@@ -80,7 +80,6 @@
         </label>
 
         <!-- Normale Darstellung: Dropdownwidget rendern. -->
-        <ui:fragment rendered="#{not cc.attrs.readonly}">
             <div class="#{cc.attrs.inputStyleClass}">
                 <div class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}">
                     <h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
@@ -93,17 +92,6 @@
                     </h:selectOneMenu>
                 </div>
             </div>
-        </ui:fragment>
-
-        <!-- Bei readonly den Dropdownwert als Label rendern. -->
-        <ui:fragment rendered="#{cc.attrs.readonly and not empty cc.attrs.value}">
-            <div class="#{cc.attrs.inputStyleClass}">
-                <h:outputText value="#{cc.attrs.value}"
-                              styleClass="formselectonedropdownlabel #{cc.attrs.textStyleClass}"
-                              style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''}"
-                              title="#{cc.attrs.tooltip}"/>
-            </div>
-        </ui:fragment>
 
         <!-- Bei Validierungsfehlern -->
         <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
