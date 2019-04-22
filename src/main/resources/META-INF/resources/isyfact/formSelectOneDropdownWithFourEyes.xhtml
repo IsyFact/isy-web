@@ -26,13 +26,14 @@
     <composite:attribute name="readonly" type="Boolean" required="false"
                          default="false"/>
     <!-- Ob die Auswahl deaktiviert ist oder nicht. -->
-    <composite:attribute name="disabled" type="Boolean" default="false" />
+    <composite:attribute name="disabled" type="Boolean" default="false"/>
     <!-- Evente müssen explizit deklariert werden -->
     <composite:attribute name="valueChangeListener" required="false"
                          targets="isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"/>
     <!-- clientBehavior: change -->
-    <composite:clientBehavior name="change" event="change"
-                              targets="isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"/>
+    <composite:clientBehavior
+            name="change" event="change"
+            targets="isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"/>
 
 
     <!-- Attribut fourEyesMode, 4 Augen Prinzip Mode (locked, unlock) -->
@@ -72,52 +73,61 @@
 
 <composite:implementation>
 
+    <c:set var="fourEyesColor" value="#{'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}"/>
+
     <!-- Validierungsfehler bestimmen -->
     <ui:param name="validationMessages"
               value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}"/>
     <ui:param name="existsValidationError"
               value="#{not empty validationMessages}"/>
 
-    <div    class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
-            data-isy-custom-id="#{cc.attrs.customId}">
+    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+         data-isy-custom-id="#{cc.attrs.customId}">
 
-        <isyi:formValidationLabel value="#{cc.attrs.label}"
-                                  forField="#{cc.clientId}:isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-                                  required="#{cc.attrs.required}"
-                                  styleClass="#{cc.attrs.labelStyleClass}"/>
+        <isyi:formValidationLabel
+                value="#{cc.attrs.label}"
+                forField="#{cc.clientId}:isySelectOneDropdown:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                required="#{cc.attrs.required}"
+                styleClass="#{cc.attrs.labelStyleClass}"/>
 
         <!-- Normale Darstellung: Dropdownwidget rendern. -->
         <ui:fragment rendered="#{not cc.attrs.readonly}">
-        <div class="#{cc.attrs.inputStyleClass}">
-            <isy:selectOneDropdownWithFourEyes id="isySelectOneDropdown"
-                                               reference="#{cc.attrs.reference}"
-                                               value="#{cc.attrs.value}" invalid="#{cc.attrs.invalid}"
-                                               disabled="#{cc.attrs.disabled}" title="#{cc.attrs.label}"
-                                               globalConfig="#{cc.attrs.globalConfig}"
-                                               dropdownStyleClass="#{cc.attrs.dropdownStyleClass}"
-                                               readonly="#{cc.attrs.readonly}"
-                                               fourEyesMode="#{cc.attrs.fourEyesMode}"
-                                               fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
-                                               converter="#{cc.attrs.converter}"
-                                               converterAttribute="#{cc.attrs.converterAttribute}">
-                <composite:insertChildren/>
-            </isy:selectOneDropdownWithFourEyes>
-        </div>
+            <div class="#{cc.attrs.inputStyleClass}">
+                <isy:selectOneDropdownWithFourEyes
+                        id="isySelectOneDropdown"
+                        reference="#{cc.attrs.reference}"
+                        value="#{cc.attrs.value}"
+                        invalid="#{cc.attrs.invalid}"
+                        disabled="#{cc.attrs.disabled}"
+                        title="#{cc.attrs.label}"
+                        globalConfig="#{cc.attrs.globalConfig}"
+                        dropdownStyleClass="#{cc.attrs.dropdownStyleClass}"
+                        readonly="#{cc.attrs.readonly}"
+                        fourEyesMode="#{cc.attrs.fourEyesMode}"
+                        fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"
+                        converter="#{cc.attrs.converter}"
+                        converterAttribute="#{cc.attrs.converterAttribute}">
+                    <composite:insertChildren/>
+                </isy:selectOneDropdownWithFourEyes>
+            </div>
         </ui:fragment>
 
         <!-- Bei readonly den Dropdownwert als Label rendern. -->
         <ui:fragment rendered="#{cc.attrs.readonly and not empty cc.attrs.value}">
-            <div class="#{cc.attrs.inputStyleClass}">
-                <h:outputText value="#{cc.attrs.value}"
-                              styleClass="formselectonedropdownlabel #{cc.attrs.textStyleClass}"
-                              style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''}"
-                              title="#{cc.attrs.tooltip}"/>
+            <div class="#{cc.attrs.inputStyleClass} #{cc.attrs.dropdownStyleClass}">
+                <h:outputText
+                        value="#{cc.attrs.value}"
+                        styleClass="formselectonedropdownlabel #{cc.attrs.textStyleClass} icon fa-unlock"
+                        style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : '' } color:#{fourEyesColor}"
+                        title="#{cc.attrs.tooltip}"/>
             </div>
         </ui:fragment>
 
         <!-- Bei Validierungsfehlern -->
-        <isyi:formValidationIcon validationModel="#{cc.attrs.validationModel}"
-                                 reference="#{cc.attrs.reference}" inputGroupAddonExistent="false"/>
+        <isyi:formValidationIcon
+                validationModel="#{cc.attrs.validationModel}"
+                reference="#{cc.attrs.reference}"
+                inputGroupAddonExistent="false"/>
     </div>
 </composite:implementation>
 
