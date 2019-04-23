@@ -1220,14 +1220,18 @@ function refreshFunctions() {
         $form.unbind("keypress");
         var $defaultButton = $form.find("[id*='" + $form.find("[id$='defaultButtonID']").val() + "']");
         if ($defaultButton.length > 0) {
-            // Ursprüngliches Bind deaktiveieren
+            // Ursprüngliches Bind deaktivieren
             $form.unbind("keypress");
             // Das Form enthält einen DefaultButton
             $form.bind("keypress", function (event) {
                 if (event.keyCode == 13) {
                     var $source = $(document.activeElement);
-                    if (!$source.is("[type='submit']") && !$source.is("a") && !$source.is("button") && !$source.hasClass("charpicker")) {
-                        // Kein Link, Button, Charpicker oder anderes Submit-Element fokussiert, das eine eigene sinnvolle Aktion bei Enter hat
+                    // Kein Link, Button, Charpicker oder anderes Submit-Element fokussiert, das eine eigene sinnvolle Aktion bei Enter hat
+                    if (!$source.is("[type='submit']") &&
+                        !$source.is("a") &&
+                        !$source.is("button") &&
+                        !$source.hasClass("charpicker") &&
+                        !$defaultButton.first().is("[disabled]")) {
                         // Betätige den Default-Button
                         $defaultButton.first().click();
                         // Verhindere normale Default-Aktion, das wäre ein Klicken des ersten Buttons mit type="submit"
