@@ -4,7 +4,8 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:c="http://java.sun.com/jstl/core"
         xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <!-- Datumsfeld für Formulareingaben. -->
 
@@ -38,7 +39,7 @@
         <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
         <composite:attribute name="placeholder" type="java.lang.String"
                 required="false" />
-        <!-- Die auszulösende Aktion. -->
+    <!-- Techn. erforderliches Attribut (JSF-Passthrough Attribut), wird jedoch vom System auf action="DEFAULT_ACTION" umgeschrieben -->
         <composite:attribute name="action" targets="buttonIcon"
                 required="false" />
         <!-- Das benutzte Icon. -->
@@ -51,16 +52,24 @@
                 type="java.lang.String" />
         <!-- Steuert das Verhalten: normal, button-only, input-only -->
         <composite:attribute name="mode" type="String" default="normal" />
+    <!-- Attribut: disabled -->
         <composite:attribute name="disabled" type="Boolean" default="false" />
     </composite:interface>
 
     <composite:implementation>
+    <!-- Hinweis: Das Attribut cc.attrs.action ist ein JSP-Passthrough Attribut -->
 
         <!-- Ob Validierungsfehler existieren. -->
         <ui:param name="validationMessages"
                 value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
         <ui:param name="existsValidationError"
                 value="#{not empty validationMessages}" />
+
+    <!-- Icon-Name-Switch für fontawesome [4 | 5] -->
+    <ui:param name="fontawesome5"
+              value="#{fn:startsWith(cc.attrs.icon, 'fa-') or fn:startsWith(cc.attrs.icon, 'fab-') or fn:startsWith(cc.attrs.icon, 'fas-') or fn:startsWith(cc.attrs.icon, 'far-') or fn:startsWith(cc.attrs.icon, 'fal-')} "/>
+    <ui:param name="iconName"
+              value="#{(fn:startsWith(fontawesome5, 'true')) ?  cc.attrs.icon : 'icon-'.concat(cc.attrs.icon)}"/>
 
         <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
 
@@ -121,7 +130,7 @@
                             class="btn btn-icon btn-icon-small input-group-addon #{cc.attrs.mode eq 'input-only' and not cc.attrs.disabled?'input-only':''}">
                             <f:attribute name="disabled"
                                 value="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}" />
-                            <span class="icon icon-#{cc.attrs.icon}"
+                        <span class="icon #{iconName}"
                                 style="color: #{cc.attrs.iconColor}"> </span>
                         </button>
                     </a>
