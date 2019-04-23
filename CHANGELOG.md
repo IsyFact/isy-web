@@ -1,8 +1,11 @@
 # v4.8.0
 - `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
-- `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
 - `IFE-34`: Fehler bei deaktivierten Default Buttons behoben
 - `IFE-35`: Es wurde die Möglichkeit geschaffen, Listpicker mithilfe eines Servlets zu filtern. Dies stellt eine Alternative zum Filtern mittels Ajax dar.
+- `IFE-44`: Anhebung der commons-fileupload Version auf 1.3.3
+- `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
+- `IFE-51`: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
+
 
 # v4.7.0
 - `IFS-96`: Autoscroll Funtion für Tab-Controls
