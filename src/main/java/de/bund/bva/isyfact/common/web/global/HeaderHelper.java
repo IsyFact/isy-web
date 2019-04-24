@@ -40,12 +40,6 @@ import org.springframework.webflow.core.collection.SharedAttributeMap;
 public class HeaderHelper {
 
     /**
-     * Der Farbwert, der standardmäßig gesetzt wird, wenn sich anhand des Konfiguration kein
-     * Farbwert ermitteln lässt. Siehe {@link #ermittleFarbwertAnwendungsgruppe()}.
-     */
-    private static final String DEFAULT_FARBWERT = "#337299";
-
-    /**
      * Die Konfiguration.
      */
     private final Konfiguration konfiguration;
@@ -75,9 +69,10 @@ public class HeaderHelper {
     }
 
     /**
-     * Ermittelt den Farbwert der Anwendungsgruppe. Der Wert wird dem {@link NavigationMenuModel} entnommen,
-     * das in der Session abgelegt ist. Genauer wird der Wert der aktiven {@link Applikationsgruppe} genommen. Sollte
-     * (theoretisch) keine {@link Applikationsgruppe} aktiv sein, dann wird "#337299" verwendet.
+     * Ermittelt den Farbwert der Anwendungsgruppe.
+     * Der Wert wird dem {@link NavigationMenuModel} entnommen, das in der Session abgelegt ist.
+     * Genauer wird der Wert der aktiven {@link Applikationsgruppe} genommen.
+     * Sollte keine {@link Applikationsgruppe} aktiv sein, dann wird keine Farbe gesetzt.
      *
      * @return der Farbwert der Anwendungsgruppe
      */
@@ -96,7 +91,7 @@ public class HeaderHelper {
             }
         }
 
-        return DEFAULT_FARBWERT;
+        return "";
     }
 
     /**

@@ -5,7 +5,10 @@
 - `IFE-44`: Anhebung der commons-fileupload Version auf 1.3.3
 - `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
 - `IFE-51`: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
+- `IFE-59`: Definition der Standardfarbe des Headers über die Portalfarbe (s. `isy-style`).
 
+## Hinweise zum Upgrade
+- Liegen Anpassungen der Klasse `HeaderHelper` bezüglich der Standardfarbe (`DEFAULT_COLOR`) vor, sollten diese enfernt werden, da die Standardfarbe nun durch die Portalfarbe bestimmt wird.
 
 # v4.7.0
 - `IFS-96`: Autoscroll Funtion für Tab-Controls
