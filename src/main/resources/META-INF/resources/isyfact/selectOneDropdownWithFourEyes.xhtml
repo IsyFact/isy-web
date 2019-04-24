@@ -99,7 +99,7 @@
 
     <!-- Bei readonly den Dropdownwert als Label rendern. -->
     <ui:fragment rendered="#{cc.attrs.readonly and not empty cc.attrs.fourEyesLastValue}">
-        <div class="#{cc.attrs.inputStyleClass} input-group">
+        <div class="#{cc.attrs.inputStyleClass}">
             <div class="col-lg-11" style="padding-top:4px">
                 <h:outputText
                         value="#{cc.attrs.fourEyesLastValue}"
