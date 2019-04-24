@@ -62,7 +62,7 @@
             <div class="#{cc.attrs.inputStyleClass}">
 
                 <t:selectOneRadio id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" layout="spread" value="#{cc.attrs.value}"
-                        disabled="#{(not cc.attrs.inline and cc.attrs.disabled) or (cc.attrs.inline and cc.attrs.showPrintView)}">
+                        disabled="#{(cc.attrs.disabled) or (cc.attrs.showPrintView)}">
                     <f:selectItems value="#{cc.attrs.selectItems}" />
                 </t:selectOneRadio>
 

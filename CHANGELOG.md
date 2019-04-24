@@ -1,5 +1,6 @@
 # v4.7.2
-- `IFE-51`: Unterstützung Fontawesome 4 und 5 Icons 
+- `IFE-51`: Unterstützung Fontawesome 4 und 5 Icons
+- `IFE-67`: inline-Condition für disabled-Attribut entfernt
 
 # v4.7.0
 - `IFS-96`: Autoscroll Funtion für Tab-Controls
