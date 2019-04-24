@@ -7,6 +7,10 @@
 - `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
 - `IFE-51`: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
 - `IFE-44`: Anhebung der commons-fileupload Version auf 1.3.3
+- `IFE-59`: Definition der Standardfarbe des Headers über die Portalfarbe (s. `isy-style`).
+
+## Hinweise zum Upgrade
+- Liegen Anpassungen der Klasse `HeaderHelper` bezüglich der Standardfarbe (`DEFAULT_COLOR`) vor, sollten diese enfernt werden, da die Standardfarbe nun durch die Portalfarbe bestimmt wird.
 
 # v4.7.0
 - `IFS-96` : Autoscroll Funktion für Tab-Controls
