@@ -44,13 +44,16 @@
     <mvc:resources location="/" mapping="/resources/**" cache-period="86400"/>
 
     <!-- Mapping für Flows -->
-    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+    <bean class="de.bund.bva.isyfact.common.web.exception.IsyFactFlowHandlerMapping">
         <property name="flowRegistry" ref="flowRegistry"/>
         <property name="defaultHandler">
             <!-- If no flow match, map path to a view to render; e.g. the "/intro" path would map to the view named
                 "intro" -->
             <bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
         </property>
+        <property name="snapshotNotFoundFlow" value="snapshotNotFoundFlow" />
+        <property name="accessDeniedFlow" value="accessDeniedFlow" />
+        <property name="ausnahmeIdMapper" ref="ausnahmeIdMapper"/>
     </bean>
 
     <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
@@ -61,8 +64,6 @@
     <!-- Exception Handler für Exceptions, außerhalb des GUI-Frameworks -->
     <bean class="de.bund.bva.isyfact.common.web.exception.web.SimpleMappingExceptionResolverWithAdvancedLogging">
         <property name="defaultErrorView" value="common/flow/error/errorViewState"/>
-        <property name="snapshotNotFoundView" value="common/flow/error/snapshotNotFoundViewState" />
-        <property name="accessDeniedView" value="common/flow/error/accessDeniedViewState" />
         <property name="ausnahmeIdMapper" ref="ausnahmeIdMapper"/>
     </bean>
 
