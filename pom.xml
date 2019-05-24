@@ -5,13 +5,13 @@
 
     <artifactId>isy-web</artifactId>
     <packaging>jar</packaging>
-    <version>4.8.0-RC1</version>
+    <version>4.8.0</version>
     <name>IsyFact-Web</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.7.0-RC1</version>
+        <version>1.7.0</version>
     </parent>
 
     <dependencyManagement>
@@ -19,14 +19,14 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
-                <version>1.7.0-RC1</version>
+                <version>1.7.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-standards-bom</artifactId>
-                <version>1.7.0-RC1</version>
+                <version>1.7.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
