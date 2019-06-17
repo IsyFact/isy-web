@@ -10,8 +10,7 @@ import java.util.stream.Stream;
  *
  * @author bendelw
  * @version 1.0
- * @created 21-Sep-2016 10:35:45
- */
+ *  */
 public enum DateitypEnum {
     /**
      * Bitmap files

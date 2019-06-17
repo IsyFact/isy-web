@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * Smart comparator.
  *
  * @param <T> Typ des Objekts.
- * @Deprecated Die Klasse SmartComparator steht ab der Version IsyFact 2.0 nicht mehr zur Verfügung.
+ * @deprecated Die Klasse SmartComparator steht ab der Version IsyFact 2.0 nicht mehr zur Verfügung.
  */
 @Deprecated
 public abstract class SmartComparator<T> implements Comparator<T> {
