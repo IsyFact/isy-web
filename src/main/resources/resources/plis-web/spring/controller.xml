@@ -120,4 +120,12 @@
     <bean id="zipHelper" class="de.bund.bva.isyfact.common.web.filetransfer.ZipHelper"/>
 
     <bean id="downloadHelper" class="de.bund.bva.isyfact.common.web.filetransfer.DownloadHelper"/>
+
+    <bean id="hilfeController" class="de.bund.bva.isyfact.common.web.layout.HilfeController"
+          parent="abstractGuiController">
+        <aop:scoped-proxy proxy-target-class="true"/>
+        <property name="konfiguration" ref="konfiguration" />
+        <property name="servletContext" ref="servletContext" />
+    </bean>
+
 </beans>
