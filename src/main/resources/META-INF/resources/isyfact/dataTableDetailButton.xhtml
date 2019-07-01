@@ -27,7 +27,7 @@
   <!-- cc.parent.parent.parent: dataTable -->
 
   <!-- die Tooltips sind nochmals hier für den Client-Mode -->
-  <div class="detailview-actions"
+  <span class="detailview-actions"
     data-hide-tooltip="#{cc.attrs.tooltipHideDetail}"
     data-show-tooltip="#{cc.attrs.tooltipShowDetail}">
     <ui:fragment
@@ -43,7 +43,7 @@
         action="#{cc.parent.parent.parent.attrs.dataTableController.showDetails(cc.parent.parent.parent.attrs.dataTableModel,dataTableItem.identifierForItem,cc.attrs.allowMultipleDetailViews)}"
         size="small" icon="visible" tooltip="#{cc.attrs.tooltipShowDetail}" />
     </ui:fragment>
-  </div>
+  </span>
 
 </composite:implementation>
 
