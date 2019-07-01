@@ -2125,7 +2125,7 @@ datumErgaenzen = function (inputFeld, grenze) {
 //Code der das Initialisieren eines Listpickers über das Servlet anstößt
 initialisierenListpickerServlet = function() {
     "use strict";
-    $listpicker = $( ".servlet.listpicker-filter" );
+    var $listpicker = $( ".servlet.listpicker-filter" );
     $listpicker.each(function (i, listpicker) {
         registerListpickerfilter(listpicker);
     });
