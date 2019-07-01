@@ -1,3 +1,7 @@
+# v4.8.1
+- `IFS-421`: initialisierenListickerSevlet: Fehler behoben
+- `IFS-426`: fehlende Aktualisierung durch `IFS-73` im dataTableDetailButton nachgeholt
+
 # v4.8.0
 - `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
 - `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
