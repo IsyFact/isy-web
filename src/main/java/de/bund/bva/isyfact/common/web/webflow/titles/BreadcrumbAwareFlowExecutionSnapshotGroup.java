@@ -30,6 +30,7 @@ import org.springframework.webflow.execution.repository.snapshot.SnapshotNotFoun
  * @author Capgemini, Tobias Waller
  * @version $Id: BreadcrumbAwareFlowExecutionSnapshotGroup.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
+@Deprecated
 public class BreadcrumbAwareFlowExecutionSnapshotGroup implements FlowExecutionSnapshotGroup, Serializable {
 
     /**
