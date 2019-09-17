@@ -44,7 +44,7 @@ import java.util.LinkedList;
 import java.util.Locale;
 
 /**
- * Stellt zusammen mit breadcrumbleiste.xhtml den Breadcrumb, den Title und die Headline bereit.
+ * Stellt zusammen mit breadcrumbleiste.xhtml den Breadcrumb bereit.
  * <p>
  * Ein TitlesListener muss im org.springframework.webflow.config.FlowExecutionListenerLoaderFactoryBean in der
  * Property listeners bekannt gemacht werden.
