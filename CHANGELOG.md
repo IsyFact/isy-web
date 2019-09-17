@@ -1,4 +1,7 @@
 # v4.8.0
+- `IFE-58`: isy:input analog zu formInput erstellt
+
+# v4.8.0
 - `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
 - `IFE-18`: Attribute in GUI-Controls bereinigt
 - `IFE-21`: Klasse SmartComparator als @Deprecated annotiert
