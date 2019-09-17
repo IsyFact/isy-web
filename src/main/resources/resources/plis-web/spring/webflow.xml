@@ -98,15 +98,13 @@
     </bean>
 
     <!-- Breadcrumb Listener. -->
-<!--
-    <bean name="flowExecutionTitlesListener" class="de.bund.bva.isyfact.common.web.webflow.titles.BreadcrumbListener">
+   <!-- <bean name="flowExecutionBreadcrumbListener" class="de.bund.bva.isyfact.common.web.webflow.titles.BreadcrumbListener">
         <property name="dynamischerStartseitenLink" value="false"/>
         <property name="breadcrumbAbschneider">
             <bean class="de.bund.bva.isyfact.common.web.webflow.titles.BreadcrumbAbschneider"/>
         </property>
         <property name="messageSource" ref="messageSource"/>
-    </bean>
--->
+    </bean>-->
 
     <bean id="optimisticLockHandler" class="de.bund.bva.isyfact.common.web.exception.OptimisticLockHandler">
         <constructor-arg ref="globalFlowController"/>

@@ -16,10 +16,6 @@
  */
 package de.bund.bva.isyfact.common.web.webflow.titles;
 
-import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.MessageSource;
 import org.springframework.util.StringUtils;
@@ -40,7 +36,7 @@ import javax.faces.context.FacesContext;
 import java.util.Locale;
 
 /**
- * Stellt zusammen mit breadcrumbleiste.xhtml den Breadcrumb, den Title und die Headline bereit.
+ * Stellt den Title und die Headline bereit.
  * <p>
  * Ein TitlesListener muss im org.springframework.webflow.config.FlowExecutionListenerLoaderFactoryBean in der
  * Property listeners bekannt gemacht werden.
@@ -50,11 +46,6 @@ import java.util.Locale;
  * @version $Id: TitlesListener.java 143397 2015-07-30 08:49:32Z sdm_apheino $
  */
 public class TitlesListener extends FlowExecutionListenerAdapter {
-
-    /**
-     * Log4j Logger.
-     */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TitlesListener.class);
 
     /**
      * Enthält den Schlüssel für den Title, mit dem er in den Scope geschrieben wird.
@@ -116,9 +107,6 @@ public class TitlesListener extends FlowExecutionListenerAdapter {
      */
     @Override
     public void stateEntering(RequestContext context, StateDefinition state) {
-        LOG.info(LogKategorie.JOURNAL,
-                EreignisSchluessel.E_SITEMAP_DATEN_ERHALT,
-                "Start stateEntering for TitelsListener", "");
         super.stateEntering(context, state);
         this.viewStateName = state.getId();
         verarbeiteAktion(context, state);
@@ -142,6 +130,7 @@ public class TitlesListener extends FlowExecutionListenerAdapter {
      * @return Die Message.
      */
     protected String getMessage(String key) {
+
         return this.messageSource.getMessage(key, null, null, Locale.getDefault());
     }
 
@@ -244,7 +233,6 @@ public class TitlesListener extends FlowExecutionListenerAdapter {
      *            die Headline
      */
     private void fuegePageHeadlineInFlowScopeHinzu(RequestContext context, String pageHeadline) {
-
         final MutableAttributeMap<Object> flowScope = context.getFlowScope();
         flowScope.put(HEADLINE_ATTRIBUT, pageHeadline);
     }
