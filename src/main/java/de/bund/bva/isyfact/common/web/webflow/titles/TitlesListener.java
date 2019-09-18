@@ -60,12 +60,12 @@ public class TitlesListener extends FlowExecutionListenerAdapter {
     /**
      * Enthält den Schlüssel, mit dem in der Flowdefinition der Titel überschrieben werden kann.
      */
-    private static final String TITLE_ATTRIBUT_TRANSITION_NAME = "titleKey";
+    public static final String TITLE_ATTRIBUT_TRANSITION_NAME = "titleKey";
 
     /**
      * Enthält den Text, der als globaler Präfix für den Title verwendet werden soll.
      */
-    private static final String TITLE_PREFIX_GLOBAL = "MAS_Global_Title_Prefix";
+    public static final String TITLE_PREFIX_GLOBAL = "MAS_Global_Title_Prefix";
 
     /**
      * Enthält den Schlüssel für die Headline, mit der sie in den Scope geschrieben wird.
@@ -80,12 +80,12 @@ public class TitlesListener extends FlowExecutionListenerAdapter {
     /**
      * Enthält den Schlüssel, mit dem in der Flowdefinition die Headline überschrieben werden kann.
      */
-    private static final String HEADLINE_ATTRIBUT_TRANSITION_NAME = "headlineKey";
+    public static final String HEADLINE_ATTRIBUT_TRANSITION_NAME = "headlineKey";
 
     /**
      * Enthält das Präfix für Maskentexte.
      */
-    private static final String PRAEFIX_TEXTS = "MAS";
+    public static final String PRAEFIX_TEXTS = "MAS";
 
     /**
      * Enthält den Schlüssel, der für Globale Angaben verwendet wird.
