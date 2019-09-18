@@ -89,12 +89,12 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
     /**
      * Enthält den Schlüssel, mit dem in der Flowdefinition der Breadcrumb überschrieben werden kann.
      */
-    private static final String BREADCRUMB_ATTRIBUT_TRANSITION_NAME = "breadcrumbKey";
+    public static final String BREADCRUMB_ATTRIBUT_TRANSITION_NAME = "breadcrumbKey";
 
     /**
      * Enthält den Namen des Attributs des Schlüssels für einen Namen eines Sitemap-Eintrages.
      */
-    private static final String BREADCRUMB_ATTRIBUT_GRUPPE = "breadcrumbGruppe";
+    public static final String BREADCRUMB_ATTRIBUT_GRUPPE = "breadcrumbGruppe";
 
     /**
      * Enthält den Namen des Attributs für den Startseitenlink.
