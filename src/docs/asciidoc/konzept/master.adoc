@@ -12,7 +12,7 @@ include::{isy-dokumentvorlagen}/docs/common/colophon.adoc[]
 // Änderungsübersicht
 include::docinfo.adoc[]
 // Executive Summary
-include::preface.adoc[]
+//include::preface.adoc[]
 
 // Inhaltsverzeichnis
 ifdef::backend-html5[]
@@ -43,4 +43,4 @@ include::listoflistings.adoc[]
 include::glossary.adoc[]
 
 // Anhänge
-// include::anhaenge.adoc[leveloffset=1]
+include::anhaenge.adoc[tags=inhalt]
