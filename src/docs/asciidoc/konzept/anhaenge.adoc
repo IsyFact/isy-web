@@ -1,14 +1,97 @@
-[[AppendixA]]
-= Anhang A
+= Konzept JSF: Anhänge
+include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 
-Text zu Anhang A hier eintragen
+// tag::inhalt[]
+[[checkliste-zur-qs]]
+== Anhang A: Checkliste zur QS
 
-[[AppendiA1]]
-== Anhang A.1
+Die Checkliste für die QS stellt Prüfpunkte zur Verfügung, anhand derer wichtige Kriterien zur Umsetzung der
+Oberfläche überprüft werden können.
 
-Text A1
+[[id-vergabe-jsf]]
+=== ID Vergabe JSF
 
-[[AppendixB]]
-= Anhang B
+Für automatisierte Tests ist es notwendig, für Eingabefelder und Controls eine konkrete und in der Seite eindeutige ID zu vergeben.
 
-Text B
+Wird für eine Komponente keine ID vorgegeben, so erzeugt JSF die IDs dynamisch.
+Ein Test über ein GUI-Testwerkzeug wird somit erschwert.
+
+[[verwendung-der-http-session]]
+=== Verwendung der HTTP-Session
+
+Aufgrund der Vorgabe eines zustandslosen Servers ist nicht sichergestellt, dass der Anwendung beim nächsten
+Zugriff auf einen Server die HTTP-Session zur Verfügung steht.
+Daher ist es notwendig die Masken und Abläufe so zu entwerfen, das hierauf verzichtet werden kann.
+
+[[nutzung-model-beans]]
+=== Nutzung Model Beans
+
+Jeder Flow muss eine (oder mehrere) Model Bean hinterlegt haben, in welcher die Daten für die Maske vorgehalten werden.
+
+[[transaktionsbehandlung-1]]
+=== Transaktionsbehandlung
+
+Bei mehrschrittigen Datenerfassungen muss die Behandlung der Transaktion mit einem besonderen Augenmerk behandelt werden.
+
+[[einhaltung-styleguide]]
+=== Einhaltung Styleguide
+
+Die Applikation muss auf die Vorgaben des <<Styleguide,Styleguides>> überprüft werden.
+
+[[flow-konfiguration]]
+=== Flow Konfiguration
+
+Für jede Maske sollte der Flow in einer eigenständigen Konfiguration hinterlegt sein.
+Damit kann jede Maske separat ausgetauscht und gewartet werden.
+Jeder Flow sollte entsprechend dem Layout von dem vorgegebenen Parent-Flow erben.
+
+[[optimierung-jsf-design]]
+=== Optimierung JSF Design
+
+Aufgrund der automatischen Ablage eines JSF Komponenten-Baumes in der Conversation und damit in der Datenbank,
+ist es notwendig sich über die Größe des Komponenten-Baumes Gedanken zu machen.
+
+Mögliche Maßnahmen:
+
+* Begrenzung der real verwendeten Komponenten auf die Ein und Ausgabe Elemente.
+* Statische Texte bevorzugt nur im HTML verwenden.
+
+[[optimierung-snapshots]]
+=== Optimierung Snapshots
+
+Für die Benutzung des Back-Buttons ist es notwendig, die Anzahl der Snapshots eines Dialogflusses zu erhöhen.
+Dieses sollte in Abhängigkeit der Anforderungen an die konkrete Anwendung erfolgen.
+
+[[festlegung-der-texte-fuer-die-titel]]
+=== Festlegung der Texte für die Titel
+
+Es sollte ein Standard-Titel und Präfix für die Anwendung angelegt werden.
+
+[[festlegung-der-hilfeseiten]]
+=== Festlegung der Hilfeseiten
+
+Für alle Masken sollte eine zugehörige Hilfe verfügbar sein, und der Aufruf auf die Seite muss überprüft werden.
+
+[[generische-fehlermeldung]]
+=== Fehlerbehandlung
+
+Alle Fehler werden an einer definierten Stelle behandelt.
+Für technische Fehler werden keine Details, sondern eine generische Fehlermeldung angezeigt.
+
+[[flow-und-masken-security]]
+=== Flow und Masken Security
+
+Der Zugriff auf Masken und Dialogelemente muss anhand der Systemspezifikation überprüft werden.
+
+[[regeln-bei-der-javascript-programmierung]]
+=== Regeln bei der JavaScript-Programmierung
+
+Die unter <<vorgaben-javascript>> und <<vermeidung-von-sicherheitsluecken-bei-aktiviertem-javascript>>
+beschriebenen Regeln müssen überprüft werden.
+
+[[regeln-der-sicheren-softwareentwicklung]]
+=== Regeln der sicheren Softwareentwicklung
+
+Bei der Entwicklung von Web-Anwendungen müssen in besonderem Maße Sicherheitsaspekte berücksichtigt werden.
+Die entsprechenden Regeln sind im <<KonzeptSicherheit>> beschrieben.
+// end::inhalt[]
