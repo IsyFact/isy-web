@@ -543,6 +543,7 @@ Standard-JSF-Validatoren oder -Konverter sollten für die Validierung aus den im
 
 Bei der Verwendung von JavaScript sind grundsätzlich die folgenden Vorgaben einzuhalten:
 
+// tag::important[]
 [ARCHITEKTURREGEL]
 ====
 `eval()` *darf nicht verwendet werden*
@@ -562,6 +563,9 @@ Dies ermöglicht es jeden beliebigen JavaScript Code per Injektion auf einem Cli
 Die Funktion muss sicherstellen, dass kein Angriff möglich ist.
 ====
 
+// end::important[]
+
+// tag::important[]
 [ARCHITEKTURREGEL]
 ====
 `setTimeout()` *darf keine Funktion als Zeichenkette übergeben werden*
@@ -587,6 +591,9 @@ Der Inhalt der Variable `searchString` wird ersetzt, so dass folgender Code ausg
 Hierdurch wird der Angriff abgewehrt.
 ====
 
+// end::important[]
+
+// tag::important[]
 [ARCHITEKTURREGEL]
 ====
 *Nutzung von anonymen Funktion anstatt benannter Funktionen*
@@ -603,6 +610,9 @@ Anonyme Funktionen können außerdem auf Variablen der umgebenden Funktion zugre
  setTimeout(function() { alert(4 + einWert); }, 100);
 ====
 
+// end::important[]
+
+// tag::important[]
 [ARCHITEKTURREGEL]
 ====
 *Benannte Funktionen sollten in Namespaces deklariert werden*
@@ -615,6 +625,9 @@ Die Verwendung von z.B. des View-Names als „Namespace“ vermeidet, Funktionen
  var ns_<view> = { foo : function() { ... } }
 ====
 
+// end::important[]
+
+// tag::important[]
 [ARCHITEKTURREGEL]
 ====
 *Nutzung einer anonymen Funktion zur Kapselung*
@@ -632,6 +645,9 @@ und endet vor der Deklaration von wiederverwendbaren Funktionen bzw. Namespaces 
  })()
 ====
 
+// end::important[]
+
+// tag::important[]
 [ARCHITEKTURREGEL]
 ====
 *Inline-JavaScript ist zu vermeiden*
@@ -644,6 +660,9 @@ Insgesamt wird hierdurch die Verständlichkeit und Wartbarkeit der Anwendung ver
 Eine Implikation dieser Regel ist, dass Event-Binding stets im Code selbst und nicht in den `on<Event>`-Attributen der HTML-Elemente geschehen muss.
 ====
 
+// end::important[]
+
+// tag::important[]
 [ARCHITEKTURREGEL]
 ====
 *DOM-Zugriff mit der $-Funktion nur über IDs*
@@ -658,6 +677,9 @@ Wird z.B. ein weiterer Knoten eingefügt, greift die Funktion ggf. nicht und die
  $(„div span a img“); // SCHLECHT
 ====
 
+// end::important[]
+
+// tag::important[]
 [ARCHITEKTURREGEL]
 ====
 *Alle Parameter müssen korrekt encodiert und escaped werden*
@@ -679,6 +701,7 @@ Der übergebene JavaScript-Block würde dann auf dem Server ausgeführt.
 Das Escapen „zerstört“ die spitzen Klammern und Hochkommata, so dass kein Code ausgeführt wird.
 ====
 
+// end::important[]
 
 [[clientseitige-validierung-von-eingaben]]
 ==== Clientseitige Validierung von Eingaben
