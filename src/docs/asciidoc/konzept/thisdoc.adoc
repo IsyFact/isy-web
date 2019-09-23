@@ -20,7 +20,7 @@ Dieses Konzept baut auf dem <<DetailkonzeptKomponenteWebGUI>> auf und beschreibt
 Es enthält darüber hinaus architektonische und technische Vorgaben, die bei der Umsetzung der GUI-Komponente zu beachten sind.
 Es streift Aspekte der verwendeten Technologien, wo nötig, setzt in der Breite aber eine gewisse Vorkenntnis voraus.
 
-Zielgruppe dieses Dokuments sind Architekten, die sich einen Überblick über den Bausteins JSF verschaffen und wissen möchten, welche Architekturvorgaben und Architekturentscheidungen der Baustein mit sich bringt.
+Zielgruppe dieses Dokuments sind Architekten, die sich einen Überblick über den Baustein JSF verschaffen und wissen möchten, welche Architekturvorgaben und Architekturentscheidungen der Baustein mit sich bringt.
 
 Das Dokument ist in zwei Teile gegliedert.
 Nach einer kurzen Einführung in die verwendeten Technologien (JSF und Spring Web Flow) beschäftigt sich das Konzept mit der Architektur einer JSF-GUI.
