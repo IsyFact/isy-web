@@ -25,3 +25,10 @@ www/
 node/
 node_modules/
 package-lock.json
+
+# Ignore generated Asciidoc files
+src/docs/asciidoc/**/listoffigures.adoc
+src/docs/asciidoc/**/listoflistings.adoc
+src/docs/asciidoc/**/listoftables.adoc
+src/docs/asciidoc/**/glossary.adoc
+src/docs/asciidoc/**/bibliography.adoc
