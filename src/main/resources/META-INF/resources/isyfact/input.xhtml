@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <!-- Ein Eingabefeld ohne Label -->
+
+    <composite:interface>
+
+        <!-- Die Referenz des Objekts. -->
+        <composite:attribute name="reference" required="true" />
+        <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
+        <composite:attribute name="customId" required="false" />
+        <!-- Der Wert für das Databinding im Eingabefeld -->
+        <composite:attribute name="value" required="true" />
+        <!-- Ob die Darstellung nur lesend erfolgen soll -->
+        <composite:attribute name="readonly" type="Boolean" default="false" />
+        <!-- Die CSS-Klasse für den Eingabebereich. -->
+        <composite:attribute name="inputStyleClass" type="String"
+                default="col-lg-12" />
+        <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+        <composite:attribute name="placeholder" type="String" required="false" />
+        <!-- Die Eingabemaske.-->
+        <composite:attribute name="inputmask" type="String" required="false" />
+        <!-- Die Eingabemaske: ob text soll überschrieben werden beim eintippen.-->
+        <composite:attribute name="inputmaskInsertMode" type="Boolean"
+                required="false" default="true" />
+        <!-- Die maximale Länge der Eingabe. -->
+        <composite:attribute name="maxlength" type="Integer" required="false"
+                default="255" />
+        <!-- Die maximale Breite des Eingabefeldes. -->
+        <composite:attribute name="width" type="String" required="false"
+                default="100%" />
+        <!-- Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+        <composite:attribute name="showPrintView" type="Boolean"
+                default="#{not empty basisModel and basisModel.showPrintView}" />
+        <!-- Tooltip. -->
+        <composite:attribute name="tooltip" type="String" default="" />
+        <!-- Ob das Eingabefeld deaktiviert ist. -->
+        <composite:attribute name="disabled" type="Boolean" default="false" />
+
+        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+        <composite:attribute name="globalConfig" required="false"
+                default="#{globalConfigurationModel}" />
+
+        <!-- Ob die ein Charpicker verwendet werden soll -->
+        <composite:attribute name="charpicker" required="false" type="Boolean"
+                default="false" />
+
+        <!-- Der Inhalt der rechts vom Listpicker angezeigt wird. -->
+        <composite:facet name="contentRight" required="false" />
+
+        <!-- Der Typ des Eingabefelds, so dass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann. Mögliche Werte alle Werte für das Feld type des HTML Input Felds. -->
+        <composite:attribute name="type" type="String" required="false"
+                default="text" />
+    </composite:interface>
+
+    <composite:implementation>
+        <div class="form-group" data-isy-custom-id="#{cc.attrs.customId}" >
+            <div class="#{cc.attrs.inputStyleClass}">
+                <div class="input-group">
+                    <ui:fragment rendered="#{not cc.attrs.showPrintView and not cc.attrs.readonly}">
+
+                        <!-- input -->
+                        <ui:fragment rendered="#{empty cc.attrs.inputmask}">
+                            <input type="#{cc.attrs.type}"
+                                    class="form-control#{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled ? ' inputWithSpecialCharPicker': ''}"
+                                    id="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                                    placeholder="#{cc.attrs.placeholder}"
+                                    jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
+                                    style="width: #{cc.attrs.width}" title="#{cc.attrs.tooltip}">
+                                <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                            </input>
+                        </ui:fragment>
+
+                        <!-- input mit inputmask -->
+                        <ui:fragment rendered="#{not empty cc.attrs.inputmask}">
+                            <input type="#{cc.attrs.type}"
+                                    class="form-control#{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled ? ' inputWithSpecialCharPicker': ''}"
+                                    id="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}_with_inputmask"
+                                    jsf:value="#{cc.attrs.value}"
+                                    placeholder="#{cc.attrs.placeholder}"
+                                    data-isymask-mask="#{cc.attrs.inputmask}"
+                                    data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}"
+                                    maxlength="#{cc.attrs.maxlength}" style="width: #{cc.attrs.width}"
+                                    title="#{cc.attrs.tooltip}">
+                                <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                            </input>
+                        </ui:fragment>
+                        <ui:fragment
+                                rendered="#{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled}">
+                            <a
+                                    class="btn btn-icon input-group-addon char-picker-button special-char-button"
+                                    title="#{msg_plisweb.MEL_Charpicker_Tooltip}"> <span
+                                    class="icon icon-char" />
+                            </a>
+                        </ui:fragment>
+                        <composite:insertChildren />
+                    </ui:fragment>
+                    <ui:fragment rendered="#{not cc.attrs.showPrintView and cc.attrs.readonly}">
+                        <span class="form-control readonly" style="width: #{cc.attrs.width}"
+                              id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+                             #{cc.attrs.value}
+                        </span>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{cc.attrs.showPrintView}">
+                        <input type="#{cc.attrs.type}" class="form-control"
+                                id="#{cc.clientId}:disabled_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                                disabled="disabled" jsf:value="#{cc.attrs.value}"
+                                style="width: #{cc.attrs.width}" />
+                    </ui:fragment>
+                </div>
+            </div>
+            <composite:renderFacet name="contentRight" />
+        </div>
+    </composite:implementation>
+
+</html>
