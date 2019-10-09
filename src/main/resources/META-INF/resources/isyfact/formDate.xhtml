@@ -54,6 +54,9 @@
         <composite:attribute name="inputmaskClearOnBlur" type="Boolean"
                 required="false" default="true" />
 
+        <composite:attribute name="inputmaskPlaceholder" type="java.lang.String"
+                required="false" default="tt.mm.jjjj" />
+
         <!-- Ob Picker angezeigt werden soll. -->
         <composite:attribute name="showPicker" type="java.lang.Boolean"
                 required="false" default="true" />
@@ -112,7 +115,8 @@
                                 title="#{cc.attrs.tooltip}"
                                 data-isymask-clearonblur="#{cc.attrs.inputmaskClearOnBlur}"
                                 data-isymask-mask="#{cc.attrs.inputmask}"
-                                data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}">
+                                data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}"
+                                data-isymask-placeholder="#{cc.attrs.inputmaskPlaceholder}">
                             <composite:insertChildren />
                         </input>
 

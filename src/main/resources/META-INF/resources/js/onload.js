@@ -691,7 +691,6 @@ function refreshFunctions() {
             enableOnReadonly: false
         });
 
-
         $(this).children("a").click(
             function () {// Öffnen eines Datepickers
                 var dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
@@ -699,18 +698,23 @@ function refreshFunctions() {
                 var date = inputField.val().split('.');
 
                 // eleminiere die Unterstrich-Platzhalterzeichen
-                var placeholderReg = /_/gi;
+                var placeholderReg = /\D/gi;
                 date[0] = date[0].replace(placeholderReg, "");
+                date[1] = date[1].replace(placeholderReg, "");
+                date[2] = date[2].replace(placeholderReg, "");
+                var dateString;
                 if (date[0] === "99") {
                     // Secret-Code: 99 = setze Fokus des Datepickers auf das aktuelle Datum
-                    var dateString = currentDateAsString();
-                    $(this).parent().datepicker('setDate', dateString);
-                    $(this).parent().datepicker('update');
+                    dateString = currentDateAsString();
+                }else if (date[0] === "00" || date[1] === "00") {
+                    dateString = setValidDateAsString(date);
                 } else {
-                    // uebernehme das manuell eingegebene Datum als Datumswert für den Datepicker
-                    $(this).parent().datepicker();
-                    $(this).parent().datepicker('update');
+                    // uebernehme das manuell eingegebene Datum als Datumswert für den Datepicker.
+                    // Die falschen Datumsangaben werden gefixt
+                    dateString = fixDateOutOfRange(date);
                 }
+                $(this).parent().datepicker('setDate', dateString);
+                $(this).parent().datepicker('update');
             });
 
         //Lese den Grenzwert zum Vervollständigen von zweistelligen Jahreszahlen aus. Wird weiter unten verwendet.
@@ -725,6 +729,9 @@ function refreshFunctions() {
             var date = $datumInputFeld.val().split('.');
             if (date[0] === "99") {
                 $datumInputFeld.val(currentDateAsString());
+            } else {
+            // Die falschen Datumsangaben werden gefixt
+                $datumInputFeld.val(fixDateOutOfRange(date));
             }
         });
     });
@@ -733,6 +740,33 @@ function refreshFunctions() {
         $(this).find('input').val(ev.format());
     });
 
+    function fixDateOutOfRange(date) {
+        var year = date[2],
+            month = date[1],
+            day = date[0];
+        // Assume not leap year by default (note zero index for Jan)
+        var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        // If evenly divisible by 4 and not evenly divisible by 100,
+        // or is evenly divisible by 400, then a leap year
+        if ((year % 4 === 0) && (year % 100 !== 0) || (year % 400 === 0))
+        {
+            daysInMonth[1] = 29;
+        }
+
+        // Check if month is out of range and fix
+        if (month > 12) {
+            month = 12;
+        }
+
+        // Get max days for month and fix days if out of range
+        var maxDays = daysInMonth[month-1];
+        if (day > maxDays) {
+            day = maxDays;
+        }
+
+        return day + '.' + month + '.' + year;
+    }
 
     // --------------------------------------------------------
     // Input Masks
@@ -1968,6 +2002,13 @@ function currentDateAsString() {
     var heuteMitFuehrendenNullen = heute.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
 
     return heuteMitFuehrendenNullen;
+}
+
+function setValidDateAsString(date) {
+    "use strict";
+    date[0] = date[0].replace("00","01");
+    date[1] = date[1].replace("00","01");
+    return date[0] + '.' + date[1] + '.' + date[2];
 }
 
 function refreshDatatableFilterRow() {
