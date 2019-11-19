@@ -10,7 +10,6 @@ import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.webflow.definition.StateDefinition;
 import org.springframework.webflow.execution.RequestContext;
@@ -44,7 +43,7 @@ public class HilfeController extends AbstractGuiController<HilfeModel> {
 
         boolean hilfeDefaultAktiv = konfiguration.getAsBoolean(HILFE_DEFAULT_AKTIV, true);
         String plisPortalhilfeUrl = konfiguration.getAsString(PLIS_PORTALHILFE_URL, "");
-        if (StringUtils.isEmpty(plisPortalhilfeUrl)) {
+        if (plisPortalhilfeUrl == null || plisPortalhilfeUrl.isEmpty()) {
             model.setHilfeButtonAvailable(false);
             LOG.debug(FEHLERTEXT_PROVIDER
                     .getMessage(FehlerSchluessel.INFO_PARAMETER_HILFEPORTAL_URL_NICHT_GESETZT));

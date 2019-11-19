@@ -382,14 +382,6 @@
 	</profiles>
 
     <dependencies>
-
-        <!-- Deprecated - nur für IsyFact 1.x -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
-        </dependency>
-
         <!-- ISY -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
