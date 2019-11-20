@@ -28,15 +28,129 @@ Die zugehörige Bibliothek `isy-style` enthält die CSS-, JavaScript- und Bildda
 Die CSS-Dateien für eine zum Styleguide konforme Anwendung werden bei Nutzung der Bibliothek `isy-style` automatisch geladen und eingebunden.
 Zur anwendungsspezifischen Anpassung der Stylesheets dienen folgende, innerhalb der Anwendung liegende, Dateien:
 
-* `/css/custom-styles.css` - Spezielle CSS Klassen für die Anwendung,
-* `/css/custom-print.css` - Spezielle CSS Klassen für die Druckansicht der Anwendung.
+* `/css/custom-styles.css` - spezielle CSS Klassen für die Anwendung,
+* `/css/custom-print.css` - spezielle CSS Klassen für die Druckansicht der Anwendung.
 
 Eine explizite Abhängigkeit zur Bibliothek `isy-style` ist in der Regel nicht nötig, da sie implizit mit eingebunden wird.
 
-[[erstellung-einer-gui-komponente]]
-== Erstellung einer GUI-Komponente
+[[erstellung-der-gui-komponente]]
+== Erstellung der GUI-Komponente
 
-Die folgenden Abschnitte erklären, wie eine GUI-Komponente nach dem MVC-Muster, mit der Erweiterung um Flows, mit der die Bibliothek `isy-web` erstellt wird.
+Die folgenden Abschnitte erklären, wie die GUI-Komponente nach dem MVC-Muster, mit der Erweiterung um Flows, mit dem JSF-Baustein erstellt wird.
+
+[[basis-konfiguration-jsf]]
+=== Basis-Konfiguration von JSF
+
+Dieses Kapitel enthält alle notwendigen Basiskonfigurationen für die Verwendung von JSF.
+
+Verwendung von Facelets (`webflow.xml`)::
+Für die Verwendung von Facelets ist es notwendig, in der Spring Konfiguration ein Mapping zwischen der Datei-Erweiterung und den Facelets herzustellen.
+
+:desc-listing-SnipConfigxml: Ausschnitt webflow.xml
+[id="listing-SnipConfigxml",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-SnipConfigxml}
+[source,xml]
+----
+<!-- Maps logical view names to Facelet templates (e.g. 'search' to '/WEB-INF/search.xhtml' -->
+<bean id="faceletsViewResolver"
+	class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	<property name="viewClass"
+		value="org.springframework.faces.mvc.JsfView" />
+	<property name="prefix" value="/WEB-INF/" />
+	<property name="suffix" value=".xhtml" />
+</bean>
+----
+
+Abschalten der Ausgabe von Kommentaren::
+Die Ausgabe von HTML-Kommentaren, die in der Flow-Definition und im View zur Dokumentation der Software eingebettet wurden, wird abgeschaltet.
+// TODO Snippet!
+
+Konfiguration von Konvertern (`faces-config.xml`)::
+Alle Konverter müssen einzeln nach folgendem Muster konfiguriert werden.
+
+:desc-listing-SnipFacesConfigxml: Definition eines Konverters
+[id="listing-SnipFacesConfigxml",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-SnipFacesConfigxml}
+[source,xml]
+----
+<converter>
+	<converter-for-class>java.util.Date</converter-for-class>
+	<converter-class>de.msg.terminfindung.gui.util.DateConverter</converter-class>
+</converter>
+----
+
+Aktivieren von „Partial State Saving“::
+Das mit JSF 2.0 eingeführte Feature „Partial State Saving“ muss aktiviert bleiben.
+Hintergrund ist, dass JSF 2.0 ansonsten im Zusammenhang mit der Replikation der Session die IDs für JSF-Komponenten doppelt vergibt und es dadurch zu Fehlern in der Anwendung kommt.
+
+Konfiguration von Widget-Renderern (`faces-config.xml`)::
+Zur Darstellung von Radio Buttons und Checkboxen ohne Labels überschreibt der JSF-Baustein die Standard-Renderer der Bibliothek Tomahawk mit IsyFact-spezifischen Implementierungen.
+
+:desc-listing-jsfRenderer: Konfiguration der IsyFact-spezifischen Renderer
+[id="listing-jsfRenderer",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-jsfRenderer}
+[source,xml]
+----
+<render-kit>
+    <renderer>
+        <component-family>org.apache.myfaces.Radio</component-family>
+        <renderer-type>org.apache.myfaces.Radio</renderer-type>
+        <renderer-class>
+            de.bund.bva.isyfact.common.web.jsf.renderer.NoLabelHtmlRadioRenderer
+        </renderer-class>
+    </renderer>
+
+    <renderer>
+        <component-family>org.apache.myfaces.Checkbox</component-family>
+        <renderer-type>org.apache.myfaces.Checkbox</renderer-type>
+        <renderer-class>
+            de.bund.bva.isyfact.common.web.jsf.renderer.NoLabelHtmlCheckboxRenderer
+        </renderer-class>
+    </renderer>
+</render-kit>
+----
+
+Einbinden der Basiskonfiguration::
+Der JSF-Baustein stellt eine Konfigurationsdatei bereit, welche die Basiskonfiguration aller verwendeten Frameworks (Spring, JSF, Spring Web Flow) bezüglich der GUI-Komponente enthält.
+Diese Datei muss als Bestandteil des Applikationskontextes des Dispatcher Servlets importiert werden.
+
+:desc-listing-PfadWebflowXml: Einbinden der Basiskonfiguration
+[id="listing-PfadWebflowXml",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-PfadWebflowXml}
+[source,xml]
+----
+<beans>
+    ...
+    <import resource="classpath:resources/plis-web/spring/webflow.xml"/>
+    ...
+</beans>
+----
+// TODO: Stand 19.07.2018 Pfad plis-web z.Zt. noch richtig, bei einer Verzeichnisstrukturanpassung wäre das obige Beispiel anzupassen
+
+Des Weiteren muss ein eigenes Dispatcher Servlet in der `web.xml` angelegt werden, das den Aufruf der entsprechenden URLs an Spring Web Flow weiterleitet.
+
+:desc-listing-Snipwebxml3: Konfiguration des Dispatcher Servlets für Spring Web Flow
+[id="listing-Snipwebxml3",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-Snipwebxml3}
+[source,xml]
+----
+<servlet>
+	<servlet-name>dispatcher</servlet-name>
+	<servlet-class>
+		org.springframework.web.servlet.DispatcherServlet
+	</servlet-class>
+	<init-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>{pfad-zur-konfiguration-des-dispatcher-servlet-kontextes}</param-value>
+	</init-param>
+	<load-on-startup>2</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>dispatcher</servlet-name>
+	<url-pattern>/app/*</url-pattern>
+</servlet-mapping>
+----
 
 [[der-flow]]
 === Erstellung der Flows
@@ -566,136 +680,6 @@ Die Parameter müssen ggf. angepasst werden.
 </filter>
 ----
 
-[[basis-konfiguration-jsf]]
-=== Konfiguration von JSF
-
-Dieses Kapitel fasst alle notwendigen Basiskonfigurationen für die Verwendung von JSF zusammen.
-
-[[verwendung-von-facelets-webflow.xml]]
-==== Verwendung von Facelets (webflow.xml)
-
-Für die Verwendung von Facelets ist es notwendig, in der Spring Konfiguration ein Mapping zwischen der Datei-Erweiterung und den Facelets herzustellen.
-
-:desc-listing-SnipConfigxml: Ausschnitt webflow.xml
-[id="listing-SnipConfigxml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipConfigxml}
-[source,xml]
-----
-<!-- Maps logical view names to Facelet templates (e.g. 'search' to '/WEB-INF/search.xhtml' -->
-<bean id="faceletsViewResolver"
-	class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-	<property name="viewClass"
-		value="org.springframework.faces.mvc.JsfView" />
-	<property name="prefix" value="/WEB-INF/" />
-	<property name="suffix" value=".xhtml" />
-</bean>
-----
-
-[[abschalten-der-ausgabe-von-kommentaren]]
-==== Abschalten der Ausgabe von Kommentaren
-
-Die Ausgabe von HTML-Kommentaren, die in der Flow-Definition und im View zur Dokumentation der Software eingebettet wurden, wird abgeschaltet.
-
-[[konfiguration-von-konvertern]]
-==== Konfiguration von Konvertern
-
-Um den gewünschten Konverter für die Verwendung bekannt zu machen, muss dieser in der `faces-config.xml` (Java Server Faces Konfigurationsdatei) erfasst werden.
-
-:desc-listing-SnipFacesConfigxml: Ausschnitt aus faces-config.xml
-[id="listing-SnipFacesConfigxml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipFacesConfigxml}
-[source,xml]
-----
-<converter>
-	<converter-for-class>java.util.Date</converter-for-class>
-	<converter-class>de.msg.terminfindung.gui.util.DateConverter</converter-class>
-</converter>
-----
-
-[[aktivieren-von-partial-state-saving]]
-==== Aktivieren von „Partial State Saving“
-
-Das mit JSF 2.0 eingeführte Feature „Partial State Saving“ muss aktiviert bleiben.
-Hintergrund ist, dass JSF 2.0 ansonsten im Zusammenhang mit der Replikation der Session die IDs für JSF-Komponenten doppelt vergibt und es dadurch zu Fehlern in der Anwendung kommt.
-
-
-[[spezielleWidgetRenderer]]
-==== Spezielle Widget-Renderer
-
-Derzeit muss noch folgende Konfiguration in die `faces-config.xml` der Anwendung aufgenommen werden:
-
-:desc-listing-jsfRenderer: JSF Renderer Konfiguration
-[id="listing-jsfRenderer",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-jsfRenderer}
-[source,xml]
-----
-<!-- Spezifische Renderer müssen hier erneut angegeben werden, um die existierenden Renderer aus der Tomahawk Bibliothek zu überschreiben -->
- <render-kit>
-    <!-- Spezieller Renderer für t:radio Elemente, welcher kein Label rendert. -->
-    <renderer> <component-family>org.apache.myfaces.Radio</component-family>
-    <renderer-type>org.apache.myfaces.Radio</renderer-type>
-    <renderer-class>de.bund.bva.isyfact.common.web.jsf.renderer.NoLabelHtmlRadioRenderer</renderer-class>
-    </renderer>
-
-<!-- Spezieller Renderer für Checkboxen, welcher kein Label rendert. -->
-   <renderer>
-      <component-family>org.apache.myfaces.Checkbox</component-family>
-      <renderer-type>org.apache.myfaces.Checkbox</renderer-type>
-      <renderer-class>de.bund.bva.isyfact.common.web.jsf.renderer.NoLabelHtmlCheckboxRenderer</renderer-class>
-      </renderer>
-  </render-kit>
-----
-
-[[basis-konfiguration-web-flow]]
-=== Konfiguration von Spring Web Flow
-
-Dieser Abschnitt beschreibt die Basiskonfiguration für die Verwendung von Spring Web Flow.
-Die Datei `webflow.xml` enthält die Spring Konfigurationen für die GUI-Frameworks (Webflow, JSF, Spring MVC).
-
-Folgende Konfigurationsdatei muss in der anwendungsspezifischen GUI-Konfiguration angelegt und importiert werden:
-
-:desc-listing-PfadWebflowXml: config.xml Konfigurationsdatei
-[id="listing-PfadWebflowXml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-PfadWebflowXml}
-[source,xml]
-----
-<beans>
-    ...
-    <import resource="classpath:resources/plis-web/spring/webflow.xml"/>
-    ...
-</beans>
-----
-
-// TODO: Stand 19.07.2018 Pfad plis-web z.Zt. noch richtig, bei einer Verzeichnisstrukturanpassung wäre das obige Beispiel anzupassen
-
-[[erweiterung-fuer-servlets-im-web.xml]]
-==== Erweiterung für Servlets im web.xml
-
-Damit die Funktionalitäten von Spring Web Flow aufgerufen werden, muss das SWF Dispatcher Servlet registriert werden, welches die weitere Behandlung an den SWF Kern abgibt.
-
-:desc-listing-Snipwebxml3: Ausschnitt web.xml bezüglich Servlets
-[id="listing-Snipwebxml3",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-Snipwebxml3}
-[source,xml]
-----
-<servlet>
-	<servlet-name>dispatcher</servlet-name>
-	<servlet-class>
-		org.springframework.web.servlet.DispatcherServlet
-	</servlet-class>
-	<init-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/config.xml</param-value>
-	</init-param>
-	<load-on-startup>2</load-on-startup>
-</servlet>
-
-<servlet-mapping>
-	<servlet-name>dispatcher</servlet-name>
-	<url-pattern>/app/*</url-pattern>
-</servlet-mapping>
-----
-
 [[konfiguration-der-navigation]]
 === Konfiguration der Navigation
 
@@ -756,7 +740,7 @@ Auf übergreifende Maskentexte aus der Konfigurationsdatei `resources/nachrichte
 
 
 [[konfiguration-portalfarbe]]
-=== Konfiguration Portalfarbe
+=== Konfiguration der Portalfarbe
 
 Für eine Anwendung kann eine Basisfarbe / Portalfarbe konfiguriert werden. Von dieser `portalColor` werden viele der weiteren Farbstyles für die Anwendung abgeleitet und in der generierten Datei `color.css` abgelegt, die in der Zielanwendung einzubinden ist.
 
@@ -793,8 +777,8 @@ Dadurch wird ein "grunt build" ausgelöst und die Farbstyles befinden sich nach 
 .{desc-image-colorCssPosition}
 image::color-css-position.png[align="center"]
 
-[[konfiguration-des-ressource-caching-mechanismus]]
-=== Konfiguration des Ressource Caching Mechanismus
+[[konfiguration-des-resource-caching-mechanismus]]
+=== Konfiguration des Resource Caching Mechanismus
 
 Möchte man Webressourcen wie Bilder oder CSS-Dateien von Softwareversionen abhängig machen, muss das folgende gemacht werden:
 
