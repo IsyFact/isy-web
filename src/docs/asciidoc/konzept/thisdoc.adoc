@@ -5,8 +5,6 @@ include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 [[Einleitung]]
 == Einleitung
 
-// Dieses Kapitel beschreibt, was wo in welchem Kapitel in diesem Dokument zu lesen ist.
-
 Im Dokument <<IsyFactReferenzarchitekturITSystem>> ist der Aufbau von <<glossar-IT-System,IT-Systemen>> in fünf Komponenten beschrieben.
 Eine davon ist die Komponente GUI (s. <<image-IFRefArcITSysGUI>>).
 
@@ -49,7 +47,7 @@ Hierzu werden folgende Themenbereiche genauer definiert:
 * Konfiguration der Dialog Abläufe (Flow)
 * Anbindung der Backend Services (Spring Beans)
 
-*Einfachheit des Session Management:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche wiederverwendbaren Services zur Verfügung gestellt werden.
+*Einfachheit des Session Managements:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche wiederverwendbaren Services zur Verfügung gestellt werden.
 
 [[sicherheitsanforderungen]]
 === Sicherheitsanforderungen
