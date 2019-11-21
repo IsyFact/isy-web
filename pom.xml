@@ -287,7 +287,7 @@
                                         <artifactItem>
                                             <groupId>de.bund.bva.isyfact</groupId>
                                             <artifactId>isy-dokumentvorlagen</artifactId>
-                                            <version>2.1.0-SNAPSHOT</version>
+                                            <version>1.7.0</version>
                                             <overWrite>true</overWrite>
                                         </artifactItem>
                                     </artifactItems>
@@ -301,23 +301,6 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <version>1.6.0</version>
                         <executions>
-                            <!-- Erzeugt das Literaturverzeichnis -->
-                            <execution>
-                                <id>generate-bibliography</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>bash</executable>
-                                    <workingDirectory>${basedir}/target/isy-dokumentvorlagen/docs</workingDirectory>
-                                    <arguments>
-                                        <argument>${basedir}/target/isy-dokumentvorlagen/scripts/bibliography.sh
-                                        </argument>
-                                        <argument>${basedir}/src/docs/asciidoc</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
 
                             <!-- Erzeugt das Glossar -->
                             <execution>
@@ -331,6 +314,24 @@
                                     <workingDirectory>${basedir}/target/isy-dokumentvorlagen/docs</workingDirectory>
                                     <arguments>
                                         <argument>${basedir}/target/isy-dokumentvorlagen/scripts/glossary.sh</argument>
+                                        <argument>${basedir}/src/docs/asciidoc</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+
+                            <!-- Erzeugt das Literaturverzeichnis -->
+                            <execution>
+                                <id>generate-bibliography</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>bash</executable>
+                                    <workingDirectory>${basedir}/target/isy-dokumentvorlagen/docs</workingDirectory>
+                                    <arguments>
+                                        <argument>${basedir}/target/isy-dokumentvorlagen/scripts/bibliography.sh
+                                        </argument>
                                         <argument>${basedir}/src/docs/asciidoc</argument>
                                     </arguments>
                                 </configuration>
@@ -375,13 +376,18 @@
                     <plugin>
                         <groupId>org.asciidoctor</groupId>
                         <artifactId>asciidoctor-maven-plugin</artifactId>
-                        <version>2.0.0-RC.1</version>
+                        <version>1.5.6</version>
 
                         <dependencies>
                             <dependency>
+                                <groupId>org.jruby</groupId>
+                                <artifactId>jruby-complete</artifactId>
+                                <version>9.1.12.0</version>
+                            </dependency>
+                            <dependency>
                                 <groupId>org.asciidoctor</groupId>
                                 <artifactId>asciidoctorj-pdf</artifactId>
-                                <version>1.5.0-beta.4</version>
+                                <version>1.5.0-alpha.16</version>
                             </dependency>
                         </dependencies>
 
