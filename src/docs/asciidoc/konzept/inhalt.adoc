@@ -15,12 +15,12 @@ Für detaillierte Informationen über die verwendeten Technologien sei auf entsp
 *Java Server Faces (JSF)* ist ein Framework für die Entwicklung von Webanwendungen.
 Es basiert auf einer MVC-Architektur.
 Der Schwerpunkt von JSF ist die Bereitstellung grafischer Komponenten wie z.B. Tabellen, Formulare, Kalender, Menüs oder Editoren für die Entwicklung von Webanwendungen.
-Das zentrales Konzept hinter JSF ist die Erstellung eines Komponentenbaumes aus diesen grafischen Komponenten.
+Das zentrale Konzept hinter JSF ist die Erstellung eines Komponentenbaumes aus diesen grafischen Komponenten.
 Aus diesem Komponentenbaum wird schließlich die auszuliefernde HTML-Seite generiert.
 
 Die IsyFact setzt die Referenzimplementierung von Oracle (<<Mojarra>>) ein und erweitert diese im Bereich der Komponenten um die Bibliothek Apache Tomahawk (<<Tomahawk>>).
 
-*Facelets* ist eine Template-Engine und die Standard View-Technologie von JSF.
+*Facelets* ist eine Template-Engine und die Standard-View-Technologie von JSF.
 Facelets löst in dieser Funktion JSP ab.
 Mit Facelets werden kleine, wiederverwendbare <<glossar-GUI>>-Komponenten erstellt, die durch ein entsprechendes XML-Tag in eine Seite inkludiert werden.
 Hierbei wird der Templating-Mechanismus der Facelets verwendet.
@@ -52,8 +52,7 @@ Dazu werden eigene Validator-Objekte verwendet, die den Komponenten in der View-
 6.  _Render Response_ („Antwort wiedergeben“) erzeugt schließlich die Antwort auf die ursprüngliche Anfrage, beispielsweise eine HTML-Seite.
 Hierzu werden sogenannte _Renderer_ aufgerufen, die den View-Komponenten zugeordnet sind.
 
-Treten Fehler auf, oder soll als Antwort beispielsweise eine HTML-Seite aufgerufen werden, die keine
-JSF-Komponenten enthält, so können einzelne Phasen übersprungen werden.
+Treten Fehler auf oder soll als Antwort beispielsweise eine HTML-Seite aufgerufen werden, die keine JSF-Komponenten enthält, so können einzelne Phasen übersprungen werden.
 
 [[datenmodell]]
 ==== Datenmodell
@@ -61,7 +60,7 @@ JSF-Komponenten enthält, so können einzelne Phasen übersprungen werden.
 Die Daten für die Visualisierung in JSF werden in Model Beans gehalten.
 Hierfür wird nicht auf den durch JSF zur Verfügung gestellten Mechanismus der Managed Beans zurückgegriffen.
 Das Datenmodell wird über Spring Web Flow direkt aus Model Beans verfügbar gemacht.
-Damit ist die Verwaltung des Models unter Kontrolle des Dialogflusses welcher über Spring Web Flow gesteuert wird.
+Damit ist die Verwaltung des Models unter Kontrolle des Dialogflusses, der über Spring Web Flow gesteuert wird.
 Die einem Flow zugeordneten Model Beans werden durch den Flow instanziiert und unterliegen somit dem Flow-Lebenszyklus.
 
 [[facelets]]
@@ -103,7 +102,7 @@ Dieser erweitert die Web-Anwendung um die folgenden Scopes:
 
 Spring Web Flow implementiert im Kern einen finiten Zustandsautomaten, der auf definierte Anfangs- und Endzustände angewiesen ist.
 
-Der Ablauf der logisch zusammenhängenden Views wird in einem so genannten Flow definiert.
+Der Ablauf der logisch zusammenhängenden Views wird in einem sogenannten Flow definiert.
 Innerhalb eines Flows stehen verschiedene States zur Verfügung.
 Zunächst muss jeder Flow einen Start State und einen End State besitzen.
 Der Start State definiert den Einstiegspunkt und aktiviert den jeweiligen Flow.
@@ -111,7 +110,7 @@ Dieser bleibt so lange aktiv, bis ein End State erreicht wird.
 
 Wie bereits erwähnt, setzt sich Spring Web Flow das Ziel, die Browser-Navigation mit „Back-/Forward-Button“ zu unterstützen.
 Um diese Funktionalität zu gewährleisten, muss die Möglichkeit bestehen, den Zustand einer View zu speichern und wieder abzurufen.
-Hierfür steht ein so genanntes Repository zur Verfügung, welches die Zustände der einzelnen Views innerhalb eines Flows zwischenspeichert.
+Hierfür steht ein sogenanntes Repository zur Verfügung, welches die Zustände der einzelnen Views innerhalb eines Flows zwischenspeichert.
 Dadurch kann man den Zustand jeder View innerhalb eines Flows zu einem beliebigen Zeitpunkt reproduzieren.
 
 [[flows-subflows]]
@@ -120,7 +119,7 @@ Dadurch kann man den Zustand jeder View innerhalb eines Flows zu einem beliebige
 Ein Flow kann wahlweise als XML-Datei oder mittels der Java-API realisiert werden.
 Ein Flow besteht in der Regel aus mehreren Zuständen (innerhalb von Web Flow als States bezeichnet), die nacheinander und in Abhängigkeit von der jeweiligen Benutzerinteraktion durchlaufen werden.
 
-Auch die Modularisierung von Flows in kleine Einheiten ist durch so genannte Subflows bzw.
+Auch die Modularisierung von Flows in kleine Einheiten ist durch sogenannte Subflows bzw.
 Inline-Flows ohne weiteres möglich.
 Ein Subflow wird wie jede andere Flow-Definition erstellt.
 Der Unterschied zu einem normalen Flow liegt lediglich darin, dass der Subflow innerhalb eines Flows aufgerufen wird.
@@ -580,7 +579,7 @@ Ein Angreifer könnte nun eine URL wie folgt aufrufen:
 
  www.mySite.de?searchString=5);alert(‚hallo‘
 
-Der Inhalt der Variable `searchString` wird ersetzt, so dass folgender Code ausgeführt wird:
+Der Inhalt der Variable `searchString` wird ersetzt, sodass folgender Code ausgeführt wird:
 
  setTimeout(“callFunction(5);alert(‚hallo‘)", 100);
 
@@ -698,7 +697,7 @@ dann könnte ein Angreifer folgende URL aufrufen:
  www.mySite.de?searchString=<script>alert(‚halloWelt‘)</script>
 
 Der übergebene JavaScript-Block würde dann auf dem Server ausgeführt.
-Das Escapen „zerstört“ die spitzen Klammern und Hochkommata, so dass kein Code ausgeführt wird.
+Das Escapen „zerstört“ die spitzen Klammern und Hochkommata, sodass kein Code ausgeführt wird.
 ====
 
 // end::important[]
@@ -740,7 +739,7 @@ Hierunter fallen alle Daten, die für die Dialogabläufe benötigt werden:
 
 * Komponentenbaum der Dialogansicht, dieser beinhaltet die Dialogelemente und die Information über die Bindung an die Backing Beans.
 * Den Flow Container, in welchem die Backing Beans während dem Dialogfluss vorgehalten werden.
-* Die Conversation, welche eine Benutzer Interaktion beinhaltet, bündelt die beiden vorangegangenen Angaben.
+* Die Conversation, welche eine Benutzerinteraktion beinhaltet, bündelt die beiden vorangegangenen Angaben.
 
 Standardmäßig wird diese Information in der HTTP-Session abgelegt und wieder hergestellt.
 Nach IsyFact-Zielarchitektur erfolgt diese Speicherung in der Datenbank.

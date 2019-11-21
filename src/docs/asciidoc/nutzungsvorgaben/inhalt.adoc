@@ -83,7 +83,7 @@ Aktivieren von „Partial State Saving“::
 Das mit JSF 2.0 eingeführte Feature „Partial State Saving“ muss aktiviert bleiben.
 Hintergrund ist, dass JSF 2.0 ansonsten im Zusammenhang mit der Replikation der Session die IDs für JSF-Komponenten doppelt vergibt und es dadurch zu Fehlern in der Anwendung kommt.
 
-Konfiguration von Widget-Renderern (`faces-config.xml`)::
+Konfiguration der Widget-Renderer (`faces-config.xml`)::
 Zur Darstellung von Radio Buttons und Checkboxen ohne Labels überschreibt der JSF-Baustein die Standard-Renderer der Bibliothek Tomahawk mit IsyFact-spezifischen Implementierungen.
 
 :desc-listing-jsfRenderer: Konfiguration der IsyFact-spezifischen Renderer
@@ -329,11 +329,9 @@ Für die Ablage im Flow Scope werden die Daten in serialisierter Form abgelegt.
 Daher muss das Model-Bean das Interface Serializable implementieren.
 
 Größere Datenmengen beeinträchtigen die Performance der Anwendung zur Laufzeit.
-Umso mehr Daten im Model enthalten sind, desto aufwändiger ist die Session-Persistierung.
+Umso mehr Daten im Model enthalten sind, desto aufwendiger ist die Session-Persistierung.
 Daher ist die Menge an gehaltenen Daten auf das Notwendige zu beschränken.
 Diejenigen Teile des Models, die nur temporär während der Datenaufbereitung befüllt werden, sollten dringend als `transient` markiert werden, um sie nicht in der Session zu speichern.
-
-TIP: Die Session-Persistierung erfolgt neben den Dialogschritten zusätzlich auch beim Redirect im Rahmen der Anwendung des Post Redirect Get-Pattern (siehe <<back-button-handling>>).
 
 Die nach einem Submit im Model-Bean gespeicherten (und vom Anwender ggf. veränderten) fachlichen Daten werden nach Validierung in die fachlichen Tabellen der Datenbank übernommen.
 Dies erfolgt immer durch einen Controller, der die Daten aus dem Model an den Anwendungskern-Wrapper übergibt.
@@ -785,7 +783,7 @@ Möchte man Webressourcen wie Bilder oder CSS-Dateien von Softwareversionen abh�
 [[jsf-resourcehandler-einrichten]]
 ==== JSF ResourceHandler einrichten
 
-Die Ressourcenlieferung wird durch so genannte _ResourceHandler_ verkapselt.
+Die Ressourcenlieferung wird durch sogenannte _ResourceHandler_ verkapselt.
 Um also den Prozess anpassen zu können, muss man einen eigenen _ResourceHandler_ definieren und an die Web Applikation anbinden.
 Da jedoch das GUI mittels JSF erstellt wird, muss es JSF-spezifisch umgesetzt werden.
 Der folgende Code ist ein Beispiel so eines Handlers:
@@ -863,7 +861,7 @@ In der Methode `getRequestPath()` kann man die Pfade der Ressourcen beliebig anp
 [[konfiguration-1]]
 ==== Konfiguration
 
-Der _ResourceHandler_ muss noch mittels Konfiguration an die Web Applikation angebunden werden.
+Der _ResourceHandler_ muss noch mittels Konfiguration an die Web-Applikation angebunden werden.
 Dies macht man in `faces-config.xml` (Java Server Faces Konfigurationsdatei) auf die folgende Weise:
 
 [source,xml]
@@ -882,7 +880,7 @@ Es müssen JSF Tags benutzt werden:
 * JavaScript: `<h:outputScript>` anstatt `<script>`
 * CSS: `<h:outputStylesheet>` anstatt `<link>`
 
-Dank ihnen werden die jeweiligen Ressourcen für unseren _ResourceHandler_ sichtbar und werden von ihn nun verwaltet.
+Dank ihnen werden die jeweiligen Ressourcen für unseren _ResourceHandler_ sichtbar und werden von ihm nun verwaltet.
 
 [[optionale-anzeige-der-versionsnummer-im-webseitentitel]]
 === Optionale Anzeige der Versionsnummer im Webseitentitel
@@ -946,7 +944,7 @@ Besteht der Flow aus mehreren View-States, so wird eine Schritt-Nummer angehäng
 * Alle weiteren für den View verwendeten Facelets tragen den Namen der Komponente und eine Charakterisierung des Facelets (z.B. `erstellenFormular.xhtml`).
 Auch hier ist eine Schrittnummer anzuhängen, wenn der Flow mehrere View-States enthält (z.B. erstellenFormular1.xhtml).
 * Die bei einem View-State verwendete JavaScript-Datei trägt den Namen des View-States (z.B. `erstellenFormular1.js`).
-Gibt es View-übergreifende Funktionalität kann diese in eine wiederverwendbare JavaScript-Datei ausgelagert werden (z.B. `erstellenForumlar.js`).
+Gibt es View-übergreifende Funktionalität, kann diese in eine wiederverwendbare JavaScript-Datei ausgelagert werden (z.B. `erstellenFormular.js`).
 
 <<image-VerzBspErstellen>> zeigt den Verzeichnisbaum der <<Vorlageanwendung>> und verdeutlicht, wie die Elemente einer Dialog-Komponente (hier: `Erstellen`) im Dateisystem abgelegt werden.
 
@@ -1092,7 +1090,7 @@ Meldungen nach außen getragen werden.
 Exceptions, welche während der Ausführung von Logik der GUI-Komponenten (z.B. Datenaufbereitung, Rendering) entstehen, werden immer als technische Exception angesehen.
 Für diese wird eine standardisierte Fehlerseite mit der in Punkt <<ausgabe-fuer-technische-exceptions>> angegebenen Fehlermeldung für technische Fehler ausgegeben.
 
-Um die Behandlung solcher Fehler zu ermöglichen, stellt die Bibliothek `isy-web` folgendes sicher, so dass für Anwendungen nichts weiter zu tun ist:
+Um die Behandlung solcher Fehler zu ermöglichen, stellt die Bibliothek `isy-web` folgendes sicher, sodass für Anwendungen nichts weiter zu tun ist:
 
 *Globaler Übergang auf einen Fehler-Flow:* Der globale Parent-Flow definiert einen Übergang auf den globalen  Fehler-Flow.
 
@@ -1108,7 +1106,7 @@ Um die Behandlung solcher Fehler zu ermöglichen, stellt die Bibliothek `isy-web
 </global-transitions>
 ----
 
-*Konfiguration des JSF Exeception Handlers:* Dieser Handler wird in der `faces-config.xml` konfiguriert:
+*Konfiguration des JSF Exception Handlers:* Dieser Handler wird in der `faces-config.xml` konfiguriert:
 
 :desc-listing-flowExceptionHandlerKonfiguration: Flow JSF Exception Handler Konfiguration
 [id="listing-flowExceptionHandlerKonfiguration",reftext="{listing-caption} {counter:listings }"]
@@ -1291,7 +1289,7 @@ org.springframework.web.filter.DelegatingFilterProxy
 </filter-mapping>
 ----
 
-Der Security Filter benötigt einen `ContextLoaderListener`, welcher wie folgt konfiguriert ist.
+Der Security Filter benötigt einen `ContextLoaderListener`, welcher wiefolgt konfiguriert ist.
 
 :desc-listing-SnipWebxmlt7: Ausschnitt aus web.xml (Contextloader)
 [id="listing-SnipWebxmlt7",reftext="{listing-caption} {counter:listings }"]
@@ -1473,7 +1471,7 @@ Im Styleguide <<Styleguide>> finden sich Beispiele für Druckansichten.
 image::image96.png[align="center", scaledwidth="96%"]
 
 Für jede Seite besteht die Möglichkeit eine generische Druckansicht anzuzeigen.
-Diese Druckansicht kann in einem eigenene View-State definiert werden.
+Diese Druckansicht kann in einem eigenen View-State definiert werden.
 Durch Aufruf des `BasisController` s wird sie aktiviert oder deaktiviert.
 
 Beispiel:
@@ -1592,12 +1590,12 @@ TIP: Die IsyFact enthält die Demo-Anwendung `isy-webgui`.
 
 Die Anwendung zeigt die Features der Bibliotheken `isy-web` sowie `isy-style` beispielhaft.
 Insbesondere demonstriert sie Aussehen und Verhalten der nachfolgend beschriebenen JSF-Seitenelemente.
-Für die Verwendung der Widgets muss in den XHTMLs folgender Namespace eingebunden werden: `xmlns:isy="http://java.sun.com/jsf/composite/isyfact"`
+Für die Verwendung dieser Elemente muss in den View-Templates folgender Namespace eingebunden werden: `xmlns:isy="http://java.sun.com/jsf/composite/isyfact"`.
 
 [[hauptfenster]]
 === Hauptfenster
 
-Das im Styleguide beschriebene Anwendungslayout besteht im allgemeinen aus einem Hauptfenster mit einem Header und einem Inhaltsbereich, dessen Inhalt je nach Seitentyp und Applikation variieren kann.
+Das im Styleguide beschriebene Anwendungslayout besteht im Allgemeinen aus einem Hauptfenster mit einem Header und einem Inhaltsbereich, dessen Inhalt je nach Seitentyp und Applikation variieren kann.
 
 :desc-image-aufbauapplikationsseite: Aufbau einer Applikationsseite
 [id="image-aufbauapplikationsseite",reftext="{figure-caption} {counter:figures}"]
@@ -1640,9 +1638,9 @@ Die Angabe der Konfiguration ist verpflichtend.
 ===== Logos und Texte im Header-Bereich
 Es besteht die Möglichkeit, für jeden Flow die folgenden Teile des Seitenrahmens anzupassen:
 
-* Linkes Logo im Header (`gui.header.logo.links.pfad`)
-* Rechtes Logo im Header (`gui.header.logo.rechts.pfad`)
-* Text unterhalb des rechten Logos im Header (`gui.header.text.logo.rechts`)
+* linkes Logo im Header (`gui.header.logo.links.pfad`),
+* rechtes Logo im Header (`gui.header.logo.rechts.pfad`),
+* Text unterhalb des rechten Logos im Header (`gui.header.text.logo.rechts`).
 
 Um hiervon Gebrauch zu machen, muss die entsprechende Konfigurationsdatei über die Bean-Definition eingebunden werden:
 
@@ -1681,7 +1679,7 @@ Definieren sie diese nicht, verwendet der Seitenrahmen Standardwerte aus `isy-we
 |====
 
 Die gleichen Werte können Anwendungen zusätzlich auf Ebene sogenannter _Anwendungsgruppen_ setzen, um den Seitenrahmen noch weiter an ihre Anforderungen anzupassen.
-Anwendungsgruppen fassen in der Regel mehrere Flows zusammen und spiegeln sich nicht selten direkt in der Hauptnavigation wieder.
+Anwendungsgruppen fassen in der Regel mehrere Flows zusammen und spiegeln sich nicht selten direkt in der Hauptnavigation wider.
 Setzt die Anwendungen einzelne Werte für bestimmte Anwendungsgruppen nicht, werden die globalen Standardwerte (s. vorige <<table-SeitenrahmenStandardwerte>>) herangezogen.
 
 :desc-table-SeitenrahmenStandardwerteGruppen: Standardwerte für den Seitenrahmen bezogen auf Anwendungsgruppen
@@ -1987,12 +1985,12 @@ image::image80.png[align="center"]
 [[jsf-bedienelemente]]
 == JSF Bedienelemente
 
-Als Bedienelemente für die WebGui werden JSF Composite Components zur Verfügung gestellt.
-Durch das Einbinden des JSF-Namespace `xmlns:isy="http://java.sun.com/jsf/composite/isyfact"` können die JSF-Komponenten der IsyFact-Web Bibliothek in die Anwendung eingebunden werden.
+Der JSF-Baustein stellt JSF Composite Components als Bedienelemente für Web-GUIs zur Verfügung.
+Für die Verwendung dieser Elemente muss in den View-Templates folgender Namespace eingebunden werden: `xmlns:isy="http://java.sun.com/jsf/composite/isyfact"`.
 
 Die Bedienelemente stellen im Grundsatz folgendes sicher:
 
-* *JavaScript-Kompatiblität*: Komponenten bieten eine Fallback-Lösung an, falls kein JavaScript aktiviert ist.
+* *JavaScript-Kompatibilität*: Komponenten bieten eine Fallback-Lösung an, falls kein JavaScript aktiviert ist.
 * *Druckfunktion*: Komponenten stellen eine Druckansicht zur Verfügung, falls die Druckansicht aktiviert wurde.
 * *Validierung*: Die speziellen Formularkomponenten stellen Validierungsfunktionen zur Verfügung, sodass bei Validierungsfehlern automatisch Nachrichten und Tooltips (inkl. Abwärtskompatibilität, falls kein JavaScript aktiviert wurde) gerendert werden.
 
@@ -2020,7 +2018,7 @@ Die Komponente besitzt folgende notwendige Parameter:
 Außerdem gibt es folgende optionale Parameter:
 
 * `styleClass`: Die zu ergänzenden Style-Klassen.
-* `disabled`: Gibt an, ob der Button deaktivert ist oder nicht. (Standard: `false`, Typ: `Boolean`)
+* `disabled`: Gibt an, ob der Button deaktiviert ist oder nicht. (Standard: `false`, Typ: `Boolean`)
 * `showPrintView`: Gibt an, ob die Komponente innerhalb einer Druckansicht angezeigt werden soll. (Standard: `#{not empty basisModel and basisModel.showPrintView}`, Typ: `Boolean`)
 * `ajax`: AJAX: Soll eine AJAX Aktion ausgeführt werden. (Standard: `true`, Typ: `Boolean`)
 * `execute`: AJAX: Welcher Template-Seitenbereich ausgeführt werden soll. (Standard: `@form`)
@@ -2061,7 +2059,7 @@ image::demopanel-buttonRow.png[align="center", scaledwidth="40%"]
 
 Folgende optionale Parameter sind für das Tag `<isy:buttonRow>` zulässig:
 
-* `alignRight`: Gibt an, ob die Button Row ein Alignment nach Rechts besitzen soll. (Standard: `false`, Typ: `Boolean`)
+* `alignRight`: Gibt an, ob die Button Row ein Alignment nach rechts besitzen soll. (Standard: `false`, Typ: `Boolean`)
 * `styleClass`: Zusätzliche Style-Klassen für die Button-Row. (Standard: ``)
 
 :desc-listing-buttonRow: Codebeispiel für `<isy:buttonRow>`
@@ -2218,8 +2216,8 @@ Außerdem gibt es folgende optionale Parameter:
 * `icon`: Der Suffix des zu verwendenden Icons. (Standard: `placeholder`)
 * `showIcon`: Gibt an, ob das Icon angezeigt werden soll oder nicht. (Standard: `true`, Typ: `java.lang.Boolean`)
 * `tooltip`: Tooltip, der über dem Icon angezeigt werden soll. (Standard: ``)
-* `disabled`: Gibt an, ob der Button deaktivert ist oder nicht. (Standard: `false`, Typ: `Boolean`)
-* `btnClass`: Die CSS-Klasse, welceh für Buttons ergänzt werden soll. (Standard: ``)
+* `disabled`: Gibt an, ob der Button deaktiviert ist oder nicht. (Standard: `false`, Typ: `Boolean`)
+* `btnClass`: Die CSS-Klasse, welche für Buttons ergänzt werden soll. (Standard: ``)
 * `ajax`: AJAX: Soll eine AJAX Aktion ausgeführt werden. (Standard: `true`, Typ: `Boolean`)
 * `execute`: AJAX: Welcher Template-Seitenbereich ausgeführt werden soll. (Standard: `@form`)
 * `render`: AJAX: Welcher Template-Seitenbereich gerendert werden soll. (Standard: `@form`)
@@ -2294,7 +2292,7 @@ Es besitzt folgende optionale Parameter:
 Eingabefelder dienen der Eingabe von Text durch den Benutzer und sind in der Regel einzeilig.
 
 Für einzelne Eingabefelder existieren derzeit noch keine einfachen Komponenten.
-Um ein einfaches Eingabefeld einzufügen kann das JSF-Tag `<h:inputText/>` mit der CSS-Klasse `form-control` von Bootstrap verwendet werden.
+Um ein einfaches Eingabefeld einzufügen, kann das JSF-Tag `<h:inputText/>` mit der CSS-Klasse `form-control` von Bootstrap verwendet werden.
 Für formularbasierte Eingaben existiert das Tag `<isy:formInput/>`, welches ein Eingabefeld in einem Formularlayout mit Label kapselt.
 Nähere Informationen hierzu finden sich in <<layout-von-Formularen>>.
 
@@ -2305,9 +2303,9 @@ Ein Eingabefeld besitzt folgende notwendige Parameter:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `type`: Typ des Eingabefelds, so dass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann.
+* `type`: Typ des Eingabefelds, sodass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann.
 Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Standard: `text`)
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
 * `label`: Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
@@ -2356,7 +2354,7 @@ Außerdem gibt es folgende optionale Parameter:
 
 Folgende Parameter sind zusätzlich zu den eben genannten für `<isy:formActionInput>` zulässig:
 
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `label`: Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
 * `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
@@ -2381,7 +2379,7 @@ Folgende Parameter sind Pflicht:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
 * `label`: Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
@@ -2411,7 +2409,7 @@ Folgende Parameter sind Pflicht:
 Außerdem gibt es folgende optionale Parameter:
 
 * `accept`: Einschränkung der angenommenen Dateien gemäß ihres MIME-Types
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
 * `label`: Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
@@ -2443,7 +2441,7 @@ Folgende Parameter sind Pflicht:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
 * `label`: Text für das Label.
@@ -2473,7 +2471,7 @@ Folgende Parameter sind Pflicht:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `label`: Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
 * `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
@@ -2631,7 +2629,7 @@ Außerdem gibt es folgende optionale Parameter:
 
 * `tabController`: Ein spezifischer Tab-Controller, falls notwendig. (Standard: `#{tabController}`)
 * `preload`: Gibt an, ob das Tab im JS-Fall vorgeladen werden soll.
-Default ist false, so dass nicht vorgeladen wird. (Standard: `false`, Typ: `java.lang.Boolean`)
+Default ist false, sodass nicht vorgeladen wird. (Standard: `false`, Typ: `java.lang.Boolean`)
 * `globalConfig`: Eine spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
 
 // tag::important[]
@@ -2679,7 +2677,7 @@ Außerdem gibt es folgende optionale Parameter:
 
 Für die Elemente innerhalb von Formularen gibt es zusätzlich die folgenden Parameter:
 
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `label`: Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
 * `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
@@ -2698,7 +2696,7 @@ Folgende Parameter sind Pflicht:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `label`: Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
 * `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
@@ -2796,7 +2794,7 @@ Im Folgenden wird beschrieben, welche Schritte durchzuführen sind, damit ein Li
   servletUrl="/app/listpicker" />
 ----
 
-Entscheidend ist der Paramater `servletUrl`.
+Entscheidend ist der Parameter `servletUrl`.
 Erstens wird anhand des Vorhandenseins des Parameters erkannt, dass ein Servlet zum Filtern benutzt werden soll und nicht etwa Ajax.
 Zweitens muss der Wert des Parameters sich in der Datei web.xml wiederfinden.
 
@@ -2830,9 +2828,9 @@ In dem obigen Beispiel heißt die Bean der Implementierung `listpickerprovider`.
 
 Folgende grundlegende Funktionalität wird durch die Komponente _automatisch_, also ohne weiteres Zutun, bereitgestellt: Per JavaScript werden Eingaben im Filter-Feld des Listpickers erkannt.
 Der aktuell eingegebene Wert wird der URL (siehe `servletUrl`) angefügt (Beispiel: Anwender filtert nach "123".
-Dann wird die URL um "?filter=123" ergänzt) und der Request wird anschließend abgesetzt und vom Servlet behandelt.
-Die eigentliche Filterungslogik obliegt dann der konkreten Implementierung.
-Den Wert des Filter-Feldes erhält sie jedoch von der abstraken Oberklasse.
+Dann wird die URL um `?filter=123` ergänzt) und der Request wird anschließend abgesetzt und vom Servlet behandelt.
+Die eigentliche Filterlogik obliegt dann der konkreten Implementierung.
+Den Wert des Filter-Feldes erhält sie jedoch von der abstrakten Oberklasse.
 Nachdem die Einträge gefiltert wurden, werden sie automatisch mittels JavaScript gerendert.
 
 Es kann vorkommen, dass die Filterung nicht nur von dem Wert des Filter-Feldes abhängt.
@@ -3008,7 +3006,7 @@ Beispiel einer Row-Definition:
 ----
 
 Die Row-Definition wird für jeden Datensatz in der Tabelle eingebunden.
-Der UI-Parameter `dataTableItem` weist immer auf den aktuellen Treffer (also eine Objekt des Typs `DataTableItem`).
+Der UI-Parameter `dataTableItem` weist immer auf den aktuellen Treffer (also ein Objekt des Typs `DataTableItem`).
 Mit diesem Parameter können dann für jede Spalte die `<isy:dataTableCell>` Tags eingebunden werden.
 Die Inhalte dieser Tags repräsentieren den Inhalt der jeweiligen Zellen.
 Die Reihenfolge der Spalten werden durch die Definition des Tabellen-Headers festgelegt.
@@ -3024,7 +3022,7 @@ Das Tag `<isy:dataTableCell>` hat derzeit folgende Parameter:
 * `align`: Gibt die horizontale Ausrichtung des Inhalts der Tabellenzelle an.
 Mögliche Werte sind left, right und center. (Standard: `left`)
 
-Die Einbindung der Row-Definition erfolgt mittels dem JSF Tag `<ui:repeat>`.
+Die Einbindung der Row-Definition erfolgt über das JSF Tag `<ui:repeat>`.
 Als Statusvariable wird `dataTableItemRepeatStatus` verwendet.
 Auch auf diese Variable kann innerhalb der Row-Definition zugegriffen werden.
 
@@ -3073,7 +3071,7 @@ Zur Filterung einer Tabelle stehen das Facet `<f:tableFilter>`, die Tags `<isy
 Im Allgemeinen muss beim Tag `<isy:dataTableFilter>` nur die Eigenschaft angegeben werden, nach der man filtern will.
 Damit wird ein normales Eingabefeld für die Filterung zur verfügung gestellt.
 Es gibt auch die Möglichkeit die Filterung über ein Dropdown Menü zu ermöglichen.
-Dafür müssen die mögliche Einträge im Tag verschachtelt angegeben werden.
+Dafür müssen die möglichen Einträge im Tag verschachtelt angegeben werden.
 
 [TIP]
 ====
@@ -3111,7 +3109,7 @@ Die Filter-Zeile ist in diesem Fall nicht vorhanden und wird auch nicht angezeig
 Die Komponente <isy:dataTableFilter> hat folgende optionale Parameter:
 
 * `property`: Die Property, die gefiltert werden soll, i.A. gleich zur sortProperty im zugehörigen Header, falls nicht angegeben wird einfach eine Platzhalter-Spalte generiert. (Standard: ``)
-* `dropdown`: Gibt an, ob eine Auswahlliste zur Filterung angezeigt werden soll, falls ja müssen die Auswähleinträge mittels selectItem(s) angegeben werden. (Standard: `false`, Typ: `Boolean`)
+* `dropdown`: Gibt an, ob eine Auswahlliste zur Filterung angezeigt werden soll, falls ja müssen die Einträge mittels selectItem(s) angegeben werden. (Standard: `false`, Typ: `Boolean`)
 * `clearFilterTooltip`: Tooltip, der über dem Icon "clear-filter" angezeigt werden soll. (Standard: `Filter aufheben`)
 
 
@@ -3315,7 +3313,7 @@ Diese wird im Attribut data-isy-custom-id eingetragen.
 * `labelRight`: Der Text für das Label rechts daneben.
 * `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
 * `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `optional`: Gibt an, ob die Eingabe ein Optionale-Pflichteingabe ist (blaues Sternchen). (Standard: `false`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#{globalConfigurationModel}`)
@@ -3381,7 +3379,7 @@ Diese wird im Attribut data-isy-custom-id eingetragen.
 * `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
 * `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
 * `inlineInputStyleClass`: Die CSS-Klasse für den Eingabebereich eines einzelnen Inline-Radio-Buttons. (Standard: ``)
-* `required`: On die Eingabe ein Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
+* `required`: Ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#{globalConfigurationModel}`)
 * `valueChangeListener`: Value Change Listener
@@ -3447,7 +3445,7 @@ Für Einträge innerhalb der Leiste selbst (`applikationsgruppe`) existieren fol
 
 * `wert`: Das Label zur Anzeige.
 * `link`: Der Link, der aufgerufen wird, wenn der Anwender auf den Eintrag klickt.
-* `farbe`: Die Farbe der Applikationsgruppe als Hexwert.
+* `farbe`: Die Farbe der Applikationsgruppe in hexadezimaler Notation.
 * `reihenfolge`: Ein numerischer Wert für die Reihenfolge der Anzeige der Applikationsgruppen innerhalb der horizontalen Navigation.
 * `rollen`: Die benötigten Rollen zur Anzeige als komma-separierte Liste.
 Der Besitz mindestens einer Rolle ist ausreichend, um den Eintrag zu sehen.
@@ -3463,11 +3461,11 @@ Der Besitz mindestens einer Rolle ist ausreichend, um den Eintrag zu sehen.
 Grundsätzlich sind alle Werte optional.
 Damit ist jedoch lediglich gemeint, dass die Anwendung keinen Fehler erzeugt, falls ein Wert für eine Applikationsgruppe bzw. Anwendung überhaupt nicht konfiguriert ist.
 Nicht benötigte Parameter können daher einfach weggelassen werden.
-Um einen sinnvollen Einsatz zu gewährleisten sollten immer mindestens `wert` und `link` konfiguriert sein.
+Um einen sinnvollen Einsatz zu gewährleisten, sollten immer mindestens `wert` und `link` konfiguriert sein.
 
 Die Navigation würde im obigen Beispiel den Eintrag _JSF-Vorlagen_ enthalten.
 Wenn die Maus sich über dem Eintrag befindet, würde das Flyout Menü aufklappen und die Einträge _JSF-Steuerelemente_, _4-Augen Prinzip_ und _Nachrichten_ würden sichtbar werden.
-_Nachrichten_ ist für den jeweiligen Nutzer jedoch nur sichtbar, wenn er die Rolle _Beispielrolle_ besitzt.
+Der Eintrag _Nachrichten_ ist für den jeweiligen Nutzer jedoch nur sichtbar, wenn er die Rolle _Beispielrolle_ besitzt.
 Weitere Rollen lassen sich komma-separiert angeben.
 Ein Anwender sieht den jeweiligen Eintrag, sobald er mindestens eine der benötigten Rollen besitzt.
 
@@ -3744,7 +3742,7 @@ Konkrete Seiten können dadurch Einfluss auf das Aussehen der Seitentoolbar nehm
 === Layout von Formularen
 
 Die Umsetzung von Formularen erfolgt mit den gängigen CSS-Klassen von Bootstrap.
-Um ein einfaches Suchformular umzusetzen genügt z.B. folgender Code:
+Um ein einfaches Suchformular umzusetzen, genügt z.B. folgender Code:
 
 :desc-listing-bspFormularumsetzung: Beispiel für Formularumsetzung
 [id="listing-bspFormularumsetzung",reftext="{listing-caption} {counter:listings }"]
@@ -4029,7 +4027,7 @@ Außerdem gibt es folgende optionale Parameter:
 
 Zusätzlich zu den eben genannten Parametern bei `<isy:actionInputWithFourEyes>` sind bei Verwendung von `<isy:formActionInputWithFourEyes>` auch folgende Parameter zulässig:
 
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `label`: Der Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
 * `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
@@ -4064,7 +4062,7 @@ Diese wird im Attribut data-isy-custom-id eingetragen.
 * `labelRight`: Fontawesome char-Zeichen für die Anzeige rechts neben dem Eingabefeld. (Standard: offenes Vorhängeschloss)
 * `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
 * `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `optional`: Gibt an, ob die Eingabe eine Optionale-Pflichteingabe ist (blaues Sternchen). (Standard: `false`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#{globalConfigurationModel}`)
@@ -4115,7 +4113,7 @@ Die Komponente besitzt folgende notwendige Parameter:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`, Typ: `Boolean`)
 * `label`: Der Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
@@ -4176,7 +4174,7 @@ Folgende Komponentenattribute sind optional:
 * `tooltip`: Tooltip. (Standard: '')
 * `customId`: Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen.
 Diese wird im Attribut data-isy-custom-id eingetragen.
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `label`: Der Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
 * `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
@@ -4244,7 +4242,7 @@ Außerdem gibt es folgende optionale Parameter:
 
 * `customId`: Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen.
 Diese wird im Attribut data-isy-custom-id eingetragen.
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`, Typ: `Boolean`)
 * `label`: Der Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
@@ -4260,7 +4258,7 @@ Diese wird im Attribut data-isy-custom-id eingetragen.
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#{globalConfigurationModel}`)
 * `charpicker`: Die Referenz des Objekts. (Standard: `false`, Typ: `Boolean`)
-* `type`: Der Typ des Eingabefelds, so dass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann.
+* `type`: Der Typ des Eingabefelds, sodass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann.
 Mögliche Werte alle Werte für das Feld type des HTML Input Felds. (Standard: `text`)
 * `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
 
@@ -4308,7 +4306,7 @@ Die Komponente besitzt folgende notwendige Parameter:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`, Typ: `Boolean`)
 * `label`: Der Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
@@ -4415,7 +4413,7 @@ Folgende Komponentenattribute sind optional:
 
 * `customId`: Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen.
 Diese wird im Attribut data-isy-custom-id eingetragen.
-* `required`: Gibt an, ob die Eingabe ein Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `disabled`: Gibt an, ob die Bearbeitung aktiviert ist oder nicht(Standard: `false`, Typ: `Boolean`)
 * `readonly`: Gibt an, ob auf das Feld nur lesend zugegriffen wird. (Standard: `false`, Typ: `Boolean`)
 * `label`: Der Text für das Label.
