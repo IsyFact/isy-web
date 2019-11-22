@@ -1,3 +1,8 @@
+# v4.9.0
+- `IFE-58`: isy:input analog zu formInput erstellt
+- `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
+- `IFE-85`: TitlesListener-Funktionalität: Aufspaltung des TitlesListener in zwei Klassen. Die Seitentitel-Funktionalität ist standardmäßig aktiv, die Breadcrumb-Funktionalität standardmäßig deaktiv (und deprecated).
+
 # v4.8.1
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben
 - `IFS-426`: fehlende Aktualisierung durch `IFS-73` im dataTableDetailButton nachgeholt
