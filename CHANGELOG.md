@@ -2,6 +2,7 @@
 - `IFE-58`: isy:input analog zu formInput erstellt
 - `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
 - `IFE-85`: TitlesListener-Funktionalität: Aufspaltung des TitlesListener in zwei Klassen. Die Seitentitel-Funktionalität ist standardmäßig aktiv, die Breadcrumb-Funktionalität standardmäßig deaktiv (und deprecated).
+- `IFS-458`: Alle pom.xml Dateien mit tidy:pom fortmatiert und getestet.
 
 # v4.8.0
 - `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
