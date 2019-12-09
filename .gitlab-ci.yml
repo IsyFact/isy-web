@@ -22,6 +22,34 @@ cache:
    - mvn -v
    - echo -e "${NPMRC}" > .npmrc
 
+.templatedoc: &docvorlage
+  <<: *vorlage
+  stage: buildstage
+  script:
+   - mvn -Pbuild-documentation -Dskip.npm -Dskip.grunt -Dskip.installnodenpm $MAVEN_CLI_OPTS generate-resources
+  allow_failure: true
+
+
+
+build:docs:
+  <<: *docvorlage
+  artifacts:
+   paths:
+    - "target/pdf/"
+    - "target/html/"
+   expire_in: 1 week
+  except:
+   - schedules
+
+build:docs_schedule:
+  <<: *docvorlage
+  artifacts:
+   paths:
+    - "target/pdf/"
+    - "target/html/"
+   expire_in: 2 days
+  only:
+   - schedules
 
 build:
   <<: *vorlage
@@ -33,6 +61,8 @@ build:
   script:
    - rm -rf .m2/repository/de
    - mvn -U $MAVEN_CLI_OPTS -Dinternalnodenpm=true compile
+  except:
+   - schedules
 
 test:
   <<: *vorlage
@@ -55,6 +85,9 @@ test:
    - mvn $MAVEN_CLI_OPTS surefire-report:report-only
    - mvn -DgenerateReports=false $MAVEN_CLI_OPTS site
    - '[[ -f ./target/site/jacoco/index.html ]] && echo Code coverage:$(egrep "([0-9]{1,3}%)" ./target/site/jacoco/index.html -o -h |  head -1)'
+  except:
+   - schedules
+
 
 package:
   <<: *vorlage
@@ -63,6 +96,9 @@ package:
    - build
   script:
    - mvn -Dmaven.test.skip=true -Dinternalnodenpm=true $MAVEN_CLI_OPTS package
+  except:
+   - schedules
+
 
 deploy_release:
   <<: *vorlage
@@ -73,6 +109,9 @@ deploy_release:
    - mvn -Prelease -Dmaven.test.skip=true -Dmaven.install.skip=true $MAVEN_CLI_OPTS deploy
   only:
    - tags
+  except:
+   - schedules
+
 
 deploy_staging:
   <<: *vorlage
@@ -85,4 +124,4 @@ deploy_staging:
    - '[[ $SNAPSHOT == true ]] && mvn -Dmaven.test.skip=true -Dmaven.install.skip=true -Dinternalnodenpm=true $MAVEN_CLI_OPTS deploy || echo "Keine SNAPSHOT-Version - deploy wird nur bei Tags durchgefuehrt"'
   except:
    - tags
-
+   - schedules
