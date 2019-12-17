@@ -184,7 +184,7 @@ Die Variante der Session Serialisierung ist zwar einfacher, beinhaltet aber auch
 Die Session des Servers wird zum Speichern von verschiedensten Daten genutzt, der Zugriff auf sie ist frei möglich.
 Dies führt in der Praxis dazu, dass unkontrolliert große Datenmengen in der Session abgelegt werden.
 Diese großen Datenmengen lassen sich dann nicht mehr effizient persistieren.
-Daher wurde diese Option in der <<IsyFact-Referenzarchitektur>> ausgeschlossen.
+Daher wurde diese Option in der <<IsyFactReferenzarchitektur>> ausgeschlossen.
 Die Details dazu, wie in Spring Web Flow die zu speichernden Daten einer Session ermittelt werden, finden sich in Kapitel <<session-behandlung>>.
 
 [[jquery]]
@@ -683,9 +683,9 @@ Wird z.B. ein weiterer Knoten eingefügt, greift die Funktion ggf. nicht und die
 ====
 *Alle Parameter müssen korrekt encodiert und escaped werden*
 
- *Begründung:* Im JavaScript-Code dürfen Request- oder URL-Parameter nur nach ausreichendem Encodieren und Escapen verwendet werden.
+*Begründung:* Im JavaScript-Code dürfen Request- oder URL-Parameter nur nach ausreichendem Encodieren und Escapen verwendet werden.
 Gleiches gilt für den Einsatz von Server-Parametern bzw. Model-Attributen.
-Geschieht dies nicht, bestaht das Sicherheitsrisiko von Ausführung von beliebigem Code (z.B. durch Request-Strings übergeben) auf dem Server.
+Geschieht dies nicht, besteht das Sicherheitsrisiko von Ausführung von beliebigem Code (z.B. durch Request-Strings übergeben) auf dem Server.
 
 *Negativ-Beispiel:*
 Wird beispielsweise ein Suchstring wie folgt in die Seite eingebunden:
