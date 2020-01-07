@@ -683,7 +683,7 @@ Wird z.B. ein weiterer Knoten eingefügt, greift die Funktion ggf. nicht und die
 ====
 *Alle Parameter müssen korrekt encodiert und escaped werden*
 
- *Begründung:* Im JavaScript-Code dürfen Request- oder URL-Parameter nur nach ausreichendem Encodieren und Escapen verwendet werden.
+*Begründung:* Im JavaScript-Code dürfen Request- oder URL-Parameter nur nach ausreichendem Encodieren und Escapen verwendet werden.
 Gleiches gilt für den Einsatz von Server-Parametern bzw. Model-Attributen.
 Geschieht dies nicht, bestaht das Sicherheitsrisiko von Ausführung von beliebigem Code (z.B. durch Request-Strings übergeben) auf dem Server.
 
