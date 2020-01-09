@@ -5,8 +5,8 @@ import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
 import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 import javax.servlet.ServletContext;
 

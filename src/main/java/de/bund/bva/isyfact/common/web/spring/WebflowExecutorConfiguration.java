@@ -26,7 +26,7 @@ import org.springframework.webflow.definition.registry.FlowDefinitionLocator;
 import org.springframework.webflow.execution.FlowExecutionListener;
 import org.springframework.webflow.executor.FlowExecutor;
 
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Konfiguration des Flow-Executors als Spring Konfigurationsklasse.

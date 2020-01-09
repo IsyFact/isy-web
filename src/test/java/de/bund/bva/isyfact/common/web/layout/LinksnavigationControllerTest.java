@@ -2,9 +2,9 @@ package de.bund.bva.isyfact.common.web.layout;
 
 import java.util.List;
 
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.webflow.definition.FlowDefinition;

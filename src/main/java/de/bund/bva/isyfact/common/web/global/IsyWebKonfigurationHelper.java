@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.common.web.global;
 import org.springframework.beans.factory.annotation.Required;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Helfer-Klasse um den Zugriff auf die Konfiguration zu kapseln.

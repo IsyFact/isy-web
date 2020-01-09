@@ -27,8 +27,8 @@ import org.springframework.webflow.execution.RequestContextHolder;
 import de.bund.bva.isyfact.common.web.exception.web.ErrorController;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller.NavigationMenuController;
 import de.bund.bva.isyfact.common.web.validation.ValidationController;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * Ein globaler Controller der Zustände für einen konkreten Flow kontrolliert und Querschnittsfunktionalität

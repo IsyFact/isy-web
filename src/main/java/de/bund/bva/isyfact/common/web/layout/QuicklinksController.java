@@ -30,7 +30,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 
 import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Controller für die Quicklinks.

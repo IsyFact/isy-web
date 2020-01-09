@@ -29,8 +29,8 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikations
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
-import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.exception.KonfigurationException;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
 

@@ -17,8 +17,8 @@
 package de.bund.bva.isyfact.common.web.exception.common.impl;
 
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
-import de.bund.bva.pliscommon.util.exception.MessageSourceFehlertextProvider;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.util.exception.MessageSourceFehlertextProvider;
 
 /**
  * Default Implementierung von {@link AusnahmeIdMapper}. Optional kann der {@link FehlertextProvider}

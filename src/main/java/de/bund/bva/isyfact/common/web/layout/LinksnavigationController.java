@@ -28,9 +28,9 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Controller für die Linksnavigation.

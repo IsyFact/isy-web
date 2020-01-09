@@ -25,7 +25,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 import de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerController;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
  * Der konkrete Listpicker-Controller für Behörden.

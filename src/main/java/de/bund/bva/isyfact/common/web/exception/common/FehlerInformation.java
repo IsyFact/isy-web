@@ -17,7 +17,7 @@
 package de.bund.bva.isyfact.common.web.exception.common;
 
 import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * Klasse beschreibt alle Informationen, die in einem Plis-Fehler vorhanden sind.

@@ -18,9 +18,9 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.N
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Generiert das {@link NavigationMenuModel} anhand der Konfiguration der Anwendung. Eine entsprechende

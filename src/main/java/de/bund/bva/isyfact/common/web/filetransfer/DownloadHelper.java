@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.common.web.filetransfer;
 
 import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
 import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;

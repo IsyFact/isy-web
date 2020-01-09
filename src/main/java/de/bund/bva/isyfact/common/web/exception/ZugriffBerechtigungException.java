@@ -17,8 +17,8 @@
 package de.bund.bva.isyfact.common.web.exception;
 
 import de.bund.bva.isyfact.common.web.exception.common.FehlertextProviderImpl;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Eine Exception, die geworfen wird, wenn ein Benutzer keine Berechtigung für einen Zugriff hat.
@@ -26,7 +26,7 @@ import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
  * @author Capgemini, Daniel Stuckert
  * @version $Id: ZugriffBerechtigungException.java 130854 2015-02-18 10:42:27Z sdm_mhartung $
  */
-public class ZugriffBerechtigungException extends PlisTechnicalRuntimeException {
+public class ZugriffBerechtigungException extends TechnicalRuntimeException {
 
     /**
      * Generierte SVUID.

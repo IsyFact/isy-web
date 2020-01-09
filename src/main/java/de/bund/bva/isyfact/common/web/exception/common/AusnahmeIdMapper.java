@@ -16,7 +16,7 @@
  */
 package de.bund.bva.isyfact.common.web.exception.common;
 
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * Anhand dieses Mappers werden Ausnahme-IDs für die Fehler hinterlegt, welche nicht in der Anwendung speziell

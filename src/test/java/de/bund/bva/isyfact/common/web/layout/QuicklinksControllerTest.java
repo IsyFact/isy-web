@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.common.web.layout;
 
 import java.util.ArrayList;
 
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

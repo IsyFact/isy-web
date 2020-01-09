@@ -4,7 +4,7 @@ import javax.persistence.OptimisticLockException;
 
 import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
 import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.webflow.definition.StateDefinition;
 import org.springframework.webflow.engine.SubflowState;

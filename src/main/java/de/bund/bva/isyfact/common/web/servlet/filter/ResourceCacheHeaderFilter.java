@@ -22,7 +22,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Dieser Klasse setzt für zu cachende Ressourcen die HTTP-Header erneut, sodass das Pragma "no-cache" und die

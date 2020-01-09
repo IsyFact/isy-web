@@ -21,9 +21,9 @@ import java.util.UUID;
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.common.web.exception.common.FehlerInformation.Fehlertyp;
 import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.pliscommon.exception.PlisBusinessException;
-import de.bund.bva.pliscommon.exception.PlisException;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Stellt gemeinsame Methoden für das Erstellen des GUI- und LOG-Fehlertextes für die unterschiedlichen
@@ -119,15 +119,15 @@ public class FehlertextUtil {
     private static FehlerInformation extrahiereFehlerInformation(Throwable fehler,
         AusnahmeIdMapper ausnahmeIdMapper) {
         // checked Plis Exceptions
-        if (fehler instanceof PlisException) {
-            PlisException plisException = (PlisException) fehler;
+        if (fehler instanceof BaseException) {
+            BaseException plisException = (BaseException) fehler;
 
             FehlerInformation fehlerInformation = new FehlerInformation();
             fehlerInformation.setFehlerId(plisException.getAusnahmeId());
             fehlerInformation.setFehlernachricht(plisException.getFehlertext());
             fehlerInformation.setUuid(plisException.getUniqueId());
 
-            if (fehler instanceof PlisBusinessException) {
+            if (fehler instanceof BusinessException) {
                 fehlerInformation.setTyp(Fehlertyp.FACHLICH);
             } else {
                 fehlerInformation.setTyp(Fehlertyp.TECHNISCH);
@@ -136,8 +136,8 @@ public class FehlertextUtil {
         }
 
         // runtime Plis Exceptions
-        if (fehler instanceof PlisTechnicalRuntimeException) {
-            PlisTechnicalRuntimeException plisException = (PlisTechnicalRuntimeException) fehler;
+        if (fehler instanceof TechnicalRuntimeException) {
+            TechnicalRuntimeException plisException = (TechnicalRuntimeException) fehler;
 
             FehlerInformation fehlerInformation = new FehlerInformation();
             fehlerInformation.setFehlerId(plisException.getAusnahmeId());

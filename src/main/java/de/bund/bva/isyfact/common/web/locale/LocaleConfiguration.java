@@ -19,7 +19,7 @@ package de.bund.bva.isyfact.common.web.locale;
 import org.springframework.beans.factory.annotation.Required;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Kapselt den Zugriff auf Konfiguration bezüglich Lokalisierung.
