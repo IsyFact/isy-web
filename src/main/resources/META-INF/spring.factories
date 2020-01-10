@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-de.bund.bva.isyfact.common.web.spring.ControllerConfiguration
+de.bund.bva.isyfact.common.web.spring.ControllerConfiguration,\
+de.bund.bva.isyfact.common.web.spring.FilterConfiguration
