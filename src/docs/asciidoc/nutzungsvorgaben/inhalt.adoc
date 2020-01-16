@@ -1414,6 +1414,15 @@ Hier muss ein Listener registriert werden, über welchen die Security Bedürfnis
 </bean>
 ----
 
+[[setup-csrf-protection]]
+==== Konfiguration des CSRF Schutzes
+
+Seit JSF 2.0 ist der CSRF Schutz standardmäßig aktiviert.s
+
+===== Schutzbedarf mittel und hoch
+
+===== Schutzbedarf sehr hoch
+
 [[Druckaufbereitung]]
 === Druckaufbereitung
 
