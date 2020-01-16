@@ -38,10 +38,8 @@ public class GlobalFlowControllerTest {
         final String flowId = "testFlowId";
         when(flowDefinition.getId()).thenReturn(flowId);
 
-        GlobalFlowController controller = new GlobalFlowController();
-        controller.setAufrufKontextVerwalter(aufrufKontextVerwalter);
-        controller.setErrorController(errorController);
-        controller.setNavigationMenuController(navigationMenuController);
+        GlobalFlowController controller = new GlobalFlowController(
+                null, null, errorController, aufrufKontextVerwalter, navigationMenuController);
 
         GlobalFlowModel model = new GlobalFlowModel();
 

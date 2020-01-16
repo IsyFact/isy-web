@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.common.web.global;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
@@ -24,7 +24,7 @@ public class IsyWebKonfigurationHelper {
             .getAsInteger(KonfigurationSchluessel.GUI_DATUMSANGABE_JAHRESZAHLEN_ERGAENZEN_GRENZE, -1);
     }
 
-    @Required
+    @Autowired
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

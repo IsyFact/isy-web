@@ -16,7 +16,7 @@
  */
 package de.bund.bva.isyfact.common.web.locale;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
@@ -40,7 +40,7 @@ public class LocaleConfiguration {
         return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_LANGUAGE_FORCED_LOCALE, null);
     }
 
-    @Required
+    @Autowired
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

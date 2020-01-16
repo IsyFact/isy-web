@@ -3,7 +3,10 @@ package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.stereotype.Controller;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
 
@@ -17,12 +20,19 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.N
  * Die Klasse dient dazu ein {@link NavigationMenuModel} zu erstellen und in der Session abzulegen. Außerdem
  * wird die aktive {@link Applikationsgruppe} hier ermittelt.
  */
+@Controller
+@ConditionalOnBean(NavigationMenuGenerierenStrategie.class)
 public class NavigationMenuController {
 
     /**
      * Bean: Eine {@link NavigationMenuGenerierenStrategie}.
      */
     private NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie;
+
+    @Autowired
+    public NavigationMenuController(NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie) {
+        this.navigationMenuGenerierenStrategie = navigationMenuGenerierenStrategie;
+    }
 
     /**
      * Erstellt ein {@link NavigationMenuModel} mithilfe von
@@ -84,7 +94,6 @@ public class NavigationMenuController {
         return requestURL.substring(requestURL.indexOf(contextPath), requestURL.length());
     }
 
-    @Required
     public void setNavigationMenuGenerierenStrategie(
         NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie) {
         this.navigationMenuGenerierenStrategie = navigationMenuGenerierenStrategie;

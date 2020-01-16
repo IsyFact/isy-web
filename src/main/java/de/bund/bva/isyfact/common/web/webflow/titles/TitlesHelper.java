@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.common.web.webflow.titles;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
@@ -57,7 +58,7 @@ public class TitlesHelper {
         }
     }
 
-    @Required
+    @Autowired
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

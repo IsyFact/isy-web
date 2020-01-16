@@ -16,7 +16,11 @@
  */
 package de.bund.bva.isyfact.common.web.layout;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 
 import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
 
@@ -26,12 +30,19 @@ import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
  * @author Capgemini, Jonas Zitz
  * @version $Id: DetailseiteController.java 136137 2015-05-06 13:01:17Z sdm_skern $
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DetailseiteController extends AbstractGuiController<DetailseiteModel> {
 
     /**
      * Zugriff auf den Basis-Controller.
      */
     private BasisController basisController;
+
+    @Autowired
+    public DetailseiteController(BasisController basisController) {
+        this.basisController = basisController;
+    }
 
     /**
      * {@inheritDoc}
@@ -56,7 +67,6 @@ public class DetailseiteController extends AbstractGuiController<DetailseiteMode
         return DetailseiteModel.class;
     }
 
-    @Required
     public void setBasisController(BasisController basisController) {
         this.basisController = basisController;
     }

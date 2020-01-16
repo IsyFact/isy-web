@@ -19,7 +19,12 @@ package de.bund.bva.isyfact.common.web.layout;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.webflow.definition.FlowDefinition;
 import org.springframework.webflow.execution.RequestContextHolder;
 
@@ -37,6 +42,9 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  * @author Capgemini, Tobias Gröger
  * @version $Id: LinksnavigationController.java 124975 2014-11-12 17:20:41Z sdm_jzitz $
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+@ConditionalOnBean({Konfiguration.class, AufrufKontextVerwalter.class})
 public class LinksnavigationController extends AbstractGuiController<ApplikationseiteModel> {
 
     /**
@@ -48,6 +56,12 @@ public class LinksnavigationController extends AbstractGuiController<Applikation
      * Zugriff auf den AufrufKontext.
      */
     private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
+
+    @Autowired
+    public LinksnavigationController(Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+        this.konfiguration = konfiguration;
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+    }
 
     /**
      * {@inheritDoc}
@@ -220,12 +234,10 @@ public class LinksnavigationController extends AbstractGuiController<Applikation
         return ApplikationseiteModel.class;
     }
 
-    @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }
 
-    @Required
     public void setAufrufKontextVerwalter(AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }

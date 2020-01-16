@@ -20,7 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
 import org.springframework.webflow.definition.FlowDefinition;
@@ -36,6 +41,9 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  * Controller für die Quicklinks.
  *
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+@ConditionalOnBean(Konfiguration.class)
 public class QuicklinksController extends AbstractGuiController<ApplikationseiteModel> {
 
     /**
@@ -47,6 +55,11 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
      * Die Konfiguration.
      */
     private Konfiguration konfiguration;
+
+    @Autowired
+    public QuicklinksController(Konfiguration konfiguration) {
+        this.konfiguration = konfiguration;
+    }
 
     /**
      * {@inheritDoc}
@@ -349,7 +362,6 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
         return quicklinkselementModelGeloescht;
     }
 
-    @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

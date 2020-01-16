@@ -23,7 +23,11 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 
 import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
@@ -32,6 +36,7 @@ import de.bund.bva.isyfact.common.web.exception.common.FehlerInformation.Fehlert
 import de.bund.bva.isyfact.common.web.exception.common.FehlertextUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 
 /**
  * Eine Controller, welcher Funktionen zum Darstellen von Nachrichten bietet.
@@ -39,6 +44,9 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  * @author Capgemini, Andreas Hörning
  * @version $Id: MessageController.java 137590 2015-05-27 11:23:46Z sdm_apheino $
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+@ConditionalOnBean(AusnahmeIdMapper.class)
 public class MessageController implements GuiController {
 
     /**
@@ -58,6 +66,11 @@ public class MessageController implements GuiController {
      * gesetzt werden.
      */
     private AusnahmeIdMapper ausnahmeIdMapper;
+
+    @Autowired
+    public MessageController(AusnahmeIdMapper ausnahmeIdMapper) {
+        this.ausnahmeIdMapper = ausnahmeIdMapper;
+    }
 
     /**
      * Schreibt eine Info-Nachricht.
@@ -217,7 +230,6 @@ public class MessageController implements GuiController {
         FehlertextUtil.schreibeLogEintragUndErmittleFehlerinformation(t, this.ausnahmeIdMapper, LOG);
     }
 
-    @Required
     public void setAusnahmeIdMapper(AusnahmeIdMapper ausnahmeIdMapper) {
         this.ausnahmeIdMapper = ausnahmeIdMapper;
     }

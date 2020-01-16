@@ -25,6 +25,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Repository;
 
 import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
@@ -34,6 +35,7 @@ import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
  *
  */
 @Repository
+@ConditionalOnBean(EntityManager.class)
 public class TempWebResourceDao {
 
     /**
