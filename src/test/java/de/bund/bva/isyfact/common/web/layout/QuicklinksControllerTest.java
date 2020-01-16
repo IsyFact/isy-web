@@ -52,8 +52,7 @@ public class QuicklinksControllerTest {
         when(requestContext.getFlowExecutionContext()).thenReturn(flowExecutionContext);
         when(flowExecutionContext.getDefinition()).thenReturn(flowDefinition);
 
-        controller = new QuicklinksController();
-        controller.setKonfiguration(konfiguration);
+        controller = new QuicklinksController(konfiguration);
 
         reset(konfiguration, sessionMap);
 

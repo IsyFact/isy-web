@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
@@ -28,6 +30,8 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  * Dieser Klasse setzt für zu cachende Ressourcen die HTTP-Header erneut, sodass das Pragma "no-cache" und die
  * analogen Werte für Cache-Control überschrieben werden. Der Ablaufzeitpunkt ist konfigurierbar.
  */
+@Component
+@ConditionalOnBean(Konfiguration.class)
 public class ResourceCacheHeaderFilter implements Filter {
 
     private Log log = LogFactory.getLog(ResourceCacheHeaderFilter.class);
@@ -39,6 +43,11 @@ public class ResourceCacheHeaderFilter implements Filter {
 
     /** Ist eine Liste mit zu cachenden Url-Pfaden, relativ zum ApplicationContext-Root. */
     private List<String> urlsToCache = new ArrayList<>();
+
+    @Autowired
+    public ResourceCacheHeaderFilter(Konfiguration konfiguration) {
+        this.konfiguration = konfiguration;
+    }
 
     /**
      * {@inheritDoc}
@@ -146,7 +155,6 @@ public class ResourceCacheHeaderFilter implements Filter {
     public void destroy() {
     }
 
-    @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

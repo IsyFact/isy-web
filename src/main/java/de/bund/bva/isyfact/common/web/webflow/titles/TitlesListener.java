@@ -102,6 +102,10 @@ public class TitlesListener extends FlowExecutionListenerAdapter {
      */
     private String viewStateName;
 
+    public TitlesListener(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -316,7 +320,6 @@ public class TitlesListener extends FlowExecutionListenerAdapter {
         return (String) vex.getValue(elContext);
     }
 
-    @Required
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }

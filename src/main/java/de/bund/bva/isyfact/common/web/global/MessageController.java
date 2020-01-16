@@ -36,7 +36,6 @@ import de.bund.bva.isyfact.common.web.exception.common.FehlerInformation.Fehlert
 import de.bund.bva.isyfact.common.web.exception.common.FehlertextUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
 
 /**
  * Eine Controller, welcher Funktionen zum Darstellen von Nachrichten bietet.

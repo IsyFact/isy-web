@@ -39,9 +39,7 @@ public class LinksnavigationControllerTest {
         AufrufKontextVerwalter aufrufKontextVerwalter = mock(AufrufKontextVerwalter.class);
         when(aufrufKontextVerwalter.getAufrufKontext()).thenReturn(aufrufKontext);
 
-        controller = new LinksnavigationController();
-        controller.setKonfiguration(konfiguration);
-        controller.setAufrufKontextVerwalter(aufrufKontextVerwalter);
+        controller = new LinksnavigationController(konfiguration, aufrufKontextVerwalter);
 
         reset(konfiguration);
     }

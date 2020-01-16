@@ -1,17 +1,8 @@
 package de.bund.bva.isyfact.common.web.layout;
 
-import de.bund.bva.isyfact.common.web.exception.common.FehlertextProviderImpl;
-import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
-import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
-
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -19,6 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.webflow.definition.StateDefinition;
 import org.springframework.webflow.execution.RequestContext;
 import org.springframework.webflow.execution.RequestContextHolder;
+
+import de.bund.bva.isyfact.common.web.exception.common.FehlertextProviderImpl;
+import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
+import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 
 /**
  * Controller-Klasse für den Hilfe-Button.

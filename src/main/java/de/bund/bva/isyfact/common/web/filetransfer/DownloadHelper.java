@@ -1,12 +1,5 @@
 package de.bund.bva.isyfact.common.web.filetransfer;
 
-import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
-import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
-import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
-
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.IOException;
@@ -20,13 +13,23 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
+import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
  * @author Timo Brandes, msg
  * @author Christopher Thomann, msg
  *
  */
+@Component
 public class DownloadHelper {
 
     @Autowired

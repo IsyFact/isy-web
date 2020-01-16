@@ -1,11 +1,9 @@
 package de.bund.bva.isyfact.common.web.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.faces.config.AbstractFacesFlowConfiguration;
 import org.springframework.faces.webflow.FlowFacesContextLifecycleListener;
@@ -22,15 +20,17 @@ import de.bund.bva.isyfact.common.web.webflow.titles.TitlesListener;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 @Configuration
-@ComponentScan("de.bund.bva.isyfact.common.web.spring")
 public class WebFlowConfiguration extends AbstractFacesFlowConfiguration {
 
     /**
      * Zugriff auf die Konfigurationsbean.
      */
-    @Autowired
-    @Qualifier("konfiguration")
     private Konfiguration konfiguration;
+
+    @Autowired
+    public WebFlowConfiguration(Konfiguration konfiguration) {
+        this.konfiguration = konfiguration;
+    }
 
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
@@ -72,11 +72,7 @@ public class WebFlowConfiguration extends AbstractFacesFlowConfiguration {
 
     }
 
-    @Bean
-    public FlowFacesContextLifecycleListener facesContextListener() {
-        return new FlowFacesContextLifecycleListener();
-    }
-
+    // Logging
     @Bean
     public SimpleMappingExceptionResolverWithAdvancedLogging simpleMappingExceptionResolverWithAdvancedLogging(
             AusnahmeIdMapper ausnahmeIdMapper) {
@@ -87,11 +83,15 @@ public class WebFlowConfiguration extends AbstractFacesFlowConfiguration {
         return logging;
     }
 
+    // Listener
+    @Bean
+    public FlowFacesContextLifecycleListener facesContextListener() {
+        return new FlowFacesContextLifecycleListener();
+    }
+
     @Bean
     public TitlesListener flowExecutionTitlesListener(MessageSource messageSource) {
-        TitlesListener titlesListener = new TitlesListener();
-        titlesListener.setMessageSource(messageSource);
-        return titlesListener;
+        return new TitlesListener(messageSource);
     }
 
     @Bean
