@@ -13,7 +13,6 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  * @version $Id:$
  */
 @Component
-@ConditionalOnBean(Konfiguration.class)
 public class TitlesHelper {
     /**
      * Zugriff auf die Konfiguration, damit die benötigten Werte für die Anzeige der Versionsnummer im Titel

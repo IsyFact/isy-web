@@ -28,7 +28,6 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  */
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-@ConditionalOnBean({Konfiguration.class, ServletContext.class})
 public class HilfeController extends AbstractGuiController<HilfeModel> {
 
     private static final String XWIKI_PATH = "/bin/view";

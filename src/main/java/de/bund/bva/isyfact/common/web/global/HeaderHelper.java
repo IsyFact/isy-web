@@ -44,7 +44,6 @@ import de.bund.bva.isyfact.konfiguration.common.exception.KonfigurationException
  * Helper-Klasse für den Header.
  */
 @Component
-@ConditionalOnBean(Konfiguration.class)
 public class HeaderHelper {
 
     /**

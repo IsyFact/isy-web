@@ -31,7 +31,6 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  * analogen Werte für Cache-Control überschrieben werden. Der Ablaufzeitpunkt ist konfigurierbar.
  */
 @Component
-@ConditionalOnBean(Konfiguration.class)
 public class ResourceCacheHeaderFilter implements Filter {
 
     private Log log = LogFactory.getLog(ResourceCacheHeaderFilter.class);

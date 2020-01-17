@@ -43,7 +43,6 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  */
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-@ConditionalOnBean({Konfiguration.class, AufrufKontextVerwalter.class})
 public class LinksnavigationController extends AbstractGuiController<ApplikationseiteModel> {
 
     /**

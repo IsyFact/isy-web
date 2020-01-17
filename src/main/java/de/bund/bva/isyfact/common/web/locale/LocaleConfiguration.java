@@ -28,7 +28,6 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  * @author Capgemini, Lukas Goerlach
  */
 @Component
-@ConditionalOnBean(Konfiguration.class)
 public class LocaleConfiguration {
 
     /**

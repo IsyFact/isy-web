@@ -42,7 +42,6 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  */
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-@ConditionalOnBean(Konfiguration.class)
 public class QuicklinksController extends AbstractGuiController<ApplikationseiteModel> {
 
     /**

@@ -20,7 +20,6 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.N
  * wird die aktive {@link Applikationsgruppe} hier ermittelt.
  */
 @Controller
-@ConditionalOnBean(NavigationMenuGenerierenStrategie.class)
 public class NavigationMenuController {
 
     /**

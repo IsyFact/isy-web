@@ -1,7 +1,6 @@
 package de.bund.bva.isyfact.common.web.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -95,7 +94,6 @@ public class WebFlowConfiguration extends AbstractFacesFlowConfiguration {
     }
 
     @Bean
-    @ConditionalOnBean(AccessDecisionManager.class)
     public SecurityFlowExecutionListener securityListener(AccessDecisionManager accessDecisionManager) {
         SecurityFlowExecutionListener securityFlowExecutionListener = new SecurityFlowExecutionListener();
         securityFlowExecutionListener.setAccessDecisionManager(accessDecisionManager);

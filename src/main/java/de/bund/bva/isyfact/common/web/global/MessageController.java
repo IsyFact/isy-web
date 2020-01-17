@@ -45,7 +45,6 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  */
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-@ConditionalOnBean(AusnahmeIdMapper.class)
 public class MessageController implements GuiController {
 
     /**

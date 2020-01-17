@@ -11,7 +11,6 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  * Helfer-Klasse um den Zugriff auf die Konfiguration zu kapseln.
  */
 @Component
-@ConditionalOnBean(Konfiguration.class)
 public class IsyWebKonfigurationHelper {
     /**
      * Die Konfiguration.
