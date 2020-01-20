@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.common.web.spring;
+package de.bund.bva.isyfact.common.web.autoconfigure;
 
 
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,7 @@ import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
 
 @EnableWebMvc
 @Configuration
-public class MvcConfiguration implements WebMvcConfigurer {
+public class MvcAutoConfiguration implements WebMvcConfigurer {
 
     // <mvc:resources>
     @Override

@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.common.web.spring;
+package de.bund.bva.isyfact.common.web.autoconfigure;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -19,7 +19,7 @@ import de.bund.bva.isyfact.common.web.webflow.titles.TitlesListener;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 @Configuration
-public class WebFlowConfiguration extends AbstractFacesFlowConfiguration {
+public class WebFlowAutoConfiguration extends AbstractFacesFlowConfiguration {
 
     /**
      * Zugriff auf die Konfigurationsbean.
@@ -27,7 +27,7 @@ public class WebFlowConfiguration extends AbstractFacesFlowConfiguration {
     private Konfiguration konfiguration;
 
     @Autowired
-    public WebFlowConfiguration(Konfiguration konfiguration) {
+    public WebFlowAutoConfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }
 
