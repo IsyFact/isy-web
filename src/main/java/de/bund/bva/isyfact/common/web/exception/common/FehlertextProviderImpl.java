@@ -34,7 +34,7 @@ public final class FehlertextProviderImpl implements FehlertextProvider {
      * Das ResourceBoundle mit den Texten.
      */
     private static final ResourceBundle FEHLERTEXT_BUNDLE = ResourceBundle.getBundle(
-        "resources/nachrichten/plisweb_fehler", Locale.getDefault());
+        "resources/nachrichten/isyweb_fehler", Locale.getDefault());
 
     /**
      * Liefert die Nachricht mit dem Schlüssel.

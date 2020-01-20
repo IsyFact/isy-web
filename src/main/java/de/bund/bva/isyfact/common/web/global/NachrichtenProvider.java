@@ -34,7 +34,7 @@ public final class NachrichtenProvider implements FehlertextProvider {
      * Das ResourceBoundle mit den Texten.
      */
     private static final ResourceBundle MESSAGES_BUNDLE = ResourceBundle.getBundle(
-        "resources/nachrichten/plisweb_maskentexte", Locale.getDefault());
+        "resources/nachrichten/isyweb_maskentexte", Locale.getDefault());
 
     /**
      * Liefert die Nachricht mit dem Schlüssel.

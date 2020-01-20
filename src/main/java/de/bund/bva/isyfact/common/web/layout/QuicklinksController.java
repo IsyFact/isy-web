@@ -324,7 +324,7 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
 
         if (quicklinksGruppeModel == null) {
             // Null, falls keine Konfiguration existiert. Fallback: Gruppe über die Gruppen ID erzeugen, damit
-            // ist auch der Fallback zu früheren Versionen der plis-web gewährleistet (gruppeId = headerName).
+            // ist auch der Fallback zu früheren Versionen der isy-web gewährleistet (gruppeId = headerName).
             quicklinksGruppeModel = new QuicklinksGruppeModel();
             quicklinksGruppeModel.setGruppeId(gruppeId);
             quicklinksGruppeModel.setAnzuzeigenderGruppenname(gruppeId);

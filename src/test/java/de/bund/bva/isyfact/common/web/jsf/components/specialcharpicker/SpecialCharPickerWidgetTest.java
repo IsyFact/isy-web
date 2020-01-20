@@ -15,7 +15,7 @@ public class SpecialCharPickerWidgetTest {
     @Test
     public void getResource() {
         SpecialCharPickerWidget widget = new SpecialCharPickerWidget();
-        assertEquals("/resources/plis-web/sonderzeichen/sonderzeichen.txt", widget.getResource());
+        assertEquals("/resources/isy-web/sonderzeichen/sonderzeichen.txt", widget.getResource());
 
         widget.setResource("resource");
         assertEquals("resource", widget.getResource());
@@ -25,7 +25,7 @@ public class SpecialCharPickerWidgetTest {
     public void getBasiszeichenListe() {
         SpecialCharPickerWidget widget = new SpecialCharPickerWidget();
 
-        widget.setResource("/resources/plis-web/sonderzeichen/sonderzeichen2.txt");
+        widget.setResource("/resources/isy-web/sonderzeichen/sonderzeichen2.txt");
 
         List<Character> expected = Arrays.asList('*', 'E');
 
@@ -36,7 +36,7 @@ public class SpecialCharPickerWidgetTest {
     public void getSonderzeichenAsString() {
         SpecialCharPickerWidget widget = new SpecialCharPickerWidget();
 
-        widget.setResource("/resources/plis-web/sonderzeichen/sonderzeichen2.txt");
+        widget.setResource("/resources/isy-web/sonderzeichen/sonderzeichen2.txt");
 
         assertEquals("A¢£©¼½¾€", widget.getSonderzeichenAsString());
     }

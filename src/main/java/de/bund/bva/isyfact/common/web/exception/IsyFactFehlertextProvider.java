@@ -35,7 +35,7 @@ public class IsyFactFehlertextProvider implements FehlertextProvider {
      * Das ResourceBoundle mit den Fehlertexten.
      */
     public static final ResourceBundle FEHLERTEXT_BUNDLE = ResourceBundle.getBundle(
-        "resources/nachrichten/plisweb_fehler", Locale.getDefault());
+        "resources/nachrichten/isyweb_fehler", Locale.getDefault());
 
     /**
      * Holt den Fehlertext zum Schlüssel.
