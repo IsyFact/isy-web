@@ -31,12 +31,12 @@ public class MvcConfiguration implements WebMvcConfigurer {
     @Bean
     public IsyFactFlowHandlerMapping isyFactFlowHandlerMapping(FlowDefinitionRegistry flowRegistry,
                                                                AusnahmeIdMapper ausnahmeIdMapper) {
-        IsyFactFlowHandlerMapping isyFactFlowHandlerMapping = new IsyFactFlowHandlerMapping();
+        IsyFactFlowHandlerMapping isyFactFlowHandlerMapping =
+                new IsyFactFlowHandlerMapping(ausnahmeIdMapper,
+                        "snapshotNotFoundFlow",
+                        "accessDeniedFlow");
         isyFactFlowHandlerMapping.setFlowRegistry(flowRegistry);
-        isyFactFlowHandlerMapping.setAusnahmeIdMapper(ausnahmeIdMapper);
         isyFactFlowHandlerMapping.setDefaultHandler(new UrlFilenameViewController());
-        isyFactFlowHandlerMapping.setSnapshotNotFoundFlow("snapshotNotFoundFlow");
-        isyFactFlowHandlerMapping.setAccessDeniedFlow("accessDeniedFlow");
         return isyFactFlowHandlerMapping;
     }
 

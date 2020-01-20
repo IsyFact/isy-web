@@ -76,9 +76,8 @@ public class WebFlowConfiguration extends AbstractFacesFlowConfiguration {
     public SimpleMappingExceptionResolverWithAdvancedLogging simpleMappingExceptionResolverWithAdvancedLogging(
             AusnahmeIdMapper ausnahmeIdMapper) {
         SimpleMappingExceptionResolverWithAdvancedLogging logging =
-                new SimpleMappingExceptionResolverWithAdvancedLogging();
+                new SimpleMappingExceptionResolverWithAdvancedLogging(ausnahmeIdMapper);
         logging.setDefaultErrorView("common/flow/error/errorViewState");
-        logging.setAusnahmeIdMapper(ausnahmeIdMapper);
         return logging;
     }
 

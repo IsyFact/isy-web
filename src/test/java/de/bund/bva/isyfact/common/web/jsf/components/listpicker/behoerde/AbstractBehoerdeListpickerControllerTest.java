@@ -17,6 +17,10 @@ public class AbstractBehoerdeListpickerControllerTest {
     private static class TestAbstractBehoerdeListpickerController
         extends AbstractBehoerdeListpickerController {
 
+        public TestAbstractBehoerdeListpickerController(int maxElemente) {
+            super(maxElemente);
+        }
+
         @Override
         public List<BehoerdeListpickerItem> erzeugeBehoerdeListpickerItemListe() {
             return null;

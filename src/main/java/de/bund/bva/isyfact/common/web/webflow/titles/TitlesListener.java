@@ -16,7 +16,13 @@
  */
 package de.bund.bva.isyfact.common.web.webflow.titles;
 
-import org.springframework.beans.factory.annotation.Required;
+import java.util.Locale;
+
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
+
 import org.springframework.context.MessageSource;
 import org.springframework.util.StringUtils;
 import org.springframework.webflow.core.Annotated;
@@ -28,12 +34,6 @@ import org.springframework.webflow.engine.ViewState;
 import org.springframework.webflow.execution.FlowExecutionListenerAdapter;
 import org.springframework.webflow.execution.RequestContext;
 import org.springframework.webflow.execution.RequestContextHolder;
-
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import java.util.Locale;
 
 /**
  * Stellt den Title und die Headline bereit.

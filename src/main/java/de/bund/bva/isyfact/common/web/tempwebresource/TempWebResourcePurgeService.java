@@ -19,7 +19,6 @@ package de.bund.bva.isyfact.common.web.tempwebresource;
 import java.util.Date;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -50,6 +49,10 @@ public class TempWebResourcePurgeService implements InitializingBean {
 
     /** TempWebResourceDao. */
     private TempWebResourceDao tempWebResourceDao;
+
+    public TempWebResourcePurgeService(TempWebResourceDao tempWebResourceDao) {
+        this.tempWebResourceDao = tempWebResourceDao;
+    }
 
     /**
      * Löscht alle alten Ressourcen.
@@ -93,7 +96,6 @@ public class TempWebResourcePurgeService implements InitializingBean {
      * @param tempWebResourceDao
      *            Neuer Wert für tempWebResourceDao
      */
-    @Required
     public void setTempWebResourceDao(TempWebResourceDao tempWebResourceDao) {
         this.tempWebResourceDao = tempWebResourceDao;
     }
