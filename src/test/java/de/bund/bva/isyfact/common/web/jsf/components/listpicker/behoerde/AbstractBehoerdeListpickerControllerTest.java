@@ -14,19 +14,6 @@ import static org.mockito.Mockito.*;
 
 public class AbstractBehoerdeListpickerControllerTest {
 
-    private static class TestAbstractBehoerdeListpickerController
-        extends AbstractBehoerdeListpickerController {
-
-        public TestAbstractBehoerdeListpickerController(int maxElemente) {
-            super(maxElemente);
-        }
-
-        @Override
-        public List<BehoerdeListpickerItem> erzeugeBehoerdeListpickerItemListe() {
-            return null;
-        }
-    }
-
     private AbstractBehoerdeListpickerController controller =
         mock(AbstractBehoerdeListpickerController.class, CALLS_REAL_METHODS);
 
