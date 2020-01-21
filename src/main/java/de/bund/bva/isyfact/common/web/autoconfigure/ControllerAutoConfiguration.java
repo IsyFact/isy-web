@@ -7,7 +7,7 @@ import org.springframework.context.annotation.FilterType;
 @Configuration
 @ComponentScan(basePackages = "de.bund.bva.isyfact.common.web",
     excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX,
-            pattern = "de\\.bund\\.bva\\.isyfact\\.common\\.web\\.spring\\..*"))
+            pattern = "de\\.bund\\.bva\\.isyfact\\.common\\.web\\.autoconfigure\\..*"))
 public class ControllerAutoConfiguration {
 
 }

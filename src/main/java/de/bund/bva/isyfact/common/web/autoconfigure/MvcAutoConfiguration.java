@@ -1,6 +1,12 @@
 package de.bund.bva.isyfact.common.web.autoconfigure;
 
 
+import de.bund.bva.isyfact.common.web.exception.IsyFactFlowHandlerMapping;
+import de.bund.bva.isyfact.common.web.exception.OptimisticLockHandler;
+import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
+import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.faces.mvc.JsfView;
@@ -13,13 +19,9 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
 import org.springframework.webflow.executor.FlowExecutor;
 
-import de.bund.bva.isyfact.common.web.exception.IsyFactFlowHandlerMapping;
-import de.bund.bva.isyfact.common.web.exception.OptimisticLockHandler;
-import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
-import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
-
 @EnableWebMvc
 @Configuration
+@AutoConfigureBefore(WebMvcAutoConfiguration.class)
 public class MvcAutoConfiguration implements WebMvcConfigurer {
 
     // <mvc:resources>
@@ -30,11 +32,9 @@ public class MvcAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
     public IsyFactFlowHandlerMapping isyFactFlowHandlerMapping(FlowDefinitionRegistry flowRegistry,
-                                                               AusnahmeIdMapper ausnahmeIdMapper) {
+        AusnahmeIdMapper ausnahmeIdMapper) {
         IsyFactFlowHandlerMapping isyFactFlowHandlerMapping =
-                new IsyFactFlowHandlerMapping(ausnahmeIdMapper,
-                        "snapshotNotFoundFlow",
-                        "accessDeniedFlow");
+            new IsyFactFlowHandlerMapping(ausnahmeIdMapper, "snapshotNotFoundFlow", "accessDeniedFlow");
         isyFactFlowHandlerMapping.setFlowRegistry(flowRegistry);
         isyFactFlowHandlerMapping.setDefaultHandler(new UrlFilenameViewController());
         return isyFactFlowHandlerMapping;
