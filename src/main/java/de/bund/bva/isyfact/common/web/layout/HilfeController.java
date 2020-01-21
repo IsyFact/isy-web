@@ -34,7 +34,7 @@ public class HilfeController extends AbstractGuiController<HilfeModel> {
 
     private static final String HILFE_DEFAULT_AKTIV = "hilfe.default.aktiv";
 
-    private static final String PLIS_PORTALHILFE_URL = "portalhilfe.url";
+    private static final String ISY_PORTALHILFE_URL = "portalhilfe.url";
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(HilfeController.class);
 
@@ -54,8 +54,8 @@ public class HilfeController extends AbstractGuiController<HilfeModel> {
     public void initialisiereModel(HilfeModel model) {
 
         boolean hilfeDefaultAktiv = konfiguration.getAsBoolean(HILFE_DEFAULT_AKTIV, true);
-        String plisPortalhilfeUrl = konfiguration.getAsString(PLIS_PORTALHILFE_URL, "");
-        if (plisPortalhilfeUrl == null || plisPortalhilfeUrl.isEmpty()) {
+        String isyPortalhilfeUrl = konfiguration.getAsString(ISY_PORTALHILFE_URL, "");
+        if (isyPortalhilfeUrl == null || isyPortalhilfeUrl.isEmpty()) {
             model.setHilfeButtonAvailable(false);
             LOG.debug(FEHLERTEXT_PROVIDER
                     .getMessage(FehlerSchluessel.INFO_PARAMETER_HILFEPORTAL_URL_NICHT_GESETZT));
@@ -98,14 +98,14 @@ public class HilfeController extends AbstractGuiController<HilfeModel> {
     /**
      * Generiert die Hilfe URL anhand des aktuellen Flow States
      *
-     * @return URL die auf die jeweilige Hilfeseite in der plis-portalhilfe verweist.
+     * @return URL die auf die jeweilige Hilfeseite in der isy-portalhilfe verweist.
      */
     public String ermittleHilfeUrl() {
 
         String viewState = macheViewStateIdZuUeberschrift(ermittleViewStateId());
         String flow = macheFlowIdZuUeberschrift(ermittleFlowId());
-        String plisPortalhilfeUrl = konfiguration.getAsString(PLIS_PORTALHILFE_URL, "");
-        return plisPortalhilfeUrl + XWIKI_PATH + ermittleContextPath() + "/" + flow + "/" + viewState;
+        String isyPortalhilfeUrl = konfiguration.getAsString(ISY_PORTALHILFE_URL, "");
+        return isyPortalhilfeUrl + XWIKI_PATH + ermittleContextPath() + "/" + flow + "/" + viewState;
     }
 
     @Override

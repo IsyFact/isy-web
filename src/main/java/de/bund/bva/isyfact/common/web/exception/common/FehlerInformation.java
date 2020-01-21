@@ -20,7 +20,7 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
- * Klasse beschreibt alle Informationen, die in einem Plis-Fehler vorhanden sind.
+ * Klasse beschreibt alle Informationen, die in einem Isy-Fehler vorhanden sind.
  *
  *
  */

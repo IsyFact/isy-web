@@ -20,7 +20,7 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * Anhand dieses Mappers werden Ausnahme-IDs für die Fehler hinterlegt, welche nicht in der Anwendung speziell
- * erzeugt werden. Für PLIS-Exceptions dürfen keine Ausnahme-ID hinterlegt werden, weil sie bereits über eine
+ * erzeugt werden. Für Isy-Exceptions dürfen keine Ausnahme-ID hinterlegt werden, weil sie bereits über eine
  * Ausnahme-ID verfügen und von der WebflowExceptionHandler ohne weiteres behandelt werden können.
  * <p>
  * Die zu den Ausnahme-IDs gehörenden Fehlertexte dürfen nicht parameterisiert sein.

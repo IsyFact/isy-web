@@ -121,11 +121,11 @@ Diese Datei muss als Bestandteil des Applikationskontextes des Dispatcher Servle
 ----
 <beans>
     ...
-    <import resource="classpath:resources/plis-web/spring/webflow.xml"/>
+    <import resource="classpath:resources/isy-web/spring/webflow.xml"/>
     ...
 </beans>
 ----
-// TODO: Stand 19.07.2018 Pfad plis-web z.Zt. noch richtig, bei einer Verzeichnisstrukturanpassung wäre das obige Beispiel anzupassen
+// TODO: Stand 19.07.2018 Pfad isy-web z.Zt. noch richtig, bei einer Verzeichnisstrukturanpassung wäre das obige Beispiel anzupassen
 
 Des Weiteren muss ein eigenes Dispatcher Servlet in der `web.xml` angelegt werden, das den Aufruf der entsprechenden URLs an Spring Web Flow weiterleitet.
 
@@ -1373,7 +1373,7 @@ custom authentication provider setzen um Sicherheits Komponente für Rollen +
 Ermittlung zu verwenden
 ====================================================================== -->
 <beans:bean id="WebFlowAuthenticationProvider"
-	class="de.bund.bva.pliscommon.plisweb.WebFlow.security.WebFlowAuthenticationProvider">
+	class="de.bund.bva.isycommon.isyweb.WebFlow.security.WebFlowAuthenticationProvider">
 	<custom-authentication-provider />
 	<beans:property name="sicherheit" ref="sicherheit" />
 </beans:bean>
