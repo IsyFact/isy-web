@@ -1,3 +1,6 @@
+# v5.0.0
+- `IFS-505`: Upgrade auf Isyfact 2
+
 # v4.9.0
 - `IFE-58`: isy:input analog zu formInput erstellt
 - `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
