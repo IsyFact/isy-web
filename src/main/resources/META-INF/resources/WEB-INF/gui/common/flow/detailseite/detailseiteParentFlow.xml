@@ -29,8 +29,6 @@
 
     <on-start>
         <evaluate expression="detailseiteController.initialisiereModel(detailseiteModel)" />
-        <!-- Initialisiert das HilfeModel. Zum Ein-, Ausblenden des Hilfe-Buttons. -->
-        <evaluate expression="hilfeController.initialisiereModel(hilfeModel)" />
     </on-start>
 
 </flow>
