@@ -43,23 +43,26 @@ Die folgenden Abschnitte erklären, wie die GUI-Komponente nach dem MVC-Muster, 
 
 Dieses Kapitel enthält alle notwendigen Basiskonfigurationen für die Verwendung von JSF.
 
-Verwendung von Facelets (`webflow.xml`)::
-Für die Verwendung von Facelets ist es notwendig, in der Spring Konfiguration ein Mapping zwischen der Datei-Erweiterung und den Facelets herzustellen.
+Verwendung der Autokonfiguration::
+Das Isy-Web-Modul liefert den größten Teil der benötigten Konfiguration für JSF, Spring Webflow und Spring MVC in seiner Autokonfiguration bereits mit.
+Um darauf zuzugreifen, muss in der Hauptklasse der Anwendung die Autokonfiguration entsprechend aktiviert sein.
 
-:desc-listing-SnipConfigxml: Ausschnitt webflow.xml
-[id="listing-SnipConfigxml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipConfigxml}
-[source,xml]
+:desc-listing-SnipConfigjava: Ausschnitt BeispielApplication.java
+[id="listing-SnipConfigjava",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-SnipConfigjava}
+[source,java]
 ----
-<!-- Maps logical view names to Facelet templates (e.g. 'search' to '/WEB-INF/search.xhtml' -->
-<bean id="faceletsViewResolver"
-	class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-	<property name="viewClass"
-		value="org.springframework.faces.mvc.JsfView" />
-	<property name="prefix" value="/WEB-INF/" />
-	<property name="suffix" value=".xhtml" />
-</bean>
+@Configuration
+//Securityconfig erfolgt über Isy-Sicherheit
+@EnableAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
+public class IsyWebguiApplication extends SpringBootServletInitializer {
+
+}
 ----
+
+Um ein deployen als WAR-Archiv auf einem Tomcat zu ermöglichen, erbt die Haupt-Applikationsklasse von SpringBootServletInitializer.
+Die Autokonfiguration wird enabled, aber für Spring Security deaktiviert.
+Die genauere Securitykonfiguration wird weiter unten im Abschnitt <<sicherheit>> erklärt.
 
 Abschalten der Ausgabe von Kommentaren::
 Die Ausgabe von HTML-Kommentaren, die in der Flow-Definition und im View zur Dokumentation der Software eingebettet wurden, wird abgeschaltet.
@@ -108,48 +111,6 @@ Zur Darstellung von Radio Buttons und Checkboxen ohne Labels überschreibt der J
         </renderer-class>
     </renderer>
 </render-kit>
-----
-
-Einbinden der Basiskonfiguration::
-Der JSF-Baustein stellt eine Konfigurationsdatei bereit, welche die Basiskonfiguration aller verwendeten Frameworks (Spring, JSF, Spring Web Flow) bezüglich der GUI-Komponente enthält.
-Diese Datei muss als Bestandteil des Applikationskontextes des Dispatcher Servlets importiert werden.
-
-:desc-listing-PfadWebflowXml: Einbinden der Basiskonfiguration
-[id="listing-PfadWebflowXml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-PfadWebflowXml}
-[source,xml]
-----
-<beans>
-    ...
-    <import resource="classpath:resources/isy-web/spring/webflow.xml"/>
-    ...
-</beans>
-----
-// TODO: Stand 19.07.2018 Pfad isy-web z.Zt. noch richtig, bei einer Verzeichnisstrukturanpassung wäre das obige Beispiel anzupassen
-
-Des Weiteren muss ein eigenes Dispatcher Servlet in der `web.xml` angelegt werden, das den Aufruf der entsprechenden URLs an Spring Web Flow weiterleitet.
-
-:desc-listing-Snipwebxml3: Konfiguration des Dispatcher Servlets für Spring Web Flow
-[id="listing-Snipwebxml3",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-Snipwebxml3}
-[source,xml]
-----
-<servlet>
-	<servlet-name>dispatcher</servlet-name>
-	<servlet-class>
-		org.springframework.web.servlet.DispatcherServlet
-	</servlet-class>
-	<init-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>{pfad-zur-konfiguration-des-dispatcher-servlet-kontextes}</param-value>
-	</init-param>
-	<load-on-startup>2</load-on-startup>
-</servlet>
-
-<servlet-mapping>
-	<servlet-name>dispatcher</servlet-name>
-	<url-pattern>/app/*</url-pattern>
-</servlet-mapping>
 ----
 
 [[der-flow]]
@@ -582,19 +543,9 @@ Die Datei `web.xml` ist der Web Deployment Deskriptor und enthält die notwendig
 [[festlegung-der-startseite]]
 ==== Festlegung der Startseite
 
-Für den initialen Zugriff auf die Applikation wird in der `web.xml` der Startpunkt für den Dialogablauf definiert.
-Dieses geschieht durch den Eintrag in der `<welcome-file-list>` auf eine Datei, in welcher der Redirect auf den Startflow steht.
-Dieses ist notwendig, weil eine Angabe der Flow Engine im `web.xml` für Welcome Files nicht möglich ist.
-
-:desc-listing-Snipwebxml: Startseitenfestlegung in der web.xml
-[id="listing-Snipwebxml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-Snipwebxml}
-[source,html]
-----
-<welcome-file-list>
-  <welcome-file>index.html</welcome-file>
-</welcome-file-list>
-----
+Standardmäßig ist die Startseite der Anwendung die index.html.
+In ihr muss ein Redirect auf den Startflow erfolgen.
+Dieses ist notwendig, weil eine Angabe der Flow Engine im für Welcome Files nicht direkt möglich ist.
 
 Die Datei `index.html` sieht folgendermaßen aus:
 
@@ -610,42 +561,12 @@ Die Datei `index.html` sieht folgendermaßen aus:
 </html>
 ----
 
-[[SetCharacterEncodingFilter]]
-==== SetCharacterEncodingFilter
-
-Damit eingehende Anfragen richtig verarbeitet werden können, müssen diese zunächst mit dem korrekten Zeichensatz kodiert werden.
-Um ein korrektes Kodieren zu gewährleisten, muss der `SetCharacterEncodingFilter` als erster Filter-Mapping Eintrag in der `web.xml` eingetragen sein.
-Standardmäßig sollte `UTF-8` als Zeichensatz angegeben sein und, falls anderweitig gesetzt, erzwungen werden.
-
-:desc-listing-SnipWebxmlt8: Ausschnitt aus web.xml (bezüglich SetCharacterEncodingFilter)
-[id="listing-SnipWebxmlt8",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipWebxmlt8}
-[source,xml]
-----
-<filter>
-    <filter-name>SetCharacterEncodingFilter</filter-name>
-    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-    <init-param>
-        <param-name>encoding</param-name>
-        <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-        <param-name>forceEncoding</param-name>
-        <param-value>true</param-value>
-    </init-param>
-</filter>
-...
-<filter-mapping>
-    <filter-name>SetCharacterEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-</filter-mapping>
-----
 
 [[erkennung-von-javascript-unterstuetzung]]
 ==== Erkennung von JavaScript Unterstützung
 
 Je nach Browser und JavaScript Aktivierungsstatus muss die Anwendung Widgets verschieden darstellen.
-Hierzu existiert ein Filter, welcher in die `web.xml` eingebunden wird.
+Hierzu existiert ein Filter, welcher in die Anwendungskonfiguration als Bean eingebunden werden muss.
 
 Der Parameter `urlApplicationInitialisierung` ist verpflichtend und enthält die URL zur Application-Initialisierungsseite.
 Es ist ein führendes `/` anzugeben.
@@ -656,26 +577,31 @@ Es ist jeweils ein führendes `/` anzugeben.
 
 Die Parameter müssen ggf. angepasst werden.
 
-:desc-listing-Snipwebxml2: Ausschnitt web.xml
+:desc-listing-Snipwebxml2: Ausschnitt WebConfig.java
 [id="listing-Snipwebxml2",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-Snipwebxml2}
-[source,xml,indent=0]
+[source,java,indent=0]
 ----
-<filter>
-    <filter-name>applicationInitialisierungFilter</filter-name>
-    <filter-class>
-        de.bund.bva.isyfact.common.web.servlet.filter.ApplicationInitialisierungFilter
-    </filter-class>
+    @Bean
+    public FilterRegistrationBean<ApplicationInitialisierungFilter> applicationInitialisierungFilter() {
+        FilterRegistrationBean<ApplicationInitialisierungFilter> registrationBean =
+            new FilterRegistrationBean<>();
+        registrationBean.setFilter(new ApplicationInitialisierungFilter());
 
-    <init-param>
-        <param-name>urlsToSkip</param-name>
-        <param-value>/app/resources</param-value>
-    </init-param>
-    <init-param>
-        <param-name>urlApplicationInitialisierung</param-name>
-        <param-value>/app/common/init/applicationInitialisierung.xhtml</param-value>
-    </init-param>
-</filter>
+        registrationBean.addUrlPatterns("/app/*");
+
+        //Optionaler Parameter: Der Parameter "urlsToSkip" dient zur Aufnahme von Url-Pfaden,
+        // relativ zum ApplicationContext-Pfad, die von der Filterung ausgenommen werden.
+        // Mehrere Url-Pfade sind kommasepariert anzugeben. Es ist pro Url ein fuehrendes "/" anzugeben.
+        registrationBean.addInitParameter("urlsToSkip", "/app/resources");
+        registrationBean.addInitParameter("ajaxRedirectUrl", "/");
+        // Plicht-Parameter:
+        // Der Parameter "urlApplicationInitialisierung" enthaelt die Url zur Application-Initialisierungsseite.
+        // Es ist ein fuehrendes "/" anzugeben.
+        registrationBean.addInitParameter("urlApplicationInitialisierung",
+            "/app/common/init/applicationInitialisierung.xhtml");
+        return registrationBean;
+    }
 ----
 
 [[konfiguration-der-navigation]]
@@ -936,18 +862,7 @@ Zur Konfiguration des Logging ist folgende Abhängigkeit nötig:
 </dependency>
 ----
 
-Die Ablage der logback-Konfiguration erfolgt in der Datei `web.xml`:
-
-:desc-listing-SnipLogginConf1: Logging Konfiguration (Ausschnitt web.xml)
-[id="listing-SnipLogginConf1",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipLogginConf1}
-[source,xml]
-----
-<context-param>
-    <param-name>logbackConfigLocation</param-name>
-    <param-value>classpath:/config/logback.xml</param-value>
-</context-param>
-----
+Isy-Logging erwartet die logback-Konfiguration standardmäßig im Klassenpfad unter /config/logback.xml
 
 Die <<NutzungsvorgabenLogging>> beinhalten Vorgaben zum Schreiben von Log-Einträgen und zur Ablage von Log-Dateien.
 
