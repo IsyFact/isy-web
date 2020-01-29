@@ -22,9 +22,12 @@
     abstract="true" parent="parentFlow">
 
     <var name="basisModel" class="de.bund.bva.isyfact.common.web.layout.BasisModel" />
+    <var name="hilfeModel" class="de.bund.bva.isyfact.common.web.layout.HilfeModel" />
 
     <on-start>
         <evaluate expression="basisController.initialisiereModel(basisModel)" />
+        <!-- Initialisiert das HilfeModel. Zum Ein-, Ausblenden des Hilfe-Buttons. -->
+        <evaluate expression="hilfeController.initialisiereModel(hilfeModel)" />
     </on-start>
 
     <global-transitions>
