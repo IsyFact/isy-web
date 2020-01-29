@@ -25,6 +25,8 @@
 
     <on-start>
         <evaluate expression="basisController.initialisiereModel(basisModel)" />
+        <!-- Initialisiert das HilfeModel. Zum Ein-, Ausblenden des Hilfe-Buttons. -->
+        <evaluate expression="hilfeController.initialisiereModel(hilfeModel)" />
     </on-start>
 
     <global-transitions>
