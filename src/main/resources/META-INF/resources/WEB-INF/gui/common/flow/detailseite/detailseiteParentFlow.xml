@@ -24,8 +24,6 @@
     <!-- Der Parent-Flow für eine Detailseite. -->
 
     <var name="detailseiteModel" class="de.bund.bva.isyfact.common.web.layout.DetailseiteModel" />
-    <var name="hilfeModel" class="de.bund.bva.isyfact.common.web.layout.HilfeModel" />
-
 
     <on-start>
         <evaluate expression="detailseiteController.initialisiereModel(detailseiteModel)" />

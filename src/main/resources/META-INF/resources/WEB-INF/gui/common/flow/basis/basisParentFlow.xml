@@ -22,6 +22,7 @@
     abstract="true" parent="parentFlow">
 
     <var name="basisModel" class="de.bund.bva.isyfact.common.web.layout.BasisModel" />
+    <var name="hilfeModel" class="de.bund.bva.isyfact.common.web.layout.HilfeModel" />
 
     <on-start>
         <evaluate expression="basisController.initialisiereModel(basisModel)" />
