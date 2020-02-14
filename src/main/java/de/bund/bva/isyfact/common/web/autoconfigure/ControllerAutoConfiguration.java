@@ -44,28 +44,35 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 //    excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX,
 //            pattern = "de\\.bund\\.bva\\.isyfact\\.common\\.web\\.autoconfigure\\..*"))
 public class ControllerAutoConfiguration {
-
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public TabController tabController() {
         return new TabController();
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public GlobalConfigurationController globalConfigurationController() {
         return new GlobalConfigurationController();
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public QuicklinksController quicklinksController(Konfiguration konfiguration) {
         return new QuicklinksController(konfiguration);
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public GlobalFlowController globalFlowController(MessageController messageController, ValidationController validationController, ErrorController errorController, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter, NavigationMenuController navigationMenuController) {
+    public GlobalFlowController globalFlowController(MessageController messageController,
+                                                 ValidationController validationController,
+                                                 ErrorController errorController,
+                                                 AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
+                                                 NavigationMenuController navigationMenuController) {
         return new GlobalFlowController(messageController,
                 validationController,
                 errorController,
@@ -74,52 +81,65 @@ public class ControllerAutoConfiguration {
     }
 
     @Bean
-    public NavigationMenuController navigationMenuController(NavigationMenuGenerierenStrategie navigationMenuGenerierenAusKonfiguration) {
+    @ConditionalOnMissingBean
+    public NavigationMenuController navigationMenuController(
+            NavigationMenuGenerierenStrategie navigationMenuGenerierenAusKonfiguration) {
         return new NavigationMenuController(navigationMenuGenerierenAusKonfiguration);
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public DetailseiteController detailseiteController(BasisController basisController) {
         return new DetailseiteController(basisController);
     }
 
     @Bean
-    public ApplikationseiteController applikationseiteController(LinksnavigationController linksnaviagtionController, QuicklinksController quicklinksController) {
+    @ConditionalOnMissingBean
+    public ApplikationseiteController applikationseiteController(
+            LinksnavigationController linksnaviagtionController, QuicklinksController quicklinksController) {
         return new ApplikationseiteController(linksnaviagtionController, quicklinksController);
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public LinksnavigationController linksnavigationController(Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+    public LinksnavigationController linksnavigationController(
+            Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
         return new LinksnavigationController(konfiguration, aufrufKontextVerwalter);
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public ErrorController errorController() {
         return new ErrorController();
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public HilfeController hilfeController(ServletContext servletContext, Konfiguration konfiguration) {
         return new HilfeController(servletContext, konfiguration);
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public MessageController messageController(AusnahmeIdMapper ausnahmeIdMapper) {
         return new MessageController(ausnahmeIdMapper);
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public ValidationController validationController() {
         return new ValidationController();
     }
 
+
     @Bean
+    @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public BasisController basisController() {
         return new BasisController();
@@ -127,7 +147,8 @@ public class ControllerAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public NavigationMenuGenerierenAusKonfiguration navigationMenuGenerierenAusKonfiguration(Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+    public NavigationMenuGenerierenAusKonfiguration navigationMenuGenerierenAusKonfiguration(
+            Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
         return new NavigationMenuGenerierenAusKonfiguration(konfiguration, aufrufKontextVerwalter);
     }
 
