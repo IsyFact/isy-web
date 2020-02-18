@@ -919,7 +919,7 @@ function refreshFunctions() {
                 scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow);
             } else {
                 // bei leerem bzw. geloeschten $listpickerField sind ehem. active-Eintraege zu loeschen
-                $listpickerContent.find("tbody tr[id=").removeClass("active");
+                $listpickerContent.find("tbody tr").removeClass("active");
             }
 
         });
