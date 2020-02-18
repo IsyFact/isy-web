@@ -238,17 +238,6 @@ function refreshFunctions() {
     });
 
     // --------------------------------------------------------
-    // Bootstrap Select Plugin
-    // --------------------------------------------------------
-    $('.selectpicker').filter(':not(.selectpicker_ajaxtoken)').selectpicker({
-        style: 'dropdown btn btn-icon dropdown-toggle',
-        size: 10,
-        dropupAuto: false
-    });
-    $('.selectpicker').filter(':not(.selectpicker_ajaxtoken)').addClass(
-        'selectpicker_ajaxtoken');
-
-    // --------------------------------------------------------
     // Panels
     // --------------------------------------------------------
     var $panels = $(".panel-collapse[id$='PanelCollapse']").filter(':not(.panel_ajaxtoken)');
