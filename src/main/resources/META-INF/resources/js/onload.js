@@ -100,6 +100,11 @@ function refreshFunctions() {
     lazyLoad();
 
     // --------------------------------------------------------
+    // Selectpicker aktualisieren (damit bootstrap-select sie korrekt rendered)
+    // --------------------------------------------------------
+    $('.selectpicker').selectpicker('refresh');
+
+    // --------------------------------------------------------
     // Multipart Forms bei Bedarf aktivieren
     // --------------------------------------------------------
     if ($("[id$='multipartFormEnabled']").val() === 'true') {
