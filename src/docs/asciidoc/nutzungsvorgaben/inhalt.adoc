@@ -2531,33 +2531,38 @@ Im Folgenden wird beschrieben, welche Schritte durchzuführen sind, damit ein Li
 
 Entscheidend ist der Parameter `servletUrl`.
 Erstens wird anhand des Vorhandenseins des Parameters erkannt, dass ein Servlet zum Filtern benutzt werden soll und nicht etwa Ajax.
-Zweitens muss der Wert des Parameters sich in der Datei web.xml wiederfinden.
+Zweitens muss der Wert des Parameters sich in der Konfiguration des HandlerServlets wiederfinden.
 
-:desc-listing-beispielEinbindungServlet: Beispielhafte Einbindung in web.xml
+:desc-listing-beispielEinbindungServlet: Beispielhafte HandlerServlet-Konfiguration
 [id="listing-beispielEinbindungServlet",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-beispielEinbindungServlet}
-[source, xml]
+[source, java]
 ----
-<servlet>
-  <servlet-name>listpickerprovider</servlet-name>
-  <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-  <load-on-startup>3</load-on-startup>
-</servlet>
+    // Bean, die AbstractListpickerProviderRequestHandler implementiert
+    @Bean
+    ListpickerProviderRequestHandler listpickerProviderRequestHandler() {
+        return new ListpickerProviderRequestHandler();
+    }
 
-...
+    //Registrierung des Servlets
+    @Bean
+    public ServletRegistrationBean<HttpRequestHandlerServlet> listPickerServletBean() {
+        ServletRegistrationBean<HttpRequestHandlerServlet> bean = new ServletRegistrationBean<>(
+            new HttpRequestHandlerServlet(), "/app/listpicker/*"
+        );
+        bean.setName("listpickerProviderRequestHandler");
+        bean.setLoadOnStartup(1);
+        return bean;
+    }
 
-<servlet-mapping>
-	<servlet-name>listpickerprovider</servlet-name>
-	<url-pattern>/app/listpicker/*</url-pattern>
-</servlet-mapping>
 ----
 
-Der Parameter `servletUrl` hat hier beispielsweise den Wert "/app/listpicker" und das Servlet erfasst laut Eintrag in der web.xml alle Requests, deren URL auf das Pattern "/app/listpicker/*" passen.
+Der Parameter `servletUrl` hat hier beispielsweise den Wert "/app/listpicker" und das Servlet erfasst laut Eintrag in der Konfiguration alle Requests, deren URL auf das Pattern "/app/listpicker/*" passen.
 Auf diese Weise ist die Verknüpfung zwischen List Picker und Servlet hergestellt.
 
 Die konkrete Implementierung des `HttpRequestHandler` muss von der jeweiligen Anwendung selbst bereitgestellt werden.
 Hierzu sollte von der Klasse `AbstractListpickerProviderRequestHandler` geerbt werden.
-In dem obigen Beispiel heißt die Bean der Implementierung `listpickerprovider`.
+In dem obigen Beispiel heißt die Bean der Implementierung `listpickerProviderRequestHandler`.
 
 ===== Hinweise zur Funktionsweise
 
