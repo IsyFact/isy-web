@@ -1,0 +1,773 @@
+= Konzept JSF: Inhalt
+include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
+
+// tag::inhalt[]
+[[basistechnologien]]
+== Einführung in die Basistechnologien
+Die Übersicht der Basistechnologien soll dem Leser einen einfacheren Einstieg in die angewendeten Frameworks und Technologien ermöglichen.
+Zusätzlich findet sich noch ein Verweis auf die konkret eingesetzten Implementierungen.
+Hierbei werden auch Architekturprinzipien angesprochen, welche in den Technologien Verwendung finden.
+
+Für detaillierte Informationen über die verwendeten Technologien sei auf entsprechende Literatur verwiesen: <<WikiJSF>>, <<SWF>> und <<Spring>>.
+
+[[jsf-facelets]]
+=== JSF / Facelets
+*Java Server Faces (JSF)* ist ein Framework für die Entwicklung von Webanwendungen.
+Es basiert auf einer MVC-Architektur.
+Der Schwerpunkt von JSF ist die Bereitstellung grafischer Komponenten wie z.B. Tabellen, Formulare, Kalender, Menüs oder Editoren für die Entwicklung von Webanwendungen.
+Das zentrale Konzept hinter JSF ist die Erstellung eines Komponentenbaumes aus diesen grafischen Komponenten.
+Aus diesem Komponentenbaum wird schließlich die auszuliefernde HTML-Seite generiert.
+
+Die IsyFact setzt die Referenzimplementierung von Oracle (<<Mojarra>>) ein und erweitert diese im Bereich der Komponenten um die Bibliothek Apache Tomahawk (<<Tomahawk>>).
+
+*Facelets* ist eine Template-Engine und die Standard-View-Technologie von JSF.
+Facelets löst in dieser Funktion JSP ab.
+Mit Facelets werden kleine, wiederverwendbare <<glossar-GUI>>-Komponenten erstellt, die durch ein entsprechendes XML-Tag in eine Seite inkludiert werden.
+Hierbei wird der Templating-Mechanismus der Facelets verwendet.
+Die Ablage erfolgt in XHTML-Dokumenten.
+Im Gegensatz zu Taglibs erfolgt ein Include der Komponente und kein Aufruf von Java-Code für die Generierung von gerendertem GUI-Code.
+
+Facelets bieten vielfältige Möglichkeiten, Vorlagenfragmente zu einer Gesamtseite zusammenzusetzen, um z.B. auf jeder Seite einen einheitlichen Seitenrahmen zu realisieren.
+Weiter können Facelets mit herkömmlichen HTML-Editoren bearbeitet werden und sind somit einfacher zu verstehen und zu editieren.
+Als Implementierung kommt wiederum die Referenzimplementierung von Oracle (<<Mojarra>>) zum Einsatz.
+
+[[bearbeitungsmodell-einer-jsf-anfrage]]
+==== Bearbeitungsmodell einer JSF Anfrage
+
+Die Spezifikation der Java Server Faces definiert einen sogenannten Lebenszyklus <<WikiJSF>> , den eine
+JSF-Anwendung mit jedem Aufruf erneut durchläuft.
+Dieser Lebenszyklus ist in sechs _Phasen_ (englisch _Phases_) aufgeteilt.
+
+:desc-image-PhasemodJSF: Phasenmodell JSF
+[id="image-PhasemodJSF",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-PhasemodJSF}
+image::jsf-phasen.png[align="center"]
+
+1.  _Restore View_ („Sicht wiederherstellen“) wählt anhand der eingehenden Anforderung eine Sicht (_View_) aus und baut den dazu passenden Komponentenbaum bei Bedarf auf.
+2.  _Apply Request Values_ („Anforderungsparameter anwenden“) extrahiert Parameter aus der Anforderung (üblicherweise ein HTTP-Post-Request) und weist sie den passenden JSF-Komponenten zu, beispielsweise Eingabefeldern.
+3.  _Process Validations_ („Validierung ausführen“) überprüft die Gültigkeit der zuvor ermittelten Eingaben.
+Dazu werden eigene Validator-Objekte verwendet, die den Komponenten in der View-Definition zugewiesen wurden.
+4.  _Update Model Values_ („Modell aktualisieren“) weist den Modellobjekten die zuvor ermittelten Werte zu.
+5.  _Invoke Application_ („Anwendung aufrufen“) ruft durch die Anwendung definierte Methoden auf, beispielsweise wenn ein Button betätigt wurde.
+6.  _Render Response_ („Antwort wiedergeben“) erzeugt schließlich die Antwort auf die ursprüngliche Anfrage, beispielsweise eine HTML-Seite.
+Hierzu werden sogenannte _Renderer_ aufgerufen, die den View-Komponenten zugeordnet sind.
+
+Treten Fehler auf oder soll als Antwort beispielsweise eine HTML-Seite aufgerufen werden, die keine JSF-Komponenten enthält, so können einzelne Phasen übersprungen werden.
+
+[[datenmodell]]
+==== Datenmodell
+
+Die Daten für die Visualisierung in JSF werden in Model Beans gehalten.
+Hierfür wird nicht auf den durch JSF zur Verfügung gestellten Mechanismus der Managed Beans zurückgegriffen.
+Das Datenmodell wird über Spring Web Flow direkt aus Model Beans verfügbar gemacht.
+Damit ist die Verwaltung des Models unter Kontrolle des Dialogflusses, der über Spring Web Flow gesteuert wird.
+Die einem Flow zugeordneten Model Beans werden durch den Flow instanziiert und unterliegen somit dem Flow-Lebenszyklus.
+
+[[facelets]]
+==== Facelets
+
+Mit den Facelets werden das visuelle Layout und die Controls für die Ansicht im Browser definiert.
+Durch die Nähe zu HTML sind schnell die notwendigen Ansichten designed und können getestet werden.
+Das Mapping der Controls auf die Daten geschieht über die in JSF verwendete Expression Language (EL).
+Mit der EL werden direkt die Attribute des zugehörigen Beans genutzt.
+
+Ein weiterer Vorteil von Facelets ist die Verwendung von Templates.
+Durch diese ist es möglich, bereits einen zum Styleguide <<Styleguide>> konformen Rahmen zur Verfügung zu stellen, in welchen die
+Applikation lediglich durch definierte Einfügungen ihre Inhalte einbetten.
+
+[[taglibs]]
+==== Taglibs
+
+Durch den Einsatz von Facelets ist die direkte Einbettung von Tag Libraries nicht möglich.
+Vielmehr müssen diese noch separat mit einer Deskription versehen werden, aus welcher die einzelnen Tags
+ersichtlich sind und ihr Mapping auf die zugehörigen Klassen definiert ist.
+
+Für den Einsatz der myFaces Tomahawk Library wird eine entsprechende Konfiguration zur Verfügung gestellt.
+Der Einsatz dieser Library unterliegt für den Einsatz in der IsyFact der allgemeinen Einschränkung bei der Verwendung von JavaScript.
+Siehe auch Kapitel <<benoetigte-bibliotheken>>.
+
+[[spring-web-flow]]
+=== Spring Web Flow
+
+Spring Web Flow ist ein Framework für die Ablaufsteuerung von Anwendungsfällen innerhalb von Web-Anwendungen.
+Ein solcher „Flow“ innerhalb von Spring Web Flow ist eine Abfolge zusammenhängender Masken, wie z.B. das Durchlaufen der Schritte zur Registrierung eines neuen Benutzers in einer Web Anwendung.
+
+Ein erklärtes Ziel von Spring Web Flow ist die Unterstützung der Browser-Navigation, die in der Web-Entwicklung immer wieder zu Problemen führt.
+Das Framework übernimmt dabei die Navigation zwischen den einzelnen Views und stellt darüber hinaus einen eigenen Scope Container für Model Beans zur Verfügung.
+Dieser erweitert die Web-Anwendung um die folgenden Scopes:
+
+* Flash: Gültig, solange der Flow aktiv ist, jedoch werden Flash Scope Beans nach jedem View-State geleert und dienen somit dazu, Daten zwischen zwei User Events zu transferieren.
+* Flow: Steht über die gesamte Laufzeit des Flows zur Verfügung.
+* Conversation: Die Lebensdauer ist mit dem Flow Scope identisch, nur stehen Conversation Scope Beans auch in den zugehörigen Subflows zur Verfügung.
+
+Spring Web Flow implementiert im Kern einen finiten Zustandsautomaten, der auf definierte Anfangs- und Endzustände angewiesen ist.
+
+Der Ablauf der logisch zusammenhängenden Views wird in einem sogenannten Flow definiert.
+Innerhalb eines Flows stehen verschiedene States zur Verfügung.
+Zunächst muss jeder Flow einen Start State und einen End State besitzen.
+Der Start State definiert den Einstiegspunkt und aktiviert den jeweiligen Flow.
+Dieser bleibt so lange aktiv, bis ein End State erreicht wird.
+
+Wie bereits erwähnt, setzt sich Spring Web Flow das Ziel, die Browser-Navigation mit „Back-/Forward-Button“ zu unterstützen.
+Um diese Funktionalität zu gewährleisten, muss die Möglichkeit bestehen, den Zustand einer View zu speichern und wieder abzurufen.
+Hierfür steht ein sogenanntes Repository zur Verfügung, welches die Zustände der einzelnen Views innerhalb eines Flows zwischenspeichert.
+Dadurch kann man den Zustand jeder View innerhalb eines Flows zu einem beliebigen Zeitpunkt reproduzieren.
+
+[[flows-subflows]]
+==== Flows / Subflows
+
+Ein Flow kann wahlweise als XML-Datei oder mittels der Java-API realisiert werden.
+Ein Flow besteht in der Regel aus mehreren Zuständen (innerhalb von Web Flow als States bezeichnet), die nacheinander und in Abhängigkeit von der jeweiligen Benutzerinteraktion durchlaufen werden.
+
+Auch die Modularisierung von Flows in kleine Einheiten ist durch sogenannte Subflows bzw.
+Inline-Flows ohne weiteres möglich.
+Ein Subflow wird wie jede andere Flow-Definition erstellt.
+Der Unterschied zu einem normalen Flow liegt lediglich darin, dass der Subflow innerhalb eines Flows aufgerufen wird.
+Eine Flow-Definition kann beliebig viele Subflows enthalten, welche wiederum weitere Subflows aufrufen können.
+
+[[back-button-handling]]
+==== Back-Button Handling
+
+Während der Ausführung von Flows werden die Variablen mit einer Zwischenspeicherung in das Repository geschrieben.
+Hierbei wird immer, wenn ein Flow durch eine User-Interaktion unterbrochen wird, der aktuelle Status gespeichert.
+Das Repository liefert diesen bei der Fortsetzung des Flows zurück.
+Der dafür notwendige „Flow-Execution-Key“, der Schlüssel, der zur Identifikation des aktuellen Flow-Status dient,
+wird hierbei von Spring Web Flow erzeugt.
+
+Dieses Speichern des Status von vorhergehenden Schritten im Flow unterstützt so in Kombination mit
+einem „Post Redirect Get“ Mechanismus (PRG-Pattern) die Nutzung des Back-Buttons im Browser.
+Da jeder Request im Flow einen eindeutigen Execution Key an den Server sendet, kann, wenn man im
+Flow zurückgeht, auch der alte Status zum Zeitpunkt dieses Request angezeigt werden, selbst wenn der Server von dem Click auf den Back-Button selbst nichts mitbekommt.
+
+[[transaktionsbehandlung]]
+=== Transaktionsbehandlung
+
+Die <<glossar-GUI>>-Komponente und der <<glossar-Anwendungskern>> sind Teil derselben Web-Applikation und werden per Spring-Konfiguration miteinander verbunden.
+
+Oft gibt es den Fall, dass über die GUI eine Aktion in einer anderen Anwendung ausgelöst werden soll.
+Ein Beispiel dafür ist die GUI einer <<glossar-Fachanwendung>> zur Datenerfassung, wobei die Speicherung der Daten über einen Service einer anderen Fachanwendung implementiert ist.
+In diesem Fall enthält der Anwendungskern der Fachanwendung zur Datenerfassung nur wenig Funktionalität: in ihm werden die Daten für den Serviceaufruf der nachgelagerten Fachanwendung aufbereitet und der Serviceaufruf selbst durchgeführt.
+Wichtig in diesem Fall ist, dass es nach Zielarchitektur keine Transaktionen über Serviceaufrufe hinweg gibt.
+
+In diesem Abschnitt wird die Behandlung von Transaktionen innerhalb einer Anwendung beschrieben.
+Grundregel dabei ist, dass der Anwendungskern die Transaktionssteuerung übernimmt.
+Aus Sicht der GUI-Komponente bedeutet dies, dass jeder Aufruf des Anwendungskerns unmittelbar eine Änderung der Daten zufolge hat.
+Dabei muss die GUI-Komponente die Brücke schlagen zwischen der _fachlichen Transaktion_, die dem Nutzer dargestellt wird und der _technischen Transaktion,_ die in der Datenbank abgebildet wird.
+
+Die fachliche Transaktion entspricht einem Dialogablauf.
+Ein Beispiel dafür: Der Nutzer kann in der Regel über mehrere Masken hinweg Daten eingeben.
+Abschließend drückt er in einem Dialog den „OK“- bzw. den „Abbrechen“-Button.
+Für den Nutzer ist klar, dass alle die von ihm eingegebenen Daten im Sinne einer Transaktion behandelt werden müssen, d.h. sie werden entweder vom System komplett übernommen oder komplett verworfen.
+
+Aus technischer Sicht ist die Behandlung dieses Ablaufs etwas komplizierter: Die Daten, die der Nutzer in den verschiedenen Dialogen eingibt, müssen zunächst zwischengespeichert werden, bevor dann bei Betätigung eines Buttons die technische Transaktion in der Datenbank erfolgt.
+Das Zwischenspeichern der Werte benötigt allerdings ebenfalls technische Transaktionen.
+Da der Prozess der Web-Anwendung zustandslos ist, muss das Zwischenspeichern ebenfalls in der Datenbank erfolgen.
+Hier muss die GUI zusätzliche Transaktionen durchführen.
+
+Bei der Spring Web Flow Integration wurde ein Mechanismus verwendet, um die Zwischenwerte und Informationen zum Dialogablauf in der Datenbank abzulegen.
+Das Zwischenspeichern erfolgt grundsätzlich in einer separaten Transaktion.
+Somit beeinflussen sich die fachliche Transaktion und die technischen Transaktionen nicht.
+
+Mit den technischen Transaktionen ist es jetzt möglich, „Sitzungen“ abzubilden.
+Eine Sitzung ist letztendlich die Summe aller Zwischendaten, die der Nutzer eingegeben hat oder die das System selbst erzeugt hat (z.B. interne Zustände, Nutzerinformationen, ...).
+Innerhalb einer Sitzung werden mehrere fachliche Transaktionen durchgeführt.
+
+Das technische Mittel zur Repräsentation einer Sitzung ist zunächst einmal die Session des Servers.
+Diese Session ist transient.
+Da der Serverprozess zustandslos ist, muss sie in der Datenbank persistiert werden.
+Dazu gibt es zwei Alternativen:
+
+* Serialisierung der Session nach Beendigung des Request und Wiederherstellung bei neuerlichem Aufruf
+* Speichern des Spring Web Flow State an den durch Spring Web Flow vorgesehenen Hooks
+
+Die Variante der Session Serialisierung ist zwar einfacher, beinhaltet aber auch eine wesentliche Gefahr.
+Die Session des Servers wird zum Speichern von verschiedensten Daten genutzt, der Zugriff auf sie ist frei möglich.
+Dies führt in der Praxis dazu, dass unkontrolliert große Datenmengen in der Session abgelegt werden.
+Diese großen Datenmengen lassen sich dann nicht mehr effizient persistieren.
+Daher wurde diese Option in der <<IsyFactReferenzarchitektur>> ausgeschlossen.
+Die Details dazu, wie in Spring Web Flow die zu speichernden Daten einer Session ermittelt werden, finden sich in Kapitel <<session-behandlung>>.
+
+[[jquery]]
+=== JQuery
+
+JQuery ist ein JavaScript-Framework, das auf einfache Weise JavaScript-Funktionen bereitstellt, die insbesondere auf die grafische Gestaltung einer Oberfläche benötigt werden.
+Erklärtes Ziel ist es, die Oberfläche durch den Einsatz von JavaScript eleganter nutzbar zu machen.
+Besonderer Fokus liegt dabei auf den Sicherheitsaspekten, die eine Aktivierung von JavaScript mit sich bringt.
+Die Oberfläche muss jedoch auch mit deaktiviertem JavaScript mit Komforteinschränkungen nutzbar sein.
+
+[[architektur]]
+== Architektur einer JSF-GUI
+
+Die Architektur von <<glossar-GUI,GUIs>> mit JSF und Spring Web Flow hält sich an die Vorgaben aus der <<IsyFactReferenzarchitektur>> sowie die architektonischen Vorgaben aus dem <<DetailkonzeptKomponenteWebGUI>>.
+Sie besitzt, aufgrund der Vorgaben und der eingesetzten Technologien, folgende Eigenschaften:
+
+* Nutzung des MVC-Patterns
+* Trennung des Dialogs in Dialogsteuerung und Präsentation
+* Dialogsteuerung über Spring Web Flow
+* Bildung von gekapselten GUI-Komponenten über Facelets
+* Präsentation über JSF und Facelets
+* Verwaltung von Sessions über Spring Web Flow
+* Interaktive Oberflächenelemente mit JQuery
+
+<<image-aufbau-gui-komponente>> zeigt den Aufbau einer Web-GUI mit JSF und Spring Web Flow und verdeutlicht die Integration der Technologien in die Architektur.
+
+:desc-image-aufbau-gui-komponente: Aufbau einer Web-GUI mit JSF und Spring Web Flow
+[id="image-aufbau-gui-komponente",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-aufbau-gui-komponente}
+image::aufbau-gui-komponente.png[align="center"]
+
+Im Rahmen der Anwendungsentwicklung sind die gelb hervorgehobenen Teile bereitzustellen:
+
+* Definition der Dialogabläufe als Flow
+* Model und Controller-Beans zur Bereitstellung der UI-Models und der UI-Logik
+* Facelets zur Visualisierung der Masken
+
+Die grau hinterlegten Teile werden durch die IsyFact konfiguriert und bereitgestellt.
+
+[[aufbau-gui-komponente]]
+=== Aufbau der GUI-Komponente
+
+Wie im <<DetailkonzeptKomponenteWebGUI>> beschrieben, besteht die GUI-Komponente aus Dialog-Komponenten und einem gemeinsamen AWK-Wrapper.
+Der Schnitt der Komponenten ist fachlich motiviert und in der Systemspezifikation beschrieben.
+
+Die Dialog-Komponenten einer GUI-Komponente können einen gemeinsamen AWK-Wrapper und in ihren Modellen gemeinsame Klassen verwenden.
+Trotzdem sind die Dialog-Komponenten zu kapseln, d.h. Controller und UI-Models dürfen nicht gemeinsam verwendet werden (siehe <<image-innensicht-gui-komponente>>).
+
+:desc-image-innensicht-gui-komponente: Innensicht einer GUI-Komponente mit ihren Dialog-Komponenten
+[id="image-innensicht-gui-komponente",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-innensicht-gui-komponente}
+image::innensicht-gui-komponente.png[align="center"]
+
+Zentral ist also die Forderung, dass die Elemente jeder Dialog-Komponente (Flow, Controller, Model und View) in definierter Weise ausschließlich untereinander kommunizieren und Zugriffe auf Elemente anderer Dialog-Komponenten unterbleiben.
+<<image-kommunikation-innerhalb-gui-komponente>> zeigt die Kommunikation innerhalb einer Dialog-Komponente.
+
+:desc-image-kommunikation-innerhalb-gui-komponente: Kommunikation innerhalb einer Dialog-Komponente
+[id="image-kommunikation-innerhalb-gui-komponente",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-kommunikation-innerhalb-gui-komponente}
+image::kommunikation-innerhalb-gui-komponente.png[align="center"]
+
+[[flows]]
+==== Flows
+
+Jede GUI-Komponente wird durch einen Flow beschrieben.
+Dieser definiert das Zustandsmodell der Komponente und hat die Funktion des zentralen Controllers für diese Komponente.
+Er erfüllt die folgenden Aufgaben:
+
+* Erzeugung und Verwaltung eines (ggf. auch mehrerer) Model Beans
+* Definition des Flow-Ablaufs in Form eines Zustandsautomaten mit Zuständen und Zustandsübergängen (Flow, Subflows, Decision-States, Action-States, Event-Handlers)
+* Anbinden des Views
+* Steuerung der Verarbeitung im Rahmen von Zustandsübergängen
+
+Der Flow-Aufbau wird so gestaltet, dass im Flow alle Zustände, Zustandsübergänge sowie Aufrufe von Verarbeitungslogik zentral gebündelt werden und Ablauf und Verhalten des Flows für den Entwickler klar nachvollziehbar sind.
+
+Der Flow wird als XML-Datei im Ordner der Komponente hinterlegt.
+
+[[controller]]
+==== Controller
+
+Das Controller-Bean ist ein vom Komponenten-Flow aufzurufendes *zustandsloses* Spring Bean,
+welches Änderungen an den Daten des Models vornimmt oder diese aufbereitet bzw.
+Services des Anwendungskern-Wrappers aufruft.
+Das Model Bean wird dem Controller mit jedem Aufruf übergeben.
+
+[ARCHITEKTURREGEL]
+====
+Die Implementierung des Controllers ist zustandslos und stellt nur Methoden bereit.
+====
+
+Das Controller-Bean wird im Spring IoC-Container mit Singleton Scope erzeugt und konfiguriert.
+
+Das Controller-Bean wird vom Flow per Expression-Language aufgerufen.
+In bestimmten Fällen (siehe Abschnitt <<views>>) wird ein Controller-Bean auch in einer Action (oder ActionListener) des
+Komponenten-View aufgerufen.
+
+[[models]]
+==== Models
+
+Das Model Bean ist ein Datenobjekt (einfaches POJO) und hält die Daten einer GUI-Komponente.
+Es hat keine Abhängigkeiten zu View, Controller oder <<glossar-Anwendungskern>> und enthält im Regelfall keine Logik.
+Das Model Bean wird durch den Flow erzeugt (durch Definition einer Web Flow-Variablen) und ist somit automatisch im View sichtbar.
+
+:desc-listing-CreaModinFlow: Erzeugung einer Model-Instanz im Flow
+[id="listing-CreaModinFlow",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-CreaModinFlow}
+[source,xml]
+----
+<flow ...">
+  <!-- Erzeuge das Model zur Benutzung durch diesen Flow. -->
+  <var name="erstellenModel"
+  class="de.msg.terminfindung.gui.terminfindung.erstellen.ErstellenModel" />
+----
+
+Der View liest die Daten zur Präsentation der Webseite aus dem Model Bean.
+Dies können Informationen zur Ansicht aber auch änderbare Formularinhalte sein.
+Werden Formularinhalte in Form eines Post-Requests auf den Server gesendet, so sorgt JSF eigenständig dafür, dass die Formularinhalte in das Model Bean rückübertragen werden.
+
+Da das Model Bean durch den Flow erzeugt wird und Flow Scope besitzt, wird es automatisch mit in die Session-Persistierung einbezogen.
+Dazu muss das Model das Interface Serializable implementieren.
+Die Daten des Models werden bei den Dialogschritten eines Flow zwischen Client (Browser) und Server transparent für den Entwickler abgeglichen.
+
+Das Model Bean ist nicht mit den JPA-Datenobjekten verbunden.
+Das Schreiben in das Model bewirkt also zunächst keine Änderung in der Datenbank.
+Die Persistenz fachlicher Datenobjekte wird über das Controller-Bean ausgelöst, welches über Methodenaufrufe des Anwendungskern-Wrappers fachliche Daten persistiert.
+
+Die Verwendung von Model Beans wird im Verlauf dieses Dokuments noch genauer beschrieben.
+
+[[views]]
+==== Views
+
+Der Komponenten-View präsentiert die Daten der Anwendung in Form von generierten HTML-Seiten.
+Dazu werden ein oder mehrere Facelets verwendet, die mittels JSF-HTML-Tags auf das Model Bean der Komponente
+zugreifen, um die Daten in den View einzubinden.
+Da das Model Bean seine Datenzugriffsmethoden nach dem Bean-Standard (`get`/`set`/`is`) anbietet, kann mittels
+ Value-Expressions (z.B. `#{teilnehmenModel.terminfindung.tage}`) direkt auf Eigenschaften des Model Beans und
+ enthaltener Objekte zugegriffen werden.
+Ein View kann auch auf mehrere zum Flow gehörende Model Beans zugreifen.
+
+Im View können Actions definiert sein (z.B. Submit durch einen Command-Button). Dabei werden nur Action-Tokens
+(String, der die Aktion benennt) übergeben, die dann im Flow entgegengenommen werden und dann Methodenaufrufe auf dem Controller auslösen.
+
+[ARCHITEKTURREGEL]
+====
+Aus einer Aktion des Views sollte i.d.R. immer ein Zustandstoken zur Steuerung von Transitionen im Flow erzeugt werden.
+Dies ist vor allem bei Maskenübergängen und fachlichen Aktionen zu verwenden. +
+*Beispiel:* Suche in einem Formular, Öffnen der Detailansicht.
+
+Aktionen, welche zur Steuerung der Darstellung innerhalb einer Maske verwendet werden, müssen nicht zwingend eine Transition auslösen.
+In diesen Fällen darf der Controller direkt aufgerufen werden. +
+*Beispiel:* Selektion eines Elements und darauf basierende Anpassung der Maske.
+====
+
+Die Erstellung von Views wird im Verlauf dieses Dokuments noch genauer beschrieben.
+
+[[schnittstellen-zwischen-komponenten]]
+==== Schnittstellen zwischen Dialog-Komponenten
+
+Wie in <<aufbau-gui-komponente>> beschrieben, müssen die Dialog-Komponenten voneinander gekapselt sein.
+Wenn zwei Dialog-Komponenten Informationen austauschen müssen, darf dies nicht über ein gemeinsam genutztes UI-Model geschehen.
+Der Austausch von Informationen erfolgt stattdessen über Input/Output-Elemente im Flow, die aus dem Model einer Dialog-Komponente gelesen oder geschrieben werden.
+
+Ist ein Subflow B mit Daten aus dem aufrufenden Flow A zu versorgen, so bekommt dieser nicht das Model A, sondern eine Kopie eines einzelnen Objekts aus Model A übergeben.
+Dies kann auch eine Datenstruktur, darf aber niemals das gesamte Model A sein.
+Es ist wichtig, dass eine Kopie übergeben wird, damit Flow B nicht Teile des Model A absichtlich oder versehentlich ändert.
+
+Besteht Bedarf, dass ein Subflow B an den aufrufenden Flow A Daten zurückgibt, so erfolgt dies über ein Output-Element.
+Hier gilt analog, dass nicht das gesamte Model B, sondern lediglich Kopien eines Teils des Models übergeben werden.
+
+Das folgende Beispiel zeigt wie ein Flow an einen Subflow Parameter übergibt und von diesem einen Ausgabewert empfängt.
+
+:desc-listing-InfoExFaufF1: Informationsaustausch zwischen Flows – aufrufender Flow
+[id="listing-InfoExFaufF1",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-InfoExFaufF1}
+[source,xml]
+----
+<subflow-state id="loeschenViewState" subflow="loeschenFlow">
+  <input name="terminfindung"
+         value="verwaltenController.kopiereTerminfindungModel()"/>
+  <output name="loeschenTerminfindung"/>
+  <transition on="finished" to="verwaltenViewState">
+    <evaluate expression="verwaltenModel.setTerminfindung(loeschenTerminfindung)"/>
+  </transition>
+</subflow-state>
+----
+
+Innerhalb des Subflows werden übergebene Parameter entgegengenommen und verarbeitet.
+Im Endzustand wird ein Rückgabewert zurückgegeben.
+
+:desc-listing-InfoExFaufF2: Informationsaustausch zwischen Flows – aufgerufener Flow
+[id="listing-InfoExFaufF2",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-InfoExFaufF2}
+[source,xml]
+----
+<input name="terminfindung" type="de.msg.terminfindung.gui.terminfindung.model.TerminfindungModel"/>
+<on-start>
+  <evaluate expression="loeschenModel.setTerminfindung(terminfindung)"/>
+</on-start>
+<view-state id="loeschenViewState">
+  <on-entry>
+    <evaluate expression="loeschenController.setzeAuswahlZurueck(loeschenModel)"/>
+  </on-entry>
+  <transition on="cancel" to="finished"/>
+  <transition on="delete" to="loeschenViewState">
+    <evaluate expression="loeschenController.loescheZeitraeume(loeschenModel)"/>
+  </transition>
+</view-state>
+
+<end-state id="finished">
+  <output name="loeschenTerminfindung"
+          value="loeschenModel.getTerminfindung()"/>
+</end-state>
+----
+
+Zur Datenübergabe können auch mehrere Input und mehrere Output-Elemente verwendet werden.
+
+==== Zugriff auf querschnittliche Controller
+
+Für die Steuerung des Vorgabelayouts (z.B. Menüleiste, Linksnavigation) sowie der Nutzung von vorgegebenen Funktionen (z.B. Validierung) werden querschnittliche Controller mit zugehörigen Models verwendet.
+Die Instanziierung übernimmt dabei ein übergeordneter Parent-Flow.
+So kann z.B. die Seitentoolbar konfiguriert oder ein Quicklink hinzugefügt werden.
+
+Der Aufruf dieser Controller ist generell erlaubt.
+Die Controller sind als Spring Beans global verfügbar.
+// TODO: Diese Aussage ist falsch. Die Schnittstellen und Möglichkeiten der Controller sollten im Nutzungskonzept erwähnt sein.
+// Welche Controller im Detail für das Vorgabelayout verfügbar sind, wird in <<Styleguide>> aufgelistet.
+
+=== Vorgaben zur Verwendung von JSF
+
+Die folgenden Abschnitte beschreiben allgemeine Vorgaben bei der Verwendung JSF-eigener Funktionalität.
+
+[[verwendung-von-jsf-widgets]]
+==== Verwendung von JSF-Widgets
+
+Für die Arbeit mit JSF werden gemäß dem <<Styleguide>> sowohl Seitenelemente als auch Bedienelemente bereitgestellt.
+Seitenelemente helfen, den Seitenrahmen aufzubauen und erleichtern so einen zum Styleguide konformen Aufbau der Masken.
+Bedienelemente helfen, die Masken selbst zu strukturieren und bieten vorgefertigte Widgets zur Anzeige und Eingabe von Daten.
+Daneben gibt es noch einige spezielle Komponenten, z.B. um den Fokus beim Laden der Maske zu setzen oder eine Druckansicht bereitzustellen.
+
+Die Bedienelemente sind alle als JSF Composite Components realisiert.
+Dadurch ist eine einfachere Wartung möglich, da die Komponenten vollständig in XHTML definiert sind und ein Grundverständnis von JSF genügt, um Anpassungen vorzunehmen.
+Spezielle Renderer oder Java-Klassen werden nicht benötigt.
+
+Die Nutzung der durch den Styleguide definierten Elemente und durch den Baustein bereitgestellten JSF-Komponenten ist ein zentrales Thema der <<NutzungsvorgabenJSF>>.
+
+[[absicherung-von-jsf-guis]]
+==== Absicherung von JSF-GUIs
+
+Die Absicherung von Masken erfolgt auf Ebene des Dialogablaufs, also von Spring Web Flow.
+Die Berechtigungsprüfung verwendet den Baustein Sicherheit der IsyFact.
+
+Für die Anbindung des dort definierten `Berechtigungsmanager` an Spring Security findet die Möglichkeit zur Erstellung eines “Custom Authentication Providers” in Form des `WebFlowAuthenticationProvider` Anwendung.
+Der `WebFlowAuthenticationProvider` prüft bei Bedarf, ob der Anwender die notwendigen Berechtigungen besitzt, bzw. es wird für die weitere Verarbeitung in Spring Security der notwendige Kontext aufgebaut.
+<<image-integration-baustein-sicherheit-klassendiagramm>> zeigt die Integration des Bausteins Sicherheit in Spring Security.
+
+:desc-image-integration-baustein-sicherheit-klassendiagramm: Integration des Bausteins Sicherheit in Spring Security
+[id="image-integration-baustein-sicherheit-klassendiagramm",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-integration-baustein-sicherheit-klassendiagramm}
+image::integration-baustein-sicherheit-klassendiagramm.png[align="center"]
+
+<<image-integration-baustein-sicherheit-sequenzdiagramm>> stellt den Zugriff des `WebFlowAuthenticationProvider` auf den Baustein Sicherheit dar.
+Hierbei werden die Rollen eines Benutzers über den Berechtigungsmanager gelesen und in einen Spring Security konformen
+Token geschrieben.
+Dieser Token findet dann bei der Autorisierung einzelner Benutzerinteraktion durch Spring Security Verwendung.
+
+:desc-image-integration-baustein-sicherheit-sequenzdiagramm: Sequenzdiagramm Zugriff auf Sicherheitskomponente
+[id="image-integration-baustein-sicherheit-sequenzdiagramm",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-integration-baustein-sicherheit-sequenzdiagramm}
+image::integration-baustein-sicherheit-sequenzdiagramm.png[align="center"]
+
+Mehr Details hierzu sind in der Bausteindokumentation (<<KonzeptSicherheit>> und <<NutzungsvorgabenSicherheit>>) sowie in den <<NutzungsvorgabenJSF>> zu finden.
+
+[[parameter-mit-buttonlink-uebergeben]]
+==== Parameter mit Button/Link übergeben
+
+JSF bietet mehrere Möglichkeiten, einen Parameter in Abhängigkeit eines geklickten Buttons oder Links an die Web-Anwendung zu übergeben.
+Dies ist beispielsweise dann notwendig, wenn auf einer Maske mehrere Elemente angezeigt werden, zu denen jeweils ein eigener Button zum Bearbeiten existiert.
+In diesem Fall muss es möglich sein zu erkennen, welcher Button zu welchem Element geklickt worden ist.
+
+Die hierfür in JSF 2.x vorgesehenen Lösung mit `f:param` erfordert den Einsatz von JavaScript und kann daher Probleme in der Abwärtskompatibilität hervorbringen (z.B. wenn kein JavaScript aktiviert ist).
+Die Umsetzung sollte daher in der Regel mit einem Action Listener stattfinden (siehe <<listing-UseActionListVIEW>>):
+
+:desc-listing-UseActionListVIEW: Verwendung eines Action Listeners (View)
+[id="listing-UseActionListVIEW",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-UseActionListVIEW}
+[source,html]
+----
+<h:commandLink id="bearbeite_SV_#{sachverhalt.id}"
+   value="#{msg.MEL_Bearbeiten}"
+   actionListener="#{listener.waehleSachverhalt}">
+    <f:attribute name="sachverhaltId" value="#{sachverhalt.id}" />
+    ...
+</h:commandLink>
+----
+
+Dabei kann in der Methode `waehleSachverhalt` der Wert des Attributs aus der `RequestParameterMap` des `FacesContext` gelesen werden (siehe <<listing-EvalRequestAttr>>).
+
+:desc-listing-EvalRequestAttr: Auswertung von Request Attributen
+[id="listing-EvalRequestAttr",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-EvalRequestAttr}
+[source,html]
+----
+FacesContext.getCurrentInstance().getExternalContext() .getRequestParameterMap().get("sachverhaltId");
+----
+
+Als Alternative zum Einsatz eines Action Listeners kann die ID des Buttons/Links parametrisiert und im
+Controller ausgewertet werden.
+Die Parametrisierung der ID wird ebenfalls in <<listing-UseActionListVIEW>> dargestellt.
+Die Auswertung ist in diesem Fall aufwendiger, da alle Attribute der `RequestParameterMap` durchlaufen werden müssen, bis ein Parameter gefunden wurde, dessen ID mit `bearbeite_SV_` beginnt.
+Vorteil der Lösung ist jedoch, dass Probleme mit dem Einsatz von Action Listenern damit umgangen werden.
+
+[[einsatz-von-action-listenern]]
+==== Einsatz von Action Listenern
+
+Aufgrund einer Eigenart von JSF in Zusammenhang mit dem Partial-State-Saving muss unbedingt darauf geachtet werden, dass die Komponente (Button/Link), an die der Action Listener gebunden ist, nicht durch den Klick ausgeblendet wird.
+Andernfalls führt dies zu Problemen mit dem Loadbalancing.
+Hintergrund ist, dass JSF durch das Partial-State-Saving den Zustand der Maske teilweise in der Session ablegt.
+Werden die Anfragen an die Web-Anwendung durch den Loadbalancer an verschiedene Server verteilt, kann dies daher dazu führen, dass JSF einen Fehler anzeigt, weil der Action Listener der ausgeblendeten Komponente nicht gefunden werden konnte.
+
+[[datenkonvertierung-fuer-darstellung-und-eingabe]]
+==== Konvertierung von Daten zur Darstellung und Eingabe
+
+JSF-Konverter dürfen sowohl zur Konvertierung aus dem Model zur View (Darstellung) als auch aus der View zum Model (Eingabe) verwendet werden.
+Standard-JSF-Konverter bieten sich jedoch nur bedingt an, da diese bei der Konvertierung „freier Eingaben“ nicht mit Fehleingaben umgehen können.
+
+:desc-listing-ConvDatewihConv: Umwandlung eines Datums mittels Standard-JSF-Konverter
+[id="listing-ConvDatewihConv",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-ConvDatewihConv}
+[source,xml]
+----
+<h:inputText id="datum" value="#{erstellenModel.newDate}">
+       <f:convertDateTime type="date" />
+</h:inputText>
+----
+
+Wenn die Validierung in einem Standard-JSF-Konverter stattfindet, werden die Daten in einem Fehlerfall nicht ins Modell geschrieben.
+Dies führt dazu, dass das Formular zurückgesetzt wird, weil die Seite wegen des Post/Redirect/Get-Patterns mit einem GET-Request mit dem alten Modell neu geladen wird.
+Die ungültigen Eingaben gehen also zusammen mit allen anderen Änderungen im Modell verloren.
+Standard-JSF-Konverter sind in diesen Fällen faktisch nicht nutzbar.
+
+JSF-Konverter müssen, um geeignet zu sein, auch ungültige Daten ins Model schreiben können.
+Wenn dies aufgrund der Nutzung spezieller Datentypen (wie z.B. Datums- und Zeittypen) nicht möglich ist, muss im Model der Datentyp der Eingabe (in der Regel Zeichenketten) verwendet werden.
+Die Konvertierung findet in diesem Fall nicht durch einen Konverter statt, sondern erst während oder nach der Validierung an der Schnittstelle zum <<glossar-Anwendungskern>>.
+
+[[serverseitige-validierung-von-eingaben]]
+==== Serverseitige Validierung von Eingaben
+
+Die Validierung und Prüfung der in der GUI erfassten Daten soll entweder vollständig durch die GUI oder aber vollständig im <<glossar-Anwendungskern>> durchgeführt werden.
+Die Validierung in der GUI ist dabei bevorzugt.
+In diesem Falle wird der Validierungsmechanismus von Spring Web Flow verwendet (s. Abschnitt 5.10 der <<SWF>>).
+Standard-JSF-Validatoren oder -Konverter sollten für die Validierung aus den im Abschnitt <<datenkonvertierung-fuer-darstellung-und-eingabe>> genannten Gründen nicht verwendet werden.
+
+[[vorgaben-javascript]]
+=== Vorgaben zur Verwendung von JavaScript
+
+Bei der Verwendung von JavaScript sind grundsätzlich die folgenden Vorgaben einzuhalten:
+
+// tag::important[]
+[ARCHITEKTURREGEL]
+====
+`eval()` *darf nicht verwendet werden*
+
+*Begründung:* Die Verwendung von `eval()` stellt ein Sicherheitsrisiko dar. Es besteht z.B. die Gefahr, dass Werte aus Request-Parametern ohne ausreichende Prüfung als Code ausgeführt werden.
+
+*Beispiel:* Der Inhalt des Strings `requestValue` wird ohne ausreichende Prüfung ausgeführt.
+
+ var requestValue = getParameterValue(“searchString“);
+ eval(requestValue)
+
+Dies ermöglicht es jeden beliebigen JavaScript Code per Injektion auf einem Client ausführen zu lassen:
+
+ www.mySite.de?searchString=alert(‚hallo‘)
+
+*Lösung:* Anstatt Request-Parametern an die `eval()`-Funktion zu übergeben, müssen diese über eine eigene Parser-Funktion ausgewertet werden.
+Die Funktion muss sicherstellen, dass kein Angriff möglich ist.
+====
+
+// end::important[]
+
+// tag::important[]
+[ARCHITEKTURREGEL]
+====
+`setTimeout()` *darf keine Funktion als Zeichenkette übergeben werden*
+
+*Begründung:* Die Verwendung einer Zeichenkette ermöglicht Manipulationen, falls Parameter ungeprüft übergeben und somit als Code ausgeführt werden.
+
+*Beispiel:* Hier wird der Code unzulässigerweise als Zeichenfolge übergeben.
+
+ setTimeout(“callFunction(searchString)“, 100);
+
+Ein Angreifer könnte nun eine URL wie folgt aufrufen:
+
+ www.mySite.de?searchString=5);alert(‚hallo‘
+
+Der Inhalt der Variable `searchString` wird ersetzt, sodass folgender Code ausgeführt wird:
+
+ setTimeout(“callFunction(5);alert(‚hallo‘)", 100);
+
+*Lösung:* Anstatt den Code in einer Zeichenfolge zu übergeben, muss eine Funktion als Parameter übergeben werden:
+
+ setTimeout(function() { ... }, 100)
+
+Hierdurch wird der Angriff abgewehrt.
+====
+
+// end::important[]
+
+// tag::important[]
+[ARCHITEKTURREGEL]
+====
+*Nutzung von anonymen Funktion anstatt benannter Funktionen*
+
+*Begründung:* Definierte JavaScript-Funktionen sind in der Regel im globalen Variablen-Kontext gültig.
+Würde insbesondere für jede Callback-Funktion (z.B. beim Event Binding) eine eigene Funktion definiert, würde das den Speicher unnötig belasten.
+Weiterhin verschlechtert sich die Lesbarkeit.
+Gerade bei Callbacks ist es nützlich, wenn direkt ersichtlich ist, was passiert, wenn der Callback aufgerufen wird.
+Sofern keine Wiederverwendung möglich ist, ist daher von der Definition benannter Funktionen abzusehen.
+
+Anonyme Funktionen können außerdem auf Variablen der umgebenden Funktion zugreifen, was die Implementierung vereinfacht:
+
+ var einWert = 5;
+ setTimeout(function() { alert(4 + einWert); }, 100);
+====
+
+// end::important[]
+
+// tag::important[]
+[ARCHITEKTURREGEL]
+====
+*Benannte Funktionen sollten in Namespaces deklariert werden*
+
+*Begründung:* Wie bereits beschrieben, gelten Funktionen häufig im globalen Kontext.
+Funktionen können, wie Variablen, durch redundante Deklaration leicht überschrieben werden.
+Dann gilt immer die letzte Definition.
+Die Verwendung von z.B. des View-Names als „Namespace“ vermeidet, Funktionen aus einem anderen View versehentlich zu überschreiben:
+
+ var ns_<view> = { foo : function() { ... } }
+====
+
+// end::important[]
+
+// tag::important[]
+[ARCHITEKTURREGEL]
+====
+*Nutzung einer anonymen Funktion zur Kapselung*
+
+*Begründung:* Jede JavaScript-Datei beginnt mit einer `function()`-Definition.
+Mit diesem Konstrukt wird verhindert, dass die Definition neuer Funktionen und Variablen (versehentlich) Elemente aus dem globalen Kontext überschreiben.
+Die Deklaration von wiederverwendbaren Funktion- bzw. Namespace-Definitionen muss außerhalb dieser `function()` erfolgen.
+
+Jede JavaScript Datei beginnt demnach mit:
+
+ (function(){
+
+und endet vor der Deklaration von wiederverwendbaren Funktionen bzw. Namespaces mit:
+
+ })()
+====
+
+// end::important[]
+
+// tag::important[]
+[ARCHITEKTURREGEL]
+====
+*Inline-JavaScript ist zu vermeiden*
+
+*Begründung:* Es gibt Fälle, in denen JavaScript „inline“ technisch bedingt direkt in der XHTML-View-Definition implementiert werden muss.
+Hier besteht die Gefahr, dass der JavaScript-Code schlecht strukturiert und auf zu viele Dateien verteilt wird.
+Zudem ist JavaScript-Code in XHTML-Dateien unerwartet und wird bei der Analyse der Anwendung schnell übersehen.
+Insgesamt wird hierdurch die Verständlichkeit und Wartbarkeit der Anwendung verschlechtert.
+
+Eine Implikation dieser Regel ist, dass Event-Binding stets im Code selbst und nicht in den `on<Event>`-Attributen der HTML-Elemente geschehen muss.
+====
+
+// end::important[]
+
+// tag::important[]
+[ARCHITEKTURREGEL]
+====
+*DOM-Zugriff mit der $-Funktion nur über IDs*
+
+*Begründung:* Der DOM-Zugriff mit der $-Funktion sollte stets über die ID oder Klasse eines DOM-Knotens erfolgen, nicht über die Knotenhierarchie des DOMs.
+Die Gefahr beim Negativ-Beispiel ist die mangelnde Robustheit bzgl. Änderungen der DOM-Struktur.
+Wird z.B. ein weiterer Knoten eingefügt, greift die Funktion ggf. nicht und die Anwendung arbeitet fehlerhaft.
+
+*Beispiel:*
+
+ $(„#eineBildID“); // GUT
+ $(„div span a img“); // SCHLECHT
+====
+
+// end::important[]
+
+// tag::important[]
+[ARCHITEKTURREGEL]
+====
+*Alle Parameter müssen korrekt encodiert und escaped werden*
+
+*Begründung:* Im JavaScript-Code dürfen Request- oder URL-Parameter nur nach ausreichendem Encodieren und Escapen verwendet werden.
+Gleiches gilt für den Einsatz von Server-Parametern bzw. Model-Attributen.
+Geschieht dies nicht, besteht das Sicherheitsrisiko von Ausführung von beliebigem Code (z.B. durch Request-Strings übergeben) auf dem Server.
+
+*Negativ-Beispiel:*
+Wird beispielsweise ein Suchstring wie folgt in die Seite eingebunden:
+
+ <title>${searchString}</title>
+
+dann könnte ein Angreifer folgende URL aufrufen:
+
+ www.mySite.de?searchString=<script>alert(‚halloWelt‘)</script>
+
+Der übergebene JavaScript-Block würde dann auf dem Server ausgeführt.
+Das Escapen „zerstört“ die spitzen Klammern und Hochkommata, sodass kein Code ausgeführt wird.
+====
+
+// end::important[]
+
+[[clientseitige-validierung-von-eingaben]]
+==== Clientseitige Validierung von Eingaben
+
+Clientseitige Validierung ist erlaubt und darf zur Verbesserung der Benutzbarkeit verwendet werden.
+Da JavaScript deaktivierbar und manipulierbar ist, müssen grundsätzlich alle clientseitigen Validierungen auf dem Server erneut erfolgen.
+
+[[vermeidung-von-sicherheitsluecken-bei-aktiviertem-javascript]]
+==== Vermeidung von Sicherheitslücken bei aktiviertem JavaScript
+
+Ist JavaScript in einem Browser aktiviert, eröffnet dies gewisse Risiken bei der Verarbeitung schützenswerter Informationen.
+Folgende Maßnahmen reduzieren jedoch das Risiko möglicher Attacken für Cross-site-Scripting (XSS):
+
+Verwendung von Standardbrowsern:: Die gängigen Browser befolgen festgelegte Sicherheitsrichtlinien, die nur schwer und
+vorsätzlich deaktiviert werden können.
+Diese Standard­einstellungen erschweren XSS und sind gerade für den folgenden Punkt unerlässlich.
+
+Übertragung aller Inhalte per HTTPS zum Browser:: Werden Webinhalte per HTTPS zum Client übertragen, ist ein unerwünschtes
+Datenauslesen per JavaScript-Injection oder IFrame-Injection verhindert, da Browser JavaScript-Code nur dann auf einen
+domain-fremden DOM zugreifen lassen, sofern dieser nicht sicher übertragen wurde.
+
+Keine Verwendung von Request-Variablen in offenem JS:: Werden Request-Parameter, z.B. als Teile eines Formulars,
+direkt in offenem JavaScript (`eval([var])` oder `setTimeout([var])`) weiterverwendet, so können Angreifer manipulierte
+Parameter für DOM-based-XSS nutzen, d.h. es werden JavaScript Befehle als Parameter übergeben, die Inhalte verändern,
+auslesen oder in einen falschen Kontext setzen.
+
+Encodierung von Request-Variablen im DOM:: Werden Request-Variablen auf einer Seite dargestellt, so sind diese
+XML-encodiert einzubinden (siehe Element `outputText` in Kapitel <<datenkonvertierung-fuer-darstellung-und-eingabe>>).
+Somit wird verhindert, dass ein Angreifer ein unerwünschtes Script-Tag übergibt.
+
+[[session-behandlung]]
+=== Session Behandlung
+
+Die nachfolgenden Kapitel beschäftigen sich mit der Behandlung der Session Informationen, welche in Spring Web Flow anfallen.
+Hierunter fallen alle Daten, die für die Dialogabläufe benötigt werden:
+
+* Komponentenbaum der Dialogansicht, dieser beinhaltet die Dialogelemente und die Information über die Bindung an die Backing Beans.
+* Den Flow Container, in welchem die Backing Beans während dem Dialogfluss vorgehalten werden.
+* Die Conversation, welche eine Benutzerinteraktion beinhaltet, bündelt die beiden vorangegangenen Angaben.
+
+Standardmäßig wird diese Information in der HTTP-Session abgelegt und wieder hergestellt.
+Nach IsyFact-Zielarchitektur erfolgt diese Speicherung in der Datenbank.
+Diese Funktionalität übernimmt der Tomcat.
+Eine Anpassung der Anwendung ist nicht erforderlich.
+
+[[vergabe-von-cookies-session-ids]]
+==== Vergabe von Cookies / Session IDs
+
+Für die Identifikation abgelegter Conversations von Spring Web Flow wird auf die Daten im Cookie zurückgegriffen.
+Der Cookie wird einmalig definiert und ist durch die Session ID vorgegeben.
+
+Die Vergabe der Session IDs erfolgt über die Standardmechanismen innerhalb des Tomcat.
+Bei der Anforderung einer neuen Session innerhalb der Applikation, was für den Benutzer nicht sichtbar ist, wird die neue ID vergeben und an die Session gebunden.
+Die Nutzung von Cookies ist zwingend erforderlich, ansonsten können die Webanwendungen nicht genutzt werden.
+
+[[session-zugriff]]
+==== Session Zugriff
+
+Für die Arbeit mit Spring Web Flow ist es notwendig, die in der Session notwendigen Daten der Conversation für
+jeden Schritt bereitzustellen und nach jedem Schritt abzulegen.
+Hierfür werden die Daten in der Datenbank persistiert.
+Dies erfolgt über einen eigenen Session-Manager im Tomcat (siehe <<TomcatNutzungskonzept>>). Es handelt sich dabei
+um eine Erweiterung der IsyFact.
+Wenn diese Erweiterung nicht eingesetzt wird, muss entweder die Session-Persistierung auf andere Weise durchgeführt
+werden, oder es muss sichergestellt werden, dass die Requests eines Benutzers immer auf die gleiche
+Tomcat-Instanz gehen (Sticky Sessions). Die Session-Daten müssen dabei möglichst klein gehalten werden, um
+die Performance der Anwendung nicht zu verschlechtern.
+Die Größe der Session wird maßgeblich durch die „im Webflow“ gespeicherten Model-Daten bestimmt.
+Daher muss darauf geachtet werden nur unbedingt notwendige Daten im Model zu halten.
+// end::inhalt[]
