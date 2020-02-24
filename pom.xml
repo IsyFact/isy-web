@@ -282,7 +282,7 @@
                             </requires>
 
                             <attributes>
-                                <revnumber>${project.version}</revnumber>
+                                <revnumber>IsyFact 1.8</revnumber>
                                 <revdate>${maven.build.timestamp}</revdate>
                                 <icons>font</icons>
                                 <sectanchors>true</sectanchors>
