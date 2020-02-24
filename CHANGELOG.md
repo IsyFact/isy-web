@@ -3,6 +3,7 @@
 - `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
 - `IFE-85`: TitlesListener-Funktionalität: Aufspaltung des TitlesListener in zwei Klassen. Die Seitentitel-Funktionalität ist standardmäßig aktiv, die Breadcrumb-Funktionalität standardmäßig deaktiv (und deprecated).
 - `IFS-468`: Dependencies aktualisiert nach Dozer Update
+- `IFE-112`: Dokumentation von Nutzungsvorgang_JSF ueberarbeitet
 
 # v4.8.1
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben
