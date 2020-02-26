@@ -470,8 +470,7 @@ Mit Hilfe der Session des Benutzers kann der Angreifer so Änderungen am System 
 
 |*normal* und *hoch*
 |Token per Session
-|Bei jedem HTTP-Request wird ein Token mitgesendet um zu verifizieren, dass der Request wirklich vom angemeldeten Benutzer stammt.
-Das Token wird in der Benutzer-Session gespeichert, damit können die Requests von überall im Browser abgesendet werden.
+|Am Anfang der Benutzer-Session wird ein Token erzeugt und in der Session gespeichert. Danach wird bei jedem Request das Token mitgeschickt und mit dem in der Session gespeicherten Token abgeglichen.
 
 |*sehr hoch*
 |Token per Request

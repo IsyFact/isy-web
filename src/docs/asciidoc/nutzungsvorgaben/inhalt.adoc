@@ -1418,7 +1418,7 @@ Hier muss ein Listener registriert werden, über welchen die Security Bedürfnis
 ==== Konfiguration des CSRF Schutzes
 
 Seit JSF 2.0 ist der CSRF Schutz für `POST` Requests standardmäßig aktiviert.
-Für den Schutzbedarf *mittel* und *hoch* reicht die Implementierung der Variante _Token per Session_, für Schutzbedarf *sehr hoch* muss die Varainte _Token per Request_ implementiert werden (vgl. Nutzungsvorgaben aus <<KonzeptJSF>>).
+Für den Schutzbedarf *mittel* und *hoch* reicht die Implementierung der Variante _Token per Session_, für Schutzbedarf *sehr hoch* muss die Varainte _Token per Request_ implementiert werden (vgl. <<KonzeptJSF>>).
 
 ===== Token per Session (Schutzbedarf mittel und hoch)
 
