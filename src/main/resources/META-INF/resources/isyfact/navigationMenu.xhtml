@@ -19,8 +19,7 @@
       <li class="#{applikation.aktiv ? 'active menustart' : ''}"><a href="#{applikation.link}" >#{applikation.name}</a>
         <!--Applikation enthält mindestens eine Anwendung. Ein Menu wird gezeigt. -->
         <ui:fragment rendered="#{not empty applikation.anwendungen}">
-          <div class="navbar-submenu">
-          <div style="background-color:#{applikation.farbe}; height:15px" />
+          <div class="navbar-submenu" style="border-top-color:#{applikation.farbe}">
             <div class="row">
               <div>
                 <ui:repeat value="#{applikation.anwendungen}" var="anwendung" varStatus="anwendungsnumber">
