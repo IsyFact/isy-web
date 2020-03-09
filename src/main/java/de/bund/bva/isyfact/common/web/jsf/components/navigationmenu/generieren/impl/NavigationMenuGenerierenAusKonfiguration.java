@@ -6,26 +6,29 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.google.common.base.CharMatcher;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import com.google.common.base.CharMatcher;
+
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Anwendung;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.AbstractNavigationMenuGenerierenStrategie;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonfigurationSchluesselKonstanten;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 /**
  * Generiert das {@link NavigationMenuModel} anhand der Konfiguration der Anwendung. Eine entsprechende
  * Konfigurations-Datei muss von der Anwendung bereitgestellt werden.
  */
+@Component
 public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigationMenuGenerierenStrategie {
 
     /** Der Logger. */
@@ -36,6 +39,12 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
      * Bean: Zugriff auf die {@link Konfiguration}.
      */
     private Konfiguration konfiguration;
+
+    @Autowired
+    public NavigationMenuGenerierenAusKonfiguration(Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+        this.konfiguration = konfiguration;
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+    }
 
     /**
      * Bean: Der AufrufKontextVerwalter.
@@ -187,12 +196,10 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
         return idsApplikationsgruppen;
     }
 
-    @Required
     public void setAufrufKontextVerwalter(AufrufKontextVerwalter<AufrufKontext> aufrufKontextverwalter) {
         this.aufrufKontextVerwalter = aufrufKontextverwalter;
     }
 
-    @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

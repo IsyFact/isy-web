@@ -6,7 +6,8 @@
 
     <input name="inhaltsbereichPfad" type="java.lang.String" required="false" />
     <input name="dialogTitel" type="java.lang.String" required="true" />
-    <input name="dialogNachricht" type="java.lang.String" required="true" />
+    <input name="dialogNachricht" type="java.lang.String" required="false" />
+    <input name="dialogNachrichtPfad" type="java.lang.String" required="false"/>
     <input name="dialogKonsequenz" type="java.lang.String" required="false" />
     <input name="submitActionName" type="java.lang.String" required="true" />
     <input name="abbrechenActionName" type="java.lang.String" required="false"  />

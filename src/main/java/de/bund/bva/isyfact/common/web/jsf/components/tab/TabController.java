@@ -22,6 +22,10 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
+
 import com.google.common.base.Strings;
 
 import de.bund.bva.isyfact.common.web.GuiController;
@@ -32,6 +36,8 @@ import de.bund.bva.isyfact.common.web.GuiController;
  * @author Capgemini, Andreas Hörning
  * @version $Id: TabController.java 144628 2015-08-12 13:56:14Z sdm_ahoerning $
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class TabController implements GuiController {
 
     /**

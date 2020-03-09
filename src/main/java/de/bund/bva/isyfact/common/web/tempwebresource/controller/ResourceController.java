@@ -35,9 +35,9 @@ import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
 import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceZugriff;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * Abstrakte Oberklasse für Controller zum Herunterladen von Bildern und Dateien.

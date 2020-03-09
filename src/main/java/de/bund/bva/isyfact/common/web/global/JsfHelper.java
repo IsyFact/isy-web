@@ -26,6 +26,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
@@ -39,6 +40,7 @@ import com.google.common.collect.Lists;
  * @author Capgemini, Andreas Hörning
  * @version $Id: JsfHelper.java 138219 2015-06-05 10:14:36Z sdm_ahoerning $
  */
+@Component
 public class JsfHelper {
 
     /**

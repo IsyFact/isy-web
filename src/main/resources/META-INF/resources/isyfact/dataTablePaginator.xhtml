@@ -8,43 +8,56 @@
 	xmlns:isyc="http://java.sun.com/jsf/isyfact2"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<composite:interface>
-
 	<!-- Alle Texte haben 2 optionale Parameter:  -->
 	<!-- {0}: Die Nummer der betroffenen Seite. -->
 	<!-- {1}: Die Anzahl der Seiten. -->
+<composite:interface>
+
+    <!-- showMoreText -->
 	<composite:attribute name="showMoreText" type="String" required="false"
 		default="...Mehr Anzeigen..." />
+    <!-- showMoreTooltip -->
 	<composite:attribute name="showMoreTooltip" type="String"
 		required="false"
 		default="Nächste Seite - Seite \#{0} von \#{1} anzeigen" />
+    <!-- text -->
 	<composite:attribute name="text" type="String" required="false"
 		default="Seite {0} von {1}" />
+    <!-- firstPageText -->
 	<composite:attribute name="firstPageText" type="String"
 		required="false" default="«" />
+    <!-- firstPageTooltip -->
 	<composite:attribute name="firstPageTooltip" type="String"
 		required="false"
 		default="Erste Seite - Seite \#{0} von \#{1} anzeigen" />
+    <!-- previousPageText -->
 	<composite:attribute name="previousPageText" type="String"
 		required="false" default="‹" />
+    <!-- showMoreText -->
 	<composite:attribute name="previousPageTooltip" type="String"
 		required="false"
 		default="Vorherige Seite - Seite \#{0} von \#{1} anzeigen" />
+    <!-- pageText -->
 	<composite:attribute name="pageText" type="String" required="false"
 		default="{0}" />
+    <!-- pageTooltip -->
 	<composite:attribute name="pageTooltip" type="String" required="false"
 		default="Seite \#{0} von \#{1} anzeigen" />
+    <!-- nextPageText -->
 	<composite:attribute name="nextPageText" type="String" required="false"
 		default="›" />
+    <!-- nextPageTooltip -->
 	<composite:attribute name="nextPageTooltip" type="String"
 		required="false"
 		default="Nächste Seite - Seite \#{0} von \#{1} anzeigen" />
+    <!-- lastPageText -->
 	<composite:attribute name="lastPageText" type="String" required="false"
 		default="»" />
+    <!-- lastPageTooltip -->
 	<composite:attribute name="lastPageTooltip" type="String"
 		required="false"
 		default="Letzte Seite - Seite \#{0} von \#{1} anzeigen" />
-		
+
 	<!-- Ergänzungen an der rechten Seite, links neben dem Paginator -->
   <composite:facet name="paginatorRechts" required="false" />
 </composite:interface>
@@ -62,8 +75,8 @@
 			data-currentpage="#{cc.parent.attrs.dataTableModel.paginationModel.currentPage}"
 			data-itemcount="#{cc.parent.attrs.dataTableModel.dataModel.filteredItemCount}"
 			data-paginatorsize="#{cc.parent.attrs.dataTableModel.paginationModel.paginatorSize}">
-			
-		
+
+
 
 			<ul class="pagination" style="">
 			 <composite:renderFacet name="paginatorRechts"/>

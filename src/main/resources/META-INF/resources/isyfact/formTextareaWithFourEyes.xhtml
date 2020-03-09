@@ -55,12 +55,10 @@
         <!-- Ein spezifisches Validation-Model, falls benötigt. -->
         <composite:attribute name="validationModel" required="false"
                 default="#{validationModel}" />
-        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-        <composite:attribute name="globalConfig" required="false"
-                default="#{globalConfigurationModel}" />
 
-        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
+    <!-- Attribut fourEyesMode, 4 Augen Prinzip Mode (locked, unlock) -->
         <composite:attribute name="fourEyesMode" type="String" required="true" />
+    <!-- Attribut fourEyesLastValue, 4 Augen Prinzip Mode (locked, unlock) -->
         <composite:attribute name="fourEyesLastValue" type="String" />
     </composite:interface>
 

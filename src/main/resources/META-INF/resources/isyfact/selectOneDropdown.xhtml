@@ -37,8 +37,10 @@
         <!-- Ob die Darstellung nur lesend erfolgen soll -->
         <composite:attribute name="readonly" type="Boolean" required="false"
                 default="false" />
-        <!-- Ob die Auswahl deaktiviert ist oder nicht. -->
-        <composite:attribute name="disabled" type="Boolean" default="false" />
+
+        <!-- Ob die Darstellung deaktiviert sein soll -->
+        <composite:attribute name="disabled" type="Boolean" required="false"
+                             default="false"/>
 
         <!-- Konverter-Bean für die angezeigten Elemente -->
         <composite:attribute name="converter" />
@@ -56,8 +58,11 @@
     </composite:interface>
 
     <composite:implementation>
-        <div
-                class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}"
+    <!-- Das Attribut cc.attrs.valueChangeListener ist z.Zt. nicht implementiert -->
+
+        <!-- Normale Darstellung: Dropdownwidget rendern. -->
+        <ui:fragment rendered="#{not cc.attrs.readonly}">
+        <div    class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}"
                 data-isy-custom-id="#{cc.attrs.customId}" >
             <h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}"
                     value="#{cc.attrs.value}"
@@ -69,6 +74,23 @@
                         value="#{cc.attrs.converterAttribute}" />
             </h:selectOneMenu>
         </div>
+        </ui:fragment>
+
+        <!-- Bei readonly den Dropdownwert als Label rendern. -->
+        <ui:fragment rendered="#{cc.attrs.readonly and not empty cc.attrs.fourEyesLastValue}">
+            <div class="#{cc.attrs.inputStyleClass}">
+                <div class="col-lg-11" style="padding-top:4px">
+                    <h:outputText
+                            value="#{cc.attrs.fourEyesLastValue}"
+                            styleClass="formcontrol readonly #{cc.attrs.textStyleClass}"
+                            style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''  } "
+                            title="#{cc.attrs.tooltip}"/>
+                </div>
+                <div class="col-lg-1" style="color:#{fourEyesColor}; padding-top:4px">
+                    <span class="icon fa-unlock"></span>
+                </div>
+            </div>
+        </ui:fragment>
 
     </composite:implementation>
 

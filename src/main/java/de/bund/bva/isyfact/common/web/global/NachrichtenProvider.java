@@ -20,7 +20,7 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * Kapselt den Zugriff auf das Resources-Bundle mit den Maskentexten.
@@ -34,7 +34,7 @@ public final class NachrichtenProvider implements FehlertextProvider {
      * Das ResourceBoundle mit den Texten.
      */
     private static final ResourceBundle MESSAGES_BUNDLE = ResourceBundle.getBundle(
-        "resources/nachrichten/plisweb_maskentexte", Locale.getDefault());
+        "resources/nachrichten/isyweb_maskentexte", Locale.getDefault());
 
     /**
      * Liefert die Nachricht mit dem Schlüssel.

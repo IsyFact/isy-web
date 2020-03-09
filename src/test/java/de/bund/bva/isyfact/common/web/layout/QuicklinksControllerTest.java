@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.common.web.layout;
 
 import java.util.ArrayList;
 
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,8 +52,7 @@ public class QuicklinksControllerTest {
         when(requestContext.getFlowExecutionContext()).thenReturn(flowExecutionContext);
         when(flowExecutionContext.getDefinition()).thenReturn(flowDefinition);
 
-        controller = new QuicklinksController();
-        controller.setKonfiguration(konfiguration);
+        controller = new QuicklinksController(konfiguration);
 
         reset(konfiguration, sessionMap);
 

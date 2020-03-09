@@ -20,15 +20,18 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.webflow.definition.FlowDefinition;
 import org.springframework.webflow.execution.RequestContextHolder;
 
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.common.web.exception.web.ErrorController;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller.NavigationMenuController;
 import de.bund.bva.isyfact.common.web.validation.ValidationController;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * Ein globaler Controller der Zustände für einen konkreten Flow kontrolliert und Querschnittsfunktionalität
@@ -37,6 +40,8 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
  * @author Capgemini, Andreas Hörning.
  * @version $Id: GlobalFlowController.java 128983 2015-01-27 16:42:36Z sdm_tgroeger $
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel> {
 
     /**
@@ -60,9 +65,22 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
     private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
 
     /**
-     * Zugriff auf navigationMenuController
+     * Zugriff auf navigationMenuController.
      */
     private NavigationMenuController navigationMenuController;
+
+    @Autowired
+    public GlobalFlowController(MessageController messageController,
+                                ValidationController validationController,
+                                ErrorController errorController,
+                                AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
+                                NavigationMenuController navigationMenuController) {
+        this.messageController = messageController;
+        this.validationController = validationController;
+        this.errorController = errorController;
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+        this.navigationMenuController = navigationMenuController;
+    }
 
     @Override
     public void initialisiereModel(GlobalFlowModel model) {
@@ -77,7 +95,7 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
 
         // Benutzernamen merken
         model.setSachbearbeiterName(
-            this.aufrufKontextVerwalter.getAufrufKontext().getDurchfuehrenderSachbearbeiterName());
+                this.aufrufKontextVerwalter.getAufrufKontext().getDurchfuehrenderSachbearbeiterName());
 
         // Beim Laden soll ein bestimmtes Element des Inhaltsbereichs fokussiert werden
         model.setFocusOnloadActive(true);
@@ -85,8 +103,8 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
 
     /**
      * Initialisiert das ResourcesBundle zum aktuellen Flow.
-     * @param model
-     *            das GlobalFlowModel
+     *
+     * @param model das GlobalFlowModel
      */
     private void initialisiereResourcesBundleCurrentFlow(GlobalFlowModel model) {
 
@@ -97,7 +115,7 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
         ResourceBundle resourcesBundleCurrentFlow = null;
         try {
             resourcesBundleCurrentFlow = ResourceBundle
-                .getBundle("resources.nachrichten.maskentexte." + flowName, Locale.getDefault());
+                    .getBundle("resources.nachrichten.maskentexte." + flowName, Locale.getDefault());
         } catch (MissingResourceException e) {
             // Wenn keine Ressource gefunden wurde ist das in Ordnung.
         }
@@ -118,27 +136,22 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
         return this.validationController;
     }
 
-    @Required
     public void setMessageController(MessageController messageController) {
         this.messageController = messageController;
     }
 
-    @Required
     public void setValidationController(ValidationController validationController) {
         this.validationController = validationController;
     }
 
-    @Required
     public void setErrorController(ErrorController errorController) {
         this.errorController = errorController;
     }
 
-    @Required
     public void setAufrufKontextVerwalter(AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 
-    @Required
     public void setNavigationMenuController(NavigationMenuController navigationMenuController) {
         this.navigationMenuController = navigationMenuController;
     }

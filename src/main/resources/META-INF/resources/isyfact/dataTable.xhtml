@@ -6,9 +6,9 @@
 	xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-<!-- Anmerkung: Aktuell ist die Angabe einer Laufvariablen fuer Zeilen der Trefferliste nicht moeglich. 
-        Dies soll mit SIS-226 gefixt werden. 
-        Aktuell herrscht daher folgende Namenskonvention fuer den Zugriff auf Inhalte der Laufvariablen: 
+<!-- Anmerkung: Aktuell ist die Angabe einer Laufvariablen fuer Zeilen der Trefferliste nicht moeglich.
+        Dies soll mit SIS-226 gefixt werden.
+        Aktuell herrscht daher folgende Namenskonvention fuer den Zugriff auf Inhalte der Laufvariablen:
         "dataTableItem". -->
 
 <!-- Die Data Table -->
@@ -53,7 +53,7 @@
 	<!-- Die spezifische globale Konfiguration, falls notwendig. -->
 	<composite:attribute name="globalConfig" required="false"
 		default="#{globalConfigurationModel}" />
-	<!-- Ob der "Mehr Anzeigen" Button verwendet werden soll -->
+    <!-- Nicht implementiert! Ob der "Mehr Anzeigen" Button verwendet werden soll -->
 	<composite:attribute name="showMore" required="false" type="Boolean"
 		default="false" />
 
@@ -77,7 +77,7 @@
 		</ui:fragment>
 		<h:panelGroup layout="block" id="#{cc.attrs.tableId}">
 			<table
-				class="table rf-data-table table-selectable #{cc.attrs.styleClass} #{cc.attrs.dataTableModel.mode eq 'CLIENT' and cc.attrs.globalConfig.jsEnabled?cc.attrs.dataTableModel.mode:''} 
+				class="table rf-data-table table-selectable #{cc.attrs.styleClass} #{cc.attrs.dataTableModel.mode eq 'CLIENT' and cc.attrs.globalConfig.jsEnabled?cc.attrs.dataTableModel.mode:''}
                  #{cc.attrs.highlightDoubleclick? 'highlight-doubleclick':''}
                  #{cc.attrs.dataTableModel.mode eq 'CLIENT' and cc.attrs.globalConfig.jsEnabled?'datatable-filterrow-init':''}">
 
@@ -130,19 +130,19 @@
             <ui:param name="clientIdTableContent"
                 value="#{jsfHelper.searchClientIdInParents(component,'tableContent')}" />
               <composite:insertChildren />
-            </h:panelGroup> 
+            </h:panelGroup>
 				</tbody>
 				<tfoot>
 					<tr>
 						<composite:renderFacet name="tablePagination" />
 					</tr>
-					
+
 					<!-- Zeige wenn nötig den Hinweis an. -->
 					<ui:fragment rendered="#{zeigeHinweisTabelleLeer}">
 					   <tr>
 					     <td colspan="20">
 					       <div align="center">
-                  <h:outputText value="Keine Einträge vorhanden" style="font-weight:bold"/>          					     
+                  <h:outputText value="Keine Einträge vorhanden" style="font-weight:bold"/>
 					       </div>
 					     </td>
 					   </tr>

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.MessageSource;
@@ -13,15 +13,6 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class AbstractBehoerdeListpickerControllerTest {
-
-    private static class TestAbstractBehoerdeListpickerController
-        extends AbstractBehoerdeListpickerController {
-
-        @Override
-        public List<BehoerdeListpickerItem> erzeugeBehoerdeListpickerItemListe() {
-            return null;
-        }
-    }
 
     private AbstractBehoerdeListpickerController controller =
         mock(AbstractBehoerdeListpickerController.class, CALLS_REAL_METHODS);

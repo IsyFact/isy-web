@@ -16,7 +16,6 @@
  */
 package de.bund.bva.isyfact.common.web.tempwebresource.impl;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.bund.bva.isyfact.common.web.exception.ZugriffBerechtigungException;
@@ -35,6 +34,10 @@ public class TempWebResourceZugriffImpl implements TempWebResourceZugriff {
 
     /** TempWebResourceDao. */
     private TempWebResourceDao tempWebResourceDao;
+
+    public TempWebResourceZugriffImpl(TempWebResourceDao tempWebResourceDao) {
+        this.tempWebResourceDao = tempWebResourceDao;
+    }
 
     /**
      * {@inheritDoc}
@@ -115,7 +118,6 @@ public class TempWebResourceZugriffImpl implements TempWebResourceZugriff {
      * @param tempWebResourceDao
      *            Neuer Wert für tempWebResourceDao
      */
-    @Required
     public void setTempWebResourceDao(TempWebResourceDao tempWebResourceDao) {
         this.tempWebResourceDao = tempWebResourceDao;
     }

@@ -1,5 +1,44 @@
+# v5.0.0
+- `IFS-505`: Upgrade auf Isyfact 2.
+Wichtige Änderungen:
+    - Umstellung auf isyfact-Namespace anstelle von pliscommon
+    - Umstellung auf Java Config inklusive Spring Autokonfiguration
+    - SetCharacterEncodingFilter und SecurityFilter wird jetzt automatisch von Isy-Web gesetzt
+
+
+# v4.9.0
+- `IFE-58`: isy:input analog zu formInput erstellt
+- `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
+- `IFE-85`: TitlesListener-Funktionalität: Aufspaltung des TitlesListener in zwei Klassen. Die Seitentitel-Funktionalität ist standardmäßig aktiv, die Breadcrumb-Funktionalität standardmäßig deaktiv (und deprecated).
+- `IFE-52`: SmartComparator und Abhängigkeit auf commons-lang3 ausgebaut
+
+# v4.8.1
+- `IFS-421`: initialisierenListickerSevlet: Fehler behoben
+- `IFS-426`: fehlende Aktualisierung durch `IFS-73` im dataTableDetailButton nachgeholt
+
+# v4.8.0
+- `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
+- `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
+- `IFE-18`: Attribute in GUI-Controls bereinigt
+- `IFE-21`: Klasse SmartComparator als @Deprecated annotiert
+- `IFE-30`: Dropdown Komponente im readonly-Modus nicht mehr per Tastatur bedienbar
+- `IFE-32`: Ladezeitpunkt der Custom-Stylesheet Dateien korrigiert
+- `IFE-34`: Fehler bei deaktivierten Default Buttons behoben
+- `IFE-35`: Es wurde die Möglichkeit geschaffen, Listpicker mithilfe eines Servlets zu filtern. Dies stellt eine Alternative zum Filtern mittels Ajax dar.
+- `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
+- `IFE-51`: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
+- `IFE-44`: Anhebung der commons-fileupload Version auf 1.3.3
+- `IFE-59`: Definition der Standardfarbe des Headers über die Portalfarbe (s. `isy-style`).
+- `IFE-62`: Obsoletes Parent-POM durch Open Source Parent POM ersetzt
+- `IFE-66`: Dropdown-4-Eyes Readonly-Label um Icon ergänzt
+- `IFS-198`: Fehlerbehandlung in eigenes FlowHandlerMapping überführt
+- `IFS-307`: Products-BOM eingebunden, Update el-api auf 3.0.0
+
+## Hinweise zum Upgrade
+- Liegen Anpassungen der Klasse `HeaderHelper` bezüglich der Standardfarbe (`DEFAULT_COLOR`) vor, sollten diese enfernt werden, da die Standardfarbe nun durch die Portalfarbe bestimmt wird.
+
 # v4.7.0
-- `IFS-96`: Autoscroll Funtion für Tab-Controls
+- `IFS-96` : Autoscroll Funktion für Tab-Controls
 - `IFS-142`: Neuimplementierung Breadcrumb
 - `IFS-150`: OptimisticLockHandler zur Behandlung von OptimisticLockExceptions
 - `IFS-153`: Listpicker Positions-Autofocus im Dropdownfenster

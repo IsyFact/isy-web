@@ -16,7 +16,8 @@
  */
 package de.bund.bva.isyfact.common.web.layout;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
 
@@ -26,6 +27,7 @@ import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
  * @author Capgemini, Jonas Zitz
  * @version $Id: ApplikationseiteController.java 123824 2014-10-13 10:05:13Z sdm_ahoerning $
  */
+@Controller
 public class ApplikationseiteController extends AbstractGuiController<ApplikationseiteModel> {
 
     /**
@@ -37,6 +39,12 @@ public class ApplikationseiteController extends AbstractGuiController<Applikatio
      * Der Controller für die Quicklinks.
      */
     protected QuicklinksController quicklinksController;
+
+    @Autowired
+    public ApplikationseiteController(LinksnavigationController linksnavigationController, QuicklinksController quicklinksController) {
+        this.linksnavigationController = linksnavigationController;
+        this.quicklinksController = quicklinksController;
+    }
 
     /**
      * {@inheritDoc}
@@ -55,12 +63,10 @@ public class ApplikationseiteController extends AbstractGuiController<Applikatio
         return ApplikationseiteModel.class;
     }
 
-    @Required
     public void setLinksnavigationController(LinksnavigationController linksnavigationController) {
         this.linksnavigationController = linksnavigationController;
     }
 
-    @Required
     public void setQuicklinksController(QuicklinksController quicklinksController) {
         this.quicklinksController = quicklinksController;
     }

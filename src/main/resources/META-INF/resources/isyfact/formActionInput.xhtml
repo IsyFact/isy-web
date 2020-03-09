@@ -1,146 +1,155 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:composite="http://java.sun.com/jsf/composite"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:c="http://java.sun.com/jstl/core"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-    <!-- Datumsfeld für Formulareingaben. -->
+<!-- Datumsfeld für Formulareingaben. -->
 
-    <composite:interface>
+<composite:interface>
 
-        <!-- Die Referenz des Objekts. -->
-        <composite:attribute name="reference" required="true" />
-        <!-- Ob die Eingabe ein Pflichteingabe ist. -->
-        <composite:attribute name="required" type="Boolean" default="false" />
-        <!-- Der Text für das Label -->
-        <composite:attribute name="label" type="String" required="false" />
-        <!-- Die CSS-Klasse für das Label. -->
-        <composite:attribute name="labelStyleClass" type="String"
-                default="col-lg-6" />
-        <!-- Die CSS-Klasse für den Eingabebereich. -->
-        <composite:attribute name="inputStyleClass" type="String"
-                default="col-lg-6" />
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="reference" required="true"/>
+    <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+    <composite:attribute name="required" type="Boolean" default="false"/>
+    <!-- Der Text für das Label -->
+    <composite:attribute name="label" type="String" required="false"/>
+    <!-- Die CSS-Klasse für das Label. -->
+    <composite:attribute name="labelStyleClass" type="String"
+                         default="col-lg-6"/>
+    <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <composite:attribute name="inputStyleClass" type="String"
+                         default="col-lg-6"/>
 
-        <!-- Ein spezifisches Validation-Model, falls benötigt. -->
-        <composite:attribute name="validationModel" required="false"
-                default="#{validationModel}" />
-        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-        <composite:attribute name="globalConfig" required="false"
-                default="#{globalConfigurationModel}" />
+    <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+    <composite:attribute name="validationModel" required="false"
+                         default="#{validationModel}"/>
+    <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+    <composite:attribute name="globalConfig" required="false"
+                         default="#{globalConfigurationModel}"/>
 
-        <!-- Die maximale Länge der Eingabe. -->
-        <composite:attribute name="maxlength" type="Integer" required="false"
-                default="20" />
-        <!-- Der Wert für das Databinding im Eingabefeld -->
-        <composite:attribute name="value" required="true" />
-        <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
-        <composite:attribute name="placeholder" type="java.lang.String"
-                required="false" />
-        <!-- Die auszulösende Aktion. -->
-        <composite:attribute name="action" targets="buttonIcon"
-                required="false" />
-        <!-- Das benutzte Icon. -->
-        <composite:attribute name="icon" type="String" required="true" />
-        <!-- Die Farbe des Icons. -->
-        <composite:attribute name="iconColor" type="String" required="false"
-                default="#45484D" />
-        <!-- Tooltip, der über dem Icon angezeigt werden soll. -->
-        <composite:attribute name="tooltip" required="false"
-                type="java.lang.String" />
-        <!-- Steuert das Verhalten: normal, button-only, input-only -->
-        <composite:attribute name="mode" type="String" default="normal" />
-        <composite:attribute name="disabled" type="Boolean" default="false" />
-    </composite:interface>
+    <!-- Die maximale Länge der Eingabe. -->
+    <composite:attribute name="maxlength" type="Integer" required="false"
+                         default="20"/>
+    <!-- Der Wert für das Databinding im Eingabefeld -->
+    <composite:attribute name="value" required="true"/>
+    <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+    <composite:attribute name="placeholder" type="java.lang.String"
+                         required="false"/>
+    <!-- Techn. erforderliches Attribut (JSF-Passthrough Attribut), wird jedoch vom System auf action="DEFAULT_ACTION" umgeschrieben -->
+    <composite:attribute name="action" targets="buttonIcon"
+                         required="false"/>
+    <!-- Das benutzte Icon. -->
+    <composite:attribute name="icon" type="String" required="true"/>
+    <!-- Die Farbe des Icons. -->
+    <composite:attribute name="iconColor" type="String" required="false"
+                         default="#45484D"/>
+    <!-- Tooltip, der über dem Icon angezeigt werden soll. -->
+    <composite:attribute name="tooltip" required="false"
+                         type="java.lang.String"/>
+    <!-- Steuert das Verhalten: normal, button-only, input-only -->
+    <composite:attribute name="mode" type="String" default="normal"/>
+    <!-- Attribut: disabled -->
+    <composite:attribute name="disabled" type="Boolean" default="false"/>
+</composite:interface>
 
-    <composite:implementation>
+<composite:implementation>
+    <!-- Hinweis: Das Attribut cc.attrs.action ist ein JSP-Passthrough Attribut -->
 
-        <!-- Ob Validierungsfehler existieren. -->
-        <ui:param name="validationMessages"
-                value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
-        <ui:param name="existsValidationError"
-                value="#{not empty validationMessages}" />
+    <!-- Ob Validierungsfehler existieren. -->
+    <ui:param name="validationMessages"
+              value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}"/>
+    <ui:param name="existsValidationError"
+              value="#{not empty validationMessages}"/>
 
-        <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+    <!-- Icon-Name-Switch für fontawesome [4 | 5] -->
+    <ui:param name="fontawesome5"
+              value="#{fn:startsWith(cc.attrs.icon, 'fa-') or fn:startsWith(cc.attrs.icon, 'fab-') or fn:startsWith(cc.attrs.icon, 'fas-') or fn:startsWith(cc.attrs.icon, 'far-') or fn:startsWith(cc.attrs.icon, 'fal-')} "/>
+    <ui:param name="iconName"
+              value="#{(fn:startsWith(fontawesome5, 'true')) ?  cc.attrs.icon : 'icon-'.concat(cc.attrs.icon)}"/>
 
-            <!-- Die Labels müssen (je nach Fall) zum entsprechenden actionInput passen -->
+    <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
 
-            <!-- Das Label falls "normal" -->
-            <ui:fragment rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
-                <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
-                    <h:outputText value="#{cc.attrs.label}"/>
-                </label>
-            </ui:fragment>
+        <!-- Die Labels müssen (je nach Fall) zum entsprechenden actionInput passen -->
 
-            <!-- Das Label falls readonly. -->
-            <ui:fragment rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}">
-                <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                        for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly">
-                    <h:outputText value="#{cc.attrs.label}"/>
-                </label>
-            </ui:fragment>
+        <!-- Das Label falls "normal" -->
+        <ui:fragment rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
+            <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
+                   for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+                <h:outputText value="#{cc.attrs.label}"/>
+            </label>
+        </ui:fragment>
 
-            <div class="#{cc.attrs.inputStyleClass}">
-                <div class="action-input input-group">
+        <!-- Das Label falls readonly. -->
+        <ui:fragment rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}">
+            <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
+                   for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly">
+                <h:outputText value="#{cc.attrs.label}"/>
+            </label>
+        </ui:fragment>
 
-                    <!-- enabled and normal or input-only -->
-                    <ui:fragment rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
-                        <input type="text" class="form-control#{existsValidationError ? ' invalid': ''}"
-                            jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-                            placeholder="#{cc.attrs.placeholder}" jsf:value="#{cc.attrs.value}">
-                            <f:attribute name="readonly" value="#{cc.attrs.disabled}" />
-                            <f:attribute name="disabled"
-                                value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}" />
-                            <f:attribute name="maxlength"
-                                value="#{not cc.attrs.disabled?cc.attrs.maxlength:null}" />
-                        </input>
-                    </ui:fragment>
+        <div class="#{cc.attrs.inputStyleClass}">
+            <div class="action-input input-group">
 
-                    <!-- disabled or button-only -->
-                    <ui:fragment rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}">
-                        <input type="text"
-                            class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.disabled?'readonly':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
-                            jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly"
-                            placeholder="#{cc.attrs.placeholder}" value="#{cc.attrs.value}">
-                            <f:attribute name="readonly" value="#{cc.attrs.disabled}" />
-                            <f:attribute name="disabled"
-                                value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}" />
-                            <f:attribute name="maxlength"
-                                value="#{not cc.attrs.disabled?cc.attrs.maxlength:null}" />
-                        </input>
-                    </ui:fragment>
+                <!-- enabled and normal or input-only -->
+                <ui:fragment rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
+                    <input type="text" class="form-control#{existsValidationError ? ' invalid': ''}"
+                           jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                           placeholder="#{cc.attrs.placeholder}" jsf:value="#{cc.attrs.value}">
+                        <f:attribute name="readonly" value="#{cc.attrs.disabled}"/>
+                        <f:attribute name="disabled"
+                                     value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}"/>
+                        <f:attribute name="maxlength"
+                                     value="#{not cc.attrs.disabled?cc.attrs.maxlength:null}"/>
+                    </input>
+                </ui:fragment>
 
-                    <a data-delay="100" data-trigger="hover" data-title=""
-                        data-placement="top" data-content="#{cc.attrs.tooltip}"
-                        data-toggle="#{empty cc.attrs.tooltip?'':'tooltip'}"
-                        class="btn btn-link btn-tooltip #{empty cc.attrs.tooltip?'':'rf-popover'}"
-                        data-original-title="" title="">
-                        <button type="submit" jsf:id="buttonIcon" jsf:action="DEFAULT_ACTION"
+                <!-- disabled or button-only -->
+                <ui:fragment rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}">
+                    <input type="text"
+                           class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.disabled?'readonly':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
+                           jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly"
+                           placeholder="#{cc.attrs.placeholder}" value="#{cc.attrs.value}">
+                        <f:attribute name="readonly" value="#{cc.attrs.disabled}"/>
+                        <f:attribute name="disabled"
+                                     value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}"/>
+                        <f:attribute name="maxlength"
+                                     value="#{not cc.attrs.disabled?cc.attrs.maxlength:null}"/>
+                    </input>
+                </ui:fragment>
+
+                <a data-delay="100" data-trigger="hover" data-title=""
+                   data-placement="top" data-content="#{cc.attrs.tooltip}"
+                   data-toggle="#{empty cc.attrs.tooltip?'':'tooltip'}"
+                   class="btn btn-link btn-tooltip #{empty cc.attrs.tooltip?'':'rf-popover'}"
+                   data-original-title="" title="">
+                    <button type="submit" jsf:id="buttonIcon" jsf:action="DEFAULT_ACTION"
                             class="btn btn-icon btn-icon-small input-group-addon #{cc.attrs.mode eq 'input-only' and not cc.attrs.disabled?'input-only':''}">
-                            <f:attribute name="disabled"
-                                value="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}" />
-                            <span class="icon icon-#{cc.attrs.icon}"
-                                style="color: #{cc.attrs.iconColor}"> </span>
-                        </button>
-                    </a>
+                        <f:attribute name="disabled"
+                                     value="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}"/>
+                        <span class="icon #{iconName}"
+                              style="color: #{cc.attrs.iconColor}"> </span>
+                    </button>
+                </a>
 
-                </div>
             </div>
+        </div>
 
-            <!-- Bei Validierungsfehlern -->
-            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
+        <!-- Bei Validierungsfehlern -->
+        <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
                 <span class="form-control-feedback with-input-group-addon">
                     <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
-                        data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
-                        data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
+                       data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
+                       data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
                         <span class="icon icon-info"></span>
                     </a>
                 </span>
-            </ui:fragment>
+        </ui:fragment>
 
-        </div>
-    </composite:implementation>
+    </div>
+</composite:implementation>
 
 </html>

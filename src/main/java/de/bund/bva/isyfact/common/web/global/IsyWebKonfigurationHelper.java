@@ -1,18 +1,26 @@
 package de.bund.bva.isyfact.common.web.global;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.stereotype.Component;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Helfer-Klasse um den Zugriff auf die Konfiguration zu kapseln.
  */
+@Component
 public class IsyWebKonfigurationHelper {
     /**
      * Die Konfiguration.
      */
     private Konfiguration konfiguration;
+
+    @Autowired
+    public IsyWebKonfigurationHelper(Konfiguration konfiguration) {
+        this.konfiguration = konfiguration;
+    }
 
     /**
      * Liefert den konfigurierten Grenzwert zum ergänzen von zweistelligen Jahreszahlen bei Datumsangaben. Ist
@@ -24,7 +32,6 @@ public class IsyWebKonfigurationHelper {
             .getAsInteger(KonfigurationSchluessel.GUI_DATUMSANGABE_JAHRESZAHLEN_ERGAENZEN_GRENZE, -1);
     }
 
-    @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

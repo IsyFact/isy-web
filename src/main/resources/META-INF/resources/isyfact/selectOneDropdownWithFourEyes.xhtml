@@ -1,96 +1,118 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:composite="http://java.sun.com/jsf/composite"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:jsf="http://xmlns.jcp.org/jsf"
-        xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
-        xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
+      xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
 
-    <!-- Ein Dropdownmenü. Wird entweder über das Bootstrap Select Plugin dargestellt oder über ein natives Dropdown. -->
+<!-- Ein Dropdownmenü. Wird entweder über das Bootstrap Select Plugin dargestellt oder über ein natives Dropdown. -->
 
-    <composite:interface>
+<composite:interface>
 
-        <!-- Die Referenz des Objekts. -->
-        <composite:attribute name="reference" required="true" />
-        <!-- Der Wert der id. -->
-        <composite:attribute name="referenceId" required="false" type="String"
-                default="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
-        <!-- Der Wert der Auswahl für das Databinding -->
-        <composite:attribute name="value" required="true" />
-        <!-- Ob die Auswahl invalide ist oder nicht. -->
-        <composite:attribute name="invalid" type="Boolean" default="false" />
-        <!-- Ob die Auswahl deaktiviert ist oder nicht. -->
-        <composite:attribute name="disabled" type="Boolean" default="false" />
-        <!-- Das Tooltip über dem SelectOneDropdown. -->
-        <composite:attribute name="title" type="String" required="false" />
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="reference" required="true"/>
+    <!-- Der Wert der id. -->
+    <composite:attribute name="referenceId" required="false" type="String"
+                         default="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"/>
+    <!-- Der Wert der Auswahl für das Databinding -->
+    <composite:attribute name="value" required="true"/>
+    <!-- Ob die Auswahl invalide ist oder nicht. -->
+    <composite:attribute name="invalid" type="Boolean" default="false"/>
+    <!-- Ob die Auswahl deaktiviert ist oder nicht. -->
+    <composite:attribute name="disabled" type="Boolean" default="false"/>
+    <!-- Das Tooltip über dem SelectOneDropdown. -->
+    <composite:attribute name="title" type="String" required="false"/>
 
-        <!-- Eine spezifische globale Konfiguration, falls notwendig. -->
-        <composite:attribute name="globalConfig" required="false"
-                default="#{globalConfigurationModel}" />
+    <!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+    <composite:attribute name="globalConfig" required="false"
+                         default="#{globalConfigurationModel}"/>
 
-        <!-- Die CSS-Klasse für das Dropdownmenü. -->
-        <composite:attribute name="dropdownStyleClass" type="String"
-                required="false" />
+    <!-- Die CSS-Klasse für das Dropdownmenü. -->
+    <composite:attribute name="dropdownStyleClass" type="String"
+                         required="false"/>
 
-        <!-- Ob die Darstellung nur lesend erfolgen soll -->
-        <composite:attribute name="readonly" type="Boolean" required="false"
-                default="false" />
-        <!-- Ob die Auswahl deaktiviert ist oder nicht. -->
-        <composite:attribute name="disabled" type="Boolean" default="false" />
+    <!-- Ob die Darstellung nur lesend erfolgen soll -->
+    <composite:attribute name="readonly" type="Boolean" required="false"
+                         default="false"/>
 
-        <!-- Konverter-Bean für die angezeigten Elemente -->
-        <composite:attribute name="converter" />
+    <!-- Ob die Darstellung deaktiviert sein soll -->
+    <composite:attribute name="disabled" type="Boolean" required="false"
+                         default="false"/>
 
-        <!-- Parameter für den Konverter -->
-        <composite:attribute name="converterAttribute" />
+    <!-- Konverter-Bean für die angezeigten Elemente -->
+    <composite:attribute name="converter"/>
 
-        <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
-        <composite:attribute name="customId" required="false" />
+    <!-- Parameter für den Konverter -->
+    <composite:attribute name="converterAttribute"/>
 
-        <!-- 	4 Augen Prinzip Mode (locked, unlock) -->
-        <composite:attribute name="fourEyesMode" type="String" required="true" />
-        <composite:attribute name="fourEyesLastValue" type="String" />
+    <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
+    <composite:attribute name="customId" required="false"/>
 
-        <composite:clientBehavior name="change" event="change"
-                targets="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}" />
-        <composite:attribute name="valueChangeListener" required="false"
-                targets="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}" />
-    </composite:interface>
+    <!-- Attribut fourEyesMode,	4 Augen Prinzip Mode (locked, unlock) -->
+    <composite:attribute name="fourEyesMode" type="String" required="true"/>
+    <!-- Attribut fourEyesLastValue,	4 Augen Prinzip Mode (locked, unlock) -->
+    <composite:attribute name="fourEyesLastValue" type="String"/>
 
-    <composite:implementation>
+    <composite:clientBehavior name="change" event="change"
+                              targets="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}"/>
+    <composite:attribute name="valueChangeListener" required="false"
+                         targets="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}"/>
+</composite:interface>
 
-        <c:set var="fourEyesColor" value="#{'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+<composite:implementation>
 
+    <c:set var="fourEyesColor" value="#{'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}"/>
+
+    <!-- Normale Darstellung: Dropdownwidget-WithFourEyes rendern. -->
+    <ui:fragment rendered="#{not cc.attrs.readonly}">
         <div
                 class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}"
-                data-isy-custom-id="#{cc.attrs.customId}" >
+                data-isy-custom-id="#{cc.attrs.customId}">
             <h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}"
-                    value="#{cc.attrs.value}"
-                    styleClass="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{cc.attrs.invalid ? 'invalid' : ''} #{cc.attrs.readonly ? 'disabled readonly' : ''}"
-                    converter="#{cc.attrs.converter}" disabled="#{cc.attrs.disabled}"
-                    title="#{cc.attrs.title}">
-                <composite:insertChildren />
+                             value="#{cc.attrs.value}"
+                             styleClass="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{cc.attrs.invalid ? 'invalid' : ''} #{cc.attrs.readonly ? 'disabled readonly' : ''}"
+                             converter="#{cc.attrs.converter}" disabled="#{cc.attrs.disabled}"
+                             title="#{cc.attrs.title}">
+                <composite:insertChildren/>
                 <f:attribute name="converterAttribute"
-                        value="#{cc.attrs.converterAttribute}" />
+                             value="#{cc.attrs.converterAttribute}"/>
             </h:selectOneMenu>
 
             <!-- Four Eyes -->
             <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
-                    data-content="#{cc.attrs.fourEyesLastValue}"
-                    data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
-                    class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} formselectonedropdownvieraugenlink"
-                    data-original-title="" title="">
+               data-content="#{cc.attrs.fourEyesLastValue}"
+               data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+               class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'} formselectonedropdownvieraugenlink"
+               data-original-title="" title="">
                 <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
                         class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formselectonedropdownvieraugenbutton">
-                    <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
-                    <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+                    <f:attribute name="disabled" value="#{cc.attrs.disabled}"/>
+                    <span class="icon fa-unlock" style="color: #{fourEyesColor}"> </span>
                 </button>
             </a>
 
         </div>
+    </ui:fragment>
 
-    </composite:implementation>
+    <!-- Bei readonly den Dropdownwert als Label rendern. -->
+    <ui:fragment rendered="#{cc.attrs.readonly and not empty cc.attrs.fourEyesLastValue}">
+        <div class="#{cc.attrs.inputStyleClass}">
+            <div class="col-lg-11" style="padding-top:4px">
+                <h:outputText
+                        value="#{cc.attrs.fourEyesLastValue}"
+                        styleClass="formcontrol readonly #{cc.attrs.textStyleClass}"
+                        style="#{empty cc.attrs.textStyleClass ? 'line-height: inherit;' : ''  } "
+                        title="#{cc.attrs.tooltip}"/>
+            </div>
+            <div class="col-lg-1" style="color:#{fourEyesColor}; padding-top:4px">
+                <span class="icon fa-unlock"></span>
+            </div>
+        </div>
+    </ui:fragment>
+
+</composite:implementation>
 
 </html>

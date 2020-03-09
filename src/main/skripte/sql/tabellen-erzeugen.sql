@@ -14,10 +14,10 @@
  implied. See the License for the specific language governing
  permissions and limitations under the License.
 */
--- plis-webflow Datenbankschema
+-- isy-webflow Datenbankschema
 --
 -- Der Inhalt dieses SQL-Skripts wird in das Tabellenerzeugungs-Skript der
--- konkreten Anwendung eingebunden, die plis-webflow benutzt. 
+-- konkreten Anwendung eingebunden, die isy-webflow benutzt.
 --
 -- Autor Capgemini sd&m AG, Christoph Brehm
 -- Version $Id: tabellen-erzeugen.sql 72739 2012-01-18 10:06:15Z sdm_asubasi $

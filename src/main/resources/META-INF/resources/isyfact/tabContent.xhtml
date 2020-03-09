@@ -13,10 +13,8 @@
 		type="java.lang.String" />
 	<!-- Ein spezifischer Tab-Controller, falls notwendig. -->
 	<composite:attribute name="tabController" default="#{tabController}" />
-	
-	<!-- Ob das Tab im JS-Fall vorgeladen werden soll. Default ist false, so dass nicht vorgeladen wird. -->
-	<!-- Achtung: es besteht eine Abhängigkeit zum Attribut 'skipAction' in tabHeader.xhtml. -->
-  <!-- Die beiden Attribute müssen immer den gleichen Wert haben, damit der Tab korrekt funktioniert. -->
+
+    <!-- Ob das Tab im JS-Fall vorgeladen werden soll. Default ist false, so dass nicht vorgeladen wird. Achtung: es besteht eine Abhängigkeit zum Attribut 'skipAction' in tabHeader.xhtml. Die beiden Attribute müssen immer den gleichen Wert haben, damit der Tab korrekt funktioniert. -->
 	<composite:attribute name="preload" default="false" type="java.lang.Boolean" />
 
 	<!-- Eine spezifische globale Konfiguration, falls notwendig. -->
@@ -47,7 +45,7 @@
 	<ui:fragment rendered="#{not cc.attrs.globalConfig.jsEnabled or basisModel.showPrintView}">
 		<h3 class="tab-header-headline">#{cc.attrs.tabController.retrieveTabTitle(cc, cc.attrs.name)}</h3>
 	</ui:fragment>
-	
+
 	<!-- Zusammgengesetzt: Soll das Tab gerendert werden? -->
 	<ui:param name="isActive" value="#{isTabActive or isTabActiveGlobal or isJsDisabled or basisModel.showPrintView}" />
 	<ui:param name="preloadingActive" value="#{cc.attrs.preload and not (isTabActive or isTabActiveGlobal or isJsDisabled or basisModel.showPrintView)}" />

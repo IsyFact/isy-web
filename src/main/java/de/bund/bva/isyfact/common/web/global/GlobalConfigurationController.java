@@ -20,6 +20,9 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.webflow.core.collection.MutableAttributeMap;
 import org.springframework.webflow.execution.RequestContextHolder;
 
@@ -35,6 +38,8 @@ import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
  * @author Capgemini, Jonas Zitz
  * @version $Id: GlobalConfigurationController.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class GlobalConfigurationController implements GuiController {
 
     /**

@@ -42,9 +42,7 @@
         <!-- Die maximale Länge der Eingabe. -->
         <composite:attribute name="maxlength" type="Integer" required="false"
                 default="255" />
-        <!-- Die maximale Breite des Eingabefeldes. -->
-        <composite:attribute name="width" type="String" required="false"
-                default="100%" />
+
         <!-- Tooltip. -->
         <composite:attribute name="tooltip" type="String" default="" />
 
@@ -55,8 +53,7 @@
         <composite:attribute name="globalConfig" required="false"
                 default="#{globalConfigurationModel}" />
 
-        <!-- Änderungen an original formatInput  -->
-        <!-- onchange JavaScript-Funktion wird aufgerufen, wenn der Cursor das Feld verlässt -->
+    <!-- Änderungen an original formatInput: onchange JavaScript-Funktion wird aufgerufen, wenn der Cursor das Feld verlässt -->
         <composite:attribute name="onchange" required="false"
                 default="formatAmountOfMoney(this)" />
         <!-- onkeyup JavaScript-Funktion wird aufgerufen, wenn eine Tastatureingabe in dem Feld gemacht wurde -->

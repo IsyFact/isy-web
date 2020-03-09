@@ -18,7 +18,6 @@ package de.bund.bva.isyfact.common.web.locale;
 
 import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
@@ -42,6 +41,10 @@ public class SetDefaultLocaleFactoryBean implements BeanFactoryPostProcessor {
      */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(SetDefaultLocaleFactoryBean.class);
 
+    public SetDefaultLocaleFactoryBean(Locale locale) {
+        this.locale = locale;
+    }
+
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.E_LOKALISIERUNG, "Setzte Locale {}", this.locale);
@@ -53,7 +56,6 @@ public class SetDefaultLocaleFactoryBean implements BeanFactoryPostProcessor {
      * @param locale
      *            Locale to set.
      */
-    @Required
     public void setDefaultLocale(Locale locale) {
         this.locale = locale;
     }

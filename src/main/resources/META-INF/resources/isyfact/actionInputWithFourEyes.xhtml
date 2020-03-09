@@ -1,118 +1,129 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:composite="http://java.sun.com/jsf/composite"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:jsf="http://xmlns.jcp.org/jsf"
-        xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
-        xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
-        xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+      xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-    <!-- Datumsfeld für Formulareingaben. -->
+<!-- Datumsfeld für Formulareingaben. -->
 
-    <composite:interface>
+<composite:interface>
 
-        <!-- Die Referenz des Objekts. -->
-        <composite:attribute name="reference" required="true" />
-        <!-- Der Wert für das Databinding im Eingabefeld -->
-        <composite:attribute name="value" required="true" />
-        <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
-        <composite:attribute name="placeholder" type="java.lang.String"
-                required="false" />
-        <!-- Die maximale Länge der Eingabe. -->
-        <composite:attribute name="maxlength" type="Integer" required="false"
-                default="20" />
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="reference" required="true"/>
+    <!-- Der Wert für das Databinding im Eingabefeld -->
+    <composite:attribute name="value" required="true"/>
+    <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+    <composite:attribute name="placeholder" type="java.lang.String"
+                         required="false"/>
+    <!-- Die maximale Länge der Eingabe. -->
+    <composite:attribute name="maxlength" type="Integer" required="false"
+                         default="20"/>
+    <!-- Techn. erforderliches Attribut (JSF-Passthrough Attribut), wird jedoch vom System auf action="DEFAULT_ACTION" umgeschrieben -->
+    <composite:attribute name="action" targets="buttonIcon" required="true"/>
+    <!-- Das benutzte Icon. -->
+    <composite:attribute name="icon" type="String" required="true"/>
+    <!-- Die Farbe des Icons. -->
+    <composite:attribute name="iconColor" type="String" required="false"
+                         default="#45484D"/>
+    <!-- Tooltip, der über dem Icon angezeigt werden soll. -->
+    <composite:attribute name="tooltip" required="false"
+                         type="java.lang.String" default="..."/>
+    <!-- Steuert das Verhalten: normal, button-only, input-only -->
+    <composite:attribute name="mode" type="String" default="normal"/>
+    <!-- Ob die Komponente deaktivert ist oder nicht. -->
+    <composite:attribute name="disabled" type="Boolean" default="false"/>
 
-        <!-- Die auszulösende Aktion. -->
-        <composite:attribute name="action" targets="buttonIcon" required="true" />
-        <!-- Das benutzte Icon. -->
-        <composite:attribute name="icon" type="String" required="true" />
-        <!-- Die Farbe des Icons. -->
-        <composite:attribute name="iconColor" type="String" required="false"
-                default="#45484D" />
-        <!-- Tooltip, der über dem Icon angezeigt werden soll. -->
-        <composite:attribute name="tooltip" required="false"
-                type="java.lang.String" default="..." />
-        <!-- Steuert das Verhalten: normal, button-only, input-only -->
-        <composite:attribute name="mode" type="String" default="normal" />
-        <!-- Ob die Komponente deaktivert ist oder nicht. -->
-        <composite:attribute name="disabled" type="Boolean" default="false" />
+    <!-- Attribut: fourEyesMode, 4 Augen Prinzip Mode (locked, unlock) -->
+    <composite:attribute name="fourEyesMode" type="String" required="true"/>
+    <!-- Attribut: fourEyesLastValue, 4 Augen Prinzip Mode (locked, unlock) -->
+    <composite:attribute name="fourEyesLastValue" type="String"/>
 
-        <!-- 4 Augen Prinzip Mode (locked, unlock) -->
-        <composite:attribute name="fourEyesMode" type="String" required="true" />
-        <composite:attribute name="fourEyesLastValue" type="String" />
+    <!-- Die CSS-Klasse für den Eingabebereich. Zur Zeit nicht implementiert -->
+    <composite:attribute name="inputStyleClass" type="String"/>
+</composite:interface>
 
-        <!-- Die CSS-Klasse für den Eingabebereich. -->
-        <composite:attribute name="inputStyleClass" type="String" />
-    </composite:interface>
+<composite:implementation>
+    <!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
+         Die Angabe ist dennoch Pflicht, da andernfalls kein JSF-Attribut jsp:action, welches
+         "cc.attrs.action" entspricht, möglich wäre. -->
+    <!-- Das Attribut cc.attrs.inputStyleClass ist nicht implementiert -->
 
-    <composite:implementation>
+    <!-- Icon-Name-Switch für fontawesome [4 | 5] -->
+    <ui:param name="fontawesome5"
+              value="#{fn:startsWith(cc.attrs.icon, 'fa-') or fn:startsWith(cc.attrs.icon, 'fab-') or fn:startsWith(cc.attrs.icon, 'fas-') or fn:startsWith(cc.attrs.icon, 'far-') or fn:startsWith(cc.attrs.icon, 'fal-')} "/>
+    <ui:param name="iconName"
+              value="#{(fn:startsWith(fontawesome5, 'true')) ?  cc.attrs.icon : 'icon-'.concat(cc.attrs.icon)}"/>
 
-        <c:set var="fourEyesColor" value="#{'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}" />
+    <c:set var="fourEyesColor" value="#{'locked' eq cc.attrs.fourEyesMode ? 'red' : 'grey'}"/>
 
-        <div class="action-input input-group">
+    <div class="action-input input-group">
 
-            <!-- enabled and normal or input-only -->
-            <ui:fragment
-                    rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
-                <input type="text"
-                        class="form-control#{existsValidationError ? ' invalid': ''}"
-                        jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-                        placeholder="#{cc.attrs.placeholder}" jsf:value="#{cc.attrs.value}">
-                    <f:attribute name="readonly" value="#{cc.attrs.disabled}" />
-                    <f:attribute name="disabled"
-                            value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}" />
-                    <f:attribute name="maxlength"
-                            value="#{not cc.attrs.disabled?cc.attrs.maxlength:null}" />
-                </input>
-            </ui:fragment>
+        <!-- enabled and normal or input-only -->
+        <ui:fragment
+                rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
+            <input type="text"
+                   class="form-control#{existsValidationError ? ' invalid': ''}"
+                   jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                   placeholder="#{cc.attrs.placeholder}" jsf:value="#{cc.attrs.value}">
+                <f:attribute name="readonly" value="#{cc.attrs.disabled}"/>
+                <f:attribute name="disabled"
+                             value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}"/>
+                <f:attribute name="maxlength"
+                             value="#{not cc.attrs.disabled?cc.attrs.maxlength:null}"/>
+            </input>
+        </ui:fragment>
 
-            <!-- disabled or button-only -->
-            <ui:fragment
-                    rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}">
-                <input type="text"
-                        class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.disabled?'readonly':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
-                        jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly"
-                        placeholder="#{cc.attrs.placeholder}" value="#{cc.attrs.value}">
-                    <f:attribute name="readonly" value="#{cc.attrs.disabled}" />
-                    <f:attribute name="disabled"
-                            value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}" />
-                    <f:attribute name="maxlength"
-                            value="#{not cc.attrs.disabled?cc.attrs.maxlength:null}" />
-                </input>
-            </ui:fragment>
+        <!-- disabled or button-only -->
+        <ui:fragment
+                rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}">
+            <input type="text"
+                   class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.disabled?'readonly':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
+                   jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly"
+                   placeholder="#{cc.attrs.placeholder}" value="#{cc.attrs.value}">
+                <f:attribute name="readonly" value="#{cc.attrs.disabled}"/>
+                <f:attribute name="disabled"
+                             value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}"/>
+                <f:attribute name="maxlength"
+                             value="#{not cc.attrs.disabled?cc.attrs.maxlength:null}"/>
+            </input>
+        </ui:fragment>
 
-            <a data-delay="100" data-trigger="hover" data-title=""
-                    data-placement="top" data-content="#{cc.attrs.tooltip}"
-                    data-toggle="#{empty cc.attrs.tooltip?'':'tooltip'}"
-                    class="btn btn-link btn-tooltip #{empty cc.attrs.tooltip?'':'rf-popover'}"
-                    data-original-title="" title="">
-                <button type="submit" jsf:id="buttonIcon" jsf:action="DEFAULT_ACTION"
-                        class="btn btn-icon btn-icon-small input-group-addon #{cc.attrs.mode eq 'input-only' and not cc.attrs.disabled?'input-only':''}">
-                    <f:attribute name="disabled"
-                            value="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}" />
-                    <span class="icon icon-#{cc.attrs.icon}"
-                            style="color: #{cc.attrs.iconColor}"> </span>
-                </button>
-            </a>
+        <a data-delay="100" data-trigger="hover" data-title=""
+           data-placement="top" data-content="#{cc.attrs.tooltip}"
+           data-toggle="#{empty cc.attrs.tooltip?'':'tooltip'}"
+           class="btn btn-link btn-tooltip #{empty cc.attrs.tooltip?'':'rf-popover'}"
+           data-original-title="" title="">
+            <button type="submit" jsf:id="buttonIcon" jsf:action="DEFAULT_ACTION"
+                    class="btn btn-icon btn-icon-small input-group-addon #{cc.attrs.mode eq 'input-only' and not cc.attrs.disabled?'input-only':''}">
+                <f:attribute name="disabled"
+                             value="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}"/>
+                <span class="icon #{iconName}"
+                      style="color: #{cc.attrs.iconColor}"> </span>
+            </button>
+        </a>
 
-            <!-- Four Eyes -->
-            <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
-                    data-content="#{cc.attrs.fourEyesLastValue}"
-                    data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
-                    class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'}
+        <!-- Four Eyes -->
+        <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+           data-content="#{cc.attrs.fourEyesLastValue}"
+           data-toggle="#{empty cc.attrs.fourEyesLastValue?'':'tooltip'}"
+           class="btn btn-link btn-tooltip #{empty cc.attrs.fourEyesLastValue?'':'rf-popover'}
      #{not empty cc.attrs.icon ? 'formactioninputvieraugenlink' : 'formactioninputvieraugenlinkwithicon'}
      #{existsValidationError and not empty cc.attrs.icon ? 'formactioninputvieraugenhaserror': ''}"
-                    data-original-title="" title="">
-                <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
-                        class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formactioninputvieraugenbutton">
-                    <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
-                    <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
-                </button>
-            </a>
+           data-original-title="" title="">
+            <button type="submit" jsf:id="fourEyesIcon" jsf:action="DEFAULT_ACTION" disabled="disabled"
+                    class="btn btn-icon btn-icon-small input-group-addon #{not cc.attrs.disabled?'input-only':''} formactioninputvieraugenbutton">
+                <f:attribute name="disabled" value="#{cc.attrs.disabled}"/>
+                <span class="icon icon-unlock" style="color: #{fourEyesColor}"> </span>
+            </button>
+        </a>
 
-        </div>
+    </div>
 
-    </composite:implementation>
+</composite:implementation>
 
 </html>

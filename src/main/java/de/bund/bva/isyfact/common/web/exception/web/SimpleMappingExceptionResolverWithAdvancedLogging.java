@@ -19,12 +19,8 @@ package de.bund.bva.isyfact.common.web.exception.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
-import org.springframework.webflow.execution.FlowExecutionException;
-import org.springframework.webflow.execution.repository.FlowExecutionRestorationFailureException;
 
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.common.web.exception.common.FehlertextUtil;
@@ -32,40 +28,22 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 
 /**
- * SimpleMappingExceptionResolver, der die Exception mittels FehlertextUtil loggt.
- * @author Capgemini, Tobias Groeger
- * @version $Id: SimpleMappingExceptionResolverWithAdvancedLogging.java 133934 2015-04-02 12:01:36Z
- *          sdm_tgroeger $
+ * {@link SimpleMappingExceptionResolver}, der Ausnahmen in AJAX-Requests behandelt und ins Log schreibt.
  */
 public class SimpleMappingExceptionResolverWithAdvancedLogging extends SimpleMappingExceptionResolver {
 
-    /**
-     * Die View, die gezeigt wird, wenn der Snapshot nicht gefunden wurde.
-     */
-    private String snapshotNotFoundView;
+    private static final IsyLogger LOG =
+        IsyLoggerFactory.getLogger(SimpleMappingExceptionResolverWithAdvancedLogging.class);
 
-    /**
-     * Die View, die gezeigt wird, wenn der aktuelle Nutzer keine Berechtigung zur Ansicht der aktuellen Maske
-     * hat.
-     */
-    private String accessDeniedView;
-
-    /** Der Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory
-        .getLogger(SimpleMappingExceptionResolverWithAdvancedLogging.class);
-
-    /**
-     * Der AusnahmeIdMapper.
-     */
+    /** Mapper für Fehlerschlüssel von Ausnahmen. */
     private AusnahmeIdMapper ausnahmeIdMapper;
 
-    /**
-     * {@inheritDoc}
-     */
+    public SimpleMappingExceptionResolverWithAdvancedLogging(AusnahmeIdMapper ausnahmeIdMapper) {
+        this.ausnahmeIdMapper = ausnahmeIdMapper;
+    }
+
     @Override
     protected void logException(Exception ex, HttpServletRequest request) {
-
-        // Schreibe LOG-Eintrag mittels FehlertextUtil
         FehlertextUtil.schreibeLogEintragUndErmittleFehlerinformation(ex, this.ausnahmeIdMapper, LOG);
     }
 
@@ -80,29 +58,12 @@ public class SimpleMappingExceptionResolverWithAdvancedLogging extends SimpleMap
             // Dadurch erfolgt ein Redirect auf die allgemeine Fehlerseite
             return new ModelAndView("common/flow/error/ajaxErrorRedirect").addObject("exception", ex);
         }
-        if (ex instanceof FlowExecutionRestorationFailureException) {
-            return getModelAndView(this.snapshotNotFoundView, ex, request);
-        } else if (ex instanceof FlowExecutionException && ex.getCause() != null
-            && ex.getCause() instanceof AccessDeniedException) {
-            return getModelAndView(this.accessDeniedView, ex, request);
-        } else {
-            return super.doResolveException(request, response, handler, ex);
-        }
+
+        return super.doResolveException(request, response, handler, ex);
     }
 
-    @Required
     public void setAusnahmeIdMapper(AusnahmeIdMapper ausnahmeIdMapper) {
         this.ausnahmeIdMapper = ausnahmeIdMapper;
-    }
-
-    @Required
-    public void setSnapshotNotFoundView(String snapshotNotFoundView) {
-        this.snapshotNotFoundView = snapshotNotFoundView;
-    }
-
-    @Required
-    public void setAccessDeniedView(String accessDeniedView) {
-        this.accessDeniedView = accessDeniedView;
     }
 
 }

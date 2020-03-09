@@ -40,12 +40,13 @@
 
     <!-- Ein spezifisches Validation-Model, falls benötigt. -->
     <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
-    <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+    <!-- Eine spezifsche globale Konfiguration, falls benötigt. Nicht implementiert -->
     <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
 
 </composite:interface>
 
 <composite:implementation>
+    <!-- cc.attrs.globalConfig ist z.Zt. nicht implementiert -->
 
     <!-- Validierungsfehler bestimmen -->
     <ui:param name="validationMessages"
@@ -84,7 +85,7 @@
                 rendered="#{empty firstValidationMessages and not empty secondValidationMessages}"
                 reference="#{cc.attrs.secondReference}"
                 inputGroupAddonExistent="#{cc.attrs.secondInputGroupAddonExistent}" />
-                
+
         </div>
     </div>
 

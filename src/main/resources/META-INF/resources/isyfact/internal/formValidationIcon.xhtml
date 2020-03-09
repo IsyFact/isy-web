@@ -16,9 +16,10 @@
     <composite:attribute name="inputGroupAddonExistent" type="Boolean" default="false" />
 
     <!-- Globale Konfiguration. -->
-    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" /> 
-    
-    <composite:attribute name="withBoarder" required="false" default="true" />  
+    <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
+
+    <!-- Attibut: withBoarder -->
+    <composite:attribute name="withBoarder" required="false" default="true" />
 
 </composite:interface>
 
@@ -32,7 +33,7 @@
     <!-- Bei Validierungsfehlern -->
     <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
         <span
-            class="form-control-feedback #{withBoarder ? '' : 'without-border'} #{cc.attrs.inputGroupAddonExistent ? 'with-input-group-addon' : 'without-input-group-addon'}">
+            class="form-control-feedback #{cc.attrs.withBoarder ? '' : 'without-border'} #{cc.attrs.inputGroupAddonExistent ? 'with-input-group-addon' : 'without-input-group-addon'}">
             <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
             data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
             data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title=""> <span

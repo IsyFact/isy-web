@@ -1,95 +1,103 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:composite="http://java.sun.com/jsf/composite"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:t="http://myfaces.apache.org/tomahawk"
-        xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <!-- Ein Eingabefeld für eine Checkbox innerhalb von Formularen. -->
+<!-- Ein Eingabefeld für eine Checkbox innerhalb von Formularen. -->
 
-    <composite:interface>
+<composite:interface>
 
-        <!-- Die Referenz des Objekts. -->
-        <composite:attribute name="reference" required="true" />
-        <!-- Der Wert für das Databinding im Eingabefeld -->
-        <composite:attribute name="value" required="true" />
+    <!-- Die Referenz des Objekts. -->
+    <composite:attribute name="reference" required="true"/>
+    <!-- Der Wert für das Databinding im Eingabefeld -->
+    <composite:attribute name="value" required="true"/>
 
-        <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
-        <composite:attribute name="customId" required="false" />
+    <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
+    <composite:attribute name="customId" required="false"/>
 
-        <!-- Der Text für das Label -->
-        <composite:attribute name="label" type="String" required="false" />
+    <!-- Der Text für das Label -->
+    <composite:attribute name="label" type="String" required="false"/>
 
-        <!-- Der Text für das Label rechts neben  -->
-        <composite:attribute name="labelRight" type="String" required="false" />
+    <!-- Der Text für das Label rechts neben  -->
+    <composite:attribute name="labelRight" type="String" required="false"/>
 
-        <!-- Die CSS-Klasse für das Label. -->
-        <composite:attribute name="labelStyleClass" type="String"
-                default="col-lg-6" />
+    <!-- Die CSS-Klasse für das Label. -->
+    <composite:attribute name="labelStyleClass" type="String"
+                         default="col-lg-6"/>
 
-        <!-- Die CSS-Klasse für den Eingabebereich. -->
-        <composite:attribute name="inputStyleClass" type="String"
-                default="col-lg-6" />
-        <!-- Ob die Eingabe ein Pflichteingabe ist. -->
-        <composite:attribute name="required" type="Boolean" default="false" />
-        <!-- Ob die Eingabe eine Optionale-Pflichteingabe ist. (blaues Sternchen) -->
-        <composite:attribute name="optional" required="false" default="false"
-                type="Boolean" />
-        <!-- Ob die Checkbox deaktiviert ist oder nicht. -->
-        <composite:attribute name="disabled" required="true" default="false" />
+    <!-- Die CSS-Klasse für den Eingabebereich. -->
+    <composite:attribute name="inputStyleClass" type="String"
+                         default="col-lg-6"/>
+    <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+    <composite:attribute name="required" type="Boolean" default="false"/>
+    <!-- Ob die Eingabe eine Optionale-Pflichteingabe ist. (blaues Sternchen) -->
+    <composite:attribute name="optional" required="false" default="false"
+                         type="Boolean"/>
+    <!-- Ob die Checkbox deaktiviert ist oder nicht. -->
+    <composite:attribute name="disabled" required="true" default="false"/>
+    <!-- Ob es ein Read-Only Feld ist. Mögliche Werte: ['input-only' | ''] -->
+    <composite:attribute name="mode" type="String" required="false"
+                         default=""/>
 
-        <!-- Ein spezifisches Validation-Model, falls benötigt. -->
-        <composite:attribute name="validationModel" required="false"
-                default="#{validationModel}" />
-        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-        <composite:attribute name="globalConfig" required="false"
-                default="#{globalConfigurationModel}" />
+    <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+    <composite:attribute name="validationModel" required="false"
+                         default="#{validationModel}"/>
+    <!-- Eine spezifische globale Konfiguration, falls benötigt. -->
+    <composite:attribute name="globalConfig" required="false"
+                         default="#{globalConfigurationModel}"/>
+    <!-- change Event einfach durchwerfen. Zur Zeit nicht implementiert -->
+    <composite:attribute name="valueChangeListener" required="false" targets="selectBooleanCheckbox"/>
 
-        <!-- change Event einfach durchwerfen -->
-        <composite:clientBehavior name="change" event="change" targets="selectBooleanCheckbox" />
-        <composite:clientBehavior name="click" event="click" targets="selectBooleanCheckbox" />
-        <composite:attribute name="valueChangeListener" required="false" targets="selectBooleanCheckbox" />
-    </composite:interface>
 
-    <composite:implementation>
+    <!-- clientBehavior: change-->
+    <composite:clientBehavior name="change" event="change" targets="selectBooleanCheckbox"/>
+    <!-- clientBehavior: click-->
+    <composite:clientBehavior name="click" event="click" targets="selectBooleanCheckbox"/>
 
-        <ui:param name="validationMessages"
-                value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
-        <ui:param name="existsValidationError"
-                value="#{not empty validationMessages}" />
+</composite:interface>
 
-        <div
-                class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
-                data-isy-custom-id="#{cc.attrs.customId}">
+<composite:implementation>
+    <!-- cc.attrs.valueChangeListener ist z.Zt. nicht implementiert -->
 
-            <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}#{not empty validationMessages ? ' has-error has-feedback': ''}#{cc.attrs.optional ? ' mandatory optional' : ''}"
-                    for="#{cc.clientId}:isySelectBooleanCheckbox:selectBooleanCheckbox">
-                <h:outputText value="#{cc.attrs.label}"/>
-            </label>
+    <ui:param name="validationMessages"
+              value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}"/>
+    <ui:param name="existsValidationError"
+              value="#{not empty validationMessages}"/>
 
-            <div class="#{cc.attrs.inputStyleClass}">
-                <div class="checkbox">
-                    <label class="#{existsValidationError ? 'required' : ''} control-label"
-                            for="#{cc.clientId}:selectBooleanCheckbox">
-                        <t:selectBooleanCheckbox id="selectBooleanCheckbox"
-                                value="#{cc.attrs.value}" styleClass="form-control"
-                                disabled="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only' or cc.attrs.showPrintView}" />
-                        <span>#{cc.attrs.labelRight}</span>
-                    </label>
-                </div>
+    <div
+            class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+            data-isy-custom-id="#{cc.attrs.customId}">
+
+        <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}#{not empty validationMessages ? ' has-error has-feedback': ''}#{cc.attrs.optional ? ' mandatory optional' : ''}"
+               for="#{cc.clientId}:isySelectBooleanCheckbox:selectBooleanCheckbox">
+            <h:outputText value="#{cc.attrs.label}"/>
+        </label>
+
+        <div class="#{cc.attrs.inputStyleClass}">
+            <div class="checkbox">
+                <label class="#{existsValidationError ? 'required' : ''} control-label"
+                       for="#{cc.clientId}:selectBooleanCheckbox">
+                    <t:selectBooleanCheckbox id="selectBooleanCheckbox"
+                                             value="#{cc.attrs.value}" styleClass="form-control"
+                                             disabled="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only' or cc.attrs.showPrintView}"/>
+                    <span>#{cc.attrs.labelRight}</span>
+                </label>
             </div>
+        </div>
 
-            <!-- Bei Validierungsfehlern -->
-            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
+        <!-- Bei Validierungsfehlern -->
+        <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
                 <span class="form-control-feedback without-input-group-addon">
                     <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
-                            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
-                            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
+                       data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
+                       data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
                         <span class="icon icon-info"></span>
                     </a>
                 </span>
-            </ui:fragment>
+        </ui:fragment>
 
-        </div>
-    </composite:implementation>
+    </div>
+</composite:implementation>
 
 </html>

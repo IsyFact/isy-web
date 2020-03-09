@@ -46,6 +46,7 @@ $(document).ready(function () {
 
             if (callback.status === 'success') {
                 refreshFunctions();
+                initialisierenListpickerServlet();
             }
 
         });
@@ -79,10 +80,12 @@ $(document).ready(function () {
     });
 
 
+
     // --------------------------------------------------------
     // Funktionen initial aktivieren
     // --------------------------------------------------------
     refreshFunctions();
+    initialisierenListpickerServlet();
 
 });
 
@@ -688,7 +691,6 @@ function refreshFunctions() {
             enableOnReadonly: false
         });
 
-
         $(this).children("a").click(
             function () {// Öffnen eines Datepickers
                 var dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
@@ -696,18 +698,23 @@ function refreshFunctions() {
                 var date = inputField.val().split('.');
 
                 // eleminiere die Unterstrich-Platzhalterzeichen
-                var placeholderReg = /_/gi;
+                var placeholderReg = /\D/gi;
                 date[0] = date[0].replace(placeholderReg, "");
+                date[1] = date[1].replace(placeholderReg, "");
+                date[2] = date[2].replace(placeholderReg, "");
+                var dateString;
                 if (date[0] === "99") {
                     // Secret-Code: 99 = setze Fokus des Datepickers auf das aktuelle Datum
-                    var dateString = currentDateAsString();
-                    $(this).parent().datepicker('setDate', dateString);
-                    $(this).parent().datepicker('update');
+                    dateString = currentDateAsString();
+                }else if (date[0] === "00" || date[1] === "00") {
+                    dateString = setValidDateAsString(date);
                 } else {
-                    // uebernehme das manuell eingegebene Datum als Datumswert für den Datepicker
-                    $(this).parent().datepicker();
-                    $(this).parent().datepicker('update');
+                    // uebernehme das manuell eingegebene Datum als Datumswert für den Datepicker.
+                    // Die falschen Datumsangaben werden gefixt
+                    dateString = fixDateOutOfRange(date);
                 }
+                $(this).parent().datepicker('setDate', dateString);
+                $(this).parent().datepicker('update');
             });
 
         //Lese den Grenzwert zum Vervollständigen von zweistelligen Jahreszahlen aus. Wird weiter unten verwendet.
@@ -722,6 +729,9 @@ function refreshFunctions() {
             var date = $datumInputFeld.val().split('.');
             if (date[0] === "99") {
                 $datumInputFeld.val(currentDateAsString());
+            } else {
+            // Die falschen Datumsangaben werden gefixt
+                $datumInputFeld.val(fixDateOutOfRange(date));
             }
         });
     });
@@ -730,6 +740,33 @@ function refreshFunctions() {
         $(this).find('input').val(ev.format());
     });
 
+    function fixDateOutOfRange(date) {
+        var year = date[2],
+            month = date[1],
+            day = date[0];
+        // Assume not leap year by default (note zero index for Jan)
+        var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        // If evenly divisible by 4 and not evenly divisible by 100,
+        // or is evenly divisible by 400, then a leap year
+        if ((year % 4 === 0) && (year % 100 !== 0) || (year % 400 === 0))
+        {
+            daysInMonth[1] = 29;
+        }
+
+        // Check if month is out of range and fix
+        if (month > 12) {
+            month = 12;
+        }
+
+        // Get max days for month and fix days if out of range
+        var maxDays = daysInMonth[month-1];
+        if (day > maxDays) {
+            day = maxDays;
+        }
+
+        return day + '.' + month + '.' + year;
+    }
 
     // --------------------------------------------------------
     // Input Masks
@@ -957,43 +994,67 @@ function refreshFunctions() {
             }
         });
 
-        // Reagiere auf Eingaben im Eingabefeld (auch bei AJAX-Widgets)
-        $listpickerFilter.bind('keydown keypress', function () {
+        // Reagiere auf Eingaben im Eingabefeld (auch bei AJAX-Widgets).
+        //Für die Picker, die per Servlet filtern, ist dies nicht nötig!
+        if (!$listpickerFilter.parent().hasClass('servlet')) {
+            $listpickerFilter
+                .bind(
+                    'keydown.ajaxFilter keypress.ajaxFilter',
+                    function() {
 
-            setTimeout(function () {
+                        setTimeout(
+                            function() {
 
-                // Filter
-                var $rows = $listpickerContent.find(".rf-listpicker-table tbody tr");
+                                // Filter
+                                var $rows = $listpickerContent
+                                    .find(".rf-listpicker-table tbody tr");
 
-                var filterFunction = function ($row, inverse) {
+                                var filterFunction = function($row,
+                                                              inverse) {
 
-                    var $tdsAfterFilter = $row.find('td').filter(function () {
-                        var $td = $(this);
-                        var text = $td.text();
-                        var listpickerVal = $listpickerFilter.val();
-                        var compare = text.toLowerCase().indexOf(listpickerVal.toLowerCase());
-                        return compare != -1;
+                                    var $tdsAfterFilter = $row
+                                        .find('td')
+                                        .filter(
+                                            function() {
+                                                var $td = $(this);
+                                                var text = $td
+                                                    .text();
+                                                var listpickerVal = $listpickerFilter
+                                                    .val();
+                                                var compare = text
+                                                    .toLowerCase()
+                                                    .indexOf(
+                                                        listpickerVal
+                                                            .toLowerCase());
+                                                return compare != -1;
+                                            });
+
+                                    if (inverse) {
+                                        return $tdsAfterFilter.length > 0;
+                                    } else {
+                                        return $tdsAfterFilter.length <= 0;
+                                    }
+                                };
+
+                                var $filteredRows = $rows
+                                    .filter(function() {
+                                        return filterFunction(
+                                            $(this), false);
+                                    });
+                                var $unfilteredRows = $rows
+                                    .filter(function() {
+                                        return filterFunction(
+                                            $(this), true);
+                                    });
+
+                                $filteredRows
+                                    .css("display", "none");
+                                $unfilteredRows.css("display",
+                                    "table-row");
+                            }, 0);
+
                     });
-
-                    if (inverse) {
-                        return $tdsAfterFilter.length > 0;
-                    } else {
-                        return $tdsAfterFilter.length <= 0;
-                    }
-                };
-
-                var $filteredRows = $rows.filter(function () {
-                    return filterFunction($(this), false);
-                });
-                var $unfilteredRows = $rows.filter(function () {
-                    return filterFunction($(this), true);
-                });
-
-                $filteredRows.css("display", "none");
-                $unfilteredRows.css("display", "table-row");
-            }, 0);
-
-        });
+        }
 
         $listpickerFilter.bind('keydown', function (e) {
 
@@ -1193,14 +1254,18 @@ function refreshFunctions() {
         $form.unbind("keypress");
         var $defaultButton = $form.find("[id*='" + $form.find("[id$='defaultButtonID']").val() + "']");
         if ($defaultButton.length > 0) {
-            // Ursprüngliches Bind deaktiveieren
+            // Ursprüngliches Bind deaktivieren
             $form.unbind("keypress");
             // Das Form enthält einen DefaultButton
             $form.bind("keypress", function (event) {
                 if (event.keyCode == 13) {
                     var $source = $(document.activeElement);
-                    if (!$source.is("[type='submit']") && !$source.is("a") && !$source.is("button") && !$source.hasClass("charpicker")) {
-                        // Kein Link, Button, Charpicker oder anderes Submit-Element fokussiert, das eine eigene sinnvolle Aktion bei Enter hat
+                    // Kein Link, Button, Charpicker oder anderes Submit-Element fokussiert, das eine eigene sinnvolle Aktion bei Enter hat
+                    if (!$source.is("[type='submit']") &&
+                        !$source.is("a") &&
+                        !$source.is("button") &&
+                        !$source.hasClass("charpicker") &&
+                        !$defaultButton.first().is("[disabled]")) {
                         // Betätige den Default-Button
                         $defaultButton.first().click();
                         // Verhindere normale Default-Aktion, das wäre ein Klicken des ersten Buttons mit type="submit"
@@ -1939,6 +2004,13 @@ function currentDateAsString() {
     return heuteMitFuehrendenNullen;
 }
 
+function setValidDateAsString(date) {
+    "use strict";
+    date[0] = date[0].replace("00","01");
+    date[1] = date[1].replace("00","01");
+    return date[0] + '.' + date[1] + '.' + date[2];
+}
+
 function refreshDatatableFilterRow() {
     "use strict";
     $("table.rf-data-table:not('datatable-filterrow-init')")
@@ -2091,3 +2163,122 @@ datumErgaenzen = function (inputFeld, grenze) {
     }
 };
 
+//Code der das Initialisieren eines Listpickers über das Servlet anstößt
+initialisierenListpickerServlet = function() {
+    "use strict";
+    var $listpicker = $( ".servlet.listpicker-filter" );
+    $listpicker.each(function (i, listpicker) {
+        registerListpickerfilter(listpicker);
+    });
+};
+
+
+//registrieren eines Listpickers
+registerListpickerfilter = function (identifier) {
+    "use strict";
+    var $listpickerFilter = $(identifier);
+    var listpickerFilterInput = $listpickerFilter.children()[0];
+    var url = $listpickerFilter.siblings("div.rf-listpicker-table-container").find(".servletTable")[0].getAttribute("data-servleturl");
+
+    //Im Folgenden werden die einzelnen Parameter, die in der URL enthalten sind encoded.
+    //Es wird jeweils der Wert des Parameters encoded, nicht der Parameter selbst.
+    var urlsplit=url.split("?");
+
+    //Der erste Teil der URL (alles ohne Paramater) bleibt unverändert.
+    var urlEncoded=urlsplit[0]+'?';
+
+
+    //Splitte den zweiten Teil
+    if(urlsplit.length > 1){
+        var attributeGesetzt = urlsplit[1].split("&");
+        attributeGesetzt.forEach(function(attribut){
+            var attributSplit = attribut.split("=");
+            urlEncoded=urlEncoded+attributSplit[0]+'='+encodeURIComponent(attributSplit[1])+"&";
+        });
+    }
+
+    //initiale Befüllung des Listpickers
+    //Hier wird der eigentliche Request abgeschickt!
+    $.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter);});
+    listpickerFilterInput.dataset.oldvalue = listpickerFilterInput.value;
+
+    var $listpickerContent = $listpickerFilter.parent().parent();
+    var $listpickerContainer = $listpickerContent.parent();
+    var $listpickerField = $listpickerContainer.find('*[id*=listpickerField]');
+
+    //Hat man sich im Dropdownmenü befunden und klickt anschließend außerhalb, werden die Felder synchronisiert.
+    $(listpickerFilterInput).focusout(function() {
+        $listpickerFilter.parent().parent().siblings('.form-control').focusout();
+    });
+
+    //Die Filtermethode, die die Liste aktualisiert
+    //Zunächst deaktivieren wir den Handler für den Fall, dass er schon existiert und aktualisiert
+    //werden muss. (Dies ist beispielsweise der Fall, wenn die URL per JavaScript manipuliert wurde, ohne dass die gesamte Seite neu gerendert wird.)
+    //Wenn wir den Handler nicht vorher deaktivieren, bleibt die Servlet-URL effektiv unverändert und
+    //der Filter funktioniert dann nicht korrekt.
+    $(listpickerFilterInput).off('change keyup', servletListpickerFilterChanged);
+    //Die benötigten Daten (die URL und der Filter selbst) geben wir als Data-Attribute rein.
+    $(listpickerFilterInput).on('change keyup', {url: urlEncoded, listpickerfilter: $listpickerFilter, listpickerFilterInput: $(listpickerFilterInput) }, servletListpickerFilterChanged);
+};
+
+/**
+ * Die Funktion behandelt change und keyup Events für die Listpicker, die per Servlet filtern.
+ * @param event Das change/keyup Event.
+ */
+function servletListpickerFilterChanged(event){
+    "use strict";
+    event.stopImmediatePropagation();
+    //Hole die benötigten Daten aus den Data-Attributen des Events (wurden im Aufruf gesetzt).
+    var servletUrl = event.data.url;
+    var listpickerFilter = event.data.listpickerfilter;
+    var listpickerFilterInput = event.data.listpickerfilter;
+    var delay = 500;
+    timer = window.setTimeout(function(filter) {
+        var input = $this[0];
+        if (input.dataset.oldvalue == "undefined" || input.value != input.dataset.oldvalue) {
+            $.get( servletUrl+"filter="+encodeURIComponent(input.value)).success(function(data){createListpickerTable(data, listpickerFilter);});
+            input.dataset.oldvalue=input.value;
+        }
+    },delay, listpickerFilterInput);
+}
+
+//Erstellt einen ListpickerTable anhand des responseTextes.
+createListpickerTable = function (responseText, listfilter) {
+    "use strict";
+    var $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
+    var $table = $tablecontainer.find(".servletTable");
+    $table.empty();
+    tableJson = JSON.parse(responseText);
+    for(var j in tableJson.items) {
+        var item = tableJson.items[j];
+        var tr = $('<tr>').attr('id', item.id);
+        for(var i = 0; i < item.attrs.length; i++) {
+            var td = $('<td>').text(item.attrs[i].trim());
+            tr.append(td);
+        }
+        $table.append(tr);
+    }
+    if(tableJson.weiterFiltern === true) {
+        var trWeiterFiltern = $('<tr>');
+        var tdWeiterFiltern = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
+        trWeiterFiltern.append(tdWeiterFiltern);
+        $table.append(trWeiterFiltern);
+    }
+    $(listfilter).parent().parent().siblings('.form-control').focusout();
+};
+
+//Bei einem Klick im Dokument, wird ein Listpicker, falls dieser geöffnet war, geschlossen und zusätzlich die
+//Focusout-Methode getriggert, um das Auflösen des Schlüssels zu bewirken.
+$(document).click(function(e) {
+    "use strict";
+    var $target = $(e.target);
+    var $listpickerContainer = $('.listpicker-container.open');
+    var $listpickerContent = $listpickerContainer.find('.listpicker-content');
+    if($listpickerContent.has($target).length <= 0 && $listpickerContainer.hasClass('open')) {
+        $listpickerContainer.removeClass('open');
+        $listpickerContent.siblings('.form-control').focusout();
+        $target.focus();
+
+    }
+
+});

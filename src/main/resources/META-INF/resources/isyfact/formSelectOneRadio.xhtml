@@ -32,9 +32,13 @@
         <!-- On die Eingabe ein Pflichteingabe ist. -->
         <composite:attribute name="required" type="Boolean" default="false" />
 
+    <!-- Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+    <composite:attribute name="showPrintView" type="Boolean"
+                         default="#{not empty basisModel and basisModel.showPrintView}" />
+
         <!-- Ein spezifisches Validation-Model, falls benötigt. -->
         <composite:attribute name="validationModel" required="false" default="#{validationModel}" />
-        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+    <!-- Eine spezifsche globale Konfiguration, falls benötigt. Zur Zeit nicht implementiert -->
         <composite:attribute name="globalConfig" required="false" default="#{globalConfigurationModel}" />
 
         <!-- change Event einfach durchwerfen -->
@@ -50,7 +54,8 @@
     </composite:interface>
 
     <composite:implementation>
-
+    <!-- cc.attrs.valueChangeListener ist explizit nicht definiert. -->
+    <!-- cc.attrs.globalConfig ist z.Zt. nicht implementiert -->
         <ui:param name="validationMessages"
                 value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
         <ui:param name="existsValidationError" value="#{not empty validationMessages}" />
@@ -62,7 +67,7 @@
             <div class="#{cc.attrs.inputStyleClass}">
 
                 <t:selectOneRadio id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" layout="spread" value="#{cc.attrs.value}"
-                        disabled="#{(not cc.attrs.inline and cc.attrs.disabled) or (cc.attrs.inline and cc.attrs.showPrintView)}">
+                        disabled="#{(cc.attrs.disabled) or (cc.attrs.showPrintView)}">
                     <f:selectItems value="#{cc.attrs.selectItems}" />
                 </t:selectOneRadio>
 
