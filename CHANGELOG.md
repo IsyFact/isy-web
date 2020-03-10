@@ -19,16 +19,15 @@ Wichtige Änderungen:
 
 # v4.8.0
 - `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
-- `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
 - `IFE-18`: Attribute in GUI-Controls bereinigt
 - `IFE-21`: Klasse SmartComparator als @Deprecated annotiert
 - `IFE-30`: Dropdown Komponente im readonly-Modus nicht mehr per Tastatur bedienbar
 - `IFE-32`: Ladezeitpunkt der Custom-Stylesheet Dateien korrigiert
 - `IFE-34`: Fehler bei deaktivierten Default Buttons behoben
 - `IFE-35`: Es wurde die Möglichkeit geschaffen, Listpicker mithilfe eines Servlets zu filtern. Dies stellt eine Alternative zum Filtern mittels Ajax dar.
-- `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
-- `IFE-51`: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
 - `IFE-44`: Anhebung der commons-fileupload Version auf 1.3.3
+- `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
+- `IFE-51`: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
 - `IFE-59`: Definition der Standardfarbe des Headers über die Portalfarbe (s. `isy-style`).
 - `IFE-62`: Obsoletes Parent-POM durch Open Source Parent POM ersetzt
 - `IFE-66`: Dropdown-4-Eyes Readonly-Label um Icon ergänzt
