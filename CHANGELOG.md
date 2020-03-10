@@ -9,6 +9,7 @@ Wichtige Änderungen:
 # v4.9.0
 - `IFE-58`: isy:input analog zu formInput erstellt
 - `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
+- `IFS-75`: Schutz gegen CSRF-Attacken beschrieben
 - `IFE-85`: TitlesListener-Funktionalität: Aufspaltung des TitlesListener in zwei Klassen. Die Seitentitel-Funktionalität ist standardmäßig aktiv, die Breadcrumb-Funktionalität standardmäßig deaktiv (und deprecated).
 - `IFE-52`: SmartComparator und Abhängigkeit auf commons-lang3 ausgebaut
 

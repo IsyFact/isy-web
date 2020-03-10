@@ -457,6 +457,30 @@ image::integration-baustein-sicherheit-sequenzdiagramm.png[align="center"]
 
 Mehr Details hierzu sind in der Bausteindokumentation (<<KonzeptSicherheit>> und <<NutzungsvorgabenSicherheit>>) sowie in den <<NutzungsvorgabenJSF>> zu finden.
 
+[[verwendung-csrf-schutz]]
+==== Verwendung des CSRF-Schutz
+
+Bei einem Cross-Site Request Forgery (CSRF) Angriff versuchen die Angreifer einem angemeldeten Benutzer einen HTTP-basierten Request unterzuschieben.
+Mit Hilfe der Session des Benutzers kann der Angreifer so Änderungen am System ausführen.
+
+.CSRF-Schutz je nach Schutzbedarf
+[cols="1,2,3"]
+|===
+|Schutzbedarf|CSRF-Schutz|Beschreibung
+
+|*normal* und *hoch*
+|Token per Session
+|Am Anfang der Benutzer-Session wird ein Token erzeugt und in der Session gespeichert. Danach wird bei jedem Request das Token mitgeschickt und mit dem in der Session gespeicherten Token abgeglichen.
+
+|*sehr hoch*
+|Token per Request
+|Für jeden Request wird ein neues Token erstellt und versendet.
+Das erhöht nochmals die Sicherheit, vermindert aber gleichzeitig die Benutzerfreundlichkeit, da beispielsweise ein Rücksprung zu einem Formular verhindert wird.
+
+|===
+
+Weitere Details zur Konfiguration des CSRF-Schutzes stehen in <<NutzungsvorgabenJSF>>.
+
 [[parameter-mit-buttonlink-uebergeben]]
 ==== Parameter mit Button/Link übergeben
 
