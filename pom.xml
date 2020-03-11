@@ -5,13 +5,13 @@
 
     <artifactId>isy-web</artifactId>
     <packaging>jar</packaging>
-    <version>4.9.0-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
     <name>IsyFact-Web</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.8.0-SNAPSHOT</version>
+        <version>2.1.0-SNAPSHOT</version>
     </parent>
 
     <dependencyManagement>
@@ -19,14 +19,14 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
-                <version>1.8.0-SNAPSHOT</version>
+                <version>2.1.0-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-standards-bom</artifactId>
-                <version>1.8.0-SNAPSHOT</version>
+                <version>2.1.0-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -66,7 +66,7 @@
                                     <goal>install-node-and-npm</goal>
                                 </goals>
                                 <configuration>
-                                    <nodeVersion>v8.9.4</nodeVersion>
+                                    <nodeVersion>v12.14.1</nodeVersion>
                                     <serverId>repository</serverId>
                                     <nodeDownloadRoot>${env.REPOSITORY_NODE}</nodeDownloadRoot>
                                 </configuration>
@@ -116,7 +116,7 @@
                                     <goal>install-node-and-npm</goal>
                                 </goals>
                                 <configuration>
-                                    <nodeVersion>v8.9.4</nodeVersion>
+                                    <nodeVersion>v12.14.1</nodeVersion>
                                 </configuration>
                             </execution>
 
@@ -148,7 +148,6 @@
             <id>build-documentation</id>
             <properties>
                 <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
-                <basedir-win>/c/dev/src_gitlab/isy-documentation</basedir-win>
             </properties>
 
             <build>
@@ -164,7 +163,7 @@
                                     <goal>unpack</goal>
                                 </goals>
                                 <configuration>
-                                    <outputDirectory>${basedir-win}/target/isy-dokumentvorlagen</outputDirectory>
+                                    <outputDirectory>${basedir}/target/isy-dokumentvorlagen</outputDirectory>
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>de.bund.bva.isyfact</groupId>
@@ -185,7 +184,6 @@
                         <executions>
 
                             <!-- Erzeugt das Glossar -->
-                            <!--
                             <execution>
                                 <id>generate-glossary</id>
                                 <phase>generate-sources</phase>
@@ -194,17 +192,15 @@
                                 </goals>
                                 <configuration>
                                     <executable>bash</executable>
-                                    <workingDirectory>${basedir-win}/target/isy-dokumentvorlagen/docs</workingDirectory>
+                                    <workingDirectory>${basedir}/target/isy-dokumentvorlagen/docs</workingDirectory>
                                     <arguments>
-                                        <argument>${basedir-win}/target/isy-dokumentvorlagen/scripts/glossary.sh</argument>
-                                        <argument>${basedir-win}/src/docs/asciidoc</argument>
+                                        <argument>${basedir}/target/isy-dokumentvorlagen/scripts/glossary.sh</argument>
+                                        <argument>${basedir}/src/docs/asciidoc</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
-                            -->
 
                             <!-- Erzeugt das Literaturverzeichnis -->
-                            <!--
                             <execution>
                                 <id>generate-bibliography</id>
                                 <phase>generate-sources</phase>
@@ -213,18 +209,16 @@
                                 </goals>
                                 <configuration>
                                     <executable>bash</executable>
-                                    <workingDirectory>${basedir-win}/target/isy-dokumentvorlagen/docs</workingDirectory>
+                                    <workingDirectory>${basedir}/target/isy-dokumentvorlagen/docs</workingDirectory>
                                     <arguments>
-                                        <argument>${basedir-win}/target/isy-dokumentvorlagen/scripts/bibliography.sh
+                                        <argument>${basedir}/target/isy-dokumentvorlagen/scripts/bibliography.sh
                                         </argument>
-                                        <argument>${basedir-win}/src/docs/asciidoc</argument>
+                                        <argument>${basedir}/src/docs/asciidoc</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
-                            -->
 
                             <!-- Erzeugt ... -->
-                            <!--
                             <execution>
                                 <id>generate-lists</id>
                                 <phase>generate-sources</phase>
@@ -233,14 +227,13 @@
                                 </goals>
                                 <configuration>
                                     <executable>bash</executable>
-                                    <workingDirectory>${basedir-win}/target/isy-dokumentvorlagen/docs</workingDirectory>
+                                    <workingDirectory>${basedir}/target/isy-dokumentvorlagen/docs</workingDirectory>
                                     <arguments>
-                                        <argument>${basedir-win}/target/isy-dokumentvorlagen/scripts/listof.sh</argument>
-                                        <argument>${basedir-win}/src/docs/asciidoc</argument>
+                                        <argument>${basedir}/target/isy-dokumentvorlagen/scripts/listof.sh</argument>
+                                        <argument>${basedir}/src/docs/asciidoc</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
-                            -->
                         </executions>
                     </plugin>
                     <plugin>
@@ -270,7 +263,7 @@
                             <dependency>
                                 <groupId>org.jruby</groupId>
                                 <artifactId>jruby-complete</artifactId>
-                                <version>9.1.17.0</version>
+                                <version>9.1.12.0</version>
                             </dependency>
                             <dependency>
                                 <groupId>org.asciidoctor</groupId>
@@ -289,7 +282,7 @@
                             </requires>
 
                             <attributes>
-                                <revnumber>IsyFact 1.8</revnumber>
+                                <revnumber>${project.version}</revnumber>
                                 <revdate>${maven.build.timestamp}</revdate>
                                 <icons>font</icons>
                                 <sectanchors>true</sectanchors>
@@ -303,7 +296,6 @@
                                 <pdf-stylesdir>${project.build.directory}/isy-dokumentvorlagen/theme</pdf-stylesdir>
                                 <pdf-style>isyfact</pdf-style>
                                 <pdf-fontsdir>${project.build.directory}/isy-dokumentvorlagen/theme/fonts</pdf-fontsdir>
-                                <version-ifs>1.8.x</version-ifs>
                                 <isy-dokumentvorlagen>${project.build.directory}/isy-dokumentvorlagen</isy-dokumentvorlagen>
                             </attributes>
                         </configuration>
@@ -390,14 +382,6 @@
     </profiles>
 
     <dependencies>
-
-        <!-- Deprecated - nur für IsyFact 1.x -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
-        </dependency>
-
         <!-- ISY -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
