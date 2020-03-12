@@ -43,23 +43,25 @@ Die folgenden Abschnitte erklären, wie die GUI-Komponente nach dem MVC-Muster, 
 
 Dieses Kapitel enthält alle notwendigen Basiskonfigurationen für die Verwendung von JSF.
 
-Verwendung von Facelets (`webflow.xml`)::
-Für die Verwendung von Facelets ist es notwendig, in der Spring Konfiguration ein Mapping zwischen der Datei-Erweiterung und den Facelets herzustellen.
+Verwendung der Autokonfiguration::
+Das Isy-Web-Modul liefert den größten Teil der benötigten Konfiguration für JSF, Spring Webflow und Spring MVC in seiner Autokonfiguration bereits mit.
+Um darauf zuzugreifen, muss in der Hauptklasse der Anwendung die Autokonfiguration entsprechend aktiviert sein.
 
-:desc-listing-SnipConfigxml: Ausschnitt webflow.xml
-[id="listing-SnipConfigxml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipConfigxml}
-[source,xml]
+:desc-listing-SnipConfigjava: Ausschnitt BeispielApplication.java
+[id="listing-SnipConfigjava",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-SnipConfigjava}
+[source,java]
 ----
-<!-- Maps logical view names to Facelet templates (e.g. 'search' to '/WEB-INF/search.xhtml' -->
-<bean id="faceletsViewResolver"
-	class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-	<property name="viewClass"
-		value="org.springframework.faces.mvc.JsfView" />
-	<property name="prefix" value="/WEB-INF/" />
-	<property name="suffix" value=".xhtml" />
-</bean>
+@Configuration
+@EnableAutoConfiguration
+public class IsyWebguiApplication extends SpringBootServletInitializer {
+
+}
 ----
+
+Um ein deployen als WAR-Archiv auf einem Tomcat zu ermöglichen, erbt die Haupt-Applikationsklasse von SpringBootServletInitializer.
+Die Autokonfiguration wird enabled.
+Die genauere Securitykonfiguration wird weiter unten im Abschnitt <<sicherheit>> erklärt.
 
 Abschalten der Ausgabe von Kommentaren::
 Die Ausgabe von HTML-Kommentaren, die in der Flow-Definition und im View zur Dokumentation der Software eingebettet wurden, wird abgeschaltet.
@@ -108,48 +110,6 @@ Zur Darstellung von Radio Buttons und Checkboxen ohne Labels überschreibt der J
         </renderer-class>
     </renderer>
 </render-kit>
-----
-
-Einbinden der Basiskonfiguration::
-Der JSF-Baustein stellt eine Konfigurationsdatei bereit, welche die Basiskonfiguration aller verwendeten Frameworks (Spring, JSF, Spring Web Flow) bezüglich der GUI-Komponente enthält.
-Diese Datei muss als Bestandteil des Applikationskontextes des Dispatcher Servlets importiert werden.
-
-:desc-listing-PfadWebflowXml: Einbinden der Basiskonfiguration
-[id="listing-PfadWebflowXml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-PfadWebflowXml}
-[source,xml]
-----
-<beans>
-    ...
-    <import resource="classpath:resources/plis-web/spring/webflow.xml"/>
-    ...
-</beans>
-----
-// TODO: Stand 19.07.2018 Pfad plis-web z.Zt. noch richtig, bei einer Verzeichnisstrukturanpassung wäre das obige Beispiel anzupassen
-
-Des Weiteren muss ein eigenes Dispatcher Servlet in der `web.xml` angelegt werden, das den Aufruf der entsprechenden URLs an Spring Web Flow weiterleitet.
-
-:desc-listing-Snipwebxml3: Konfiguration des Dispatcher Servlets für Spring Web Flow
-[id="listing-Snipwebxml3",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-Snipwebxml3}
-[source,xml]
-----
-<servlet>
-	<servlet-name>dispatcher</servlet-name>
-	<servlet-class>
-		org.springframework.web.servlet.DispatcherServlet
-	</servlet-class>
-	<init-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>{pfad-zur-konfiguration-des-dispatcher-servlet-kontextes}</param-value>
-	</init-param>
-	<load-on-startup>2</load-on-startup>
-</servlet>
-
-<servlet-mapping>
-	<servlet-name>dispatcher</servlet-name>
-	<url-pattern>/app/*</url-pattern>
-</servlet-mapping>
 ----
 
 [[der-flow]]
@@ -575,26 +535,17 @@ Das folgende <<listing-BspJSDat>> zeigt das Beispiel `vorgangSuchen.js`, das ein
 In der Regel bieten die <<jsf-bedienelemente>> der IsyFact Zugriff auf Visualisierungsformen mittels JavaScript (z.B. Kalenderwidget, Tags, Panels).
 Für bestimmte Zusatzanforderungen (z.B. bedingtes Deaktivieren eines Felds, weitere GUI-Verschönerungen) kann es jedoch notwendig sein zusätzliches JavaScript einzubinden.
 
-=== Konfiguration der web.xml
+=== Konfiguration der Web-Anwendung
 
-Die Datei `web.xml` ist der Web Deployment Deskriptor und enthält die notwendigen Informationen, um die Teilsysteme (JSF, Spring Web Flow, Security) zu konfigurieren.
+Mit SpringBoot 2 ist eine `web.xml` nicht mehr vorgesehen.
+Die Konfiguration erfolgt in der Regel mit `@Configuration`-annotierten Java-Klassen.
 
 [[festlegung-der-startseite]]
 ==== Festlegung der Startseite
 
-Für den initialen Zugriff auf die Applikation wird in der `web.xml` der Startpunkt für den Dialogablauf definiert.
-Dieses geschieht durch den Eintrag in der `<welcome-file-list>` auf eine Datei, in welcher der Redirect auf den Startflow steht.
-Dieses ist notwendig, weil eine Angabe der Flow Engine im `web.xml` für Welcome Files nicht möglich ist.
-
-:desc-listing-Snipwebxml: Startseitenfestlegung in der web.xml
-[id="listing-Snipwebxml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-Snipwebxml}
-[source,html]
-----
-<welcome-file-list>
-  <welcome-file>index.html</welcome-file>
-</welcome-file-list>
-----
+Standardmäßig ist die Startseite der Anwendung die index.html.
+In ihr muss ein Redirect auf den Startflow erfolgen.
+Dieses ist notwendig, weil eine Angabe der Flow Engine im für Welcome Files nicht direkt möglich ist.
 
 Die Datei `index.html` sieht folgendermaßen aus:
 
@@ -610,42 +561,12 @@ Die Datei `index.html` sieht folgendermaßen aus:
 </html>
 ----
 
-[[SetCharacterEncodingFilter]]
-==== SetCharacterEncodingFilter
-
-Damit eingehende Anfragen richtig verarbeitet werden können, müssen diese zunächst mit dem korrekten Zeichensatz kodiert werden.
-Um ein korrektes Kodieren zu gewährleisten, muss der `SetCharacterEncodingFilter` als erster Filter-Mapping Eintrag in der `web.xml` eingetragen sein.
-Standardmäßig sollte `UTF-8` als Zeichensatz angegeben sein und, falls anderweitig gesetzt, erzwungen werden.
-
-:desc-listing-SnipWebxmlt8: Ausschnitt aus web.xml (bezüglich SetCharacterEncodingFilter)
-[id="listing-SnipWebxmlt8",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipWebxmlt8}
-[source,xml]
-----
-<filter>
-    <filter-name>SetCharacterEncodingFilter</filter-name>
-    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-    <init-param>
-        <param-name>encoding</param-name>
-        <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-        <param-name>forceEncoding</param-name>
-        <param-value>true</param-value>
-    </init-param>
-</filter>
-...
-<filter-mapping>
-    <filter-name>SetCharacterEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-</filter-mapping>
-----
 
 [[erkennung-von-javascript-unterstuetzung]]
 ==== Erkennung von JavaScript Unterstützung
 
 Je nach Browser und JavaScript Aktivierungsstatus muss die Anwendung Widgets verschieden darstellen.
-Hierzu existiert ein Filter, welcher in die `web.xml` eingebunden wird.
+Hierzu existiert ein Filter, welcher in die Anwendungskonfiguration als Bean eingebunden werden muss.
 
 Der Parameter `urlApplicationInitialisierung` ist verpflichtend und enthält die URL zur Application-Initialisierungsseite.
 Es ist ein führendes `/` anzugeben.
@@ -656,26 +577,31 @@ Es ist jeweils ein führendes `/` anzugeben.
 
 Die Parameter müssen ggf. angepasst werden.
 
-:desc-listing-Snipwebxml2: Ausschnitt web.xml
+:desc-listing-Snipwebxml2: Ausschnitt WebConfig.java
 [id="listing-Snipwebxml2",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-Snipwebxml2}
-[source,xml,indent=0]
+[source,java,indent=0]
 ----
-<filter>
-    <filter-name>applicationInitialisierungFilter</filter-name>
-    <filter-class>
-        de.bund.bva.isyfact.common.web.servlet.filter.ApplicationInitialisierungFilter
-    </filter-class>
+    @Bean
+    public FilterRegistrationBean<ApplicationInitialisierungFilter> applicationInitialisierungFilter() {
+        FilterRegistrationBean<ApplicationInitialisierungFilter> registrationBean =
+            new FilterRegistrationBean<>();
+        registrationBean.setFilter(new ApplicationInitialisierungFilter());
 
-    <init-param>
-        <param-name>urlsToSkip</param-name>
-        <param-value>/app/resources</param-value>
-    </init-param>
-    <init-param>
-        <param-name>urlApplicationInitialisierung</param-name>
-        <param-value>/app/common/init/applicationInitialisierung.xhtml</param-value>
-    </init-param>
-</filter>
+        registrationBean.addUrlPatterns("/app/*");
+
+        //Optionaler Parameter: Der Parameter "urlsToSkip" dient zur Aufnahme von Url-Pfaden,
+        // relativ zum ApplicationContext-Pfad, die von der Filterung ausgenommen werden.
+        // Mehrere Url-Pfade sind kommasepariert anzugeben. Es ist pro Url ein fuehrendes "/" anzugeben.
+        registrationBean.addInitParameter("urlsToSkip", "/app/resources");
+        registrationBean.addInitParameter("ajaxRedirectUrl", "/");
+        // Plicht-Parameter:
+        // Der Parameter "urlApplicationInitialisierung" enthaelt die Url zur Application-Initialisierungsseite.
+        // Es ist ein fuehrendes "/" anzugeben.
+        registrationBean.addInitParameter("urlApplicationInitialisierung",
+            "/app/common/init/applicationInitialisierung.xhtml");
+        return registrationBean;
+    }
 ----
 
 [[konfiguration-der-navigation]]
@@ -702,22 +628,11 @@ Standardmäßig sollte hier keine spezifische Konfiguration vorgenommen werden.
 ----
 
 [[ablage-der-konfiguration]]
-==== Ablage der Konfiguration
+==== Ablage der Flow-Konfiguration
 
-Innerhalb der Spring-Konfiguration wird für den Web Flow die `flow-registry` konfiguriert.
-Hier wird die Ablage der Konfigurations-Files definiert.
-
-:desc-listing-SnipWebflow2xml: Ausschnitt aus webflow.xml
-[id="listing-SnipWebflow2xml",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipWebflow2xml}
-[source,xml]
-----
-<!-- The registry of executable flow definitions -->
-<webflow:flow-registry id="flowRegistry"
-        flow-builder-services="facesFlowBuilderServices">
-		<webflow:flow-location-pattern value="/WEB-INF/gui/flows/**/*Flow.xml" />
-</webflow:flow-registry>
-----
+Die Spring Webflow Konfiguration erfolgt standardmäßig in der Isy-Web Autokonfiguration.
+Als Lokation der Flows ist dabei `/WEB-INF/gui/**/*Flow.xml` angegeben.
+Das heißt die Flows sind in Unterordnern von `/WEB-INF/gui` abzulegen und als Namenkonvention mit `Flow.xml` enden (z.B. `beispielFlow.xml`).
 
 [[konfiguration-maskentexte]]
 === Konfiguration der Maskentexte
@@ -734,7 +649,33 @@ Die Maskentexte des jeweiligen Flows können dann beispielsweise wie folgt ausge
 <h:outputText value="#{msg_currentflow.MAS_Ueberschrift}" />
 ----
 
-Auf übergreifende Maskentexte aus der Konfigurationsdatei `resources/nachrichten/maskentexte.properties` kann über die Variable `msg` zugegriffen werden.
+Um übergreifende Maskentexte Spring bekannt zu machen müssen die Lokationen Spring bekannt gemacht werden.
+Hierfür wird eine ResourceBundleMessageSource als Bean definiert:
+
+:desc-listing-maskentextebean: Maskentexte
+[id="listing-maskentextebean",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-maskentextebean}
+[source, java]
+----
+    /**
+     * Diese Bean sorgt fuer die Message-ResourceBundle Bereitstellung.
+     * zugreifbar ueber Klasse SpringContextHolder.
+     **/
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
+
+        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+        source.addBasenames(
+            "resources/nachrichten/fehler",
+            "resources/nachrichten/maskentexte",
+            "resources/nachrichten/titles");
+
+        return source;
+    }
+----
+
+Im Beispiel aus <<listing-maskentextebean>> referenziert dabei der Basename `resources/nachrichten/maskentexte` die Konfigurationsdatei `resources/nachrichten/maskentexte.properties`.
+
 
 [[konfiguration-des-resource-caching-mechanismus]]
 === Konfiguration des Resource Caching Mechanismus
@@ -936,18 +877,7 @@ Zur Konfiguration des Logging ist folgende Abhängigkeit nötig:
 </dependency>
 ----
 
-Die Ablage der logback-Konfiguration erfolgt in der Datei `web.xml`:
-
-:desc-listing-SnipLogginConf1: Logging Konfiguration (Ausschnitt web.xml)
-[id="listing-SnipLogginConf1",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipLogginConf1}
-[source,xml]
-----
-<context-param>
-    <param-name>logbackConfigLocation</param-name>
-    <param-value>classpath:/config/logback.xml</param-value>
-</context-param>
-----
+Isy-Logging erwartet die logback-Konfiguration standardmäßig im Klassenpfad unter `/config/logback.xml`.
 
 Die <<NutzungsvorgabenLogging>> beinhalten Vorgaben zum Schreiben von Log-Einträgen und zur Ablage von Log-Dateien.
 
@@ -1209,209 +1139,53 @@ auslesen oder in einen falschen Kontext setzen.
 XML-encodiert einzubinden (siehe Element `outputText` in Kapitel <<datenkonvertierung-fuer-darstellung-und-eingabe>>).
 Somit wird verhindert, dass ein Angreifer ein ungewünschtes Script-Tag übergibt.
 
-[[setup-web.xml]]
-==== Konfiguration der web.xml
-
-Für den Einsatz von Spring Security ist ein Servlet Filter notwendig, in welchem die initialen Abhandlungen der Berechtigungen erfolgen.
-
-Hier wird die Ablage der Spring Security Konfiguration definiert.
-
-:desc-listing-SnipWebxmlt5: Ausschnitt aus web.xml (bezüglich Security)
-[id="listing-SnipWebxmlt5",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipWebxmlt5}
-[source,xml]
-----
-<!-- Spring Security filter, context parameter -->
-<context-param>
-	<param-name>contextConfigLocation</param-name>
-	<param-value>classpath:resources/spring/applicationContext-security.xml
-	</param-value>
-</context-param>
-----
-
-Der Security Filter und die davon betroffenen URL-Patterns werden definiert.
-Im Falle eines Einsatzes zur Absicherung der Dialogabläufe sollten alle Zugriffe abgesichert werden.
-
-:desc-listing-SnipWebxmlt6: Ausschnitt aus web.xml (bezüglich Security-Filter)
-[id="listing-SnipWebxmlt6",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipWebxmlt6}
-[source,xml]
-----
-<!-- Spring Security filter -->
-<filter>
-<filter-name>springSecurityFilterChain</filter-name>
-<filter-class>
-org.springframework.web.filter.DelegatingFilterProxy
-</filter-class>
-</filter>
-<filter-mapping>
-<filter-name>springSecurityFilterChain</filter-name>
-<url-pattern>/*</url-pattern>
-</filter-mapping>
-----
-
-Der Security Filter benötigt einen `ContextLoaderListener`, welcher wiefolgt konfiguriert ist.
-
-:desc-listing-SnipWebxmlt7: Ausschnitt aus web.xml (Contextloader)
-[id="listing-SnipWebxmlt7",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipWebxmlt7}
-[source,xml]
-----
-<!-- Context Listener for the spring filter -->
-<listener>
-<listener-class>
-org.springframework.web.context.ContextLoaderListener
-</listener-class>
-</listener>
-----
-
-[[spring-security-konfiguration]]
-==== Konfiguration von Spring Security
-
-Die Datei `isy-sicherheit-web.xml` beinhaltet die Konfiguration für die Spring Security Definition.
-Darin wird konfiguriert, wie die Sicherheitskomponente an Spring Security angeschlossen wird.
-
-Die Spring Konfiguration erfolgt in der Datei `isy-sicherheit-web.xml`, welche durch den Security Filter initial geladen wird.
-
-Für die Konfiguration finden die nachfolgenden Namespaces Verwendung.
-
-:desc-listing-SnipWebxmlSecu: Ausschnitt aus `isy-sicherheit-web.xml` (Namespace)
-[id="listing-SnipWebxmlSecu",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipWebxmlSecu}
-[source,xml]
-----
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-xmlns:beans="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-http://www.springframework.org/schema/security
-http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
-----
-
-Die Definition der HTTP-Konfiguration erfolgt in dem XML-Tag `<http>`.
-
-:desc-listing-SnipApplContxtSec: Ausschnitt aus applicationContext-security.xml
-[id="listing-SnipApplContxtSec",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipApplContxtSec}
-[source,xml]
-----
-<http auto-config="true">
-	<form-login login-page="/login.jsp" />
-</http>
-----
-
-Folgende Konfiguration muss für die Spring-Security Konfiguration übernommen werden:
-
-`<import resource="classpath:resources/isy-web/spring/isy-sicherheit-web.xml"/>`
-
-Die eingebundenen Spring-Konfigurationen erwarten folgende Beans unter dem angegebenen Namen vorzufinden:
-
-* Sicherheit ("sicherheit") Die Sicherheit aus der `isy-sicherheit`.
-
-Durch Spring Security wird die Verwendung von Annotationen bei der Berechtigungsprüfung ermöglicht.
-Diese wird wie folgt aktiviert.
-
-:desc-listing-SnipApplContextSec: Ausschnitt aus applicationContext-security.xml (Aktivierung)
-[id="listing-SnipApplContextSec",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipApplContextSec}
-[source,xml]
-----
-<global-method-security secured-annotations="enabled" />
-----
-
-Die Konfiguration von Spring Security setzt die Definition eines User Services voraus.
-Dieses kann nach aktuellem Stand nicht umgangen werden.
-Daher wird ein Dummy Service definiert, welcher einen inaktiven Benutzer enthält.
-Die Abfrage auf die realen Benutzer erfolgt im Authentication Provider, welcher im folgenden Kapitel beschrieben ist.
-
-:desc-listing-SnipWebxmlSec: Ausschnitt aus `isy-sicherheit-web.xml`
-[id="listing-SnipWebxmlSec",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipWebxmlSec}
-[source,xml]
-----
-<user-service>
-	<user authorities="ROLE" name="name" password="password"
-		  disabled="true" />
-</user-service>
-----
-
-Für die Anbindung des Berechtigungsmanagers an Spring Security findet die Möglichkeit zur Erstellung eines “Custom Authentication Providers” Anwendung.
-In diesem Authentication Provider wird bei Bedarf überprüft ob der Nutzer die notwendigen Berechtigungen besitzt, bzw. es wird für die weitere Verarbeitung in Spring Security der notwendige Kontext aufgebaut.
-
-:desc-image-ClassConnSecKomp: Klassendiagramm Anbindung Sicherheitskomponente
-[id="image-ClassConnSecKomp",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-ClassConnSecKomp}
-image::ClassConnSecKomp.png[align="center"]
-
-Das Sequenzdiagramm stellt den Zugriff des Authentication Providers auf die Sicherheitskomponente dar.
-Hierbei werden die Rollen eines Benutzers über den Berechtigungsmanager gelesen und in einen Spring Security konformen Token geschrieben.
-Dieser Token findet dann bei der Autorisierung einzelner Benutzerinteraktion durch Spring Security Verwendung.
-
-:desc-image-SecDiaAccessSec: Sequenzdiagramm Zugriff auf Sicherheitskomponente
-[id="image-SecDiaAccessSec",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-SecDiaAccessSec}
-image::SecDiaAccessSec.png[align="center"]
-
 [[konfiguration-sicherheitskomponente]]
 ===== Konfiguration Sicherheitskomponente
 
-Die Konfiguration der Sicherheitskomponente über eine properties-Datei ist im Konzept <<NutzungsvorgabenSicherheit>> beschrieben.
+Die Konfiguration der Sicherheitskomponente ist im Konzept <<NutzungsvorgabenSicherheit>> beschrieben.
 
-[[konfiguration-webflowauthenticationprovider]]
-===== Konfiguration WebFlowAuthenticationProvider
+Die zur Integration mit Spring Webflow benötigten Listener liefert Isy-Web in der Autokonfiguration mit.
+In der Regel müssen zusätzlich folgende Beans definiert werden:
+*aus isy-sicherheit: Sicherheit und AccessManager
+*aus isy-aufrufkontext: AufrufKontextVerwalter und AufrufKontextFactory
+*aus spring-security: AccessDecisionManager, der auf die Sicherheit delegiert
 
-Der `WebFlowAuthenticationProvider` erhält durch die Konfiguration die Instanz der Bean „`sicherheit`“ injected und wird als „`custom-authentication-provider`“ Spring Security bekannt gemacht.
-
-:desc-listing-SnipApcntxSec: Ausschnitt aus applicationContext-security.xml
-[id="listing-SnipApcntxSec",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipApcntxSec}
-[source,xml]
+:desc-listing-sec: Konfiguration Sicherheitskomponente
+[id="listing-sec",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-sec}
+[source,java]
 ----
-<!-- ======================================================================
-custom authentication provider setzen um Sicherheits Komponente für Rollen +
-Ermittlung zu verwenden
-====================================================================== -->
-<beans:bean id="WebFlowAuthenticationProvider"
-	class="de.bund.bva.pliscommon.plisweb.WebFlow.security.WebFlowAuthenticationProvider">
-	<custom-authentication-provider />
-	<beans:property name="sicherheit" ref="sicherheit" />
-</beans:bean>
-----
+    @Bean
+    Sicherheit<AufrufKontext> sicherheit(AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
+        AufrufKontextFactory<AufrufKontext> aufrufKontextFactory, AccessManager accessManager,
+        IsySicherheitConfigurationProperties properties) {
+        return new SicherheitImpl<AufrufKontext, AuthentifzierungErgebnis>(
+            "/resources/sicherheit/rollenrechte.xml", aufrufKontextVerwalter, aufrufKontextFactory,
+            accessManager, properties);
+    }
 
-[[setup-spring-config-webflow.xml]]
-==== Konfiguration von Spring (webflow.xml)
+    @Bean
+    @ConditionalOnMissingBean(AufrufKontextFactory.class)
+    public AufrufKontextFactory<AufrufKontext> aufrufKontextFactory() {
+        AufrufKontextFactoryImpl<AufrufKontext> aufrufKontextFactory = new AufrufKontextFactoryImpl<>();
+        aufrufKontextFactory.setAufrufKontextKlasse(AufrufKontextImpl.class);
+        return aufrufKontextFactory;
+    }
 
-Hier muss ein Listener registriert werden, über welchen die Security Bedürfnisse geprüft werden.
+    @Bean
+    public AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter() {
+        return new AufrufKontextVerwalterImpl<>();
+    }
 
-:desc-listing-SnipWebFlowxx: Ausschnitt aus webflow.xml (bezüglich Security)
-[id="listing-SnipWebFlowxx",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-SnipWebFlowxx}
-[source,xml]
-----
-<bean name="flowExecutionSecurityListener"
-      class="org.springframework.webflow.security.SecurityFlowExecutionListener">
-</bean>
+    @Bean
+    public AccessDecisionManager accessDecisionManager(Sicherheit<AufrufKontext> sicherheit) {
+        return new DelegatingAccessDecisionManager(sicherheit);
+    }
 
-<bean name="flowExecutionListenerLoaderFactory"
-	  class="org.springframework.webflow.config.FlowExecutionListenerLoaderFactoryBean">
-	<property name="listeners">
-		<map>
-			<entry key-ref="flowExecutionSecurityListener"
-				   value="cd-register"></entry>
-			<entry key-ref="jpaFlowExecutionListener"
-				   value="cd-register"></entry>
-		</map>
-	</property>
-</bean>
-
-<bean name="flowExecutionFactory"
-	  class="org.springframework.webflow.engine.impl.FlowExecutionImplFactory">
-	  <property name="executionKeyFactory"
-		        ref="flowExecutionRepository"/>
-	  <property name="executionListenerLoader"
-				ref="flowExecutionListenerLoaderFactory"/>
-</bean>
+    @Bean
+    AccessManager accessManager() {
+// Der entsprechende AccessManager
+    }
 ----
 
 [[Druckaufbereitung]]
@@ -4510,4 +4284,3 @@ Die Komponente besitzt folgende optionale Parameter:
 * `warning`: Die anzuzeigende Warnung wenn die browserseitige Druckansicht einer Seite angezeigt wird (optional). (Standard: ``)
 * `basis`: BasisModel. (Standard: `#{basisModel}`)
 // end::inhalt[]
-
