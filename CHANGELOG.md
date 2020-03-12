@@ -5,6 +5,7 @@
 - `IFS-458`: Alle pom.xml Dateien mit tidy:pom fortmatiert und getestet.
 - `IFS-302`: Warnmeldungen behoben: tomahawk.taglib.xml hinzugefügt
 - `IFS-468`: Dependencies aktualisiert nach Dozer Update
+- `IFE-95`: Nachdokumentation für Eingabefeld ohne Label
 
 # v4.8.1
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben
