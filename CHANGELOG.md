@@ -4,6 +4,7 @@ Wichtige Änderungen:
     - Umstellung auf isyfact-Namespace anstelle von pliscommon
     - Umstellung auf Java Config inklusive Spring Autokonfiguration
     - SetCharacterEncodingFilter und SecurityFilter wird jetzt automatisch von Isy-Web gesetzt
+- `IFE-111`: Dokument Nutzungsvorgaben_JSF überarbeitet
 
 
 # v4.9.0
