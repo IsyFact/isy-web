@@ -3,7 +3,7 @@ include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 
 //
 :doctitle: Nutzungsvorgaben JSF
-:version-label!:
+//:version-label!:
 :title: {doctitle}
 
 // Zwangsplatz des TOC
