@@ -409,7 +409,7 @@ So kann z.B. die Seitentoolbar konfiguriert oder ein Quicklink hinzugefügt werd
 
 Der Aufruf dieser Controller ist generell erlaubt.
 Die Controller sind als Spring Beans global verfügbar.
-Welche Controller im Detail (LinksnavigationController, QuicklinksController, ValidierungsController, ...) für das Vorgabelayout verfügbar sind, wird in <<NutzungsvorgabenJSF>> beschrieben.
+Welche Controller im Detail (LinksnavigationController, QuicklinksController, ValidierungsController, ...) für das Vorgabelayout verfügbar sind, wird im Dokument <<NutzungsvorgabenJSF>> beschrieben.
 
 
 === Vorgaben zur Verwendung von JSF
