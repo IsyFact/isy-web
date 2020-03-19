@@ -345,7 +345,7 @@
                                         <artifactItem>
                                             <groupId>de.bund.bva.isyfact</groupId>
                                             <artifactId>isy-dokumentvorlagen</artifactId>
-                                            <version>1.7.0</version>
+                                            <version>1.8.0-SNAPSHOT</version>
                                             <overWrite>true</overWrite>
                                         </artifactItem>
                                     </artifactItems>
