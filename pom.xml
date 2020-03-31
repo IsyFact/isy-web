@@ -450,7 +450,7 @@
                             </requires>
 
                             <attributes>
-                                <revnumber>IF-1.8</revnumber>
+                                <revnumber>IF-2.1</revnumber>
                                 <revdate>${maven.build.timestamp}</revdate>
                                 <icons>font</icons>
                                 <sectanchors>true</sectanchors>
@@ -463,7 +463,7 @@
                                 <stylesheet>isyfact.css</stylesheet>
                                 <pdf-stylesdir>${project.build.directory}/isy-dokumentvorlagen/theme</pdf-stylesdir>
                                 <pdf-style>isyfact</pdf-style>
-                                <version-ifs>IF-1.8</version-ifs>
+                                <version-ifs>2.1.0</version-ifs>
                                 <pdf-fontsdir>${project.build.directory}/isy-dokumentvorlagen/theme/fonts</pdf-fontsdir>
                                 <isy-dokumentvorlagen>${project.build.directory}/isy-dokumentvorlagen</isy-dokumentvorlagen>
                             </attributes>
