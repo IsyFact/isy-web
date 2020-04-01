@@ -1313,7 +1313,8 @@ Folgende Konfiguration muss für die Spring-Security Konfiguration übernommen w
 
 `<import resource="classpath:resources/isy-web/spring/isy-sicherheit-web.xml"/>`
 
-Die eingebundenen Spring-Konfigurationen erwarten folgende Bean unter dem angegebenen Namen vorzufinden:
+Die eingebundenen Spring-Konfigurationen erwarten eine Bean unter dem Namen "accessDecisionManager"vorzufinden.
+Die Bean-Attribute "property name" und "ref" sind hierbei auf den String "sicherheit" zu setzen.
 
 :desc-listing-Berechtigungsmanager: Bean Berechtigungsmanager
 [id="listing-Berechtigungsmanager",reftext="{listing-caption} {counter:listings }"]
