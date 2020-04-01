@@ -1154,11 +1154,14 @@ Somit wird verhindert, dass ein Angreifer ein ungewünschtes Script-Tag übergib
 
 Die Konfiguration der Sicherheitskomponente ist im Konzept <<NutzungsvorgabenSicherheit>> beschrieben.
 
-Die zur Integration mit Spring Webflow benötigten Listener liefert Isy-Web in der Autokonfiguration mit.
+Die zur Integration mit Spring Webflow benötigten Listener liefert `isy-web` in der Autokonfiguration mit.
+
+
 In der Regel müssen zusätzlich folgende Beans definiert werden:
-*aus isy-sicherheit: Sicherheit und AccessManager
-*aus isy-aufrufkontext: AufrufKontextVerwalter und AufrufKontextFactory
-*aus spring-security: AccessDecisionManager, der auf die Sicherheit delegiert
+
+* aus isy-sicherheit: `Sicherheit` und `AccessManager`
+* aus isy-aufrufkontext: `AufrufKontextVerwalter` und `AufrufKontextFactory`
+* aus spring-security: `AccessDecisionManager`, der auf die Bean `Sicherheit` delegiert
 
 :desc-listing-sec: Konfiguration Sicherheitskomponente
 [id="listing-sec",reftext="{listing-caption} {counter:listings }"]

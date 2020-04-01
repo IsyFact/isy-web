@@ -463,7 +463,7 @@
                                 <stylesheet>isyfact.css</stylesheet>
                                 <pdf-stylesdir>${project.build.directory}/isy-dokumentvorlagen/theme</pdf-stylesdir>
                                 <pdf-style>isyfact</pdf-style>
-                                <version-ifs>2.1.0</version-ifs>
+                                <version-isyfact-bom>2.1.0</version-isyfact-bom>
                                 <pdf-fontsdir>${project.build.directory}/isy-dokumentvorlagen/theme/fonts</pdf-fontsdir>
                                 <isy-dokumentvorlagen>${project.build.directory}/isy-dokumentvorlagen</isy-dokumentvorlagen>
                             </attributes>
