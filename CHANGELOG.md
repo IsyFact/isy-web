@@ -4,7 +4,7 @@ Wichtige Änderungen:
     - Umstellung auf isyfact-Namespace anstelle von pliscommon
     - Umstellung auf Java Config inklusive Spring Autokonfiguration
     - SetCharacterEncodingFilter und SecurityFilter wird jetzt automatisch von Isy-Web gesetzt
-
+- `IFS-111`: Dokumentation von Konzept_JSF überarbeitet
 
 # v4.9.0
 - `IFE-58`: isy:input analog zu formInput erstellt
