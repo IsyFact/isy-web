@@ -1,7 +1,7 @@
 *Dokument-Informationen*
 
 |====
-|Dokumenten-ID:| Detailkonzept_Komponente_Web_GUI
+|Dokumenten-ID:| Nutzungsvorgaben_JSF
 |====
 
 Informationen zu Änderungen an diesem Dokument finden sich in der Datei <<Aenderungshistorie>>.
