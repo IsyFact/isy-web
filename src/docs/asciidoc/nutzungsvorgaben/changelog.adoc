@@ -23,7 +23,9 @@
 - `IFE-39`: Dokumentation zu Breadcrumbs hinzugefügt
 - `IFE-11`: Beschreibungen der JSF-Komponenten erweitert
 - `IFE-35`: Dokumentation von List Picker Filterung mit Servlets hinzugefügt.
-## Hinweise zum Upgrade
+
+Hinweise zum Upgrade
+
 - Liegen Anpassungen der Klasse `HeaderHelper` bezüglich der Standardfarbe (`DEFAULT_COLOR`) vor, sollten diese enfernt werden, da die Standardfarbe nun durch die Portalfarbe bestimmt wird.
 // end::release-4.8.0[]
 
@@ -60,7 +62,9 @@
 == Änderungen Release 4.3.3
 // tag::release-4.3.3[]
 - Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
-## Hinweise zum Upgrade
+
+Hinweise zum Upgrade
+
 - Anwendungen müssen nun die Konfigurationsparameter 'gui.header.logo.rechts.pfad', 'gui.header.logo.links.pfad' und 'gui.header.text.logo.rechts' setzen, damit die Logos bzw. der Text angezeigt werden.
 // end::release-4.3.3[]
 
