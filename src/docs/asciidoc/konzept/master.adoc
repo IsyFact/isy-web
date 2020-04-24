@@ -46,3 +46,6 @@ include::listoffigures.adoc[]
 // ? Listings-Verzeichnis
 include::listoflistings.adoc[]
 
+// Changelog
+include::changelog.adoc[leveloffset=1]
+

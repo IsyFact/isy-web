@@ -1,6 +1,7 @@
 = Changelog
 
-== Änderungen Release 5.0.0
+*Änderungen Release 5.0.0*
+
 // tag::release-5.0.0[]
 - `IFS-505`: Upgrade auf Isyfact 2.
 Wichtige Änderungen:
@@ -9,7 +10,8 @@ Wichtige Änderungen:
 - SetCharacterEncodingFilter und SecurityFilter wird jetzt automatisch von Isy-Web gesetzt
 // end::release-5.0.0[]
 
-== Änderungen Release 4.9.0
+*Änderungen Release 4.9.0*
+
 // tag::release-4.9.0[]
 - `IFE-58`: isy:input analog zu formInput erstellt
 - `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
@@ -17,13 +19,15 @@ Wichtige Änderungen:
 - `IFE-52`: SmartComparator und Abhängigkeit auf commons-lang3 ausgebaut
 // end::release-4.9.0[]
 
-== Änderungen Release 4.8.1
+*Änderungen Release 4.8.1*
+
 // tag::release-4.8.1[]
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben
 - `IFS-426`: fehlende Aktualisierung durch `IFS-73` im dataTableDetailButton nachgeholt
 // end::release-4.8.1[]
 
-== Änderungen Release 4.8.0
+*Änderungen Release 4.8.0*
+
 // tag::release-4.8.0[]
 - `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
 - `IFE-21`: Klasse SmartComparator als @Deprecated annotiert
@@ -40,7 +44,8 @@ Wichtige Änderungen:
 - `IFS-222`: Filter Reihenfolge für Encoding angepasst
 // end::release-4.8.0[]
 
-== Änderungen Release 4.7.0
+*Änderungen Release 4.7.0*
+
 // tag::release-4.7.0[]
 - `IFS-96` : Autoscroll Funktion für Tab-Controls
 - `IFS-142`: Neuimplementierung Breadcrumb
@@ -52,7 +57,8 @@ Wichtige Änderungen:
 - `IFS-182`: Datepicker um Übernahme des heutigen Datums erweitert
 // end::release-4.7.0[]
 
-== Änderungen Release 4.6.0
+*Änderungen Release 4.6.0*
+
 // tag::release-4.6.0[]
 - `IFS-55`: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
 - `IFS-58`: Alte Breadcrumb-Implementierung als Deprecated erklärt.
@@ -66,11 +72,13 @@ Wichtige Änderungen:
 - `IFS-112`: Grunt Maven Plugin durch Frontend Maven Plugin ersetzt.
 // end::release-4.6.0[]
 
-== Änderungen Release 4.5.2
+*Änderungen Release 4.5.2*
+
 // tag::release-4.5.2[]
 // end::release-4.5.2[]
 
-== Änderungen Release 4.5.0
+*Änderungen Release 4.5.0*
+
 // tag::release-4.5.0[]
 - `IFS-34`: formUpload übernommen.
 
@@ -80,18 +88,21 @@ Hinweise zum Upgrade
 - formUpload: Zur Nutzung der Komponente muss die Anwendung javax.servlet-api mindestens in Version 3.0.1 einbinden und überall die servlet-api 2.5 exkludieren, da sich der Name des Artefakts geändert hat. In der Context-Konfiguration des Tomcats muss `allowCasualMultipartParsing=true` gesetzt werden. In der web.xml muss das FacesServlet um Parameter zur `multipart-config` erweitert werden. Im entsprechenden Flow muss das Flag `multipartForm` des `globalFlowModel`s auf true gesetzt werden.
 // end::release-4.5.0[]
 
-== Änderungen Release 4.4.0
+*Änderungen Release 4.4.0*
+
 // tag::release-4.4.0[]
 - `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
 - `IFS-61`: Die Darstellung sortierbarer Spalten von Tabellen wurde verbessert.
 - `IFS-41`: In Listpickern kann der Schlüssel aufgelöst werden (siehe Attribut `inputComplement`). Das Feature funktioniert nur für Listpicker, die eine Inputmask definiert haben.
 // end::release-4.4.0[]
 
-== Änderungen Release 4.3.3
+*Änderungen Release 4.3.3*
+
 // tag::release-4.3.3[]
 // end::release-4.3.3[]
 
-== Änderungen Release 4.3.2
+*Änderungen Release 4.3.2*
+
 // tag::release-4.3.2[]
 - `IFS-17`: Umbenennung der Artifact-ID und Group-ID
 
@@ -100,14 +111,16 @@ Bugfixes
 - Fix für das Four-Eyes-Icon.
 // end::release-4.3.2[]
 
-== Änderungen Release 4.3.1
+*Änderungen Release 4.3.1*
+
 // tag::release-4.3.1[]
 Bugfixes
 
 - Attribut "customId" in Form-Komponenten wird nicht mehr in das class-Attribut, sondern ein data-Attribut (data-isy-custom-id) geschrieben
 // end::release-4.3.1[]
 
-== Änderungen Release 4.3.0
+*Änderungen Release 4.3.0*
+
 // tag::release-4.3.0[]
 Bugfixes
 
@@ -146,14 +159,16 @@ Wenn die Werte in der Anwendung überhaupt nicht explizit gesetzt werden, muss n
 
 // end::release-4.3.0[]
 
-== Änderungen Release 4.2.7
+*Änderungen Release 4.2.7*
+
 // tag::release-4.2.7[]
 
 Bugfixes
 - Fix für Labels, die nicht zum dazugehörigen Input passen.
 // end::release-4.2.7[]
 
-== Änderungen Release 4.2.6
+*Änderungen Release 4.2.6*
+
 // tag::release-4.2.6[]
 
 Bugfixes
@@ -161,7 +176,8 @@ Bugfixes
 - Fix für ViewState wenn Browser Zurück-Button gedrückt wird. Es wird jetzt ein Link angezeigt, der zurück zur Anwendung führt.
 // end::release-4.2.6[]
 
-== Änderungen Release 4.2.1
+*Änderungen Release 4.2.1*
+
 // tag::release-4.2.1[]
 
 Neuerungen
@@ -175,7 +191,8 @@ Bugfixes
 - Fehler Lazy-Loading von Lichtbildern in Detailansicht behoben.
 // end::release-4.2.1[]
 
-== Änderungen Release 4.2.0
+*Änderungen Release 4.2.0*
+
 // tag::release-4.2.0[]
 Neuerungen
 

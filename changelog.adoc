@@ -1,4 +1,4 @@
-= Changelog
+= Changelog Isy-Web
 
 == Änderungen Release 5.0.0
 
