@@ -1,13 +1,11 @@
-// ASCIIDOC Attribute
 include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 
-//
-:doctitle: Nutzungsvorgaben JSF
-:title: {doctitle}
+:doctitle: JavaServer Faces (JSF)
+:document-type: Nutzungsvorgaben
 
-// Zwangsplatz des TOC
-
+include::{isy-dokumentvorlagen}/docs/common/title.adoc[]
 include::{isy-dokumentvorlagen}/docs/common/colophon.adoc[]
+
 
 // Änderungsübersicht
 include::docinfo.adoc[]
