@@ -1,4 +1,5 @@
 # v4.8.2
+- `IFE-139`: JavaScript Anpassungen für IE11. Port von `IFE-104`: : Anpassungen für Bootstrap-Select Anhebung
 
 # v4.8.1
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben
