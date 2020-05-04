@@ -1,3 +1,5 @@
+# v4.8.2
+
 # v4.8.1
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben
 - `IFS-426`: fehlende Aktualisierung durch `IFS-73` im dataTableDetailButton nachgeholt
