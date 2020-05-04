@@ -495,7 +495,7 @@ function refreshFunctions() {
     $("table.CLIENT.rf-data-table").each(function () {
         var $table = $(this);
         // =============== START DETAILVIEW ===================== //
-        $table.find('tbody div.detailview-actions button').removeAttr('onclick', '');
+        $table.find('tbody div.detailview-actions button').prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
         var $showDetail = $table.find('div.detailview-actions button[id*=showDetail]');
         $showDetail.on('click.showdetail', showDetail);
         var $hideDetail = $table.find('div.detailview-actions button[id*=hideDetail]');
@@ -520,7 +520,7 @@ function refreshFunctions() {
                 if ($th.hasClass("sortable")) {
 
                     var $thLink = $th.find("a");
-                    $thLink.removeAttr("onclick");
+                    $thLink.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
                     $thLink.unbind("click");
                     $thLink.click(function (event) {
                         event.preventDefault();
@@ -1115,7 +1115,7 @@ function refreshFunctions() {
 
             if ($li.hasClass('skipAction')) {
                 $liLink.unbind("click");
-                $liLink.removeAttr("onclick");
+                $liLink.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
             }
 
             $liLink.click(function (event) {
@@ -1188,7 +1188,7 @@ function refreshFunctions() {
         if (!$group.hasClass(".isyfact-buttonInjectPostGroup_ajaxtoken")) {
             // <a>-Tag: Entferne onclick
             $actualButton.attr("onclickStandby", $actualButton.attr("onclick"));
-            $actualButton.removeAttr("onclick");
+            $actualButton.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
 
             // <input type=submit ...> Verhindere Übermittlung
             // Überschreibe Buttonaktion
@@ -1531,7 +1531,7 @@ function refreshFunctions() {
                 var $th = $(this);
                 $th.find('a').each(function () {
                     var $a = $(this);
-                    $a.removeAttr("onclick");
+                    $a.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
                     $a.unbind("click");
                 });
             });
