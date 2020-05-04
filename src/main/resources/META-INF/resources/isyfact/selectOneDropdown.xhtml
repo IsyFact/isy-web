@@ -3,10 +3,7 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:jsf="http://xmlns.jcp.org/jsf"
-        xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:isyi="http://java.sun.com/jsf/composite/isyfact/internal"
-        xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
+        xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
     <!-- Ein Dropdownmenü. Wird entweder über das Bootstrap Select Plugin dargestellt oder über ein natives Dropdown. -->
 
@@ -67,6 +64,7 @@
             <h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.referenceId)}"
                     value="#{cc.attrs.value}"
                     styleClass="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{cc.attrs.invalid ? 'invalid' : ''} #{cc.attrs.readonly ? 'disabled readonly' : ''}"
+                    p:data-style="btn-icon"
                     converter="#{cc.attrs.converter}" disabled="#{cc.attrs.disabled}"
                     title="#{cc.attrs.title}">
                 <composite:insertChildren />
@@ -87,7 +85,7 @@
                             title="#{cc.attrs.tooltip}"/>
                 </div>
                 <div class="col-lg-1" style="color:#{fourEyesColor}; padding-top:4px">
-                    <span class="icon fa-unlock"></span>
+                    <span class="icon fa-unlock"/>
                 </div>
             </div>
         </ui:fragment>

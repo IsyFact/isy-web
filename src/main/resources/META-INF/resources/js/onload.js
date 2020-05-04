@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // Reaktion auf AJAX Requests
     // jsf = JSF JavaScript Library  von SUN Microsystems
-    if (typeof(jsf) != "undefined") {
+    if (typeof (jsf) != "undefined") {
         // --------------------------------------------------------
         // Fehlerbehandlung
         // --------------------------------------------------------
@@ -101,6 +101,11 @@ function refreshFunctions() {
     lazyLoad();
 
     // --------------------------------------------------------
+    // Selectpicker aktualisieren (damit bootstrap-select sie korrekt rendered)
+    // --------------------------------------------------------
+    $('.selectpicker').selectpicker('refresh');
+
+    // --------------------------------------------------------
     // Multipart Forms bei Bedarf aktivieren
     // --------------------------------------------------------
     if ($("[id$='multipartFormEnabled']").val() === 'true') {
@@ -133,7 +138,7 @@ function refreshFunctions() {
         var $liMenu;
         var $liMenuNext;
         var $divRowNext;
-        var $divColNext;
+        var divColNext;
 
         // Aktuellen Spaltenindex merken
         var $divColNeighbour = $divCol;
@@ -198,7 +203,6 @@ function refreshFunctions() {
             // Pfeil unten
             // Springe in nächste Zeile bei gleichem Index
             $divRowNext = $(this).parents(".row").first().next();
-
             if ($divRowNext.length > 0) {
 
                 if ($divRowNext.children().length >= colIndex) {
@@ -238,17 +242,6 @@ function refreshFunctions() {
             return false;
         }
     });
-
-    // --------------------------------------------------------
-    // Bootstrap Select Plugin
-    // --------------------------------------------------------
-    $('.selectpicker').filter(':not(.selectpicker_ajaxtoken)').selectpicker({
-        style: 'dropdown btn btn-icon dropdown-toggle',
-        size: 10,
-        dropupAuto: false
-    });
-    $('.selectpicker').filter(':not(.selectpicker_ajaxtoken)').addClass(
-        'selectpicker_ajaxtoken');
 
     // --------------------------------------------------------
     // Panels
@@ -840,7 +833,7 @@ function refreshFunctions() {
         var $listpickerAjaxForm = null;
         //Finde das Hidden-Input, in dem hinterlegt ist, welche Spalte jeweils den Wert zum Schlüssel enthält.
         var listpickerSchluesselwertSpalte = $listpicker.find("[id$='inputComplement']").val();
-        if (typeof(listpickerAjaxFormId) != "undefined") {
+        if (typeof (listpickerAjaxFormId) != "undefined") {
             $listpickerAjaxForm = $("form[id$='" + listpickerAjaxFormId + "']");
         }
 
@@ -899,7 +892,7 @@ function refreshFunctions() {
                 scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow);
             } else {
                 // bei leerem bzw. geloeschten $listpickerField sind ehem. active-Eintraege zu loeschen
-                $listpickerContent.find("tbody tr[id=").removeClass("active");
+                $listpickerContent.find("tbody tr").removeClass("active");
             }
 
         });
@@ -966,22 +959,21 @@ function refreshFunctions() {
             $listpickerFilter
                 .bind(
                     'keydown.ajaxFilter keypress.ajaxFilter',
-                    function() {
+                    function () {
 
                         setTimeout(
-                            function() {
+                            function () {
 
                                 // Filter
                                 var $rows = $listpickerContent
                                     .find(".rf-listpicker-table tbody tr");
 
-                                var filterFunction = function($row,
-                                                              inverse) {
+                                var filterFunction = function ($row, inverse) {
 
                                     var $tdsAfterFilter = $row
                                         .find('td')
                                         .filter(
-                                            function() {
+                                            function () {
                                                 var $td = $(this);
                                                 var text = $td
                                                     .text();
@@ -1003,12 +995,12 @@ function refreshFunctions() {
                                 };
 
                                 var $filteredRows = $rows
-                                    .filter(function() {
+                                    .filter(function () {
                                         return filterFunction(
                                             $(this), false);
                                     });
                                 var $unfilteredRows = $rows
-                                    .filter(function() {
+                                    .filter(function () {
                                         return filterFunction(
                                             $(this), true);
                                     });
@@ -1626,8 +1618,7 @@ function refreshFunctions() {
                 if (typeof window.sortDataTable === 'function') {
                     window.sortDataTable($table, $th, $itemsWithDetails);
                     $itemsWithDetails = $table.find("tbody tr");
-                }
-                else {
+                } else {
                     sort($th);
                 }
 
@@ -1645,8 +1636,7 @@ function refreshFunctions() {
                 if (typeof window.sortDataTable === 'function') {
                     window.sortDataTable($table, $.merge($table.find('thead th.sorted'), $table.parent().prev().find('thead th.sorted')).eq(0), $itemsWithDetails);
                     $itemsWithDetails = $table.find("tbody tr");
-                }
-                else {
+                } else {
                     sort($.merge($table.find('thead th.sorted'), $table.parent().prev().find('thead th.sorted')).eq(0));
                 }
                 renderPage();
@@ -2123,9 +2113,9 @@ datumErgaenzen = function (inputFeld, grenze) {
 };
 
 //Code der das Initialisieren eines Listpickers über das Servlet anstößt
-initialisierenListpickerServlet = function() {
+initialisierenListpickerServlet = function () {
     "use strict";
-    var $listpicker = $( ".servlet.listpicker-filter" );
+    var $listpicker = $(".servlet.listpicker-filter");
     $listpicker.each(function (i, listpicker) {
         registerListpickerfilter(listpicker);
     });
@@ -2141,24 +2131,26 @@ registerListpickerfilter = function (identifier) {
 
     //Im Folgenden werden die einzelnen Parameter, die in der URL enthalten sind encoded.
     //Es wird jeweils der Wert des Parameters encoded, nicht der Parameter selbst.
-    var urlsplit=url.split("?");
+    var urlsplit = url.split("?");
 
     //Der erste Teil der URL (alles ohne Paramater) bleibt unverändert.
-    var urlEncoded=urlsplit[0]+'?';
+    var urlEncoded = urlsplit[0] + '?';
 
 
     //Splitte den zweiten Teil
-    if(urlsplit.length > 1){
+    if (urlsplit.length > 1){
         var attributeGesetzt = urlsplit[1].split("&");
-        attributeGesetzt.forEach(function(attribut){
+        attributeGesetzt.forEach(function (attribut) {
             var attributSplit = attribut.split("=");
-            urlEncoded=urlEncoded+attributSplit[0]+'='+encodeURIComponent(attributSplit[1])+"&";
+            urlEncoded = urlEncoded+attributSplit[0] + '=' + encodeURIComponent(attributSplit[1]) + "&";
         });
     }
 
     //initiale Befüllung des Listpickers
     //Hier wird der eigentliche Request abgeschickt!
-    $.get( urlEncoded+"filter="+encodeURIComponent(listpickerFilterInput.value)).success(function(data){createListpickerTable(data, $listpickerFilter);});
+    $.get(urlEncoded + "filter=" + encodeURIComponent(listpickerFilterInput.value)).done(function (data) {
+        createListpickerTable(data, $listpickerFilter);
+    });
     listpickerFilterInput.dataset.oldvalue = listpickerFilterInput.value;
 
     var $listpickerContent = $listpickerFilter.parent().parent();
@@ -2166,7 +2158,7 @@ registerListpickerfilter = function (identifier) {
     var $listpickerField = $listpickerContainer.find('*[id*=listpickerField]');
 
     //Hat man sich im Dropdownmenü befunden und klickt anschließend außerhalb, werden die Felder synchronisiert.
-    $(listpickerFilterInput).focusout(function() {
+    $(listpickerFilterInput).focusout(function () {
         $listpickerFilter.parent().parent().siblings('.form-control').focusout();
     });
 
@@ -2177,14 +2169,18 @@ registerListpickerfilter = function (identifier) {
     //der Filter funktioniert dann nicht korrekt.
     $(listpickerFilterInput).off('change keyup', servletListpickerFilterChanged);
     //Die benötigten Daten (die URL und der Filter selbst) geben wir als Data-Attribute rein.
-    $(listpickerFilterInput).on('change keyup', {url: urlEncoded, listpickerfilter: $listpickerFilter, listpickerFilterInput: $(listpickerFilterInput) }, servletListpickerFilterChanged);
+    $(listpickerFilterInput).on('change keyup', {
+        url: urlEncoded,
+        listpickerfilter: $listpickerFilter,
+        listpickerFilterInput: $(listpickerFilterInput)
+    }, servletListpickerFilterChanged);
 };
 
 /**
  * Die Funktion behandelt change und keyup Events für die Listpicker, die per Servlet filtern.
  * @param event Das change/keyup Event.
  */
-function servletListpickerFilterChanged(event){
+function servletListpickerFilterChanged(event) {
     "use strict";
     event.stopImmediatePropagation();
     //Hole die benötigten Daten aus den Data-Attributen des Events (wurden im Aufruf gesetzt).
@@ -2192,13 +2188,15 @@ function servletListpickerFilterChanged(event){
     var listpickerFilter = event.data.listpickerfilter;
     var listpickerFilterInput = event.data.listpickerfilter;
     var delay = 500;
-    timer = window.setTimeout(function(filter) {
-        var input = $this[0];
+    window.setTimeout(function (filter) {
+        var input = listpickerFilter.children()[0];
         if (input.dataset.oldvalue == "undefined" || input.value != input.dataset.oldvalue) {
-            $.get( servletUrl+"filter="+encodeURIComponent(input.value)).success(function(data){createListpickerTable(data, listpickerFilter);});
-            input.dataset.oldvalue=input.value;
+            $.get(servletUrl + "filter=" + encodeURIComponent(input.value)).done(function (data) {
+                createListpickerTable(data, listpickerFilter);
+            });
+            input.dataset.oldvalue = input.value;
         }
-    },delay, listpickerFilterInput);
+    }, delay, listpickerFilterInput);
 }
 
 //Erstellt einen ListpickerTable anhand des responseTextes.
@@ -2207,17 +2205,17 @@ createListpickerTable = function (responseText, listfilter) {
     var $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
     var $table = $tablecontainer.find(".servletTable");
     $table.empty();
-    tableJson = JSON.parse(responseText);
-    for(var j in tableJson.items) {
+    var tableJson = JSON.parse(responseText);
+    for (var j in tableJson.items) {
         var item = tableJson.items[j];
         var tr = $('<tr>').attr('id', item.id);
-        for(var i = 0; i < item.attrs.length; i++) {
+        for (var i = 0; i < item.attrs.length; i++) {
             var td = $('<td>').text(item.attrs[i].trim());
             tr.append(td);
         }
         $table.append(tr);
     }
-    if(tableJson.weiterFiltern === true) {
+    if (tableJson.weiterFiltern === true) {
         var trWeiterFiltern = $('<tr>');
         var tdWeiterFiltern = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
         trWeiterFiltern.append(tdWeiterFiltern);
@@ -2228,12 +2226,12 @@ createListpickerTable = function (responseText, listfilter) {
 
 //Bei einem Klick im Dokument, wird ein Listpicker, falls dieser geöffnet war, geschlossen und zusätzlich die
 //Focusout-Methode getriggert, um das Auflösen des Schlüssels zu bewirken.
-$(document).click(function(e) {
+$(document).click(function (e) {
     "use strict";
     var $target = $(e.target);
     var $listpickerContainer = $('.listpicker-container.open');
     var $listpickerContent = $listpickerContainer.find('.listpicker-content');
-    if($listpickerContent.has($target).length <= 0 && $listpickerContainer.hasClass('open')) {
+    if ($listpickerContent.has($target).length <= 0 && $listpickerContainer.hasClass('open')) {
         $listpickerContainer.removeClass('open');
         $listpickerContent.siblings('.form-control').focusout();
         $target.focus();

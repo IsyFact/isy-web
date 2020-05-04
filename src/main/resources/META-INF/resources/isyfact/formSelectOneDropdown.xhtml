@@ -2,7 +2,8 @@
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 <!-- Ein Dropdownmenü innerhalb Formularen. -->
 
@@ -85,6 +86,7 @@
                     <h:selectOneMenu id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
                                      value="#{cc.attrs.value}"
                                      styleClass="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{cc.attrs.invalid ? 'invalid' : ''} #{cc.attrs.readonly ? 'disabled readonly' : ''}"
+                                     p:data-style="btn-icon"
                                      converter="#{cc.attrs.converter}" disabled="#{cc.attrs.disabled}"
                                      title="#{cc.attrs.label}">
                         <composite:insertChildren/>
@@ -99,7 +101,7 @@
                     <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
                        data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
                        data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
-                        <span class="icon icon-info"></span>
+                        <span class="icon icon-info"/>
                     </a>
                 </span>
         </ui:fragment>
