@@ -1,3 +1,6 @@
+# 4.9.1
+- `IFE-144`: Bereinigung der "Maven Dependency Convergence"-Warnings: Exclusions für divergierende Versionen hinzugefügt.
+
 # v4.9.0
 - `IFE-14`: Mehrzeilige Popup-Texte
 - `IFE-25`: HilfeController hinzugefügt
