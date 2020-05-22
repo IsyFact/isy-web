@@ -33,7 +33,7 @@ include::inhalt.adoc[tags=inhalt]
 include::changelog.adoc[leveloffset=1]
 
 // Glossar
-// include::glossary.adoc[]
+include::glossary.adoc[]
 
 // Literaturverzeichnis
 include::bibliography.adoc[]

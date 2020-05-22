@@ -305,17 +305,27 @@ Dies erfolgt immer durch einen Controller, der die Daten aus dem Model an den An
 Jeder View-State in der Flow-Definition der GUI-Komponente ist mit einer eigenen Maske, dem View verknüpft.
 Spring Web Flow steuert das Rendering des Views.
 
-Der View einer GUI Komponente ist nach dem Umsetzungsmuster der IsyFact wie folgt aufgebaut: Eine Facelet-Datei dient dazu, die im Seitentemplate (siehe <<Einleitung>>) inkludierte Definition der Seitenbereiche des Inhaltsbereiches zu definieren.
+Der View einer GUI Komponente ist nach dem Umsetzungsmuster der IsyFact wie folgt aufgebaut: Eine Facelet-Datei dient dazu, die im Seitentemplate inkludierte Definition der Seitenbereiche des Inhaltsbereiches zu definieren.
 Das Tag `<ui:composition>` referenziert hierbei das Seitentemplate, in welchem die über `<ui:define>`
 definierten Teile eingebunden werden.
-Die verschiedenen Teile des Seitentemplates finden sich in <<jsf-seitenelemente>>.
 
 Je nach Seitentyp muss entweder
 
 * `/WEB-INF/gui/common/layout/applikationDetailseite.xhtml` oder
 * `/WEB-INF/gui/common/layout/applikation.xhtml`
 
-als Template angegeben werden.
+als Ausgangs-Seitentemplate angegeben werden.
+
+:desc-demoWebGui-ApplicationTemplate: Einbindung eines Ausgangsseiten-Templates (applikation.xhtml)
+[id="demoWebGui-ApplicationTemplate", reftext="{figure-caption} {counter:figures}"]
+.{desc-demoWebGui-ApplicationTemplate}
+image::demoWebGui-ApplicationTemplate.png[align="center"]
+
+Das Tag `<ui:composition>` referenziert hierbei das Ausgangsseiten-Template, in welchem die über `<ui:define>`
+definierten Teile eingebunden werden.
+
+Die verschiedenen Teile des Seitentemplates finden sich in <<jsf-seitenelemente>>.
+
 
 Die Templates bieten folgende Schnittstellen über den `ui:define` / `ui:insert` Mechanismus von JSF an:
 
@@ -333,7 +343,7 @@ Die Templates bieten folgende Schnittstellen über den `ui:define` / `ui:insert`
 Normalerweise stellt das Layout eine Form bereit.
 Für spezifische Anpassungen (z.B. AJAX-Listpicker) müssen jedoch eigene Forms definiert werden.
 
-:desc-listing-jsfViewState: Beispiel für eine JSF ViewState Seite
+:desc-listing-jsfViewState: Beispiel für eine JSF ViewState Seite mit Inhaltsbereichsangabe
 [id="listing-jsfViewState",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-jsfViewState}
 [source,xml]
@@ -1144,11 +1154,14 @@ Somit wird verhindert, dass ein Angreifer ein ungewünschtes Script-Tag übergib
 
 Die Konfiguration der Sicherheitskomponente ist im Konzept <<NutzungsvorgabenSicherheit>> beschrieben.
 
-Die zur Integration mit Spring Webflow benötigten Listener liefert Isy-Web in der Autokonfiguration mit.
+Die zur Integration mit Spring Webflow benötigten Listener liefert `isy-web` in der Autokonfiguration mit.
+
+
 In der Regel müssen zusätzlich folgende Beans definiert werden:
-*aus isy-sicherheit: Sicherheit und AccessManager
-*aus isy-aufrufkontext: AufrufKontextVerwalter und AufrufKontextFactory
-*aus spring-security: AccessDecisionManager, der auf die Sicherheit delegiert
+
+* aus isy-sicherheit: `Sicherheit` und `AccessManager`
+* aus isy-aufrufkontext: `AufrufKontextVerwalter` und `AufrufKontextFactory`
+* aus spring-security: `AccessDecisionManager`, der auf die Bean `Sicherheit` delegiert
 
 :desc-listing-sec: Konfiguration Sicherheitskomponente
 [id="listing-sec",reftext="{listing-caption} {counter:listings }"]
@@ -3671,7 +3684,7 @@ Wenn JavaScript nicht aktiviert ist, werden alle Validierungsnachrichten in eine
 Auf den Tooltip wird verzichtet.
 Für die Zuordnung von Validierungsnachrichten und Eingabefeld wird das Attribut `reference` verwendet, welches auch in der entsprechenden Formularkomponente angegeben werden muss.
 
-[[4eyesprinciple]]
+[[four-eyes-principle]]
 === 4-Augen-Prinzip
 
 Einige JSF-Komponenten unterstützen das 4-Augen-Prinzip.

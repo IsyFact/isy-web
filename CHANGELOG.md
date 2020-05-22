@@ -33,12 +33,6 @@ Wichtige Änderungen:
 - `IFE-66`: Dropdown-4-Eyes Readonly-Label um Icon ergänzt
 - `IFS-198`: Fehlerbehandlung in eigenes FlowHandlerMapping überführt
 - `IFS-307`: Products-BOM eingebunden, Update el-api auf 3.0.0
-- `IFE-15`: Beschreibungen 4-Augen-Prinzip erweitert
-- `IFE-39`: Dokumentation zu Breadcrumbs hinzugefügt
-- `IFE-11`: Beschreibungen der JSF-Komponenten erweitert
-- `IFE-35`: Dokumentation von List Picker Filterung mit Servlets hinzugefügt.
-- `IFS-198`: Fehlerbehandlung außerhalb des Dialogablaufs ergänzt
-- `IFS-222`: Filter Reihenfolge für Encoding angepasst
 
 ## Hinweise zum Upgrade
 - Liegen Anpassungen der Klasse `HeaderHelper` bezüglich der Standardfarbe (`DEFAULT_COLOR`) vor, sollten diese enfernt werden, da die Standardfarbe nun durch die Portalfarbe bestimmt wird.
@@ -52,8 +46,7 @@ Wichtige Änderungen:
 - `IFS-163`: Unterstützung für IE8 eingestellt
 - `IFS-165`: UI-Block wird bei manchen Fehlermeldungen nicht deaktiviert 
 - `IFS-182`: Datepicker um Übernahme des heutigen Datums erweitert
-- `IFS-202`: DownloadHelper hinzugefügt und Dokumentation angepasst
-- `IFS-205`: Dokumentation zu horizontaler Navigation hinzugefügt
+- `IFS-202`: DownloadHelper hinzugefügt
 
 # v4.6.0
 - `IFS-55`: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
