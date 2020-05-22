@@ -1,0 +1,115 @@
+[[changelog]]
+= Changelog
+
+// *Änderungen Release 5.0.0*
+
+// tag::release-5.0.0[]
+// end::release-5.0.0[]
+
+// *Änderungen Release 4.9.0*
+
+// tag::release-4.9.0[]
+// end::release-4.9.0[]
+
+
+// *Änderungen Release 4.8.1*
+
+// tag::release-4.8.1[]
+// end::release-4.8.1[]
+
+*Änderungen Release 4.8.0*
+
+// tag::release-4.8.0[]
+- `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
+- `IFE-18`: Attribute in GUI-Controls bereinigt
+- `IFE-51`: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
+- `IFE-59`: Definition der Standardfarbe des Headers über die Portalfarbe (s. `isy-style`).
+- `IFE-15`: Beschreibungen 4-Augen-Prinzip erweitert
+- `IFE-39`: Dokumentation zu Breadcrumbs hinzugefügt
+- `IFE-11`: Beschreibungen der JSF-Komponenten erweitert
+- `IFE-35`: Dokumentation von List Picker Filterung mit Servlets hinzugefügt.
+
+Hinweise zum Upgrade
+
+- Liegen Anpassungen der Klasse `HeaderHelper` bezüglich der Standardfarbe (`DEFAULT_COLOR`) vor, sollten diese enfernt werden, da die Standardfarbe nun durch die Portalfarbe bestimmt wird.
+// end::release-4.8.0[]
+
+*Änderungen Release 4.7.0*
+
+// tag::release-4.7.0[]
+- `IFS-202`: DownloadHelper hinzugefügt und Dokumentation angepasst
+- `IFS-205`: Dokumentation zu horizontaler Navigation hinzugefügt
+// end::release-4.7.0[]
+
+*Änderungen Release 4.6.0*
+
+// tag::release-4.6.0[]
+- `IFS-82`: Ausrichtung von Tabelleninhalten mittig, links- und rechtsbündig möglich.
+- `IFS-94`: Neue Widgets: formsNumericInput und formNumericInputWithFourEyes.
+- `IFS-97`: Einklappbare Linksnavigation.
+- `IFS-107`: Konfiguration von Farben, Texten und Logos.
+// end::release-4.6.0[]
+
+*Änderungen Release 4.5.2*
+
+// tag::release-4.5.2[]
+- `IFS-92`: Austausch des Icon-Fonts durch Font Awesome.
+// end::release-4.5.2[]
+
+// *Änderungen Release 4.5.0*
+
+// tag::release-4.5.0[]
+// end::release-4.5.0[]
+
+*Änderungen Release 4.4.0*
+
+// tag::release-4.4.0[]
+- `IFS-39`: Ein generischer Bestätigungsdialog ist nun verfügbar.
+- `IFS-60`: Datatable zeigt einen Hinweis, wenn eine Tabelle keine Treffer enthält.
+- `IFS-56`: Die Checkbox in Überschriftzeilen von Treffertabellen ist nun eine Tri-State-Checkbox.
+// end::release-4.4.0[]
+
+*Änderungen Release 4.3.3*
+
+// tag::release-4.3.3[]
+- Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
+
+Hinweise zum Upgrade
+
+- Anwendungen müssen nun die Konfigurationsparameter 'gui.header.logo.rechts.pfad', 'gui.header.logo.links.pfad' und 'gui.header.text.logo.rechts' setzen, damit die Logos bzw. der Text angezeigt werden.
+// end::release-4.3.3[]
+
+// *Änderungen Release 4.3.2*
+
+// tag::release-4.3.2[]
+// end::release-4.3.2[]
+
+// *Änderungen Release 4.3.1*
+
+// tag::release-4.3.1[]
+// end::release-4.3.1[]
+
+// *Änderungen Release 4.3.0*
+
+// tag::release-4.3.0[]
+// end::release-4.3.0[]
+
+// *Änderungen Release 4.2.7*
+
+// tag::release-4.2.7[]
+// end::release-4.2.7[]
+
+// *Änderungen Release 4.2.6*
+
+// tag::release-4.2.6[]
+// end::release-4.2.6[]
+
+// *Änderungen Release 4.2.1*
+
+// tag::release-4.2.1[]
+// end::release-4.2.1[]
+
+// *Änderungen Release 4.2.0*
+
+// tag::release-4.2.0[]
+// end::release-4.2.0[]

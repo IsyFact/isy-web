@@ -541,6 +541,40 @@
                                     </outputFile>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>IsyFact-Changelog-html</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>html</backend>
+                                    <sourceDirectory>
+                                        .
+                                    </sourceDirectory>
+                                    <sourceDocumentName>changelog.adoc</sourceDocumentName>
+                                    <outputFile>
+                                        ${project.build.directory}/html/IsyFact-Erweiterungen/Bausteine/changelog.html
+                                    </outputFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>IsyFact-Changelog-pdf</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>pdf</backend>
+                                    <sourceDirectory>
+                                        .
+                                    </sourceDirectory>
+                                    <sourceDocumentName>changelog.adoc</sourceDocumentName>
+                                    <outputFile>
+                                        ${project.build.directory}/pdf/20_IsyFact-Erweiterungen/20_Bausteine/JSF/changelog.pdf
+                                    </outputFile>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
