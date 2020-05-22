@@ -1791,6 +1791,18 @@ Der Dialog besitzt folgende Facets:
 * Der Body-Bereich
 * Der Footer-Bereich
 
+:desc-image-modaler-dialog: Beispiel eines modalen Dialogs
+[id="image-modaler-dialog",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-modaler-dialog}
+image::demoflow-modaler-dialog.png[align="center"]
+
+Das Tag `<isy:modalDialogContent>` wird über den UI-Platzhalter modalDialog eingefügt.
+Dieser Platzhalter sorgt dafür, dass je nach Verfügbarkeit von JavaScript, der Inhalt des modalen Fensters entweder als Inhalt oder als eigenständiger Dialog gerendert wird.
+Die Funktionsweise des modalen Dialogs ist in das Basis-Layout eingebunden.
+Um einen Dialog zu öffnen, muss dieser als eigener View-State (in Spring Webflow) definiert werden.
+Beim Eintreten in den Flow wird das modale Fenster über einen Aufruf des BasisController geöffnet.
+Beim Verlassen des View-States wird dieser wieder geschlossen.
+
 :desc-listing-jsfModalerDialog: Modaler Dialog
 [id="listing-jsfModalerDialog",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-jsfModalerDialog}
@@ -1813,12 +1825,7 @@ Der Dialog besitzt folgende Facets:
  </ui:define>
 ----
 
-Das Tag `<isy:modalDialogContent>` wird über den UI-Platzhalter modalDialog eingefügt.
-Dieser Platzhalter sorgt dafür, dass je nach Verfügbarkeit von JavaScript, der Inhalt des modalen Fensters entweder als Inhalt oder als eigenständiger Dialog gerendert wird.
-Die Funktionsweise des modalen Dialogs ist in das Basis-Layout eingebunden.
-Um einen Dialog zu öffnen, muss dieser als eigener View-State (in Spring Webflow) definiert werden.
-Beim Eintreten in den Flow wird das modale Fenster über einen Aufruf des BasisController geöffnet.
-Beim Verlassen des View-States wird dieser wieder geschlossen.
+Um im Hintergrund weiterhin das aktuelle Fenster anzuzeigen, genügt es den bisherigen View-State entsprechend zu vererben.
 
 :desc-listing-openCloseModaleDialoge: Öffnen und Schließen von modalen Dialogen
 [id="listing-openCloseModaleDialoge",reftext="{listing-caption} {counter:listings }"]
@@ -1839,7 +1846,62 @@ Beim Verlassen des View-States wird dieser wieder geschlossen.
 </view-state>
 ----
 
-Um im Hintergrund weiterhin das aktuelle Fenster anzuzeigen, genügt es den bisherigen View-State entsprechend zu vererben.
+
+=== Bestätigungsdialog
+
+Bestätigungsdialoge, auch Popup-Dialoge genannt, sind spezielle modale Dialoge, die als Subflows eingebunden werden.
+Die anzuzeigenden Texte und Button-Beschriftungen werden dem Flow als Parameter übergeben.
+Bestätigungsdialoge	sind daher einfach und vielfältig einsetzbar und eignen sich immer, wenn der Benutzer vor eine "Ja/Nein Entscheidung" gestellt werden soll.
+Sollte kein Java-Script	aktiviert sein, so wird der Dialog direkt im Fenster angezeigt.
+
+:desc-image-bestaetigungs-dialog: Beispiel eines Bestätigungsdialogs (Popup-Dialog)
+[id="image-bestaetigungs-dialog",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-modaler-dialog}
+image::demoflow-bestaetigungs-dialog.png[align="center"]
+
+Bei einem Bestätigungsdialog können auch mehrzeilige Texte hinterlegt werden.
+Hierfür ist es möglich, eine Nachricht aus einer weiteren Ressource einzubinden.
+Der Parameter "`dialogNachricht`" wird in diesem Falle nicht zwingend benötigt (required="false").
+
+Bei Verwendung des Parameters "dialogNachrichtPfad" wird die "dialogNachricht" nicht angezeigt.
+Die anzuzeigenden Texte aus einer weiteren Ressource werden dem Flow als neuer Parameter "dialogNachrichtPfad" übergeben (siehe <<listing-Bestaetigungsdialog>>).
+
+Falls der anzuzeigende Text für den Abbrechen-Button nicht dem Flow übergeben wurde, wird der Default-Text zu "MEL_Button_Abbrechen" aus den `maskentexte.properties` geladen.
+
+:desc-listing-Bestaetigungsdialog: Bestätigungsdialog - subflow mit Parametern
+[id="listing-Bestaetigungsdialog",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-Bestaetigungsdialog}
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+    parent="applikationseiteParentFlow">
+
+    <var name="modalerDialogModel" class="de.bund.bva.pliscommon.pliswebgui.gui.flows.modalerdialog.ModalerDialogModel" />
+    <var name="bestaetigungsdialogModel" class="de.bund.bva.pliscommon.pliswebgui.gui.flows.modalerdialog.BestaetigungsdialogModel" />
+ ...
+ ...
+    <subflow-state id="demoBestaetigenSubflowState" subflow="bestaetigenFlow">
+        <input name="dialogTitel" value="'Ein Beispieltitel: Achtung, sind Sie sich sicher...'" />
+        <input name="dialogNachricht" value="'Eine Beispielnachricht: Sind Sie sicher, dass sie fortfahren wollen?'" />
+        <input name="dialogNachrichtPfad" value="'/WEB-INF/gui/common/eingebundeneNachricht.xhtml'" />
+        <input name="dialogKonsequenz" value="'Eine beispielhafte Konsequenz (Angabe optional): Nicht gespeicherte Änderungen gehen verloren.'" />
+        <input name="submitActionName" value="'Fortfahren'" />
+        <!-- <input name="abbrechenActionName" value="'Abbrechen'" /> -->
+        <transition on="abbrechenEndState" to="modalerDialogViewState" >
+          <evaluate expression="bestaetigungsdialogController.abbrechen(bestaetigungsdialogModel)" />
+        </transition>
+        <transition on="submitEndState" to="modalerDialogViewState">
+          <evaluate expression="bestaetigungsdialogController.bestaetige(bestaetigungsdialogModel)" />
+        </transition>
+    </subflow-state>
+</flow>
+----
+
+
+
 
 
 [[wizard]]
@@ -1873,9 +1935,9 @@ Außerdem gibt es folgende optionale Parameter:
 
 
 
-:desc-listing-wirardModaleDialoge: Modaler Wizard
-[id="listing-wirardModaleDialoge",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-wirardModaleDialoge}
+:desc-listing-wizardModaleDialoge: Modaler Wizard
+[id="listing-wizardModaleDialoge",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-wizardModaleDialoge}
 [source, xml]
 ----
 <isy:wizard wizardDialogModel="#{wdm}">
