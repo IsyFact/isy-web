@@ -10,6 +10,9 @@
 - `IFS-302`: Warnmeldungen behoben: tomahawk.taglib.xml hinzugefügt
 - `IFS-468`: Dependencies aktualisiert nach Dozer Update
 - `IFE-111`: Dokumentation von Konzept_JSF überarbeitet
+- `IFE-112`: Dokumentation von Nutzungsvorgaben_JSF überarbeitet
+- `IFE-63`: Kapitelergänzung Bestätigungsdialog
+- `IFE-89`: Textänderung bei Querschnittliche Controller
 
 # v4.8.1
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben
