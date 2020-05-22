@@ -9,6 +9,7 @@
 - `IFS-458`: Alle pom.xml Dateien mit tidy:pom formatiert und getestet.
 - `IFS-302`: Warnmeldungen behoben: tomahawk.taglib.xml hinzugefügt
 - `IFS-468`: Dependencies aktualisiert nach Dozer Update
+- `IFE-111`: Dokumentation von Konzept_JSF überarbeitet
 
 # v4.8.1
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben

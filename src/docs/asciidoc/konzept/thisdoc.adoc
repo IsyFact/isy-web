@@ -18,6 +18,9 @@ Dieses Konzept baut auf dem <<DetailkonzeptKomponenteWebGUI>> auf und beschreibt
 Es enthält darüber hinaus architektonische und technische Vorgaben, die bei der Umsetzung der GUI-Komponente zu beachten sind.
 Es streift Aspekte der verwendeten Technologien, wo nötig, setzt in der Breite aber eine gewisse Vorkenntnis voraus.
 
+Ergänzend wird im Dokument <<NutzungsvorgabenJSF>> die Umsetzung der GUI-Komponente mit dem JSF Frontend-Framework beschrieben.
+Dort finden sich konkrete, technische Vorgaben, die bei der Umsetzung der GUI-Komponente zu beachten sind.
+
 Zielgruppe dieses Dokuments sind Architekten, die sich einen Überblick über den Baustein JSF verschaffen und wissen möchten, welche Architekturvorgaben und Architekturentscheidungen der Baustein mit sich bringt.
 
 Das Dokument ist in zwei Teile gegliedert.
