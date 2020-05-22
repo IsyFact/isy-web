@@ -4,6 +4,8 @@
 // *Änderungen Release 5.0.0*
 
 // tag::release-5.0.0[]
+- `IFS-111`: Dokumentation von Konzept JSF überarbeitet
+- `IFS-89`: Textänderung bei Querschnittliche Texte
 // end::release-5.0.0[]
 
 // *Änderungen Release 4.9.0*

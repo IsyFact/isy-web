@@ -4,7 +4,9 @@
 == Änderungen Release 5.0.0
 
 // Beginn Übergreifende Änderungen
-
+- `IFS-505`: Upgrade auf Isyfact 2. (Wichtige Änderungen: Umstellung auf isyfact-Namespace anstelle von pliscommon, Umstellung auf Java Config inklusive Spring Autokonfiguration, SetCharacterEncodingFilter und SecurityFilter wird jetzt automatisch von Isy-Web gesetzt
+- `IFS-352`: Zentrales AsciiDoc Changelog anlegen
+- `IFS-335`: Dokumententitel auf Titelseite anpassen
 // Ende übergreifende Änderungen
 
 include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-5.0.0]

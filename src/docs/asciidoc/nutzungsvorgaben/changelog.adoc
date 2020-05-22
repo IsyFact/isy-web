@@ -4,6 +4,8 @@
 // *Änderungen Release 5.0.0*
 
 // tag::release-5.0.0[]
+- `IFS-112`: Dokumentation von Nutzungsvorgaben JSF überarbeitet
+- `IFS-63` : Kapitelergänzung Bestätigungsdialog
 // end::release-5.0.0[]
 
 // *Änderungen Release 4.9.0*
