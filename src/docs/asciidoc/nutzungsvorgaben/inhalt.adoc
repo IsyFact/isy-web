@@ -345,17 +345,25 @@ Dies erfolgt immer durch einen Controller, der die Daten aus dem Model an den An
 Jeder View-State in der Flow-Definition der GUI-Komponente ist mit einer eigenen Maske, dem View verknüpft.
 Spring Web Flow steuert das Rendering des Views.
 
-Der View einer GUI Komponente ist nach dem Umsetzungsmuster der IsyFact wie folgt aufgebaut: Eine Facelet-Datei dient dazu, die im Seitentemplate (siehe <<Einleitung>>) inkludierte Definition der Seitenbereiche des Inhaltsbereiches zu definieren.
-Das Tag `<ui:composition>` referenziert hierbei das Seitentemplate, in welchem die über `<ui:define>`
-definierten Teile eingebunden werden.
-Die verschiedenen Teile des Seitentemplates finden sich in <<jsf-seitenelemente>>.
+Der View einer GUI Komponente ist nach dem Umsetzungsmuster der IsyFact wie folgt aufgebaut: Eine Facelet-Datei dient dazu, die im Seitentemplate inkludierte Definition der Seitenbereiche des Inhaltsbereiches zu definieren.
 
 Je nach Seitentyp muss entweder
 
 * `/WEB-INF/gui/common/layout/applikationDetailseite.xhtml` oder
 * `/WEB-INF/gui/common/layout/applikation.xhtml`
 
-als Template angegeben werden.
+als Ausgangs-Seitentemplate angegeben werden.
+
+:desc-demoWebGui-ApplicationTemplate: Einbindung eines Ausgangsseiten-Templates (applikation.xhtml)
+[id="demoWebGui-ApplicationTemplate", reftext="{figure-caption} {counter:figures}"]
+.{desc-demoWebGui-ApplicationTemplate}
+image::demoWebGui-ApplicationTemplate.png[align="center"]
+
+Das Tag `<ui:composition>` referenziert hierbei das Ausgangsseiten-Template, in welchem die über `<ui:define>`
+definierten Teile eingebunden werden.
+
+Die verschiedenen Teile des Seitentemplates finden sich in <<jsf-seitenelemente>>.
+
 
 Die Templates bieten folgende Schnittstellen über den `ui:define` / `ui:insert` Mechanismus von JSF an:
 
@@ -373,7 +381,7 @@ Die Templates bieten folgende Schnittstellen über den `ui:define` / `ui:insert`
 Normalerweise stellt das Layout eine Form bereit.
 Für spezifische Anpassungen (z.B. AJAX-Listpicker) müssen jedoch eigene Forms definiert werden.
 
-:desc-listing-jsfViewState: Beispiel für eine JSF ViewState Seite
+:desc-listing-jsfViewState: Beispiel für eine JSF ViewState Seite mit Inhaltsbereichsangabe
 [id="listing-jsfViewState",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-jsfViewState}
 [source,xml]
@@ -1305,9 +1313,19 @@ Folgende Konfiguration muss für die Spring-Security Konfiguration übernommen w
 
 `<import resource="classpath:resources/isy-web/spring/isy-sicherheit-web.xml"/>`
 
-Die eingebundenen Spring-Konfigurationen erwarten folgende Beans unter dem angegebenen Namen vorzufinden:
+Die eingebundenen Spring-Konfigurationen erwarten eine Bean unter dem Namen "accessDecisionManager"vorzufinden.
+Die Bean-Attribute "property name" und "ref" sind hierbei auf den String "sicherheit" zu setzen.
 
-* Sicherheit ("sicherheit") Die Sicherheit aus der `isy-sicherheit`.
+:desc-listing-Berechtigungsmanager: Bean Berechtigungsmanager
+[id="listing-Berechtigungsmanager",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-Berechtigungsmanager}
+[source,xml]
+----
+    <bean id="accessDecisionManager"
+          class="de.bund.bva.isyfact.sicherheit.web.DelegatingAccessDecisionManager">
+        <property name="sicherheit" ref="sicherheit"/>
+    </bean>
+----
 
 Durch Spring Security wird die Verwendung von Annotationen bei der Berechtigungsprüfung ermöglicht.
 Diese wird wie folgt aktiviert.
@@ -1319,6 +1337,7 @@ Diese wird wie folgt aktiviert.
 ----
 <global-method-security secured-annotations="enabled" />
 ----
+
 
 Die Konfiguration von Spring Security setzt die Definition eines User Services voraus.
 Dieses kann nach aktuellem Stand nicht umgangen werden.
@@ -3838,7 +3857,7 @@ Wenn JavaScript nicht aktiviert ist, werden alle Validierungsnachrichten in eine
 Auf den Tooltip wird verzichtet.
 Für die Zuordnung von Validierungsnachrichten und Eingabefeld wird das Attribut `reference` verwendet, welches auch in der entsprechenden Formularkomponente angegeben werden muss.
 
-[[4eyesprinciple]]
+[[four-eyes-principle]]
 === 4-Augen-Prinzip
 
 Einige JSF-Komponenten unterstützen das 4-Augen-Prinzip.
