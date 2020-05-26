@@ -312,8 +312,8 @@
                 </plugins>
             </build>
         </profile>
-		
-		<profile>
+
+        <profile>
             <id>build-documentation</id>
             <properties>
                 <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
@@ -546,6 +546,6 @@
                 </plugins>
             </build>
         </profile>
-		
-	</profiles>
+
+    </profiles>
 </project>
