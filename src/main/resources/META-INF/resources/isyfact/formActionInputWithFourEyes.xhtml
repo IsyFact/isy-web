@@ -53,7 +53,8 @@
     <composite:attribute name="mode" type="String" default="normal"/>
     <!-- Attribut: disabled-->
     <composite:attribute name="disabled" type="Boolean" default="false"/>
-
+    <!-- Ob die Darstellung nur lesend erfolgen soll -->
+    <composite:attribute name="readonly" type="Boolean" default="false" />
     <!-- Attribut: fourEyesMode, 4 Augen Prinzip Mode (locked, unlock) -->
     <composite:attribute name="fourEyesMode" type="String" required="true"/>
     <!-- Attribut: fourEyesLastValue, 4 Augen Prinzip Mode (locked, unlock) -->
@@ -84,14 +85,21 @@
                                   forField="#{cc.clientId}:actionInput:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
                                   required="#{cc.attrs.required}"
                                   styleClass="#{cc.attrs.labelStyleClass}"
-                                  rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}"/>
+                                  rendered="#{not cc.attrs.readonly and not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}"/>
+
+        <!-- Das Label falls disabled. -->
+        <isyi:formValidationLabel value="#{cc.attrs.label}"
+                                  forField="#{cc.clientId}:actionInput:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-disabled"
+                                  required="#{cc.attrs.required}"
+                                  styleClass="#{cc.attrs.labelStyleClass}"
+                                  rendered="#{not cc.attrs.readonly and (cc.attrs.disabled or cc.attrs.mode eq 'button-only')}"/>
 
         <!-- Das Label falls readonly. -->
         <isyi:formValidationLabel value="#{cc.attrs.label}"
                                   forField="#{cc.clientId}:actionInput:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly"
                                   required="#{cc.attrs.required}"
                                   styleClass="#{cc.attrs.labelStyleClass}"
-                                  rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}"/>
+                                  rendered="#{cc.attrs.readonly}"/>
 
         <div class="#{cc.attrs.inputStyleClass}">
             <isy:actionInputWithFourEyes id="actionInput" reference="#{cc.attrs.reference}"
@@ -99,7 +107,7 @@
                                          icon="#{cc.attrs.icon}" maxlength="#{cc.attrs.maxlength}"
                                          placeholder="#{cc.attrs.placeholder}"
                                          iconColor="#{cc.attrs.iconColor}" tooltip="#{cc.attrs.tooltip}"
-                                         mode="#{cc.attrs.mode}" disabled="#{cc.attrs.disabled}"
+                                         mode="#{cc.attrs.mode}" disabled="#{cc.attrs.disabled}" readonly="#{cc.attrs.readonly}"
                                          fourEyesMode="#{cc.attrs.fourEyesMode}"
                                          fourEyesLastValue="#{cc.attrs.fourEyesLastValue}"/>
         </div>
