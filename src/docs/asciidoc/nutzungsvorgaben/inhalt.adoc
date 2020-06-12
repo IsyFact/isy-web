@@ -2086,6 +2086,7 @@ Außerdem gibt es folgende optionale Parameter:
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: `...`)
 * `mode`: [normal|button-only|input-only]. `normal` für Eingabefeld und Icon aktiv. `button-only` für nur Icon aktiv. `input-only` für nur Eingabefeld aktiv. (Standard: `normal`)
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
+* `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
 
 Folgende Parameter sind zusätzlich zu den eben genannten für `<isy:formActionInput>` zulässig:
 
@@ -3755,6 +3756,7 @@ Außerdem gibt es folgende optionale Parameter:
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: `...`, drei Punkte)
 * `mode`: [normal|button-only|input-only]. `normal` für Eingabefeld und Icon aktiv. `button-only` für nur Icon aktiv. `input-only` für nur Eingabefeld aktiv. (Standard: `normal`)
 * `disabled`: Flag, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
+* `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
 * `inputStyleClass`: Die CSS-Klasse für das Eingabefeld. (nicht implementiert)
 
 [[formaktionseingabefeld-4eyes]]
