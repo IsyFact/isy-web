@@ -111,7 +111,7 @@
                     rendered="#{cc.attrs.readonly}" />
 
             <div class="#{cc.attrs.inputStyleClass}">
-                <div class="rf-datepicker input-group date"
+                <div class="rf-datepicker#{cc.attrs.readonly ? '_readonly' : ''} input-group date"
                         language="#{cc.attrs.language}" dateformat="#{cc.attrs.dateFormat}">
                     <!-- Edit mode -->
                     <ui:fragment rendered="#{not cc.attrs.readonly}">
@@ -151,11 +151,10 @@
 
                     <!-- Read-Only mode -->
                     <ui:fragment rendered="#{cc.attrs.readonly}">
-                        <input type="text" class="form-control readonly"
-                                id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-                                readonly="readonly" jsf:value="#{cc.attrs.value}">
-                            <composite:insertChildren />
-                        </input>
+                        <span class="form-control readonly"
+                                id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
+                            #{cc.attrs.value}
+                        </span>
 
                         <!-- Four Eyes -->
                         <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"

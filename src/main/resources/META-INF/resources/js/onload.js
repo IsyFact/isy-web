@@ -674,7 +674,7 @@ function refreshFunctions() {
     // Datepicker
     // --------------------------------------------------------
 
-    var $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)');
+    var $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)').filter(':not(.rf-datepicker_readonly)');
     $datepickers.each(function () {
         $(this).datepicker({
             format: $(this).attr('dateformat'),
