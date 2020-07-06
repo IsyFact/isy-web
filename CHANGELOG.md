@@ -1,5 +1,5 @@
 # v4.9.2
- - `IFE-133`: Version auf 4.9.2-SNAPSHOT angehoben.
+ - `IFE-133`: Version auf 4.9.2-SNAPSHOT angehoben. Bug in SpecialCharPicker behoben.
 
 # v4.9.0
 - `IFE-14`: Mehrzeilige Popup-Texte
