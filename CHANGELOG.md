@@ -1,3 +1,6 @@
+# v5.1.0
+- `IFE-133`: Bug in 'SpecialCharPickerRenderer' behoben. 
+
 # v5.0.0
 - `IFE-95`: Nachdokumentation für Eingabefeld ohne Label
 - `IFS-505`: Upgrade auf Isyfact 2.
