@@ -1,3 +1,6 @@
+# v4.9.2
+ - `IFE-133`: Version auf 4.9.2-SNAPSHOT angehoben.
+
 # v4.9.0
 - `IFE-14`: Mehrzeilige Popup-Texte
 - `IFE-25`: HilfeController hinzugefügt
