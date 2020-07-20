@@ -3420,6 +3420,59 @@ public void initialisiereBreadcrumbModel(LocationBreadcrumbModel model) {
 ----
 
 
+==== Seitentoolbar
+
+Die Seitentoolbar ist Teil des `BasisModel`.
+Auf das `SeitentoolbarModel` kann daher über den `BasisController` zugegriffen werden.
+Der `ApplikationseiteController` und der `DetailseiteController` konfigurieren dieses Model entsprechend den Vorgaben automatisch.
+
+Über die Template-Engine (`ui:insert` / `ui:define`) werden weiterhin folgende Bereiche zur Verfügung gestellt.
+Konkrete Seiten können dadurch Einfluss auf das Aussehen der Seitentoolbar nehmen:
+
+* `seitentoolbarLinksButtons`: fügt Anpassungen auf der linken Seite ein,
+* `seitentoolbarMitteButtons`: fügt Anpassungen in der Mitte (zentriert) ein,
+* `seitentoolbarRechtsButtons`: fügt Anpassungen auf der rechten Seite ein.
+
+===== Hilfe-Button
+
+Der Hilfe-Button ist Teil der Seitentoolbar und wird rechts von allen anderen konfigurierten Buttons angezeigt.
+Zur Konfiguration des Buttons muss eine URL zu einer Hilfeseite hinterlegt werden.
+
+:desc-listing-hilfe-konfig: Konfiguration des Hilfe-Buttons
+[id="listing-hilfe-konfig",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hilfe-konfig}
+[source,properties]
+----
+portalhilfe.url=https://example.com/hilfeanwendung
+----
+
+Wird auf den Button geklickt, wird abhängig von der aktuellen Seite, dem Flow und dem ViewState des Flows auf die Hilfeseite geleitet.
+
+Der Hilfe-Button wird nur angezeigt, wenn wie beschrieben, `portalhilfe.url` gesetzt ist.
+Soll der Hilfe-Button standardmäßig ausgeschaltet bleiben, kann dies über den Parameter `hilfe.default.aktiv` in der Konfiguration der Anwendung erfolgen.
+
+:desc-listing-hilfe-deaktivieren: Ausschalten des Hilfe-Buttons
+[id="listing-hilfe-deaktivieren",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hilfe-deaktivieren}
+[source,properties]
+----
+hilfe.default.aktiv=false
+----
+
+Das Aktivieren und Deaktivieren des Hilfe-Buttons ist auch durch Aufruf der entsprechenden `HilfeController`-Methode aus dem Flow heraus möglich.
+Das <<listing-hilfe-flow>> zeigt das Ausschalten des Hilfe-Buttons in der XML-Datei eines Flows.
+
+:desc-listing-hilfe-flow: Ausschalten des Hilfe-Buttons in einem Flow
+[id="listing-hilfe-flow",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hilfe-flow}
+[source,xml]
+----
+<on-start>
+    <!-- ... andere Initialisierungen des Flows ... -->
+    <evaluate expression="hilfeController.deaktiviereHilfe(hilfeModel)" />
+</on-start>
+----
+
 [[selektion-ueberschrift]]
 === Selektion
 
@@ -3530,19 +3583,6 @@ In diesem können die anderen Panels geschachtelt werden.
 Das Tag besitzt folgende Parameter:
 
 * `headerPanel`: Gibt an, ob die Gruppe als Container für den Header des Inhaltsbereichs dient; falls ja werden entsprechende CSS-Klassen für das Layouting eingebunden. (Standard: `false`, Typ: `java.lang.Boolean`)
-
-==== Seitentoolbar
-
-Die Seitentoolbar ist Teil des `BasisModel`.
-Auf das `SeitentoolbarModel` kann daher über den `BasisController` zugegriffen werden.
-Der `ApplikationseiteController` und der `DetailseiteController` konfigurieren dieses Model entsprechend den Vorgaben automatisch.
-
-Über die Template-Engine (`ui:insert` / `ui:define`) werden weiterhin folgende Bereiche zur Verfügung gestellt.
-Konkrete Seiten können dadurch Einfluss auf das Aussehen der Seitentoolbar nehmen:
-
-* `seitentoolbarLinksButtons`: fügt Anpassungen auf der linken Seite ein,
-* `seitentoolbarMitteButtons`: fügt Anpassungen in der Mitte (zentriert) ein,
-* `seitentoolbarRechtsButtons`: fügt Anpassungen auf der rechten Seite ein.
 
 
 [[layout-von-Formularen]]
