@@ -1,9 +1,21 @@
-# v4.9.0
-- `IFE-58`: isy:input analog zu formInput erstellt
+# v4.9.1
 - `IFE-64`: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
+
+# v4.9.0
+- `IFE-14`: Mehrzeilige Popup-Texte
+- `IFE-25`: HilfeController hinzugefügt
+- `IFE-58`: isy:input analog zu formInput erstellt
+- `IFE-78`: Nutzungsvorgaben JSF hinzugefügt
 - `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
 - `IFE-85`: TitlesListener-Funktionalität: Aufspaltung des TitlesListener in zwei Klassen. Die Seitentitel-Funktionalität ist standardmäßig aktiv, die Breadcrumb-Funktionalität standardmäßig deaktiv (und deprecated).
-- `IFS-468`: Dependencies aktualisiert nach Dozer Update
+- `IFS-247`: Screenshots in Detailkonzept überarbeitet
+- `IFS-458`: Alle pom.xml Dateien mit tidy:pom formatiert und getestet.
+- `IFS-302`: Warnmeldungen behoben: tomahawk.taglib.xml hinzugefügt
+- `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
+- `IFE-111`: Dokumentation von Konzept_JSF überarbeitet
+- `IFE-112`: Dokumentation von Nutzungsvorgaben_JSF überarbeitet
+- `IFE-63`: Kapitelergänzung Bestätigungsdialog
+- `IFE-89`: Textänderung bei Querschnittliche Controller
 
 # v4.8.1
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben
