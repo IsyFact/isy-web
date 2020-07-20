@@ -17,6 +17,9 @@
 package de.bund.bva.isyfact.common.web.layout;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.webflow.core.collection.MutableAttributeMap;
 import org.springframework.webflow.execution.RequestContextHolder;
 
@@ -31,6 +34,8 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
  * @author Capgemini, Jonas Zitz
  * @version $Id: BasisController.java 144984 2015-08-18 13:53:33Z sdm_bpiatkowski $
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class BasisController extends AbstractGuiController<BasisModel> {
 
     private static final String DEFAULT_MODAL_DIALOG_NAME = "modalDialog";

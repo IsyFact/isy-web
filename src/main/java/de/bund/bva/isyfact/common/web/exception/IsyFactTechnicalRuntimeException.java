@@ -16,7 +16,7 @@
  */
 package de.bund.bva.isyfact.common.web.exception;
 
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Technische Fehleroberklasse für Laufzeit-Fehler.
@@ -24,7 +24,7 @@ import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
  * @author Capgemini, Jonas Zitz
  * @version $Id: IsyFactTechnicalRuntimeException.java 129989 2015-02-09 14:33:06Z sdm_tgroeger $
  */
-public class IsyFactTechnicalRuntimeException extends PlisTechnicalRuntimeException {
+public class IsyFactTechnicalRuntimeException extends TechnicalRuntimeException {
 
     /**
      * Id.

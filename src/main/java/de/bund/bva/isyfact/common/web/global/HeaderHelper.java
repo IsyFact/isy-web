@@ -20,23 +20,30 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.stereotype.Component;
+import org.springframework.webflow.context.ExternalContextHolder;
+import org.springframework.webflow.core.collection.SharedAttributeMap;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
-import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
-import org.springframework.webflow.context.ExternalContextHolder;
-import org.springframework.webflow.core.collection.SharedAttributeMap;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.exception.KonfigurationException;
 
 /**
  * Helper-Klasse für den Header.
  */
+@Component
 public class HeaderHelper {
 
     /**
@@ -49,6 +56,7 @@ public class HeaderHelper {
      */
     private final Map<String, String> flowToAnwendungsgruppe = new HashMap<>();
 
+    @Autowired
     public HeaderHelper(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
 

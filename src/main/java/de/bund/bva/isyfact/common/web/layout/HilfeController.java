@@ -1,19 +1,23 @@
 package de.bund.bva.isyfact.common.web.layout;
 
-import de.bund.bva.isyfact.common.web.exception.common.FehlertextProviderImpl;
-import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
-import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
-
 import javax.servlet.ServletContext;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.webflow.definition.StateDefinition;
 import org.springframework.webflow.execution.RequestContext;
 import org.springframework.webflow.execution.RequestContextHolder;
+
+import de.bund.bva.isyfact.common.web.exception.common.FehlertextProviderImpl;
+import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
+import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 
 /**
  * Controller-Klasse für den Hilfe-Button.
@@ -22,13 +26,15 @@ import org.springframework.webflow.execution.RequestContextHolder;
  * @author Florian Mallmann, msg
  * @author Andreas Schubert, msg
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class HilfeController extends AbstractGuiController<HilfeModel> {
 
     private static final String XWIKI_PATH = "/bin/view";
 
     private static final String HILFE_DEFAULT_AKTIV = "hilfe.default.aktiv";
 
-    private static final String PLIS_PORTALHILFE_URL = "portalhilfe.url";
+    private static final String ISY_PORTALHILFE_URL = "portalhilfe.url";
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(HilfeController.class);
 
@@ -38,12 +44,18 @@ public class HilfeController extends AbstractGuiController<HilfeModel> {
 
     private Konfiguration konfiguration;
 
+    @Autowired
+    public HilfeController(ServletContext servletContext, Konfiguration konfiguration) {
+        this.servletContext = servletContext;
+        this.konfiguration = konfiguration;
+    }
+
     @Override
     public void initialisiereModel(HilfeModel model) {
 
         boolean hilfeDefaultAktiv = konfiguration.getAsBoolean(HILFE_DEFAULT_AKTIV, true);
-        String plisPortalhilfeUrl = konfiguration.getAsString(PLIS_PORTALHILFE_URL, "");
-        if (plisPortalhilfeUrl == null || plisPortalhilfeUrl.isEmpty()) {
+        String isyPortalhilfeUrl = konfiguration.getAsString(ISY_PORTALHILFE_URL, "");
+        if (isyPortalhilfeUrl == null || isyPortalhilfeUrl.isEmpty()) {
             model.setHilfeButtonAvailable(false);
             LOG.debug(FEHLERTEXT_PROVIDER
                     .getMessage(FehlerSchluessel.INFO_PARAMETER_HILFEPORTAL_URL_NICHT_GESETZT));
@@ -86,14 +98,14 @@ public class HilfeController extends AbstractGuiController<HilfeModel> {
     /**
      * Generiert die Hilfe URL anhand des aktuellen Flow States
      *
-     * @return URL die auf die jeweilige Hilfeseite in der plis-portalhilfe verweist.
+     * @return URL die auf die jeweilige Hilfeseite in der isy-portalhilfe verweist.
      */
     public String ermittleHilfeUrl() {
 
         String viewState = macheViewStateIdZuUeberschrift(ermittleViewStateId());
         String flow = macheFlowIdZuUeberschrift(ermittleFlowId());
-        String plisPortalhilfeUrl = konfiguration.getAsString(PLIS_PORTALHILFE_URL, "");
-        return plisPortalhilfeUrl + XWIKI_PATH + ermittleContextPath() + "/" + flow + "/" + viewState;
+        String isyPortalhilfeUrl = konfiguration.getAsString(ISY_PORTALHILFE_URL, "");
+        return isyPortalhilfeUrl + XWIKI_PATH + ermittleContextPath() + "/" + flow + "/" + viewState;
     }
 
     @Override
@@ -142,12 +154,10 @@ public class HilfeController extends AbstractGuiController<HilfeModel> {
         return viewStateUeberschrift;
     }
 
-    @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }
 
-    @Required
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
     }

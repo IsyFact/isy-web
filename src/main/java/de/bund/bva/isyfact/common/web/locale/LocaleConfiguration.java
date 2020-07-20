@@ -16,21 +16,29 @@
  */
 package de.bund.bva.isyfact.common.web.locale;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.stereotype.Component;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Kapselt den Zugriff auf Konfiguration bezüglich Lokalisierung.
  * @author Capgemini, Lukas Goerlach
  */
+@Component
 public class LocaleConfiguration {
 
     /**
      * Die Konfiguration.
      */
     private Konfiguration konfiguration;
+
+    @Autowired
+    public LocaleConfiguration(Konfiguration konfiguration) {
+        this.konfiguration = konfiguration;
+    }
 
     /**
      * Ermittelt die erzwungene Sprache für Maskentexte, falls sie existiert.
@@ -40,7 +48,6 @@ public class LocaleConfiguration {
         return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_LANGUAGE_FORCED_LOCALE, null);
     }
 
-    @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

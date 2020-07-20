@@ -20,7 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
 import org.springframework.webflow.definition.FlowDefinition;
@@ -30,12 +34,14 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 
 import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Controller für die Quicklinks.
  *
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class QuicklinksController extends AbstractGuiController<ApplikationseiteModel> {
 
     /**
@@ -47,6 +53,11 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
      * Die Konfiguration.
      */
     private Konfiguration konfiguration;
+
+    @Autowired
+    public QuicklinksController(Konfiguration konfiguration) {
+        this.konfiguration = konfiguration;
+    }
 
     /**
      * {@inheritDoc}
@@ -313,7 +324,7 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
 
         if (quicklinksGruppeModel == null) {
             // Null, falls keine Konfiguration existiert. Fallback: Gruppe über die Gruppen ID erzeugen, damit
-            // ist auch der Fallback zu früheren Versionen der plis-web gewährleistet (gruppeId = headerName).
+            // ist auch der Fallback zu früheren Versionen der isy-web gewährleistet (gruppeId = headerName).
             quicklinksGruppeModel = new QuicklinksGruppeModel();
             quicklinksGruppeModel.setGruppeId(gruppeId);
             quicklinksGruppeModel.setAnzuzeigenderGruppenname(gruppeId);
@@ -349,7 +360,6 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
         return quicklinkselementModelGeloescht;
     }
 
-    @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

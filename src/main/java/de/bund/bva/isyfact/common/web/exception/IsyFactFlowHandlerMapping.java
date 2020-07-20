@@ -3,11 +3,6 @@ package de.bund.bva.isyfact.common.web.exception;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
-import de.bund.bva.isyfact.common.web.exception.common.FehlertextUtil;
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.webflow.core.FlowException;
 import org.springframework.webflow.execution.FlowExecutionException;
@@ -15,6 +10,11 @@ import org.springframework.webflow.execution.repository.FlowExecutionRestoration
 import org.springframework.webflow.mvc.servlet.AbstractFlowHandler;
 import org.springframework.webflow.mvc.servlet.FlowHandler;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
+
+import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
+import de.bund.bva.isyfact.common.web.exception.common.FehlertextUtil;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 
 /**
  * Standard-IsyFactFlowHandlerMapping der IsyFact, das im Gegensatz zum {@link FlowHandlerMapping} einige
@@ -39,22 +39,26 @@ public class IsyFactFlowHandlerMapping extends FlowHandlerMapping {
      */
     private String accessDeniedFlow;
 
+    public IsyFactFlowHandlerMapping(AusnahmeIdMapper ausnahmeIdMapper, String snapshotNotFoundFlow,
+                                     String accessDeniedFlow) {
+        this.ausnahmeIdMapper = ausnahmeIdMapper;
+        this.snapshotNotFoundFlow = snapshotNotFoundFlow;
+        this.accessDeniedFlow = accessDeniedFlow;
+    }
+
     @Override
     protected FlowHandler createDefaultFlowHandler(String flowId) {
         return new DefaultExceptionHandlingFlowHandler(flowId, snapshotNotFoundFlow, accessDeniedFlow);
     }
 
-    @Required
     public void setAusnahmeIdMapper(AusnahmeIdMapper ausnahmeIdMapper) {
         this.ausnahmeIdMapper = ausnahmeIdMapper;
     }
 
-    @Required
     public void setSnapshotNotFoundFlow(String snapshotNotFoundFlowId) {
         this.snapshotNotFoundFlow = snapshotNotFoundFlowId;
     }
 
-    @Required
     public void setAccessDeniedFlow(String accessDeniedFlowId) {
         this.accessDeniedFlow = accessDeniedFlowId;
     }

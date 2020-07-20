@@ -23,6 +23,9 @@ import javax.faces.context.FacesContext;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 
 import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
@@ -41,6 +44,8 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  *
  * @author Capgemini, Andreas Hörning
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ErrorController implements ApplicationContextAware, GuiController {
 
     /** Der Logger. */

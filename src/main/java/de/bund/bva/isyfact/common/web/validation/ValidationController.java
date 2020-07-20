@@ -21,6 +21,9 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 import org.springframework.webflow.execution.RequestContextHolder;
 
 import de.bund.bva.isyfact.common.web.global.NachrichtenProvider;
@@ -32,6 +35,8 @@ import de.bund.bva.isyfact.common.web.konstanten.MaskentexteSchluessel;
  * @author Capgemini, Andreas Hörning.
  * @version $Id: ValidationController.java 130854 2015-02-18 10:42:27Z sdm_mhartung $
  */
+@Controller
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ValidationController {
 
     /**

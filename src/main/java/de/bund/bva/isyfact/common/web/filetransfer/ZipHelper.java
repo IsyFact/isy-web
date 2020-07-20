@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Michael Moossen, msg
  */
+@Component
 public class ZipHelper {
 
     /**

@@ -19,13 +19,11 @@ package de.bund.bva.isyfact.common.web.jsf.components.listpicker.behoerde;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Required;
-
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 import de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerController;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
  * Der konkrete Listpicker-Controller für Behörden.
@@ -45,6 +43,10 @@ public abstract class AbstractBehoerdeListpickerController
      * @return Die Liste.
      */
     public abstract List<BehoerdeListpickerItem> erzeugeBehoerdeListpickerItemListe();
+
+    public AbstractBehoerdeListpickerController(int maxElemente) {
+        this.maxElemente = maxElemente;
+    }
 
     /**
      * {@inheritDoc}
@@ -112,7 +114,6 @@ public abstract class AbstractBehoerdeListpickerController
         }
     }
 
-    @Required
     public void setMaxElemente(int maxElemente) {
         this.maxElemente = maxElemente;
     }

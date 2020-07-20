@@ -1,21 +1,29 @@
 package de.bund.bva.isyfact.common.web.webflow.titles;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.stereotype.Component;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Helper-Klasse für den Seitentitel.
  * @author Capgemini, Aljoscha Kalb
  * @version $Id:$
  */
+@Component
 public class TitlesHelper {
     /**
      * Zugriff auf die Konfiguration, damit die benötigten Werte für die Anzeige der Versionsnummer im Titel
      * ausgelesen werden können.
      */
     private Konfiguration konfiguration;
+
+    @Autowired
+    public TitlesHelper(Konfiguration konfiguration) {
+        this.konfiguration = konfiguration;
+    }
 
     /**
      * Prüft ob die Versionsanzeige in der Anwendung aktiviert ist.
@@ -57,7 +65,6 @@ public class TitlesHelper {
         }
     }
 
-    @Required
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }

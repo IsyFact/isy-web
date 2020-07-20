@@ -21,9 +21,9 @@ import java.util.UUID;
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.common.web.exception.common.FehlerInformation.Fehlertyp;
 import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.pliscommon.exception.PlisBusinessException;
-import de.bund.bva.pliscommon.exception.PlisException;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Stellt gemeinsame Methoden für das Erstellen des GUI- und LOG-Fehlertextes für die unterschiedlichen
@@ -37,10 +37,10 @@ public class FehlertextUtil {
     /**
      * Schreibt einen Log-Eintrag über die Exception. Für Fehler, welche nicht in der Anwendung speziell
      * erzeugt werden, werden eine neue Unique-ID generiert bzw. Ausnahme-ID erstellt. Dann werden die
-     * Log-Einträge genauso wie bei einer PLIS-Exception geschreiben.
+     * Log-Einträge genauso wie bei einer Isy-Exception geschreiben.
      * <p>
      * Extrahiert außerdem aus der übergebenen Exception den Fehlertext der ersten fachlichen oder technischen
-     * Plis-Exception.
+     * Isy-Exception.
      *
      * @param exception
      *            die Exception, für die ein Log-Eintrag geschrieben wird.
@@ -69,7 +69,7 @@ public class FehlertextUtil {
      * eine neue Unique-ID generiert bzw. Ausnahme-ID erstellt.
      * <p>
      * Extrahiert außerdem aus der übergebenen Exception den Fehlertext der ersten fachlichen oder technischen
-     * Plis-Exception.
+     * Isy-Exception.
      *
      * @param exception
      *            die Exception.
@@ -106,7 +106,7 @@ public class FehlertextUtil {
 
     /**
      * Wenn Fehlerinformationen in dem übergebenen Fehler (nicht dessen case) ermittelbar sind (Durch den
-     * AusnahmeIdMapper oder weil es sich um eine Plis-Exception handelt), werden diese ermittelt.
+     * AusnahmeIdMapper oder weil es sich um eine Isy-Exception handelt), werden diese ermittelt.
      *
      * @param fehler
      *            der zu untersuchende Fehler.
@@ -118,16 +118,16 @@ public class FehlertextUtil {
      */
     private static FehlerInformation extrahiereFehlerInformation(Throwable fehler,
         AusnahmeIdMapper ausnahmeIdMapper) {
-        // checked Plis Exceptions
-        if (fehler instanceof PlisException) {
-            PlisException plisException = (PlisException) fehler;
+        // checked Isy Exceptions
+        if (fehler instanceof BaseException) {
+            BaseException isyException = (BaseException) fehler;
 
             FehlerInformation fehlerInformation = new FehlerInformation();
-            fehlerInformation.setFehlerId(plisException.getAusnahmeId());
-            fehlerInformation.setFehlernachricht(plisException.getFehlertext());
-            fehlerInformation.setUuid(plisException.getUniqueId());
+            fehlerInformation.setFehlerId(isyException.getAusnahmeId());
+            fehlerInformation.setFehlernachricht(isyException.getFehlertext());
+            fehlerInformation.setUuid(isyException.getUniqueId());
 
-            if (fehler instanceof PlisBusinessException) {
+            if (fehler instanceof BusinessException) {
                 fehlerInformation.setTyp(Fehlertyp.FACHLICH);
             } else {
                 fehlerInformation.setTyp(Fehlertyp.TECHNISCH);
@@ -135,14 +135,14 @@ public class FehlertextUtil {
             return fehlerInformation;
         }
 
-        // runtime Plis Exceptions
-        if (fehler instanceof PlisTechnicalRuntimeException) {
-            PlisTechnicalRuntimeException plisException = (PlisTechnicalRuntimeException) fehler;
+        // runtime Isy Exceptions
+        if (fehler instanceof TechnicalRuntimeException) {
+            TechnicalRuntimeException isyException = (TechnicalRuntimeException) fehler;
 
             FehlerInformation fehlerInformation = new FehlerInformation();
-            fehlerInformation.setFehlerId(plisException.getAusnahmeId());
-            fehlerInformation.setFehlernachricht(plisException.getFehlertext());
-            fehlerInformation.setUuid(plisException.getUniqueId());
+            fehlerInformation.setFehlerId(isyException.getAusnahmeId());
+            fehlerInformation.setFehlernachricht(isyException.getFehlertext());
+            fehlerInformation.setUuid(isyException.getUniqueId());
             fehlerInformation.setTyp(Fehlertyp.TECHNISCH);
 
             return fehlerInformation;
@@ -166,7 +166,7 @@ public class FehlertextUtil {
      * @param exception
      *            die zu loggende Exception
      * @param fehlerInformation
-     *            beschreibt alle Informationen, die in einem Plis-Fehler vorhanden sind
+     *            beschreibt alle Informationen, die in einem Isy-Fehler vorhanden sind
      * @param logger
      *            Der Logger.
      */

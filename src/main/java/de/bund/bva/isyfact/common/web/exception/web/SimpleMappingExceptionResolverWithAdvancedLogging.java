@@ -19,13 +19,13 @@ package de.bund.bva.isyfact.common.web.exception.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.common.web.exception.common.FehlertextUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 /**
  * {@link SimpleMappingExceptionResolver}, der Ausnahmen in AJAX-Requests behandelt und ins Log schreibt.
@@ -37,6 +37,10 @@ public class SimpleMappingExceptionResolverWithAdvancedLogging extends SimpleMap
 
     /** Mapper für Fehlerschlüssel von Ausnahmen. */
     private AusnahmeIdMapper ausnahmeIdMapper;
+
+    public SimpleMappingExceptionResolverWithAdvancedLogging(AusnahmeIdMapper ausnahmeIdMapper) {
+        this.ausnahmeIdMapper = ausnahmeIdMapper;
+    }
 
     @Override
     protected void logException(Exception ex, HttpServletRequest request) {
@@ -58,7 +62,6 @@ public class SimpleMappingExceptionResolverWithAdvancedLogging extends SimpleMap
         return super.doResolveException(request, response, handler, ex);
     }
 
-    @Required
     public void setAusnahmeIdMapper(AusnahmeIdMapper ausnahmeIdMapper) {
         this.ausnahmeIdMapper = ausnahmeIdMapper;
     }

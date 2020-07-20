@@ -11,8 +11,8 @@ import de.bund.bva.isyfact.common.web.MockFacesContext;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.common.web.exception.common.FehlerInformation;
 import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
-import de.bund.bva.pliscommon.exception.PlisException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.BaseException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -90,7 +90,7 @@ public class ErrorControllerTest {
         ApplicationContext applicationContextMock = mock(ApplicationContext.class);
         AusnahmeIdMapper ausnahmeIdMapperMock = mock(AusnahmeIdMapper.class);
 
-        PlisException exception = mock(PlisException.class);
+        BaseException exception = mock(BaseException.class);
 
         when(exception.getAusnahmeId()).thenReturn(FEHLER_ID);
         when(exception.getFehlertext()).thenReturn(ERGEBNIS_NACHRICHT);
