@@ -404,7 +404,7 @@ Zur Datenübergabe können auch mehrere Input und mehrere Output-Elemente verwen
 
 ==== Zugriff auf querschnittliche Controller
 
-Für die Steuerung des Vorgabelayouts (z.B. Menüleiste, Linksnavigation) sowie der Nutzung von vorgegebenen Funktionen (z.B. Validierung) werden querschnittliche Controller mit zugehörigen Models verwendet.
+Für die Steuerung des Vorgabelayouts (z.B. Menüleiste, Linksnavigation, Hilfezugriff) sowie der Nutzung von vorgegebenen Funktionen (z.B. Validierung) werden querschnittliche Controller mit zugehörigen Models verwendet.
 Die Instanziierung übernimmt dabei ein übergeordneter Parent-Flow.
 So kann z.B. die Seitentoolbar konfiguriert oder ein Quicklink hinzugefügt werden.
 

@@ -1,3 +1,6 @@
+# v4.9.1
+- `IFE-64`: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
+
 # v4.9.0
 - `IFE-14`: Mehrzeilige Popup-Texte
 - `IFE-25`: HilfeController hinzugefügt
