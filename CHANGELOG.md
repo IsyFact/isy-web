@@ -1,5 +1,7 @@
 # v4.9.2
- - `IFE-133`: Version auf 4.9.2-SNAPSHOT angehoben. Bug in SpecialCharPicker behoben.
+ - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
+            
+            `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
 
 # v4.9.0
 - `IFE-14`: Mehrzeilige Popup-Texte
