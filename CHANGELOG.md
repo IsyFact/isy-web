@@ -1,4 +1,5 @@
 # v4.9.1
+- `IFE-139`: JavaScript Anpassungen für IE11
 - `IFE-64`: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
 
 # v4.9.0
