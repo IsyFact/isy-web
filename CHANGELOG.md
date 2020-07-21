@@ -1,5 +1,6 @@
 # v4.9.1
 - `IFE-139`: JavaScript Anpassungen für IE11
+- `IFE-64`: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
 
 # v4.9.0
 - `IFE-14`: Mehrzeilige Popup-Texte
@@ -11,7 +12,11 @@
 - `IFS-247`: Screenshots in Detailkonzept überarbeitet
 - `IFS-458`: Alle pom.xml Dateien mit tidy:pom formatiert und getestet.
 - `IFS-302`: Warnmeldungen behoben: tomahawk.taglib.xml hinzugefügt
-- `IFS-468`: Dependencies aktualisiert nach Dozer Update
+- `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
+- `IFE-111`: Dokumentation von Konzept_JSF überarbeitet
+- `IFE-112`: Dokumentation von Nutzungsvorgaben_JSF überarbeitet
+- `IFE-63`: Kapitelergänzung Bestätigungsdialog
+- `IFE-89`: Textänderung bei Querschnittliche Controller
 
 # v4.8.1
 - `IFS-421`: initialisierenListickerSevlet: Fehler behoben

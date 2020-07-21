@@ -36,17 +36,6 @@
                         <div class="col-lg-#{basisModel.seitentoolbarModel.zeigeMittlereButtongruppe ? 4 : 8}">
                             <div class="btn-group pull-right">
 
-                                <!-- Der Hilfe-Button wird nur angezeigt, falls dieser erforderlich ist. -->
-                                <ui:fragment rendered="#{hilfeController.isHilfeButtonActive(hilfeModel)}">
-                                    <h:outputLink
-                                            value="#{hilfeController.ermittleHilfeUrl()}"
-                                            target="_blank"
-                                            styleClass="btn btn-icon-round btn-icon-round-small"
-                                            title="#{msg_plisweb.MEL_Button_Hilfe}">
-                                        <span class="icon icon-info"/>
-                                    </h:outputLink>
-                                </ui:fragment>
-
                                 <!-- Buttons von Nutzer einbinden -->
                                 <ui:insert name="seitentoolbarRechtsButtons"/>
 
@@ -55,6 +44,17 @@
                                         rendered="#{basisModel.informationsbereichModel.inhalt != null}">
                                     <isy:buttonIcon action="toggleInformationsbereich" size="large"
                                                     icon="info" render="@all"/>
+                                </ui:fragment>
+
+                                <!-- Der Hilfe-Button wird nur angezeigt, falls dieser erforderlich ist. -->
+                                <ui:fragment rendered="#{hilfeController.isHilfeButtonActive(hilfeModel)}">
+                                    <h:outputLink
+                                            value="#{hilfeController.ermittleHilfeUrl()}"
+                                            target="_blank"
+                                            styleClass="btn btn-icon-round btn-icon-round-large"
+                                            title="#{msg_plisweb.MEL_Button_Hilfe}">
+                                        <span class="icon fa-question-circle"/>
+                                    </h:outputLink>
                                 </ui:fragment>
                             </div>
                         </div>
