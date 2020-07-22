@@ -1,0 +1,180 @@
+:doctitle: Changelog Isy-Web
+
+[[changelog]]
+= Changelog Isy-Web
+
+== Änderungen Release 5.0.0
+
+// Beginn Übergreifende Änderungen
+- `IFS-505`: Upgrade auf Isyfact 2. (Wichtige Änderungen: Umstellung auf isyfact-Namespace anstelle von pliscommon, Umstellung auf Java Config inklusive Spring Autokonfiguration, SetCharacterEncodingFilter und SecurityFilter wird jetzt automatisch von Isy-Web gesetzt
+- `IFS-352`: Zentrales AsciiDoc Changelog anlegen
+- `IFS-335`: Dokumententitel auf Titelseite anpassen
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-5.0.0]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-5.0.0]
+include::src/main/changelog.adoc[tag=release-5.0.0]
+
+== Änderungen Release 4.9.0
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.9.0]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.9.0]
+include::src/main/changelog.adoc[tag=release-4.9.0]
+
+== Änderungen Release 4.8.1
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.8.1]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.8.1]
+include::src/main/changelog.adoc[tag=release-4.8.1]
+
+== Änderungen Release 4.8.0
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.8.0]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.8.0]
+include::src/main/changelog.adoc[tag=release-4.8.0]
+
+
+== Änderungen Release 4.7.0
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.7.0]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.7.0]
+include::src/main/changelog.adoc[tag=release-4.7.0]
+
+== Änderungen Release 4.6.0
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.6.0]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.6.0]
+include::src/main/changelog.adoc[tag=release-4.6.0]
+
+== Änderungen Release 4.5.2
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.5.2]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.5.2]
+include::src/main/changelog.adoc[tag=release-4.5.2]
+
+== Änderungen Release 4.5.0
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.5.0]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.5.0]
+include::src/main/changelog.adoc[tag=release-4.5.0]
+
+== Änderungen Release 4.4.0
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.4.0]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.4.0]
+include::src/main/changelog.adoc[tag=release-4.4.0]
+
+
+== Änderungen Release 4.3.3
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.3]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.3]
+include::src/main/changelog.adoc[tag=release-4.3.3]
+
+== Änderungen Release 4.3.2
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.2]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.2]
+include::src/main/changelog.adoc[tag=release-4.3.2]
+
+== Änderungen Release 4.3.1
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.1]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.1]
+include::src/main/changelog.adoc[tag=release-4.3.1]
+
+== Änderungen Release 4.3.0
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.0]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.0]
+include::src/main/changelog.adoc[tag=release-4.3.0]
+
+
+== Änderungen Release 4.2.7
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.7]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.7]
+include::src/main/changelog.adoc[tag=release-4.2.7]
+
+== Änderungen Release 4.2.6
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.6]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.6]
+include::src/main/changelog.adoc[tag=release-4.2.6]
+
+== Änderungen Release 4.2.1
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.1]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.1]
+include::src/main/changelog.adoc[tag=release-4.2.1]
+
+== Änderungen Release 4.2.0
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+
+include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.0]
+include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.0]
+include::src/main/changelog.adoc[tag=release-4.2.0]
+

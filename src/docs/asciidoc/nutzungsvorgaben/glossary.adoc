@@ -1,0 +1,196 @@
+
+[glossary]
+== Glossar
+
+:imagesdir: images
+
+:desc-image-Anwendungsdomaene: Anwendungsdomäne
+:desc-image-glossar-3: Anwendungskern
+:desc-image-glossar-4: Anwendungslandschaft (IsyFact)
+:desc-image-Anwendungstypen: Anwendungstypen
+:desc-image-glossar-1: Bibliothek
+:desc-image-SoftwareFactory: Software Factory
+
+
+
+[id="glossar-A-Architektur",reftext="A-Architektur"]
+A-Architektur::
+Fachliche <<glossar-Architektursicht>> auf die Software-Architektur einer <<glossar-Fachanwendung>>.
+
+
+
+[id="glossar-Anwendung",reftext="Anwendung"]
+Anwendung::
+Die Bedeutung des Begriffs „Anwendung“ geht meist aus dem Kontext hervor.
+Dieser Begriff sollte *nicht* pauschal als Synonym für <<glossar-Anwendungssystem>>, <<glossar-Fachanwendung>> oder <<glossar-Querschnittssystem>> verwendet werden.
+
+
+
+[id="glossar-Anwendungsdomaene",reftext="Anwendungsdomäne"]
+Anwendungsdomäne::
+Eine Domäne im Kontext der <<glossar-A-Architektur>> entspricht der Begrifflichkeit aus Sicht des „Domain Driven Design“.
+Eine Anwendungsdomäne gruppiert fachlich zusammengehörende Anwendungssysteme. Werden Querschnittssysteme gruppiert, entsteht eine <<glossar-Querschnittsdomaene>>.
+
+[id="image-Anwendungsdomaene",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-Anwendungsdomaene}
+image::Anwendungsdomaene.png[align="center"]
+
+Beispiele für Anwendungsdomänen: Bewertung von Dienstposten, Finanzielle Förderung von Schulen, ...
+
+
+
+[id="glossar-Anwendungskern",reftext="Anwendungskern"]
+Anwendungskern (AWK)::
+Der Anwendungskern beinhaltet die Anwendungslogik eines Anwendungssystems.
+
+[id="image-glossar-anwendungskern",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-glossar-anwendungskern}
+image::glossar-anwendungskern.png[align="center"]
+
+
+
+[id="glossar-Anwendungskontext",reftext="Anwendungskontext"]
+Anwendungskontext::
+Sammlung von nicht-funktionalen und technischen Anforderungen zur Umsetzung einer „Klasse“ von Anwendungssystemen – unabhängig von der Fachlichkeit.
+Ein Anwendungskontext kann zu neuen Anwendungstypen und damit zu einer neuen spezifischen <<glossar-Software-Factory>> führen.
+
+
+
+[id="glossar-Anwendungslandschaft",reftext="Anwendungslandschaft"]
+Anwendungslandschaft (allgemeine Definition)::
+Gröbste Strukturierungsebene für eine Menge von Anwendungssystemen:
+eine Anwendungslandschaft enthält Anwendungsdomaenen, die wiederum Anwendungssysteme gruppieren.
+Zwischen den in einer Anwendungslandschaft vorhandenen Anwendungssystemen ist in der Regel eine hohe Interaktion zu erwarten.
+
+
+
+[id="glossar-Anwendungssystem",reftext="Anwendungssystem"]
+Anwendungssystem::
+Ein Anwendungssystem ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Schnittstellen.
+Es besteht aus Anwendungskomponenten und Querschnittskomponenten.
+Anwendungssysteme unterstützen Geschäftsprozesse.
+Stellt ein Anwendungssystem eine Fachlogik dar, so handelt es sich um eine <<glossar-Fachanwendung>>.
+Ein Anwendungssystem ist Bestandteil der <<glossar-A-Architektur>>.
+Aus Sicht der <<glossar-T-Architektur>> bildet ein <<glossar-IT-System>> die software-technische Umsetzung eines Anwendungssystems ab.
+
+
+
+[id="glossar-Anwendungstyp",reftext="Anwendungstyp"]
+Anwendungstyp::
+Sammlung von Architekturvorgaben (aller Architektursichten) zur Entwicklung eines Anwendungssystems mit gleichartigen spezifischen Eigenschaften.
+In diesem Sinne gruppiert ein Anwendungstyp Eigenschaften von Anwendungssystemen.
+Für jeden Anwendungstyp ist ein Satz von Blaupausen notwendig.
+
+
+
+[id="glossar-Architektursicht",reftext="Architektursicht"]
+Architektursicht::
+In Anlehnung an iSAQB werden in der <<glossar-IsyFact>> die Sichten <<glossar-A-Architektur>>, <<glossar-T-Architektur>> und <<glossar-TI-Architektur>> unterschieden.
+Nachfolgende Abbildung zeigt die Orthogonalität von Architektursichten und Anwendungstypen.
+Jeder <<glossar-Anwendungstyp>> besitzt eine spezifische Darstellung in jeder Sicht.
+
+[id="image-Anwendungstypen",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-Anwendungstypen}
+image::Anwendungstypen.png[align="center"]
+
+NOTE: iSAQB = international Software Architecture Qualification Board
+
+
+
+
+
+
+[id="glossar-Fachanwendung",reftext="Fachanwendung"]
+Fachanwendung::
+Eine Fachanwendung ist ein <<glossar-Anwendungssystem>>, welches einen oder mehrere Geschäftsprozesse einer <<glossar-Anwendungsdomaene>> spezifiziert.
+Sie beschreibt die gesamten hierfür notwendigen Funktionen, von der Benutzerschnittstelle über die fachliche Logik, die Prozesse bis hin zur Datenhaltung.
+Dabei kann sie die Basisdienste von Querschnittssystemen oder andere Anwendungssysteme nutzen.
+
+
+
+
+
+
+[id="glossar-GUI",reftext="Benutzeroberfläche (GUI)"]
+Benutzeroberfläche (GUI)::
+Das Graphical User Interface (GUI) stellt die Verbindung zwischen Anwender und <<glossar-Anwendung>> her.
+Die <<glossar-IsyFact>> stellt ein fertiges Framework zur Verfügung und strukturiert die die Erstellung der Dialoglogik der Geschäftsprozesse.
+
+[id="glossar-IT-System",reftext="IT-System"]
+IT-System::
+Umsetzung einer <<glossar-Fachanwendung>> unter Berücksichtigung technischer Rahmenbedingungen.
+Ein IT-System ist Bestandteil der <<glossar-T-Architektur>> und es ist (für sich) alleine ausführbar.
+Aus Sicht der <<glossar-A-Architektur>> ist die Entsprechung zum IT-System das <<glossar-Anwendungssystem>>.
+
+
+
+[id="glossar-IsyFact",reftext="IsyFact"]
+IsyFact (IF)::
+Allgemeine Software-Fabrik (engl. <<glossar-Software-Factory>>) für den Bau von komplexen Anwendungslandschaften, die vom Bundesverwaltungsamt entwickelt wird.
+Sie bündelt bestehendes technisches Know-how um Anwendungssysteme effizienter entwickeln und betreiben zu können.
+
+Quelle: http://isyfact.de[isyfact.de]
+
+Die IsyFact enthält Funktionalität „allgemeiner Natur“, die *nicht* zu einem spezifischen <<glossar-Anwendungskontext>> gehören.
+Die IsyFact besteht aus den IsyFact-Standards (IFS) und den IsyFact-Erweiterungen.
+
+
+
+[id="glossar-Methodik",reftext="Methodik"]
+Methodik::
+Im Rahmen einer <<glossar-Software-Factory>> bildet die Methodik die Grundlage für die Umsetzung von Fachanwendungen mittels einer standardisierten Vorgehensweise nach dem V-Modell XT Bund.
+Dabei definiert die Software Factory kein eigenes Vorgehen oder Vorgehensmodell, sondern passt die eigenen Produkte (im Sinne des V-Modell XT) in ein zum V-Modell XT konformes Vorgehen ein.
+
+NOTE: Das V-Modell-XT bietet einen Projektassistenten für das Projekt-Tailoring, der zusätzlich auch noch Vorlagen aller benötigten Dokumente mit Ausfüllhinweisen zur Verfügung stellt.
+
+
+
+[id="glossar-Plattform",reftext="Plattform"]
+Plattform::
+Die Plattform definiert allgemeine Vorgaben und Rahmenbedingungen für den Betrieb von Anwendungslandschaften, die sich aus der Verwendung der <<glossar-IsyFact>> ergeben.
+Es werden Rechner-, Unterstützungsprogramm- und Netzwerkstrukturen beschrieben.
+
+
+
+[id="glossar-Querschnittsdomaene",reftext="Querschnittsdomäne"]
+Querschnittsdomäne::
+Eine <<glossar-Anwendungsdomaene>>, die nur Querschnittssysteme gruppiert, wird als Querschnittsdomäne bezeichnet.
+
+
+
+[id="glossar-Querschnittssystem",reftext="Querschnittssystem"]
+Querschnittssystem::
+Querschnittssysteme sind spezielle Anwendungen in einer <<glossar-Querschnittsdomaene>>, welche Basisdienste für weitere (mindestens zwei) Fachanwendungen einer <<glossar-Anwendungslandschaft>> bereitstellen.
+
+Beispiele: Portalstartseite, Benutzerverzeichnis, Hilfeanwendung
+
+
+[id="glossar-Software-Factory",reftext="Software Factory (SF)"]
+Software Factory (SF)::
+Eine Software Factory ist eine Sammlung von Blaupausen, Bausteinen, einer <<glossar-Plattform>>, einer <<glossar-Methodik>> und Werkzeugen, die es erlaubt, durch Wiederverwendung <<glossar-Fachanwendung>> weitestgehend standardisiert zu entwickeln.
+Die Herausforderung bei der Wiederverwendung besteht darin, das einmal erworbene Wissen über die Anwendungsentwicklung in einer <<glossar-Anwendungsdomaene>> so zu strukturieren, zu dokumentieren und vorzuhalten, dass nachfolgende Projekte einfach und verlässlich darauf zugreifen können, und damit die Einhaltung des Architekturrahmens sichergestellt ist.
+„Standardisiert“ bedeutet, dass alle wesentlichen technischen Architekturentscheidungen bereits durch die Software Factory getroffen und in entsprechenden Komponenten implementiert sind.
+Architekten und Entwickler können sich damit auf die Umsetzung der jeweiligen Fachlichkeit der Anwendung konzentrieren.
+
+[id="image-SoftwareFactory",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-SoftwareFactory}
+image::SoftwareFactory.png[align="center"]
+
+
+[id="glossar-Systemlandschaft",reftext="Systemlandschaft"]
+Systemlandschaft::
+Der Begriff der <<glossar-Anwendungslandschaft>> ist fachlich motiviert.
+Die technische Entsprechung hierfür ist der Begriff der Systemlandschaft.
+
+Eine Systemlandschaft beinhaltet alle software-technisch in IT-Systeme umgesetzten Anwendungssysteme der <<glossar-Anwendungslandschaft>> sowie technische Systeme zur Unterstützung (z.B. Datenbanken, Web-Server, usw.).
+
+
+[id="glossar-T-Architektur",reftext="T-Architektur"]
+T-Architektur::
+Technische <<glossar-Architektursicht>> auf die Software-Architektur einer <<glossar-Fachanwendung>>.
+
+
+[id="glossar-TI-Architektur",reftext="TI-Architektur"]
+TI-Architektur::
+Technische Infrastruktursicht auf die Software-Architektur einer <<glossar-Fachanwendung>>.
+Sie beschreibt den Aufbau der Betriebsumgebung für die <IT-Systeme einer IsyFact-<<glossar-Systemlandschaft>>.
