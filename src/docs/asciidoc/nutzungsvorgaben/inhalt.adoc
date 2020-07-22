@@ -1433,6 +1433,61 @@ Hier muss ein Listener registriert werden, über welchen die Security Bedürfnis
 </bean>
 ----
 
+[[setup-csrf-protection]]
+==== Konfiguration des CSRF Schutzes
+
+Seit JSF 2.0 ist der CSRF Schutz für `POST` Requests standardmäßig aktiviert.
+Für den Schutzbedarf *mittel* und *hoch* reicht die Implementierung der Variante _Token per Session_, für Schutzbedarf *sehr hoch* muss die Varainte _Token per Request_ implementiert werden (vgl. <<KonzeptJSF>>).
+
+===== Token per Session (Schutzbedarf mittel und hoch)
+
+Das CSRF-Token muss in den Formulardaten des `POST`-Request mitgesendet werden.
+Dafür wird typischerweise das versteckte Element `<h:inputHidden>` verwendet.
+
+:desc-listing-hiddenInput: Verwendung eines hiddenInput Elements für die CSRF-Token Übertragung
+[id="listing-hiddenInput",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hiddenInput}
+[source,html]
+----
+<!-- [...] -->
+<h:form>
+    <!-- [...] -->
+    <h:input
+        type="text "
+        value="${model.value}"
+    />
+    <h:inputHidden
+        value="${_csrf.token}"
+        a:name="${_csrf.parameterName}"
+    />
+</h:form>
+<!-- [...] -->
+----
+
+===== Token per Request (Schutzbedarf sehr hoch)
+
+Für die Variante _Token per Request_ bietet die IsyFact keine Standardlösung an.
+Eine Empfehlung für die Umsetzung dieser Anforderung ist die Verwendung von `spring-security-web` und die Implementierung eines eigenen `CsrfTokenRepository`.
+Auch bei dieser Variante muss das von Spring bereitgestellte CSRF-Token über die `POST-Requests` mitgesendet werden.
+Da die Tokens immer nur für einen Request gültig sind, muss sichergestellt werden, dass vor jedem Request ein neues CSRF-Token vom Server abgeholt wird.
+
+:desc-listing-isySicherheitWeb: Ausschnitt aus isy-sicherheit-web.xml: Verwendung eines eigenen CsrfTokenRepositories
+[id="listing-isySicherheitWeb",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-isySicherheitWeb}
+[source,html]
+----
+<!-- [...] -->
+<security:http auto-config="true">
+    <security:csrf token-repository-ref="requestCsrfTokenRepository" />
+</security:http>
+
+<bean id="requestCsrfTokenRepository"
+      class="org.company.web.security.RequestCsrfTokenRepository"
+      p:cookieHttpOnly="true"
+/>
+<!-- [...] -->
+----
+
 [[Druckaufbereitung]]
 === Druckaufbereitung
 

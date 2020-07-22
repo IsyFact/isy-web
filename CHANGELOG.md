@@ -2,6 +2,7 @@
 - `IFE-144`: Bereinigung der "Maven Dependency Convergence"-Warnings: Exclusions für divergierende Versionen hinzugefügt.
 - `IFE-139`: JavaScript Anpassungen für IE11
 - `IFE-64`: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
+- `IFS-75`: Schutz gegen CSRF-Attacken beschrieben
 
 # v4.9.0
 - `IFE-14`: Mehrzeilige Popup-Texte
