@@ -2423,6 +2423,38 @@ Eingabefelder besitzen folgende Facets:
 
 * `contentRight`: Inhalt, der rechts vom Eingabefeld angezeigt wird
 
+[[eingabefelder-ohne-label-ueberschrift]]
+=== Eingabefelder ohne Label
+
+Für Eingabefelder ohne Label existiert das Tag `<isy:input>`.
+
+Ein Eingabefeld ohne Label besitzt folgende notwendige Parameter:
+
+* `reference`: Die Referenz des Objekts.
+* `value`: Der Wert für das Databinding im Eingabefeld.
+
+Außerdem gibt es folgende optionale Parameter:
+
+* `type`: Typ des Eingabefelds, sodass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann.
+Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Standard: `text`)
+* `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
+* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
+* `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird.
+* `inputmask`: Eingabemaske
+* `inputmaskInsertMode`: Gibt an, ob der Text bei der Eingabe überschrieben wird. (Standard: `true`)
+* `maxlength`: Die maximale Länge der Eingabe. (Standard: 255)
+* `width`: Die maximale Breite des Eingabefeldes. (Standard: 100%)
+* `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
+* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht. (Standard: `basisModel.showPrintView`)
+* `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
+* `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
+* `charpicker`: Gibt an, ob eine Eingabe für Sonderzeichen angezeigt wird. (Standard: `false`)
+
+Eingabefelder besitzen folgende Facets:
+
+* `contentRight`: Inhalt, der rechts vom Eingabefeld angezeigt wird
+
 [[aktionseingabefeld]]
 ==== Aktionseingabefeld
 

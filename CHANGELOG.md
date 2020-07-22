@@ -3,6 +3,7 @@
 - `IFE-139`: JavaScript Anpassungen für IE11
 - `IFE-64`: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
 - `IFS-75`: Schutz gegen CSRF-Attacken beschrieben
+- `IFE-95`: Nachdokumentation für Eingabefeld ohne Label
 
 # v4.9.0
 - `IFE-14`: Mehrzeilige Popup-Texte
