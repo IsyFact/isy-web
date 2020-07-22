@@ -345,17 +345,25 @@ Dies erfolgt immer durch einen Controller, der die Daten aus dem Model an den An
 Jeder View-State in der Flow-Definition der GUI-Komponente ist mit einer eigenen Maske, dem View verknüpft.
 Spring Web Flow steuert das Rendering des Views.
 
-Der View einer GUI Komponente ist nach dem Umsetzungsmuster der IsyFact wie folgt aufgebaut: Eine Facelet-Datei dient dazu, die im Seitentemplate (siehe <<Einleitung>>) inkludierte Definition der Seitenbereiche des Inhaltsbereiches zu definieren.
-Das Tag `<ui:composition>` referenziert hierbei das Seitentemplate, in welchem die über `<ui:define>`
-definierten Teile eingebunden werden.
-Die verschiedenen Teile des Seitentemplates finden sich in <<jsf-seitenelemente>>.
+Der View einer GUI Komponente ist nach dem Umsetzungsmuster der IsyFact wie folgt aufgebaut: Eine Facelet-Datei dient dazu, die im Seitentemplate inkludierte Definition der Seitenbereiche des Inhaltsbereiches zu definieren.
 
 Je nach Seitentyp muss entweder
 
 * `/WEB-INF/gui/common/layout/applikationDetailseite.xhtml` oder
 * `/WEB-INF/gui/common/layout/applikation.xhtml`
 
-als Template angegeben werden.
+als Ausgangs-Seitentemplate angegeben werden.
+
+:desc-demoWebGui-ApplicationTemplate: Einbindung eines Ausgangsseiten-Templates (applikation.xhtml)
+[id="demoWebGui-ApplicationTemplate", reftext="{figure-caption} {counter:figures}"]
+.{desc-demoWebGui-ApplicationTemplate}
+image::demoWebGui-ApplicationTemplate.png[align="center"]
+
+Das Tag `<ui:composition>` referenziert hierbei das Ausgangsseiten-Template, in welchem die über `<ui:define>`
+definierten Teile eingebunden werden.
+
+Die verschiedenen Teile des Seitentemplates finden sich in <<jsf-seitenelemente>>.
+
 
 Die Templates bieten folgende Schnittstellen über den `ui:define` / `ui:insert` Mechanismus von JSF an:
 
@@ -373,7 +381,7 @@ Die Templates bieten folgende Schnittstellen über den `ui:define` / `ui:insert`
 Normalerweise stellt das Layout eine Form bereit.
 Für spezifische Anpassungen (z.B. AJAX-Listpicker) müssen jedoch eigene Forms definiert werden.
 
-:desc-listing-jsfViewState: Beispiel für eine JSF ViewState Seite
+:desc-listing-jsfViewState: Beispiel für eine JSF ViewState Seite mit Inhaltsbereichsangabe
 [id="listing-jsfViewState",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-jsfViewState}
 [source,xml]
@@ -1305,9 +1313,19 @@ Folgende Konfiguration muss für die Spring-Security Konfiguration übernommen w
 
 `<import resource="classpath:resources/isy-web/spring/isy-sicherheit-web.xml"/>`
 
-Die eingebundenen Spring-Konfigurationen erwarten folgende Beans unter dem angegebenen Namen vorzufinden:
+Die eingebundenen Spring-Konfigurationen erwarten eine Bean unter dem Namen "accessDecisionManager"vorzufinden.
+Die Bean-Attribute "property name" und "ref" sind hierbei auf den String "sicherheit" zu setzen.
 
-* Sicherheit ("sicherheit") Die Sicherheit aus der `isy-sicherheit`.
+:desc-listing-Berechtigungsmanager: Bean Berechtigungsmanager
+[id="listing-Berechtigungsmanager",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-Berechtigungsmanager}
+[source,xml]
+----
+    <bean id="accessDecisionManager"
+          class="de.bund.bva.isyfact.sicherheit.web.DelegatingAccessDecisionManager">
+        <property name="sicherheit" ref="sicherheit"/>
+    </bean>
+----
 
 Durch Spring Security wird die Verwendung von Annotationen bei der Berechtigungsprüfung ermöglicht.
 Diese wird wie folgt aktiviert.
@@ -1319,6 +1337,7 @@ Diese wird wie folgt aktiviert.
 ----
 <global-method-security secured-annotations="enabled" />
 ----
+
 
 Die Konfiguration von Spring Security setzt die Definition eines User Services voraus.
 Dieses kann nach aktuellem Stand nicht umgangen werden.
@@ -1484,7 +1503,7 @@ Im Styleguide <<Styleguide>> finden sich Beispiele für Druckansichten.
 :desc-image-seitendruck1: Seitendruck über Druck-Funktion des Browsers
 [id="image-seitendruck1",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-seitendruck1}
-image::image96.png[align="center", scaledwidth="96%"]
+image::Browser_Druckfunktion.png[align="center", scaledwidth="96%"]
 
 Für jede Seite besteht die Möglichkeit eine generische Druckansicht anzuzeigen.
 Diese Druckansicht kann in einem eigenen View-State definiert werden.
@@ -1616,7 +1635,7 @@ Das im Styleguide beschriebene Anwendungslayout besteht im Allgemeinen aus einem
 :desc-image-aufbauapplikationsseite: Aufbau einer Applikationsseite
 [id="image-aufbauapplikationsseite",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-aufbauapplikationsseite}
-image::image57.png[align="center", width="629",height="526"]
+image::Aufbau_Applikationsseite.png[align="center", width="629",height="526"]
 
 *Aufbau*
 
@@ -1827,6 +1846,18 @@ Der Dialog besitzt folgende Facets:
 * Der Body-Bereich
 * Der Footer-Bereich
 
+:desc-image-modaler-dialog: Beispiel eines modalen Dialogs
+[id="image-modaler-dialog",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-modaler-dialog}
+image::demoflow-modaler-dialog.png[align="center"]
+
+Das Tag `<isy:modalDialogContent>` wird über den UI-Platzhalter modalDialog eingefügt.
+Dieser Platzhalter sorgt dafür, dass je nach Verfügbarkeit von JavaScript, der Inhalt des modalen Fensters entweder als Inhalt oder als eigenständiger Dialog gerendert wird.
+Die Funktionsweise des modalen Dialogs ist in das Basis-Layout eingebunden.
+Um einen Dialog zu öffnen, muss dieser als eigener View-State (in Spring Webflow) definiert werden.
+Beim Eintreten in den Flow wird das modale Fenster über einen Aufruf des BasisController geöffnet.
+Beim Verlassen des View-States wird dieser wieder geschlossen.
+
 :desc-listing-jsfModalerDialog: Modaler Dialog
 [id="listing-jsfModalerDialog",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-jsfModalerDialog}
@@ -1849,12 +1880,7 @@ Der Dialog besitzt folgende Facets:
  </ui:define>
 ----
 
-Das Tag `<isy:modalDialogContent>` wird über den UI-Platzhalter modalDialog eingefügt.
-Dieser Platzhalter sorgt dafür, dass je nach Verfügbarkeit von JavaScript, der Inhalt des modalen Fensters entweder als Inhalt oder als eigenständiger Dialog gerendert wird.
-Die Funktionsweise des modalen Dialogs ist in das Basis-Layout eingebunden.
-Um einen Dialog zu öffnen, muss dieser als eigener View-State (in Spring Webflow) definiert werden.
-Beim Eintreten in den Flow wird das modale Fenster über einen Aufruf des BasisController geöffnet.
-Beim Verlassen des View-States wird dieser wieder geschlossen.
+Um im Hintergrund weiterhin das aktuelle Fenster anzuzeigen, genügt es den bisherigen View-State entsprechend zu vererben.
 
 :desc-listing-openCloseModaleDialoge: Öffnen und Schließen von modalen Dialogen
 [id="listing-openCloseModaleDialoge",reftext="{listing-caption} {counter:listings }"]
@@ -1875,7 +1901,62 @@ Beim Verlassen des View-States wird dieser wieder geschlossen.
 </view-state>
 ----
 
-Um im Hintergrund weiterhin das aktuelle Fenster anzuzeigen, genügt es den bisherigen View-State entsprechend zu vererben.
+
+=== Bestätigungsdialog
+
+Bestätigungsdialoge, auch Popup-Dialoge genannt, sind spezielle modale Dialoge, die als Subflows eingebunden werden.
+Die anzuzeigenden Texte und Button-Beschriftungen werden dem Flow als Parameter übergeben.
+Bestätigungsdialoge	sind daher einfach und vielfältig einsetzbar und eignen sich immer, wenn der Benutzer vor eine "Ja/Nein Entscheidung" gestellt werden soll.
+Sollte kein Java-Script	aktiviert sein, so wird der Dialog direkt im Fenster angezeigt.
+
+:desc-image-bestaetigungs-dialog: Beispiel eines Bestätigungsdialogs (Popup-Dialog)
+[id="image-bestaetigungs-dialog",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-modaler-dialog}
+image::demoflow-bestaetigungs-dialog.png[align="center"]
+
+Bei einem Bestätigungsdialog können auch mehrzeilige Texte hinterlegt werden.
+Hierfür ist es möglich, eine Nachricht aus einer weiteren Ressource einzubinden.
+Der Parameter "`dialogNachricht`" wird in diesem Falle nicht zwingend benötigt (required="false").
+
+Bei Verwendung des Parameters "dialogNachrichtPfad" wird die "dialogNachricht" nicht angezeigt.
+Die anzuzeigenden Texte aus einer weiteren Ressource werden dem Flow als neuer Parameter "dialogNachrichtPfad" übergeben (siehe <<listing-Bestaetigungsdialog>>).
+
+Falls der anzuzeigende Text für den Abbrechen-Button nicht dem Flow übergeben wurde, wird der Default-Text zu "MEL_Button_Abbrechen" aus den `maskentexte.properties` geladen.
+
+:desc-listing-Bestaetigungsdialog: Bestätigungsdialog - subflow mit Parametern
+[id="listing-Bestaetigungsdialog",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-Bestaetigungsdialog}
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+    parent="applikationseiteParentFlow">
+
+    <var name="modalerDialogModel" class="de.bund.bva.pliscommon.pliswebgui.gui.flows.modalerdialog.ModalerDialogModel" />
+    <var name="bestaetigungsdialogModel" class="de.bund.bva.pliscommon.pliswebgui.gui.flows.modalerdialog.BestaetigungsdialogModel" />
+ ...
+ ...
+    <subflow-state id="demoBestaetigenSubflowState" subflow="bestaetigenFlow">
+        <input name="dialogTitel" value="'Ein Beispieltitel: Achtung, sind Sie sich sicher...'" />
+        <input name="dialogNachricht" value="'Eine Beispielnachricht: Sind Sie sicher, dass sie fortfahren wollen?'" />
+        <input name="dialogNachrichtPfad" value="'/WEB-INF/gui/common/eingebundeneNachricht.xhtml'" />
+        <input name="dialogKonsequenz" value="'Eine beispielhafte Konsequenz (Angabe optional): Nicht gespeicherte Änderungen gehen verloren.'" />
+        <input name="submitActionName" value="'Fortfahren'" />
+        <!-- <input name="abbrechenActionName" value="'Abbrechen'" /> -->
+        <transition on="abbrechenEndState" to="modalerDialogViewState" >
+          <evaluate expression="bestaetigungsdialogController.abbrechen(bestaetigungsdialogModel)" />
+        </transition>
+        <transition on="submitEndState" to="modalerDialogViewState">
+          <evaluate expression="bestaetigungsdialogController.bestaetige(bestaetigungsdialogModel)" />
+        </transition>
+    </subflow-state>
+</flow>
+----
+
+
+
 
 
 [[wizard]]
@@ -1886,7 +1967,7 @@ Wizards, auch Assistenten genannt, bezeichnen eine geführte Abfolge von Interak
 :desc-image-dialogwizard1: Beispiel eines Wizards
 [id="image-dialogwizard1",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-dialogwizard1}
-image::image88.png[align="center"]
+image::Wizard_Beispiel_Schritt_2.png[align="center"]
 
 Wizards werden mit dem Tag `<isy:wizard>` definiert.
 
@@ -1909,9 +1990,9 @@ Außerdem gibt es folgende optionale Parameter:
 
 
 
-:desc-listing-wirardModaleDialoge: Modaler Wizard
-[id="listing-wirardModaleDialoge",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-wirardModaleDialoge}
+:desc-listing-wizardModaleDialoge: Modaler Wizard
+[id="listing-wizardModaleDialoge",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-wizardModaleDialoge}
 [source, xml]
 ----
 <isy:wizard wizardDialogModel="#{wdm}">
@@ -1984,19 +2065,19 @@ Folgende Methoden können genutzt und optional überschrieben werden:
 [[dialoge-ohne-javascript]]
 === Dialoge ohne JavaScript
 
-image::image77.png[]
+image::no-js.png[]
 
 Die modalen Dialoge werden automatisch in das Layout integriert, sofern kein JavaScript verfügbar ist.
 
 :desc-image-keinjavascriptdialog: Kein JavaScript – Dialog
 [id="image-keinjavascriptdialog",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-keinjavascriptdialog}
-image::image78.png[align="center"]
+image::Menuepunkt_Flows.png[align="center"]
 
 :desc-image-keinjavascriptwizard: Kein JavaScript – Wizard
 [id="image-keinjavascriptwizard",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-keinjavascriptwizard}
-image::image80.png[align="center"]
+image::Kein_Javascript_Wizard.png[align="center"]
 
 [[jsf-bedienelemente]]
 == JSF Bedienelemente
@@ -2350,7 +2431,7 @@ Für Aktionseingabefelder existieren die Tags `<isy:actionInput>` bzw. `<isy:for
 :desc-image-aktionseingabefeld: Aktionseingabefeld
 [id="image-aktionseingabefeld",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-aktionseingabefeld}
-image::image155.png[align="center"]
+image::Aktionseingabefeld.png[align="center"]
 
 Ein Aktionseingabefeld besitzt folgende notwendige Parameter:
 
@@ -2446,7 +2527,7 @@ Text Boxen sehen optisch aus wie Eingabefelder, es können jedoch mehrzeilige Da
 :desc-image-bildtextbox: Textbox
 [id="image-bildtextbox",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-bildtextbox}
-image::image163.png[align="center", pdfwidth=60%]
+image::Textbox.png[align="center", pdfwidth=60%]
 
 Für Formulare kann das Tag `<isy:formTextarea>` verwendet werden.
 
@@ -2518,7 +2599,7 @@ Für Formulareingaben existiert das Tag `<isy:formSelectOneDropdown>`.
 :desc-image-bildddropdownmenue: Dropdown Menü (innerhalb einer Form)
 [id="image-bildddropdownmenue",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-bildddropdownmenue}
-image::image166.png[align="center"]
+image::Dropdown_Menue_Flyout.png[align="center"]
 
 :desc-image-demopanelselectOneDropdown: WebGui-Demoanwendung: Dropdown Menü (außerhalb einer Form)
 [id="image-demopanelselectOneDropdown",reftext="{figure-caption} {counter:figures}"]
@@ -2563,7 +2644,7 @@ Tabs werden häufig dazu verwendet, um Eigenschaften eines Objekts in inhaltlich
 :desc-image-bildtabs: Tabs
 [id="image-bildtabs",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-bildtabs}
-image::image173.png[align="center"]
+image::Tabs_Beispiel.png[align="center"]
 
 Tabs werden über die Tags `<isy:tabGroup>`, `<isy:tabHeader>` und `<isy:tabContent>` eingebunden.
 Im Folgenden ein Beispiel:
@@ -2673,7 +2754,7 @@ Listen werden benutzt, um eine überschaubare Anzahl an Daten oder Objekten eine
 :desc-image-listemitlistenkopf: Liste mit Listenkopf
 [id="image-listemitlistenkopf",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-listemitlistenkopf}
-image::image178.png[align="center",pdfwidth=60%]
+image::Liste_mit_Listenkopf.png[align="center",pdfwidth=60%]
 
 Für eine Liste mit Einfachauswahl gibt es die Tags `<isy:selectOneList>` bzw. `<isy:formSelectOneList>`.
 Für eine Liste mit Mehrfachauswahl stehen die Tags `<isy:selectManyList>` bzw. `<isy:formSelectManyList>` zur Verfügung.
@@ -2878,12 +2959,12 @@ Die Tabelle besteht aus mehreren Informationsspalten, die zur Sortierung verwend
 :desc-image-einfuehrungeinertabelle: Tabelle
 [id="image-einfuehrungeinertabelle",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-einfuehrungeinertabelle}
-image::image180.png[align="center"]
+image::Tabelle_Einfuehrung.png[align="center"]
 
 :desc-image-interaktivezeilen: Tabelle – Zustände interaktiver Zeilen
 [id="image-interaktivezeilen",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-interaktivezeilen}
-image::image181.png[align="center"]
+image::Tabelle_Zustaende_Zeilen.png[align="center"]
 
 Die Umsetzung der Tabelle unterscheidet sich grundsätzlich zu Widgets wie der von JSF bereitgestellten `<h:dataTable>`. Die `<isy:dataTable>` ist näher am Layout einer eigentlichen Tabelle aufgebaut und dadurch flexibler nutzbar (z.B. dynamische Anzahl an Spalten).
 Dafür ist jedoch auch ein größerer Implementierungsaufwand erforderlich.
@@ -3117,7 +3198,7 @@ Spalten, die nicht gefiltert werden sollen (bzw. können), werden mittels des Ta
 
 *Kein JavaScript*
 
-image::image131.png[]
+image::no-js.png[]
 
 Die Komfortfunktionen der Filter-Zeile können ohne JavaScript nicht zur Verfügung gestellt werden.
 Die Filter-Zeile ist in diesem Fall nicht vorhanden und wird auch nicht angezeigt.
@@ -3198,17 +3279,17 @@ Um die Selektion von Zeilen zu ermöglichen, müssen folgende Konfigurationen du
 :desc-image-tabellemehrfachselektion: Tabelle – Mehrfachselektion über STRG Taste & Maus
 [id="image-tabellemehrfachselektion",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-tabellemehrfachselektion}
-image::image185.png[align="center"]
+image::Tabelle_Mehrfachselektion.png[align="center"]
 
 :desc-image-tabellemehrfachselektioncheckbox: Tabelle – Mehrfachselektion über Checkboxen
 [id="image-tabellemehrfachselektioncheckbox",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-tabellemehrfachselektioncheckbox}
-image::image186.png[align="center"]
+image::Tabelle_Mehrfach_Checkbox.png[align="center"]
 
 :desc-image-textlinkkennzeichen: Textlink zur Kennzeichnung eines Objektes
 [id="image-textlinkkennzeichen",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-textlinkkennzeichen}
-image::image187.png[align="center"]
+image::Textlink_Kennzeichnung_Objekt.png[align="center"]
 
 [[grosse-datenmengen-tabelle]]
 ==== Große Datenmengen in einer Tabelle
@@ -3220,7 +3301,7 @@ Um dem Benutzer den Umgang mit solchen Tabellen zu vereinfachen, werden zunächs
 :desc-image-tabelleohnepaginator: Tabelle mit _Mehr anzeigen_ Button
 [id="image-tabelleohnepaginator",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-tabelleohnepaginator}
-image::image189.png[align="center"]
+image::Tabelle_Button_MehrAnzeigen.png[align="center"]
 
 
 Die Implementierung einer Paginierung erfolgt über das Facet `<f:tablePagination>`, das Tag `<t:dataTablePaginator>` und das dazugehörige `DataTablePaginationModel`.
@@ -3344,7 +3425,7 @@ Der Benutzer kann also nur eine der Optionen auswählen.
 :desc-image-ieradiobutton: Radio Button – Darstellungsbeispiel IE 9
 [id="image-ieradiobutton",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-ieradiobutton}
-image::image193.png[align="center"pdfwidth=30%]
+image::RadioButton_Normal_Disabled.png[align="center"pdfwidth=30%]
 
 Ein Radio Button wird über das Tag `<isy:selectOneRadio>` (bzw. `<isy:selectOneRadioInline>`) und `<isy:formSelectOneRadio>` eingebunden.
 
@@ -3559,12 +3640,12 @@ Muss der Benutzer häufig auf bestimmte Funktionen oder Objekte in einer Anwendu
 :desc-image-quicklinksunterhalblinksnavigation: Quicklinks unterhalb der Linksnavigation
 [id="image-quicklinksunterhalblinksnavigation",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-quicklinksunterhalblinksnavigation}
-image::image202.png[align="center",pdfwidth=30%]
+image::Quicklinks_LetzteObjekte.png[align="center",pdfwidth=30%]
 
 :desc-image-quicklinksaufdashboard: Quicklinks auf Dashboard
 [id="image-quicklinksaufdashboard",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-quicklinksaufdashboard}
-image::image203.png[align="center",pdfwidth=30%]
+image::Quicklinks_Wiedervorlage.png[align="center",pdfwidth=30%]
 
 Quicklinks werden durch den Controller `QuicklinksController` und das Model `QuicklinksModel` realisiert.
 Zur Nutzung müssen Controller und Model in den jeweiligen Controller bzw. das Model der Seite integriert werden.
@@ -3628,6 +3709,59 @@ public void initialisiereBreadcrumbModel(LocationBreadcrumbModel model) {
 }
 ----
 
+
+==== Seitentoolbar
+
+Die Seitentoolbar ist Teil des `BasisModel`.
+Auf das `SeitentoolbarModel` kann daher über den `BasisController` zugegriffen werden.
+Der `ApplikationseiteController` und der `DetailseiteController` konfigurieren dieses Model entsprechend den Vorgaben automatisch.
+
+Über die Template-Engine (`ui:insert` / `ui:define`) werden weiterhin folgende Bereiche zur Verfügung gestellt.
+Konkrete Seiten können dadurch Einfluss auf das Aussehen der Seitentoolbar nehmen:
+
+* `seitentoolbarLinksButtons`: fügt Anpassungen auf der linken Seite ein,
+* `seitentoolbarMitteButtons`: fügt Anpassungen in der Mitte (zentriert) ein,
+* `seitentoolbarRechtsButtons`: fügt Anpassungen auf der rechten Seite ein.
+
+===== Hilfe-Button
+
+Der Hilfe-Button ist Teil der Seitentoolbar und wird rechts von allen anderen konfigurierten Buttons angezeigt.
+Zur Konfiguration des Buttons muss eine URL zu einer Hilfeseite hinterlegt werden.
+
+:desc-listing-hilfe-konfig: Konfiguration des Hilfe-Buttons
+[id="listing-hilfe-konfig",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hilfe-konfig}
+[source,properties]
+----
+portalhilfe.url=https://example.com/hilfeanwendung
+----
+
+Wird auf den Button geklickt, wird abhängig von der aktuellen Seite, dem Flow und dem ViewState des Flows auf die Hilfeseite geleitet.
+
+Der Hilfe-Button wird nur angezeigt, wenn wie beschrieben, `portalhilfe.url` gesetzt ist.
+Soll der Hilfe-Button standardmäßig ausgeschaltet bleiben, kann dies über den Parameter `hilfe.default.aktiv` in der Konfiguration der Anwendung erfolgen.
+
+:desc-listing-hilfe-deaktivieren: Ausschalten des Hilfe-Buttons
+[id="listing-hilfe-deaktivieren",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hilfe-deaktivieren}
+[source,properties]
+----
+hilfe.default.aktiv=false
+----
+
+Das Aktivieren und Deaktivieren des Hilfe-Buttons ist auch durch Aufruf der entsprechenden `HilfeController`-Methode aus dem Flow heraus möglich.
+Das <<listing-hilfe-flow>> zeigt das Ausschalten des Hilfe-Buttons in der XML-Datei eines Flows.
+
+:desc-listing-hilfe-flow: Ausschalten des Hilfe-Buttons in einem Flow
+[id="listing-hilfe-flow",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hilfe-flow}
+[source,xml]
+----
+<on-start>
+    <!-- ... andere Initialisierungen des Flows ... -->
+    <evaluate expression="hilfeController.deaktiviereHilfe(hilfeModel)" />
+</on-start>
+----
 
 [[selektion-ueberschrift]]
 === Selektion
@@ -3739,19 +3873,6 @@ In diesem können die anderen Panels geschachtelt werden.
 Das Tag besitzt folgende Parameter:
 
 * `headerPanel`: Gibt an, ob die Gruppe als Container für den Header des Inhaltsbereichs dient; falls ja werden entsprechende CSS-Klassen für das Layouting eingebunden. (Standard: `false`, Typ: `java.lang.Boolean`)
-
-==== Seitentoolbar
-
-Die Seitentoolbar ist Teil des `BasisModel`.
-Auf das `SeitentoolbarModel` kann daher über den `BasisController` zugegriffen werden.
-Der `ApplikationseiteController` und der `DetailseiteController` konfigurieren dieses Model entsprechend den Vorgaben automatisch.
-
-Über die Template-Engine (`ui:insert` / `ui:define`) werden weiterhin folgende Bereiche zur Verfügung gestellt.
-Konkrete Seiten können dadurch Einfluss auf das Aussehen der Seitentoolbar nehmen:
-
-* `seitentoolbarLinksButtons`: fügt Anpassungen auf der linken Seite ein,
-* `seitentoolbarMitteButtons`: fügt Anpassungen in der Mitte (zentriert) ein,
-* `seitentoolbarRechtsButtons`: fügt Anpassungen auf der rechten Seite ein.
 
 
 [[layout-von-Formularen]]
@@ -3893,7 +4014,7 @@ Wenn JavaScript nicht aktiviert ist, werden alle Validierungsnachrichten in eine
 Auf den Tooltip wird verzichtet.
 Für die Zuordnung von Validierungsnachrichten und Eingabefeld wird das Attribut `reference` verwendet, welches auch in der entsprechenden Formularkomponente angegeben werden muss.
 
-[[4eyesprinciple]]
+[[four-eyes-principle]]
 === 4-Augen-Prinzip
 
 Einige JSF-Komponenten unterstützen das 4-Augen-Prinzip.
@@ -4554,6 +4675,7 @@ Außerdem gibt es folgende optionale Parameter:
 * `focus`: Gibt an, ob das Element fokussiert sein soll, auch wenn im GlobalFlowModel die Fokussierung deaktiviert ist.  (Standard: `false`, Typ: `Boolean`)
 * `areaId`: Der Selektor für das Element, das initial fokussiert werden soll. (Standard: `focusOnloadArea`)
 
+
 [[isy-PrintMetaInformationen]]
 === PrintMetaInformationen
 
@@ -4564,3 +4686,4 @@ Die Komponente besitzt folgende optionale Parameter:
 * `warning`: Die anzuzeigende Warnung wenn die browserseitige Druckansicht einer Seite angezeigt wird (optional). (Standard: ``)
 * `basis`: BasisModel. (Standard: `#{basisModel}`)
 // end::inhalt[]
+

@@ -84,7 +84,7 @@ ersichtlich sind und ihr Mapping auf die zugehörigen Klassen definiert ist.
 
 Für den Einsatz der myFaces Tomahawk Library wird eine entsprechende Konfiguration zur Verfügung gestellt.
 Der Einsatz dieser Library unterliegt für den Einsatz in der IsyFact der allgemeinen Einschränkung bei der Verwendung von JavaScript.
-Siehe auch Kapitel <<benoetigte-bibliotheken>>.
+Siehe auch Kapitel "Benötigte Bibliotheken" in <<NutzungsvorgabenJSF>>.
 
 [[spring-web-flow]]
 === Spring Web Flow
@@ -311,7 +311,8 @@ Das Model Bean ist nicht mit den JPA-Datenobjekten verbunden.
 Das Schreiben in das Model bewirkt also zunächst keine Änderung in der Datenbank.
 Die Persistenz fachlicher Datenobjekte wird über das Controller-Bean ausgelöst, welches über Methodenaufrufe des Anwendungskern-Wrappers fachliche Daten persistiert.
 
-Die Verwendung von Model Beans wird im Verlauf dieses Dokuments noch genauer beschrieben.
+Der Abgleich von Model Beans mit einer View und das Abspeichern der Daten einer Model Bean wird im Kapitel "Erstellung der Models" in <<NutzungsvorgabenJSF>> genauer beschrieben.
+
 
 [[views]]
 ==== Views
@@ -338,7 +339,7 @@ In diesen Fällen darf der Controller direkt aufgerufen werden. +
 *Beispiel:* Selektion eines Elements und darauf basierende Anpassung der Maske.
 ====
 
-Die Erstellung von Views wird im Verlauf dieses Dokuments noch genauer beschrieben.
+Die View-Erstellung wird im Kapitel "Erstellung der Views" in <<NutzungsvorgabenJSF>> genauer beschrieben.
 
 [[schnittstellen-zwischen-komponenten]]
 ==== Schnittstellen zwischen Dialog-Komponenten
@@ -403,14 +404,14 @@ Zur Datenübergabe können auch mehrere Input und mehrere Output-Elemente verwen
 
 ==== Zugriff auf querschnittliche Controller
 
-Für die Steuerung des Vorgabelayouts (z.B. Menüleiste, Linksnavigation) sowie der Nutzung von vorgegebenen Funktionen (z.B. Validierung) werden querschnittliche Controller mit zugehörigen Models verwendet.
+Für die Steuerung des Vorgabelayouts (z.B. Menüleiste, Linksnavigation, Hilfezugriff) sowie der Nutzung von vorgegebenen Funktionen (z.B. Validierung) werden querschnittliche Controller mit zugehörigen Models verwendet.
 Die Instanziierung übernimmt dabei ein übergeordneter Parent-Flow.
 So kann z.B. die Seitentoolbar konfiguriert oder ein Quicklink hinzugefügt werden.
 
 Der Aufruf dieser Controller ist generell erlaubt.
 Die Controller sind als Spring Beans global verfügbar.
-// TODO: Diese Aussage ist falsch. Die Schnittstellen und Möglichkeiten der Controller sollten im Nutzungskonzept erwähnt sein.
-// Welche Controller im Detail für das Vorgabelayout verfügbar sind, wird in <<Styleguide>> aufgelistet.
+Welche Controller im Detail (LinksnavigationController, QuicklinksController, ValidierungsController, ...) für das Vorgabelayout verfügbar sind, wird in <<NutzungsvorgabenJSF>> beschrieben.
+
 
 === Vorgaben zur Verwendung von JSF
 
@@ -767,18 +768,7 @@ Hierunter fallen alle Daten, die für die Dialogabläufe benötigt werden:
 
 Standardmäßig wird diese Information in der HTTP-Session abgelegt und wieder hergestellt.
 Nach IsyFact-Zielarchitektur erfolgt diese Speicherung in der Datenbank.
-Diese Funktionalität übernimmt der Tomcat.
-Eine Anpassung der Anwendung ist nicht erforderlich.
 
-[[vergabe-von-cookies-session-ids]]
-==== Vergabe von Cookies / Session IDs
-
-Für die Identifikation abgelegter Conversations von Spring Web Flow wird auf die Daten im Cookie zurückgegriffen.
-Der Cookie wird einmalig definiert und ist durch die Session ID vorgegeben.
-
-Die Vergabe der Session IDs erfolgt über die Standardmechanismen innerhalb des Tomcat.
-Bei der Anforderung einer neuen Session innerhalb der Applikation, was für den Benutzer nicht sichtbar ist, wird die neue ID vergeben und an die Session gebunden.
-Die Nutzung von Cookies ist zwingend erforderlich, ansonsten können die Webanwendungen nicht genutzt werden.
 
 [[session-zugriff]]
 ==== Session Zugriff
@@ -786,12 +776,22 @@ Die Nutzung von Cookies ist zwingend erforderlich, ansonsten können die Webanwe
 Für die Arbeit mit Spring Web Flow ist es notwendig, die in der Session notwendigen Daten der Conversation für
 jeden Schritt bereitzustellen und nach jedem Schritt abzulegen.
 Hierfür werden die Daten in der Datenbank persistiert.
-Dies erfolgt über einen eigenen Session-Manager im Tomcat (siehe <<TomcatNutzungskonzept>>). Es handelt sich dabei
-um eine Erweiterung der IsyFact.
-Wenn diese Erweiterung nicht eingesetzt wird, muss entweder die Session-Persistierung auf andere Weise durchgeführt
-werden, oder es muss sichergestellt werden, dass die Requests eines Benutzers immer auf die gleiche
-Tomcat-Instanz gehen (Sticky Sessions). Die Session-Daten müssen dabei möglichst klein gehalten werden, um
+
+Dies erfolgt über einen eigenen Session-Manager.
+Als Session-Manager wird die Bibliothek `isy-session` verwendet, die eine vereinfachte
+Konfiguration von `Spring Session` (der eigentlichen Implementierung des Session-Managers)
+ermöglicht. `isy-session` kapselt und vereinfacht die Nutzung von `Spring-Session`.
+
+Weitere Erläuterungen zum Session-Manager finden sich im <<KonzeptSessionManagement>>,
+Die Einbindung des Session-Managers ist in <<NutzungsvorgabenIsySession>> beschrieben.
+Konkrete Anweisungen zum Aufbau des Session-Speichers finden sich in <<NutzungsvorgabenRedis>>.
+
+
+Wenn `ìsy-session` als Erweiterung der IsyFact nicht eingesetzt wird, muss die Session-Persistierung auf andere Weise durchgeführt
+werden, wobei sicherzustellen ist, dass die Requests eines Benutzers immer auf die gleiche
+Instanz gehen (Sticky Sessions). Die Session-Daten müssen dabei möglichst klein gehalten werden, um
 die Performance der Anwendung nicht zu verschlechtern.
+
 Die Größe der Session wird maßgeblich durch die „im Webflow“ gespeicherten Model-Daten bestimmt.
-Daher muss darauf geachtet werden nur unbedingt notwendige Daten im Model zu halten.
+Daher muss darauf geachtet werden, nur unbedingt notwendige Daten im Model zu halten.
 // end::inhalt[]
