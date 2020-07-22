@@ -1,4 +1,5 @@
-# v4.9.1
+# 4.9.1
+- `IFE-144`: Bereinigung der "Maven Dependency Convergence"-Warnings: Exclusions für divergierende Versionen hinzugefügt.
 - `IFE-139`: JavaScript Anpassungen für IE11
 - `IFE-64`: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
 
