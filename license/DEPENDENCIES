@@ -2,16 +2,23 @@
 List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
 Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
 
+	(Apache 2):
+
+		* Objenesis (org.objenesis:objenesis:2.6 - http://objenesis.org)
+
 	(Apache License, Version 2.0):
 
+		* Apache Commons BeanUtils (commons-beanutils:commons-beanutils:1.9.3 - https://commons.apache.org/proper/commons-beanutils/)
+		* Apache Commons Codec (commons-codec:commons-codec:1.13 - https://commons.apache.org/proper/commons-codec/)
 		* Apache Commons FileUpload (commons-fileupload:commons-fileupload:1.3.3 - http://commons.apache.org/proper/commons-fileupload/)
 		* Apache Commons Lang (org.apache.commons:commons-lang3:3.7 - http://commons.apache.org/proper/commons-lang/)
-		* IsyFact-Aufrufkontext (de.bund.bva.isyfact:isy-aufrufkontext:1.9.0-SNAPSHOT - http://isyfact.de/isy-aufrufkontext)
-		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.9.0-SNAPSHOT - http://isyfact.de/isy-exception-core)
-		* IsyFact-Konfiguration (de.bund.bva.isyfact:isy-konfiguration:1.9.0-SNAPSHOT - http://isyfact.de/isy-konfiguration)
-		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.9.0-SNAPSHOT - http://isyfact.de/isy-logging)
-		* IsyFact-Sicherheit (de.bund.bva.isyfact:isy-sicherheit:1.9.0-SNAPSHOT - http://isyfact.de/isy-sicherheit)
-		* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.9.0-SNAPSHOT - http://isyfact.de/isy-util)
+		* Dozer :: Core (com.github.dozermapper:dozer-core:6.5.0 - http://nexus.sonatype.org/oss-repository-hosting.html/dozer-parent/dozer-plugins-parent/dozer-core)
+		* IsyFact-Aufrufkontext (de.bund.bva.isyfact:isy-aufrufkontext:1.9.1-20200505.113649-1 - http://isyfact.de/isy-aufrufkontext)
+		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.9.1-20200505.113627-1 - http://isyfact.de/isy-exception-core)
+		* IsyFact-Konfiguration (de.bund.bva.isyfact:isy-konfiguration:1.9.1-SNAPSHOT - http://isyfact.de/isy-konfiguration)
+		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.9.1-20200505.113641-1 - http://isyfact.de/isy-logging)
+		* IsyFact-Sicherheit (de.bund.bva.isyfact:isy-sicherheit:1.9.1-20200505.113718-1 - http://isyfact.de/isy-sicherheit)
+		* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.9.1-SNAPSHOT - http://isyfact.de/isy-util)
 		* Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
@@ -49,11 +56,11 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 	(Eclipse Public License - v 1.0) (GNU Lesser General Public License):
 
-		* Logback Classic Module (ch.qos.logback:logback-classic:1.1.11 - http://logback.qos.ch/logback-classic)
+		* Logback Classic Module (ch.qos.logback:logback-classic:1.2.3 - http://logback.qos.ch/logback-classic)
 		* Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-classic)
 		* Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-core)
 		* Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-jackson)
-		* Logback Core Module (ch.qos.logback:logback-core:1.1.11 - http://logback.qos.ch/logback-core)
+		* Logback Core Module (ch.qos.logback:logback-core:1.2.3 - http://logback.qos.ch/logback-core)
 
 	(Eclipse Public License 1.0):
 
@@ -61,6 +68,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 	(MIT License):
 
+		* JCL 1.2 implemented over SLF4J (org.slf4j:jcl-over-slf4j:1.7.25 - http://www.slf4j.org)
 		* SLF4J API Module (org.slf4j:slf4j-api:1.7.25 - http://www.slf4j.org)
 
 	(New BSD License):
@@ -73,15 +81,14 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 	(The Apache Software License, Version 2.0):
 
-		* Apache Commons Codec (commons-codec:commons-codec:1.9 - http://commons.apache.org/proper/commons-codec/)
 		* Commons Collections (commons-collections:commons-collections:3.2.1 - http://commons.apache.org/collections/)
 		* Commons IO (commons-io:commons-io:2.4 - http://commons.apache.org/io/)
 		* Commons Lang (commons-lang:commons-lang:2.4 - http://commons.apache.org/lang/)
 		* Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
 		* Ehcache Core (net.sf.ehcache:ehcache-core:2.6.6 - http://ehcache.org)
 		* Guava: Google Core Libraries for Java (com.google.guava:guava:19.0 - https://github.com/google/guava/guava)
-		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.0 - http://github.com/FasterXML/jackson)
-		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.9 - https://github.com/FasterXML/jackson-core)
+		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.10 - http://github.com/FasterXML/jackson)
+		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.10 - https://github.com/FasterXML/jackson-core)
 		* Spring Binding (org.springframework.webflow:spring-binding:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
 		* Spring Faces (org.springframework.webflow:spring-faces:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
 		* Spring JS (org.springframework.webflow:spring-js:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
@@ -90,7 +97,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 		* Tomahawk 2.0 Core (org.apache.myfaces.tomahawk:tomahawk20:1.1.14 - http://myfaces.apache.org/tomahawk-project/tomahawk20)
 		* Validator (commons-validator:commons-validator:1.3.1 - http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/)
 		* XML Commons External Components XML APIs (xml-apis:xml-apis:1.0.b2 - http://xml.apache.org/commons/#external)
-		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.9.3 - http://github.com/FasterXML/jackson)
+		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.10.1 - http://github.com/FasterXML/jackson)
 		* spring-security-config (org.springframework.security:spring-security-config:4.2.13.RELEASE - https://spring.io/spring-security)
 		* spring-security-core (org.springframework.security:spring-security-core:4.2.13.RELEASE - https://spring.io/spring-security)
 		* spring-security-web (org.springframework.security:spring-security-web:4.2.13.RELEASE - https://spring.io/spring-security)
@@ -106,7 +113,6 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 		* Batik GUI Utilities (batik:batik-gui-util:1.6-1 - no url defined)
 		* Batik Utilities (batik:batik-util:1.6-1 - no url defined)
 		* OGNL - Object Graph Navigation Library (opensymphony:ognl:2.6.11 - http://ognl.org)
-		* commons-beanutils (commons-beanutils:commons-beanutils:1.7.0 - no url defined)
 		* commons-digester (commons-digester:commons-digester:1.6 - no url defined)
 		* jstl (javax.servlet:jstl:1.2 - no url defined)
 		* oro (oro:oro:2.0.8 - no url defined)
