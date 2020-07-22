@@ -11,12 +11,12 @@ Wichtige Änderungen:
 - `IFS-89`: Textänderung bei Querschnittliche Texte
 - `IFS-352`: Zentrales AsciiDoc Changelog anlegen
 - `IFS-335`: Dokumententitel auf Titelseite anpassen
+- `IFS-75`: Schutz gegen CSRF-Attacken beschrieben
 
 # v4.9.0
 - `IFE-58`: isy:input analog zu formInput erstellt
 - `IFE-64`: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
 - `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
-- `IFS-75`: Schutz gegen CSRF-Attacken beschrieben
 - `IFE-85`: TitlesListener-Funktionalität: Aufspaltung des TitlesListener in zwei Klassen. Die Seitentitel-Funktionalität ist standardmäßig aktiv, die Breadcrumb-Funktionalität standardmäßig deaktiv (und deprecated).
 - `IFE-52`: SmartComparator und Abhängigkeit auf commons-lang3 ausgebaut
 
