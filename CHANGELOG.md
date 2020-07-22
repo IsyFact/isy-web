@@ -1,4 +1,5 @@
 # v5.0.0
+- `IFE-95`: Nachdokumentation für Eingabefeld ohne Label
 - `IFS-505`: Upgrade auf Isyfact 2.
 Wichtige Änderungen:
     - Umstellung auf isyfact-Namespace anstelle von pliscommon
