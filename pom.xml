@@ -5,11 +5,11 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.8.1-SNAPSHOT</version>
+        <version>1.8.1</version>
     </parent>
 
     <artifactId>isy-web</artifactId>
-    <version>4.9.1-SNAPSHOT</version>
+    <version>4.9.1</version>
     <packaging>jar</packaging>
 
     <name>IsyFact-Web</name>
@@ -19,14 +19,14 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
-                <version>1.8.1-SNAPSHOT</version>
+                <version>1.8.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-standards-bom</artifactId>
-                <version>1.8.1-SNAPSHOT</version>
+                <version>1.8.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -363,7 +363,7 @@
                                         <artifactItem>
                                             <groupId>de.bund.bva.isyfact</groupId>
                                             <artifactId>isy-dokumentvorlagen</artifactId>
-                                            <version>1.8.0-SNAPSHOT</version>
+                                            <version>1.8.1</version>
                                             <overWrite>true</overWrite>
                                         </artifactItem>
                                     </artifactItems>
