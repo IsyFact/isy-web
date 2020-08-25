@@ -5,6 +5,7 @@ Wichtige Änderungen:
     - Umstellung auf isyfact-Namespace anstelle von pliscommon
     - Umstellung auf Java Config inklusive Spring Autokonfiguration
     - SetCharacterEncodingFilter und SecurityFilter wird jetzt automatisch von Isy-Web gesetzt
+- `IFE-102`: navigationMenu: farbiger Balken wird über die border-top-color von .navbar-submenu statt durch ein eigenes div gesetzt
 - `IFE-139`: JavaScript Anpassungen für IE11
 - `IFS-111`: Dokumentation von Konzept JSF überarbeitet
 - `IFS-112`: Dokumentation von Nutzungsvorgaben JSF überarbeitet
