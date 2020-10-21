@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-terser');
 
     grunt.initConfig({
 
@@ -42,39 +42,30 @@ module.exports = function (grunt) {
 
             toproject: {
                 files: [
-                    {src: 'www/onload.js', dest: 'target/classes/META-INF/resources/js/onload.js'},
-                    {src: 'www/specialcharpicker.js',dest: 'target/classes/META-INF/resources/js/specialcharpicker.js'},
-                    {src: 'www/tastatursteuerung.js', dest: 'target/classes/META-INF/resources/js/tastatursteuerung.js'},
-                    {src: 'www/sidebar-collapse.js', dest: 'target/classes/META-INF/resources/js/sidebar-collapse.js'},
+                    {cwd: 'www/', expand: true, src: ['*.js', '*.js.map'], dest: 'target/classes/META-INF/resources/js/'},
                     {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
                 ]
             }
 		},
 
-        // Uglify
-        uglify: {
-            options: {
-                sourceMap: 'www/onload.map'
-            },
-            js: { 
-                files: {
-                    'www/onload.js':['www/onload.debug.js']
-                }
+        // terser for minifying
+        terser: {
+            js: {
+                files: {'www/onload.js':['www/onload.debug.js']},
+                //sourceMap option is needed to include sourceMappingURL in the minified file
+                options: {sourceMap: {url: 'onload.js.map'}}
             },
             picker: {
-                files: {
-                    'www/specialcharpicker.js':['www/specialcharpicker.debug.js']
-                }
+                files: {'www/specialcharpicker.js':['www/specialcharpicker.debug.js']},
+                options: {sourceMap: {url: 'specialcharpicker.js.map'}}
             },
             collapse: {
-                files: {
-                    'www/sidebar-collapse.js':['www/sidebar-collapse.debug.js']
-                }
+                files: {'www/sidebar-collapse.js':['www/sidebar-collapse.debug.js']},
+                options: {sourceMap: {url: 'sidebar-collapse.js.map'}}
             },
 			tastatur: {
-                files: {
-                    'www/tastatursteuerung.js':['www/tastatursteuerung.debug.js']
-                }
+                files: {'www/tastatursteuerung.js':['www/tastatursteuerung.debug.js']},
+                options: {sourceMap: {url: 'tastatursteuerung.js.map'}}
             }
         },
 
@@ -92,6 +83,6 @@ module.exports = function (grunt) {
 		
     });
 	
-    grunt.registerTask('default', ['clean', 'jshint', 'copy:towww','uglify','less','copy:toproject']);
+    grunt.registerTask('default', ['clean', 'jshint', 'copy:towww','terser','less' ,'copy:toproject']);
 
 };
