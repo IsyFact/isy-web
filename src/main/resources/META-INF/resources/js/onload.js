@@ -11,11 +11,11 @@ $(document).ready(function () {
             .addOnError(function (data) {
 
                 // Fehlernachricht bestimmen
-                var errorMessage = $("[id$='ajaxErrorMessage']").val();
-                var errorMessageTitle = $("[id$='ajaxErrorMessageTitle']").val();
+                let errorMessage = $("[id$='ajaxErrorMessage']").val();
+                const errorMessageTitle = $("[id$='ajaxErrorMessageTitle']").val();
 
                 // In Konsole schreiben
-                var error = data.description;
+                const error = data.description;
                 console.log(error);
 
                 // Fehlernachricht ersetzen
@@ -66,9 +66,9 @@ $(document).ready(function () {
         lazyLoad();
     });
     $(window).resize(function () {
-        var tag = "resizeTimer";
-        var self = $(this);
-        var timer = self.data(tag);
+        const tag = "resizeTimer";
+        const self = $(this);
+        let timer = self.data(tag);
         if (timer) {
             clearTimeout(timer);
         }
