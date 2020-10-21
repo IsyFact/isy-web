@@ -128,20 +128,20 @@ function refreshFunctions() {
 
 
         // Aktuelle Spalte
-        var $divCol = $(this).parents(".col-lg-4").first();
+        let $divCol = $(this).parents(".col-lg-4").first();
 
         // Aktuelle Zeile
-        var $divRow = $divCol.parents(".row").first();
+        let $divRow = $divCol.parents(".row").first();
 
         // Nächste Elemente
-        var $liMenu;
-        var $liMenuNext;
-        var $divRowNext;
-        var divColNext;
+        let $liMenu;
+        let $liMenuNext;
+        let $divRowNext;
+        let divColNext;
 
         // Aktuellen Spaltenindex merken
-        var $divColNeighbour = $divCol;
-        var colIndex = 1;
+        let $divColNeighbour = $divCol;
+        let colIndex = 1;
         while ($divColNeighbour.prev().length !== 0) {
             $divColNeighbour = $divColNeighbour.prev();
             colIndex = colIndex + 1;
