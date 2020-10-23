@@ -128,10 +128,10 @@ function refreshFunctions() {
 
 
         // Aktuelle Spalte
-        let $divCol = $(this).parents(".col-lg-4").first();
+        const $divCol = $(this).parents(".col-lg-4").first();
 
         // Aktuelle Zeile
-        let $divRow = $divCol.parents(".row").first();
+        const $divRow = $divCol.parents(".row").first();
 
         // Nächste Elemente
         let $liMenu;
@@ -245,20 +245,20 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Panels
     // --------------------------------------------------------
-    var $panels = $(".panel-collapse[id$='PanelCollapse']").filter(':not(.panel_ajaxtoken)');
+    const $panels = $(".panel-collapse[id$='PanelCollapse']").filter(':not(.panel_ajaxtoken)');
     $panels.on('hidden.bs.collapse', function (e) {
-        var $panel = $(this).parents('.panel').first();
+        const $panel = $(this).parents('.panel').first();
 
         // Setze Wert in verstecktes Eingabefeld
-        var $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
+        const $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
         $serverProperty.val('false');
         e.stopPropagation();
     });
     $panels.on('shown.bs.collapse', function (e) {
-        var $panel = $(this).parents('.panel').first();
+        const $panel = $(this).parents('.panel').first();
 
         // Setze Wert in verstecktes Eingabefeld
-        var $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
+        const $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
         $serverProperty.val('true');
         e.stopPropagation();
     });
@@ -268,7 +268,7 @@ function refreshFunctions() {
     // Modale Dialoge
     // --------------------------------------------------------
     // Zeige modale Dialoge, wenn vorhanden
-    var $modalDialogs = $('#modal-add-personal').filter(':not(.modal_ajaxtoken)');
+    const $modalDialogs = $('#modal-add-personal').filter(':not(.modal_ajaxtoken)');
     $modalDialogs.modal('show');
     $modalDialogs.addClass('modal_ajaxtoken');
 
@@ -276,7 +276,7 @@ function refreshFunctions() {
     // Bei Aktionen in modalen Dialogen, die mittels AJAX das Formluar neu laden lassen, wird auch der modale Dialog neu angezeigt
     // und dadurch erneut ein "modal-backdrop" hinzugefügt - diese überlagern sich. Durch das vorherige Entfernen wird sichergestellt,
     // das maximal ein backdrop vorhanden ist.
-    var $modalVisible = $('.modal-dialog').is(':visible');
+    const $modalVisible = $('.modal-dialog').is(':visible');
     $($(".modal-backdrop").get().reverse()).each(function (index, element) {
         // Entfernen wenn ein .modal-backdrop vorhanden ist, obwohl es keinen modalen Dialog gibt (passiert in edge-cases).
         // Ansonsten mit get().reverse() entfernen wir die älteste .modal-backdrops, da nur der neuste mit dem button-event verbunden ist
@@ -293,10 +293,10 @@ function refreshFunctions() {
     // (Force), dass das Element fokussiert wird.
     // --------------------------------------------------------
 
-    var $focusOnloadActive = $("[id$='focusOnloadActive']").last();
-    var $focusOnloadDeactivated;
-    var $focusOnloadForce;
-    var focusOnloadElement = "[id$='focusOnloadElement']";
+    const $focusOnloadActive = $("[id$='focusOnloadActive']").last();
+    let $focusOnloadDeactivated;
+    let $focusOnloadForce;
+    const focusOnloadElement = "[id$='focusOnloadElement']";
 
     if ($('#modal-add-personal').val() === undefined) {
 
