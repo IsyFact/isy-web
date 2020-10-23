@@ -394,7 +394,7 @@ function refreshFunctions() {
                 };
             }
 
-            var functionDoubleClick = null;
+            let functionDoubleClick = null;
             if (doubleClickActive) {
                 functionDoubleClick = function (e) {
                     if (!$(e.target).is("input") && !$(e.target).is("span")) {
@@ -642,9 +642,9 @@ function refreshFunctions() {
     $('.rf-popover').filter(':not(.rf-popover_ajaxtoken)').popover({animation: false});
     // Popovers, die nach rechts rausragen, werden weiter nach links verschoben
     $('.rf-popover').filter(':not(.rf-popover_ajaxtoken)').on('shown.bs.popover', function (e) {
-        var $popover = $(e.target).next();
+        const $popover = $(e.target).next();
         if ($(document).width() < ($popover.offset().left + $popover.width() + 30)) {
-            var positionLeft = -($(document).width() - $popover.offset().left) + 20;
+            const positionLeft = -($(document).width() - $popover.offset().left) + 20;
             $popover.css("left", positionLeft + "px");
         }
     });
@@ -666,7 +666,7 @@ function refreshFunctions() {
     // Datepicker
     // --------------------------------------------------------
 
-    var $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)').filter(':not(.rf-datepicker_readonly)');
+    const $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)').filter(':not(.rf-datepicker_readonly)');
     $datepickers.each(function () {
         $(this).datepicker({
             format: $(this).attr('dateformat'),
@@ -685,16 +685,16 @@ function refreshFunctions() {
 
         $(this).children("a").click(
             function () {// Öffnen eines Datepickers
-                var dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
-                var inputField = $(this).prev();
-                var date = inputField.val().split('.');
+                const dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
+                const inputField = $(this).prev();
+                let date = inputField.val().split('.');
 
                 // eleminiere die Unterstrich-Platzhalterzeichen
-                var placeholderReg = /\D/gi;
+                const placeholderReg = /\D/gi;
                 date[0] = date[0].replace(placeholderReg, "");
                 date[1] = date[1].replace(placeholderReg, "");
                 date[2] = date[2].replace(placeholderReg, "");
-                var dateString;
+                let dateString;
                 if (date[0] === "99") {
                     // Secret-Code: 99 = setze Fokus des Datepickers auf das aktuelle Datum
                     dateString = currentDateAsString();
@@ -710,15 +710,15 @@ function refreshFunctions() {
             });
 
         //Lese den Grenzwert zum Vervollständigen von zweistelligen Jahreszahlen aus. Wird weiter unten verwendet.
-        var zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
-        var $datumInputFeld = $(this).find('input');
+        const zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
+        const $datumInputFeld = $(this).find('input');
         $datumInputFeld.focusout(function (event) {
             if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
                 datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
             }
 
             // Magic Number: setze Datum auf Tagesdatum
-            var date = $datumInputFeld.val().split('.');
+            const date = $datumInputFeld.val().split('.');
             if (date[0] === "99") {
                 $datumInputFeld.val(currentDateAsString());
             } else {
@@ -733,11 +733,11 @@ function refreshFunctions() {
     });
 
     function fixDateOutOfRange(date) {
-        var year = date[2],
+        let year = date[2],
             month = date[1],
             day = date[0];
         // Assume not leap year by default (note zero index for Jan)
-        var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
         // If evenly divisible by 4 and not evenly divisible by 100,
         // or is evenly divisible by 400, then a leap year
@@ -751,7 +751,7 @@ function refreshFunctions() {
         }
 
         // Get max days for month and fix days if out of range
-        var maxDays = daysInMonth[month - 1];
+        const maxDays = daysInMonth[month - 1];
         if (day > maxDays) {
             day = maxDays;
         }
@@ -763,9 +763,9 @@ function refreshFunctions() {
     // Input Masks
     // --------------------------------------------------------
     // Alle Input Elemente, welche ein Attribut 'inputmask' besitzen
-    var $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
+    const $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
     $inputMasks.each(function () {
-        var $inputMask = $(this);
+        const $inputMask = $(this);
         if ($inputMask.attr('name').indexOf('listpickerField') > -1) {
             if ($inputMask.val().indexOf(" - ") >= 0) {
                 //verhindere, dass Ziffern aus dem Wert im Feld verbleiben
@@ -780,12 +780,12 @@ function refreshFunctions() {
     });
 
     $inputMasks.bind('keydown keypress', function (e) {
-        var $inputMask = $(this);
+        const $inputMask = $(this);
 
         if (e.key === 'Enter') {
             // Alle Platzhalter-Zeichen entfernen
-            var existentVal = $inputMask.val();
-            var newVal = existentVal.replace(/_/g, '');
+            const existentVal = $inputMask.val();
+            const newVal = existentVal.replace(/_/g, '');
             $inputMask.val(newVal);
         }
     });
@@ -802,13 +802,13 @@ function refreshFunctions() {
      * @param listpickerfield Das Listpickerfeld.
      * @param indexSpalteSchluesselWert Der Index der Headerspalte, deren Inhalt im Eingabefeld ergänzt werden soll.
      */
-    var listpickerLoeseSchluesselAuf = function (listpickerfield, indexSpalteSchluesselWert) {
+    const listpickerLoeseSchluesselAuf = function (listpickerfield, indexSpalteSchluesselWert) {
         if (listpickerfield.val().indexOf(" - ") >= 0) {
             // verhindere, dass Ziffern aus dem Wert im Feld verbleiben
             listpickerfield.val(listpickerfield.val().substring(0,
                 listpickerfield.val().indexOf(" - ")));
         }
-        var $id;
+        let $id;
         if (listpickerfield.attr('data-isymask-mask') !== undefined) {
             listpickerfield.mask();
             $id = listpickerfield.val();
@@ -817,16 +817,16 @@ function refreshFunctions() {
                 listpickerfield.val("");
             }
         }
-        var $parent = listpickerfield.parent();
-        var $tr = $parent.find("tr[id='" + $id + "']");
-        var $td = $tr.find("td:nth-child(" + indexSpalteSchluesselWert + ")");
-        var $value = $td.text();
+        const $parent = listpickerfield.parent();
+        const $tr = $parent.find("tr[id='" + $id + "']");
+        const $td = $tr.find("td:nth-child(" + indexSpalteSchluesselWert + ")");
+        const $value = $td.text();
         if ($value !== '') {
             listpickerfield.val($id + ' - ' + $value);
         } else {
-            var $filter = $parent.find("input[id*='listpickerFilter']");
-            var $listpickerContent = $parent.find(".listpicker-content");
-            var $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");
+            const $filter = $parent.find("input[id*='listpickerFilter']");
+            const $listpickerContent = $parent.find(".listpicker-content");
+            const $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");
             if ($parent.find(".listpicker-content").css("display") === 'none') {
                 if (listpickerfield.val() !== $listpickerLastFilter.val()) {
                     if ($(".ajax-status span").text() !== 'begin') { // Verhindere Kollision mit anderen AJAX-Requests
@@ -842,7 +842,7 @@ function refreshFunctions() {
      * Die Funktion maskiert das Listpickerfeld, sofern eine Maske definiert ist.
      * @param listpickerfield Das Listpickerfeld.
      */
-    var listpickerMaskieren = function (listpickerfield) {
+    const listpickerMaskieren = function (listpickerfield) {
         if (listpickerfield.val().indexOf(" - ") >= 0) {
             // verhindere, dass Ziffern aus dem Wert im Feld verbleiben
             listpickerfield.val(listpickerfield.val().substring(0,
@@ -853,18 +853,18 @@ function refreshFunctions() {
         }
     };
 
-    var $listpickerContainer = $(".listpicker-container").filter(':not(.rf-listpicker_ajaxtoken)');
+    const $listpickerContainer = $(".listpicker-container").filter(':not(.rf-listpicker_ajaxtoken)');
     $listpickerContainer.each(function () {
 
-        var $listpicker = $(this);
-        var $listpickerField = $listpicker.find("[id$='listpickerField']");
-        var $listpickerContent = $listpicker.find(".listpicker-content").first();
-        var $listpickerFilter = $listpicker.find("[id$='listpickerFilter']");
-        var $listpickerMinWidth = $listpicker.find("[id$='listpickerMinWidth']");
-        var listpickerAjaxFormId = $listpicker.find("[id$='listpickerAjaxForm']").val();
-        var $listpickerAjaxForm = null;
+        const $listpicker = $(this);
+        const $listpickerField = $listpicker.find("[id$='listpickerField']");
+        const $listpickerContent = $listpicker.find(".listpicker-content").first();
+        const $listpickerFilter = $listpicker.find("[id$='listpickerFilter']");
+        const $listpickerMinWidth = $listpicker.find("[id$='listpickerMinWidth']");
+        const listpickerAjaxFormId = $listpicker.find("[id$='listpickerAjaxForm']").val();
+        let $listpickerAjaxForm = null;
         //Finde das Hidden-Input, in dem hinterlegt ist, welche Spalte jeweils den Wert zum Schlüssel enthält.
-        var listpickerSchluesselwertSpalte = $listpicker.find("[id$='inputComplement']").val();
+        const listpickerSchluesselwertSpalte = $listpicker.find("[id$='inputComplement']").val();
         if (typeof (listpickerAjaxFormId) != "undefined") {
             $listpickerAjaxForm = $("form[id$='" + listpickerAjaxFormId + "']");
         }
@@ -882,13 +882,13 @@ function refreshFunctions() {
         // Nachdem das Dropdown geöffnet wurde
         $listpicker.on('shown.bs.dropdown', function (e) {
             // Alle Charpicker schließen
-            var $charpickers = $(".special-char-picker-widget");
+            const $charpickers = $(".special-char-picker-widget");
             $charpickers.each(function () {
                 $(this).hide();
             });
 
             // Wenn ein Charpicker geöffnet ist und man neuen Listpicker öffnet, wollen wir veraltetes Fokus löschen
-            var $active_charpickers_field = $(".charpicker-focused");
+            const $active_charpickers_field = $(".charpicker-focused");
             $active_charpickers_field.each(function () {
                 $(this).focusout();
                 $(this).removeClass("charpicker-focused");
@@ -909,7 +909,7 @@ function refreshFunctions() {
 
             // Aktuelle Auswahl als aktiv markieren
             if ($listpickerField.val() !== '') {
-                var id;
+                let id;
                 //Falls für das Feld bereits der Schlüssel aufgelöst wurde, müssen wir den Schlüssel isolieren.
                 if ($listpickerField.val().indexOf(" - ") >= 0) {
                     id = $listpickerField.val().substring(0, $listpickerField.val().indexOf(" - "));
@@ -920,7 +920,7 @@ function refreshFunctions() {
                 $listpickerContent.find("tbody tr").not("[id='" + id + "']").removeClass("active");
 
                 // Cursor im Listpickerwidget auf aktive Zeile setzen
-                var $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
+                const $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
                 scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow);
             } else {
                 // bei leerem bzw. geloeschten $listpickerField sind ehem. active-Eintraege zu loeschen
@@ -933,7 +933,7 @@ function refreshFunctions() {
         // Klicks abfangen und Feld ggf. schließen
         $(document).click(function (e) {
 
-            var $target = $(e.target);
+            const $target = $(e.target);
 
             if ($listpickerContent.has($target).length <= 0) {
                 // Der Klick ist außerhalb des Dropdowns, schliesse Picker
@@ -941,7 +941,7 @@ function refreshFunctions() {
             } else {
                 // Der Klick ist innerhalb des Dropdowns, daher sollte die aktuelle Zelle ausgewählt werden
                 if ($target.is("tr") || $target.is("td")) {
-                    var $row = null;
+                    let $row = null;
                     if ($target.is("td")) {
                         $row = $target.parent();
                     } else {
@@ -963,7 +963,7 @@ function refreshFunctions() {
                 e.stopPropagation();
 
                 // Beim Drücken von Enter wird der aktive Eintrag ausgewählt
-                var $row = $listpickerContent.find("tbody tr:visible.active").first();
+                let $row = $listpickerContent.find("tbody tr:visible.active").first();
                 // Wenn es keinen aktiven Eintrag gibt, dann wird der oberste Eintrag ausgewählt
                 if ($row.length <= 0) {
                     $row = $listpickerContent.find("tbody tr:visible").first();
@@ -978,8 +978,8 @@ function refreshFunctions() {
 
         // Sorge dafür, dass bei einer Veränderung des Listpickerfilters auch immer das Change-Event gefeuert wird
         $listpickerFilter.bind('keyup.ensureChange', function (event) {
-            var keyCode = event.keyCode;
-            var valid = inputChangingKeycode(keyCode); // ändert der Tastendruck den Inhalt des Filters?
+            const keyCode = event.keyCode;
+            const valid = inputChangingKeycode(keyCode); // ändert der Tastendruck den Inhalt des Filters?
             if (valid) {
                 $(this).change();
             }
@@ -997,22 +997,22 @@ function refreshFunctions() {
                             function () {
 
                                 // Filter
-                                var $rows = $listpickerContent
+                                const $rows = $listpickerContent
                                     .find(".rf-listpicker-table tbody tr");
 
-                                var filterFunction = function ($row,
+                                const filterFunction = function ($row,
                                                                inverse) {
 
-                                    var $tdsAfterFilter = $row
+                                    const $tdsAfterFilter = $row
                                         .find('td')
                                         .filter(
                                             function () {
-                                                var $td = $(this);
-                                                var text = $td
+                                                const $td = $(this);
+                                                const text = $td
                                                     .text();
-                                                var listpickerVal = $listpickerFilter
+                                                const listpickerVal = $listpickerFilter
                                                     .val();
-                                                var compare = text
+                                                const compare = text
                                                     .toLowerCase()
                                                     .indexOf(
                                                         listpickerVal
@@ -1027,12 +1027,12 @@ function refreshFunctions() {
                                     }
                                 };
 
-                                var $filteredRows = $rows
+                                const $filteredRows = $rows
                                     .filter(function () {
                                         return filterFunction(
                                             $(this), false);
                                     });
-                                var $unfilteredRows = $rows
+                                const $unfilteredRows = $rows
                                     .filter(function () {
                                         return filterFunction(
                                             $(this), true);
@@ -1049,10 +1049,10 @@ function refreshFunctions() {
 
         $listpickerFilter.bind('keydown', function (e) {
 
-            var keyPressed = e.which;
+            const keyPressed = e.which;
 
             // aktuell aktives sichtbares Element
-            var $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
+            const $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
 
             // Pfeil nach unten
             if (keyPressed == 40) {
@@ -1124,7 +1124,7 @@ function refreshFunctions() {
 
     // Alle Listpicker schließen, wenn ein Selectpicker geöffnet wird
     // TODO: Lösung ist aktuell nicht generisch. Das sollte verbessert werden.
-    var $buttonSelectpicker = $('button.selectpicker');
+    const $buttonSelectpicker = $('button.selectpicker');
     $buttonSelectpicker.click(function (event) {
         $listpickerContainer.removeClass('open');
     });
