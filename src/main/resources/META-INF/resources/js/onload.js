@@ -336,24 +336,24 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Hilfsfunktionen für Data-Tables (Klickbereich erweitern)
     // --------------------------------------------------------
-    var $rfDataTables = $('.rf-data-table').filter(':not(.rf-data-table_ajaxtoken)');
+    const $rfDataTables = $('.rf-data-table').filter(':not(.rf-data-table_ajaxtoken)');
     // (1) Klickbereich der Headerspalten erweitern
     $rfDataTables.find('th.sortable').click(function (event) {
-        var $target = $(event.target);
+        const $target = $(event.target);
         if ($target.is("th")) {
             $(this).find('a').click();
         }
     });
     // Funktion, um ausgewählte Zeilen zu markieren
-    var formatRowsFunction = function ($trs, $tr, selectionMode) {
+    const formatRowsFunction = function ($trs, $tr, selectionMode) {
         // moossenm: Klasse row-selection hinzugefuegt um Zeilenauswahl-Checkbox von anderen zu unterscheiden.
-        var $input = $tr.find("td div.row-selection .checkbox label input");
+        const $input = $tr.find("td div.row-selection .checkbox label input");
         if ($input.is(":checked")) {
             $tr.addClass("active");
             // Falls der Selection Mode "single" ist, dann müssen jetzt alle anderen Input Felder deaktiviert werden.
             if (selectionMode === "single") {
-                var $prevs = $tr.prevAll().find("td div.row-selection .checkbox label input:checked");
-                var $nexts = $tr.nextAll().find("td div.row-selection .checkbox label input:checked");
+                const $prevs = $tr.prevAll().find("td div.row-selection .checkbox label input:checked");
+                const $nexts = $tr.nextAll().find("td div.row-selection .checkbox label input:checked");
                 $prevs.attr("checked", false);
                 $nexts.attr("checked", false);
                 $prevs.each(function () {
@@ -369,25 +369,25 @@ function refreshFunctions() {
     };
     // (2) Klickbereich für die Auswahl von Zeilen erweitern / Doppelklick setzen / Selection Mode initialisieren
     $rfDataTables.each(function () {
-        var $rfDataTable = $(this);
-        var $rfDataTableSelectOption = $(this).find("[id$='rfDataTableSelectableOption']").first();
-        var selectionMode = $(this).find("[id$='rfDataTableSelectionMode']").first().val();
-        var selectActive = ($rfDataTableSelectOption.val() === 'true');
-        var $rfDataTableDoubleClickActive = $(this).parent().find("[id$='rfDataTableDoubleClickActive']").first();
-        var doubleClickActive = ($rfDataTableDoubleClickActive.text() === 'true');
+        const $rfDataTable = $(this);
+        const $rfDataTableSelectOption = $(this).find("[id$='rfDataTableSelectableOption']").first();
+        const selectionMode = $(this).find("[id$='rfDataTableSelectionMode']").first().val();
+        const selectActive = ($rfDataTableSelectOption.val() === 'true');
+        const $rfDataTableDoubleClickActive = $(this).parent().find("[id$='rfDataTableDoubleClickActive']").first();
+        const doubleClickActive = ($rfDataTableDoubleClickActive.text() === 'true');
 
-        var $rows = $(this).find("tbody tr");
+        const $rows = $(this).find("tbody tr");
         $rows.each(function () {
-            var $row = $(this);
-            var clicks = 0;
-            var timer = null;
+            const $row = $(this);
+            let clicks = 0;
+            let timer = null;
 
-            var functionSingleClick = null;
+            let functionSingleClick = null;
             if (selectActive) {
                 functionSingleClick = function (a) {
 
                     if (!$(a.target).is("input") && !$(a.target).is("span") && !$(a.target).is("button")) {
-                        var $input = $row.find("td div.row-selection .checkbox label input");
+                        const $input = $row.find("td div.row-selection .checkbox label input");
                         $input.click();
                     }
                     formatRowsFunction($rows, $row, selectionMode);
@@ -425,7 +425,7 @@ function refreshFunctions() {
         }
     });
     // (3) 'Alle Auswählen' Checkbox registrieren
-    var selectAllFunction = function ($selectAllCheckbox, $rfDataTable) {
+    const selectAllFunction = function ($selectAllCheckbox, $rfDataTable) {
         //Auf jeden Fall erst einmal den Zustand 'teilweise' entfernen.
         $selectAllCheckbox.prop("indeterminate", false);
 
@@ -437,8 +437,8 @@ function refreshFunctions() {
             $rfDataTable.find("tbody").first().find(".checkbox input").prop("checked", true);
         }
         // Zeilen bei Bedarf selecktieren
-        var selectionMode = $rfDataTable.find("[id$='rfDataTableSelectionMode']").first().val();
-        var $rows = $rfDataTable.find("tbody tr");
+        const selectionMode = $rfDataTable.find("[id$='rfDataTableSelectionMode']").first().val();
+        const $rows = $rfDataTable.find("tbody tr");
         $rows.each(function () {
             // moossenm: DSD-509 - 16.06.2015
             // Fehlenden Parameter rows und selectionMode hinzugefügt, jetzt werden auch die ausgewählte Zeilen hervorgehoben
@@ -446,18 +446,18 @@ function refreshFunctions() {
         });
     };
     // (4) Show-/Hide-Detail-Logik registrieren
-    var showDetail = function (e) {
+    const showDetail = function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        var $this = $(this);
-        var $tr = $this.parents('tr');
-        var $table = $this.parents("table.CLIENT.rf-data-table");
-        var allowMultiple = $table.find("input[id$='rfDataTableDetailMode']").val() == 'multiple';
+        const $this = $(this);
+        const $tr = $this.parents('tr');
+        const $table = $this.parents("table.CLIENT.rf-data-table");
+        const allowMultiple = $table.find("input[id$='rfDataTableDetailMode']").val() == 'multiple';
         if (!allowMultiple) {
             // Alle Detailzeilen ausblenden
             $table.find("tr[id*='detail-']").addClass('hidden');
             // Eventhandler, Tooltip, ID für hideDetail-Buttons wechseln
-            var $hideDetailButtons = $table.find('div.detailview-actions button[id*=hideDetail]');
+            const $hideDetailButtons = $table.find('div.detailview-actions button[id*=hideDetail]');
             $hideDetailButtons.find('span').removeClass('icon-minus').addClass('icon-plus');
             $hideDetailButtons.attr('title', $this.parents('div.detailview-actions').data('show-tooltip'));
             $hideDetailButtons.attr('id', $this.attr('id').replace("hideDetail", "showDetail"));
@@ -478,11 +478,11 @@ function refreshFunctions() {
             lazyLoad();
         }, 50);
     };
-    var hideDetail = function (e) {
+    const hideDetail = function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        var $this = $(this);
-        var $tr = $this.parents('tr');
+        const $this = $(this);
+        const $tr = $this.parents('tr');
         $tr.next().addClass('hidden');
         $this.attr('title', $this.parents('div.detailview-actions').data('show-tooltip'));
         $this.attr('id', $this.attr('id').replace("hideDetail", "showDetail"));
@@ -492,45 +492,45 @@ function refreshFunctions() {
         $this.on('click.showdetail', showDetail);
     };
     $("table.CLIENT.rf-data-table").each(function () {
-        var $table = $(this);
+        const $table = $(this);
         // =============== START DETAILVIEW ===================== //
         $table.find('tbody div.detailview-actions button').prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
-        var $showDetail = $table.find('div.detailview-actions button[id*=showDetail]');
+        const $showDetail = $table.find('div.detailview-actions button[id*=showDetail]');
         $showDetail.on('click.showdetail', showDetail);
-        var $hideDetail = $table.find('div.detailview-actions button[id*=hideDetail]');
+        const $hideDetail = $table.find('div.detailview-actions button[id*=hideDetail]');
         $hideDetail.on('click.hidedetail', hideDetail);
         // =============== ENDE DETAILVIEW ===================== //
     });
     // (5) JS Sortierung aktivieren
     $('.rf-data-table').each(function () {
-        var $rfDataTable = $(this);
-        var $sortFunction = $rfDataTable.find("[id$='rfDataTableJsSortFunction']");
+        const $rfDataTable = $(this);
+        const $sortFunction = $rfDataTable.find("[id$='rfDataTableJsSortFunction']");
 
         if ($sortFunction.length > 0) {
 
-            var $sortAttribute = $rfDataTable.find("[id$='rfDataTableSortProperty']");
-            var $sortDirection = $rfDataTable.find("[id$='rfDataTableSortDirection']");
-            var $jsSortedList = $rfDataTable.find("[id$='rfDataTableJsSortedList']");
+            const $sortAttribute = $rfDataTable.find("[id$='rfDataTableSortProperty']");
+            const $sortDirection = $rfDataTable.find("[id$='rfDataTableSortDirection']");
+            const $jsSortedList = $rfDataTable.find("[id$='rfDataTableJsSortedList']");
 
-            var $ths = $(this).find("th");
+            const $ths = $(this).find("th");
             $ths.each(function (index) {
-                var $th = $(this);
+                const $th = $(this);
 
                 if ($th.hasClass("sortable")) {
 
-                    var $thLink = $th.find("a");
+                    const $thLink = $th.find("a");
                     $thLink.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
                     $thLink.unbind("click");
                     $thLink.click(function (event) {
                         event.preventDefault();
 
                         // Details vor Sortierung speichern
-                        var $details = $rfDataTable.find("tbody .details-preview");
+                        const $details = $rfDataTable.find("tbody .details-preview");
                         $details.remove();
 
                         // Neu Sortierattribute und Richtung ermitteln
                         $rfDataTable.find("thead th.sorted").removeClass("sorted");
-                        var newSortDirection = "";
+                        let newSortDirection = "";
 
                         if ($sortDirection.val() == "ASCENDING") {
                             $th.removeClass("sort-up");
@@ -559,10 +559,10 @@ function refreshFunctions() {
                         window[$sortFunction.val()]($rfDataTable, $th, index, newSortDirection);
 
                         // Sortierung speichern
-                        var $trsNeu = $rfDataTable.find("tbody tr");
-                        var sortedList = "";
+                        const $trsNeu = $rfDataTable.find("tbody tr");
+                        let sortedList = "";
                         $trsNeu.each(function () {
-                            var id = $(this).attr("id");
+                            const id = $(this).attr("id");
                             if (sortedList.length > 0) {
                                 sortedList = sortedList + ",";
                             }
@@ -572,9 +572,9 @@ function refreshFunctions() {
 
                         //     Details nach Sortierung wieder zuordnen
                         $details.each(function () {
-                            var $detail = $(this);
-                            var idDetail = $detail.attr("id");
-                            var $afterTr = $rfDataTable.find("tbody tr[id='" + idDetail + "']");
+                            const $detail = $(this);
+                            const idDetail = $detail.attr("id");
+                            const $afterTr = $rfDataTable.find("tbody tr[id='" + idDetail + "']");
                             $detail.insertAfter($afterTr);
                         });
 
@@ -587,11 +587,11 @@ function refreshFunctions() {
     });
 
     //(6) Den Zustand der 'Alle Auswählen' Checkbox immer korrekt setzen.
-    var tristateBerechnen = function ($checkboxes, $selectAllCheckbox, $rfDataTable) {
+    const tristateBerechnen = function ($checkboxes, $selectAllCheckbox, $rfDataTable) {
         $selectAllCheckbox.prop("indeterminate", false);
 
-        var alleAusgewaehlt = true;
-        var keineAusgewahlt = true;
+        let alleAusgewaehlt = true;
+        let keineAusgewahlt = true;
         $checkboxes.each(function () {
             if ($(this).is(":checked")) {
                 keineAusgewahlt = false;
@@ -612,8 +612,8 @@ function refreshFunctions() {
 
 
     $rfDataTables.each(function () {
-        var $selectAllCheckbox = $(this).find("[id*='dataTableSelectAll']").first();
-        var $rfDataTable = $(this);
+        const $selectAllCheckbox = $(this).find("[id*='dataTableSelectAll']").first();
+        const $rfDataTable = $(this);
 
         //Click auf der Tri-State-Checkbox registrieren.
         $selectAllCheckbox.parent().find("span").click(function () {
@@ -621,7 +621,7 @@ function refreshFunctions() {
         });
 
         //Click auf den restlichen Checkboxes registrieren.
-        var $checkboxes = $rfDataTable.find("tbody").first().find(".checkbox input");
+        const $checkboxes = $rfDataTable.find("tbody").first().find(".checkbox input");
         $checkboxes.each(function () {
             $(this).click(function () {
                 tristateBerechnen($checkboxes, $selectAllCheckbox, $rfDataTable);
