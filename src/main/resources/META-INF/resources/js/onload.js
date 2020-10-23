@@ -1186,21 +1186,21 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Button Inject POST
     // --------------------------------------------------------
-    var $buttonInjectPostGroups = $("[id$='buttonInjectPostGroup']");
+    const $buttonInjectPostGroups = $("[id$='buttonInjectPostGroup']");
     $buttonInjectPostGroups.each(function () {
-        var $group = $(this);
+        const $group = $(this);
 
         // Finde klickbares Element in der ButtonInjectPostGroup
-        var $actualButton = $group.find(":nth-child(4)");
+        const $actualButton = $group.find(":nth-child(4)");
 
         // Finde Button für POST-Aktion
-        var $postButton = $("[id$='" + $group.find("[id$='postButton']").val() + "']");
+        const $postButton = $("[id$='" + $group.find("[id$='postButton']").val() + "']");
 
         // Finde Feld für posted
-        var $posted = $group.find("[id$='posted']");
+        const $posted = $group.find("[id$='posted']");
 
         // Finde Feld für continue
-        var $continue = $group.find("[id$='continue']");
+        const $continue = $group.find("[id$='continue']");
 
 
         if ($posted.attr("value") === 'true') {
@@ -1239,18 +1239,18 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Default Buttons
     // --------------------------------------------------------
-    var $forms = $("form");
+    const $forms = $("form");
     $forms.each(function () {
-        var $form = $(this);
+        const $form = $(this);
         $form.unbind("keypress");
-        var $defaultButton = $form.find("[id*='" + $form.find("[id$='defaultButtonID']").val() + "']");
+        const $defaultButton = $form.find("[id*='" + $form.find("[id$='defaultButtonID']").val() + "']");
         if ($defaultButton.length > 0) {
             // Ursprüngliches Bind deaktivieren
             $form.unbind("keypress");
             // Das Form enthält einen DefaultButton
             $form.bind("keypress", function (event) {
                 if (event.keyCode == 13) {
-                    var $source = $(document.activeElement);
+                    const $source = $(document.activeElement);
                     // Kein Link, Button, Charpicker oder anderes Submit-Element fokussiert, das eine eigene sinnvolle Aktion bei Enter hat
                     if (!$source.is("[type='submit']") &&
                         !$source.is("a") &&
