@@ -1134,17 +1134,17 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Vorgeladene Tabs steuern
     $('.isy-tab').each(function () {
-        var $isyTab = $(this);
+        const $isyTab = $(this);
 
         // TabAutoscroll: Ist in tabGroup ein Tab-Inhaltsbereich-HochScrollen gewünscht?
-        var $tabHochScrollen = false;
+        let $tabHochScrollen = false;
         if ($isyTab.hasClass('tabHochScrollen')) {
             $tabHochScrollen = true;
         }
 
         $isyTab.children().each(function () {
-            var $li = $(this);
-            var $liLink = $(this).find("a");
+            const $li = $(this);
+            const $liLink = $(this).find("a");
 
             if ($li.hasClass('skipAction')) {
                 $liLink.unbind("click");
@@ -1157,16 +1157,16 @@ function refreshFunctions() {
                 }
 
                 // Aktuelles Tab entfernen
-                var liIdAlt = $isyTab.find(".active").attr('id');
+                const liIdAlt = $isyTab.find(".active").attr('id');
                 $isyTab.find(".active").removeClass("active");
                 $isyTab.next().find("#" + liIdAlt).removeClass("active");
 
                 // Tab aktivieren
-                var liIdNeu = $li.attr('id');
+                const liIdNeu = $li.attr('id');
                 $li.addClass("active");
                 //$isyTab.next().find("#" + liIdNeu).addClass("active");
 
-                var aktiverTab = $isyTab.next().find("#" + liIdNeu);
+                const aktiverTab = $isyTab.next().find("#" + liIdNeu);
                 aktiverTab.addClass("active");
 
                 // Tab-Autoscroll unterstützen
