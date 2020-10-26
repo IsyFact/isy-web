@@ -2100,7 +2100,7 @@ function refreshDatatableFilterRow() {
                         } else {
                             $(this).trigger('blur');
                         }
-                        //  prevent default action
+                        // prevent default action
                         return false;
                     }
                     // if backspace was pressed
@@ -2138,84 +2138,83 @@ function refreshDatatableFilterRow() {
         });
 }
 
-//Die Funktion ergänzt zweistellige Jahresangaben innerhalb eines Datum-Inputfeld.
+// This function transforms two digit years into four digit years in date input fields.
 datumErgaenzen = function (inputFeld, grenze) {
     "use strict";
-    //Der Grenzwert wird auf das aktuelle Jahr addiert, damit der resultierende Wert im Laufe der Jahre mitläuft.
-    var aktuellesJahr = parseInt(new Date().getFullYear().toString().substring(2, 4));
+    //The given "grenze" as a limit is added to the current year, so the resulting limit year will update over time
+    const aktuellesJahr = parseInt(new Date().getFullYear().toString().substring(2, 4));
     grenze = (aktuellesJahr + parseInt(grenze)).toString();
-    var aktuelleWerte = inputFeld.val().split('.');
+    const aktuelleWerte = inputFeld.val().split('.');
     if (aktuelleWerte.length === 3 && aktuelleWerte[2].replace(/_/g, '').length === 2) {
-        var praefix;
-        var jahresZahl = aktuelleWerte[2].replace(/_/g, '');
+        let praefix;
+        const jahresZahl = aktuelleWerte[2].replace(/_/g, '');
         if (jahresZahl <= grenze) {
             praefix = "20";
         } else if (jahresZahl > grenze) {
             praefix = "19";
         }
-        var ergebnis = praefix + jahresZahl;
+        const ergebnis = praefix + jahresZahl;
         aktuelleWerte[2] = ergebnis;
         inputFeld.val(aktuelleWerte[0] + "." + aktuelleWerte[1] + "." + aktuelleWerte[2]);
     }
 };
 
-//Code der das Initialisieren eines Listpickers über das Servlet anstößt
+//Code that triggers initialization of a listpicker through the servlet
 initialisierenListpickerServlet = function () {
     "use strict";
-    var $listpicker = $(".servlet.listpicker-filter");
+    const $listpicker = $(".servlet.listpicker-filter");
     $listpicker.each(function (i, listpicker) {
         registerListpickerfilter(listpicker);
     });
 };
 
 
-//registrieren eines Listpickers
+//register a listpicker
 registerListpickerfilter = function (identifier) {
     "use strict";
-    var $listpickerFilter = $(identifier);
-    var listpickerFilterInput = $listpickerFilter.children()[0];
-    var url = $listpickerFilter.siblings("div.rf-listpicker-table-container").find(".servletTable")[0].getAttribute("data-servleturl");
+    const $listpickerFilter = $(identifier);
+    const listpickerFilterInput = $listpickerFilter.children()[0];
+    const url = $listpickerFilter.siblings("div.rf-listpicker-table-container").find(".servletTable")[0].getAttribute("data-servleturl");
 
-    //Im Folgenden werden die einzelnen Parameter, die in der URL enthalten sind encoded.
-    //Es wird jeweils der Wert des Parameters encoded, nicht der Parameter selbst.
-    var urlsplit = url.split("?");
+    //Hereafter the url paramaters will be encoded
+    //only the paramater value will be encoded, not the parameter name itself
+    const urlsplit = url.split("?");
 
-    //Der erste Teil der URL (alles ohne Paramater) bleibt unverändert.
-    var urlEncoded = urlsplit[0] + '?';
+    //the first part of the URL (the part before the parameters) remains unchanged
+    let urlEncoded = urlsplit[0] + '?';
 
-
-    //Splitte den zweiten Teil
+    //split the second part
     if (urlsplit.length > 1) {
-        var attributeGesetzt = urlsplit[1].split("&");
+        const attributeGesetzt = urlsplit[1].split("&");
         attributeGesetzt.forEach(function (attribut) {
-            var attributSplit = attribut.split("=");
+            const attributSplit = attribut.split("=");
             urlEncoded = urlEncoded + attributSplit[0] + '=' + encodeURIComponent(attributSplit[1]) + "&";
         });
     }
 
-    //initiale Befüllung des Listpickers
-    //Hier wird der eigentliche Request abgeschickt!
+    //Initialize contents of listpicker
+    //This is where the actual request is sent!
     $.get(urlEncoded + "filter=" + encodeURIComponent(listpickerFilterInput.value)).done(function (data) {
         createListpickerTable(data, $listpickerFilter);
     });
     listpickerFilterInput.dataset.oldvalue = listpickerFilterInput.value;
 
-    var $listpickerContent = $listpickerFilter.parent().parent();
-    var $listpickerContainer = $listpickerContent.parent();
-    var $listpickerField = $listpickerContainer.find('*[id*=listpickerField]');
+    const $listpickerContent = $listpickerFilter.parent().parent();
+    const $listpickerContainer = $listpickerContent.parent();
+    const $listpickerField = $listpickerContainer.find('*[id*=listpickerField]');
 
-    //Hat man sich im Dropdownmenü befunden und klickt anschließend außerhalb, werden die Felder synchronisiert.
+    //if a filter dropdown menu was focused and another area is clicked, the fields will be updated
     $(listpickerFilterInput).focusout(function () {
         $listpickerFilter.parent().parent().siblings('.form-control').focusout();
     });
 
-    //Die Filtermethode, die die Liste aktualisiert
-    //Zunächst deaktivieren wir den Handler für den Fall, dass er schon existiert und aktualisiert
-    //werden muss. (Dies ist beispielsweise der Fall, wenn die URL per JavaScript manipuliert wurde, ohne dass die gesamte Seite neu gerendert wird.)
-    //Wenn wir den Handler nicht vorher deaktivieren, bleibt die Servlet-URL effektiv unverändert und
-    //der Filter funktioniert dann nicht korrekt.
+    //Filtermethod that updates the list.
+    //First the handler will be deactivated, in case it already exists and needs to be updated
+    //(This is the case, if e.g. the url was manipulated via JavaScript without the whole page being rerendered)
+    //If we don't deactiviate this handler, the servlet-url will remain effectively unchanged and
+    //the filter wouldn't work
     $(listpickerFilterInput).off('change keyup', servletListpickerFilterChanged);
-    //Die benötigten Daten (die URL und der Filter selbst) geben wir als Data-Attribute rein.
+    //The needed data (the URL and the filter itself) are set as data-attributes of the event
     $(listpickerFilterInput).on('change keyup', {
         url: urlEncoded,
         listpickerfilter: $listpickerFilter,
@@ -2224,19 +2223,19 @@ registerListpickerfilter = function (identifier) {
 };
 
 /**
- * Die Funktion behandelt change und keyup Events für die Listpicker, die per Servlet filtern.
- * @param event Das change/keyup Event.
+ * The function handels change and keyup events for listpickers that filter via servlet.
+ * @param event The change/keyup Event.
  */
 function servletListpickerFilterChanged(event) {
     "use strict";
     event.stopImmediatePropagation();
-    //Hole die benötigten Daten aus den Data-Attributen des Events (wurden im Aufruf gesetzt).
-    var servletUrl = event.data.url;
-    var listpickerFilter = event.data.listpickerfilter;
-    var listpickerFilterInput = event.data.listpickerfilter;
-    var delay = 500;
+    //fetch the needed values from the data-attributes of the event (were set when called)
+    const servletUrl = event.data.url;
+    const listpickerFilter = event.data.listpickerfilter;
+    const listpickerFilterInput = event.data.listpickerfilter;
+    const delay = 500;
     window.setTimeout(function (filter) {
-        var input = listpickerFilter.children()[0];
+        const input = listpickerFilter.children()[0];
         if (input.dataset.oldvalue == "undefined" || input.value != input.dataset.oldvalue) {
             $.get(servletUrl + "filter=" + encodeURIComponent(input.value)).done(function (data) {
                 createListpickerTable(data, listpickerFilter);
@@ -2246,38 +2245,38 @@ function servletListpickerFilterChanged(event) {
     }, delay, listpickerFilterInput);
 }
 
-//Erstellt einen ListpickerTable anhand des responseTextes.
+//Creates a ListpickerTable based on the responseText.
 createListpickerTable = function (responseText, listfilter) {
     "use strict";
-    var $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
-    var $table = $tablecontainer.find(".servletTable");
+    const $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
+    let $table = $tablecontainer.find(".servletTable");
     $table.empty();
-    var tableJson = JSON.parse(responseText);
-    for (var j in tableJson.items) {
-        var item = tableJson.items[j];
-        var tr = $('<tr>').attr('id', item.id);
-        for (var i = 0; i < item.attrs.length; i++) {
-            var td = $('<td>').text(item.attrs[i].trim());
+    const tableJson = JSON.parse(responseText);
+    for (let j in tableJson.items) {
+        const item = tableJson.items[j];
+        let tr = $('<tr>').attr('id', item.id);
+        for (let i = 0; i < item.attrs.length; i++) {
+            const td = $('<td>').text(item.attrs[i].trim());
             tr.append(td);
         }
         $table.append(tr);
     }
     if (tableJson.weiterFiltern === true) {
-        var trWeiterFiltern = $('<tr>');
-        var tdWeiterFiltern = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
+        let trWeiterFiltern = $('<tr>');
+        const tdWeiterFiltern = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
         trWeiterFiltern.append(tdWeiterFiltern);
         $table.append(trWeiterFiltern);
     }
     $(listfilter).parent().parent().siblings('.form-control').focusout();
 };
 
-//Bei einem Klick im Dokument, wird ein Listpicker, falls dieser geöffnet war, geschlossen und zusätzlich die
-//Focusout-Methode getriggert, um das Auflösen des Schlüssels zu bewirken.
+//On click inside the document, if a listpicker was open, it will be closed
+//and additionally the focusout-method will be triggered, to cause the key to be resolved
 $(document).click(function (e) {
     "use strict";
-    var $target = $(e.target);
-    var $listpickerContainer = $('.listpicker-container.open');
-    var $listpickerContent = $listpickerContainer.find('.listpicker-content');
+    const $target = $(e.target);
+    const $listpickerContainer = $('.listpicker-container.open');
+    const $listpickerContent = $listpickerContainer.find('.listpicker-content');
     if ($listpickerContent.has($target).length <= 0 && $listpickerContainer.hasClass('open')) {
         $listpickerContainer.removeClass('open');
         $listpickerContent.siblings('.form-control').focusout();
