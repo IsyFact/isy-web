@@ -1732,14 +1732,14 @@ function refreshFunctions() {
 function listpickerAjaxReload(callback, keyCode) {
     'use strict';
 
-    // Der Listpicker Filter sendet das Event
-    var $listpickerFilter = $(callback.source).first();
-    var $listpickerContent = $listpickerFilter.parents(".listpicker-container").first().find(".listpicker-content");
-    var $ajaxSpinner = $listpickerFilter.parent().parent().parent().parent().find('.listpicker-ajax-spinner');
+    // the listpicker filter that sends the event
+    const $listpickerFilter = $(callback.source).first();
+    const $listpickerContent = $listpickerFilter.parents(".listpicker-container").first().find(".listpicker-content");
+    const $ajaxSpinner = $listpickerFilter.parent().parent().parent().parent().find('.listpicker-ajax-spinner');
 
 
     if (callback.status === 'begin' && $listpickerFilter.is($(document.activeElement))) {
-        // UI-Block des Listpickers
+        // block ui of the listpicker
         $ajaxSpinner.css("position", $listpickerContent.css("position"));
         $ajaxSpinner.css("top", $listpickerContent.css("top"));
         $ajaxSpinner.css("left", $listpickerContent.css("left"));
@@ -1748,7 +1748,7 @@ function listpickerAjaxReload(callback, keyCode) {
         $ajaxSpinner.css("margin-top", $listpickerContent.css("margin-top"));
         $ajaxSpinner.css("display", "block");
 
-        // Blockiere Tastatureingaben
+        // block keyboard input
         $listpickerFilter.bind("keydown.prevent keypress.prevent", function (event) {
             event.preventDefault();
         });
@@ -1756,35 +1756,38 @@ function listpickerAjaxReload(callback, keyCode) {
     }
 
     if (callback.status === 'complete') {
-        // Entferne UI-Block des Listpickers
+        // remove ui-block
         $ajaxSpinner.css("display", "none");
 
-        // Deblockiere Tastatureingaben
+        // remove keyboard input block
         $listpickerFilter.unbind("keydown.prevent keypress.prevent");
 
     }
 
     if (callback.status === 'success') {
 
-        var listpickerAjaxFormId = $listpickerContent.find("[id$='listpickerAjaxForm']").val();
-        var $listpickerAjaxForm = $("form[id$='" + listpickerAjaxFormId + "']");
+        const listpickerAjaxFormId = $listpickerContent.find("[id$='listpickerAjaxForm']").val();
+        const $listpickerAjaxForm = $("form[id$='" + listpickerAjaxFormId + "']");
 
         $listpickerContent.find("tbody").replaceWith($listpickerAjaxForm.find("tbody").clone());
-        var $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");
+        const $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");
         $listpickerLastFilter.val($listpickerFilter.val());
         $listpickerFilter.parents(".listpicker-container").find("input[id*='listpickerField']").focusout();
     }
 }
 
 /**
- * Prueft, ob die gedrücke Taste den Inhalt eines Textfeldes veraendern kann
+ * Checks whether the pressed key is a valid input character to change a text fields contents.
+ * Common control characters are considered invalid.
+ *
  */
 function inputChangingKeycode(keyCode) {
     'use strict';
-    // keyCodes, die die Eingabe nicht verändern. Gilt nur für IE und Firefox!
-    // Hiermit werden bekannte Steuerzeichen auf der Tastatur ignoriert
-    // invalide Keycodes: 0 ODER 9-13 ODER 16-20 ODER 27 ODER 33-45 ODER 91-93 ODER 112-123 ODER 144 ODER 145 ODER 181-183
-    var invalid = (keyCode > 8 && keyCode < 14) ||
+    // keyCodes, that don't change input. Only valid for IE and Firefox!
+    // Common control characters will be ignored.
+    // invalid Keycodes:
+    // 0 OR 9-13 OR 16-20 OR 27 OR 33-45 OR 91-93 OR 112-123 OR 144 OR 145 OR 181-183
+    const invalid = (keyCode > 8 && keyCode < 14) ||
         (keyCode > 15 && keyCode < 21) ||
         keyCode === 0 || keyCode === 27 ||
         (keyCode > 32 && keyCode < 46) ||
@@ -1796,7 +1799,7 @@ function inputChangingKeycode(keyCode) {
 }
 
 /**
- * Blockiert einen einzelnen Button beim Klick. Verhindert Doppelklick.
+ * Blocks a single button on click. Prevents doubleclicks.
  */
 function blockSingleButton(data) {
     'use strict';
@@ -1815,16 +1818,16 @@ function blockSingleButton(data) {
 }
 
 /**
- * Lädt Elemente nach, falls notwendig.
+ * Lazy loads elements if necessary.
  */
 function lazyLoad() {
     'use strict';
 
     // Bilder
     $("[data-src].lazy").each(function () {
-        var $lazyImage = $(this);
+        const $lazyImage = $(this);
         if ($lazyImage.visible()) {
-            var src = $lazyImage.attr("data-src");
+            const src = $lazyImage.attr("data-src");
             $lazyImage.attr("src", src);
             $lazyImage.removeAttr("data-src");
         }
@@ -1838,17 +1841,16 @@ scriptLoadedOnload = function () {
 };
 
 /**
- * formatiert einen Stundensatz auf zwei Nachkommastellen
+ * Formats currency input to use the correct amount of decimal places.
  *
- * Das mit dem parseFloat funktioniert, da die Komponente formCurrencyInput
- * bereits verhindert, dass Buchstaben eingegeben werden können.
+ * parseFloat is used, as the component formCurrencyInput already prevents input of letters.
  */
 function formatAmountOfMoney(ref) {
     'use strict';
-    var inputField = document.getElementById(ref.id);
+    const inputField = document.getElementById(ref.id);
     if (ref.value !== "") {
-        var dezimalstellen = $(inputField).data("decimalplaces");
-        var result = formatiereInput(ref.value, dezimalstellen);
+        const dezimalstellen = $(inputField).data("decimalplaces");
+        let result = formatiereInput(ref.value, dezimalstellen);
         result = kuerzeInput(result, ref.maxLength);
         result = setzeTausenderPunkte(result);
         inputField.value = result;
@@ -1856,18 +1858,18 @@ function formatAmountOfMoney(ref) {
 }
 
 /**
- * Formatiert eine Numerische-/Fliesskomma Zahl
+ * Formats numeric values and floating point numbers.
  *
- * parseFloat funktioniert, da die Komponente formNumericInput
- * mit "onkeyup" bereits verhindert, dass Buchstaben eingegeben werden können.
+ * parseFloat is used, as the component formNumericInput already prevents input of letters
+ * in the "onkeyup"-event.
  */
 function formatNumericValue(ref) {
     'use strict';
-    var inputField = document.getElementById(ref.id);
+    const inputField = document.getElementById(ref.id);
     if (ref.value !== "") {
-        var dezimalstellen = $(inputField).data("decimalplaces");
-        var tausenderpunktGewuenscht = $(inputField).data("tausenderpunkt");
-        var result = formatiereInput(ref.value, dezimalstellen);
+        const dezimalstellen = $(inputField).data("decimalplaces");
+        const tausenderpunktGewuenscht = $(inputField).data("tausenderpunkt");
+        let result = formatiereInput(ref.value, dezimalstellen);
         result = kuerzeInput(result, ref.maxLength);
         if (tausenderpunktGewuenscht) {
             result = setzeNumerischeTausenderPunkte(result);
@@ -1877,24 +1879,26 @@ function formatNumericValue(ref) {
 }
 
 /**
- * formatiert den Eingabewert auf die angegebene Anzahl Nachkommastellen ohne Tausenderpunkte (z.B. xxxxx,xx)
- * Wird von der formCurrencyInput- und der formNumericinput-Komponente aufgerufen.
+ * formats input value: remove thousands separator and show the given number of decimal places
+ * (e.g. xxxxx,xx)
+ *
+ * Used by formCurrencyInput and formNumericInput components
  */
 function formatiereInput(input, dezimalstellen) {
     'use strict';
-    var value = input.split(".").join("");
+    let value = input.split(".").join("");
     value = value.replace(',', '.');
-    var tmp = parseFloat(value).toFixed(dezimalstellen);
+    let tmp = parseFloat(value).toFixed(dezimalstellen);
     return tmp.replace('.', ',');
 }
 
 /**
- * kürzt den Eingabewert auf die angegebene Länge
+ * shortens input to the given length
  */
 function kuerzeInput(value, length) {
     'use strict';
-    var kommaPosition = value.indexOf(",");
-    var anzahlTausenderPunkte = parseInt(((kommaPosition - 1) / 3));
+    let kommaPosition = value.indexOf(",");
+    let anzahlTausenderPunkte = parseInt(((kommaPosition - 1) / 3));
     while (value.length > (length - anzahlTausenderPunkte)) {
         value = value.substring(0, kommaPosition - 1) + value.substring(kommaPosition);
         kommaPosition = value.indexOf(",");
@@ -1904,12 +1908,12 @@ function kuerzeInput(value, length) {
 }
 
 /**
- * Setzt die Tausenderpunkte bei Geldbeträgen
+ * format currency value input to use dot as thousands separator ( e.g. xx.xxx,xx )
  */
 function setzeTausenderPunkte(value) {
     'use strict';
-    var kommaPosition = value.indexOf(",");
-    for (var i = 1; i < kommaPosition; i++) {
+    const kommaPosition = value.indexOf(",");
+    for (let i = 1; i < kommaPosition; i++) {
         if (i % 3 === 0) {
             value = value.substring(0, kommaPosition - i) + "." + value.substring(kommaPosition - i);
         }
@@ -1918,15 +1922,16 @@ function setzeTausenderPunkte(value) {
 }
 
 /**
- * Setzt die Tausenderpunkte bei Numerischen- und Fliesskommazahlen
+ * Format input of numeric values or floating point number to use dot as thousands separator
+ * (e.g. xx.xxx or xx.xxx,xx)
  */
 function setzeNumerischeTausenderPunkte(value) {
     'use strict';
-    var kommaPosition = value.indexOf(",");
+    let kommaPosition = value.indexOf(",");
     if (kommaPosition === -1) {
         kommaPosition = value.length;
     }
-    for (var i = 1; i < kommaPosition; i++) {
+    for (let i = 1; i < kommaPosition; i++) {
         if (i % 3 === 0) {
             value = value.substring(0, kommaPosition - i) + "." + value.substring(kommaPosition - i);
         }
@@ -1935,46 +1940,44 @@ function setzeNumerischeTausenderPunkte(value) {
 }
 
 /**
- * Löscht alle Zeichen außer Zahlen und Kommas aus der Einabe eines Textfeldes.
- * Wird von der formCurrencyInput- und formNumericInput-Komponente beim onkeyup-Event aufgerufen.
+ * Delete all characters apart from numbers and comma in an input field.
+ * Is used by formCurrencyInput and formNumericInput Components as a onkeyup-event.
  *
  * @param ref -
- *            Referenz auf das Textfeld, in dem die Ersetzung vorgenommen werden
- *            soll.
+ *            reference to the input field whose contents are replaced
  */
 function deleteNonDigitCharacters(ref) {
     'use strict';
     if (ref.value !== "") {
-        // Speichert die aktuelle Cursor-Position in Variablen
-        // wird für die Browser-Kompatibilität von IE und Chrome benötigt
-        var start = ref.selectionStart;
-        var end = ref.selectionEnd;
+        // saves the current cursor position as a variable
+        // needed for browser compatibility with IE and Chrome
+        let start = ref.selectionStart;
+        let end = ref.selectionEnd;
 
-        // länge des Textes wird gespeichert, wird später benötigt um
-        // festzustellen wie viele Zeichen entfernt wurden und um wie viele
-        // Zeichen der Cursor verschoben werden muss.
-        var length = ref.value.length;
+        // length of text is saved:
+        // is used later on to determine how many characters were removed
+        // to calculate the shift in position of the cursor
+        const length = ref.value.length;
 
-        // entfernt alle Zeichen ausser Zahlen und Komma aus der Eingabe.
-        // Achtung auch Tausender-Punkte werden entfernt
+        // removes all characters but numbers and comma as a decimal separator
+        // Attention: dots as thousands separators are also removed
         ref.value = ref.value.replace(/[^\d,.]/g, '');
 
-        // Prüft ob Zeichen entfernt wurden und verschiebt den Cursor
-        // entsprechend - Wird für IE und Chrome benötigt, bei FF reicht das
-        // ersetzen des Textes aus.
-        var lengthAfterReplace = ref.value.length;
+        // checks whether characters were removed and shifts the cursor
+        // accordingly - is needed for IE and Chrome; for FF replacing the text is sufficient
+        const lengthAfterReplace = ref.value.length;
         if (length > lengthAfterReplace) {
             start = start - (length - lengthAfterReplace);
             end = end - (length - lengthAfterReplace);
         }
 
-        // setzt die Cursor-Position
+        // sets cursor position
         ref.setSelectionRange(start, end);
     }
 }
 
 /**
- * JavaScript Typkonvertierung String = "true" zu Boolean = true
+ * JavaScript type conversion of String = "true" to Boolean = true
  */
 function stringToBoolean(str) {
     "use strict";
@@ -1983,12 +1986,12 @@ function stringToBoolean(str) {
 
 function currentDateAsString() {
     "use strict";
-    var currentDate = new Date();
-    var dayOfMonth = currentDate.getDate();
-    var month = currentDate.getMonth() + 1;
-    var year = currentDate.getFullYear();
-    var heute = dayOfMonth.toString() + '.' + month.toString() + '.' + year.toString();
-    var heuteMitFuehrendenNullen = heute.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
+    const currentDate = new Date();
+    const dayOfMonth = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    const heute = dayOfMonth.toString() + '.' + month.toString() + '.' + year.toString();
+    const heuteMitFuehrendenNullen = heute.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
 
     return heuteMitFuehrendenNullen;
 }
