@@ -499,7 +499,7 @@ function refreshFunctions() {
         $showDetail.on('click.showdetail', showDetail);
         const $hideDetail = $table.find('div.detailview-actions button[id*=hideDetail]');
         $hideDetail.on('click.hidedetail', hideDetail);
-        // =============== ENDE DETAILVIEW ===================== //
+        // =============== END DETAILVIEW ===================== //
     });
     // (5) JS Sortierung aktivieren
     $('.rf-data-table').each(function () {
@@ -1279,8 +1279,8 @@ function refreshFunctions() {
         // the problem is that while initializing the dialog is not shown yet
         // so all sizes are 0.
         // the hack: to wait until visible and to refresh then
-        var $bc = $(this);
-        var timerId;
+        const $bc = $(this);
+        let timerId;
 
         function checkForVisibility() {
             if ($bc.next().is(':visible')) {
@@ -1296,27 +1296,27 @@ function refreshFunctions() {
     // Datatable Client
     // --------------------------------------------------------
     $("table.CLIENT.rf-data-table:not('datatable-client-init')")
-        .addClass('datatable-client-init') // als initialisiert markieren
+        .addClass('datatable-client-init') // mark as initialized
         .each(function () {
-            var $table = $(this);
+            const $table = $(this);
 
-            // =============== START FILTER-ZEILE ===================== //
-            var timeId = 0;
+            // =============== START FILTER-ROW ===================== //
+            let timeId = 0;
             // replace buttons so that no server action is called
-            var $filterRow = $table.find("thead tr.filter-row");
+            const $filterRow = $table.find("thead tr.filter-row");
             $filterRow
                 .find("button.btn:not(.selectpicker)")
                 .replaceWith("<button type='button' class='btn hidden' />");
 
-            // clear all filter, vom replaceWith fixen
+            // clear all filters, fix after replaceWith
             $filterRow.find("td.table-clear-all-filter button")
                 .removeClass("hidden")
                 .addClass("table-clear-all-filter icon btn-icon btn-icon-small icon-cancel");
 
-            // Event-Auslöser für Filter
+            // event-trigger for filters
             $filterRow
                 .on("click", "button.btn:not('.selectpicker,.table-clear-all-filter')", function (e) {
-                    // um das stauen der Evente zu verhindern hat man einen 100ms puffern
+                    // use 100ms puffer to prevent events from queueing up too much
                     if (timeId) {
                         clearTimeout(timeId);
                     }
@@ -1325,9 +1325,9 @@ function refreshFunctions() {
                     }, 100);
                 });
 
-            // Event-Auslöser für alle Filter zurücksetzen
+            // reset events for all filters
             $filterRow.find("td.table-clear-all-filter button").click(function (e) {
-                var $this = $(this);
+                const $this = $(this);
                 $filterRow.find('select.filter-dropdown').selectpicker('val', '');
                 $filterRow.find('select.filter-dropdown').data('property', '');
                 $filterRow.find('input.table-filter').val('');
@@ -1337,11 +1337,12 @@ function refreshFunctions() {
                 doItAll();
             });
 
-            var $itemsWithDetails = $table.find("tbody tr");
-            var $allFilters = $filterRow.find('td');
-            var filterSingle = function ($td) {
-                // den zu filternenden Wert
-                var filter = '';
+            //list of items with details, is used by multiple functions
+            let $itemsWithDetails = $table.find("tbody tr");
+            const $allFilters = $filterRow.find('td');
+            const filterSingle = function ($td) {
+                // filter value
+                let filter = '';
                 if ($td.find('input.table-filter').length) {
                     filter = $td.find('input.table-filter').val();
                 } else if ($td.find('select.filter-dropdown').length) {
@@ -1352,14 +1353,14 @@ function refreshFunctions() {
                 }
                 filter = filter.trim().toLowerCase();
                 if (filter === undefined || filter === '') {
-                    // kein Filter
+                    // no filter
                     return;
                 }
-                // die zu filternende Spalte
-                var filterTd = 'td:nth-child(' + ($td.index() + 1) + ')';
-                var lastMatched = false; // hilfvariable zum einblenden der Details
+                // column that should be filtered
+                const filterTd = 'td:nth-child(' + ($td.index() + 1) + ')';
+                let lastMatched = false; // helpervariable for showing details
                 $.each($itemsWithDetails, function (i, item) {
-                    var $item = $(this);
+                    const $item = $(this);
                     if (!$item.is(":visible")) {
                         // already filtered out
                         lastMatched = false;
@@ -1372,14 +1373,14 @@ function refreshFunctions() {
                         }
                         return;
                     }
-                    // Wert ermitteln
-                    var $td = $item.find(filterTd);
-                    var val = $td.data('filter');
+                    // determine value
+                    const $td = $item.find(filterTd);
+                    let val = $td.data('filter');
                     if (val === undefined || val === '') {
                         val = $td.text();
                     }
                     val = val.trim().toLowerCase();
-                    // filtern
+                    // filter
                     if (~val.indexOf(filter)) {
                         lastMatched = true;
                         return;
@@ -1388,7 +1389,7 @@ function refreshFunctions() {
                     $item.hide().addClass('filtered');
                 });
             };
-            var filterAll = function (init) {
+            const filterAll = function (init) {
                 $itemsWithDetails.show().removeClass('filtered');
                 $.each($allFilters, function (i, td) {
                     filterSingle($(td));
@@ -1397,70 +1398,70 @@ function refreshFunctions() {
                     setCurrentPage(1);
                 }
             };
-            // initialisierung
+            // initialization
             $table.removeClass('datatable-filterrow-init');
             refreshDatatableFilterRow(); //
-            // =============== ENDE FILTER-ZEILE ===================== //
+            // =============== END FILTER-ROW ===================== //
 
-            // =============== START PAGINIERUNG ===================== //
-            var $pageControl = $table.find("tfoot tr").eq(0).find("td").eq(0);
-            var getCurrentPage = function () {
+            // =============== START PAGINATION ===================== //
+            const $pageControl = $table.find("tfoot tr").eq(0).find("td").eq(0);
+            const getCurrentPage = function () {
                 return $pageControl.data("currentpage") || 1;
             };
-            var setCurrentPage = function (pageNumber) {
+            const setCurrentPage = function (pageNumber) {
                 $pageControl.data("currentpage", pageNumber);
                 $table.find("input[type=hidden][id$=rfDataTableCurrentPage]").val(pageNumber);
             };
-            var getPageSize = function () {
+            const getPageSize = function () {
                 return $pageControl.data("pagesize") || getItemCount();
             };
-            var getItemCount = function () {
+            const getItemCount = function () {
                 return $table.find("tbody tr:not('.details-preview'):not('.filtered')").length;
             };
-            var getPageCount = function () {
-                var pageSize = getPageSize();
+            const getPageCount = function () {
+                const pageSize = getPageSize();
                 return Math.floor((getItemCount() + pageSize - 1) / pageSize);
             };
-            var isFirstPage = function () {
-                return (getCurrentPage() == 1);
+            const isFirstPage = function () {
+                return (getCurrentPage() === 1);
             };
-            var isLastPage = function () {
+            const isLastPage = function () {
                 return (getCurrentPage() == getPageCount());
             };
-            var getPageFrom = function () {
+            const getPageFrom = function () {
                 return Math.max(getCurrentPage() - getPaginatorSize() + 1, 1);
             };
-            var getPageTo = function () {
+            const getPageTo = function () {
                 return Math.min(getCurrentPage() + getPaginatorSize() - 1, getPageCount());
             };
-            var getPaginatorSize = function () {
+            const getPaginatorSize = function () {
                 return $pageControl.data("paginatorsize");
             };
-            var rePageNumber = new RegExp('\\{0\\}', 'gi');
-            var rePageCount = new RegExp('\\{1\\}', 'gi');
-            var setupLi = function ($li, pageNumber, disabled) {
+            const rePageNumber = new RegExp('\\{0\\}', 'gi');
+            const rePageCount = new RegExp('\\{1\\}', 'gi');
+            const setupLi = function ($li, pageNumber, disabled) {
                 setupButton($li.find('button'), pageNumber, disabled);
                 $li.data('page', pageNumber);
             };
-            var setupButton = function ($btn, pageNumber, disabled) {
-                var text = $btn.parents('li').data('text');
+            const setupButton = function ($btn, pageNumber, disabled) {
+                const text = $btn.parents('li').data('text');
                 $btn.text(text.replace(rePageNumber, pageNumber).replace(rePageCount, getPageCount()));
-                var tooltip = $btn.parents('li').data('tooltip');
+                const tooltip = $btn.parents('li').data('tooltip');
                 $btn.attr('title', tooltip.replace(rePageNumber, pageNumber).replace(rePageCount, getPageCount()));
                 $btn.prop('disabled', disabled);
             };
-            var doPagination = function () {
-                var text = $pageControl.find('li.pagination-text').data('text');
+            const doPagination = function () {
+                const text = $pageControl.find('li.pagination-text').data('text');
                 $pageControl.find('li.pagination-text').text(text.replace(rePageNumber, getCurrentPage()).replace(rePageCount, getPageCount()));
 
                 setupLi($pageControl.find('li.page-first'), 1, isFirstPage());
                 setupLi($pageControl.find('li.page-pre'), isFirstPage() ? 1 : getCurrentPage() - 1, isFirstPage());
 
                 $pageControl.find("li.page-number.generated").remove();
-                var $next = $pageControl.find('li.page-next');
-                var pageNum = getPageFrom();
+                const $next = $pageControl.find('li.page-next');
+                let pageNum = getPageFrom();
                 for (pageNum = pageNum; pageNum <= getPageTo(); pageNum++) {
-                    var $page = $pageControl.find("li.page-number.master").clone().removeClass("master hidden").addClass("generated");
+                    const $page = $pageControl.find("li.page-number.master").clone().removeClass("master hidden").addClass("generated");
                     setupLi($page, pageNum, false);
                     if (pageNum == getCurrentPage()) {
                         $page.addClass('active');
@@ -1471,28 +1472,28 @@ function refreshFunctions() {
                 setupLi($pageControl.find('li.page-last'), getPageCount(), isLastPage());
                 $pageControl.find('ul.pagination').show();
             };
-            var cumulative = $pageControl.hasClass('SIMPLE');
-            var renderPage = function () {
+            const cumulative = $pageControl.hasClass('SIMPLE');
+            const renderPage = function () {
                 if ($pageControl.hasClass('NORMAL')) {
                     doPagination();
                 }
-                var currentPage = getCurrentPage();
-                var pageSize = getPageSize();
-                // alle Tabelleeinträge mit details-preview finden und verstecken
+                const currentPage = getCurrentPage();
+                const pageSize = getPageSize();
+                // find all table entries with details-preview and hide them
                 $itemsWithDetails.hide();
-                var itemCount = getItemCount();
+                const itemCount = getItemCount();
                 // eingrenzen
-                var itemFrom = cumulative ? 0 : (currentPage - 1) * pageSize;
-                var itemTo = Math.min(currentPage * pageSize, itemCount);
-                var isLastPage = (itemCount == itemTo);
-                var items = $itemsWithDetails.filter(":not(.details-preview):not(.filtered)");
-                var itemFromIndex = items.eq(itemFrom).index();
-                var pageItems;
+                const itemFrom = cumulative ? 0 : (currentPage - 1) * pageSize;
+                const itemTo = Math.min(currentPage * pageSize, itemCount);
+                const isLastPage = (itemCount == itemTo);
+                const items = $itemsWithDetails.filter(":not(.details-preview):not(.filtered)");
+                const itemFromIndex = items.eq(itemFrom).index();
+                let pageItems;
                 if (isLastPage) {
                     pageItems = $itemsWithDetails.slice(itemFromIndex);
                 } else {
-                    var lastItemToShow = items.eq(itemTo - 1);
-                    var itemToIndex = lastItemToShow.index();
+                    const lastItemToShow = items.eq(itemTo - 1);
+                    let itemToIndex = lastItemToShow.index();
                     if (lastItemToShow.next().hasClass('details-preview')) {
                         itemToIndex++;
                     }
@@ -1500,19 +1501,18 @@ function refreshFunctions() {
                 }
                 // fix body widths wenn using pagination with scrolling. do you really have to?
                 if ($table.hasClass("tablescroll_body")) {
-                    var header = $table.parent().prev().find("thead tr:first-of-type th");
-                    var body = pageItems.filter(':not(.filtered)').eq(0).find("td");
-                    var i;
-                    for (i = 0; i < header.length; i++) {
+                    const header = $table.parent().prev().find("thead tr:first-of-type th");
+                    const body = pageItems.filter(':not(.filtered)').eq(0).find("td");
+                    for (let i = 0; i < header.length; i++) {
                         body.eq(i).attr("style", header.eq(i).attr("style"));
                     }
                 }
-                // aktuelle Seite anzeigen
+                // show current page
                 pageItems.filter(':not(.filtered)').show();
-                // gibt true zurück falls die letzte Seite angezeigt worden ist
+                // returns true if the last page is being shown
                 return isLastPage;
             };
-            // ...mehr Anzeigen... Variante
+            // ...show more... variant
             $pageControl.filter('.SIMPLE').find('li.page-next').click(function (e) {
                 setCurrentPage(getCurrentPage() + 1);
                 if (renderPage()) {
@@ -1520,81 +1520,81 @@ function refreshFunctions() {
                 } else {
                     setupLi($(this), getCurrentPage() + 1, false);
                 }
-                // default action nicht ausführen
+                // prevent execution of default action
                 e.stopPropagation();
                 e.preventDefault();
                 return false;
             }).each(function () {
-                // buttons replace
+                // replace buttons
                 $pageControl
                     .find('li.page-next')
                     .find('button')
                     .replaceWith("<button type='button' class='btn' />");
 
-                // Initialisierung
+                // initialization
                 setCurrentPage(getCurrentPage() - 1);
                 $(this).click();
             });
-            // Normaler Paginator Variante
+            // normal paginator variant
             $pageControl.filter('.NORMAL').each(function () {
-                // installieren vom EventHandler
+                // install EventHandler
                 $pageControl.find('ul.pagination').on('click', 'li', function (e, skipDisabledTest) {
                     if (!skipDisabledTest && $(this).find('button').prop('disabled')) {
                         return false;
                     }
-                    var page = $(this).data('page');
+                    const page = $(this).data('page');
                     setCurrentPage(page);
                     doPagination();
                     renderPage();
                 });
-                // initialisieren vom page Knopf-Master
+                // initialize page button master
                 $pageControl.find('li.page-number:not(.master)').remove();
 
-                // buttons replace
+                // replace buttons
                 $pageControl
                     .find('li.page-first,li.page-pre,li.page-next,li.page-last')
                     .find('button')
                     .replaceWith("<button type='button' class='btn' />");
             });
 
-            // =============== ENDE PAGINIERUNG ===================== //
+            // =============== END PAGINATION ===================== //
 
-            // =============== START SORTIERUNG ===================== //
+            // =============== START SORTING ===================== //
             $table.find("thead th.sortable").each(function () {
-                var $th = $(this);
+                const $th = $(this);
                 $th.find('a').each(function () {
-                    var $a = $(this);
-                    $a.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
+                    const $a = $(this);
+                    $a.prop("onclick", null); // IE11 doesn't support .removeAttr() for "onclick"-events
                     $a.unbind("click");
                 });
             });
-            var getSortProperty = function () {
+            const getSortProperty = function () {
                 return $table.find("input[type=hidden][id$=rfDataTableSortProperty]").val();
             };
-            var setSortProperty = function (sortProperty) {
+            const setSortProperty = function (sortProperty) {
                 return $table.find("input[type=hidden][id$=rfDataTableSortProperty]").val(sortProperty);
             };
-            var getSortDirection = function () {
+            const getSortDirection = function () {
                 return $table.find("input[type=hidden][id$=rfDataTableSortDirection]").val();
             };
-            var setSortDirection = function (sortDirection) {
+            const setSortDirection = function (sortDirection) {
                 return $table.find("input[type=hidden][id$=rfDataTableSortDirection]").val(sortDirection);
             };
-            var sortValue = function (tr, index) {
-                var filter = 'td:nth-child(' + index + ')';
-                var $td = $(tr).find(filter);
-                var val = $td.data('sort');
+            const sortValue = function (tr, index) {
+                const filter = 'td:nth-child(' + index + ')';
+                const $td = $(tr).find(filter);
+                let val = $td.data('sort');
                 if (val === undefined || val === '') {
                     val = $td.text().trim();
                 }
                 return val;
             };
-            var sort = function ($th) {
-                var thisSortProperty = $th.data("sortattribute");
-                var index = $th.index() + 1;
-                var items = $itemsWithDetails.filter(":not(.details-preview)");
-                var isAsc = $th.hasClass('sort-up');
-                var comp = function (v1, v2) {
+            const sort = function ($th) {
+                const thisSortProperty = $th.data("sortattribute");
+                const index = $th.index() + 1;
+                const items = $itemsWithDetails.filter(":not(.details-preview)");
+                const isAsc = $th.hasClass('sort-up');
+                const comp = function (v1, v2) {
                     if (v1 > v2) {
                         return isAsc ? 1 : -1;
                     }
@@ -1604,39 +1604,39 @@ function refreshFunctions() {
                     return 0;
                 };
                 items.sort(function (tr1, tr2) {
-                    var v1 = sortValue(tr1, index);
-                    var v2 = sortValue(tr2, index);
+                    const v1 = sortValue(tr1, index);
+                    const v2 = sortValue(tr2, index);
                     if (+v1 === +v1 && +v2 === +v2) {
-                        // nummernvergleich
+                        // compare as numbers
                         return comp(+v1, +v2);
                     }
-                    // zeichenkettevergleich
+                    // compare as strings
                     return comp(v1, v2);
                 });
-                // jetzt sind die tabelleneinträge ohne die Details sortiert.
-                // wir müssen noch die details zuordnen
-                var newItems = [];
+                // at this point the table entries are sorted without the details
+                // we need to correctly assign the details now
+                let newItems = [];
                 $.each(items, function (i, item) {
-                    var $item = $(item);
-                    var index = $item.index(); // index im DOM vor der Sortierung
+                    const $item = $(item);
+                    const index = $item.index(); // index in DOM before sorting
                     newItems.push($item);
-                    // gucke ob Detail sichtbar
-                    var detail = $itemsWithDetails.eq(index).next();
+                    // check if details are visible
+                    const detail = $itemsWithDetails.eq(index).next();
                     if (detail.hasClass('details-preview')) {
-                        // Detailzeile mitnehmen
+                        // preserve detail-row
                         newItems.push(detail);
                     }
                 });
                 $itemsWithDetails.detach();
-                var tbody = $table.find("tbody");
+                let tbody = $table.find("tbody");
                 tbody.append(newItems);
                 $itemsWithDetails = $table.find("tbody tr");
             };
             $table.find('thead th.sortable a').bind('click', function (e) {
                 e.preventDefault();
-                var $th = $(this).parents('th');
-                var sortClass = 'sort-up'; // standardmäßig aufsteigend sortiert
-                var thisSortProperty = $th.data("sortattribute");
+                const $th = $(this).parents('th');
+                let sortClass = 'sort-up'; // standardmäßig aufsteigend sortiert
+                const thisSortProperty = $th.data("sortattribute");
                 if (thisSortProperty == getSortProperty()) {
                     // Richtung invertieren
                     if ($th.hasClass('sort-up')) {
@@ -1647,7 +1647,7 @@ function refreshFunctions() {
                 $th.addClass("sorted").addClass(sortClass);
                 setSortProperty(thisSortProperty);
                 setSortDirection(sortClass == 'sort-up' ? 'ASCENDING' : 'DESCENDING');
-                // wenn anwendungsspezifische Sortierfunktion existiert, verwende diese
+                // if there is an application specific sort function, use that
                 if (typeof window.sortDataTable === 'function') {
                     window.sortDataTable($table, $th, $itemsWithDetails);
                     $itemsWithDetails = $table.find("tbody tr");
@@ -1660,12 +1660,12 @@ function refreshFunctions() {
                 }
                 renderPage();
             });
-            // =============== ENDE SORTIERUNG ===================== //
+            // =============== END SORTING ===================== //
 
-            // Hauptfunktion
-            var doItAll = function (init) {
+            // main function
+            const doItAll = function (init) {
                 filterAll(init);
-                // wenn anwendungsspezifische Sortierfunktion existiert, verwende diese
+                // if there is an application specific sort function, use that
                 if (typeof window.sortDataTable === 'function') {
                     window.sortDataTable($table, $.merge($table.find('thead th.sorted'), $table.parent().prev().find('thead th.sorted')).eq(0), $itemsWithDetails);
                     $itemsWithDetails = $table.find("tbody tr");
@@ -1674,7 +1674,7 @@ function refreshFunctions() {
                 }
                 renderPage();
             };
-            // initialisierung
+            // initialization
             doItAll(true);
         });
 
