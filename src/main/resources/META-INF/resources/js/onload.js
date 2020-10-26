@@ -1695,8 +1695,8 @@ function refreshFunctions() {
         // the problem is that while initializing the dialog is not shown yet
         // so all sizes are 0.
         // the hack: to wait until visible and to refresh then
-        var $list = $(this);
-        var timerId;
+        const $list = $(this);
+        let timerId;
 
         function checkForVisibility() {
             if ($list.next().is(':visible')) {
@@ -1712,18 +1712,18 @@ function refreshFunctions() {
     // Toggle Filter
     // --------------------------------------------------------
     $("div.toggle-filter:not('.toggle-filter-ajax')")
-        .addClass('toggle-filter-ajax') // als initialisiert markieren
+        .addClass('toggle-filter-ajax') // mark as already initialized
         .removeClass('hidden')
         .each(function () {
-            var $this = $(this);
-            var $sel = $this.find('select');
+            const $this = $(this);
+            const $sel = $this.find('select');
             $sel.find('option').each(function () {
                 if (!this.value) return; // überspringe platzhalter
                 $this.append('<button type="button" class="btn btn-default' + (this.selected ? ' active' : '') + (this.disabled ? ' disabled' : '') + '" value="' + this.value + '">' + this.text + '</button>');
             });
         }).on('click', 'button', function () {
         if ($(this).hasClass('active') || $(this).hasClass('disabled')) return;
-        var $sel = $(this).parent().find('select');
+        const $sel = $(this).parent().find('select');
         $sel.val(this.value);
         $(this).parent().find('input[type=submit]').click();
     });
