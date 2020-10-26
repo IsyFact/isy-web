@@ -2006,13 +2006,13 @@ function setValidDateAsString(date) {
 function refreshDatatableFilterRow() {
     "use strict";
     $("table.rf-data-table:not('datatable-filterrow-init')")
-        .addClass('datatable-filterrow-init') // als initialisiert markieren
+        .addClass('datatable-filterrow-init') // mark as initialized
         .each(function () {
-            var $table = $(this);
-            // validiere Anzahl der Spalten als Hint für den Entwickler
-            var spaltenImHeader = $table.find('thead tr').eq(0).find('th').length;
-            var spaltenImFilter = $table.find('thead tr').eq(1).find('th').length || spaltenImHeader;
-            var spaltenImBody = $table.find('tbody tr').eq(0).find('td').length || spaltenImHeader;
+            const $table = $(this);
+            // validate number of columns as a hint for the developer
+            const spaltenImHeader = $table.find('thead tr').eq(0).find('th').length;
+            const spaltenImFilter = $table.find('thead tr').eq(1).find('th').length || spaltenImHeader;
+            const spaltenImBody = $table.find('tbody tr').eq(0).find('td').length || spaltenImHeader;
             if (spaltenImHeader != spaltenImFilter || spaltenImHeader != spaltenImBody) {
                 $table.css({border: '5px solid #FF0000'});
                 if (spaltenImHeader != spaltenImFilter) {
@@ -2023,110 +2023,114 @@ function refreshDatatableFilterRow() {
                 }
             }
             // filter
-            var $filterRow = $table.find("thead tr.filter-row");
-            var $clearAllFilterIcon = $filterRow.find("td.table-clear-all-filter button");
-            var resetFilter = function () {
-                // setzt alle filter zurück
+            const $filterRow = $table.find("thead tr.filter-row");
+            const $clearAllFilterIcon = $filterRow.find("td.table-clear-all-filter button");
+            const resetFilter = function () {
+                // reset all filters
                 $filterRow.find('input.table-filter').val('').data('property', '');
-                // setzt alle dropdown-Filter zurück
+                // reset all dropdown filters
                 $filterRow.find('select.filter-dropdown').data('property', '').selectpicker('val', '');
-                // versteckt alle clear-filter icons
+                // hides all "clear filter" icons
                 $filterRow.find('a.table-clear-filter').hide();
-                // clear-all-filter verstecken
+                // hide "clear-all-filters" icon
                 $clearAllFilterIcon.hide();
             };
-            var hasFilter = function () {
-                // mindestens einen Filterfeld hat einen Wert oder eine Dropdownliste ist ausgewählt
+            const hasFilter = function () {
+                // at least one filterfield has a value or one dropdown is selected
                 return ($filterRow.find('input.table-filter, select.filter-dropdown').filter(function () {
                     return !!this.value;
                 }).length);
             };
-            var checkClearAllFilter = function () {
+            const checkClearAllFilter = function () {
                 if (hasFilter()) {
-                    // all-clear-filter icon anzeigen
+                    // show clear-all-filters icon
                     $clearAllFilterIcon.show();
                 } else {
-                    // all-clear-filter icon verstecken
+                    // hide clear-all-filters icon
                     $clearAllFilterIcon.hide();
                 }
             };
-            // ausbessern der clear-all-filter Icons, nötig wg. Limitierungen der Implementierung von isy:buttonIcon
+            // patch for the clear-all-filters icon
+            // is needed because of limitiations of the isy:buttonIcon implementation
             $clearAllFilterIcon
-                .removeClass("btn-icon-round btn-icon-round-small") // schlechte buttonIcon klassen entfernen
-                .addClass("table-clear-all-filter btn-icon btn-icon-small") // richtige icon klassen hinzufügen
-                // click auf clear-all-filter Icon: setzt alle Filter zurück, versteckt alle clear-filter und clear-all-filter Icons und führt die Aktion aus
+                .removeClass("btn-icon-round btn-icon-round-small") // remove wrong buttonIcon class
+                .addClass("table-clear-all-filter btn-icon btn-icon-small") // add right icon class
+                // click on clear-all-filter icon:
+                // resets all filters, hides all clear-filter icons and the clear-all-filter icon
+                // and executes the action
                 .click(function () {
                     resetFilter();
-                    // default action ausführen
+                    // execute default action
                     return true;
                 })
                 .each(function () {
-                    /// initialisieren
+                    /// initialize
                     checkClearAllFilter();
                 });
             $filterRow.find('select.filter-dropdown')
                 .change(function (e) {
-                    var $this = $(this);
+                    const $this = $(this);
                     checkClearAllFilter();
-                    // click auf den versteckte Knopf um die Aktion auszuführen
+                    // click on hidden button to execute its action
                     $this.parent().next().click();
                 });
-            // click auf clear-filter Icon: setzt Filter zurück, passt Anzeige der clear-filter und clear-all-filter Icons an und führt die Aktion aus
+            // click on clear-filter icon:
+            // resets filter, adjusts view of the clear-filter/clear-all-filter icons and executes the action
             $filterRow.find('a.table-clear-filter')
                 .click(function () {
-                    var $this = $(this);
-                    // setzt filter zurück
+                    const $this = $(this);
+                    // resets filter
                     $this.prev().val('');
-                    // versteckt clear-filter icon und evtl. clear-all-filter Icon
+                    // hides clear-filter icon and if necessary clear-all-filter icon
                     $this.prev().trigger('blur');
-                    // default Aktion unterdrücken
+                    // prevent default action
                     return false;
                 });
-            // Evente des Filter-Inputfeldes:
-            // i.A. aktion ausführen wenn <enter> gedrückt, aber nur wenn der Filter geändert wurde
+            // Events of the filter input field
+            // generally: execute action if enter was pressed, but only if the filter changed
             $filterRow.find('input.table-filter')
                 .attr("autocomplete", "off")
                 .keypress(function (event) {
-                    var isClient = $table.hasClass('CLIENT');
-                    // falls Enter gedrückt wird
+                    const isClient = $table.hasClass('CLIENT');
+                    // if enter was pressed
                     if (event.which == 13) {
-                        // Aktion auslösen
+                        // execute action
                         if (isClient) {
                             $(this).trigger('keyup');
                         } else {
                             $(this).trigger('blur');
                         }
-                        //  default-action unterdrücken
+                        //  prevent default action
                         return false;
                     }
-                    // falls Backspace gedrückt wird
+                    // if backspace was pressed
                     if (event.which == 8 && isClient) {
                         $(this).trigger('keyup');
                     }
                 }).keyup(function (e) {
-                // nur im CLIENT Mode
+                // only in CLIENT mode
                 if ($table.hasClass('CLIENT')) {
-                    var $this = $(this);
-                    $(this).trigger('blur');
-                    $(this).focus();
+                    const $this = $(this);
+                    $this.trigger('blur');
+                    $this.focus();
                 }
-                // i.A. aktion ausführen wenn der Filter den Fokus verliert, aber nur wenn der Filter geändert wurde
+            // generally: execute action if the filter loses focus, but only if the filter has changed
             }).blur(function () {
-                var $this = $(this);
+                const $this = $(this);
                 $this.trigger('change');
                 if ($this.val() != $this.data('property')) {
-                    // click auf den versteckte Knopf um die Aktion auszuführen
+                    // click on hidden button to execute action
                     $this.data('property', $this.val());
                     $this.next().next().click();
                 }
-                // Anzeige der clear-filter und clear-all-filter Icons anpassen
+                // adjust view of clear-filter and clear-all-filter icons
             }).change(function () {
-                var $this = $(this);
+                const $this = $(this);
                 if ($this.val()) {
-                    // falls neuer Wert nicht leer, clear-filter Icon anzeigen
+                    // if new value is not empty, show clear-filter icon
                     $this.next().show();
                 } else {
-                    // falls neuer Wert leer, clear-filter Icon verstecken
+                    // if new value is empty, hide clear-filter icon
                     $this.next().hide();
                 }
                 checkClearAllFilter();
