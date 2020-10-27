@@ -5,6 +5,10 @@
 - `IFE-57`: 
     - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
     - Darstellung von Readonly Felder für Input Controlls vereinheitlicht. 
+- `IFE-204`: Unterstuetzung von ES6 in isy-web
+   - uglify durch terser ersetzt
+   - in JS-Sourcen: var wurde auf let/const umgestellt
+   - Kommentare in JS-Sourcen wurden auf Englisch übersetzt
 
 # v5.0.0
 - `IFS-411`: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird
