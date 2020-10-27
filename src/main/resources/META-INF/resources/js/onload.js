@@ -1,27 +1,27 @@
 $(document).ready(function () {
     'use strict';
 
-    // Reaktion auf AJAX Requests
-    // jsf = JSF JavaScript Library  von SUN Microsystems
+    // Handler for AJAX requests
+    // jsf = JSF JavaScript Library
     if (typeof (jsf) != "undefined") {
         // --------------------------------------------------------
-        // Fehlerbehandlung
+        // Error Handling
         // --------------------------------------------------------
         jsf.ajax
             .addOnError(function (data) {
 
-                // Fehlernachricht bestimmen
+                // determine error message
                 let errorMessage = $("[id$='ajaxErrorMessage']").val();
                 const errorMessageTitle = $("[id$='ajaxErrorMessageTitle']").val();
 
-                // In Konsole schreiben
+                // write to console
                 const error = data.description;
                 console.log(error);
 
-                // Fehlernachricht ersetzen
+                // replace error message
                 errorMessage = errorMessage.replace("%%FEHLER%%", error);
 
-                // Als Nachricht rendern
+                // render as a message
                 $("[id$='messagesPlaceholder']").replaceWith(
                     "<div role='alert' class='alert alert-danger'>" +
                     "<span><span class='icon icon-placeholder'></span>" +
@@ -53,7 +53,7 @@ $(document).ready(function () {
     }
 
     // --------------------------------------------------------
-    // Magnific Popup Initialisierung
+    // Magnific Popup initialization
     // --------------------------------------------------------
     $(document).ready(function () {
         $('.image-link').magnificPopup({type: 'image'});
@@ -81,7 +81,7 @@ $(document).ready(function () {
 
 
     // --------------------------------------------------------
-    // Funktionen initial aktivieren
+    // initialize functions
     // --------------------------------------------------------
     refreshFunctions();
     initialisierenListpickerServlet();
@@ -100,23 +100,23 @@ function refreshFunctions() {
     lazyLoad();
 
     // --------------------------------------------------------
-    // Selectpicker aktualisieren (damit bootstrap-select sie korrekt rendered)
+    // refresh selectpickers (so bootstrap-select renders them correctly)
     // --------------------------------------------------------
     $('.selectpicker').selectpicker('refresh');
 
     // --------------------------------------------------------
-    // Multipart Forms bei Bedarf aktivieren
+    // activate multipart forms if needed
     // --------------------------------------------------------
     if ($("[id$='multipartFormEnabled']").val() === 'true') {
         $("form").attr("enctype", "multipart/form-data");
     }
 
     // --------------------------------------------------------
-    // Navigation
+    // navigation
     // --------------------------------------------------------
     $('#main-nav').mainNavigation();
 
-    // Tastatursteuerung für Navigation
+    // keyboard control for navigation
     $(document).keydown(function (e) {
         if (e.altKey && !e.shiftKey && !e.ctrlKey && e.keyCode == 77) {
             $('.menustart').addClass('open');
@@ -127,19 +127,19 @@ function refreshFunctions() {
     $(".search-option").keydown(function (e) {
 
 
-        // Aktuelle Spalte
+        // current column
         const $divCol = $(this).parents(".col-lg-4").first();
 
-        // Aktuelle Zeile
+        // current row
         const $divRow = $divCol.parents(".row").first();
 
-        // Nächste Elemente
+        // next elements
         let $liMenu;
         let $liMenuNext;
         let $divRowNext;
         let divColNext;
 
-        // Aktuellen Spaltenindex merken
+        // remember current column index
         let $divColNeighbour = $divCol;
         let colIndex = 1;
         while ($divColNeighbour.prev().length !== 0) {
@@ -149,18 +149,18 @@ function refreshFunctions() {
 
         if (e.which == 37) {
 
-            // Pfeil link
-            // Springe eine Spalte nach links oder ins nächste Menü
+            // left arrow
+            // jump one column to the left or to the previous menu heading
             if (colIndex != 1) {
-                // Es existiert noch ein Menüpunkt
+                // another menu item exists
                 $($divRow.children().get(colIndex - 2)).find(".search-option").focus();
             } else {
-                // Springe in das Menü auf der linken Seite, falls eines existiert
+                // jump to the menu in the left, if it exists
                 $liMenu = $divRow.parents("li").first();
                 $liMenuNext = $liMenu.prev();
 
                 if ($liMenu.length >= 1) {
-                    // Ein weiteres Menü existiert
+                    // another menu exists
                     $liMenu.removeClass("open").removeClass("active");
                     $liMenuNext.addClass("open").addClass("active");
                     $liMenuNext.find(".search-option:first").focus();
@@ -168,24 +168,24 @@ function refreshFunctions() {
 
             }
 
-            // Verhindere Scrolling
+            // prevent scrolling
             return false;
         }
 
         if (e.which == 39) {
 
-            // Pfeil rechts
-            // Springe eine Spalte nach rechts oder ins nächste Menü
+            // right arrow
+            // jump one column to the right or to the next menu heading
             if ($divRow.children().length >= colIndex + 1) {
-                // Es existiert noch ein Menüpunkt
+                // another menu item exists
                 $($divRow.children().get(colIndex)).find(".search-option").focus();
             } else {
-                // Springe in das Menü auf der nächsten Seite, falls eines existiert
+                // jump to the menu on the next page, if there is one
                 $liMenu = $divRow.parents("li").first();
                 $liMenuNext = $liMenu.next();
 
                 if ($liMenu.length >= 1) {
-                    // Ein weiteres Menü existiert
+                    // if there is another menu
                     $liMenu.removeClass("open").removeClass("active");
                     $liMenuNext.addClass("open").addClass("active");
                     $liMenuNext.find(".search-option:first").focus();
@@ -193,51 +193,51 @@ function refreshFunctions() {
 
             }
 
-            // Verhindere Scrolling
+            // prevent scrolling
             return false;
         }
 
         if (e.which == 40) {
 
-            // Pfeil unten
-            // Springe in nächste Zeile bei gleichem Index
+            // downwards arrow
+            // jump to the next row on the same col index
             $divRowNext = $(this).parents(".row").first().next();
             if ($divRowNext.length > 0) {
 
                 if ($divRowNext.children().length >= colIndex) {
-                    // Genügende Kinder zur Auswahl vorhanden
+                    // there are enough children to select
                     divColNext = $divRowNext.children().get(colIndex - 1);
                 } else {
-                    // Wähle letztes Element
+                    // select last element
                     divColNext = $divRowNext.children().last();
                 }
 
                 $(divColNext).find(".search-option").focus();
             }
 
-            // Verhindere Scrolling
+            // prevent scrolling
             return false;
         }
         if (e.which == 38) {
 
-            // Pfeil nach oben
-            // Springe in vorherige Zeile bei gleichem Index
+            // upwards arrow
+            // jump to the previous row on the same col index
             $divRowNext = $(this).parents(".row").first().prev();
 
             if ($divRowNext.length > 0) {
 
                 if ($divRowNext.children().length >= colIndex) {
-                    // Genügende Kinder zur Auswahl vorhanden
+                    // there are enough children to select
                     divColNext = $divRowNext.children().get(colIndex - 1);
                 } else {
-                    // Wähle letztes Element
+                    // select last element
                     divColNext = $divRowNext.children().last();
                 }
 
                 $(divColNext).find(".search-option").focus();
             }
 
-            // Verhindere Scrolling
+            // prevent scrolling
             return false;
         }
     });
@@ -249,7 +249,7 @@ function refreshFunctions() {
     $panels.on('hidden.bs.collapse', function (e) {
         const $panel = $(this).parents('.panel').first();
 
-        // Setze Wert in verstecktes Eingabefeld
+        // set value of hidden input element
         const $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
         $serverProperty.val('false');
         e.stopPropagation();
@@ -257,7 +257,7 @@ function refreshFunctions() {
     $panels.on('shown.bs.collapse', function (e) {
         const $panel = $(this).parents('.panel').first();
 
-        // Setze Wert in verstecktes Eingabefeld
+        // set value of hidden input element
         const $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
         $serverProperty.val('true');
         e.stopPropagation();
@@ -265,21 +265,23 @@ function refreshFunctions() {
     $panels.addClass('panel_ajaxtoken');
 
     // --------------------------------------------------------
-    // Modale Dialoge
+    // Modal dialogs
     // --------------------------------------------------------
-    // Zeige modale Dialoge, wenn vorhanden
+    // show modal dialog, if any exist
     const $modalDialogs = $('#modal-add-personal').filter(':not(.modal_ajaxtoken)');
     $modalDialogs.modal('show');
     $modalDialogs.addClass('modal_ajaxtoken');
 
-    // brandest: DSD-1467 Hintergrund bei modalem Dialog wird dunkler
-    // Bei Aktionen in modalen Dialogen, die mittels AJAX das Formluar neu laden lassen, wird auch der modale Dialog neu angezeigt
-    // und dadurch erneut ein "modal-backdrop" hinzugefügt - diese überlagern sich. Durch das vorherige Entfernen wird sichergestellt,
-    // das maximal ein backdrop vorhanden ist.
+    // brandest: DSD-1467 modal dialog backgrounds become darker when triggering actions
+    // If actions are executed in a modal dialog, which cause the form to reload via AJAX,
+    // the modal dialog is rerendered as well.
+    // This causes another "modal-backdrop" to be added, which overlaps with the previous one.
+    // The prior removal ensures that at most one backdrop exists.
     const $modalVisible = $('.modal-dialog').is(':visible');
     $($(".modal-backdrop").get().reverse()).each(function (index, element) {
-        // Entfernen wenn ein .modal-backdrop vorhanden ist, obwohl es keinen modalen Dialog gibt (passiert in edge-cases).
-        // Ansonsten mit get().reverse() entfernen wir die älteste .modal-backdrops, da nur der neuste mit dem button-event verbunden ist
+        // Removal if a .modal-backdrop exists, even though there is no modal dialog (happens in edge-cases).
+        // also:  "get().reverse()" removes the older .modal-backdrops,
+        // keep the newest (index=0) as only the newest is linked to the button-event
         if (!$modalVisible || index > 0) {
             $(element).remove();
         }
@@ -287,10 +289,9 @@ function refreshFunctions() {
 
     // --------------------------------------------------------
     // FocusOnload
-    // Initial das linke obere Element des Inhaltsbereichs auswählen.
-    // Das zu fokussierende Element kann durch das Tag isy:focusOnload
-    // überschrieben bzw. deaktiviert werden. Weiterhin kann erzwungen werden
-    // (Force), dass das Element fokussiert wird.
+    // Focus the element on the upper left of the content area on load.
+    // The element to be focussed can be overwritten or deactivated using the isy:focusOnload tag.
+    // Additionally the focusOnloadForce id can be used to force a specific focus element.
     // --------------------------------------------------------
 
     const $focusOnloadActive = $("[id$='focusOnloadActive']").last();
@@ -308,7 +309,7 @@ function refreshFunctions() {
                 $focusOnloadActive.val('false');
 
                 if ($('#inhaltsbereichForm').find(focusOnloadElement).val() === undefined) {
-                    // Default-Wert nutzen
+                    // use default value
                     $('#inhaltsbereichForm').find('input:not([type=hidden]), a:not([tabindex=-1]), button').first().focus();
                 } else {
                     $('#inhaltsbereichForm').find($('#inhaltsbereichForm').find(focusOnloadElement).val()).first().focus();
@@ -324,7 +325,7 @@ function refreshFunctions() {
                 $focusOnloadActive.val('false');
 
                 if ($('#modalDialogPlaceholderForm').find(focusOnloadElement).val() === undefined) {
-                    // Default-Wert nutzen
+                    // use default value
                     $('#modalDialogPlaceholderForm').find('input:not([type=hidden]), a:not([tabindex=-1]), button').first().focus();
                 } else {
                     $('#modalDialogPlaceholderForm').find($('#modalDialogPlaceholderForm').find(focusOnloadElement).val()).first().focus();
@@ -334,23 +335,23 @@ function refreshFunctions() {
     }
 
     // --------------------------------------------------------
-    // Hilfsfunktionen für Data-Tables (Klickbereich erweitern)
+    // Helper function for datatables ( expand clickable area )
     // --------------------------------------------------------
     const $rfDataTables = $('.rf-data-table').filter(':not(.rf-data-table_ajaxtoken)');
-    // (1) Klickbereich der Headerspalten erweitern
+    // (1) expand clickable area of header columns
     $rfDataTables.find('th.sortable').click(function (event) {
         const $target = $(event.target);
         if ($target.is("th")) {
             $(this).find('a').click();
         }
     });
-    // Funktion, um ausgewählte Zeilen zu markieren
+    // function to highlight a selected row
     const formatRowsFunction = function ($trs, $tr, selectionMode) {
-        // moossenm: Klasse row-selection hinzugefuegt um Zeilenauswahl-Checkbox von anderen zu unterscheiden.
+        // moossenm: added row-selection class to differentiate row selection checkboxes from others
         const $input = $tr.find("td div.row-selection .checkbox label input");
         if ($input.is(":checked")) {
             $tr.addClass("active");
-            // Falls der Selection Mode "single" ist, dann müssen jetzt alle anderen Input Felder deaktiviert werden.
+            // if selection mode is "single" other input checkboxes have to be disabled
             if (selectionMode === "single") {
                 const $prevs = $tr.prevAll().find("td div.row-selection .checkbox label input:checked");
                 const $nexts = $tr.nextAll().find("td div.row-selection .checkbox label input:checked");
@@ -367,7 +368,7 @@ function refreshFunctions() {
             $tr.removeClass("active");
         }
     };
-    // (2) Klickbereich für die Auswahl von Zeilen erweitern / Doppelklick setzen / Selection Mode initialisieren
+    // (2) expand clickable area for selection of rows / set double click / initialize selection mode
     $rfDataTables.each(function () {
         const $rfDataTable = $(this);
         const $rfDataTableSelectOption = $(this).find("[id$='rfDataTableSelectableOption']").first();
@@ -399,10 +400,10 @@ function refreshFunctions() {
                 functionDoubleClick = function (e) {
                     if (!$(e.target).is("input") && !$(e.target).is("span")) {
 
-                        // Setzen der Auswahl
+                        // set the selection
                         $rfDataTable.find("[id$='rfDataTableDoubleClickSelectedRow']").val($row.attr('id'));
 
-                        // Klicken des versteckten Buttons
+                        // click hidden button
                         $rfDataTable.parent().find("[id$='rfDataTableDoubleClickButton']").click();
                     }
                 };
@@ -412,40 +413,40 @@ function refreshFunctions() {
 
         });
 
-        // Klick Event auf Checkboxen registrieren
+        // register click event on checkboxes
         $rows.find("td .checkbox label input").click(function () {
             formatRowsFunction($rows, $(this).parents("tr").first(), selectionMode);
         });
 
-        // Initial die Markierungen setzen
+        // highlight initially selected rows
         if (selectActive) {
             $rows.each(function () {
                 formatRowsFunction($rows, $(this), selectionMode);
             });
         }
     });
-    // (3) 'Alle Auswählen' Checkbox registrieren
+    // (3) register "select all" checkbox
     const selectAllFunction = function ($selectAllCheckbox, $rfDataTable) {
-        //Auf jeden Fall erst einmal den Zustand 'teilweise' entfernen.
+        //firstly, remove indeterminate state
         $selectAllCheckbox.prop("indeterminate", false);
 
         if ($selectAllCheckbox.is(":checked")) {
-            // Transition zu unchecked
+            // Transition to unchecked
             $rfDataTable.find("tbody").first().find(".checkbox input").prop("checked", false);
         } else {
-            // Transition zu checked
+            // Transition to checked
             $rfDataTable.find("tbody").first().find(".checkbox input").prop("checked", true);
         }
-        // Zeilen bei Bedarf selecktieren
+        // select rows if needed
         const selectionMode = $rfDataTable.find("[id$='rfDataTableSelectionMode']").first().val();
         const $rows = $rfDataTable.find("tbody tr");
         $rows.each(function () {
             // moossenm: DSD-509 - 16.06.2015
-            // Fehlenden Parameter rows und selectionMode hinzugefügt, jetzt werden auch die ausgewählte Zeilen hervorgehoben
+            // add missing parameters rows and selectionMode; now the selected rows are highlighted
             formatRowsFunction($rows, $(this), selectionMode);
         });
     };
-    // (4) Show-/Hide-Detail-Logik registrieren
+    // (4) register show-/hide-detail logic
     const showDetail = function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -454,9 +455,9 @@ function refreshFunctions() {
         const $table = $this.parents("table.CLIENT.rf-data-table");
         const allowMultiple = $table.find("input[id$='rfDataTableDetailMode']").val() == 'multiple';
         if (!allowMultiple) {
-            // Alle Detailzeilen ausblenden
+            // hide all detail rows
             $table.find("tr[id*='detail-']").addClass('hidden');
-            // Eventhandler, Tooltip, ID für hideDetail-Buttons wechseln
+            // change eventhandler, tooltip, id for hideDetail-Buttons
             const $hideDetailButtons = $table.find('div.detailview-actions button[id*=hideDetail]');
             $hideDetailButtons.find('span').removeClass('icon-minus').addClass('icon-plus');
             $hideDetailButtons.attr('title', $this.parents('div.detailview-actions').data('show-tooltip'));
@@ -468,13 +469,13 @@ function refreshFunctions() {
         $this.attr('title', $this.parents('div.detailview-actions').data('hide-tooltip'));
         $this.attr('id', $this.attr('id').replace("showDetail", "hideDetail"));
         $this.find('span').removeClass('icon-plus').addClass('icon-minus');
-        // Eventhandler wechseln
+        // change eventhandler
         $this.off('click.showdetail');
         $this.on('click.hidedetail', hideDetail);
         // Lazy-Loading
         setTimeout(function () {
-            // Der LazyLoad darf nicht direkt getriggert werden
-            // Bilder in der Detailansicht sind erst NACH der click-Funktion "visible"
+            // lazyloaded shouldn't be triggered directly
+            // images of the detail-view are only visible AFTER click-function "visible"
             lazyLoad();
         }, 50);
     };
@@ -501,7 +502,7 @@ function refreshFunctions() {
         $hideDetail.on('click.hidedetail', hideDetail);
         // =============== END DETAILVIEW ===================== //
     });
-    // (5) JS Sortierung aktivieren
+    // (5) activate JS Sorting
     $('.rf-data-table').each(function () {
         const $rfDataTable = $(this);
         const $sortFunction = $rfDataTable.find("[id$='rfDataTableJsSortFunction']");
@@ -519,16 +520,16 @@ function refreshFunctions() {
                 if ($th.hasClass("sortable")) {
 
                     const $thLink = $th.find("a");
-                    $thLink.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
+                    $thLink.prop("onclick", null); // IE11 doesn't support .removeAttr() for "onclick"
                     $thLink.unbind("click");
                     $thLink.click(function (event) {
                         event.preventDefault();
 
-                        // Details vor Sortierung speichern
+                        // save details before sorting
                         const $details = $rfDataTable.find("tbody .details-preview");
                         $details.remove();
 
-                        // Neu Sortierattribute und Richtung ermitteln
+                        // determine new sort attribute and direction
                         $rfDataTable.find("thead th.sorted").removeClass("sorted");
                         let newSortDirection = "";
 
@@ -555,10 +556,10 @@ function refreshFunctions() {
                         $sortAttribute.val($th.attr("data-sortattribute"));
 
 
-                        // Sortierung
+                        // sort
                         window[$sortFunction.val()]($rfDataTable, $th, index, newSortDirection);
 
-                        // Sortierung speichern
+                        // save sorting
                         const $trsNeu = $rfDataTable.find("tbody tr");
                         let sortedList = "";
                         $trsNeu.each(function () {
@@ -570,7 +571,7 @@ function refreshFunctions() {
                         });
                         $jsSortedList.val(sortedList);
 
-                        //     Details nach Sortierung wieder zuordnen
+                        // reassign details after sorting
                         $details.each(function () {
                             const $detail = $(this);
                             const idDetail = $detail.attr("id");
@@ -586,7 +587,7 @@ function refreshFunctions() {
 
     });
 
-    //(6) Den Zustand der 'Alle Auswählen' Checkbox immer korrekt setzen.
+    //(6) always set the correct state to the "select all" checkbox
     const tristateBerechnen = function ($checkboxes, $selectAllCheckbox, $rfDataTable) {
         $selectAllCheckbox.prop("indeterminate", false);
 
@@ -615,12 +616,12 @@ function refreshFunctions() {
         const $selectAllCheckbox = $(this).find("[id*='dataTableSelectAll']").first();
         const $rfDataTable = $(this);
 
-        //Click auf der Tri-State-Checkbox registrieren.
+        //register click on the tri-state-checkbox
         $selectAllCheckbox.parent().find("span").click(function () {
             selectAllFunction($selectAllCheckbox, $rfDataTable);
         });
 
-        //Click auf den restlichen Checkboxes registrieren.
+        //register click on other checkboxes
         const $checkboxes = $rfDataTable.find("tbody").first().find(".checkbox input");
         $checkboxes.each(function () {
             $(this).click(function () {
@@ -628,7 +629,7 @@ function refreshFunctions() {
             });
         });
 
-        //Den Zustand einmal initial berechnen. Sonst geht der Zustand u.U. bei einem Request an den Server verloren.
+        //calculate state initially. Otherwise the state might be lost on a request to the server
         tristateBerechnen($checkboxes, $selectAllCheckbox, $rfDataTable);
 
     });
@@ -637,10 +638,10 @@ function refreshFunctions() {
     $rfDataTables.addClass('rf-data-table_ajaxtoken');
 
     // --------------------------------------------------------
-    // Popovers und Tooltips
+    // Popovers and Tooltips
     // --------------------------------------------------------
     $('.rf-popover').filter(':not(.rf-popover_ajaxtoken)').popover({animation: false});
-    // Popovers, die nach rechts rausragen, werden weiter nach links verschoben
+    // Popovers, that would overflow to the right, will be moved further to the left
     $('.rf-popover').filter(':not(.rf-popover_ajaxtoken)').on('shown.bs.popover', function (e) {
         const $popover = $(e.target).next();
         if ($(document).width() < ($popover.offset().left + $popover.width() + 30)) {
@@ -654,7 +655,7 @@ function refreshFunctions() {
     $('.rf-tooltip').filter(':not(.rf-tooltip_ajaxtoken)').addClass('rf-tooltip_ajaxtoken');
 
     // --------------------------------------------------------
-    // Maginific Popup (Plugin für Bilder-Popups)
+    // Maginific Popup (Plugin for image-popups)
     // --------------------------------------------------------
     $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)').magnificPopup({
         type: 'image'
@@ -671,8 +672,6 @@ function refreshFunctions() {
         $(this).datepicker({
             format: $(this).attr('dateformat'),
             weekStart: 1,
-            // in Version 1.8. gibt es kein Attribut componentButtonOnly mehr
-            // componentButtonOnly: true,
             todayBtn: "linked",
             language: $(this).attr('language'),
             autoclose: true,
@@ -684,32 +683,32 @@ function refreshFunctions() {
         });
 
         $(this).children("a").click(
-            function () {// Öffnen eines Datepickers
+            function () {// open a datepicker
                 const dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
                 const inputField = $(this).prev();
                 let date = inputField.val().split('.');
 
-                // eleminiere die Unterstrich-Platzhalterzeichen
+                // delete underscore placeholders
                 const placeholderReg = /\D/gi;
                 date[0] = date[0].replace(placeholderReg, "");
                 date[1] = date[1].replace(placeholderReg, "");
                 date[2] = date[2].replace(placeholderReg, "");
                 let dateString;
                 if (date[0] === "99") {
-                    // Secret-Code: 99 = setze Fokus des Datepickers auf das aktuelle Datum
+                    // Secret-Code: 99 = set focus of the datepicker to current date
                     dateString = currentDateAsString();
                 } else if (date[0] === "00" || date[1] === "00") {
                     dateString = setValidDateAsString(date);
                 } else {
-                    // uebernehme das manuell eingegebene Datum als Datumswert für den Datepicker.
-                    // Die falschen Datumsangaben werden gefixt
+                    // copy the manuell entered date into the datepicker
+                    // invalid date inputs will be fixed
                     dateString = fixDateOutOfRange(date);
                 }
                 $(this).parent().datepicker('setDate', dateString);
                 $(this).parent().datepicker('update');
             });
 
-        //Lese den Grenzwert zum Vervollständigen von zweistelligen Jahreszahlen aus. Wird weiter unten verwendet.
+        //read the limit for expanding two-digit years. Is used later on.
         const zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
         const $datumInputFeld = $(this).find('input');
         $datumInputFeld.focusout(function (event) {
@@ -717,12 +716,12 @@ function refreshFunctions() {
                 datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
             }
 
-            // Magic Number: setze Datum auf Tagesdatum
+            // Magic Number: set date to today
             const date = $datumInputFeld.val().split('.');
             if (date[0] === "99") {
                 $datumInputFeld.val(currentDateAsString());
             } else {
-                // Die falschen Datumsangaben werden gefixt
+                // wrong dates will be fixed
                 $datumInputFeld.val(fixDateOutOfRange(date));
             }
         });
@@ -762,7 +761,7 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Input Masks
     // --------------------------------------------------------
-    // Alle Input Elemente, welche ein Attribut 'inputmask' besitzen
+    // all input elements that have the attribut "inputmask"
     const $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
     $inputMasks.each(function () {
         const $inputMask = $(this);
@@ -775,7 +774,7 @@ function refreshFunctions() {
 
         $inputMask.mask();
 
-        // Maximale Länge wird über Maske abgedeckt, ansonsten würde Strg+V nicht funktionieren.
+        // max length is set via mask, otherwise ctrl+v wouldn't work
         $inputMask.removeAttr('maxlength');
     });
 
@@ -783,7 +782,7 @@ function refreshFunctions() {
         const $inputMask = $(this);
 
         if (e.key === 'Enter') {
-            // Alle Platzhalter-Zeichen entfernen
+            // delete all placeholder characters
             const existentVal = $inputMask.val();
             const newVal = existentVal.replace(/_/g, '');
             $inputMask.val(newVal);
@@ -797,10 +796,10 @@ function refreshFunctions() {
     // Listpicker
     // --------------------------------------------------------
     /**
-     * Die Funktion sorgt dafür, dass im Listpickerfeld der Schlüssel aufgelöst wird. Dazu wird in der
-     * zugrunde liegenden Tabelle der Wert zu dem übergebenen Spalten-Index extrahiert und im Listpickerfeld angefügt.
-     * @param listpickerfield Das Listpickerfeld.
-     * @param indexSpalteSchluesselWert Der Index der Headerspalte, deren Inhalt im Eingabefeld ergänzt werden soll.
+     * The function ensures that the key in a listpicker field is resolved.
+     * The value is extracted from the underlying table using the given column index and added to the listpicker-field.
+     * @param listpickerfield The Listpickerfield.
+     * @param indexSpalteSchluesselWert index of the header column whose contents should be extracted
      */
     const listpickerLoeseSchluesselAuf = function (listpickerfield, indexSpalteSchluesselWert) {
         if (listpickerfield.val().indexOf(" - ") >= 0) {
@@ -829,7 +828,7 @@ function refreshFunctions() {
             const $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");
             if ($parent.find(".listpicker-content").css("display") === 'none') {
                 if (listpickerfield.val() !== $listpickerLastFilter.val()) {
-                    if ($(".ajax-status span").text() !== 'begin') { // Verhindere Kollision mit anderen AJAX-Requests
+                    if ($(".ajax-status span").text() !== 'begin') { // prevents collision with other ajax requests
                         $filter.val(listpickerfield.val());
                         $filter.change();
                     }
@@ -839,12 +838,12 @@ function refreshFunctions() {
     };
 
     /**
-     * Die Funktion maskiert das Listpickerfeld, sofern eine Maske definiert ist.
-     * @param listpickerfield Das Listpickerfeld.
+     * The function masks the listpickerfield, if a mask is defined
+     * @param listpickerfield The Listpickerfield.
      */
     const listpickerMaskieren = function (listpickerfield) {
         if (listpickerfield.val().indexOf(" - ") >= 0) {
-            // verhindere, dass Ziffern aus dem Wert im Feld verbleiben
+            // prevents that digits from the value remain in the input field
             listpickerfield.val(listpickerfield.val().substring(0,
                 listpickerfield.val().indexOf(" - ")));
         }
@@ -863,54 +862,54 @@ function refreshFunctions() {
         const $listpickerMinWidth = $listpicker.find("[id$='listpickerMinWidth']");
         const listpickerAjaxFormId = $listpicker.find("[id$='listpickerAjaxForm']").val();
         let $listpickerAjaxForm = null;
-        //Finde das Hidden-Input, in dem hinterlegt ist, welche Spalte jeweils den Wert zum Schlüssel enthält.
+        //find the hidden input, that contains the column which should be used as a value
         const listpickerSchluesselwertSpalte = $listpicker.find("[id$='inputComplement']").val();
         if (typeof (listpickerAjaxFormId) != "undefined") {
             $listpickerAjaxForm = $("form[id$='" + listpickerAjaxFormId + "']");
         }
 
-        // Standard-Schließ Event verhindern
+        // prevent default close event
         $listpicker.on('hide.bs.dropdown', function (e) {
             e.preventDefault();
         });
 
-        // Falls es sich um eine AJAX Listbox handelt, müssen hier die korrekten Werte geladen werden
+        // if it's an AJAX listbox, the correct values have to be loaded
         if ($listpickerAjaxForm !== null) {
             $listpickerContent.find("tbody").replaceWith($listpickerAjaxForm.find("tbody").clone());
         }
 
-        // Nachdem das Dropdown geöffnet wurde
+        // after the dropdown was opened
         $listpicker.on('shown.bs.dropdown', function (e) {
-            // Alle Charpicker schließen
+            // close all charpickers
             const $charpickers = $(".special-char-picker-widget");
             $charpickers.each(function () {
                 $(this).hide();
             });
 
-            // Wenn ein Charpicker geöffnet ist und man neuen Listpicker öffnet, wollen wir veraltetes Fokus löschen
+            // if a charpicker is open and new listpickers are opened, the old focus is removed
             const $active_charpickers_field = $(".charpicker-focused");
             $active_charpickers_field.each(function () {
                 $(this).focusout();
                 $(this).removeClass("charpicker-focused");
             });
 
-            // Alle Listpicker außer den aktuellen schließen
+            // close all listpickers but the current one
             $listpickerContainer.not($listpicker).removeClass('open');
 
-            // Die minimale Größe setzen
+            // set min size
             if (parseInt($listpickerMinWidth.val()) > $listpickerField.outerWidth()) {
                 $listpickerContent.css("min-width", parseInt($listpickerMinWidth.val()) + "px");
             } else {
                 $listpickerContent.css("min-width", $listpickerField.outerWidth() + "px");
             }
 
-            // Wenn das Element angezeigt wird, dann soll das Filterfeld selektiert werden
+            // when the listpicker is opened, focus the filter input field
             $listpickerFilter.focus();
 
-            // Aktuelle Auswahl als aktiv markieren
+            // highlight current selection as active
             if ($listpickerField.val() !== '') {
                 let id;
-                //Falls für das Feld bereits der Schlüssel aufgelöst wurde, müssen wir den Schlüssel isolieren.
+                // if the key of the input field was already resolved, we need to reisolate the key
                 if ($listpickerField.val().indexOf(" - ") >= 0) {
                     id = $listpickerField.val().substring(0, $listpickerField.val().indexOf(" - "));
                 } else {
@@ -919,27 +918,27 @@ function refreshFunctions() {
                 $listpickerContent.find("tbody tr[id='" + id + "']").addClass("active");
                 $listpickerContent.find("tbody tr").not("[id='" + id + "']").removeClass("active");
 
-                // Cursor im Listpickerwidget auf aktive Zeile setzen
+                // set cursor in Listpickerwidget to currently active row
                 const $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
                 scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow);
             } else {
-                // bei leerem bzw. geloeschten $listpickerField sind ehem. active-Eintraege zu loeschen
+                // on an empty or deleted $listpickerField delete previously 'active' elements
                 $listpickerContent.find("tbody tr").removeClass("active");
             }
 
         });
 
 
-        // Klicks abfangen und Feld ggf. schließen
+        // intecept clicks and close picker if needed
         $(document).click(function (e) {
 
             const $target = $(e.target);
 
             if ($listpickerContent.has($target).length <= 0) {
-                // Der Klick ist außerhalb des Dropdowns, schliesse Picker
+                // click is outside of the dropdown, close picker
                 $listpicker.removeClass('open');
             } else {
-                // Der Klick ist innerhalb des Dropdowns, daher sollte die aktuelle Zelle ausgewählt werden
+                // click is on the dropdown, select current row
                 if ($target.is("tr") || $target.is("td")) {
                     let $row = null;
                     if ($target.is("td")) {
@@ -956,15 +955,15 @@ function refreshFunctions() {
 
         });
 
-        // Registriere Eingabefeld
+        // register input field
         $listpickerFilter.bind('keypress', function (e) {
             if (!e.ctrlKey && !e.altKey && !e.shiftKey && e.keyCode == 13) {
-                // Kein Aufsteigen im DOM-Tree: Dieser Tastendruck betrifft nur den Filter
+                // don't propagate up the DOM: this keypress only applies to the filter
                 e.stopPropagation();
 
-                // Beim Drücken von Enter wird der aktive Eintrag ausgewählt
+                // on pressing enter, select the currently active entry
                 let $row = $listpickerContent.find("tbody tr:visible.active").first();
-                // Wenn es keinen aktiven Eintrag gibt, dann wird der oberste Eintrag ausgewählt
+                // if there is no active entry, the first entry will be selected
                 if ($row.length <= 0) {
                     $row = $listpickerContent.find("tbody tr:visible").first();
                 }
@@ -976,7 +975,7 @@ function refreshFunctions() {
             }
         });
 
-        // Sorge dafür, dass bei einer Veränderung des Listpickerfilters auch immer das Change-Event gefeuert wird
+        // ensure that the change-event is triggered whenever the listpickerfilter is changed
         $listpickerFilter.bind('keyup.ensureChange', function (event) {
             const keyCode = event.keyCode;
             const valid = inputChangingKeycode(keyCode); // ändert der Tastendruck den Inhalt des Filters?
@@ -985,8 +984,8 @@ function refreshFunctions() {
             }
         });
 
-        // Reagiere auf Eingaben im Eingabefeld (auch bei AJAX-Widgets).
-        //Für die Picker, die per Servlet filtern, ist dies nicht nötig!
+        // react to input into the input field (especially on AJAX-Widgets)
+        // this is not needed on pickers, that filter via servlet
         if (!$listpickerFilter.parent().hasClass('servlet')) {
             $listpickerFilter
                 .bind(
@@ -1051,25 +1050,25 @@ function refreshFunctions() {
 
             const keyPressed = e.which;
 
-            // aktuell aktives sichtbares Element
+            // currently active visible element
             const $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
 
-            // Pfeil nach unten
+            // downwards arrow key
             if (keyPressed == 40) {
-                // Wenn bisher kein Element aktiv, dann erstes Element wählen
+                // if no element is active, select first
                 if ($activeVisibleRow.length <= 0 && $listpickerContent.find("tbody tr:visible").first().length > 0) {
                     $listpickerContent.find("tbody tr:visible").first().addClass("active");
                 }
-                // Sonst nächstes Element wählen
+                // otherwise next element
                 else if ($activeVisibleRow.nextAll('tr:visible:first[id]').length > 0) {
                     $activeVisibleRow.removeClass("active");
                     $activeVisibleRow.nextAll('tr:visible:first[id]').addClass("active");
                     scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow.nextAll('tr:visible:first[id]'));
                 }
 
-                // Pfeil nach oben
+                // upwards arrow key
             } else if (keyPressed == 38) {
-                // Wenn es ein vorheriges Element gibt, dann dieses wählen
+                // if there is a previous element, select it
                 if ($activeVisibleRow.length > 0 && $activeVisibleRow.prevAll('tr:visible:first').length > 0) {
                     $activeVisibleRow.removeClass("active");
                     $activeVisibleRow.prevAll('tr:visible:first').addClass("active");
@@ -1086,44 +1085,46 @@ function refreshFunctions() {
             }
         });
 
-        // Funktion, die die Auswahlliste eines List-Pickers ausklappt, falls die Taste
-        // "Pfeil-nach-unten + alt" (Event "keydown", Key-Code: 40) betaetigt wurde.
+        // function that expands the listpicker menu, if
+        // "downwards-arrow + alt" (Event "keydown", Key-Code: 40) was pressed
         $listpickerField.bind('keydown', 'alt+down', function (e) {
-            // Oeffne die Auswahlliste.
-            // Die Auswahlliste liegt auf einer Ebene mit dem Input-Feld
+            // Open the listpicker
+            // The listpicker is attached to the same parent as the input field
             $(this).parent().find('.listpicker-button').click();
         });
 
-        //Bei Fokusverlust soll der Schlüssel aufgelöst werden. Das Feature gilt nur als aktiviert, wenn
-        //ein größerer Wert als 1 definiert ist, denn ansonsten macht es keinen Sinn.
+        // On Focusout the key should be resolved
+        // The feature is only active if the lookup-column is greater 1
         if (listpickerSchluesselwertSpalte > 1) {
             $listpickerField.focusout(function () {
                 listpickerLoeseSchluesselAuf($listpickerField, listpickerSchluesselwertSpalte);
             });
 
-            //Wenn das Feld den Fokus erhält, müssen wir maskieren, denn sonst wäre der
-            //aufgelöste Schlüssel immer noch im Feld und der Anwender müsste das zuerst manuell entfernen.
+            //if the field is focussed, we need to mask it.
+            //otherwise the resolved value would remain in the input
+            //and the user would have to remove it manually
             $listpickerField.focus(function () {
                 listpickerMaskieren($listpickerField);
             });
 
-            //Einmalig lösen wir direkt initial den Schlüssel auf. Damit das Feld z.B. nach einem Request
-            //an den Server noch korrekt aussieht.
+            //We initially resolve the key once.
+            // This way the input field stays filled correctly,
+            // after e.g. a request to the server.
             listpickerLoeseSchluesselAuf($listpickerField, listpickerSchluesselwertSpalte);
         }
     });
 
     $listpickerContainer.addClass('rf-listpicker_ajaxtoken');
 
-    // Scrollt innerhalb eines Elements zu einem bestimmten DIV
+    // scrolls within an element to a specified div
     function scroll_to(element, div) {
         $(element).animate({
             scrollTop: $(div).parent().scrollTop() + $(div).offset().top - $(div).parent().offset().top
         }, 0);
     }
 
-    // Alle Listpicker schließen, wenn ein Selectpicker geöffnet wird
-    // TODO: Lösung ist aktuell nicht generisch. Das sollte verbessert werden.
+    // close all listpickers, if a selectpicker is opened
+    // TODO: the solution currently isn't generic. This should be improved upon.
     const $buttonSelectpicker = $('button.selectpicker');
     $buttonSelectpicker.click(function (event) {
         $listpickerContainer.removeClass('open');
@@ -1132,11 +1133,11 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Tabs
     // --------------------------------------------------------
-    // Vorgeladene Tabs steuern
+    // control preloaded tabs
     $('.isy-tab').each(function () {
         const $isyTab = $(this);
 
-        // TabAutoscroll: Ist in tabGroup ein Tab-Inhaltsbereich-HochScrollen gewünscht?
+        // TabAutoscroll: Is "tabHochScrollen" in a tabGroub active?
         let $tabHochScrollen = false;
         if ($isyTab.hasClass('tabHochScrollen')) {
             $tabHochScrollen = true;
@@ -1148,7 +1149,7 @@ function refreshFunctions() {
 
             if ($li.hasClass('skipAction')) {
                 $liLink.unbind("click");
-                $liLink.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
+                $liLink.prop("onclick", null); // IE11 doesn't support .removeAttr() for "onclick"
             }
 
             $liLink.click(function (event) {
@@ -1156,12 +1157,12 @@ function refreshFunctions() {
                     event.preventDefault();
                 }
 
-                // Aktuelles Tab entfernen
+                // remove current tab
                 const liIdAlt = $isyTab.find(".active").attr('id');
                 $isyTab.find(".active").removeClass("active");
                 $isyTab.next().find("#" + liIdAlt).removeClass("active");
 
-                // Tab aktivieren
+                // activate tab
                 const liIdNeu = $li.attr('id');
                 $li.addClass("active");
                 //$isyTab.next().find("#" + liIdNeu).addClass("active");
@@ -1169,14 +1170,14 @@ function refreshFunctions() {
                 const aktiverTab = $isyTab.next().find("#" + liIdNeu);
                 aktiverTab.addClass("active");
 
-                // Tab-Autoscroll unterstützen
+                // support tab-autoscroll
                 if ($tabHochScrollen) {
                     $('html, body').animate({
                         scrollTop: $(aktiverTab).offset().top - 50
                     }, 'slow');
                 }
 
-                // Zustand merken
+                // save state
                 $isyTab.next().find("[id$='isyTabCurrentActiveTab']").first().val(liIdNeu.replace("tabId", ""));
                 lazyLoad();
             });
@@ -1190,41 +1191,41 @@ function refreshFunctions() {
     $buttonInjectPostGroups.each(function () {
         const $group = $(this);
 
-        // Finde klickbares Element in der ButtonInjectPostGroup
+        // find clickable element int the ButtonInjectPostGroup
         const $actualButton = $group.find(":nth-child(4)");
 
-        // Finde Button für POST-Aktion
+        // find button for POST-action
         const $postButton = $("[id$='" + $group.find("[id$='postButton']").val() + "']");
 
-        // Finde Feld für posted
+        // find field for posted
         const $posted = $group.find("[id$='posted']");
 
-        // Finde Feld für continue
+        // fiend field for continue
         const $continue = $group.find("[id$='continue']");
 
 
         if ($posted.attr("value") === 'true') {
-            // Die POST-Aktion wurde zuvor erfolgreich beendet. Setze das Flag zurück.
+            // the POST action was successfully completed. Reset the flag.
             $posted.attr("value", "false");
 
             $actualButton.unbind("click.postInject");
-            // Falls <a>-Tag: Gib onclick zurück
+            // If <a>-Tag: return onclick
             $actualButton.attr("onclick", $actualButton.attr("onclickStandby"));
 
-            // Tatsächlich geklickt wird nur, wenn das continue-Flag gesetzt ist
+            // Only trigger the click, if continue-flag was set
             if ($continue.attr("value") === 'true') {
                 $actualButton.click();
             }
         }
 
-        // Events binden, falls noch nicht geschehen
+        // bind events, if they haven't already
         if (!$group.hasClass(".isyfact-buttonInjectPostGroup_ajaxtoken")) {
-            // <a>-Tag: Entferne onclick
+            // <a>-tag: remove onclick
             $actualButton.attr("onclickStandby", $actualButton.attr("onclick"));
             $actualButton.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
 
-            // <input type=submit ...> Verhindere Übermittlung
-            // Überschreibe Buttonaktion
+            // <input type=submit ...> prevent transmission
+            // overwrite button action
             $actualButton.bind("click.postInject", function (event) {
                 event.preventDefault();
                 $posted.attr("value", "true");
@@ -1245,21 +1246,23 @@ function refreshFunctions() {
         $form.unbind("keypress");
         const $defaultButton = $form.find("[id*='" + $form.find("[id$='defaultButtonID']").val() + "']");
         if ($defaultButton.length > 0) {
-            // Ursprüngliches Bind deaktivieren
+            // remove original bind
             $form.unbind("keypress");
-            // Das Form enthält einen DefaultButton
+            // the form contains a default button
             $form.bind("keypress", function (event) {
                 if (event.keyCode == 13) {
                     const $source = $(document.activeElement);
-                    // Kein Link, Button, Charpicker oder anderes Submit-Element fokussiert, das eine eigene sinnvolle Aktion bei Enter hat
+                    // No link, button, charpicker or other submit-element is focused,
+                    // that has their own action on enter
                     if (!$source.is("[type='submit']") &&
                         !$source.is("a") &&
                         !$source.is("button") &&
                         !$source.hasClass("charpicker") &&
                         !$defaultButton.first().is("[disabled]")) {
-                        // Betätige den Default-Button
+                        // trigger click on default button
                         $defaultButton.first().click();
-                        // Verhindere normale Default-Aktion, das wäre ein Klicken des ersten Buttons mit type="submit"
+                        // prevent original default-action,
+                        // which would be clicking the first button found having type="submit"
                         event.preventDefault();
                     }
                 }
