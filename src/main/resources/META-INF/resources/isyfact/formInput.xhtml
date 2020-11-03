@@ -147,7 +147,7 @@
                         <composite:insertChildren />
                     </ui:fragment>
                     <ui:fragment rendered="#{not cc.attrs.showPrintView and cc.attrs.readonly}">
-                        <span class="form-control readonly" style="width: #{cc.attrs.width}"
+                        <span class="form-control readonly" style="width: #{cc.attrs.width};overflow: hidden"
                               id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
                              #{cc.attrs.value}
                         </span>
