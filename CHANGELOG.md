@@ -22,6 +22,7 @@
 - `IFE-141`: teilt onload.js auf einzelne Komponenten auf
 - `IFE-271`: Funktionalität von buttonInjectPost wiederhergestellt
 - `IFE-247`: HttpRequestHandlerAdapter Bean nur bei Bedarf in WebFlowAutoConfiguration erstellen
+- `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
 
 # v5.0.0
 - `IFS-411`: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird
