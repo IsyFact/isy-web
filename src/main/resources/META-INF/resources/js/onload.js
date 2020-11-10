@@ -89,10 +89,9 @@ $(document).ready(function () {
 });
 
 /**
- * Aktualisiert existierende JS-Listener. Jede Funktion muss sicherstellen, das
- * bei einem AJAX-Request die spezifischen Listener nur einmal registriert
- * werden. Falls Listener bereits existieren, dürfen diese nicht erneut
- * registriert werden.
+ * Refreshes existing JS-listeners.
+ * Every function has to ensure on ajax requests that the listeners are registered only once.
+ * If the listeners already exists, they should not be registered again.
  */
 function refreshFunctions() {
     'use strict';
