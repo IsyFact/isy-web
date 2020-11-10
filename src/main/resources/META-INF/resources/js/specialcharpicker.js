@@ -598,13 +598,13 @@ $(function () {
 
     $(document).ready(function() {
     
-        // Initiale Darstellung
+        // initialize widget on load
         $('.special-char-picker-widget').data("initializer", specialCharPickerInitializer);
         
         specialCharPickerInitializer.initWidget(widget);
         specialCharPickerInitializer.refreshWidget();
         
-        // Reaktion auf AJAX Requests
+        // react to AJAX requests
         if(typeof(jsf) != "undefined") {
             // --------------------------------------------------------
             // Ajax-Callback
