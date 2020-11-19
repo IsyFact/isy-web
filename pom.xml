@@ -261,7 +261,16 @@
                                 <goals>
                                     <goal>grunt</goal>
                                 </goals>
+                            </execution>
 
+                            <execution>
+                                <id>webpack build</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run webpack</arguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -309,7 +318,16 @@
                                 <goals>
                                     <goal>grunt</goal>
                                 </goals>
+                            </execution>
 
+                            <execution>
+                                <id>webpack build</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run webpack</arguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

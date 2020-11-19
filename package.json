@@ -12,8 +12,16 @@
 		"grunt-contrib-less": "^2.0.0",
 		"grunt-terser": "^1.0.0"
 	},
+	"scripts": {
+		"webpack": "webpack --mode production",
+		"webpack:dev": "webpack --mode development"
+	},
 	"main": "Gruntfile.js",
 	"engines": {
 		"node": "*"
+	},
+	"devDependencies": {
+		"webpack": "^5.6.0",
+		"webpack-cli": "^4.2.0"
 	}
 }

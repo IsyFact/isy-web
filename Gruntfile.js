@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 		copy: {
 			towww: {
 				files: [
-					{src: 'src/main/resources/META-INF/resources/js/onload.js', dest: 'www/onload.debug.js'},
+					// {src: 'src/main/resources/META-INF/resources/js/onload.js', dest: 'www/onload.debug.js'},
 					{src: 'src/main/resources/META-INF/resources/js/specialcharpicker.js', dest: 'www/specialcharpicker.debug.js'},
 					{src: 'src/main/resources/META-INF/resources/js/tastatursteuerung.js', dest: 'www/tastatursteuerung.debug.js'},
                     {src: 'src/main/resources/META-INF/resources/js/sidebar-collapse.js', dest: 'www/sidebar-collapse.debug.js'}
