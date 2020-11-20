@@ -39,6 +39,6 @@ module.exports = function (grunt) {
 		
     });
 	
-    grunt.registerTask('default', ['clean', 'less' ,'copy:toproject']);
+    grunt.registerTask('default', ['clean']);
 
 };
