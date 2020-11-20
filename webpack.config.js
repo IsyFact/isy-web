@@ -1,3 +1,5 @@
+const ESLintPlugin = require('eslint-webpack-plugin');
+
 module.exports = {
     entry: {
         main: './src/main/js/main.js'
@@ -5,5 +7,6 @@ module.exports = {
     output: {
         filename: 'isyweb.bundle.js',
         path: __dirname + '/target/classes/META-INF/resources/js'
-    }
+    },
+    plugins: [new ESLintPlugin()]
 };

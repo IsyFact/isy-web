@@ -16,20 +16,6 @@ module.exports = function (grunt) {
             }
         },
 
-        //static code analysis for es-specific js code
-        jshint: {
-            options: {
-                browser: true,
-                strict: true,
-                esversion: 6,
-                globals: {
-                    jQuery: true,
-                    angular: true
-                }
-            },
-            all: ['src/main/resources/META-INF/resources/js/*.js']
-        },
-		
 		// Copy
 		copy: {
             toproject: {
@@ -53,6 +39,6 @@ module.exports = function (grunt) {
 		
     });
 	
-    grunt.registerTask('default', ['clean', 'jshint', 'less' ,'copy:toproject']);
+    grunt.registerTask('default', ['clean', 'less' ,'copy:toproject']);
 
 };
