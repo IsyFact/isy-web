@@ -32,44 +32,12 @@ module.exports = function (grunt) {
 		
 		// Copy
 		copy: {
-			towww: {
-				files: [
-					// {src: 'src/main/resources/META-INF/resources/js/onload.js', dest: 'www/onload.debug.js'},
-					{src: 'src/main/resources/META-INF/resources/js/specialcharpicker.js', dest: 'www/specialcharpicker.debug.js'},
-					{src: 'src/main/resources/META-INF/resources/js/tastatursteuerung.js', dest: 'www/tastatursteuerung.debug.js'},
-                    {src: 'src/main/resources/META-INF/resources/js/sidebar-collapse.js', dest: 'www/sidebar-collapse.debug.js'}
-				]
-			},
-
             toproject: {
                 files: [
-                    {cwd: 'www/', expand: true, src: ['*.js', '*.js.map', '!*.debug.js'], dest: 'target/classes/META-INF/resources/js/'},
-                    {cwd: 'www/', expand: true, src: ['*.debug.js'], dest: 'target/classes/META-INF/resources/js/www'},
                     {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
                 ]
             }
 		},
-
-        // terser for minifying
-        terser: {
-            js: {
-                files: {'www/onload.js':['www/onload.debug.js']},
-                //sourceMap option is needed to include sourceMappingURL in the minified file
-                options: {sourceMap: {url: 'onload.js.map'}}
-            },
-            picker: {
-                files: {'www/specialcharpicker.js':['www/specialcharpicker.debug.js']},
-                options: {sourceMap: {url: 'specialcharpicker.js.map'}}
-            },
-            collapse: {
-                files: {'www/sidebar-collapse.js':['www/sidebar-collapse.debug.js']},
-                options: {sourceMap: {url: 'sidebar-collapse.js.map'}}
-            },
-			tastatur: {
-                files: {'www/tastatursteuerung.js':['www/tastatursteuerung.debug.js']},
-                options: {sourceMap: {url: 'tastatursteuerung.js.map'}}
-            }
-        },
 
 		less: {
             specialcharpicker: {
@@ -85,6 +53,6 @@ module.exports = function (grunt) {
 		
     });
 	
-    grunt.registerTask('default', ['clean', 'jshint', 'copy:towww','terser','less' ,'copy:toproject']);
+    grunt.registerTask('default', ['clean', 'jshint', 'less' ,'copy:toproject']);
 
 };
