@@ -9,6 +9,8 @@
    - uglify durch terser ersetzt
    - in JS-Sourcen: var wurde auf let/const umgestellt
    - Kommentare in JS-Sourcen wurden auf Englisch übersetzt
+- `IFE-206`: Umstellung von grunt auf webpack
+   - JS-Sourcen werden jetzt mit webpack gebundlet
 
 # v5.0.0
 - `IFS-411`: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird

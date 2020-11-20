@@ -1,9 +1,9 @@
 module.exports = {
     entry: {
-        main: './src/main/resources/META-INF/resources/js/onload.js'
+        main: './src/main/js/main.js'
     },
     output: {
-        filename: 'onload.js',
+        filename: 'isyweb.bundle.js',
         path: __dirname + '/target/classes/META-INF/resources/js'
     }
 };
