@@ -257,13 +257,6 @@
                             </execution>
 
                             <execution>
-                                <id>grunt build</id>
-                                <goals>
-                                    <goal>grunt</goal>
-                                </goals>
-                            </execution>
-
-                            <execution>
                                 <id>webpack build</id>
                                 <goals>
                                     <goal>npm</goal>
@@ -307,17 +300,9 @@
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
-
                                 <configuration>
                                     <arguments>install</arguments>
                                 </configuration>
-                            </execution>
-
-                            <execution>
-                                <id>grunt build</id>
-                                <goals>
-                                    <goal>grunt</goal>
-                                </goals>
                             </execution>
 
                             <execution>
