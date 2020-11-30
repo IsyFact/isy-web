@@ -9,10 +9,12 @@ module.exports = {
             './src/main/css/specialcharpicker.css'
         ]
     },
+    // js bundle
     output: {
         filename: '[name].bundle.js',
         path: __dirname + '/target/classes/META-INF/resources/js'
     },
+    // config for css minimization
     module: {
         rules: [
             {
