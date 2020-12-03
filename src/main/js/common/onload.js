@@ -1837,7 +1837,7 @@ function lazyLoad() {
     });
 }
 
-scriptLoadedOnload = function () {
+const scriptLoadedOnload = function () {
     'use strict';
 
     return true;
@@ -2142,7 +2142,7 @@ function refreshDatatableFilterRow() {
 }
 
 // This function transforms two digit years into four digit years in date input fields.
-datumErgaenzen = function (inputFeld, grenze) {
+const datumErgaenzen = function (inputFeld, grenze) {
     "use strict";
     //The given "grenze" as a limit is added to the current year, so the resulting limit year will update over time
     const aktuellesJahr = parseInt(new Date().getFullYear().toString().substring(2, 4));
@@ -2163,7 +2163,7 @@ datumErgaenzen = function (inputFeld, grenze) {
 };
 
 //Code that triggers initialization of a listpicker through the servlet
-initialisierenListpickerServlet = function () {
+const initialisierenListpickerServlet = function () {
     "use strict";
     const $listpicker = $(".servlet.listpicker-filter");
     $listpicker.each(function (i, listpicker) {
@@ -2173,7 +2173,7 @@ initialisierenListpickerServlet = function () {
 
 
 //register a listpicker
-registerListpickerfilter = function (identifier) {
+const registerListpickerfilter = function (identifier) {
     "use strict";
     const $listpickerFilter = $(identifier);
     const listpickerFilterInput = $listpickerFilter.children()[0];
@@ -2249,7 +2249,7 @@ function servletListpickerFilterChanged(event) {
 }
 
 //Creates a ListpickerTable based on the responseText.
-createListpickerTable = function (responseText, listfilter) {
+const createListpickerTable = function (responseText, listfilter) {
     "use strict";
     const $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
     const $table = $tablecontainer.find(".servletTable");
