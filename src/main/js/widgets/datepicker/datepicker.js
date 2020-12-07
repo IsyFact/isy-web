@@ -24,7 +24,7 @@ export function createDatepicker () {
 }
 
 // Opens a datepicker.
-export function openDatepicker() {
+function openDatepicker() {
     const dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
     const inputField = $(this).prev();
     const date = inputField.val().split('.');
@@ -50,7 +50,7 @@ export function openDatepicker() {
 }
 
 // Handles the behavior of the datepicker, when the user loses focus of it.
-export function datepickerFocusout () {
+function datepickerFocusout () {
     const zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
     const $datumInputFeld = $(this);
     if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
