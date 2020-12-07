@@ -1,3 +1,4 @@
+// Returns the current date as a string.
 export function currentDateAsString() {
     "use strict";
     const currentDate = new Date();
@@ -10,6 +11,7 @@ export function currentDateAsString() {
     return heuteMitFuehrendenNullen;
 }
 
+// Creates a string from a date, which is passed in form of an array.
 export function setValidDateAsString(date) {
     "use strict";
     date[0] = date[0].replace("00", "01");
@@ -38,6 +40,8 @@ export function datumErgaenzen(inputFeld, grenze) {
     }
 };
 
+// Creates a valid date from a date which is invalid, because certain values are out of range of actual dates.
+// Result will be returned as a string.
 export function fixDateOutOfRange(date) {
     let year = date[2],
         month = date[1],

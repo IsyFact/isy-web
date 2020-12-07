@@ -1,5 +1,7 @@
 import { currentDateAsString, setValidDateAsString, datumErgaenzen, fixDateOutOfRange } from "./datum-utils";
 
+// Initializes the datepicker when it is loaded and
+// handles the actions when the user interacts with the datepicker.
 export function createDatepicker () {
     $(this).datepicker({
         format: $(this).attr('dateformat'),
@@ -21,7 +23,8 @@ export function createDatepicker () {
     $datumInputFeld.focusout(datepickerFocusout);
 }
 
-export function openDatepicker() {// open a datepicker
+// Opens a datepicker.
+export function openDatepicker() {
     const dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
     const inputField = $(this).prev();
     const date = inputField.val().split('.');
@@ -38,7 +41,7 @@ export function openDatepicker() {// open a datepicker
     } else if (date[0] === "00" || date[1] === "00") {
         dateString = setValidDateAsString(date);
     } else {
-        // copy the manuell entered date into the datepicker
+        // copy the manually entered date into the datepicker
         // invalid date inputs will be fixed
         dateString = fixDateOutOfRange(date);
     }
@@ -46,6 +49,7 @@ export function openDatepicker() {// open a datepicker
     $(this).parent().datepicker('update');
 }
 
+// Handles the behavior of the datepicker, when the user loses focus of it.
 export function datepickerFocusout () {
     const zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
     const $datumInputFeld = $(this);
