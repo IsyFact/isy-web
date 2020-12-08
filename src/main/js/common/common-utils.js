@@ -4,7 +4,7 @@
 export function lazyLoad() {
     'use strict';
 
-    // Bilder
+    // Images
     $("[data-src].lazy").each(function () {
         const $lazyImage = $(this);
         if ($lazyImage.visible()) {
