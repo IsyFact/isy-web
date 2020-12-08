@@ -152,7 +152,7 @@
                                             autocomplete="off">
                                         <f:ajax render=":#{cc.attrs.ajaxForm}" execute="@form"
                                                 event="change" delay="600"
-                                                onevent="function(data) { listpickerAjaxReload(data, event.keyCode) }"
+                                                onevent="function(data) { isywebjs.listpickerAjaxReload(data, event.keyCode) }"
                                                 listener="#{cc.attrs.listpickerController.filter(cc.attrs.listpickerModel)}" />
                                     </input>
                                 <h:inputHidden value="#{cc.attrs.displaySize}" />
