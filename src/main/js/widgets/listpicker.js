@@ -1,4 +1,4 @@
-import {inputChangingKeycode, scroll_to} from '../common/common-utils';
+import { inputChangingKeycode, scroll_to } from '../common/common-utils';
 
 /** registers all handlers for the listpicker. */
 export function registerListpickerHandlers() {

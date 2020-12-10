@@ -1,4 +1,4 @@
-import {lazyLoad} from "../../common/common-utils";
+import { lazyLoad } from "../../common/common-utils";
 
 // Function to highlight a selected row.
 export function formatRowsFunction ($trs, $tr, selectionMode) {

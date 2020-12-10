@@ -1,3 +1,6 @@
+/**
+ * Binds the action of the default button on the return key.
+ */
 export function bindReturnToDefaultButton () {
     const $form = $(this);
     $form.unbind("keypress");
