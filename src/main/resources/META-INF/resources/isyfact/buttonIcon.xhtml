@@ -97,7 +97,7 @@
 				</ui:fragment>
 				#{cc.attrs.value}
 				<composite:insertChildren />
-				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" onevent="blockSingleButton"
+				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" onevent="isywebjs.blockSingleButton"
 					disabled="#{not cc.attrs.globalConfig.jsEnabled or not cc.attrs.ajax}" />
 			</button>
 		</ui:fragment>

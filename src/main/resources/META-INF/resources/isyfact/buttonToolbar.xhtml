@@ -82,7 +82,7 @@
 				</ui:fragment>
 				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
 						disabled="#{not cc.attrs.ajax}"
-						onevent="blockSingleButton"/>
+						onevent="isywebjs.blockSingleButton"/>
 			</button>
 		</ui:fragment>
 		<ui:fragment rendered="#{btnDisabled}">
