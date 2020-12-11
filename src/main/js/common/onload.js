@@ -15,6 +15,7 @@ import { applyMask, deletePlaceholdersOnReturn } from "../widgets/inputmask";
 import { initNavigation } from "./tastatursteuerung-navigation";
 import { initSelectlists } from "../widgets/selectlist";
 import { focusOnload } from "./focusOnload";
+import { createToggleFilter, applyToggleFilter } from "../widgets/togglefilter";
 
 $(document).ready(function () {
     'use strict';
@@ -376,17 +377,5 @@ function refreshFunctions() {
     $("div.toggle-filter:not('.toggle-filter-ajax')")
         .addClass('toggle-filter-ajax') // mark as already initialized
         .removeClass('hidden')
-        .each(function () {
-            const $this = $(this);
-            const $sel = $this.find('select');
-            $sel.find('option').each(function () {
-                if (!this.value) return; // überspringe platzhalter
-                $this.append('<button type="button" class="btn btn-default' + (this.selected ? ' active' : '') + (this.disabled ? ' disabled' : '') + '" value="' + this.value + '">' + this.text + '</button>');
-            });
-        }).on('click', 'button', function () {
-        if ($(this).hasClass('active') || $(this).hasClass('disabled')) return;
-        const $sel = $(this).parent().find('select');
-        $sel.val(this.value);
-        $(this).parent().find('input[type=submit]').click();
-    });
+        .each(createToggleFilter).on('click', 'button', applyToggleFilter);
 }
