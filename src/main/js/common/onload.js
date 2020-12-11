@@ -15,7 +15,7 @@ import { applyMask, deletePlaceholdersOnReturn } from "../widgets/inputmask";
 import { initNavigation } from "./tastatursteuerung-navigation";
 import { initSelectlists } from "../widgets/selectlist";
 import { focusOnload } from "./focusOnload";
-import { createToggleFilter, applyToggleFilter } from "../widgets/togglefilter";
+import { initToggleFilters } from "../widgets/togglefilter";
 import { enableTooltips } from "../widgets/tooltip";
 import { initPanels } from "../widgets/panels";
 
@@ -121,6 +121,7 @@ function refreshFunctions() {
     initSelectlists();
     initPanels();
     initialisierenListpickerServlet();
+    initToggleFilters();
 
     // refresh selectpickers
     $('.selectpicker').selectpicker('refresh');
@@ -338,13 +339,4 @@ function refreshFunctions() {
     // --------------------------------------------------------
     refreshDatatableFilterRow();
 
-
-
-    // --------------------------------------------------------
-    // Toggle Filter
-    // --------------------------------------------------------
-    $("div.toggle-filter:not('.toggle-filter-ajax')")
-        .addClass('toggle-filter-ajax') // mark as already initialized
-        .removeClass('hidden')
-        .each(createToggleFilter).on('click', 'button', applyToggleFilter);
 }
