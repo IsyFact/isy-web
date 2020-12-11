@@ -1,12 +1,6 @@
 import { createDatepicker } from "../widgets/datepicker/datepicker";
-import { createDatatable } from "../widgets/datatable/datatable";
-import { refreshDatatableFilterRow } from "../widgets/datatable/datatable-utils";
-import {
-    initClickableArea,
-    activateJSSorting,
-    setSelectAllCheckboxState,
-    showHideDetail
-} from "../widgets/datatable/datatable-functionalities";
+import { createDatatable, initDatatables } from "../widgets/datatable/datatable";
+import { refreshDatatableFilterRow } from "../widgets/datatable/datatable-filterrow";
 import { createTabGroup } from "../widgets/tabs";
 import { lazyLoad } from "./common-utils";
 import { registerListpickerHandlers, initialisierenListpickerServlet} from '../widgets/listpicker';
@@ -167,24 +161,7 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Activate functionalities for a datatable
     // --------------------------------------------------------
-    const $rfDataTables = $('.rf-data-table').filter(':not(.rf-data-table_ajaxtoken)');
-    // (1) expand clickable area of header columns
-    $rfDataTables.find('th.sortable').click(function (event) {
-        const $target = $(event.target);
-        if ($target.is("th")) {
-            $(this).find('a').click();
-        }
-    });
-    // (2) expand clickable area for selection of rows / set double click / initialize selection mode
-    $rfDataTables.each(initClickableArea);
-    // (3) register show-/hide-detail logic
-    $("table.CLIENT.rf-data-table").each(showHideDetail);
-    // (4) activate JS Sorting
-    $('.rf-data-table').each(activateJSSorting);
-    // (5) always set the correct state to the "select all" checkbox
-    $rfDataTables.each(setSelectAllCheckboxState);
-
-    $rfDataTables.addClass('rf-data-table_ajaxtoken');
+    initDatatables();
 
     // --------------------------------------------------------
     // Popovers and Tooltips

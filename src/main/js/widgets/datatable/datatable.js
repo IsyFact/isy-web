@@ -1,6 +1,35 @@
-import {refreshDatatableFilterRow} from "./datatable-utils";
+import {refreshDatatableFilterRow} from "./datatable-filterrow";
+import {
+    activateJSSorting,
+    initClickableArea,
+    setSelectAllCheckboxState,
+    showHideDetail
+} from "./datatable-functionalities";
 
-// Creates a datatable and it's necessary event handlers
+/** Adds Handlers for all datatables that aren't initialized yet.
+ * Already initialized Tables are marked with rf-data-table_ajaxtoken */
+export function initDatatables(){
+    const $rfDataTables = $('.rf-data-table').filter(':not(.rf-data-table_ajaxtoken)');
+    // (1) expand clickable area of header columns
+    $rfDataTables.find('th.sortable').click(function (event) {
+        const $target = $(event.target);
+        if ($target.is("th")) {
+            $(this).find('a').click();
+        }
+    });
+    // (2) expand clickable area for selection of rows / set double click / initialize selection mode
+    $rfDataTables.each(initClickableArea);
+    // (3) register show-/hide-detail logic
+    $("table.CLIENT.rf-data-table").each(showHideDetail);
+    // (4) activate JS Sorting
+    $('.rf-data-table').each(activateJSSorting);
+    // (5) always set the correct state to the "select all" checkbox
+    $rfDataTables.each(setSelectAllCheckboxState);
+
+    $rfDataTables.addClass('rf-data-table_ajaxtoken');
+}
+
+// Creates a datatable and its necessary event handlers
 export function createDatatable() {
     const $table = $(this);
 
