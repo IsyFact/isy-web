@@ -17,6 +17,7 @@ import { initSelectlists } from "../widgets/selectlist";
 import { focusOnload } from "./focusOnload";
 import { createToggleFilter, applyToggleFilter } from "../widgets/togglefilter";
 import { enableTooltips } from "../widgets/tooltip";
+import { initPanels } from "../widgets/panels";
 
 $(document).ready(function () {
     'use strict';
@@ -117,8 +118,9 @@ function refreshFunctions() {
 
     lazyLoad();
     initNavigation();
-    initialisierenListpickerServlet();
     initSelectlists();
+    initPanels();
+    initialisierenListpickerServlet();
 
     // refresh selectpickers
     $('.selectpicker').selectpicker('refresh');
@@ -129,28 +131,6 @@ function refreshFunctions() {
     if ($("[id$='multipartFormEnabled']").val() === 'true') {
         $("form").attr("enctype", "multipart/form-data");
     }
-
-    // --------------------------------------------------------
-    // Panels
-    // --------------------------------------------------------
-    const $panels = $(".panel-collapse[id$='PanelCollapse']").filter(':not(.panel_ajaxtoken)');
-    $panels.on('hidden.bs.collapse', function (e) {
-        const $panel = $(this).parents('.panel').first();
-
-        // set value of hidden input element
-        const $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
-        $serverProperty.val('false');
-        e.stopPropagation();
-    });
-    $panels.on('shown.bs.collapse', function (e) {
-        const $panel = $(this).parents('.panel').first();
-
-        // set value of hidden input element
-        const $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
-        $serverProperty.val('true');
-        e.stopPropagation();
-    });
-    $panels.addClass('panel_ajaxtoken');
 
     // --------------------------------------------------------
     // Modal dialogs
