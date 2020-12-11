@@ -7,7 +7,7 @@ import {
     setSelectAllCheckboxState,
     showHideDetail
 } from "../widgets/datatable/datatable-functionalities";
-import { createTabGroup } from "./tabs";
+import { createTabGroup } from "../widgets/tabs";
 import { lazyLoad } from "./common-utils";
 import { registerListpickerHandlers, initialisierenListpickerServlet} from '../widgets/listpicker';
 import { bindReturnToDefaultButton } from "../widgets/buttons";

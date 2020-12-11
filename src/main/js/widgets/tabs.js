@@ -1,4 +1,4 @@
-import { lazyLoad } from "./common-utils"
+import { lazyLoad } from "../common/common-utils"
 
 // Creates multiple tabs.
 export function createTabGroup () {
