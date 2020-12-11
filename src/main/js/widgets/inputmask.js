@@ -1,3 +1,6 @@
+/**
+ * Applies the mask on an input field
+ */
 export function applyMask() {
     const $inputMask = $(this);
     if ($inputMask.attr('name').indexOf('listpickerField') > -1) {
@@ -13,6 +16,11 @@ export function applyMask() {
     $inputMask.removeAttr('maxlength');
 }
 
+/**
+ * Deletes the placeholder characters if the pressed
+ * key is the return rey
+ * @param e keydown keypress event
+ */
 export function deletePlaceholdersOnReturn(e) {
     const $inputMask = $(this);
 
