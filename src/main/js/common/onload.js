@@ -12,6 +12,7 @@ import { lazyLoad } from "./common-utils";
 import { registerListpickerHandlers, initialisierenListpickerServlet} from '../widgets/listpicker';
 import { bindReturnToDefaultButton } from "../widgets/buttons";
 import { applyMask, deletePlaceholdersOnReturn } from "../widgets/inputmask";
+import { initNavigation } from "./tastatursteuerung-navigation";
 
 $(document).ready(function () {
     'use strict';
@@ -99,7 +100,6 @@ $(document).ready(function () {
     // initialize functions
     // --------------------------------------------------------
     refreshFunctions();
-    initialisierenListpickerServlet();
 
 });
 
@@ -112,6 +112,9 @@ function refreshFunctions() {
     'use strict';
 
     lazyLoad();
+    initNavigation();
+    initialisierenListpickerServlet();
+
 
     // --------------------------------------------------------
     // refresh selectpickers (so bootstrap-select renders them correctly)
@@ -124,137 +127,6 @@ function refreshFunctions() {
     if ($("[id$='multipartFormEnabled']").val() === 'true') {
         $("form").attr("enctype", "multipart/form-data");
     }
-
-    // --------------------------------------------------------
-    // navigation
-    // --------------------------------------------------------
-    $('#main-nav').mainNavigation();
-
-    // keyboard control for navigation
-    $(document).keydown(function (e) {
-        if (e.altKey && !e.shiftKey && !e.ctrlKey && e.keyCode == 77) {
-            $('.menustart').addClass('open');
-            $(".search-option:first").focus();
-        }
-    });
-
-    $(".search-option").keydown(function (e) {
-
-
-        // current column
-        const $divCol = $(this).parents(".col-lg-4").first();
-
-        // current row
-        const $divRow = $divCol.parents(".row").first();
-
-        // next elements
-        let $liMenu;
-        let $liMenuNext;
-        let $divRowNext;
-        let divColNext;
-
-        // remember current column index
-        let $divColNeighbour = $divCol;
-        let colIndex = 1;
-        while ($divColNeighbour.prev().length !== 0) {
-            $divColNeighbour = $divColNeighbour.prev();
-            colIndex = colIndex + 1;
-        }
-
-        if (e.which == 37) {
-
-            // left arrow
-            // jump one column to the left or to the previous menu heading
-            if (colIndex != 1) {
-                // another menu item exists
-                $($divRow.children().get(colIndex - 2)).find(".search-option").focus();
-            } else {
-                // jump to the menu in the left, if it exists
-                $liMenu = $divRow.parents("li").first();
-                $liMenuNext = $liMenu.prev();
-
-                if ($liMenu.length >= 1) {
-                    // another menu exists
-                    $liMenu.removeClass("open").removeClass("active");
-                    $liMenuNext.addClass("open").addClass("active");
-                    $liMenuNext.find(".search-option:first").focus();
-                }
-
-            }
-
-            // prevent scrolling
-            return false;
-        }
-
-        if (e.which == 39) {
-
-            // right arrow
-            // jump one column to the right or to the next menu heading
-            if ($divRow.children().length >= colIndex + 1) {
-                // another menu item exists
-                $($divRow.children().get(colIndex)).find(".search-option").focus();
-            } else {
-                // jump to the menu on the next page, if there is one
-                $liMenu = $divRow.parents("li").first();
-                $liMenuNext = $liMenu.next();
-
-                if ($liMenu.length >= 1) {
-                    // if there is another menu
-                    $liMenu.removeClass("open").removeClass("active");
-                    $liMenuNext.addClass("open").addClass("active");
-                    $liMenuNext.find(".search-option:first").focus();
-                }
-
-            }
-
-            // prevent scrolling
-            return false;
-        }
-
-        if (e.which == 40) {
-
-            // downwards arrow
-            // jump to the next row on the same col index
-            $divRowNext = $(this).parents(".row").first().next();
-            if ($divRowNext.length > 0) {
-
-                if ($divRowNext.children().length >= colIndex) {
-                    // there are enough children to select
-                    divColNext = $divRowNext.children().get(colIndex - 1);
-                } else {
-                    // select last element
-                    divColNext = $divRowNext.children().last();
-                }
-
-                $(divColNext).find(".search-option").focus();
-            }
-
-            // prevent scrolling
-            return false;
-        }
-        if (e.which == 38) {
-
-            // upwards arrow
-            // jump to the previous row on the same col index
-            $divRowNext = $(this).parents(".row").first().prev();
-
-            if ($divRowNext.length > 0) {
-
-                if ($divRowNext.children().length >= colIndex) {
-                    // there are enough children to select
-                    divColNext = $divRowNext.children().get(colIndex - 1);
-                } else {
-                    // select last element
-                    divColNext = $divRowNext.children().last();
-                }
-
-                $(divColNext).find(".search-option").focus();
-            }
-
-            // prevent scrolling
-            return false;
-        }
-    });
 
     // --------------------------------------------------------
     // Panels
