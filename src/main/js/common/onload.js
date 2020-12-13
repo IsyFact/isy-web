@@ -1,9 +1,13 @@
-import { createDatepicker } from "../widgets/datepicker/datepicker";
+import { initDatepickers } from "../widgets/datepicker/datepicker";
 import { createDatatable, initDatatables } from "../widgets/datatable/datatable";
 import { refreshDatatableFilterRow } from "../widgets/datatable/datatable-filterrow";
 import { createTabGroup } from "../widgets/tabs";
 import { lazyLoad } from "./common-utils";
-import { registerListpickerHandlers, initialisierenListpickerServlet} from '../widgets/listpicker';
+import {
+    registerListpickerHandlers,
+    initialisierenListpickerServlet,
+    initListpickers
+} from '../widgets/listpicker';
 import { bindReturnToDefaultButton } from "../widgets/buttons";
 import { applyMask, deletePlaceholdersOnReturn } from "../widgets/inputmask";
 import { initNavigation } from "./tastatursteuerung-navigation";
@@ -116,6 +120,7 @@ function refreshFunctions() {
     initPanels();
     initialisierenListpickerServlet();
     initToggleFilters();
+    initDatepickers();
 
     // refresh selectpickers
     $('.selectpicker').selectpicker('refresh');
@@ -177,15 +182,7 @@ function refreshFunctions() {
     $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)').addClass('rf-imagepopup_ajaxtoken');
 
 
-    // --------------------------------------------------------
-    // Datepicker
-    // --------------------------------------------------------
-    const $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)').filter(':not(.rf-datepicker_readonly)');
-    $datepickers.each(createDatepicker);
 
-    $datepickers.on('changeDate', function (ev) {
-        $(this).find('input').val(ev.format());
-    });
 
 
 
@@ -204,15 +201,7 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Listpicker
     // --------------------------------------------------------
-    const $listpickerContainer = $(".listpicker-container").filter(':not(.rf-listpicker_ajaxtoken)');
-    $listpickerContainer.each(registerListpickerHandlers);
-    $listpickerContainer.addClass('rf-listpicker_ajaxtoken');
-
-    // close all listpickers, if a selectpicker is opened
-    const $buttonSelectpicker = $('button.selectpicker');
-    $buttonSelectpicker.click(function (event) {
-        $listpickerContainer.removeClass('open');
-    });
+    initListpickers();
 
     // --------------------------------------------------------
     // Tabs

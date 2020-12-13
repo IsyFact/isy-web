@@ -1,5 +1,16 @@
 import { inputChangingKeycode, scroll_to } from '../common/common-utils';
 
+/**
+ * Add handlers to Listpickers that haven't been initialized yet.
+ * Already initialized Listpickers are marked with a token class (rf-listpicker-ajaxtoken)
+ * and will be skipped on subsequent calls.
+ */
+export function initListpickers(){
+    const $listpickerContainer = $(".listpicker-container").filter(':not(.rf-listpicker_ajaxtoken)');
+    $listpickerContainer.each(registerListpickerHandlers);
+    $listpickerContainer.addClass('rf-listpicker_ajaxtoken');
+}
+
 /** registers all handlers for the listpicker. */
 export function registerListpickerHandlers() {
     const $listpicker = $(this);

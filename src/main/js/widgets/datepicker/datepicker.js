@@ -1,5 +1,22 @@
 import { currentDateAsString, setValidDateAsString, datumErgaenzen, fixDateOutOfRange } from "./datum-utils";
 
+/**
+ * Addds handlers to all datepickers that haven't been initialized yet.
+ * Initialized datepickers are marked with a token class (rf-datepicker_ajaxtoken).
+ */
+export function initDatepickers() {
+    // --------------------------------------------------------
+    // Datepicker
+    // --------------------------------------------------------
+    const $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)').filter(':not(.rf-datepicker_readonly)');
+    $datepickers.addClass('rf-datepicker_ajaxtoken');
+    $datepickers.each(createDatepicker);
+
+    $datepickers.on('changeDate', function (ev) {
+        $(this).find('input').val(ev.format());
+    });
+}
+
 // Initializes the datepicker when it is loaded and
 // handles the actions when the user interacts with the datepicker.
 export function createDatepicker () {
