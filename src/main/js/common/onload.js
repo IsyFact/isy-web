@@ -1,5 +1,5 @@
 import { initDatepickers } from "../widgets/datepicker/datepicker";
-import { createDatatable, initDatatables } from "../widgets/datatable/datatable";
+import { initDatatablesClientmode, initDatatables } from "../widgets/datatable/datatable";
 import { refreshDatatableFilterRow } from "../widgets/datatable/datatable-filterrow";
 import { createTabGroup } from "../widgets/tabs";
 import {enableMultipartFormIfNeeded, lazyLoad} from "./common-utils";
@@ -125,9 +125,14 @@ function refreshFunctions() {
     initToggleFilters();
     initModalDialogs();
     initDatepickers();
-    initDatatables();
     initSelectpickers();
     initImagePopups();
+    initListpickers();
+
+    //data tables
+    initDatatables();
+    initDatatablesClientmode();
+    refreshDatatableFilterRow();
 
     focusOnload();
     enableTooltips();
@@ -144,12 +149,6 @@ function refreshFunctions() {
     $inputMasks.bind('keydown keypress', deletePlaceholdersOnReturn);
 
     $inputMasks.addClass('isyfact-inputmask_ajaxtoken');
-
-
-    // --------------------------------------------------------
-    // Listpicker
-    // --------------------------------------------------------
-    initListpickers();
 
     // --------------------------------------------------------
     // Tabs
@@ -237,17 +236,5 @@ function refreshFunctions() {
 
         timerId = window.setInterval(checkForVisibility, 200);
     });
-
-    // --------------------------------------------------------
-    // Datatable Client
-    // --------------------------------------------------------
-    $("table.CLIENT.rf-data-table:not('datatable-client-init')")
-        .addClass('datatable-client-init') // mark as initialized
-        .each(createDatatable);
-
-    // --------------------------------------------------------
-    // Datatable Filter
-    // --------------------------------------------------------
-    refreshDatatableFilterRow();
 
 }

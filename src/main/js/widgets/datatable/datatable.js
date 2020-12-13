@@ -22,11 +22,18 @@ export function initDatatables(){
     // (3) register show-/hide-detail logic
     $("table.CLIENT.rf-data-table").each(showHideDetail);
     // (4) activate JS Sorting
-    $('.rf-data-table').each(activateJSSorting);
+    $rfDataTables.each(activateJSSorting);
     // (5) always set the correct state to the "select all" checkbox
     $rfDataTables.each(setSelectAllCheckboxState);
 
     $rfDataTables.addClass('rf-data-table_ajaxtoken');
+}
+
+/** init Datatables in Clientmode */
+export function initDatatablesClientmode(){
+    $("table.CLIENT.rf-data-table:not('datatable-client-init')")
+        .addClass('datatable-client-init') // mark as initialized
+        .each(createDatatable);
 }
 
 // Creates a datatable and its necessary event handlers
