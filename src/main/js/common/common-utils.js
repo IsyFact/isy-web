@@ -22,6 +22,12 @@ export function scroll_to(element, div) {
     }, 0);
 }
 
+export function enableMultipartFormIfNeeded(){
+    if ($("[id$='multipartFormEnabled']").val() === 'true') {
+        $("form").attr("enctype", "multipart/form-data");
+    }
+}
+
 /**
  * Checks whether the pressed key is a valid input character to change a text fields contents.
  * Common control characters are considered invalid.

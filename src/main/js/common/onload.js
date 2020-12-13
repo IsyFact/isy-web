@@ -2,9 +2,8 @@ import { initDatepickers } from "../widgets/datepicker/datepicker";
 import { createDatatable, initDatatables } from "../widgets/datatable/datatable";
 import { refreshDatatableFilterRow } from "../widgets/datatable/datatable-filterrow";
 import { createTabGroup } from "../widgets/tabs";
-import { lazyLoad } from "./common-utils";
+import {enableMultipartFormIfNeeded, lazyLoad} from "./common-utils";
 import {
-    registerListpickerHandlers,
     initialisierenListpickerServlet,
     initListpickers
 } from '../widgets/listpicker';
@@ -16,6 +15,9 @@ import { focusOnload } from "./focusOnload";
 import { initToggleFilters } from "../widgets/togglefilter";
 import { enableTooltips } from "../widgets/tooltip";
 import { initPanels } from "../widgets/panels";
+import {initModalDialogs} from "../widgets/modaldialog";
+import {initSelectpickers} from "../widgets/selectpicker";
+import {initImagePopups} from "../widgets/imagepopup";
 
 $(document).ready(function () {
     'use strict';
@@ -115,75 +117,21 @@ function refreshFunctions() {
     'use strict';
 
     lazyLoad();
+    // Initialize all custom Handlers
     initNavigation();
     initSelectlists();
     initPanels();
     initialisierenListpickerServlet();
     initToggleFilters();
+    initModalDialogs();
     initDatepickers();
-
-    // refresh selectpickers
-    $('.selectpicker').selectpicker('refresh');
-
-    // --------------------------------------------------------
-    // activate multipart forms if needed
-    // --------------------------------------------------------
-    if ($("[id$='multipartFormEnabled']").val() === 'true') {
-        $("form").attr("enctype", "multipart/form-data");
-    }
-
-    // --------------------------------------------------------
-    // Modal dialogs
-    // --------------------------------------------------------
-    // show modal dialog, if any exist
-    const $modalDialogs = $('#modal-add-personal').filter(':not(.modal_ajaxtoken)');
-    $modalDialogs.modal('show');
-    $modalDialogs.addClass('modal_ajaxtoken');
-
-    // brandest: DSD-1467 modal dialog backgrounds become darker when triggering actions
-    // If actions are executed in a modal dialog, which cause the form to reload via AJAX,
-    // the modal dialog is rerendered as well.
-    // This causes another "modal-backdrop" to be added, which overlaps with the previous one.
-    // The prior removal ensures that at most one backdrop exists.
-    const $modalVisible = $('.modal-dialog').is(':visible');
-    $($(".modal-backdrop").get().reverse()).each(function (index, element) {
-        // Removal if a .modal-backdrop exists, even though there is no modal dialog (happens in edge-cases).
-        // also:  "get().reverse()" removes the older .modal-backdrops,
-        // keep the newest (index=0) as only the newest is linked to the button-event
-        if (!$modalVisible || index > 0) {
-            $(element).remove();
-        }
-    });
-
-    // --------------------------------------------------------
-    // FocusOnload
-    // Focus the element on the upper left of the content area on load.
-    // The element to be focussed can be overwritten or deactivated using the isy:focusOnload tag.
-    // Additionally the focusOnloadForce id can be used to force a specific focus element.
-    // --------------------------------------------------------
-    focusOnload();
-
-    // --------------------------------------------------------
-    // Activate functionalities for a datatable
-    // --------------------------------------------------------
     initDatatables();
+    initSelectpickers();
+    initImagePopups();
 
-    // --------------------------------------------------------
-    // Popovers and Tooltips
-    // --------------------------------------------------------
+    focusOnload();
     enableTooltips();
-
-    // --------------------------------------------------------
-    // Maginific Popup (Plugin for image-popups)
-    // --------------------------------------------------------
-    $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)').magnificPopup({
-        type: 'image'
-    });
-    $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)').addClass('rf-imagepopup_ajaxtoken');
-
-
-
-
+    enableMultipartFormIfNeeded();
 
 
     // --------------------------------------------------------
@@ -262,11 +210,8 @@ function refreshFunctions() {
 
     });
 
-    // --------------------------------------------------------
-    // Default Buttons
-    // --------------------------------------------------------
-    const $forms = $("form");
-    $forms.each(bindReturnToDefaultButton);
+    // Bind Enter on Defaultbutton
+    $("form").each(bindReturnToDefaultButton);
 
     // --------------------------------------------------------
     // Browse and Collect

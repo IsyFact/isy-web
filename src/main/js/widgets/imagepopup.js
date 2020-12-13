@@ -1,0 +1,14 @@
+// --------------------------------------------------------
+// Maginific Popup (Plugin for image-popups)
+// --------------------------------------------------------
+/** initialized Image Popups (magnificPopup)
+ * Already intiialized Popups are marked with a token class (rf-image-popup_ajaxtoken)
+ * and will be skipped on subsequent calls.
+ */
+export function initImagePopups(){
+    $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)')
+        .addClass('rf-imagepopup_ajaxtoken')
+        .magnificPopup({
+            type: 'image'
+        });
+}
