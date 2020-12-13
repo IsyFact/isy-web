@@ -2,11 +2,8 @@ import { initDatepickers } from "../widgets/datepicker/datepicker";
 import { initDatatablesClientmode, initDatatables } from "../widgets/datatable/datatable";
 import { refreshDatatableFilterRow } from "../widgets/datatable/datatable-filterrow";
 import { createTabGroup } from "../widgets/tabs";
-import {enableMultipartFormIfNeeded, lazyLoad} from "./common-utils";
-import {
-    initialisierenListpickerServlet,
-    initListpickers
-} from '../widgets/listpicker';
+import { enableMultipartFormIfNeeded, lazyLoad } from "./common-utils";
+import { initialisierenListpickerServlet, initListpickers } from '../widgets/listpicker';
 import { bindReturnToDefaultButton } from "../widgets/buttons";
 import { initInputMasks } from "../widgets/inputmask";
 import { initNavigation } from "./tastatursteuerung-navigation";
@@ -15,9 +12,10 @@ import { focusOnload } from "./focusOnload";
 import { initToggleFilters } from "../widgets/togglefilter";
 import { enableTooltips } from "../widgets/tooltip";
 import { initPanels } from "../widgets/panels";
-import {initModalDialogs} from "../widgets/modaldialog";
-import {initSelectpickers} from "../widgets/selectpicker";
-import {initImagePopups} from "../widgets/imagepopup";
+import { initModalDialogs } from "../widgets/modaldialog";
+import { initSelectpickers } from "../widgets/selectpicker";
+import { initImagePopups } from "../widgets/imagepopup";
+import { initBrowseCollect } from "../widgets/browsecollect";
 
 $(document).ready(function () {
     'use strict';
@@ -118,6 +116,7 @@ function refreshFunctions() {
 
     lazyLoad();
     // Initialize all custom Handlers
+    initBrowseCollect();
     initNavigation();
     initSelectlists();
     initPanels();
@@ -198,32 +197,6 @@ function refreshFunctions() {
 
     });
 
-    // Bind Enter on Defaultbutton
+    // Bind enter to Defaultbutton
     $("form").each(bindReturnToDefaultButton);
-
-    // --------------------------------------------------------
-    // Browse and Collect
-    // --------------------------------------------------------
-    $("select.browsecollect").filter(":not(.browsecollect_ajaxtoken)")
-        .addClass("browsecollect_ajaxtoken")
-        .browsecollect({
-            size: 10
-        }).each(function () {
-        // hack to make it work with modal dialogs
-        // the problem is that while initializing the dialog is not shown yet
-        // so all sizes are 0.
-        // the hack: to wait until visible and to refresh then
-        const $bc = $(this);
-        let timerId;
-
-        function checkForVisibility() {
-            if ($bc.next().is(':visible')) {
-                window.clearInterval(timerId);
-                $bc.browsecollect('refresh');
-            }
-        }
-
-        timerId = window.setInterval(checkForVisibility, 200);
-    });
-
 }
