@@ -8,7 +8,7 @@ import {
     initListpickers
 } from '../widgets/listpicker';
 import { bindReturnToDefaultButton } from "../widgets/buttons";
-import { applyMask, deletePlaceholdersOnReturn } from "../widgets/inputmask";
+import { initInputMasks } from "../widgets/inputmask";
 import { initNavigation } from "./tastatursteuerung-navigation";
 import { initSelectlists } from "../widgets/selectlist";
 import { focusOnload } from "./focusOnload";
@@ -128,6 +128,7 @@ function refreshFunctions() {
     initSelectpickers();
     initImagePopups();
     initListpickers();
+    initInputMasks();
 
     //data tables
     initDatatables();
@@ -137,18 +138,6 @@ function refreshFunctions() {
     focusOnload();
     enableTooltips();
     enableMultipartFormIfNeeded();
-
-
-    // --------------------------------------------------------
-    // Input Masks
-    // --------------------------------------------------------
-    // all input elements that have the attribut "inputmask"
-    const $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
-
-    $inputMasks.each(applyMask);
-    $inputMasks.bind('keydown keypress', deletePlaceholdersOnReturn);
-
-    $inputMasks.addClass('isyfact-inputmask_ajaxtoken');
 
     // --------------------------------------------------------
     // Tabs
