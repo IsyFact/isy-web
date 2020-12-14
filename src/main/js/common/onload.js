@@ -72,13 +72,6 @@ $(document).ready(function () {
     }
 
     // --------------------------------------------------------
-    // Magnific Popup initialization
-    // --------------------------------------------------------
-    $(document).ready(function () {
-        $('.image-link').magnificPopup({type: 'image'});
-    });
-
-    // --------------------------------------------------------
     // Lazy Loading
     // --------------------------------------------------------
     $(document).scrolled(0, function () {

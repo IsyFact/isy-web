@@ -1,5 +1,6 @@
 /** initialized Image Popups (magnificPopup)
  * Already intiialized Popups are marked with a token class (rf-image-popup_ajaxtoken)
+ * respectively rf-imagelink_ajaxtoken
  * and will be skipped on subsequent calls.
  */
 export function initImagePopups(){
@@ -8,4 +9,8 @@ export function initImagePopups(){
         .magnificPopup({
             type: 'image'
         });
+
+    $('.image-link').filter(':not(.rf-imagelink_ajaxtoken)')
+        .addClass('rf-imagelink_ajaxtoken')
+        .magnificPopup({type: 'image'});
 }
