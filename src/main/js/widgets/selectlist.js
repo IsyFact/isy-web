@@ -1,6 +1,3 @@
-// --------------------------------------------------------
-// Selectlist
-// --------------------------------------------------------
 /**
  * Initializes selectlists and adds a refresh-handler.
  * Already initialized selectlists are marked with a token-class ("selectlist_ajaxtoken")

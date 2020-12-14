@@ -1,7 +1,7 @@
 import { currentDateAsString, setValidDateAsString, datumErgaenzen, fixDateOutOfRange } from "./datum-utils";
 
 /**
- * Addds handlers to all datepickers that haven't been initialized yet.
+ * Adds handlers to all datepickers that haven't been initialized yet.
  * Initialized datepickers are marked with a token class (rf-datepicker_ajaxtoken).
  */
 export function initDatepickers() {
@@ -17,8 +17,10 @@ export function initDatepickers() {
     });
 }
 
-// Initializes the datepicker when it is loaded and
-// handles the actions when the user interacts with the datepicker.
+/**
+ * Initializes the datepicker when it is loaded and
+ * handles the actions when the user interacts with the datepicker.
+ */
 export function createDatepicker () {
     $(this).datepicker({
         format: $(this).attr('dateformat'),
@@ -40,7 +42,9 @@ export function createDatepicker () {
     $datumInputFeld.focusout(datepickerFocusout);
 }
 
-// Opens a datepicker.
+/**
+ * Opens a datepicker.
+ */
 function openDatepicker() {
     const dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
     const inputField = $(this).prev();
@@ -66,7 +70,9 @@ function openDatepicker() {
     $(this).parent().datepicker('update');
 }
 
-// Handles the behavior of the datepicker, when the user loses focus of it.
+/**
+ * Handles the behavior of the datepicker, when the user loses focus of it.
+ */
 function datepickerFocusout () {
     const zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
     const $datumInputFeld = $(this);

@@ -1,7 +1,6 @@
-// --------------------------------------------------------
-// Modal dialogs
-// --------------------------------------------------------
-// show modal dialog, if any exist
+/**
+ * show modal dialog, if any exist
+ */
 export function initModalDialogs() {
     const $modalDialogs = $('#modal-add-personal').filter(':not(.modal_ajaxtoken)');
     $modalDialogs.modal('show');

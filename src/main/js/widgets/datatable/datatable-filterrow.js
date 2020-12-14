@@ -1,4 +1,6 @@
-// Refreshes the filter row of a datatable.
+/**
+ * Refreshes the filter row of a datatable.
+ */
 export function refreshDatatableFilterRow() {
     "use strict";
     $("table.rf-data-table:not('datatable-filterrow-init')")

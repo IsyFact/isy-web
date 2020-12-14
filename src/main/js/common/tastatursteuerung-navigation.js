@@ -1,6 +1,6 @@
-// --------------------------------------------------------
-// navigation
-// --------------------------------------------------------
+/**
+ * Initializes navigation with keyboard.
+ */
 export function initNavigation(){
     $('#main-nav').mainNavigation();
     registerKeybindOpenMainNavigation();

@@ -1,6 +1,3 @@
-// --------------------------------------------------------
-// Panels
-// --------------------------------------------------------
 /**
  * Initializes panels and adds event listeners.
  * Already initialized panels are marked with a token-class ("panel_ajaxtoken")

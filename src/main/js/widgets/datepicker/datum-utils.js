@@ -1,4 +1,6 @@
-// Returns the current date as a string.
+/**
+ * Returns the current date as a string.
+ */
 export function currentDateAsString() {
     "use strict";
     const currentDate = new Date();
@@ -11,7 +13,11 @@ export function currentDateAsString() {
     return heuteMitFuehrendenNullen;
 }
 
-// Creates a string from a date, which is passed in form of an array.
+/**
+ * Creates a string from a date, which is passed in form of an array.
+ * @param date
+ * @returns {string} valid date
+ */
 export function setValidDateAsString(date) {
     "use strict";
     date[0] = date[0].replace("00", "01");
@@ -19,7 +25,11 @@ export function setValidDateAsString(date) {
     return date[0] + '.' + date[1] + '.' + date[2];
 }
 
-// This function transforms two digit years into four digit years in date input fields.
+/**
+ * This function transforms two digit years into four digit years in date input fields.
+ * @param inputFeld input field containing a date
+ * @param grenze threshold indicating if the prefix "19" oder "20" should be added to the two digit year
+ */
 export function datumErgaenzen(inputFeld, grenze) {
     "use strict";
     //The given "grenze" as a limit is added to the current year, so the resulting limit year will update over time
@@ -40,8 +50,12 @@ export function datumErgaenzen(inputFeld, grenze) {
     }
 };
 
-// Creates a valid date from a date which is invalid, because certain values are out of range of actual dates.
-// Result will be returned as a string.
+/**
+ * Creates a valid date from a date which is invalid, because certain values are out of range of actual dates.
+ * Result will be returned as a string.
+ * @param date
+ * @returns {string} valid date
+ */
 export function fixDateOutOfRange(date) {
     let year = date[2],
         month = date[1],

@@ -182,7 +182,7 @@ function refreshFunctions() {
         if (!$group.hasClass(".isyfact-buttonInjectPostGroup_ajaxtoken")) {
             // <a>-tag: remove onclick
             $actualButton.attr("onclickStandby", $actualButton.attr("onclick"));
-            $actualButton.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
+            $actualButton.prop("onclick", null); // IE11 does not support .removeAttr() for "onclick"
 
             // <input type=submit ...> prevent transmission
             // overwrite button action

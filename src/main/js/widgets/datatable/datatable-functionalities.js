@@ -1,6 +1,11 @@
 import { lazyLoad } from "../../common/common-utils";
 
-// Function to highlight a selected row.
+/**
+ * Function to highlight a selected row.
+ * @param $trs rows
+ * @param $tr row
+ * @param selectionMode
+ */
 export function formatRowsFunction ($trs, $tr, selectionMode) {
     // moossenm: added row-selection class to differentiate row selection checkboxes from others
     const $input = $tr.find("td div.row-selection .checkbox label input");
@@ -24,7 +29,9 @@ export function formatRowsFunction ($trs, $tr, selectionMode) {
     }
 }
 
-// Expand clickable area for selection of rows / set double click / initialize selection mode
+/**
+ * Expand clickable area for selection of rows / set double click / initialize selection mode.
+ */
 export function initClickableArea () {
     const $rfDataTable = $(this);
     const $rfDataTableSelectOption = $(this).find("[id$='rfDataTableSelectableOption']").first();
@@ -82,7 +89,11 @@ export function initClickableArea () {
     }
 }
 
-// Register a "select all" checkbox.
+/**
+ * Register a "select all" checkbox.
+ * @param $selectAllCheckbox
+ * @param $rfDataTable
+ */
 export function selectAllFunction ($selectAllCheckbox, $rfDataTable) {
     //firstly, remove indeterminate state
     $selectAllCheckbox.prop("indeterminate", false);
@@ -104,6 +115,9 @@ export function selectAllFunction ($selectAllCheckbox, $rfDataTable) {
     });
 }
 
+/**
+ * Handles if certain details should be shown or hidden.
+ */
 export function showHideDetail () {
     const $table = $(this);
     // =============== START DETAILVIEW ===================== //
@@ -115,7 +129,9 @@ export function showHideDetail () {
     // =============== END DETAILVIEW ===================== //
 }
 
-//
+/**
+ * Hides unneeded elements.
+ */
 export function showDetail () {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -149,6 +165,10 @@ export function showDetail () {
     }, 50);
 }
 
+/**
+ * Shows necessary elements that can be hidden.
+ * @param e click event
+ */
 export function hideDetail (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -163,7 +183,9 @@ export function hideDetail (e) {
     $this.on('click.showdetail', showDetail);
 }
 
-// Activates the sorting for data table.
+/**
+ * Activates the sorting for data table.
+ */
 export function activateJSSorting () {
     const $rfDataTable = $(this);
     const $sortFunction = $rfDataTable.find("[id$='rfDataTableJsSortFunction']");
@@ -248,7 +270,12 @@ export function activateJSSorting () {
 
 }
 
-// Calculate Tristats.
+/**
+ * Calculate tristate.
+ * @param $checkboxes
+ * @param $selectAllCheckbox
+ * @param $rfDataTable
+ */
 export function tristateBerechnen ($checkboxes, $selectAllCheckbox, $rfDataTable) {
     $selectAllCheckbox.prop("indeterminate", false);
 
@@ -272,7 +299,9 @@ export function tristateBerechnen ($checkboxes, $selectAllCheckbox, $rfDataTable
     }
 }
 
-// Sets the state of a select-all checkbox to the correct one.
+/**
+ * Sets the state of a select-all checkbox to the correct one.
+ */
 export function setSelectAllCheckboxState () {
     const $selectAllCheckbox = $(this).find("[id*='dataTableSelectAll']").first();
     const $rfDataTable = $(this);
