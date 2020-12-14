@@ -17,6 +17,7 @@ import { initSelectpickers } from "../widgets/selectpicker";
 import { initImagePopups } from "../widgets/imagepopup";
 import { initBrowseCollect } from "../widgets/browsecollect";
 import { executeAndRefreshButtonInjectPostGroups } from "../widgets/buttoninjectpostgroup";
+import { renderAjaxErrorMessage, trackAjaxRequests } from "./ajax";
 
 $(document).ready(function () {
     'use strict';
@@ -24,60 +25,23 @@ $(document).ready(function () {
     // Handler for AJAX requests
     // jsf = JSF JavaScript Library
     if (typeof (jsf) != "undefined") {
-        // --------------------------------------------------------
-        // Error Handling
-        // --------------------------------------------------------
-        jsf.ajax
-            .addOnError(function (data) {
-
-                // determine error message
-                let errorMessage = $("[id$='ajaxErrorMessage']").val();
-                const errorMessageTitle = $("[id$='ajaxErrorMessageTitle']").val();
-
-                // write to console
-                const error = data.description;
-                console.log(error);
-
-                // replace error message
-                errorMessage = errorMessage.replace("%%FEHLER%%", error);
-
-                // render as a message
-                $("[id$='messagesPlaceholder']").replaceWith(
-                    "<div role='alert' class='alert alert-danger'>" +
-                    "<span><span class='icon icon-placeholder'></span>" +
-                    "<strong>" + errorMessageTitle + "</strong></span>" +
-                    "<span>" + errorMessage + "</span>" +
-                    "</div>");
-
-            });
-
-        // --------------------------------------------------------
-        // Ajax-Callback
-        // --------------------------------------------------------
+        // render error messages
+        jsf.ajax.addOnError(renderAjaxErrorMessage);
+        // track status
+        jsf.ajax.addOnEvent(trackAjaxRequests);
+        // refresh handlers after ajax call
         jsf.ajax.addOnEvent(function (callback) {
-
-            if (callback.status === 'begin') {
-                $(".ajax-status span").text("begin");
-            }
-
-            if (callback.status === 'complete') {
-                $(".ajax-status span").text("complete");
-            }
-
             if (callback.status === 'success') {
                 refreshFunctions();
-                initialisierenListpickerServlet();
             }
-
         });
     }
 
-    // --------------------------------------------------------
     // Lazy Loading
-    // --------------------------------------------------------
     $(document).scrolled(0, function () {
         lazyLoad();
     });
+
     $(window).resize(function () {
         const tag = "resizeTimer";
         const self = $(this);
@@ -92,10 +56,7 @@ $(document).ready(function () {
         self.data(tag, timer);
     });
 
-
-    // --------------------------------------------------------
-    // initialize functions
-    // --------------------------------------------------------
+    // init handlers on first load
     refreshFunctions();
 
 });
