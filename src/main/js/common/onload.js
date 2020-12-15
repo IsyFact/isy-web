@@ -18,6 +18,7 @@ import { initImagePopups } from "../widgets/imagepopup";
 import { initBrowseCollect } from "../widgets/browsecollect";
 import { executeAndRefreshButtonInjectPostGroups } from "../widgets/buttoninjectpostgroup";
 import { renderAjaxErrorMessage, trackAjaxRequests } from "./ajax";
+import { addHandlersToSidebar } from "./sidebar-collapse";
 
 $(document).ready(function () {
     'use strict';
@@ -59,6 +60,8 @@ $(document).ready(function () {
     // init handlers on first load
     refreshFunctions();
 
+    // handlers that will only need to be loaded once, as they are generally not changed by ajax requests
+    addHandlersToSidebar();
 });
 
 /**
