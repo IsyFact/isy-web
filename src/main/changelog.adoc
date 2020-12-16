@@ -1,6 +1,12 @@
 [[changelog]]
 = Changelog
 
+*Änderungen Release 5.1.0*
+
+// tag::release-5.1.0[]
+- `IFE-141`: teilt onload.js auf einzelne Komponenten auf
+// end::release-5.1.0[]
+
 *Änderungen Release 5.0.0*
 
 // tag::release-5.0.0[]

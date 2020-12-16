@@ -3,6 +3,15 @@
 [[changelog]]
 = Changelog Isy-Web
 
+== Änderungen Release 5.1.0
+
+// Beginn Übergreifende Änderungen
+
+// Ende übergreifende Änderungen
+//include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-5.1.0]
+//include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-5.1.0]
+include::src/main/changelog.adoc[tag=release-5.1.0]
+
 == Änderungen Release 5.0.0
 
 // Beginn Übergreifende Änderungen
