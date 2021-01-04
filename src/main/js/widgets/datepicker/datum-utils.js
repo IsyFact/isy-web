@@ -4,7 +4,7 @@
 export function currentDateAsString() {
     "use strict";
     const currentDate = new Date();
-    const dayOfMonth = 6; //currentDate.getDate();
+    const dayOfMonth = currentDate.getDate();
     const month = currentDate.getMonth() + 1;
     const year = currentDate.getFullYear();
     const heute = dayOfMonth.toString() + '.' + month.toString() + '.' + year.toString();
