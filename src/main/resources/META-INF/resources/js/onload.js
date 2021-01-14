@@ -91,7 +91,7 @@ $(document).ready(function () {
 /**
  * Refreshes existing JS-listeners.
  * Every function has to ensure on ajax requests that the listeners are registered only once.
- * If the listeners already exists, they should not be registered again.
+ * If the listeners already exists, they must not be registered again.
  */
 function refreshFunctions() {
     'use strict';
@@ -379,8 +379,8 @@ function refreshFunctions() {
         const $rows = $(this).find("tbody tr");
         $rows.each(function () {
             const $row = $(this);
-            let clicks = 0;
-            let timer = null;
+            const clicks = 0;
+            const timer = null;
 
             let functionSingleClick = null;
             if (selectActive) {
@@ -685,7 +685,7 @@ function refreshFunctions() {
             function () {// open a datepicker
                 const dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
                 const inputField = $(this).prev();
-                let date = inputField.val().split('.');
+                const date = inputField.val().split('.');
 
                 // delete underscore placeholders
                 const placeholderReg = /\D/gi;
@@ -700,7 +700,7 @@ function refreshFunctions() {
                     dateString = setValidDateAsString(date);
                 } else {
                     // copy the manuell entered date into the datepicker
-                    // invalid date inputs will be fixed
+                    // out of range date inputs will be fixed
                     dateString = fixDateOutOfRange(date);
                 }
                 $(this).parent().datepicker('setDate', dateString);
@@ -720,7 +720,7 @@ function refreshFunctions() {
             if (date[0] === "99") {
                 $datumInputFeld.val(currentDateAsString());
             } else {
-                // wrong dates will be fixed
+                // out of range date inputs will be fixed
                 $datumInputFeld.val(fixDateOutOfRange(date));
             }
         });
@@ -731,8 +731,8 @@ function refreshFunctions() {
     });
 
     function fixDateOutOfRange(date) {
-        let year = date[2],
-            month = date[1],
+        const year = date[2];
+        let month = date[1],
             day = date[0];
         // Assume not leap year by default (note zero index for Jan)
         const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -802,7 +802,8 @@ function refreshFunctions() {
      */
     const listpickerLoeseSchluesselAuf = function (listpickerfield, indexSpalteSchluesselWert) {
         if (listpickerfield.val().indexOf(" - ") >= 0) {
-            // verhindere, dass Ziffern aus dem Wert im Feld verbleiben
+            // cut previously resolved value from the input field
+            // only keep the key that will be resolved
             listpickerfield.val(listpickerfield.val().substring(0,
                 listpickerfield.val().indexOf(" - ")));
         }
@@ -928,7 +929,7 @@ function refreshFunctions() {
         });
 
 
-        // intecept clicks and close picker if needed
+        // intercept clicks and close picker if needed
         $(document).click(function (e) {
 
             const $target = $(e.target);
@@ -977,13 +978,13 @@ function refreshFunctions() {
         // ensure that the change-event is triggered whenever the listpickerfilter is changed
         $listpickerFilter.bind('keyup.ensureChange', function (event) {
             const keyCode = event.keyCode;
-            const valid = inputChangingKeycode(keyCode); // ändert der Tastendruck den Inhalt des Filters?
+            const valid = inputChangingKeycode(keyCode); // does the key press change the filter content?
             if (valid) {
                 $(this).change();
             }
         });
 
-        // react to input into the input field (especially on AJAX-Widgets)
+        // react to input into the input field (on AJAX-Widgets as well)
         // this is not needed on pickers, that filter via servlet
         if (!$listpickerFilter.parent().hasClass('servlet')) {
             $listpickerFilter
@@ -1190,7 +1191,7 @@ function refreshFunctions() {
     $buttonInjectPostGroups.each(function () {
         const $group = $(this);
 
-        // find clickable element int the ButtonInjectPostGroup
+        // find clickable element in the ButtonInjectPostGroup
         const $actualButton = $group.find(":nth-child(4)");
 
         // find button for POST-action
@@ -1484,7 +1485,7 @@ function refreshFunctions() {
                 // find all table entries with details-preview and hide them
                 $itemsWithDetails.hide();
                 const itemCount = getItemCount();
-                // eingrenzen
+                // limit
                 const itemFrom = cumulative ? 0 : (currentPage - 1) * pageSize;
                 const itemTo = Math.min(currentPage * pageSize, itemCount);
                 const isLastPage = (itemCount == itemTo);
@@ -1617,7 +1618,7 @@ function refreshFunctions() {
                 });
                 // at this point the table entries are sorted without the details
                 // we need to correctly assign the details now
-                let newItems = [];
+                const newItems = [];
                 $.each(items, function (i, item) {
                     const $item = $(item);
                     const index = $item.index(); // index in DOM before sorting
@@ -1630,7 +1631,7 @@ function refreshFunctions() {
                     }
                 });
                 $itemsWithDetails.detach();
-                let tbody = $table.find("tbody");
+                const tbody = $table.find("tbody");
                 tbody.append(newItems);
                 $itemsWithDetails = $table.find("tbody tr");
             };
@@ -1640,7 +1641,7 @@ function refreshFunctions() {
                 let sortClass = 'sort-up'; // standardmäßig aufsteigend sortiert
                 const thisSortProperty = $th.data("sortattribute");
                 if (thisSortProperty == getSortProperty()) {
-                    // Richtung invertieren
+                    // invert sort direction
                     if ($th.hasClass('sort-up')) {
                         sortClass = 'sort-down';
                     }
@@ -1741,7 +1742,7 @@ function listpickerAjaxReload(callback, keyCode) {
 
 
     if (callback.status === 'begin' && $listpickerFilter.is($(document.activeElement))) {
-        // block ui of the listpicker
+        // ui-block on the listpicker
         $ajaxSpinner.css("position", $listpickerContent.css("position"));
         $ajaxSpinner.css("top", $listpickerContent.css("top"));
         $ajaxSpinner.css("left", $listpickerContent.css("left"));
@@ -1825,7 +1826,7 @@ function blockSingleButton(data) {
 function lazyLoad() {
     'use strict';
 
-    // Bilder
+    // images
     $("[data-src].lazy").each(function () {
         const $lazyImage = $(this);
         if ($lazyImage.visible()) {
@@ -1890,7 +1891,7 @@ function formatiereInput(input, dezimalstellen) {
     'use strict';
     let value = input.split(".").join("");
     value = value.replace(',', '.');
-    let tmp = parseFloat(value).toFixed(dezimalstellen);
+    const tmp = parseFloat(value).toFixed(dezimalstellen);
     return tmp.replace('.', ',');
 }
 
@@ -2251,7 +2252,7 @@ function servletListpickerFilterChanged(event) {
 createListpickerTable = function (responseText, listfilter) {
     "use strict";
     const $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
-    let $table = $tablecontainer.find(".servletTable");
+    const $table = $tablecontainer.find(".servletTable");
     $table.empty();
     const tableJson = JSON.parse(responseText);
     for (let j in tableJson.items) {
@@ -2264,7 +2265,7 @@ createListpickerTable = function (responseText, listfilter) {
         $table.append(tr);
     }
     if (tableJson.weiterFiltern === true) {
-        let trWeiterFiltern = $('<tr>');
+        const trWeiterFiltern = $('<tr>');
         const tdWeiterFiltern = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
         trWeiterFiltern.append(tdWeiterFiltern);
         $table.append(trWeiterFiltern);

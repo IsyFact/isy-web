@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     tastatursteuerungAktualisieren();
 
-    // keyboard controls for linksnavigation
+    // keyboard controls for link navigation
     $(document).bind('keydown', 'alt+shift+l', function(e) {
         e.preventDefault();
         e.stopPropagation();

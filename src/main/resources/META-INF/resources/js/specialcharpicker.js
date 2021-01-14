@@ -52,7 +52,7 @@ $(function () {
         this.$charItems = $('.special-char');
         this.initEvents();
         
-        let filterMap = {};
+        const filterMap = {};
         this.$filterItems.each(function (index, item) {
             const filter = $(item).data().filter || '*';
             filterMap[filter] = index;
@@ -466,7 +466,7 @@ $(function () {
             if (this.$inputEl.caret() != pos)
             {
                if (this.$inputEl[0].createTextRange) {
-                 let range = this.$inputEl[0].createTextRange();
+                 const range = this.$inputEl[0].createTextRange();
                  range.collapse(true);
                  range.moveEnd('character', pos);
                  range.moveStart('character', pos);
@@ -611,7 +611,7 @@ $(function () {
             // --------------------------------------------------------
             jsf.ajax.addOnEvent(function(callback) {
                 
-                let charpicker = $('.special-char-picker-widget').data("initializer");
+                const charpicker = $('.special-char-picker-widget').data("initializer");
                 
                 if (callback.status === 'begin') {
                   if (charpicker !== undefined) {
