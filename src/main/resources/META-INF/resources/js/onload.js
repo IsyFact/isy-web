@@ -1193,8 +1193,14 @@ function refreshFunctions() {
         // Finde klickbares Element in der ButtonInjectPostGroup
         var $actualButton = $group.find(":nth-child(4)");
 
+        var $postButtonId = $group.find("[id$='postButton']").val();
         // Finde Button für POST-Aktion
-        var $postButton = $("[id$='" + $group.find("[id$='postButton']").val() + "']");
+        var $postButton = $("[id$='" + $postButtonId + "']");
+        //jsf ids might have other suffixes delimited with ':', e.g. ':ajax_button'
+        //prefer no-suffix version, but if none is found, look for suffixed buttons as well
+        if ($postButton.length === 0){
+            $postButton = $("[id*='" + $postButtonId + ":']");
+        }
 
         // Finde Feld für posted
         var $posted = $group.find("[id$='posted']");
@@ -1202,35 +1208,29 @@ function refreshFunctions() {
         // Finde Feld für continue
         var $continue = $group.find("[id$='continue']");
 
-
         if ($posted.attr("value") === 'true') {
             // Die POST-Aktion wurde zuvor erfolgreich beendet. Setze das Flag zurück.
             $posted.attr("value", "false");
 
-            $actualButton.unbind("click.postInject");
-            // Falls <a>-Tag: Gib onclick zurück
-            $actualButton.attr("onclick", $actualButton.attr("onclickStandby"));
-
             // Tatsächlich geklickt wird nur, wenn das continue-Flag gesetzt ist
             if ($continue.attr("value") === 'true') {
-                $actualButton.click();
+                $actualButton.trigger("onclickStandby");
             }
         }
 
         // Events binden, falls noch nicht geschehen
-        if (!$group.hasClass(".isyfact-buttonInjectPostGroup_ajaxtoken")) {
+        if (!$group.hasClass("isyfact-buttonInjectPostGroup_ajaxtoken")) {
             // <a>-Tag: Entferne onclick
-            $actualButton.attr("onclickStandby", $actualButton.attr("onclick"));
+            $actualButton.on("onclickStandby", $actualButton.prop("onclick"));
             $actualButton.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
 
             // <input type=submit ...> Verhindere Übermittlung
             // Überschreibe Buttonaktion
-            $actualButton.bind("click.postInject", function (event) {
+            $actualButton.on("click.postInject", function (event) {
                 event.preventDefault();
                 $posted.attr("value", "true");
                 $postButton.click();
             });
-
             $group.addClass('isyfact-buttonInjectPostGroup_ajaxtoken');
         }
 
