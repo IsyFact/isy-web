@@ -25,6 +25,7 @@ module.exports = {
     },
     optimization: {
         minimizer: [
+            `...`, //keep default minimizer enabled
             new CssMinimizerPlugin(),
         ],
     },
