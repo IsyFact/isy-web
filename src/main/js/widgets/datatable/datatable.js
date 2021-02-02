@@ -355,7 +355,7 @@ export function createDatatable() {
         });
         // at this point the table entries are sorted without the details
         // we need to correctly assign the details now
-        let newItems = [];
+        const newItems = [];
         $.each(items, function (i, item) {
             const $item = $(item);
             const index = $item.index(); // index in DOM before sorting
@@ -368,7 +368,7 @@ export function createDatatable() {
             }
         });
         $itemsWithDetails.detach();
-        let tbody = $table.find("tbody");
+        const tbody = $table.find("tbody");
         tbody.append(newItems);
         $itemsWithDetails = $table.find("tbody tr");
     };
@@ -378,7 +378,7 @@ export function createDatatable() {
         let sortClass = 'sort-up'; // ascending sort per default
         const thisSortProperty = $th.data("sortattribute");
         if (thisSortProperty == getSortProperty()) {
-            // reverse order
+            // invert sort direction
             if ($th.hasClass('sort-up')) {
                 sortClass = 'sort-down';
             }

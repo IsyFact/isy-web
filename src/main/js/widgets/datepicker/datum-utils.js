@@ -57,8 +57,8 @@ export function datumErgaenzen(inputFeld, grenze) {
  * @returns {string} valid date
  */
 export function fixDateOutOfRange(date) {
-    let year = date[2],
-        month = date[1],
+    const year = date[2];
+    let month = date[1],
         day = date[0];
     // Assume not leap year by default (note zero index for Jan)
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

@@ -63,7 +63,7 @@ function openDatepicker() {
         dateString = setValidDateAsString(date);
     } else {
         // copy the manually entered date into the datepicker
-        // invalid date inputs will be fixed
+        // out of range date inputs will be fixed
         dateString = fixDateOutOfRange(date);
     }
     $(this).parent().datepicker('setDate', dateString);
@@ -85,7 +85,7 @@ function datepickerFocusout () {
     if (date[0] === "99") {
         $datumInputFeld.val(currentDateAsString());
     } else {
-        // wrong dates will be fixed
+        // out of range date inputs will be fixed
         $datumInputFeld.val(fixDateOutOfRange(date));
     }
 }

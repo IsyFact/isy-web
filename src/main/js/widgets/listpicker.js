@@ -134,13 +134,13 @@ export function registerListpickerHandlers() {
     // ensure that the change-event is triggered whenever the listpickerfilter is changed
     $listpickerFilter.bind('keyup.ensureChange', function (event) {
         const keyCode = event.keyCode;
-        const valid = inputChangingKeycode(keyCode); // ändert der Tastendruck den Inhalt des Filters?
+        const valid = inputChangingKeycode(keyCode); // does the key press change the filter content?
         if (valid) {
             $(this).change();
         }
     });
 
-    // react to input into the input field (especially on AJAX-Widgets)
+    // react to input into the input field (on AJAX-Widgets as well)
     // this is not needed on pickers, that filter via servlet
     if (!$listpickerFilter.parent().hasClass('servlet')) {
         $listpickerFilter
@@ -325,7 +325,7 @@ export function listpickerAjaxReload(callback, keyCode) {
 
 
     if (callback.status === 'begin' && $listpickerFilter.is($(document.activeElement))) {
-        // block ui of the listpicker
+        // ui-block on the listpicker
         $ajaxSpinner.css("position", $listpickerContent.css("position"));
         $ajaxSpinner.css("top", $listpickerContent.css("top"));
         $ajaxSpinner.css("left", $listpickerContent.css("left"));
@@ -449,7 +449,7 @@ function servletListpickerFilterChanged(event) {
 /** Creates a ListpickerTable based on the responseText. */
 function createListpickerTable (responseText, listfilter) {
     const $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
-    let $table = $tablecontainer.find(".servletTable");
+    const $table = $tablecontainer.find(".servletTable");
     $table.empty();
     const tableJson = JSON.parse(responseText);
     for (let j in tableJson.items) {
@@ -462,7 +462,7 @@ function createListpickerTable (responseText, listfilter) {
         $table.append(tr);
     }
     if (tableJson.weiterFiltern === true) {
-        let trWeiterFiltern = $('<tr>');
+        const trWeiterFiltern = $('<tr>');
         const tdWeiterFiltern = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
         trWeiterFiltern.append(tdWeiterFiltern);
         $table.append(trWeiterFiltern);
