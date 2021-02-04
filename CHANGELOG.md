@@ -17,6 +17,7 @@
    - Neues CSS bundle: META-INF/resources/css/isyweb.css
         - enthält specialcharpicker.css
 - `IFE-141`: teilt onload.js auf einzelne Komponenten auf
+- `IFE-271`: Funktionalität von buttinInjectPost wiederhergestellt
 
 # v5.0.0
 - `IFS-411`: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird

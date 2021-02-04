@@ -11,7 +11,13 @@ export function executeAndRefreshButtonInjectPostGroups(){
         const $actualButton = $group.find(":nth-child(4)");
 
         // find button for POST-action
-        const $postButton = $("[id$='" + $group.find("[id$='postButton']").val() + "']");
+        const $postButtonId = $group.find("[id$='postButton']").val();
+        let $postButton = $("[id$='" + $postButtonId + "']");
+        //jsf ids might have other suffixes delimited with ':', e.g. ':ajax_button'
+        //prefer no-suffix version, but if none is found, look for suffixed buttons as well
+        if ($postButton.length === 0){
+            $postButton = $("[id*='" + $postButtonId + ":']");
+        }
 
         // find field for posted
         const $posted = $group.find("[id$='posted']");
@@ -24,30 +30,25 @@ export function executeAndRefreshButtonInjectPostGroups(){
             // the POST action was successfully completed. Reset the flag.
             $posted.attr("value", "false");
 
-            $actualButton.unbind("click.postInject");
-            // If <a>-Tag: return onclick
-            $actualButton.attr("onclick", $actualButton.attr("onclickStandby"));
-
-            // Only trigger the click, if continue-flag was set
+            // only click if continue-flag was set
             if ($continue.attr("value") === 'true') {
-                $actualButton.click();
+                $actualButton.trigger("onclickStandby");
             }
         }
 
         // bind events, if they haven't already
-        if (!$group.hasClass(".isyfact-buttonInjectPostGroup_ajaxtoken")) {
+        if (!$group.hasClass("isyfact-buttonInjectPostGroup_ajaxtoken")) {
             // <a>-tag: remove onclick
-            $actualButton.attr("onclickStandby", $actualButton.attr("onclick"));
-            $actualButton.prop("onclick", null); // IE11 does not support .removeAttr() for "onclick"
+            $actualButton.on("onclickStandby", $actualButton.prop("onclick"));
+            $actualButton.prop("onclick", null);
 
             // <input type=submit ...> prevent transmission
             // overwrite button action
-            $actualButton.bind("click.postInject", function (event) {
+            $actualButton.on("click.postInject", function (event) {
                 event.preventDefault();
                 $posted.attr("value", "true");
                 $postButton.click();
             });
-
             $group.addClass('isyfact-buttonInjectPostGroup_ajaxtoken');
         }
     });
