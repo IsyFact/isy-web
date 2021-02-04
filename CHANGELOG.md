@@ -2,6 +2,7 @@
  - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
             
             `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
+- `IFE-271`: Stellt Funktionalität von buttonInjectPost-Element wieder her.
 
 # 4.9.1
 - `IFE-144`: Bereinigung der "Maven Dependency Convergence"-Warnings: Exclusions für divergierende Versionen hinzugefügt.
