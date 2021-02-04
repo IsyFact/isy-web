@@ -22,18 +22,27 @@ export function createTabGroup () {
             $tabLink.prop("onclick", null); // IE11 doesn't support .removeAttr() for "onclick"
         }
 
-        $tabLink.click((event) => { openTab(event, $isyTabGroup, tabHochScrollenAktiv, $tab) });
+        $tabLink.click({
+            tabGroup: $isyTabGroup,
+            hochScrollenAktiv: tabHochScrollenAktiv,
+            tab: $tab
+        }, openTab);
     });
 }
 
 /**
  * Show content when clicking on a tab.
  * @param event click event
- * @param $isyTabGroup the user has clicked on
- * @param tabHochScrollenAktiv is autoscrolling enabled on click
- * @param $tab tab from $isyTabGroup the user has clicked on
+ * event.data should contain:
+ * * tabGroup: jquery-selector for tabGroup the user has clicked on
+ * * hochScrollenAktiv: is autoscrolling enabled on click
+ * * tab:  jquery-selector for tab the user has clicked on
  */
-function openTab (event, $isyTabGroup, tabHochScrollenAktiv, $tab) {
+function openTab (event) {
+    const $isyTabGroup = event.data.tabGroup;
+    const tabHochScrollenAktiv = event.data.hochScrollenAktiv;
+    const $tab = event.data.tab;
+
     if ($tab.hasClass('skipAction')) {
         event.preventDefault();
     }
