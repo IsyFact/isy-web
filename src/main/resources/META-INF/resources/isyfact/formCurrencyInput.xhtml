@@ -108,9 +108,10 @@
                         </input>
                     </ui:fragment>
                     <ui:fragment rendered="#{cc.attrs.readonly}">
-                        <input type="text" class="form-control readonly#{cc.attrs.alignright ? ' currency-input-text-align-right' : ''}"
-                                jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-                                readonly="readonly" jsf:value="#{cc.attrs.value}" />
+                        <span class="form-control readonly#{cc.attrs.alignright ? ' currency-input-text-align-right' : ''}"
+                                jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" >
+                            #{cc.attrs.value}
+                        </span>
                     </ui:fragment>
 
                 </div>

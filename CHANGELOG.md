@@ -1,4 +1,7 @@
 # v5.1.0
+- `IFE-57`: 
+    - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
+    - Darstellung von Readonly Felder für Input Controlls vereinheitlicht. 
 
 # v5.0.0
 - `IFE-95`: Nachdokumentation für Eingabefeld ohne Label
