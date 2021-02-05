@@ -1,3 +1,8 @@
+# v4.9.2
+ - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
+            
+            `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
+
 # 4.9.1
 - `IFE-144`: Bereinigung der "Maven Dependency Convergence"-Warnings: Exclusions für divergierende Versionen hinzugefügt.
 - `IFE-139`: JavaScript Anpassungen für IE11
@@ -111,28 +116,28 @@
 
 ## Bugfixes
 - `IFS-30`:
-	* Das Sortieren von DataTables im Client-Mode funktioniert wieder.
-	* Fix: "." im Attribut reference bzw. referenceId führt dazu, dass AJAX Aufrufe nicht behandelt werden. Betrifft folgende Komponenten:
-		* formSelectOneDropdown.xhtml
-		* selectOneDropdown.xhtml (referenceId)
-	* formSelectOneDropdown: Klick auf Label selektiert wieder das entsprechende Dropdown.
+    * Das Sortieren von DataTables im Client-Mode funktioniert wieder.
+    * Fix: "." im Attribut reference bzw. referenceId führt dazu, dass AJAX Aufrufe nicht behandelt werden. Betrifft folgende Komponenten:
+        * formSelectOneDropdown.xhtml
+        * selectOneDropdown.xhtml (referenceId)
+    * formSelectOneDropdown: Klick auf Label selektiert wieder das entsprechende Dropdown.
 - Tabs: Das Attribut skipAction (tabHeader) hat nun den Standardwert false und korrespondiert somit zum Standardwert des Attributs preload (tabContent).
-	Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
+    Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
 
 ## Neuerungen
 - `IFS-29`: 
-	* Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
-	* DataTable übernimmt Änderungen von DataTable3.
-	* Einführung von <h>-Tags für Überschriften von Panels.
-	* Korrigierter JS-Code für die Formatierung von Geldbeträgen.
-	* formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
-	* selectManyList und selectOneList übernommen.
-	* Labels gefixt für:
-		* formActionInput
-		* formTextarea
-		* formListpicker
-		* formCurrencyInput
-		* formBrowseAndCollect		
+    * Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
+    * DataTable übernimmt Änderungen von DataTable3.
+    * Einführung von <h>-Tags für Überschriften von Panels.
+    * Korrigierter JS-Code für die Formatierung von Geldbeträgen.
+    * formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
+    * selectManyList und selectOneList übernommen.
+    * Labels gefixt für:
+        * formActionInput
+        * formTextarea
+        * formListpicker
+        * formCurrencyInput
+        * formBrowseAndCollect
 - `IFS-18`: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
 - `IFS-23`: Eingabe von Geldbeträgen mit mehr als zwei Nachkommastellen
 

@@ -184,7 +184,7 @@ public class SpecialCharPickerRenderer extends Renderer {
             return false;
         } else {
             for (Character basiszeichenChar : basiszeichenListe) {
-                if (basiszeichenChar.toString().equalsIgnoreCase(zeichen)) {
+                if (basiszeichenChar.toString().equals(zeichen) || basiszeichenChar.toString().toLowerCase().equals(zeichen)) {
                     return true;
                 }
             }
