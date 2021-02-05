@@ -51,6 +51,8 @@ public class SpecialCharPickerWidgetTest {
         assertEquals(468, sonderzeichen.size());
         assertEquals("Euro", sonderzeichen.get("€").getTitel());
         assertEquals('O', sonderzeichen.get("ø").getBasiszeichen());
+        assertEquals('I', sonderzeichen.get("İ").getBasiszeichen());
+        assertEquals('I', sonderzeichen.get("ı").getBasiszeichen());
     }
 
     @Test(expected = IllegalStateException.class)
