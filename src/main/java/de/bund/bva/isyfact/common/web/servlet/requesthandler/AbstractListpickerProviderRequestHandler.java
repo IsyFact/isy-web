@@ -19,13 +19,37 @@ import de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerGuiIte
 import de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerGuiKonfiguration;
 
 /**
- * Servlet das Listpicker mit Informationen befüllt. </br>
+ * Servlet das Listpicker mit Informationen befüllt. <br/>
  * Um ein Listpicker als Servlet nutzen zu können, muss folgendes getan werden:
  * <ul>
  * <li>Eine konkrete Implementierung dieser Klasse bereitstellen.</li>
- * <li>In der web.xml der Anwendung ein Servlet mit Servlet-Mapping (URL(-Pattern), für das das Servlet
- * "zuständig" ist) für den entsprechenden Requesthandler eintragen. Die Bean des Handlers muss dazu im
- * SpringContext vorhanden sein.</li>
+ * <li>Die Implementierung als Bean zur Verfügung stellen, z.B. folgendermaßen: <br/>
+ *    <pre>
+ *    &#064;Bean {@code
+ *    BeispielListpickerProviderRequestHandler beispielListpickerProviderRequestHandler() {
+ *       return new BeispielListpickerProviderRequestHandler();
+ *    }
+ *    }</pre>
+ *    (kann auch über Annotation der Klasse als Component geregelt werden)
+ *    Spring benötigt im nächsten Schritt den Namen dieser Bean.
+
+ * </li>
+ * <li> HttpRequestHandlerServlet registrieren.
+ * Der Name der obigen Bean muss angegeben werden, sowie der Pfad unter dem das Servlet erreichbar sein soll.
+ *    <pre>
+ *    &#064;Bean {@code
+ *    public ServletRegistrationBean<HttpRequestHandlerServlet> listPickerServletBean() {
+ *         ServletRegistrationBean<HttpRequestHandlerServlet> bean = new ServletRegistrationBean<>(
+ *             //Pfad für das Servlet
+ *             new HttpRequestHandlerServlet(), "/app/beispiellistpicker"
+ *         );
+ *         // hier wird der Name der obigen Bean angegeben!
+ *         bean.setName("beispielListpickerProviderRequestHandler");
+ *         bean.setLoadOnStartup(1);
+ *         return bean;
+ *     }
+ *    }</pre>
+ * </li>
  * </ul>
  */
 public abstract class AbstractListpickerProviderRequestHandler implements HttpRequestHandler {
