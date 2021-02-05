@@ -70,7 +70,7 @@ public class AbstractBehoerdeListpickerControllerTest {
         messageSourceHolder.setMessageSource(messageSource);
 
         when(messageSource
-            .getMessage("MEL_Behoerdelistpicker_weitere_Elemente", new Object[] { null }, Locale.GERMANY))
+            .getMessage("MEL_Behoerdelistpicker_weitere_Elemente", new Object[] {}, Locale.GERMANY))
             .thenReturn("nachrichtMehrElemente");
 
         controller.setMaxElemente(2);
