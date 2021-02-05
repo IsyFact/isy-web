@@ -345,17 +345,25 @@ Dies erfolgt immer durch einen Controller, der die Daten aus dem Model an den An
 Jeder View-State in der Flow-Definition der GUI-Komponente ist mit einer eigenen Maske, dem View verknüpft.
 Spring Web Flow steuert das Rendering des Views.
 
-Der View einer GUI Komponente ist nach dem Umsetzungsmuster der IsyFact wie folgt aufgebaut: Eine Facelet-Datei dient dazu, die im Seitentemplate (siehe <<Einleitung>>) inkludierte Definition der Seitenbereiche des Inhaltsbereiches zu definieren.
-Das Tag `<ui:composition>` referenziert hierbei das Seitentemplate, in welchem die über `<ui:define>`
-definierten Teile eingebunden werden.
-Die verschiedenen Teile des Seitentemplates finden sich in <<jsf-seitenelemente>>.
+Der View einer GUI Komponente ist nach dem Umsetzungsmuster der IsyFact wie folgt aufgebaut: Eine Facelet-Datei dient dazu, die im Seitentemplate inkludierte Definition der Seitenbereiche des Inhaltsbereiches zu definieren.
 
 Je nach Seitentyp muss entweder
 
 * `/WEB-INF/gui/common/layout/applikationDetailseite.xhtml` oder
 * `/WEB-INF/gui/common/layout/applikation.xhtml`
 
-als Template angegeben werden.
+als Ausgangs-Seitentemplate angegeben werden.
+
+:desc-demoWebGui-ApplicationTemplate: Einbindung eines Ausgangsseiten-Templates (applikation.xhtml)
+[id="demoWebGui-ApplicationTemplate", reftext="{figure-caption} {counter:figures}"]
+.{desc-demoWebGui-ApplicationTemplate}
+image::demoWebGui-ApplicationTemplate.png[align="center"]
+
+Das Tag `<ui:composition>` referenziert hierbei das Ausgangsseiten-Template, in welchem die über `<ui:define>`
+definierten Teile eingebunden werden.
+
+Die verschiedenen Teile des Seitentemplates finden sich in <<jsf-seitenelemente>>.
+
 
 Die Templates bieten folgende Schnittstellen über den `ui:define` / `ui:insert` Mechanismus von JSF an:
 
@@ -373,7 +381,7 @@ Die Templates bieten folgende Schnittstellen über den `ui:define` / `ui:insert`
 Normalerweise stellt das Layout eine Form bereit.
 Für spezifische Anpassungen (z.B. AJAX-Listpicker) müssen jedoch eigene Forms definiert werden.
 
-:desc-listing-jsfViewState: Beispiel für eine JSF ViewState Seite
+:desc-listing-jsfViewState: Beispiel für eine JSF ViewState Seite mit Inhaltsbereichsangabe
 [id="listing-jsfViewState",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-jsfViewState}
 [source,xml]
@@ -1305,9 +1313,19 @@ Folgende Konfiguration muss für die Spring-Security Konfiguration übernommen w
 
 `<import resource="classpath:resources/isy-web/spring/isy-sicherheit-web.xml"/>`
 
-Die eingebundenen Spring-Konfigurationen erwarten folgende Beans unter dem angegebenen Namen vorzufinden:
+Die eingebundenen Spring-Konfigurationen erwarten eine Bean unter dem Namen "accessDecisionManager"vorzufinden.
+Die Bean-Attribute "property name" und "ref" sind hierbei auf den String "sicherheit" zu setzen.
 
-* Sicherheit ("sicherheit") Die Sicherheit aus der `isy-sicherheit`.
+:desc-listing-Berechtigungsmanager: Bean Berechtigungsmanager
+[id="listing-Berechtigungsmanager",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-Berechtigungsmanager}
+[source,xml]
+----
+    <bean id="accessDecisionManager"
+          class="de.bund.bva.isyfact.sicherheit.web.DelegatingAccessDecisionManager">
+        <property name="sicherheit" ref="sicherheit"/>
+    </bean>
+----
 
 Durch Spring Security wird die Verwendung von Annotationen bei der Berechtigungsprüfung ermöglicht.
 Diese wird wie folgt aktiviert.
@@ -1319,6 +1337,7 @@ Diese wird wie folgt aktiviert.
 ----
 <global-method-security secured-annotations="enabled" />
 ----
+
 
 Die Konfiguration von Spring Security setzt die Definition eines User Services voraus.
 Dieses kann nach aktuellem Stand nicht umgangen werden.
@@ -1412,6 +1431,61 @@ Hier muss ein Listener registriert werden, über welchen die Security Bedürfnis
 	  <property name="executionListenerLoader"
 				ref="flowExecutionListenerLoaderFactory"/>
 </bean>
+----
+
+[[setup-csrf-protection]]
+==== Konfiguration des CSRF Schutzes
+
+Seit JSF 2.0 ist der CSRF Schutz für `POST` Requests standardmäßig aktiviert.
+Für den Schutzbedarf *mittel* und *hoch* reicht die Implementierung der Variante _Token per Session_, für Schutzbedarf *sehr hoch* muss die Varainte _Token per Request_ implementiert werden (vgl. <<KonzeptJSF>>).
+
+===== Token per Session (Schutzbedarf mittel und hoch)
+
+Das CSRF-Token muss in den Formulardaten des `POST`-Request mitgesendet werden.
+Dafür wird typischerweise das versteckte Element `<h:inputHidden>` verwendet.
+
+:desc-listing-hiddenInput: Verwendung eines hiddenInput Elements für die CSRF-Token Übertragung
+[id="listing-hiddenInput",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hiddenInput}
+[source,html]
+----
+<!-- [...] -->
+<h:form>
+    <!-- [...] -->
+    <h:input
+        type="text "
+        value="${model.value}"
+    />
+    <h:inputHidden
+        value="${_csrf.token}"
+        a:name="${_csrf.parameterName}"
+    />
+</h:form>
+<!-- [...] -->
+----
+
+===== Token per Request (Schutzbedarf sehr hoch)
+
+Für die Variante _Token per Request_ bietet die IsyFact keine Standardlösung an.
+Eine Empfehlung für die Umsetzung dieser Anforderung ist die Verwendung von `spring-security-web` und die Implementierung eines eigenen `CsrfTokenRepository`.
+Auch bei dieser Variante muss das von Spring bereitgestellte CSRF-Token über die `POST-Requests` mitgesendet werden.
+Da die Tokens immer nur für einen Request gültig sind, muss sichergestellt werden, dass vor jedem Request ein neues CSRF-Token vom Server abgeholt wird.
+
+:desc-listing-isySicherheitWeb: Ausschnitt aus isy-sicherheit-web.xml: Verwendung eines eigenen CsrfTokenRepositories
+[id="listing-isySicherheitWeb",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-isySicherheitWeb}
+[source,html]
+----
+<!-- [...] -->
+<security:http auto-config="true">
+    <security:csrf token-repository-ref="requestCsrfTokenRepository" />
+</security:http>
+
+<bean id="requestCsrfTokenRepository"
+      class="org.company.web.security.RequestCsrfTokenRepository"
+      p:cookieHttpOnly="true"
+/>
+<!-- [...] -->
 ----
 
 [[Druckaufbereitung]]
@@ -1772,6 +1846,18 @@ Der Dialog besitzt folgende Facets:
 * Der Body-Bereich
 * Der Footer-Bereich
 
+:desc-image-modaler-dialog: Beispiel eines modalen Dialogs
+[id="image-modaler-dialog",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-modaler-dialog}
+image::demoflow-modaler-dialog.png[align="center"]
+
+Das Tag `<isy:modalDialogContent>` wird über den UI-Platzhalter modalDialog eingefügt.
+Dieser Platzhalter sorgt dafür, dass je nach Verfügbarkeit von JavaScript, der Inhalt des modalen Fensters entweder als Inhalt oder als eigenständiger Dialog gerendert wird.
+Die Funktionsweise des modalen Dialogs ist in das Basis-Layout eingebunden.
+Um einen Dialog zu öffnen, muss dieser als eigener View-State (in Spring Webflow) definiert werden.
+Beim Eintreten in den Flow wird das modale Fenster über einen Aufruf des BasisController geöffnet.
+Beim Verlassen des View-States wird dieser wieder geschlossen.
+
 :desc-listing-jsfModalerDialog: Modaler Dialog
 [id="listing-jsfModalerDialog",reftext="{listing-caption} {counter:listings }"]
 .{desc-listing-jsfModalerDialog}
@@ -1794,12 +1880,7 @@ Der Dialog besitzt folgende Facets:
  </ui:define>
 ----
 
-Das Tag `<isy:modalDialogContent>` wird über den UI-Platzhalter modalDialog eingefügt.
-Dieser Platzhalter sorgt dafür, dass je nach Verfügbarkeit von JavaScript, der Inhalt des modalen Fensters entweder als Inhalt oder als eigenständiger Dialog gerendert wird.
-Die Funktionsweise des modalen Dialogs ist in das Basis-Layout eingebunden.
-Um einen Dialog zu öffnen, muss dieser als eigener View-State (in Spring Webflow) definiert werden.
-Beim Eintreten in den Flow wird das modale Fenster über einen Aufruf des BasisController geöffnet.
-Beim Verlassen des View-States wird dieser wieder geschlossen.
+Um im Hintergrund weiterhin das aktuelle Fenster anzuzeigen, genügt es den bisherigen View-State entsprechend zu vererben.
 
 :desc-listing-openCloseModaleDialoge: Öffnen und Schließen von modalen Dialogen
 [id="listing-openCloseModaleDialoge",reftext="{listing-caption} {counter:listings }"]
@@ -1820,7 +1901,62 @@ Beim Verlassen des View-States wird dieser wieder geschlossen.
 </view-state>
 ----
 
-Um im Hintergrund weiterhin das aktuelle Fenster anzuzeigen, genügt es den bisherigen View-State entsprechend zu vererben.
+
+=== Bestätigungsdialog
+
+Bestätigungsdialoge, auch Popup-Dialoge genannt, sind spezielle modale Dialoge, die als Subflows eingebunden werden.
+Die anzuzeigenden Texte und Button-Beschriftungen werden dem Flow als Parameter übergeben.
+Bestätigungsdialoge	sind daher einfach und vielfältig einsetzbar und eignen sich immer, wenn der Benutzer vor eine "Ja/Nein Entscheidung" gestellt werden soll.
+Sollte kein Java-Script	aktiviert sein, so wird der Dialog direkt im Fenster angezeigt.
+
+:desc-image-bestaetigungs-dialog: Beispiel eines Bestätigungsdialogs (Popup-Dialog)
+[id="image-bestaetigungs-dialog",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-modaler-dialog}
+image::demoflow-bestaetigungs-dialog.png[align="center"]
+
+Bei einem Bestätigungsdialog können auch mehrzeilige Texte hinterlegt werden.
+Hierfür ist es möglich, eine Nachricht aus einer weiteren Ressource einzubinden.
+Der Parameter "`dialogNachricht`" wird in diesem Falle nicht zwingend benötigt (required="false").
+
+Bei Verwendung des Parameters "dialogNachrichtPfad" wird die "dialogNachricht" nicht angezeigt.
+Die anzuzeigenden Texte aus einer weiteren Ressource werden dem Flow als neuer Parameter "dialogNachrichtPfad" übergeben (siehe <<listing-Bestaetigungsdialog>>).
+
+Falls der anzuzeigende Text für den Abbrechen-Button nicht dem Flow übergeben wurde, wird der Default-Text zu "MEL_Button_Abbrechen" aus den `maskentexte.properties` geladen.
+
+:desc-listing-Bestaetigungsdialog: Bestätigungsdialog - subflow mit Parametern
+[id="listing-Bestaetigungsdialog",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-Bestaetigungsdialog}
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+    parent="applikationseiteParentFlow">
+
+    <var name="modalerDialogModel" class="de.bund.bva.pliscommon.pliswebgui.gui.flows.modalerdialog.ModalerDialogModel" />
+    <var name="bestaetigungsdialogModel" class="de.bund.bva.pliscommon.pliswebgui.gui.flows.modalerdialog.BestaetigungsdialogModel" />
+ ...
+ ...
+    <subflow-state id="demoBestaetigenSubflowState" subflow="bestaetigenFlow">
+        <input name="dialogTitel" value="'Ein Beispieltitel: Achtung, sind Sie sich sicher...'" />
+        <input name="dialogNachricht" value="'Eine Beispielnachricht: Sind Sie sicher, dass sie fortfahren wollen?'" />
+        <input name="dialogNachrichtPfad" value="'/WEB-INF/gui/common/eingebundeneNachricht.xhtml'" />
+        <input name="dialogKonsequenz" value="'Eine beispielhafte Konsequenz (Angabe optional): Nicht gespeicherte Änderungen gehen verloren.'" />
+        <input name="submitActionName" value="'Fortfahren'" />
+        <!-- <input name="abbrechenActionName" value="'Abbrechen'" /> -->
+        <transition on="abbrechenEndState" to="modalerDialogViewState" >
+          <evaluate expression="bestaetigungsdialogController.abbrechen(bestaetigungsdialogModel)" />
+        </transition>
+        <transition on="submitEndState" to="modalerDialogViewState">
+          <evaluate expression="bestaetigungsdialogController.bestaetige(bestaetigungsdialogModel)" />
+        </transition>
+    </subflow-state>
+</flow>
+----
+
+
+
 
 
 [[wizard]]
@@ -1854,9 +1990,9 @@ Außerdem gibt es folgende optionale Parameter:
 
 
 
-:desc-listing-wirardModaleDialoge: Modaler Wizard
-[id="listing-wirardModaleDialoge",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-wirardModaleDialoge}
+:desc-listing-wizardModaleDialoge: Modaler Wizard
+[id="listing-wizardModaleDialoge",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-wizardModaleDialoge}
 [source, xml]
 ----
 <isy:wizard wizardDialogModel="#{wdm}">
@@ -2280,6 +2416,38 @@ Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Sta
 * `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht. (Standard: `basisModel.showPrintView`)
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#{validationModel}`)
+* `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
+* `charpicker`: Gibt an, ob eine Eingabe für Sonderzeichen angezeigt wird. (Standard: `false`)
+
+Eingabefelder besitzen folgende Facets:
+
+* `contentRight`: Inhalt, der rechts vom Eingabefeld angezeigt wird
+
+[[eingabefelder-ohne-label-ueberschrift]]
+=== Eingabefelder ohne Label
+
+Für Eingabefelder ohne Label existiert das Tag `<isy:input>`.
+
+Ein Eingabefeld ohne Label besitzt folgende notwendige Parameter:
+
+* `reference`: Die Referenz des Objekts.
+* `value`: Der Wert für das Databinding im Eingabefeld.
+
+Außerdem gibt es folgende optionale Parameter:
+
+* `type`: Typ des Eingabefelds, sodass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann.
+Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Standard: `text`)
+* `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
+* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
+* `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird.
+* `inputmask`: Eingabemaske
+* `inputmaskInsertMode`: Gibt an, ob der Text bei der Eingabe überschrieben wird. (Standard: `true`)
+* `maxlength`: Die maximale Länge der Eingabe. (Standard: 255)
+* `width`: Die maximale Breite des Eingabefeldes. (Standard: 100%)
+* `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
+* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht. (Standard: `basisModel.showPrintView`)
+* `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
 * `charpicker`: Gibt an, ob eine Eingabe für Sonderzeichen angezeigt wird. (Standard: `false`)
 
@@ -3574,6 +3742,59 @@ public void initialisiereBreadcrumbModel(LocationBreadcrumbModel model) {
 ----
 
 
+==== Seitentoolbar
+
+Die Seitentoolbar ist Teil des `BasisModel`.
+Auf das `SeitentoolbarModel` kann daher über den `BasisController` zugegriffen werden.
+Der `ApplikationseiteController` und der `DetailseiteController` konfigurieren dieses Model entsprechend den Vorgaben automatisch.
+
+Über die Template-Engine (`ui:insert` / `ui:define`) werden weiterhin folgende Bereiche zur Verfügung gestellt.
+Konkrete Seiten können dadurch Einfluss auf das Aussehen der Seitentoolbar nehmen:
+
+* `seitentoolbarLinksButtons`: fügt Anpassungen auf der linken Seite ein,
+* `seitentoolbarMitteButtons`: fügt Anpassungen in der Mitte (zentriert) ein,
+* `seitentoolbarRechtsButtons`: fügt Anpassungen auf der rechten Seite ein.
+
+===== Hilfe-Button
+
+Der Hilfe-Button ist Teil der Seitentoolbar und wird rechts von allen anderen konfigurierten Buttons angezeigt.
+Zur Konfiguration des Buttons muss eine URL zu einer Hilfeseite hinterlegt werden.
+
+:desc-listing-hilfe-konfig: Konfiguration des Hilfe-Buttons
+[id="listing-hilfe-konfig",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hilfe-konfig}
+[source,properties]
+----
+portalhilfe.url=https://example.com/hilfeanwendung
+----
+
+Wird auf den Button geklickt, wird abhängig von der aktuellen Seite, dem Flow und dem ViewState des Flows auf die Hilfeseite geleitet.
+
+Der Hilfe-Button wird nur angezeigt, wenn wie beschrieben, `portalhilfe.url` gesetzt ist.
+Soll der Hilfe-Button standardmäßig ausgeschaltet bleiben, kann dies über den Parameter `hilfe.default.aktiv` in der Konfiguration der Anwendung erfolgen.
+
+:desc-listing-hilfe-deaktivieren: Ausschalten des Hilfe-Buttons
+[id="listing-hilfe-deaktivieren",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hilfe-deaktivieren}
+[source,properties]
+----
+hilfe.default.aktiv=false
+----
+
+Das Aktivieren und Deaktivieren des Hilfe-Buttons ist auch durch Aufruf der entsprechenden `HilfeController`-Methode aus dem Flow heraus möglich.
+Das <<listing-hilfe-flow>> zeigt das Ausschalten des Hilfe-Buttons in der XML-Datei eines Flows.
+
+:desc-listing-hilfe-flow: Ausschalten des Hilfe-Buttons in einem Flow
+[id="listing-hilfe-flow",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-hilfe-flow}
+[source,xml]
+----
+<on-start>
+    <!-- ... andere Initialisierungen des Flows ... -->
+    <evaluate expression="hilfeController.deaktiviereHilfe(hilfeModel)" />
+</on-start>
+----
+
 [[selektion-ueberschrift]]
 === Selektion
 
@@ -3684,19 +3905,6 @@ In diesem können die anderen Panels geschachtelt werden.
 Das Tag besitzt folgende Parameter:
 
 * `headerPanel`: Gibt an, ob die Gruppe als Container für den Header des Inhaltsbereichs dient; falls ja werden entsprechende CSS-Klassen für das Layouting eingebunden. (Standard: `false`, Typ: `java.lang.Boolean`)
-
-==== Seitentoolbar
-
-Die Seitentoolbar ist Teil des `BasisModel`.
-Auf das `SeitentoolbarModel` kann daher über den `BasisController` zugegriffen werden.
-Der `ApplikationseiteController` und der `DetailseiteController` konfigurieren dieses Model entsprechend den Vorgaben automatisch.
-
-Über die Template-Engine (`ui:insert` / `ui:define`) werden weiterhin folgende Bereiche zur Verfügung gestellt.
-Konkrete Seiten können dadurch Einfluss auf das Aussehen der Seitentoolbar nehmen:
-
-* `seitentoolbarLinksButtons`: fügt Anpassungen auf der linken Seite ein,
-* `seitentoolbarMitteButtons`: fügt Anpassungen in der Mitte (zentriert) ein,
-* `seitentoolbarRechtsButtons`: fügt Anpassungen auf der rechten Seite ein.
 
 
 [[layout-von-Formularen]]
@@ -3838,7 +4046,7 @@ Wenn JavaScript nicht aktiviert ist, werden alle Validierungsnachrichten in eine
 Auf den Tooltip wird verzichtet.
 Für die Zuordnung von Validierungsnachrichten und Eingabefeld wird das Attribut `reference` verwendet, welches auch in der entsprechenden Formularkomponente angegeben werden muss.
 
-[[4eyesprinciple]]
+[[four-eyes-principle]]
 === 4-Augen-Prinzip
 
 Einige JSF-Komponenten unterstützen das 4-Augen-Prinzip.

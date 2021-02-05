@@ -174,6 +174,24 @@
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk20</artifactId>
+            <exclusions>
+                <!-- Bereinigung Convergence Warnings: IFE-144 -->
+                <exclusion>
+                    <groupId>commons-codec</groupId>
+                    <artifactId>commons-codec</artifactId>
+                    <!-- dependency-convergence: Version durch isy-sicherheit gegeben -->
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-beanutils</groupId>
+                    <artifactId>commons-beanutils</artifactId>
+                    <!-- dependency-convergence: Version durch com.github.dozermapper:dozer-core gegeben -->
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                    <!-- dependency-convergence: Version durch com.github.dozermapper:dozer-core gegeben -->
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Servlet -->
@@ -345,7 +363,7 @@
                                         <artifactItem>
                                             <groupId>de.bund.bva.isyfact</groupId>
                                             <artifactId>isy-dokumentvorlagen</artifactId>
-                                            <version>1.7.0</version>
+                                            <version>1.8.1</version>
                                             <overWrite>true</overWrite>
                                         </artifactItem>
                                     </artifactItems>
@@ -458,7 +476,7 @@
                             </requires>
 
                             <attributes>
-                                <revnumber>${project.version}</revnumber>
+                                <revnumber>IF-1.8</revnumber>
                                 <revdate>${maven.build.timestamp}</revdate>
                                 <icons>font</icons>
                                 <sectanchors>true</sectanchors>
@@ -472,6 +490,7 @@
                                 <pdf-stylesdir>${project.build.directory}/isy-dokumentvorlagen/theme</pdf-stylesdir>
                                 <pdf-style>isyfact</pdf-style>
                                 <pdf-fontsdir>${project.build.directory}/isy-dokumentvorlagen/theme/fonts</pdf-fontsdir>
+                                <version-isyfact-bom>1.8</version-isyfact-bom>
                                 <isy-dokumentvorlagen>${project.build.directory}/isy-dokumentvorlagen</isy-dokumentvorlagen>
                             </attributes>
                         </configuration>
