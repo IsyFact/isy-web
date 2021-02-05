@@ -54,6 +54,8 @@
     <composite:attribute name="mode" type="String" default="normal"/>
     <!-- Attribut: disabled -->
     <composite:attribute name="disabled" type="Boolean" default="false"/>
+    <!-- Ob die Darstellung nur lesend erfolgen soll -->
+    <composite:attribute name="readonly" type="Boolean" default="false" />
 </composite:interface>
 
 <composite:implementation>
@@ -76,30 +78,38 @@
         <!-- Die Labels müssen (je nach Fall) zum entsprechenden actionInput passen -->
 
         <!-- Das Label falls "normal" -->
-        <ui:fragment rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
+        <ui:fragment rendered="#{not cc.attrs.readonly and not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
             <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
                    for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
                 <h:outputText value="#{cc.attrs.label}"/>
             </label>
         </ui:fragment>
 
+        <!-- Das Label falls disabled -->
+        <ui:fragment rendered="#{not cc.attrs.readonly and (cc.attrs.disabled or cc.attrs.mode eq 'button-only')}">
+            <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
+                   for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-disabled">
+                <h:outputText value="#{cc.attrs.label}"/>
+            </label>
+        </ui:fragment>
+
         <!-- Das Label falls readonly. -->
-        <ui:fragment rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}">
+        <ui:fragment rendered="#{cc.attrs.readonly}">
             <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
                    for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly">
                 <h:outputText value="#{cc.attrs.label}"/>
             </label>
         </ui:fragment>
 
+
         <div class="#{cc.attrs.inputStyleClass}">
             <div class="action-input input-group">
 
                 <!-- enabled and normal or input-only -->
-                <ui:fragment rendered="#{not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
+                <ui:fragment rendered="#{not cc.attrs.readonly and not cc.attrs.disabled and cc.attrs.mode ne 'button-only'}">
                     <input type="text" class="form-control#{existsValidationError ? ' invalid': ''}"
                            jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
                            placeholder="#{cc.attrs.placeholder}" jsf:value="#{cc.attrs.value}">
-                        <f:attribute name="readonly" value="#{cc.attrs.disabled}"/>
                         <f:attribute name="disabled"
                                      value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}"/>
                         <f:attribute name="maxlength"
@@ -108,17 +118,24 @@
                 </ui:fragment>
 
                 <!-- disabled or button-only -->
-                <ui:fragment rendered="#{cc.attrs.disabled or cc.attrs.mode eq 'button-only'}">
+                <ui:fragment rendered="#{not cc.attrs.readonly and (cc.attrs.disabled or cc.attrs.mode eq 'button-only')}">
                     <input type="text"
-                           class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.disabled?'readonly':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
-                           jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly"
+                           class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.disabled?'disabled':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
+                           jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-disabled"
                            placeholder="#{cc.attrs.placeholder}" value="#{cc.attrs.value}">
-                        <f:attribute name="readonly" value="#{cc.attrs.disabled}"/>
                         <f:attribute name="disabled"
-                                     value="#{cc.attrs.mode eq 'button-only' and not cc.attrs.disabled}"/>
+                                     value="#{cc.attrs.mode eq 'button-only' or cc.attrs.disabled}"/>
                         <f:attribute name="maxlength"
                                      value="#{not cc.attrs.disabled?cc.attrs.maxlength:null}"/>
                     </input>
+                </ui:fragment>
+
+                <!-- readonly -->
+                <ui:fragment rendered="#{cc.attrs.readonly}">
+                    <span class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.readonly?'readonly':''}"
+                           jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly" >
+                        #{cc.attrs.value}
+                    </span>
                 </ui:fragment>
 
                 <a data-delay="100" data-trigger="hover" data-title=""
@@ -129,7 +146,7 @@
                     <button type="submit" jsf:id="buttonIcon" jsf:action="DEFAULT_ACTION"
                             class="btn btn-icon btn-icon-small input-group-addon #{cc.attrs.mode eq 'input-only' and not cc.attrs.disabled?'input-only':''}">
                         <f:attribute name="disabled"
-                                     value="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only'}"/>
+                                     value="#{cc.attrs.readonly or cc.attrs.disabled or cc.attrs.mode eq 'input-only'}"/>
                         <span class="icon #{iconName}"
                               style="color: #{cc.attrs.iconColor}"> </span>
                     </button>

@@ -2,6 +2,9 @@
 - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
             
         `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
+- `IFE-57`: 
+    - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
+    - Darstellung von Readonly Felder für Input Controlls vereinheitlicht. 
 
 # v5.0.0
 - `IFE-95`: Nachdokumentation für Eingabefeld ohne Label

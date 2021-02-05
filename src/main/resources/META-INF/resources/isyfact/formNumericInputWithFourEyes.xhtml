@@ -131,11 +131,11 @@
 
                 </ui:fragment>
                 <ui:fragment rendered="#{cc.attrs.readonly}">
-                    <input type="text"
-                           class="form-control readonly#{cc.attrs.alignright ? ' currency-input-text-align-right' : ''}"
+                    <span class="form-control readonly#{cc.attrs.alignright ? ' currency-input-text-align-right' : ''}"
                            jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
-                           readonly="readonly" jsf:value="#{cc.attrs.value}"
-                           data-decimalplaces="#{cc.attrs.decimalplaces}"/>
+                           data-decimalplaces="#{cc.attrs.decimalplaces}" >
+                        #{cc.attrs.value}
+                    </span>
 
                     <!-- Four Eyes -->
                     <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
