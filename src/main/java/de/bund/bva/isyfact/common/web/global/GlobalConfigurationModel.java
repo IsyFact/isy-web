@@ -25,7 +25,7 @@ import java.io.Serializable;
  * Anzeigespezifische/Flowspezifische Einstellungen befinden sich nicht hier sondern im
  * {@link GlobalFlowModel}.
  *
- * @author Capgemini, Andreas Hörning.
+ * @author Capgemini
  * @version $Id: GlobalConfigurationModel.java 137444 2015-05-26 11:32:38Z sdm_ahoerning $
  */
 public class GlobalConfigurationModel implements Serializable {

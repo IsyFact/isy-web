@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.common.web.filetransfer;
 import java.io.Serializable;
 
 /**
- * @author Christopher Thomann, msg
+ * @author msg
  *
  */
 public class DokumentDatenModel implements Serializable {

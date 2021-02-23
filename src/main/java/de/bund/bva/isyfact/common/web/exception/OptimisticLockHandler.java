@@ -27,7 +27,7 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
  * Eingebunden wird dieser Handler durch eine Definition im "parentFlow", der einen
  * {@link TransitionExecutingFlowExecutionExceptionHandler} erzeugt.
  *
- * @author Timo Brandes, msg
+ * @author msg
  */
 public class OptimisticLockHandler {
 

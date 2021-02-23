@@ -26,8 +26,8 @@ import java.util.List;
  *
  * @param <I> Der konkrete Tabelleneintrag.
  *
- * @author Michael Moossen, msg.
- * @author Capgemini, Andreas Hörning.
+ * @author msg
+ * @author Capgemini
  */
 public class DataTableDataModel<I extends DataTableItem> implements Serializable {
 

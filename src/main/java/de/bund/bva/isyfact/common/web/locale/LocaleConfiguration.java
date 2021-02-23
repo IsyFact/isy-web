@@ -25,7 +25,7 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Kapselt den Zugriff auf Konfiguration bezüglich Lokalisierung.
- * @author Capgemini, Lukas Goerlach
+ * @author Capgemini
  */
 @Component
 public class LocaleConfiguration {

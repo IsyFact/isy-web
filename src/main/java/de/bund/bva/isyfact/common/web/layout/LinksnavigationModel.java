@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Model-Klasse fuer Maskenmodel vom Typ "Linksnavigation".
  * 
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: LinksnavigationModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public class LinksnavigationModel implements Serializable {

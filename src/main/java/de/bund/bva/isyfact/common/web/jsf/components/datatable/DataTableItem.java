@@ -21,8 +21,8 @@ import java.io.Serializable;
 /**
  * Ein Tabelleneintrag entspricht einer Zeile in einer Tabelle, also dem repräsentierten Objekt.
  *
- * @author Michael Moossen, msg
- * @author Capgemini, Andreas Hörning
+ * @author msg
+ * @author Capgemini
  */
 public interface DataTableItem extends Serializable {
 

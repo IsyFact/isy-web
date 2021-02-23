@@ -37,8 +37,8 @@ import de.bund.bva.isyfact.common.web.jsf.components.datatable.DataTablePaginati
  * @param <M>
  *            Das konkrete Modell.
  *
- * @author Michael Moossen, msg
- * @author Capgemini, Andreas Hörning.
+ * @author msg
+ * @author Capgemini
  */
 public abstract class DataTableController<I extends DataTableItem, M extends DataTableModel<I>>
     implements GuiController {

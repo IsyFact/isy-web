@@ -24,7 +24,7 @@ import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
 /**
  * Controller-Klasse fuer Operationen auf dem {@link ApplikationseiteModel}.
  *
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: ApplikationseiteController.java 123824 2014-10-13 10:05:13Z sdm_ahoerning $
  */
 @Controller

@@ -28,7 +28,7 @@ import com.google.common.base.Strings;
 /**
  * Das Validation-Model hält die Validerungsnachrichten für eine Maske.
  *
- * @author Capgemini, Andreas Hörning.
+ * @author Capgemini
  * @version $Id: ValidationModel.java 124952 2014-11-12 13:31:30Z sdm_ahoerning $
  */
 public class ValidationModel implements Serializable {

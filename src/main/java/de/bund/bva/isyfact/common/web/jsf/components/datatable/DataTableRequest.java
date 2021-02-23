@@ -23,7 +23,7 @@ import java.util.Map;
  *
  * Enthält alle benötigte Informationen, wie Filter-, Sortier- und Pagination-Parametern.
  *
- * @author Michael Moossen, msg
+ * @author msg
  *
  * @see DataTableResult
  * @see DataTableController#readItems(DataTableModel, DataTableRequest)

@@ -24,7 +24,7 @@ import de.bund.bva.isyfact.common.web.GuiController;
  * @param <T>
  *            Das spezifische Maskemodel.
  *
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  * @version $Id: RfGuiController.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public interface RfGuiController<T extends AbstractMaskenModel> extends GuiController {

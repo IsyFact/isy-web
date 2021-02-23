@@ -52,7 +52,7 @@ import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
  * HttpSession-Attribut vorhanden oder handelt es sich um eine konfigurierte {@link #urlsToSkip zu
  * ueberspringende Url}, so wird die Anfrage nicht gefiltert.
  *
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: ApplicationInitialisierungFilter.java 137477 2015-05-26 13:46:06Z sdm_ahoerning $
  */
 public class ApplicationInitialisierungFilter implements Filter {

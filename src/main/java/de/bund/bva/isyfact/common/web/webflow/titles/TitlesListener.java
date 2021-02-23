@@ -41,8 +41,7 @@ import org.springframework.webflow.execution.RequestContextHolder;
  * Ein TitlesListener muss im org.springframework.webflow.config.FlowExecutionListenerLoaderFactoryBean in der
  * Property listeners bekannt gemacht werden.
  *
- * @author Capgemini, Artun Subasi
- * @author Capgemini, Tobias Waller
+ * @author Capgemini
  * @version $Id: TitlesListener.java 143397 2015-07-30 08:49:32Z sdm_apheino $
  */
 public class TitlesListener extends FlowExecutionListenerAdapter {

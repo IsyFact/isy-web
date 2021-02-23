@@ -21,7 +21,7 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
 /**
  * Model-Klasse fuer Maskenmodel vom Typ "Detailseite".
  * 
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: DetailseiteModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public class DetailseiteModel extends AbstractMaskenModel {

@@ -33,7 +33,7 @@ import org.springframework.webflow.execution.repository.support.CompositeFlowExe
  * vorgehaltenen Daten über {@link #getMaxSnapshots()} entfernt, sondern vorgehalten, um die Breadcrumb-
  * Navigation zu garantieren.
  * 
- * @author Capgemini, Tobias Waller
+ * @author Capgemini
  * @version $Id: BreadcrumbAwareFlowExecutionRepository.java 105410 2013-07-19 14:38:58Z sdm_ahoerning
  */
 @Deprecated

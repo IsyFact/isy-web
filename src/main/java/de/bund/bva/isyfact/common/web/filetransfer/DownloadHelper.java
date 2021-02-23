@@ -25,8 +25,7 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
- * @author Timo Brandes, msg
- * @author Christopher Thomann, msg
+ * @author msg
  *
  */
 @Component
@@ -136,7 +135,7 @@ public class DownloadHelper {
      * org.omnifaces.util.LocalFaces
      * </pre>
      *
-     * @author Michael Moossen, msg
+     * @author msg
      *
      */
     private static final class Faces {

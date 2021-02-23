@@ -33,7 +33,7 @@ import de.bund.bva.isyfact.common.web.GuiController;
 /**
  * Ein Kontroller, welcher für die Steuerung der rf:tabGroup und rf:tab Tags zuständig ist.
  *
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  * @version $Id: TabController.java 144628 2015-08-12 13:56:14Z sdm_ahoerning $
  */
 @Controller

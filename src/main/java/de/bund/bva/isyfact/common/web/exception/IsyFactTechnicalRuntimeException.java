@@ -21,7 +21,7 @@ import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 /**
  * Technische Fehleroberklasse für Laufzeit-Fehler.
  *
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: IsyFactTechnicalRuntimeException.java 129989 2015-02-09 14:33:06Z sdm_tgroeger $
  */
 public class IsyFactTechnicalRuntimeException extends TechnicalRuntimeException {

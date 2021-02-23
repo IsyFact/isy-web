@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * Model für den Error-View.
  * 
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  * @version $Id: ErrorModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public class ErrorModel implements Serializable {

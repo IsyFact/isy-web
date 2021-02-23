@@ -34,8 +34,7 @@ import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
 /**
  * Der Controller zum Verwalten von globalen Einstellungen.
  *
- * @author Capgemini, Andreas Hörning.
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: GlobalConfigurationController.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 @Controller

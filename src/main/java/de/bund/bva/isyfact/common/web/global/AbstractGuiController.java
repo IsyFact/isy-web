@@ -28,7 +28,7 @@ import org.springframework.webflow.execution.RequestContextHolder;
  * @param <T>
  *            Das spezifische AbstractMaskenModel.
  *
- * @author Capgemini, Andreas Hörning.
+ * @author Capgemini
  * @version $Id: AbstractGuiController.java 130157 2015-02-11 16:02:52Z sdm_ahoerning $
  */
 public abstract class AbstractGuiController<T extends AbstractMaskenModel> implements RfGuiController<T> {

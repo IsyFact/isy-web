@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Das Model für den Wizard Dialog.
  *
- * @author Capgemini, Andreas Hoerning
+ * @author Capgemini
  * @version $Id: WizardDialogModel.java 136928 2015-05-18 07:04:43Z sdm_tgroeger $
  */
 public class WizardDialogModel implements Serializable {

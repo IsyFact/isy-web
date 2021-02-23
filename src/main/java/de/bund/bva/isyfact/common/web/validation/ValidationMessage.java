@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * Eine ValidationMessage ist eine Nachricht, welche einen Validierungsfehler beinhaltet und beschreibt.
  *
- * @author Capmgemini, Andreas Hörning
+ * @author Capmgemini
  * @version $Id: ValidationMessage.java 124952 2014-11-12 13:31:30Z sdm_ahoerning $
  */
 public class ValidationMessage implements Serializable {

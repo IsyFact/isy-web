@@ -32,8 +32,8 @@ import org.apache.commons.beanutils.PropertyUtils;
  * Der Unterschied zu der ursprüngliche Implementierung von Capgemini ist dass diese keine Generics
  * Warnings verursacht.
  *
- * @author Michael Moossen, msg
- * @author Capgemini, Andreas Hoerning
+ * @author msg
+ * @author Capgemini
  * @param <T> Typparameter
  */
 public class NullSafeBeanComparator<T> implements Serializable, Comparator<T> {

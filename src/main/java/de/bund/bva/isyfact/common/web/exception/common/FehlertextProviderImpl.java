@@ -25,7 +25,7 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
 /**
  * Kapselt den Zugriff auf das Resources-Bundle mit den Nachrichten.
  * 
- * @author Capgemini, Artun Subasi
+ * @author Capgemini
  * @version $Id: FehlertextProviderImpl.java 130854 2015-02-18 10:42:27Z sdm_mhartung $
  */
 public final class FehlertextProviderImpl implements FehlertextProvider {

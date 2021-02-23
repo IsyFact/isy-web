@@ -42,7 +42,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  * Der ErrorController wird zum Darstellen der allgemeinen GUI-Fehlerseite verwendet. Zusätzlich dazu
  * behandelt dieser technische Fehler, welche innerhalb der Flows auftreten.
  *
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  */
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)

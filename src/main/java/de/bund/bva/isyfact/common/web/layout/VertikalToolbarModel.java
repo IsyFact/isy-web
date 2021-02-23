@@ -19,7 +19,7 @@ package de.bund.bva.isyfact.common.web.layout;
 /**
  * Ist das Model fuer die vertikale Toolbar.
  *
- * @author Capgemini, Lukas Goerlach
+ * @author Capgemini
  */
 public class VertikalToolbarModel extends AbstractSeitenelementModel {
 

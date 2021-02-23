@@ -28,7 +28,7 @@ import com.google.common.collect.Sets;
 /**
  * Das Auswahlmodell einer Tabelle.
  *
- * @author Michael Moossen, msg
+ * @author msg
  */
 public class DataTableSelectionModel implements Serializable {
 
@@ -36,7 +36,7 @@ public class DataTableSelectionModel implements Serializable {
      * Damit die Tabelle auch ohne JS funktioniert müssen wir JSF glauben lassen, dass wir einen Boolean pro
      * Checkbox verwalten.
      *
-     * @author Michael Moossen, msg
+     * @author msg
      */
     protected final class SelectionMapper extends AbstractMap<Long, Boolean> {
 

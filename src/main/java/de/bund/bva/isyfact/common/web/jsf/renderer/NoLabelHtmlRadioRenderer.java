@@ -52,7 +52,7 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.util.JavascriptUtils;
  * Methode {@link #renderRadio(FacesContext, HtmlRadio)} und {@link #decode(FacesContext, UIComponent)} kann
  * jetzt das Input Element auch relativ suchen.
  * 
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  * @version $Id: NoLabelHtmlRadioRenderer.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {

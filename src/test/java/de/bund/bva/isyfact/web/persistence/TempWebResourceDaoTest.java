@@ -40,7 +40,7 @@ import de.bund.bva.isyfact.common.web.tempwebresource.persistence.TempWebResourc
 /**
  * Diese Klasse testet den TempWebResource-DAO.
  * 
- * @author Capgemini sd&m AG, Felix Senn
+ * @author Capgemini sd&m AG
  * @version $Id: TempWebResourceDaoTest.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * 
  */

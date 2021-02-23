@@ -31,7 +31,7 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
 /**
  * Ist der Controller fuer das Template "Basis".
  *
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: BasisController.java 144984 2015-08-18 13:53:33Z sdm_bpiatkowski $
  */
 @Controller

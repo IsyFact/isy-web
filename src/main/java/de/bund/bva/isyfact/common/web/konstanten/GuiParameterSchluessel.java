@@ -19,7 +19,7 @@ package de.bund.bva.isyfact.common.web.konstanten;
 /**
  * Enthaelt guibezogene Parameter-Schluessel.
  *
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: GuiParameterSchluessel.java 137477 2015-05-26 13:46:06Z sdm_ahoerning $
  */
 public abstract class GuiParameterSchluessel {

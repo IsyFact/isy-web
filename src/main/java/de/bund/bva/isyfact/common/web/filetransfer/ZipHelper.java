@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * Hilfklasse zur Handhabung von ZIP-Dateien.
  *
- * @author Michael Moossen, msg
+ * @author msg
  */
 @Component
 public class ZipHelper {

@@ -5,7 +5,7 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
 /**
  * Model zur Steuerung der Sichtbarkeit des Hilfe-Buttons.
  *
- * @author Andreas Schubert, msg
+ * @author msg
  */
 public class HilfeModel extends AbstractMaskenModel {
 
