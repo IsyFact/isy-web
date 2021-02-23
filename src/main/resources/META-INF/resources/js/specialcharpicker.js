@@ -12,7 +12,7 @@ $(function () {
      */
     function createEventHandler(fn, context) {
         return function (event) {
-            var ret = fn.call(context, event, $(this));
+            const ret = fn.call(context, event, $(this));
             event.preventDefault();
             event.stopPropagation();
             return ret;
@@ -45,16 +45,16 @@ $(function () {
     /**
      * @class SpecialCharacterPopup
      */
-    var SpecialCharacterPopup = function () {
+    const SpecialCharacterPopup = function () {
         this.$masterOverlayEl = $('.special-char-picker-widget');
         this.$overlayEl = this.$masterOverlayEl;
         this.$filterItems = $('.filter-item');
         this.$charItems = $('.special-char');
         this.initEvents();
         
-        var filterMap = {};
+        const filterMap = {};
         this.$filterItems.each(function (index, item) {
-            var filter = $(item).data().filter || '*';
+            const filter = $(item).data().filter || '*';
             filterMap[filter] = index;
         });
         this.filterMap = filterMap;
@@ -69,17 +69,17 @@ $(function () {
          */
         show: function ($inputEl) {
             if ($inputEl) {
-              var $listpickerContainer = $(".listpicker-container");
+              const $listpickerContainer = $(".listpicker-container");
               $listpickerContainer.each(function () {
                 $(this).removeClass('open');
               });
               
-                var top = 30;
-                var left = 0;
-                var screencenter = $(window).width() / 2;
-                var overlayleft = screencenter - (this.$overlayEl.width() / 2);
-                var overlayoffset = 0;
-                var overlayposition = 0;
+                const top = 30;
+                const screencenter = $(window).width() / 2;
+                const overlayleft = screencenter - (this.$overlayEl.width() / 2);
+                let left;
+                let overlayoffset;
+                let overlayposition;
             
                 this.$inputEl = $inputEl;
                 
@@ -250,14 +250,14 @@ $(function () {
             }, this));
 
             this.$filterItems.click(createEventHandler(function (event, $filterEl) {
-                var filter = $filterEl.data().filter || '*';
-                var dirOffset = event.shiftKey ? -1 : 1;
+                const filter = $filterEl.data().filter || '*';
+                const dirOffset = event.shiftKey ? -1 : 1;
                 this.selectFilter(filter, dirOffset);
             }, this));
 
             this.$overlayEl.on('keydown', createEventHandler(function (event, $el) {
-                var dirOffset = event.shiftKey ? -1 : 1;
-                var keyCode = event.which;
+                const dirOffset = event.shiftKey ? -1 : 1;
+                const keyCode = event.which;
 
                 switch (keyCode) {
                 case 13: // [ENTER]
@@ -278,9 +278,9 @@ $(function () {
 
                 case 9: // [TAB]
                     // switch to next/previous filter item
-                    var selectedFilterIndex = this.filterMap[this.selectedFilter];
-                    var nextIndex = getInBoundIndex(selectedFilterIndex + dirOffset, this.$filterItems.length);
-                    var nextFilter = this.normalizeFilter($(this.$filterItems[nextIndex]).data().filter);
+                    const selectedFilterIndex = this.filterMap[this.selectedFilter];
+                    const nextIndex = getInBoundIndex(selectedFilterIndex + dirOffset, this.$filterItems.length);
+                    const nextFilter = this.normalizeFilter($(this.$filterItems[nextIndex]).data().filter);
                     this.selectFilter(nextFilter);
                     break;
 
@@ -290,7 +290,7 @@ $(function () {
 
                 case 38: // [^]
                     if (this.selectedFilter === '*') {
-                        var indexInRowAbove;
+                        let indexInRowAbove;
                         if (this.selectedCharOffset < this.getNumberOfCharsPerRow()) {
                             indexInRowAbove = (this.getNumberRows() * this.getNumberOfCharsPerRow()) + this.selectedCharOffset - 1;
                             if (this.selectedCharOffset === 0) {
@@ -311,7 +311,7 @@ $(function () {
 
                 case 40: // [v]
                     if (this.selectedFilter === '*') {
-                        var indexInRowBelow = this.selectedCharOffset + this.getNumberOfCharsPerRow();
+                        let indexInRowBelow = this.selectedCharOffset + this.getNumberOfCharsPerRow();
                         if (indexInRowBelow >= this.$charItems.length) {
                             indexInRowBelow = this.selectedCharOffset % this.getNumberOfCharsPerRow() + 1;
                             if (indexInRowBelow >= this.getNumberOfCharsPerRow()) {
@@ -324,7 +324,7 @@ $(function () {
 
                 default:
                     // try to select a filter by the pressed key
-                    var filter = this.normalizeFilter(String.fromCharCode(keyCode));
+                    const filter = this.normalizeFilter(String.fromCharCode(keyCode));
                     this.selectFilter(filter, dirOffset);
                     break;
                 }
@@ -341,8 +341,8 @@ $(function () {
          */
         getNumberOfCharsPerRow: function () {
             if (!this.charItemsPerRow) {
-                var num = 0;
-                var top = $(this.$charItems[0]).offset().top;
+                let num = 0;
+                const top = $(this.$charItems[0]).offset().top;
                 this.$charItems.each(function (index, item) {
                     if ($(item).offset().top !== top) {
                         num = index;
@@ -357,7 +357,7 @@ $(function () {
         getNumberRows: function () {
             
             if (!this.numberOfRows) {
-                var num = Math.floor((this.$charItems.length / this.getNumberOfCharsPerRow()));
+                const num = Math.floor((this.$charItems.length / this.getNumberOfCharsPerRow()));
                 this.numberOfRows = num;
             }
             return this.numberOfRows;
@@ -369,7 +369,7 @@ $(function () {
          * @private
          */
         normalizeFilter: function (raw) {
-            var filter = (raw || '*').toLowerCase();
+            const filter = (raw || '*').toLowerCase();
             if (this.filterMap[filter] >= 0) {
                 return filter;
             } else {
@@ -397,9 +397,9 @@ $(function () {
         selectFilterItem: function (filter) {
             // enable/disable filtered characters
             this.$charItems.each(function (index, el) {
-                var $el = $(el);
-                var data = $el.data();
-                var baseChar = data && data.baseChar;
+                const $el = $(el);
+                const data = $el.data();
+                const baseChar = data && data.baseChar;
 
                 if (filter !== '*' && filter !== baseChar) {
                     $el.addClass('disabled');
@@ -420,7 +420,7 @@ $(function () {
          * @private
          */
         selectCharByFilter: function (filter, offset) {
-            var $items = filter !== '*' ? $('.special-char[data-base-char=' + filter + ']') : this.$charItems;
+            const $items = filter !== '*' ? $('.special-char[data-base-char=' + filter + ']') : this.$charItems;
             offset = getInBoundIndex(offset, $items.length);
 
             $('.special-char.active').removeClass('active');
@@ -434,9 +434,9 @@ $(function () {
          * @private
          */
         insert: function ($charEl) {
-            var character = $.trim($charEl.text());
+            const character = $.trim($charEl.text());
             
-            var inputVal, pre, post, value;
+            let inputVal, pre, post, value;
             
             this.$inputEl.focus();
 
@@ -466,7 +466,7 @@ $(function () {
             if (this.$inputEl.caret() != pos)
             {
                if (this.$inputEl[0].createTextRange) {
-                 var range = this.$inputEl[0].createTextRange();
+                 const range = this.$inputEl[0].createTextRange();
                  range.collapse(true);
                  range.moveEnd('character', pos);
                  range.moveStart('character', pos);
@@ -477,7 +477,7 @@ $(function () {
         
     };
 
-    var SpecialCharacterPopupInitializer = function () {
+    const SpecialCharacterPopupInitializer = function () {
      this.popup = "";
     };
     
@@ -486,7 +486,7 @@ $(function () {
     
         initWidget: function(widget) {
             this.popup = widget;
-            var popupWidget = this.popup;
+            const popupWidget = this.popup;
         
             window.onclick = function() {
               popupWidget.close();
@@ -498,11 +498,11 @@ $(function () {
         },
         
         refreshWidget: function() {
-             var $inputElements = $('input.inputWithSpecialCharPicker[type=text], textarea.inputWithSpecialCharPicker').filter(':not(.specialcharpicker_ajaxtoken)');
-             var $openButton = $('.special-char-button').filter(':not(.specialcharpicker_ajaxtoken)');
+             const $inputElements = $('input.inputWithSpecialCharPicker[type=text], textarea.inputWithSpecialCharPicker').filter(':not(.specialcharpicker_ajaxtoken)');
+             const $openButton = $('.special-char-button').filter(':not(.specialcharpicker_ajaxtoken)');
     
-             var $currInputEl;
-             var popup = this.popup;
+             let $currInputEl;
+             const popup = this.popup;
 
                 $inputElements.keydown(function (event) {
                     switch(event.which) {
@@ -592,26 +592,26 @@ $(function () {
 
     };
 
-    var widget = new SpecialCharacterPopup();
+    const widget = new SpecialCharacterPopup();
     
-    var specialCharPickerInitializer = new SpecialCharacterPopupInitializer();
+    const specialCharPickerInitializer = new SpecialCharacterPopupInitializer();
 
     $(document).ready(function() {
     
-        // Initiale Darstellung
+        // initialize widget on load
         $('.special-char-picker-widget').data("initializer", specialCharPickerInitializer);
         
         specialCharPickerInitializer.initWidget(widget);
         specialCharPickerInitializer.refreshWidget();
         
-        // Reaktion auf AJAX Requests
+        // react to AJAX requests
         if(typeof(jsf) != "undefined") {
             // --------------------------------------------------------
             // Ajax-Callback
             // --------------------------------------------------------
             jsf.ajax.addOnEvent(function(callback) {
                 
-                var charpicker = $('.special-char-picker-widget').data("initializer"); 
+                const charpicker = $('.special-char-picker-widget').data("initializer");
                 
                 if (callback.status === 'begin') {
                   if (charpicker !== undefined) {
