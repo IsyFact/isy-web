@@ -9,7 +9,7 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Helper-Klasse für den Seitentitel.
- * @author Capgemini, Aljoscha Kalb
+ * @author Capgemini
  * @version $Id:$
  */
 @Component

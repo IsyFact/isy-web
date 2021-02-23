@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 /**
  * Enum mit den verwendeten Dateitypen. Enthält außerdem auch die jeweiligen Mime-Types je Dateityp.
  *
- * @author bendelw
+ * @author msg systems ag
  * @version 1.0
  * @created 21-Sep-2016 10:35:45
  */

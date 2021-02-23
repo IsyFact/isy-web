@@ -21,7 +21,7 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
 /**
  * Model-Klasse fuer Maskenmodel vom Typ "Applikationseite".
  *
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: ApplikationseiteModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public class ApplikationseiteModel extends AbstractMaskenModel {

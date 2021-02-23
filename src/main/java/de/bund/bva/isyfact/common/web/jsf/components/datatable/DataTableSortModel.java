@@ -23,7 +23,7 @@ import java.io.Serializable;
  * <p>
  * Das Sortieren nach mehreren Attributen wird nicht unterstützt.
  *
- * @author Michael Moossen, msg
+ * @author msg
  */
 public class DataTableSortModel implements Serializable {
 

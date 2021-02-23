@@ -23,8 +23,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  * Controller-Klasse für den Hilfe-Button.
  * Bietet Funktionen zum Ein- und Ausblenden des Hilfebuttons und zum generieren der URL zum Hilfe-Wiki.
  *
- * @author Florian Mallmann, msg
- * @author Andreas Schubert, msg
+ * @author msg
  */
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)

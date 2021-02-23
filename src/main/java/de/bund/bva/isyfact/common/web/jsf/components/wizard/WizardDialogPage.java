@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * Stellt eine konkrete Seite im Wizard Dialog dar.
  *
- * @author Capgemini, Andreas Hoerning
+ * @author Capgemini
  * @version $Id: WizardDialogPage.java 144104 2015-08-05 16:04:58Z sdm_ahoerning $
  */
 public class WizardDialogPage implements Serializable {

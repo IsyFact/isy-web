@@ -19,7 +19,7 @@ package de.bund.bva.isyfact.common.web.layout;
 /**
  * Ist das Model zum Informationsbereich.
  * 
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: InformationsbereichModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 // TODO: Das Informationsbereich-Model sollte in XHTML ausgelagert werden (Überschriften usw. sollten nicht in

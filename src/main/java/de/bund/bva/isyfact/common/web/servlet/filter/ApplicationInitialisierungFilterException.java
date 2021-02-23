@@ -21,7 +21,7 @@ import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Wird fuer Laufzeitfehler bei der Application-Initialisierung genutzt.
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: ApplicationInitialisierungFilterException.java 130854 2015-02-18 10:42:27Z sdm_mhartung $
  */
 public class ApplicationInitialisierungFilterException extends TechnicalRuntimeException {

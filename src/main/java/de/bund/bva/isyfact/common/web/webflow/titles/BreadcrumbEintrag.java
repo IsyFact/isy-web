@@ -21,8 +21,7 @@ import java.io.Serializable;
 /**
  * Enthält die Informationen für einen Eintrag im Breadcrumb.
  * 
- * @author Capgemini, Artun Subasi
- * @author Capgemini, Tobias Waller
+ * @author Capgemini
  * @version $Id: BreadcrumbEintrag.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 @Deprecated

@@ -37,8 +37,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 /**
  * Exception Handler für JSF.
  *
- * @author Capgemini, Malte Brunnlieb
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  * @version $Id: JsfExceptionHandler.java 143397 2015-07-30 08:49:32Z sdm_apheino $
  */
 public class JsfExceptionHandler extends ExceptionHandlerWrapper {

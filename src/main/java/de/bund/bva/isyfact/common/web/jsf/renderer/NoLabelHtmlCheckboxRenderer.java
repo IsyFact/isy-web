@@ -50,7 +50,7 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
  * 
  * Methode {@link #renderSingleCheckbox(FacesContext, HtmlCheckbox)} rendert kein Label mehr.
  * 
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  * @version $Id: NoLabelHtmlCheckboxRenderer.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {

@@ -26,7 +26,7 @@ import java.util.List;
  * Hier wird der Zustand der Paginierung verwaltet, z.B. aktuelle Seite und Anzahl der
  * Tabelleneinträge pro Seite und Anzahl der Seiten.
  *
- * @author Michael Moossen, msg
+ * @author msg
  */
 public class DataTablePaginationModel implements Serializable {
 

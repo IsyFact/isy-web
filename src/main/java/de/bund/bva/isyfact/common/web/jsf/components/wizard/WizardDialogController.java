@@ -24,7 +24,7 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
  * Ein Controller für den Wizard, welcher die Basisfunktionalität eines Wizards bereitstellt. Die einzelnen
  * Funktionen zum Blättern usw. können bei Bedarf überschrieben werden.
  *
- * @author Capgemini, Andreas Hoerning
+ * @author Capgemini
  * @version $Id: WizardDialogController.java 144104 2015-08-05 16:04:58Z sdm_ahoerning $
  */
 public abstract class WizardDialogController implements GuiController {

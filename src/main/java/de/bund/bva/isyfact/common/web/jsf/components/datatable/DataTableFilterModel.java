@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * Das Filtermodell einer Tabelle mit Filter-Zeile.
  *
- * @author Michael Moossen, msg
+ * @author msg
  */
 public class DataTableFilterModel implements Serializable {
 

@@ -8,7 +8,7 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
  * Besonders wichtig ist dass eine dem Webserver bekannte Dateierweiterung im <code>dateiname</code> angegeben
  * wird, damit der Mime-Type richtig ermittelt und im Header gesetzt werden kann.
  *
- * @author Michael Moossen, msg
+ * @author msg
  **/
 public class FileModel extends AbstractMaskenModel {
 

@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * Abstrakte Oberklasse für IsyFact-Seitenelemente.
  *
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: AbstractSeitenelementModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public abstract class AbstractSeitenelementModel implements Serializable {

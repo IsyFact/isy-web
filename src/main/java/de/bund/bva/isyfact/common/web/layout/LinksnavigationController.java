@@ -38,7 +38,7 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Controller für die Linksnavigation.
- * @author Capgemini, Tobias Gröger
+ * @author Capgemini
  * @version $Id: LinksnavigationController.java 124975 2014-11-12 17:20:41Z sdm_jzitz $
  */
 @Controller

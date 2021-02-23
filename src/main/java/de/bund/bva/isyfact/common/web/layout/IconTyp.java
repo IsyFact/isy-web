@@ -19,7 +19,7 @@ package de.bund.bva.isyfact.common.web.layout;
 /**
  * Kapselt Typen von Icons.
  * 
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: IconTyp.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public enum IconTyp {

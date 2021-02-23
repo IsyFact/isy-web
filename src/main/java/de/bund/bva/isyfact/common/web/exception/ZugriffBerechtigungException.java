@@ -23,7 +23,7 @@ import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 /**
  * Eine Exception, die geworfen wird, wenn ein Benutzer keine Berechtigung für einen Zugriff hat.
  * 
- * @author Capgemini, Daniel Stuckert
+ * @author Capgemini
  * @version $Id: ZugriffBerechtigungException.java 130854 2015-02-18 10:42:27Z sdm_mhartung $
  */
 public class ZugriffBerechtigungException extends TechnicalRuntimeException {

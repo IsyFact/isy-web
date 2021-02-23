@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @param <I> Der konkrete Tabelleneintrag
  *
- * @author Michael Moossen, msg
+ * @author  msg
  *
  * @see DataTableRequest
  */

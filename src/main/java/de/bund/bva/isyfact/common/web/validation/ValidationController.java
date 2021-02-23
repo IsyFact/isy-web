@@ -32,7 +32,7 @@ import de.bund.bva.isyfact.common.web.konstanten.MaskentexteSchluessel;
 /**
  * Ein Controller, welcher sich um Validierungsnachrichten kümmert.
  * 
- * @author Capgemini, Andreas Hörning.
+ * @author Capgemini
  * @version $Id: ValidationController.java 130854 2015-02-18 10:42:27Z sdm_mhartung $
  */
 @Controller

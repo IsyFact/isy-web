@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * Verwaltet der Zustand der Detailansicht, bzw. für welche Tabelleneinträge diese aktiv ist.
  *
- * @author Michael Moossen, msg
+ * @author msg
  */
 public class DataTableDetailViewModel implements Serializable {
 

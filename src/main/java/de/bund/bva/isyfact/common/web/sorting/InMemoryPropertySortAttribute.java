@@ -23,7 +23,7 @@ import de.bund.bva.isyfact.common.web.jsf.components.datatable.SortAttribute;
  * Listen.
  *
  *
- * @author Capgemini, Andreas Hoerning
+ * @author Capgemini
  * @version $Id: InMemoryPropertySortAttribute.java 129989 2015-02-09 14:33:06Z sdm_tgroeger $
  */
 public interface InMemoryPropertySortAttribute {

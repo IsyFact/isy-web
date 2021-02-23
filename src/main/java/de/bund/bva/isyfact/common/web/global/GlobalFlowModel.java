@@ -19,7 +19,7 @@ package de.bund.bva.isyfact.common.web.global;
 /**
  * Ein globales Model, welches für jeden Flow erzeugt wird und im Flow-Scope liegt.
  *
- * @author Capgemini, Andreas Hörning.
+ * @author Capgemini
  * @version $Id: GlobalFlowModel.java 142517 2015-07-23 10:35:01Z sdm_ahoerning $
  */
 public class GlobalFlowModel extends AbstractMaskenModel {

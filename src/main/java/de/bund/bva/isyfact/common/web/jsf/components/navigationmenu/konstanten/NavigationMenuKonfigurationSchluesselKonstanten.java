@@ -8,7 +8,7 @@ package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten;
  *
  * Anwendung: gui.navbar.applikationsgruppe.<Integer>.anwendung.<Eigenschaft>
  *
- * @author Capgemini, Lars Chojnowska
+ * @author Capgemini
  * @version $Id:$
  */
 public abstract class NavigationMenuKonfigurationSchluesselKonstanten {

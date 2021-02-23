@@ -20,7 +20,7 @@ package de.bund.bva.isyfact.common.web.jsf.components.panel;
  * Ein Interface für Datenklassen. Dieses kann benutzt werden um sicherzustellen, dass alle benötigten Panel
  * Models auch für dynamisch Bedingte Daten (z.B. ein Panel pro Personalie) zur Verfügung steht.
  * 
- * @author Capgemini, Andreas Hörning.
+ * @author Capgemini
  * @version $Id: PanelItem.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public interface PanelItem {

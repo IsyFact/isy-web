@@ -7,6 +7,7 @@
     - Darstellung von Readonly Felder für Input Controlls vereinheitlicht. 
 
 # v5.0.0
+- `IFS-411`: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird
 - `IFE-95`: Nachdokumentation für Eingabefeld ohne Label
 - `IFS-505`: Upgrade auf Isyfact 2.
 Wichtige Änderungen:

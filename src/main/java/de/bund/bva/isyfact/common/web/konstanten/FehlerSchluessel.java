@@ -24,8 +24,7 @@ package de.bund.bva.isyfact.common.web.konstanten;
  * <li>PLWEB00YYY - Allgemein
  * </ul>
  *
- * @author Capgemini, Artun Subasi
- * @author sd&amp;m AG, Felix Senn
+ * @author Capgemini
  * @version $Id: FehlerSchluessel.java 134126 2015-04-08 13:52:30Z sdm_ahoerning $
  */
 public abstract class FehlerSchluessel {

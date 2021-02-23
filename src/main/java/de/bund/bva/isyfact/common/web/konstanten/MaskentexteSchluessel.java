@@ -24,8 +24,7 @@ package de.bund.bva.isyfact.common.web.konstanten;
  * <li>MEL_Fehler - Fehler
  * </ul>
  * 
- * @author Capgemini, Artun Subasi
- * @author sd&amp;m AG, Felix Senn
+ * @author Capgemini
  * @version $Id: MaskentexteSchluessel.java 130854 2015-02-18 10:42:27Z sdm_mhartung $
  */
 public abstract class MaskentexteSchluessel {

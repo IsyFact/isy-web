@@ -37,7 +37,7 @@ import com.google.common.collect.Lists;
 /**
  * Eine Helper-Klasse mit Funktionen, welche die Layoutelemente benötigten.
  *
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  * @version $Id: JsfHelper.java 138219 2015-06-05 10:14:36Z sdm_ahoerning $
  */
 @Component

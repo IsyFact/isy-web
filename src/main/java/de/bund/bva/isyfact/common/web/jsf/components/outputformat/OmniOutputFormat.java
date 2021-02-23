@@ -56,7 +56,7 @@ import javax.faces.context.ResponseWriter;
  * the current EL scope, such as managed bean names. It would be a good naming convention to start their names
  * with <code>_</code>.
  *
- * @author Bauke Scholtz
+ * @author Capgemini
  * @since 1.2
  */
 @FacesComponent(createTag = true, tagName = "outputFormat", namespace = "http://java.sun.com/jsf/isyfact2",
@@ -170,7 +170,7 @@ public class OmniOutputFormat extends HtmlOutputFormat {
      * slightly less verbose.
      *
      * @since 1.1
-     * @author Arjan Tijms
+     * @author Capgemini
      */
     private static class State {
 

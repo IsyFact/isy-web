@@ -19,7 +19,7 @@ package de.bund.bva.isyfact.common.web.jsf.components.datatable;
 /**
  * Die Schnittstelle für ein Sortierattribut.
  * 
- * @author Capgemini, Andreas Hörning.
+ * @author Capgemini
  * @version $Id: SortAttribute.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public interface SortAttribute {

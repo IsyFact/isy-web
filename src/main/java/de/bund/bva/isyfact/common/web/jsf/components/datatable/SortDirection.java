@@ -19,8 +19,8 @@ package de.bund.bva.isyfact.common.web.jsf.components.datatable;
 /**
  * Die Sortierrichtung.
  *
- * @author Michael Moossen, msg
- * @author Capgemini, Andreas Hörning.
+ * @author msg
+ * @author Capgemini
  */
 public enum SortDirection {
 

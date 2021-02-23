@@ -30,7 +30,7 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
  * <p>
  * <b>Als Fallback für undifferenzierte Fehler muss eine allgemeine Fehler-ID hinterlegt werden.</b>
  *
- * @author Capgemini, Artun Subasi
+ * @author Capgemini
  * @version $Id: AusnahmeIdMapper.java 141870 2015-07-16 10:07:27Z sdm_jmalkiewicz $
  */
 public interface AusnahmeIdMapper {

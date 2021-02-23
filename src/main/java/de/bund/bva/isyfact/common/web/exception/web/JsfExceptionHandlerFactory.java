@@ -27,7 +27,7 @@ import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 /**
  * Die Factory zum Erzeugen eines JSF-Exception Handlers.
  *
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  * @version $Id: JsfExceptionHandlerFactory.java 128695 2015-01-22 15:49:46Z sdm_ahoerning $
  */
 public class JsfExceptionHandlerFactory extends ExceptionHandlerFactory {

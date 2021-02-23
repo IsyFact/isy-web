@@ -37,7 +37,7 @@ import de.bund.bva.isyfact.common.web.validation.ValidationController;
  * Ein globaler Controller der Zustände für einen konkreten Flow kontrolliert und Querschnittsfunktionalität
  * anbietet.
  *
- * @author Capgemini, Andreas Hörning.
+ * @author Capgemini
  * @version $Id: GlobalFlowController.java 128983 2015-01-27 16:42:36Z sdm_tgroeger $
  */
 @Controller

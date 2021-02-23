@@ -20,7 +20,7 @@ import java.io.Serializable;
 
 /**
  * Model für ein LinksnavigationelementModel.
- * @author Capgemini, Tobias Gröger
+ * @author Capgemini
  * @version $Id: LinksnavigationelementModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public class LinksnavigationelementModel implements Serializable {

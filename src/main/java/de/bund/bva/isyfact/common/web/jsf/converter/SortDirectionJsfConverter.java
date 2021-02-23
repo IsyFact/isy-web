@@ -28,7 +28,7 @@ import de.bund.bva.isyfact.common.web.jsf.components.datatable.SortDirection;
 /**
  * JSF Converter für ein Datum, das im Format "dd.MM.yyyy" dargestellt werden soll.
  *
- * @author Capgemini, Tobias Gröger
+ * @author Capgemini
  */
 @FacesConverter(value = "sortDirectionJsfConverter")
 public class SortDirectionJsfConverter implements Converter {

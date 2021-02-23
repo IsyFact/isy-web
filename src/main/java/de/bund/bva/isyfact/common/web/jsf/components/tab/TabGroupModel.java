@@ -23,7 +23,7 @@ import java.io.Serializable;
  * entsprechendes Model bereitstellen. Es dient zur Speichern des Status und zur Konfiguration des
  * Initialzustands.
  * 
- * @author Capgemini, Andreas Hörning
+ * @author Capgemini
  * @version $Id: TabGroupModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 public class TabGroupModel implements Serializable {

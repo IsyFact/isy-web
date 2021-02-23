@@ -21,7 +21,7 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
 /**
  * Model-Klasse fuer Maskenmodel vom Typ "Basis-Seite".
  *
- * @author Capgemini, Jonas Zitz
+ * @author Capgemini
  * @version $Id: BasisModel.java 144984 2015-08-18 13:53:33Z sdm_bpiatkowski $
  */
 public class BasisModel extends AbstractMaskenModel {
