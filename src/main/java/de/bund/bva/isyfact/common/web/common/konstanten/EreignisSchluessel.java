@@ -17,56 +17,59 @@
 package de.bund.bva.isyfact.common.web.common.konstanten;
 
 /**
- * Diese Klasse enthält Ereignisschlüssel für das Logging.
+ * This class contains event keys for logging.
  */
 public class EreignisSchluessel {
 
-    /** Keine Objekt-ID im Request-String {} gefunden. */
+    /** No object id found in request String {}. */
     public static final String E_OBJEKT_ID = "EPLWEB00001";
 
-    /** Keine Ressource {} gefunden. */
+    /** No resource {} found. */
     public static final String E_RESSOURCE = "EPLWEB00002";
 
     public static final String E_FEHLER_FACHDATEN = "EPLWEB00003";
 
     public static final String E_FEHLER = "EPLWEB00004";
 
-    /** Client-Verbindungsfehler. */
+    /** Client connection error. */
     public static final String E_CLIENT_VERBINDUNG = "EPLWEB00005";
 
     /**
-     * Es wurde ein negatives Löschintervall für die TEMP_WEB_RESOURCE-Tabelle konfiguriert. Verwende
-     * Standardwert 1 Stunde.
+     * A negative delete interval has been configured for the TEMP_WEB_RESOURCE table.
+     * Use default value: 1 hour.
      */
     public static final String E_KONFIGURATION = "EPLWEB00006";
 
-    /** Bereinige Datenbank - Lösche Einträge aus Tabelle TEMP_WEB_RESOURCE, die älter als {} sind. */
+    /** Clean database - delete entries from table TEMP_WEB_RESOURCE that are older than {}. */
     public static final String E_DATENBANK_BEREINIGUNG = "EPLWEB00007";
 
-    /** Fehler beim Weiterleiten auf die anwendungsinterne Fehlerseite. */
+    /** Error while redirecting to the application internal error page. */
     public static final String E_WEITERLEITUNG_FEHLERSEITE = "EPLWEB00008";
 
-    /** Setzte Locale {} */
+    /** Set locale {}. */
     public static final String E_LOKALISIERUNG = "EPLWEB00009";
 
-    /** behalte Sitemap Daten für: {} */
+    /** Keep sitemap data for {}. */
     public static final String E_SITEMAP_DATEN_ERHALT = "EPLWEB00010";
 
     /**
-     * Rollen für die Applikationsgruppe '{}' wurden aufgrund einer oder mehrerer Anwendungen innerhalb der
-     * Gruppe ignoriert.
+     * Roles for the application group '{}' will be ignored due to one or more applications inside the group.
      */
     public static final String E_NAVMENU_ROLLEN_IGNORE = "EPLWEB00011";
 
     /**
-     * Die Navigation konnte nicht geladen werden, weil der benötigte Schlüsselkatalog nicht abgerufen werden
-     * konnte.
+     * The navigation could not be loaded because the required Schlüsselkatatlog could not be retrieved.
      */
     public static final String E_NAVMENU_SCHLUSSELKATALOG_NICHT_VORHANDEN = "EPLWEB00012";
 
     /**
-     * Beim Laden der Navigation wurde versucht, die Eigenschaft '{}' auszulesen. Dabei konnte der Wert '{}'
-     * nicht in eine Zahl umgewandelt werden. Es wurde auf einen Standardwert zurückgegriffen.
+     * When loading the navigation, an attempt was made to read the '{}' property. The value '{}' could
+     * not be converted into a number. A default value was used.
      */
     public static final String E_NAVMENU_SCHLUSSELKATALOG_WERT_NICHT_KORREKT_AUSGELESEN = "EPLWEB00013";
+
+    /**
+     * Resource file of characters used by the character picker is not specified correctly.
+     */
+    public static final String E_SONDERZEICHEN_EINLESEN_FEHLER = "EPLWEB00014";
 }
