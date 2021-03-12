@@ -1,6 +1,6 @@
 # v5.1.0
 - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
-            
+
         `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
 - `IFE-57`: 
     - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
@@ -17,7 +17,7 @@
    - Neues CSS bundle: META-INF/resources/css/isyweb.css
         - enthält specialcharpicker.css
 - `IFE-141`: teilt onload.js auf einzelne Komponenten auf
-- `IFE-271`: Funktionalität von buttinInjectPost wiederhergestellt
+- `IFE-271`: Funktionalität von buttonInjectPost wiederhergestellt
 
 # v5.0.0
 - `IFS-411`: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird
@@ -134,28 +134,28 @@ Wichtige Änderungen:
 
 ## Bugfixes
 - `IFS-30`:
-	* Das Sortieren von DataTables im Client-Mode funktioniert wieder.
-	* Fix: "." im Attribut reference bzw. referenceId führt dazu, dass AJAX Aufrufe nicht behandelt werden. Betrifft folgende Komponenten:
-		* formSelectOneDropdown.xhtml
-		* selectOneDropdown.xhtml (referenceId)
-	* formSelectOneDropdown: Klick auf Label selektiert wieder das entsprechende Dropdown.
+    * Das Sortieren von DataTables im Client-Mode funktioniert wieder.
+    * Fix: "." im Attribut reference bzw. referenceId führt dazu, dass AJAX Aufrufe nicht behandelt werden. Betrifft folgende Komponenten:
+        * formSelectOneDropdown.xhtml
+        * selectOneDropdown.xhtml (referenceId)
+    * formSelectOneDropdown: Klick auf Label selektiert wieder das entsprechende Dropdown.
 - Tabs: Das Attribut skipAction (tabHeader) hat nun den Standardwert false und korrespondiert somit zum Standardwert des Attributs preload (tabContent).
-	Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
+    Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
 
 ## Neuerungen
 - `IFS-29`: 
-	* Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
-	* DataTable übernimmt Änderungen von DataTable3.
-	* Einführung von <h>-Tags für Überschriften von Panels.
-	* Korrigierter JS-Code für die Formatierung von Geldbeträgen.
-	* formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
-	* selectManyList und selectOneList übernommen.
-	* Labels gefixt für:
-		* formActionInput
-		* formTextarea
-		* formListpicker
-		* formCurrencyInput
-		* formBrowseAndCollect		
+    * Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
+    * DataTable übernimmt Änderungen von DataTable3.
+    * Einführung von <h>-Tags für Überschriften von Panels.
+    * Korrigierter JS-Code für die Formatierung von Geldbeträgen.
+    * formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
+    * selectManyList und selectOneList übernommen.
+    * Labels gefixt für:
+        * formActionInput
+        * formTextarea
+        * formListpicker
+        * formCurrencyInput
+        * formBrowseAndCollect
 - `IFS-18`: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
 - `IFS-23`: Eingabe von Geldbeträgen mit mehr als zwei Nachkommastellen
 
