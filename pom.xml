@@ -170,6 +170,20 @@
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk20</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Solves maven-enforcer-plugin Error, because otherwise,
+        'tomahawk20' pulls multiple versions of this dependency (see exclusion in 'tomahawk20') -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
         </dependency>
 
         <!-- Servlet -->
