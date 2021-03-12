@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.common.web.servlet.filter;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,7 +117,7 @@ public class ResourceCacheHeaderFilter implements Filter {
                         try {
                             if (werte[0].equals("Expires")) {
                                 httpResponse.setDateHeader(werte[0],
-                                    System.currentTimeMillis() + (Long.valueOf(werte[1]) * 86400000));
+                                    System.currentTimeMillis() + Duration.ofDays(Long.parseLong(werte[1])).toMillis());
                             } else {
                                 httpResponse.setHeader(werte[0], werte[1]);
                             }
