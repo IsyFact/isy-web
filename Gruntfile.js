@@ -46,8 +46,7 @@ module.exports = function (grunt) {
                 files: [
                     {cwd: 'www/', expand: true, src: ['*.js', '*.js.map', '!*.debug.js'], dest: 'target/classes/META-INF/resources/js/'},
                     {cwd: 'www/', expand: true, src: ['*.debug.js'], dest: 'target/classes/META-INF/resources/js/www'},
-                    {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'},
-                    {src: 'www/charpickerdinspec.css', dest: 'target/classes/META-INF/resources/css/charpickerdinspec.css'}
+                    {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
                 ]
             }
 		},
