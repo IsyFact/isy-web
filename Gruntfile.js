@@ -35,6 +35,7 @@ module.exports = function (grunt) {
 				files: [
 					{src: 'src/main/resources/META-INF/resources/js/onload.js', dest: 'www/onload.debug.js'},
 					{src: 'src/main/resources/META-INF/resources/js/specialcharpicker.js', dest: 'www/specialcharpicker.debug.js'},
+                    {src: 'src/main/resources/META-INF/resources/js/charpickerdinspec.js', dest: 'www/charpickerdinspec.debug.js'},
 					{src: 'src/main/resources/META-INF/resources/js/tastatursteuerung.js', dest: 'www/tastatursteuerung.debug.js'},
                     {src: 'src/main/resources/META-INF/resources/js/sidebar-collapse.js', dest: 'www/sidebar-collapse.debug.js'}
 				]
@@ -44,6 +45,7 @@ module.exports = function (grunt) {
                 files: [
                     {src: 'www/onload.js', dest: 'target/classes/META-INF/resources/js/onload.js'},
                     {src: 'www/specialcharpicker.js',dest: 'target/classes/META-INF/resources/js/specialcharpicker.js'},
+                    {src: 'www/charpickerdinspec.js',dest: 'target/classes/META-INF/resources/js/charpickerdinspec.js'},
                     {src: 'www/tastatursteuerung.js', dest: 'target/classes/META-INF/resources/js/tastatursteuerung.js'},
                     {src: 'www/sidebar-collapse.js', dest: 'target/classes/META-INF/resources/js/sidebar-collapse.js'},
                     {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'},
