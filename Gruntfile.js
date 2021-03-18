@@ -48,8 +48,7 @@ module.exports = function (grunt) {
                     {src: 'www/charpickerdinspec.js',dest: 'target/classes/META-INF/resources/js/charpickerdinspec.js'},
                     {src: 'www/tastatursteuerung.js', dest: 'target/classes/META-INF/resources/js/tastatursteuerung.js'},
                     {src: 'www/sidebar-collapse.js', dest: 'target/classes/META-INF/resources/js/sidebar-collapse.js'},
-                    {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'},
-                    {src: 'www/charpickerdinspec.css', dest: 'target/classes/META-INF/resources/css/charpickerdinspec.css'}
+                    {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
                 ]
             }
 		},
@@ -89,15 +88,6 @@ module.exports = function (grunt) {
                 },
                 files: {
                     "www/specialcharpicker.css": "src/main/resources/grunt/css/specialcharpicker.css"
-                }
-            },
-            charpickerdinspec: {
-                options: {
-                    cleancss: true,
-                    sourceMap: false
-                },
-                files: {
-                    "www/charpickerdinspec.css": "src/main/resources/grunt/css/charpickerdinspec.css"
                 }
             }
         }
