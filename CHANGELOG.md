@@ -1,4 +1,6 @@
 # v4.10.0
+- `IFS-931 IFS-848`: Din Spec Charpicker implementiert
+    * Breaking Changes: Um einen Charpicker anzubinden muss das Attribut `charpicker` eines Input-Elements auf `dinSpec` (neu) oder `special` (alt) gesetzt werden.
 
 # v4.9.2
 
