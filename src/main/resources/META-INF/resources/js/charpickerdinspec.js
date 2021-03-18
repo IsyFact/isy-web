@@ -56,6 +56,7 @@ $(function () {
         this.$groupFilterItems = this.$filterItems.filter('.charpicker-filter-group');
 
         // These are all the special characters
+        this.$content = $('.charpicker-content');
         this.$charItems = $('.charpicker-special-char');
         this.$activeCharItem = "";
 
@@ -67,7 +68,8 @@ $(function () {
 
         this.$returnButton = $('.charpicker-return-button');
 
-        this.$collapsibles = $('.charpicker-sidebar [id$="PanelCollapse"]');
+        this.$sidebar = $('.charpicker-sidebar');
+        this.$collapsibles = this.$sidebar.find('[id$="PanelCollapse"]');
 
         this.$rowSize = 18;
 
@@ -428,7 +430,7 @@ $(function () {
 
                 var $displayedChars;
                 var $index;
-                var newActive;
+                var $newActive;
 
                 switch (keyCode) {
                     case 13: // [ENTER]
@@ -463,15 +465,16 @@ $(function () {
                         if (!!$collapsible) {
                             $collapsible.collapse('show');
                         }
-                        $nextFilter[0].scrollIntoView({ behavior: 'smooth', block: 'nearest'});
+
+                        this.scrollIntoView(this.$sidebar, $nextFilter);
                         break;
 
                     case 37: // [<]
                         $displayedChars = this.getVisibleCharItems();
                         $index = $displayedChars.index(this.$activeCharItem);
-                        newActive = $displayedChars[Math.max($index - 1, 0)];
-                        this.setActiveCharItem($(newActive));
-                        newActive.scrollIntoView({ behavior: 'smooth', block: 'nearest'});
+                        $newActive = $($displayedChars[Math.max($index - 1, 0)]);
+                        this.setActiveCharItem($newActive);
+                        this.scrollIntoView(this.$content, $newActive);
                         break;
 
                     case 38: // [^]
@@ -481,26 +484,26 @@ $(function () {
                         } else {
                             $displayedChars = this.getVisibleCharItems();
                             $index = $displayedChars.index(this.$activeCharItem);
-                            newActive = $displayedChars[Math.max($index - this.$rowSize, 0)];
-                            this.setActiveCharItem($(newActive));
-                            newActive.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+                            $newActive = $($displayedChars[Math.max($index - this.$rowSize, 0)]);
+                            this.setActiveCharItem($newActive);
+                            this.scrollIntoView(this.$content, $newActive);
                         }
                         break;
 
                     case 39: // [>]
                         $displayedChars = this.getVisibleCharItems();
                         $index = $displayedChars.index(this.$activeCharItem);
-                        newActive = $displayedChars[Math.min($index + 1, $displayedChars.length - 1)];
-                        this.setActiveCharItem($(newActive));
-                        newActive.scrollIntoView({ behavior: 'smooth', block: 'nearest'});
+                        $newActive = $($displayedChars[Math.min($index + 1, $displayedChars.length - 1)]);
+                        this.setActiveCharItem($newActive);
+                        this.scrollIntoView(this.$content, $newActive);
                         break;
 
                     case 40: // [v]
                         $displayedChars = this.getVisibleCharItems();
                         $index = $displayedChars.index(this.$activeCharItem);
-                        newActive = $displayedChars[Math.min($index + this.$rowSize, $displayedChars.length - 1)];
-                        this.setActiveCharItem($(newActive));
-                        newActive.scrollIntoView({ behavior: 'smooth', block: 'nearest'});
+                        $newActive = $($displayedChars[Math.min($index + this.$rowSize, $displayedChars.length - 1)]);
+                        this.setActiveCharItem($newActive);
+                        this.scrollIntoView(this.$content, $newActive);
                         break;
 
                     default:
@@ -608,6 +611,38 @@ $(function () {
             this.$activeCharItem = $charItem;
             this.$activeCharItem.addClass('active');
             this.setDetailsView(this.$activeCharItem);
+        },
+
+        scrollIntoView: function ($context, $item) {
+            if (!this.scrollFunc) {
+                var isIE = window.navigator.userAgent.match(/(MSIE|Trident)/);
+                if (isIE) {
+                    this.scrollFunc = function ($context, $item) {
+                        // accommodate for paddings
+                        var offset = $item.offset().top - $context.offset().top - 1;
+                        var scrollPos;
+                        if (offset < 0) {
+                            scrollPos = $context.scrollTop() + offset;
+                            $context.animate({ scrollTop: scrollPos }, 10);
+                            return;
+                        }
+
+                        console.log($item.offset().top + $item.height());
+                        console.log($context.offset().top + $context.height());
+                        // accommodate for paddings
+                        offset = $item.offset().top + $item.height() - ($context.offset().top + $context.height()) + 6;
+                        if (offset > 0) {
+                            scrollPos = $context.scrollTop() + offset;
+                            $context.animate({ scrollTop: scrollPos }, 10);
+                        }
+                    };
+                } else {
+                    this.scrollFunc = function ($context, $item) {
+                        $item[0].scrollIntoView({behavior: 'smooth', block: 'nearest'});
+                    };
+                }
+            }
+            this.scrollFunc($context, $item);
         },
 
         /**
