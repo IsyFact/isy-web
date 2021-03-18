@@ -2182,9 +2182,10 @@ Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Sta
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#{validationModel}`)
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
-* `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll. Wird der Wert auf `dinSpec` gesetzt, wird der neue Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt. Soll der allte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden. Standardmäßig wird kein Character-Picker verwendet.
-
-(Standard: `false`)
+* `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll.
+Wird der Wert auf `dinSpec` gesetzt, wird der Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt.
+Soll der alte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden.
+Standardmäßig wird kein Character-Picker verwendet.
 
 Eingabefelder besitzen folgende Facets:
 
@@ -2202,7 +2203,7 @@ Dazu muss wie im folgenden Beispiel (<<listing-charpicker>>) der Parameter `char
 [source, xml]
 ----
 <isy:formInput id="formInputSpecialCharDinSpec" type="text"
-    label="DIN SPEC 91379 Charpicker: "
+    label="DIN SPEC 91379 CharPicker: "
     reference="formInputSpecialChar" value="Ein Special Char Textfeld"
     charpicker="dinSpec" datentyp="DATENTYP_A"/>
 ----
@@ -2230,14 +2231,17 @@ Der CharPicker (zu sehen in <<image-charpicker-widget>>) besteht aus folgenden K
 
 * Die Leiste links erlaubt eine Auswahl von Kategorien, nach denen die Zeichen gefiltert werden können.
 * In der rechten Box werden die Sonderzeichen angezeigt und lassen sich per Mausklick auswählen.
-* Darunter befindet sich eine Detailansicht. Für eine bessere Übersicht werden die Schriftzeichen dort in groß, sowohl in einer Serifen- als auch in einer serifenlosen Schrift dargestellt. Rechts davon wird der Name und der Unicode-Codepoint des Symbols angezeigt. Mit dem Button `Einfügen` kann man bestätigen, dass das Symbol in das Eingabefeld eingefügt werden soll.
+* Darunter befindet sich eine Detailansicht.
+Für eine bessere Übersicht werden die Schriftzeichen dort in groß, sowohl in einer Serifen- als auch in einer serifenlosen Schrift dargestellt.
+Rechts davon wird der Name und der Unicode-Codepoint des Symbols angezeigt.
+Mit dem Button `Einfügen` kann man bestätigen, dass das Symbol in das Eingabefeld eingefügt werden soll.
 
 :desc-image-aktionseingabefeld: CharPicker nach DIN SPEC 91379
 [id="image-charpicker-widget",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-charpicker-widget}
 image::images/charpicker-widget.png[align="center"]
 
-Alternativ kann der Charpicker auch mit den folgenden Eingaben mit der Tastatur bedient werden:
+Alternativ kann der CharPicker auch mit den folgenden Eingaben mit der Tastatur bedient werden:
 
 * `Alt+Runter` öffnet den CharPicker, wenn das Eingabefeld fokussiert ist
 * `Alt+Hoch` bzw. `Escape` schließt den CharPicker
@@ -2272,7 +2276,10 @@ Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Sta
 * `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht. (Standard: `basisModel.showPrintView`)
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
-* `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll. Wird der Wert auf `dinSpec` gesetzt, wird der neue Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt. Soll der allte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden. Standardmäßig wird kein Character-Picker verwendet.
+* `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll.
+Wird der Wert auf `dinSpec` gesetzt, wird der neue Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt.
+Soll der alte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden.
+Standardmäßig wird kein Character-Picker verwendet.
 
 Eingabefelder besitzen folgende Facets:
 
@@ -4258,7 +4265,9 @@ Diese wird im Attribut data-isy-custom-id eingetragen.
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#{globalConfigurationModel}`)
-* `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll. Wird der Wert auf `dinSpec` gesetzt, wird der neue Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt. Soll der allte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden. Standardmäßig wird kein Character-Picker verwendet.
+* `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll. Wird der Wert auf `dinSpec` gesetzt, wird der neue Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt.
+Soll der alte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden.
+Standardmäßig wird kein Character-Picker verwendet.
 * `type`: Der Typ des Eingabefelds, sodass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann.
 Mögliche Werte alle Werte für das Feld type des HTML Input Felds. (Standard: `text`)
 * `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
