@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 public class CharPickerDinSpec91379Controller {
 
+    /**
+     * Repository for getting all supported characters.
+     */
     private final ZeichenObjektRepository zeichenObjektRepository = new ZeichenObjektRepository();
 
     public List<String> getBaseSymbols() {
