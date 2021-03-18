@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <cc:interface>
+    </cc:interface>
+    <cc:implementation>
+
+        <div class="picker picker-dropdown picker-orient-left picker-orient-top charpicker charpicker-dinspec charpicker-dinspec-widget">
+            <div class="charpicker-sidebar">
+                <div class="btn btn-light charpicker-filter charpicker-filter-all active">Alle</div>
+                <isy:panelGroup>
+                    <isy:panel collapse="true">
+                        <f:facet name="panelHeader">Basiszeichen</f:facet>
+                        <f:facet name="panelBody">
+                            <a class="btn btn-light charpicker-filter charpicker-filter-base">A</a>
+                            <a class="btn btn-light charpicker-filter charpicker-filter-base">B</a>
+                            <a class="btn btn-light charpicker-filter charpicker-filter-base">C</a>
+                        </f:facet>
+                    </isy:panel>
+                    <isy:panel collapse="true">
+                        <f:facet name="panelHeader">Gruppen</f:facet>
+                        <f:facet name="panelBody">
+                            <a class="btn btn-light charpicker-filter charpicker-filter-group">Gruppe1</a>
+                            <a class="btn btn-light charpicker-filter charpicker-filter-group">Gruppe2</a>
+                            <a class="btn btn-light charpicker-filter charpicker-filter-group">Gruppe3</a>
+                        </f:facet>
+                    </isy:panel>
+                </isy:panelGroup>
+            </div>
+            <div class="charpicker-content-container">
+                <div class="charpicker-content">
+                    <div class="btn btn-light charpicker-special-char-button charpicker-special-char active">
+                        A
+                    </div>
+                    <div class="btn btn-light charpicker-special-char-button charpicker-special-char">
+                        B
+                    </div>
+                    <div class="btn btn-light charpicker-special-char-button charpicker-special-char">
+                        C
+                    </div>
+                    <div class="btn btn-light charpicker-special-char-button charpicker-special-char">
+                        D
+                    </div>
+                    <div class="btn btn-light charpicker-special-char-button charpicker-special-char">
+                        E
+                    </div>
+                </div>
+                <div id="charpicker-details" class="charpicker-details">
+                    <div id="charpicker-preview" class="charpicker-preview">
+                        <div class="charpicker-preview-liner">
+                            <div class="charpicker-preview-sansserif">A</div>
+                            <div class="charpicker-preview-serif">A</div>
+                        </div>
+                    </div>
+                    <div class="charpicker-details-additional">
+                        <div class="charpicker-char-as-text">Dummy info</div>
+                        <div class="charpicker-char-codepoint">Alt+123</div>
+                    </div>
+                    <div class="charpicker-action-region">
+                        <button class="charpicker-return-button btn btn-default">Einfügen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </cc:implementation>
+
+</html>

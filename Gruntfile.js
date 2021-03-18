@@ -45,7 +45,8 @@ module.exports = function (grunt) {
                 files: [
                     {cwd: 'www/', expand: true, src: ['*.js', '*.js.map', '!*.debug.js'], dest: 'target/classes/META-INF/resources/js/'},
                     {cwd: 'www/', expand: true, src: ['*.debug.js'], dest: 'target/classes/META-INF/resources/js/www'},
-                    {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'}
+                    {src: 'www/specialcharpicker.css', dest: 'target/classes/META-INF/resources/css/specialcharpicker.css'},
+                    {src: 'www/charpickerdinspec.css', dest: 'target/classes/META-INF/resources/css/charpickerdinspec.css'}
                 ]
             }
 		},
@@ -79,6 +80,15 @@ module.exports = function (grunt) {
                 },
                 files: {
                     "www/specialcharpicker.css": "src/main/resources/grunt/css/specialcharpicker.css"
+                }
+            },
+            charpickerdinspec: {
+                options: {
+                    cleancss: true,
+                    sourceMap: false
+                },
+                files: {
+                    "www/charpickerdinspec.css": "src/main/resources/grunt/css/charpickerdinspec.css"
                 }
             }
         }

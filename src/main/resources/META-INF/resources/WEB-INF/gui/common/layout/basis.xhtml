@@ -36,6 +36,7 @@
                 <link rel="stylesheet" href="${request.contextPath}/app/resources/color.css" type="text/css"
                       media="screen"/>
                 <link rel="stylesheet" href="#{resource['/css/specialcharpicker.css']}" type="text/css"/>
+                <link rel="stylesheet" href="#{resource['/css/charpickerdinspec.css']}" type="text/css"/>
                 <ui:fragment rendered="#{not basisModel.showPrintView}">
                     <link rel="stylesheet" href="#{resource['/css/styles.css']}"
                           type="text/css" media="screen"/>
@@ -119,6 +120,7 @@
         </h:head>
         <h:body role="document">
             <isy:specialCharPicker/>
+            <isy:charPickerDinSpec/>
 
             <!-- Multipart Variable zur Verfügung stellen -->
             <h:panelGroup id="multipartArea">
