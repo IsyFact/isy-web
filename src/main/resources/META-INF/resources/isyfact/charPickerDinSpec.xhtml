@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
 
     <cc:interface>
@@ -14,37 +15,33 @@
                     <isy:panel collapse="true">
                         <f:facet name="panelHeader">Basiszeichen</f:facet>
                         <f:facet name="panelBody">
-                            <a class="btn btn-light charpicker-filter charpicker-filter-base">A</a>
-                            <a class="btn btn-light charpicker-filter charpicker-filter-base">B</a>
+                            <ui:repeat value="#{charPickerDinSpecController.baseSymbols}" var="baseSymbol">
+                                <a class="btn btn-light charpicker-filter charpicker-filter-base">#{empty baseSymbol ? '*' : baseSymbol}</a>
+                            </ui:repeat>
                         </f:facet>
                     </isy:panel>
                     <isy:panel collapse="true">
                         <f:facet name="panelHeader">Gruppen</f:facet>
                         <f:facet name="panelBody">
-                            <a class="btn btn-light charpicker-filter charpicker-filter-group">Gruppe1</a>
-                            <a class="btn btn-light charpicker-filter charpicker-filter-group">Gruppe2</a>
+                            <ui:repeat value="#{charPickerDinSpecController.groups}" var="gruppe">
+                                <a class="btn btn-light charpicker-filter charpicker-filter-group">#{gruppe}</a>
+                            </ui:repeat>
                         </f:facet>
                     </isy:panel>
                 </isy:panelGroup>
             </div>
             <div class="charpicker-content-container">
                 <div class="charpicker-content">
-                    <div class="btn btn-light charpicker-special-char-button charpicker-special-char"
-                         data-char-zeichen="A"
-                         data-char-base="A"
-                         data-char-group="Gruppe1"
-                         data-char-name="Das ist ein A"
-                         data-char-codepoint="Ein Code Point 1337">
-                        A
-                    </div>
-                    <div class="btn btn-light charpicker-special-char-button charpicker-special-char"
-                         data-char-zeichen="B"
-                         data-char-base="B"
-                         data-char-group="Gruppe2"
-                         data-char-name="Das ist ein B"
-                         data-char-codepoint="Ein Code Point 420">
-                        B
-                    </div>
+                    <ui:repeat value="#{charPickerDinSpecController.symbols}" var="symbol">
+                        <div class="btn btn-light charpicker-special-char-button charpicker-special-char"
+                             data-char-zeichen="#{symbol.zeichen}"
+                             data-char-base="#{symbol.grundzeichen}"
+                             data-char-group="${symbol.schriftzeichengruppe}"
+                             data-char-name="#{symbol.name}"
+                             data-char-codepoint="#{symbol.codepoint}">
+                            #{symbol.zeichen}
+                        </div>
+                    </ui:repeat>
                 </div>
                 <div id="charpicker-details" class="charpicker-details">
                     <div id="charpicker-preview" class="charpicker-preview">
