@@ -111,3 +111,6 @@
 .charpicker-dinspec .charpicker-preview-serif {
     font-family: HiraMinProN-W6, "Hiragino Mincho ProN W6", "Hiragino Mincho ProN", serif;
 }
+.charpicker-dinspec .charpicker-special-char-button.illegal {
+    display: none;
+}
