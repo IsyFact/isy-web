@@ -58,8 +58,10 @@
                 default="#{globalConfigurationModel}" />
 
         <!-- Die Referenz des Objekts. -->
-        <composite:attribute name="charpicker" required="false" type="Boolean"
-                default="false" />
+        <composite:attribute name="charpicker" required="false" type="String" />
+
+        <!-- Datatype of the input field. -->
+        <composite:attribute name="datentyp" type="String" required="false" default="DATENTYP_E"/>
 
         <!-- Der Inhalt der rechts vom Listpicker angezeigt wird. -->
         <composite:facet name="contentRight" required="false" />
@@ -110,14 +112,19 @@
                 <div class="input-group">
                     <ui:fragment rendered="#{not cc.attrs.showPrintView and not cc.attrs.readonly}">
 
+                        <ui:param name="charPickerClass" value="#{empty cc.attrs.charpicker or empty cc.attrs.globalConfig or not cc.attrs.globalConfig.jsEnabled ? '' :
+                          cc.attrs.charpicker == 'dinSpec' ? ' inputWithCharPickerDinSpec' :
+                          cc.attrs.charpicker == 'special' ? ' inputWithSpecialCharPicker' : ''}" />
+
                         <!-- input -->
                         <ui:fragment rendered="#{empty cc.attrs.inputmask}">
                             <input type="#{cc.attrs.type}"
-                                    class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled ? ' inputWithSpecialCharPicker': ''}"
+                                    class="form-control#{existsValidationError ? ' invalid': ''}#{charPickerClass}"
                                     id="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
                                     placeholder="#{cc.attrs.placeholder}"
                                     jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
-                                    style="width: #{cc.attrs.width}" title="#{cc.attrs.tooltip}">
+                                    style="width: #{cc.attrs.width}" title="#{cc.attrs.tooltip}"
+                                    data-datentyp="${cc.attrs.datentyp}">
                                 <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
                             </input>
                         </ui:fragment>
@@ -125,21 +132,26 @@
                         <!-- input mit inputmask -->
                         <ui:fragment rendered="#{not empty cc.attrs.inputmask}">
                             <input type="#{cc.attrs.type}"
-                                    class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled ? ' inputWithSpecialCharPicker': ''}"
+                                    class="form-control#{existsValidationError ? ' invalid': ''}#{charPickerClass}"
                                     id="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}_with_inputmask"
                                     jsf:value="#{cc.attrs.value}"
                                     placeholder="#{cc.attrs.placeholder}"
                                     data-isymask-mask="#{cc.attrs.inputmask}"
                                     data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}"
                                     maxlength="#{cc.attrs.maxlength}" style="width: #{cc.attrs.width}"
-                                    title="#{cc.attrs.tooltip}">
+                                    title="#{cc.attrs.tooltip}"
+                                   data-datentyp="${cc.attrs.datentyp}">
                                 <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
                             </input>
                         </ui:fragment>
-                        <ui:fragment
-                                rendered="#{cc.attrs.charpicker and not empty cc.attrs.globalConfig and cc.attrs.globalConfig.jsEnabled}">
+                        <ui:fragment rendered="#{not empty charPickerClass}">
+
+                            <ui:param name="pickerButtonClass" value="#{empty cc.attrs.charpicker ? '' :
+                                cc.attrs.charpicker == 'dinSpec' ? 'charpicker-open-button' :
+                                cc.attrs.charpicker == 'special' ? 'special-char-button' : ''}" />
+
                             <a
-                                    class="btn btn-icon input-group-addon char-picker-button special-char-button"
+                                    class="btn btn-icon input-group-addon char-picker-button #{pickerButtonClass}"
                                     title="#{msg_isyweb.MEL_Charpicker_Tooltip}"> <span
                                     class="icon fa-keyboard" />
                             </a>
