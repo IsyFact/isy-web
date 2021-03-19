@@ -1,28 +1,29 @@
 package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
 
+/** Contains character groups as defined by DIN spec 91379. */
 public enum Schriftzeichengruppe {
 
-    /** Lateinische Buchstaben. */
+    /** Group "Lateinische Buchstaben" (Latin letters). */
     LATEIN,
 
-    /** Nicht-Buchstaben N1. */
+    /** Group "Nicht-Buchstaben N1" (Non-letters N1) . */
     N1,
 
-    /** Nicht-Buchstaben N2. */
+    /** Group "Nicht-Buchstaben N2" (Non-letters N2). */
     N2,
 
-    /** Nicht-Buchstaben N3. */
+    /** Group "Nicht-Buchstaben N3" (Non-letters N3). */
     N3,
 
-    /** Nicht-Buchstaben N4. */
+    /** Group "Nicht-Buchstaben N4" (Non-letters N4). */
     N4,
 
-    /** Nicht-Buchstaben E1. */
+    /** Group "Nicht-Buchstaben E1" (Non-letters E1). */
     E1,
 
-    /** Griechische Buchstaben. */
+    /** Group "Griechische Buchstaben" (Greek letters). */
     GRIECHISCH,
 
-    /** Kyrillische Buchstaben. */
+    /** Group "Kyrillische Buchstaben" (Cyrillic letters). */
     KYRILLISCH
 }
