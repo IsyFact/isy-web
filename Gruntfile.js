@@ -62,6 +62,10 @@ module.exports = function (grunt) {
                 files: {'www/specialcharpicker.js':['www/specialcharpicker.debug.js']},
                 options: {sourceMap: {url: 'specialcharpicker.js.map'}}
             },
+            pickerdinspec: {
+                files: {'www/charpickerdinspec.js':['www/charpickerdinspec.debug.js']},
+                options: {sourceMap: {url: 'charpickerdinspec.js.map'}}
+            },
             collapse: {
                 files: {'www/sidebar-collapse.js':['www/sidebar-collapse.debug.js']},
                 options: {sourceMap: {url: 'sidebar-collapse.js.map'}}
