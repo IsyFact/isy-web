@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Splitter;
@@ -116,7 +115,7 @@ public class ResourceCacheHeaderFilter implements Filter {
                         try {
                             if (werte[0].equals("Expires")) {
                                 httpResponse.setDateHeader(werte[0],
-                                    System.currentTimeMillis() + (Long.valueOf(werte[1]) * 86400000));
+                                    System.currentTimeMillis() + (Long.parseLong(werte[1]) * 86400000));
                             } else {
                                 httpResponse.setHeader(werte[0], werte[1]);
                             }
@@ -140,7 +139,7 @@ public class ResourceCacheHeaderFilter implements Filter {
      * @return ist der gesamte aktuelle Anfrage-Url-Pfad.
      */
     private String getGesamteRequestUrl(HttpServletRequest request) {
-        String gesamteUri = request.getRequestURI().toString();
+        String gesamteUri = request.getRequestURI();
         if (!Strings.isNullOrEmpty(request.getQueryString())) {
             gesamteUri += "?" + request.getQueryString();
         }

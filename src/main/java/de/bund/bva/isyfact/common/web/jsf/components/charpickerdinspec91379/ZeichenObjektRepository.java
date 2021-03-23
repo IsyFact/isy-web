@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -78,7 +79,7 @@ public class ZeichenObjektRepository {
 
             int currentLine = 1;
             try (InputStream inputResource = SpecialCharPickerWidget.class.getResourceAsStream(getResource());
-                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputResource))) {
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputResource, StandardCharsets.UTF_8))) {
                 while ((line = reader.readLine()) != null) {
                     // Separating the first entry of the line from the rest of the String.
                     // This is necessary in case the first character of a row is a semicolon, because
