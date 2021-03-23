@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.common.web.autoconfigure;
 
 import javax.servlet.ServletContext;
 
+import de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379.CharPickerDinSpec91379Controller;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -114,6 +115,13 @@ public class ControllerAutoConfiguration {
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public ErrorController errorController() {
         return new ErrorController();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public CharPickerDinSpec91379Controller charPickerDinSpecController() {
+        return new CharPickerDinSpec91379Controller();
     }
 
     @Bean
