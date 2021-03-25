@@ -2222,10 +2222,10 @@ Alternativ kann der Parameter `charpicker` auf den Wert `special` gesetzt werden
 Dieser unterstützt nur die Schriftzeichen aus String.Latin 1.1, also deutlich weniger Zeichen.
 Ein Eingabefeld mit CharPicker besitzt wie in <<image-charpicker-button>> zu sehen einen Button auf der rechten Seite, mit dem sich der CharPicker öffnen lässt.
 
-:desc-image-aktionseingabefeld: Eingabefeld mit CharPicker
+:desc-image-charpicker-button: Eingabefeld mit CharPicker
 [id="image-charpicker-button",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-charpicker-button}
-image::images/charpicker-button.png[align="center"]
+image::charpicker-button.png[align="center"]
 
 Der CharPicker (zu sehen in <<image-charpicker-widget>>) besteht aus folgenden Komponenten:
 
@@ -2236,10 +2236,10 @@ Für eine bessere Übersicht werden die Schriftzeichen dort in groß, sowohl in 
 Rechts davon wird der Name und der Unicode-Codepoint des Symbols angezeigt.
 Mit dem Button `Einfügen` kann man bestätigen, dass das Symbol in das Eingabefeld eingefügt werden soll.
 
-:desc-image-aktionseingabefeld: CharPicker nach DIN SPEC 91379
+:desc-image-charpicker-widget: CharPicker nach DIN SPEC 91379
 [id="image-charpicker-widget",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-charpicker-widget}
-image::images/charpicker-widget.png[align="center"]
+image::charpicker-widget.png[align="center"]
 
 Alternativ kann der CharPicker auch mit den folgenden Eingaben mit der Tastatur bedient werden:
 
