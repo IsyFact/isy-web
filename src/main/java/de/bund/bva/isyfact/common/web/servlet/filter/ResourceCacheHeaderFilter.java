@@ -26,8 +26,8 @@ import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
- * Dieser Klasse setzt für zu cachende Ressourcen die HTTP-Header erneut, sodass das Pragma "no-cache" und die
- * analogen Werte für Cache-Control überschrieben werden. Der Ablaufzeitpunkt ist konfigurierbar.
+ * This class re-sets the HTTP headers for resources to be cached, overriding the no-cache pragma
+ * and the analogous cache control values. The expiration time is configurable.
  */
 @Component
 public class ResourceCacheHeaderFilter implements Filter {
@@ -35,11 +35,11 @@ public class ResourceCacheHeaderFilter implements Filter {
     private Log log = LogFactory.getLog(ResourceCacheHeaderFilter.class);
 
     /**
-     * Zugriff auf die Konfiguration.
+     * Access to the configuration.
      */
     private Konfiguration konfiguration;
 
-    /** Ist eine Liste mit zu cachenden Url-Pfaden, relativ zum ApplicationContext-Root. */
+    /** Is a list of url paths to cache, relative to the application context root. */
     private List<String> urlsToCache = new ArrayList<>();
 
     @Autowired
@@ -52,7 +52,7 @@ public class ResourceCacheHeaderFilter implements Filter {
      */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Parameter "urlsToCache"
+        // parameter "urlsToCache"
         String urlsToCacheWert =
             filterConfig.getInitParameter(GuiParameterSchluessel.FILTER_PARAMETER_URLS_TO_CACHE);
 
@@ -63,13 +63,13 @@ public class ResourceCacheHeaderFilter implements Filter {
     }
 
     /**
-     * Prueft, ob die Anfrage-Url zu cachen ist.
+     * Checks if the request url is to be cached.
      *
      * @param requestUrlGesamt
-     *            ist die gesamte Anfrage-Url
+     *            request url
      * @param applicationContextPfad
-     *            ist der ApplicationContext-Pfad
-     * @return <code>true</code>, falls die Url zu cachen ist. <code>false</code> ansonsten.
+     *            application context path
+     * @return <code>true</code>, if the request url is to be cached. Otherwise, <code>false</code>.
      */
     private boolean ermittleUrlIstZuCachen(String requestUrlGesamt, String applicationContextPfad) {
         if (this.urlsToCache == null) {
@@ -101,7 +101,7 @@ public class ResourceCacheHeaderFilter implements Filter {
 
         boolean urlIstZuCachen = ermittleUrlIstZuCachen(requestUrlGesamt, applicationContextPfad);
         if (urlIstZuCachen) {
-            // Es handelt sich um eine zu Url, die gecacht werden soll
+            // this is a url that is to be cached
             List<String> cacheWerte = new ArrayList<>();
             for (String key : this.konfiguration.getSchluessel()) {
                 if (key.startsWith("caching.resourcen")) {
@@ -127,16 +127,16 @@ public class ResourceCacheHeaderFilter implements Filter {
             }
         }
 
-        // Setze die Filterkette fort
+        // continues the filter chain
         chain.doFilter(request, response);
     }
 
     /**
-     * Ermittelt den gesamten aktuellen Anfrage-Url-Pfad einschliesslich HTTP-GET-Parametern.
+     * Gets the entire current request url path including HTTP GET parameters.
      *
      * @param request
-     *            ist der {@link HttpServletRequest}
-     * @return ist der gesamte aktuelle Anfrage-Url-Pfad.
+     *            is the {@link HttpServletRequest}
+     * @return the entire current request url path.
      */
     private String getGesamteRequestUrl(HttpServletRequest request) {
         String gesamteUri = request.getRequestURI();

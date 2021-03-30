@@ -38,7 +38,7 @@ import de.bund.bva.isyfact.common.web.webflow.titles.TitlesHelper;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
- * ComponentScan für die Controller von Isy-Web.
+ * ComponentScan for the isy-web controllers.
  */
 @Configuration
 //@ComponentScan(basePackages = "de.bund.bva.isyfact.common.web",
