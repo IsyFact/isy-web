@@ -1,0 +1,17 @@
+:doctitle: JavaServer Faces (JSF)
+:document-type: Nutzungsvorgaben
+:vs-einstufung: open-source
+
+toc::[]
+colophon::[factory="IsyFact-Standards", open-source="true"]
+
+include::docinfo.adoc[]
+
+// Einleitung
+include::thisdoc.adoc[tags=inhalt]
+
+// Inhalt
+include::inhalt.adoc[tags=inhalt]
+
+// Changelog
+include::changelog.adoc[leveloffset=1]
