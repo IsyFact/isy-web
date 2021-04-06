@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<!-- Die Komponente beinhaltet das Navigationsmenü. -->
+
+<composite:interface>
+  <!-- Das NavigationMenuModel. -->
+  <composite:attribute name="navMenuModel" required="true" />
+</composite:interface>
+
+<composite:implementation>
+  <ul class="nav nav-tabs">
+<!--   Abstandhalter um bündig mit Hauptinhalt zusein -->
+  <li class="col-lg-2">
+  </li>
+    <ui:repeat value="#{cc.attrs.navMenuModel.applikationsListe}" var="applikation">
+      <!--  Setze Klasse active, falls die Applikation aktiv ist   -->
+      <li class="#{applikation.aktiv ? 'active menustart' : ''}"><a href="#{applikation.link}" >#{applikation.name}</a>
+        <!--Applikation enthält mindestens eine Anwendung. Ein Menu wird gezeigt. -->
+        <ui:fragment rendered="#{not empty applikation.anwendungen}">
+          <div class="navbar-submenu" style="border-top-color:#{applikation.farbe}">
+            <div class="row">
+              <div>
+                <ui:repeat value="#{applikation.anwendungen}" var="anwendung" varStatus="anwendungsnumber">
+                  <div class='row navbar-anwendung'>
+                    <div>
+                      <a href="#{anwendung.link}" class="search-option">#{anwendung.name}</a>
+                    </div>
+                  </div>
+                </ui:repeat>
+              </div>
+            </div>
+          </div>
+        </ui:fragment>
+        <!--Applikation enthält keine Anwendung. Kein Menü wird angezeigt. -->
+        <ui:fragment rendered="#{empty applikation.anwendungen}">
+          <div class="navbar-submenu " Style="border-color:#{applikation.farbe};min-height: 0px;padding: 0px 0px;"/>    
+        </ui:fragment>
+      </li>
+    </ui:repeat>
+  </ul>        
+</composite:implementation>
+
+</html>
