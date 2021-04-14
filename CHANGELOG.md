@@ -2,6 +2,7 @@
 - `IFS-931 IFS-848`: Din Spec Charpicker implementiert
     * Breaking Changes: Um einen Charpicker anzubinden muss das Attribut `charpicker` eines Input-Elements auf `dinSpec` (neu) oder `special` (alt) gesetzt werden.
     * Nutzungsvorgaben um Informationen zum CharPicker ergänzt
+- `IFS-650`: Version Anhebung von IsyFact Standards auf 1.9.0
 
 # v4.9.2
 
