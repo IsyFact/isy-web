@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,7 +80,7 @@ public class ZeichenObjektRepository {
 
             int currentLine = 1;
             try (InputStream inputResource = SpecialCharPickerWidget.class.getResourceAsStream(getResource());
-                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputResource))) {
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputResource, UTF_8))) {
                 while ((line = reader.readLine()) != null) {
                     // Separating the first entry of the line from the rest of the String.
                     // This is necessary in case the first character of a row is a semicolon, because
