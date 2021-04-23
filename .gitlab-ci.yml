@@ -2,20 +2,24 @@ include:
   - project: 'IsyFact/isy-gitlabci-templates'
     file: '/maven/.gitlab-ci-maven.yml'
 
-variables:
-  MAVEN_CLI_OPTS: -Dinternalnodenpm=true
-
-build:
-  extends: .maven-build
+stages:
+  - build
+  - test
+  - package
+  - deploy
 
 build:doc:
   extends: .maven-build
   variables:
-    MAVEN_CLI_OPTS: -Pbuild-documentation -Dskip.npm -Dskip.grunt -Dskip.installnodenpm
+    MAVEN_BUILD_OPTS: -Pbuild-documentation
   artifacts:
-    expire_in: 1 day
+    expire_in: 2 day
     paths:
-      - '**/target/doc/**'
+    - "target/pdf/"
+    - "target/html/"
+
+build:
+  extends: .maven-build
 
 test:
   extends: .maven-test
@@ -23,14 +27,5 @@ test:
 package:
   extends: .maven-package
 
-deploy:deploy-manual:
-  extends: .maven-deploy-manual
-
 deploy:
   extends: .maven-deploy
-
-stages:
-  - build
-  - test
-  - package
-  - deploy
