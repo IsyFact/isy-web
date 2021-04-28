@@ -31,6 +31,11 @@
         class="de.bund.bva.isyfact.common.web.global.AbstractGuiController">
     </bean>
 
+    <bean id="charPickerDinSpecController"
+          class="de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379.CharPickerDinSpec91379Controller">
+        <aop:scoped-proxy proxy-target-class="true"/>
+    </bean>
+
     <bean id="errorController" class="de.bund.bva.isyfact.common.web.exception.web.ErrorController">
                     <aop:scoped-proxy proxy-target-class="true"/>
      </bean>

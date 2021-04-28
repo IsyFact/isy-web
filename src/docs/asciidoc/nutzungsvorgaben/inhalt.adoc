@@ -2417,11 +2417,73 @@ Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Sta
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#{validationModel}`)
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
-* `charpicker`: Gibt an, ob eine Eingabe für Sonderzeichen angezeigt wird. (Standard: `false`)
+* `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll.
+Wird der Wert auf `dinSpec` gesetzt, wird der Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt.
+Soll der alte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden.
+Standardmäßig wird kein Character-Picker verwendet.
 
 Eingabefelder besitzen folgende Facets:
 
 * `contentRight`: Inhalt, der rechts vom Eingabefeld angezeigt wird
+
+[[charpicker]]
+==== Character-Picker
+
+Eingabefelder besitzen die Möglichkeit einen Character-Picker (kurz: CharPicker) für die Eingabe von Sonderzeichen einzublenden.
+Dazu muss, wie im folgenden Beispiel (<<listing-charpicker>>), der Parameter `charpicker` auf den Wert `dinSpec` gesetzt werden, um den CharPicker zu verwenden, welcher die Sonderzeichen der DIN SPEC 91379 unterstützt:
+
+:desc-listing-tabgroup: Verwendung vom CharPicker
+[id="listing-charpicker",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-tabgroup}
+[source, xml]
+----
+<isy:formInput id="formInputSpecialCharDinSpec" type="text"
+    label="DIN SPEC 91379 CharPicker: "
+    reference="formInputSpecialChar" value="Ein Special Char Textfeld"
+    charpicker="dinSpec" datentyp="DATENTYP_A"/>
+----
+
+Der Parameter `datentyp` gibt an, welche Sonderzeichen vom CharPicker unterstützt werden sollen.
+Zur Auswahl stehen folgende Optionen:
+
+* `DATENTYP_A`
+* `DATENTYP_B`
+* `DATENTYP_C`
+* `DATENTYP_D`
+* `DATENTYP_E`
+
+Für den Fall, dass kein Parameter gewählt wird, werden alle Zeichen aus `DATENTYP_E` verwendet.
+Alternativ kann der Parameter `charpicker` auf den Wert `special` gesetzt werden, um den alten CharPicker zu verwenden.
+Dieser unterstützt nur die Schriftzeichen aus String.Latin 1.1, also deutlich weniger Zeichen.
+Ein Eingabefeld mit CharPicker besitzt, wie in <<image-charpicker-button>> zu sehen, einen Button auf der rechten Seite, mit dem sich der CharPicker öffnen lässt.
+
+:desc-image-charpicker-button: Eingabefeld mit CharPicker
+[id="image-charpicker-button",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-charpicker-button}
+image::charpicker-button.png[align="center"]
+
+Der CharPicker (zu sehen in <<image-charpicker-widget>>) besteht aus folgenden Komponenten:
+
+* Die Leiste links erlaubt eine Auswahl von Kategorien, nach denen die Zeichen gefiltert werden können.
+* In der rechten Box werden die Sonderzeichen angezeigt und lassen sich per Mausklick auswählen.
+* Darunter befindet sich eine Detailansicht.
+Für eine bessere Übersicht werden die Schriftzeichen dort in groß, sowohl in einer Serifen- als auch in einer serifenlosen Schrift dargestellt.
+Rechts davon wird der Name und der Unicode-Codepoint des Symbols angezeigt.
+Mit dem Button `Einfügen` kann man bestätigen, dass das Symbol in das Eingabefeld eingefügt werden soll.
+
+:desc-image-charpicker-widget: CharPicker nach DIN SPEC 91379
+[id="image-charpicker-widget",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-charpicker-widget}
+image::charpicker-widget.png[align="center"]
+
+Alternativ kann der CharPicker auch mit den folgenden Eingaben mit der Tastatur bedient werden:
+
+* `Alt+Runter` öffnet den CharPicker, wenn das Eingabefeld fokussiert ist
+* `Alt+Hoch` bzw. `Escape` schließt den CharPicker
+* Pfeiltasten können zum Auswählen von Schriftzeichen verwendet werden
+* Mit `Enter` wird das ausgewählte Schriftzeichen in das Eingabefeld eingefügt
+* `TAB` wechselt zur nächsten Kategorie
+* `Shift+TAB` wechselt zur vorherigen Kategorie
 
 [[eingabefelder-ohne-label-ueberschrift]]
 === Eingabefelder ohne Label
@@ -2449,11 +2511,16 @@ Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Sta
 * `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht. (Standard: `basisModel.showPrintView`)
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
-* `charpicker`: Gibt an, ob eine Eingabe für Sonderzeichen angezeigt wird. (Standard: `false`)
+* `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll.
+Wird der Wert auf `dinSpec` gesetzt, wird der neue Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt.
+Soll der alte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden.
+Standardmäßig wird kein Character-Picker verwendet.
 
 Eingabefelder besitzen folgende Facets:
 
 * `contentRight`: Inhalt, der rechts vom Eingabefeld angezeigt wird
+
+Der CharPicker funktioniert wie im Abschnitt <<charpicker>> beschrieben.
 
 [[aktionseingabefeld]]
 ==== Aktionseingabefeld
@@ -4426,10 +4493,14 @@ Diese wird im Attribut data-isy-custom-id eingetragen.
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#{globalConfigurationModel}`)
-* `charpicker`: Die Referenz des Objekts. (Standard: `false`, Typ: `Boolean`)
+* `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll. Wird der Wert auf `dinSpec` gesetzt, wird der neue Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt.
+Soll der alte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden.
+Standardmäßig wird kein Character-Picker verwendet.
 * `type`: Der Typ des Eingabefelds, sodass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann.
 Mögliche Werte alle Werte für das Feld type des HTML Input Felds. (Standard: `text`)
 * `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
+
+Der CharPicker funktioniert wie im Abschnitt <<charpicker>> beschrieben.
 
 Codebeispiel:
 
