@@ -424,7 +424,7 @@
                             </requires>
 
                             <attributes>
-                                <revnumber>IF-1.9</revnumber>
+                                <revnumber>IF-${project.parent.version}</revnumber>
                                 <revdate>${maven.build.timestamp}</revdate>
                                 <icons>font</icons>
                                 <sectanchors>true</sectanchors>
@@ -438,7 +438,7 @@
                                 <pdf-stylesdir>${project.build.directory}/isy-dokumentvorlagen/theme</pdf-stylesdir>
                                 <pdf-style>isyfact</pdf-style>
                                 <pdf-fontsdir>${project.build.directory}/isy-dokumentvorlagen/theme/fonts</pdf-fontsdir>
-                                <version-isyfact-bom>1.9</version-isyfact-bom>
+                                <version-isyfact-bom>${project.parent.version}</version-isyfact-bom>
                                 <isy-dokumentvorlagen>${project.build.directory}/isy-dokumentvorlagen</isy-dokumentvorlagen>
                             </attributes>
                         </configuration>
