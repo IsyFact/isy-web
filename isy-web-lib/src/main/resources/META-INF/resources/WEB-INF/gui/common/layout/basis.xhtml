@@ -35,7 +35,7 @@
             <ui:fragment>
                 <link rel="stylesheet" href="${request.contextPath}/app/resources/color.css" type="text/css"
                       media="screen"/>
-                <link rel="stylesheet" href="#{resource['/css/specialcharpicker.css']}" type="text/css"/>
+                <link rel="stylesheet" href="#{resource['/css/isyweb.css']}" type="text/css"/>
                 <ui:fragment rendered="#{not basisModel.showPrintView}">
                     <link rel="stylesheet" href="#{resource['/css/styles.css']}"
                           type="text/css" media="screen"/>
@@ -194,10 +194,7 @@
 
             <ui:fragment
                     rendered="#{not empty globalConfigurationModel and globalConfigurationModel.jsEnabled}">
-                <h:outputScript name="js/tastatursteuerung.js"/>
-                <h:outputScript name="js/onload.js"/>
-                <h:outputScript name="js/specialcharpicker.js"/>
-                <h:outputScript name="js/sidebar-collapse.js"/>
+                <h:outputScript name="js/isyweb.bundle.js"/>
                 <ui:insert name="script"/>
             </ui:fragment>
 

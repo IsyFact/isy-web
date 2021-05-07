@@ -1,7 +1,13 @@
 [[changelog]]
 = Changelog
 
-// *Änderungen Release 5.0.0*
+// *Änderungen Release 5.1.0*
+
+// tag::release-5.1.0[]
+
+// end::release-5.1.0[]
+
+*Änderungen Release 5.0.0*
 
 // tag::release-5.0.0[]
 - `IFS-111`: Dokumentation von Konzept JSF überarbeitet

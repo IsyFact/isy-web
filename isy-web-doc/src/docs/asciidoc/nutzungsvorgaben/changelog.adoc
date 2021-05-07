@@ -1,11 +1,21 @@
 [[changelog]]
 = Changelog
 
-// *Änderungen Release 5.0.0*
+// *Änderungen Release 5.1.0*
+
+// tag::release-5.1.0[]
+
+// end::release-5.1.0[]
+
+
+*Änderungen Release 5.0.0*
 
 // tag::release-5.0.0[]
+- `IFS-75`: Schutz gegen CSRF-Attacken beschrieben
 - `IFS-112`: Dokumentation von Nutzungsvorgaben JSF überarbeitet
 - `IFS-63` : Kapitelergänzung Bestätigungsdialog
+- `IFE-95`: Nachdokumentation für Eingabefeld ohne Label
+- `IFS-89`: Textänderung bei Querschnittliche Texte
 // end::release-5.0.0[]
 
 // *Änderungen Release 4.9.0*
