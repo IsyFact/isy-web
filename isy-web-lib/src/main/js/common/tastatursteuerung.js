@@ -44,7 +44,7 @@ $(document).ready(function() {
 
 });
 
-tastatursteuerungAktualisieren = function() {
+const tastatursteuerungAktualisieren = function() {
     'use strict';
     const $inputs = $("input").filter(':not(.tatatursteuerung_ajaxtoken)');
 
@@ -73,7 +73,7 @@ tastatursteuerungAktualisieren = function() {
     $inputs.addClass('tatatursteuerung_ajaxtoken');
 };
 
-tastatursteuerungLinksnavigation = function($focuselement, $origin) {
+const tastatursteuerungLinksnavigation = function($focuselement, $origin) {
     'use strict';
     let $neuerFocus;
 
@@ -134,7 +134,7 @@ tastatursteuerungLinksnavigation = function($focuselement, $origin) {
 
 };
 
-tastatursteuerungNavigation = function($focuselement, $origin) {
+const tastatursteuerungNavigation = function($focuselement, $origin) {
     'use strict';
     let $neuerFocus;
 
@@ -195,7 +195,7 @@ tastatursteuerungNavigation = function($focuselement, $origin) {
 
 };
 
-tastatursteuerungSeitentoolbar = function(index, $origin) {
+const tastatursteuerungSeitentoolbar = function(index, $origin) {
     'use strict';
     let $neuerFocus;
     const $alleElemente = $("form[id*='seitenToolbarForm']")

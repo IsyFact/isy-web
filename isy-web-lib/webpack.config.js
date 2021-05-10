@@ -1,8 +1,10 @@
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
+    target: ['es5'],
     entry: {
         isyweb: [
             './src/main/js/main.js',
@@ -25,6 +27,11 @@ module.exports = {
     },
     optimization: {
         minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    ecma: 5
+                },
+            }),
             new CssMinimizerPlugin(),
         ],
     },

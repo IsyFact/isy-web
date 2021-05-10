@@ -21,6 +21,7 @@
 *** enthält onload.js, sidebar-collapse.js, specialcharpicker.js, tastatursteuerung.js
 ** Neues CSS bundle: META-INF/resources/css/isyweb.css
 *** enthält specialcharpicker.css
+- `IFE-141`: teilt onload.js auf einzelne Komponenten auf
 // end::release-5.1.0[]
 
 
