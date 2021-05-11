@@ -12,6 +12,15 @@
    - uglify durch terser ersetzt
    - in JS-Sourcen: var wurde auf let/const umgestellt
    - Kommentare in JS-Sourcen wurden auf Englisch übersetzt
+- `IFE-206`: Umstellung von grunt auf webpack
+   - JS-Sourcen werden jetzt mit webpack gebundlet
+   - Umstrukturierung Sourcen: Files, die einen build durchlaufen (minimization/bundling) und nicht nur 1 zu 1 kopiert werden, liegen nicht mehr unter src/resources sondern unter src/js bzw src/css
+   - Neues JS bundle: META-INF/resources/js/isyweb.bundle.js
+        - enthält onload.js, sidebar-collapse.js, specialcharpicker.js, tastatursteuerung.js
+   - Neues CSS bundle: META-INF/resources/css/isyweb.css
+        - enthält specialcharpicker.css
+- `IFE-141`: teilt onload.js auf einzelne Komponenten auf
+- `IFE-271`: Funktionalität von buttonInjectPost wiederhergestellt
 
 # v5.0.0
 - `IFS-411`: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird
@@ -128,28 +137,28 @@ Wichtige Änderungen:
 
 ## Bugfixes
 - `IFS-30`:
-	* Das Sortieren von DataTables im Client-Mode funktioniert wieder.
-	* Fix: "." im Attribut reference bzw. referenceId führt dazu, dass AJAX Aufrufe nicht behandelt werden. Betrifft folgende Komponenten:
-		* formSelectOneDropdown.xhtml
-		* selectOneDropdown.xhtml (referenceId)
-	* formSelectOneDropdown: Klick auf Label selektiert wieder das entsprechende Dropdown.
+    * Das Sortieren von DataTables im Client-Mode funktioniert wieder.
+    * Fix: "." im Attribut reference bzw. referenceId führt dazu, dass AJAX Aufrufe nicht behandelt werden. Betrifft folgende Komponenten:
+        * formSelectOneDropdown.xhtml
+        * selectOneDropdown.xhtml (referenceId)
+    * formSelectOneDropdown: Klick auf Label selektiert wieder das entsprechende Dropdown.
 - Tabs: Das Attribut skipAction (tabHeader) hat nun den Standardwert false und korrespondiert somit zum Standardwert des Attributs preload (tabContent).
-	Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
+    Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
 
 ## Neuerungen
 - `IFS-29`: 
-	* Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
-	* DataTable übernimmt Änderungen von DataTable3.
-	* Einführung von <h>-Tags für Überschriften von Panels.
-	* Korrigierter JS-Code für die Formatierung von Geldbeträgen.
-	* formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
-	* selectManyList und selectOneList übernommen.
-	* Labels gefixt für:
-		* formActionInput
-		* formTextarea
-		* formListpicker
-		* formCurrencyInput
-		* formBrowseAndCollect		
+    * Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
+    * DataTable übernimmt Änderungen von DataTable3.
+    * Einführung von <h>-Tags für Überschriften von Panels.
+    * Korrigierter JS-Code für die Formatierung von Geldbeträgen.
+    * formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
+    * selectManyList und selectOneList übernommen.
+    * Labels gefixt für:
+        * formActionInput
+        * formTextarea
+        * formListpicker
+        * formCurrencyInput
+        * formBrowseAndCollect
 - `IFS-18`: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
 - `IFS-23`: Eingabe von Geldbeträgen mit mehr als zwei Nachkommastellen
 

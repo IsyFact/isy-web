@@ -3,13 +3,16 @@
 [[changelog]]
 = Changelog Isy-Web
 
+== Änderungen Release 5.1.0
+
 // Beginn Übergreifende Änderungen
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-5.1.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-5.1.0]
-include::src/main/changelog.adoc[tag=release-5.1.0]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-5.1.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-5.1.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-5.1.0]
+
 
 == Änderungen Release 5.0.0
 
@@ -19,9 +22,9 @@ include::src/main/changelog.adoc[tag=release-5.1.0]
 - `IFS-335`: Dokumententitel auf Titelseite anpassen
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-5.0.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-5.0.0]
-include::src/main/changelog.adoc[tag=release-5.0.0]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-5.0.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-5.0.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-5.0.0]
 
 == Änderungen Release 4.9.0
 
@@ -29,9 +32,9 @@ include::src/main/changelog.adoc[tag=release-5.0.0]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.9.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.9.0]
-include::src/main/changelog.adoc[tag=release-4.9.0]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.9.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.9.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.9.0]
 
 == Änderungen Release 4.8.1
 
@@ -39,9 +42,9 @@ include::src/main/changelog.adoc[tag=release-4.9.0]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.8.1]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.8.1]
-include::src/main/changelog.adoc[tag=release-4.8.1]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.8.1]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.8.1]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.8.1]
 
 == Änderungen Release 4.8.0
 
@@ -49,10 +52,9 @@ include::src/main/changelog.adoc[tag=release-4.8.1]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.8.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.8.0]
-include::src/main/changelog.adoc[tag=release-4.8.0]
-
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.8.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.8.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.8.0]
 
 == Änderungen Release 4.7.0
 
@@ -60,9 +62,9 @@ include::src/main/changelog.adoc[tag=release-4.8.0]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.7.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.7.0]
-include::src/main/changelog.adoc[tag=release-4.7.0]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.7.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.7.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.7.0]
 
 == Änderungen Release 4.6.0
 
@@ -70,9 +72,9 @@ include::src/main/changelog.adoc[tag=release-4.7.0]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.6.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.6.0]
-include::src/main/changelog.adoc[tag=release-4.6.0]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.6.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.6.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.6.0]
 
 == Änderungen Release 4.5.2
 
@@ -80,9 +82,9 @@ include::src/main/changelog.adoc[tag=release-4.6.0]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.5.2]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.5.2]
-include::src/main/changelog.adoc[tag=release-4.5.2]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.5.2]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.5.2]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.5.2]
 
 == Änderungen Release 4.5.0
 
@@ -90,9 +92,9 @@ include::src/main/changelog.adoc[tag=release-4.5.2]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.5.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.5.0]
-include::src/main/changelog.adoc[tag=release-4.5.0]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.5.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.5.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.5.0]
 
 == Änderungen Release 4.4.0
 
@@ -100,10 +102,9 @@ include::src/main/changelog.adoc[tag=release-4.5.0]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.4.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.4.0]
-include::src/main/changelog.adoc[tag=release-4.4.0]
-
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.4.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.4.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.4.0]
 
 == Änderungen Release 4.3.3
 
@@ -111,9 +112,9 @@ include::src/main/changelog.adoc[tag=release-4.4.0]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.3]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.3]
-include::src/main/changelog.adoc[tag=release-4.3.3]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.3]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.3]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.3.3]
 
 == Änderungen Release 4.3.2
 
@@ -121,9 +122,9 @@ include::src/main/changelog.adoc[tag=release-4.3.3]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.2]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.2]
-include::src/main/changelog.adoc[tag=release-4.3.2]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.2]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.2]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.3.2]
 
 == Änderungen Release 4.3.1
 
@@ -131,9 +132,9 @@ include::src/main/changelog.adoc[tag=release-4.3.2]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.1]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.1]
-include::src/main/changelog.adoc[tag=release-4.3.1]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.1]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.1]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.3.1]
 
 == Änderungen Release 4.3.0
 
@@ -141,9 +142,9 @@ include::src/main/changelog.adoc[tag=release-4.3.1]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.0]
-include::src/main/changelog.adoc[tag=release-4.3.0]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.3.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.3.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.3.0]
 
 
 == Änderungen Release 4.2.7
@@ -152,9 +153,9 @@ include::src/main/changelog.adoc[tag=release-4.3.0]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.7]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.7]
-include::src/main/changelog.adoc[tag=release-4.2.7]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.7]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.7]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.2.7]
 
 == Änderungen Release 4.2.6
 
@@ -162,9 +163,9 @@ include::src/main/changelog.adoc[tag=release-4.2.7]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.6]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.6]
-include::src/main/changelog.adoc[tag=release-4.2.6]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.6]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.6]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.2.6]
 
 == Änderungen Release 4.2.1
 
@@ -172,9 +173,9 @@ include::src/main/changelog.adoc[tag=release-4.2.6]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.1]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.1]
-include::src/main/changelog.adoc[tag=release-4.2.1]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.1]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.1]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.2.1]
 
 == Änderungen Release 4.2.0
 
@@ -182,7 +183,7 @@ include::src/main/changelog.adoc[tag=release-4.2.1]
 
 // Ende übergreifende Änderungen
 
-include::src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.0]
-include::src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.0]
-include::src/main/changelog.adoc[tag=release-4.2.0]
+include::isy-web-doc/src/docs/asciidoc/konzept/changelog.adoc[tag=release-4.2.0]
+include::isy-web-doc/src/docs/asciidoc/nutzungsvorgaben/changelog.adoc[tag=release-4.2.0]
+include::isy-web-lib/src/main/changelog.adoc[tag=release-4.2.0]
 

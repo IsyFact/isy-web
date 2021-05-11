@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- Ein Button mit Icon -->
+
+<composite:interface>
+
+    <!-- Techn. erforderliches Attribut (JSF-Passthrough Attribut), wird jedoch vom System auf action="DEFAULT_ACTION" umgeschrieben -->
+	<composite:attribute name="action" required="true"
+		targets="buttonIcon buttonIcon_block" />
+	<!-- Das Label des Buttons. -->
+	<composite:attribute name="value" required="false" default="" />
+	<!-- Die Größe des Icons. Mögliche Werte: small/large -->
+	<composite:attribute name="size" required="false"
+		type="java.lang.String" shortDescription="small/large" default="large" />
+	<!-- Der Suffix des zu verwendenden Icons. -->
+	<composite:attribute name="icon" required="false"
+		type="java.lang.String" default="placeholder" />
+	<!-- Ob das Icon angezeigt werden soll oder nicht. Standard: true. -->
+	<composite:attribute name="showIcon" required="false"
+		type="java.lang.Boolean" default="true" />
+	<!-- Tooltip, der über dem Icon angezeigt werden soll. -->
+	<composite:attribute name="tooltip" required="false"
+		type="java.lang.String" default="" />
+	<!-- Ob der Button deaktivert ist oder nicht. -->
+	<composite:attribute name="disabled" type="Boolean" default="false" />
+  <!-- Die CSS-Klasse, welceh für Buttons ergänzt werden soll. -->
+  <composite:attribute name="btnClass" type="String" required="false"
+    default="" />
+
+	<!-- AJAX: Soll eine AJAX Aktion ausgeführt werden. -->
+	<composite:attribute name="ajax" required="false" default="true"
+		type="Boolean" />
+	<!-- AJAX: Welches Form ausgeführt werden soll. -->
+	<composite:attribute name="execute" required="false" default="@form" />
+	<!-- AJAX: Welche Elemente gerendert werden sollen. -->
+	<composite:attribute name="render" required="false" default="@form" />
+	<!-- AJAX: Ob ein Klick die GUI blockieren soll bis das Ergebnis eingetroffen ist. -->
+	<composite:attribute name="block" required="false" default="false"
+		type="Boolean" />
+
+  <!-- Ob der Button innerhalb einer Druckansicht angezeigt wird oder nicht. -->
+  <!-- Standard: Falls das BasisModel verfuegbar ist, extrahiere die Information -->
+  <!-- zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+  <composite:attribute name="showPrintView" type="Boolean"
+    default="#{not empty basisModel and basisModel.showPrintView}" />
+	<!-- Eine spezifische globale Konfiguration, falls notwendig. -->
+	<composite:attribute name="globalConfig" required="false"
+		default="#{globalConfigurationModel}" />
+
+	<!-- Das Action Event für den Button -->
+	<composite:actionSource name="buttonActionEvent" targets="buttonIcon" />
+
+</composite:interface>
+
+<composite:implementation>
+    <!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
+         Die Angabe ist dennoch Pflicht, da andernfalls kein JSF-Attribut jsp:action, welches
+         "cc.attrs.action" entspricht, möglich wäre. -->
+
+	<!-- HTML-Button-Tag mit JSF-Passthrough-Attributen. -->
+	<!-- Der Attribut-Inhalt der "action" wird durch das Composite-Attribut ueberschrieben.
+        Die Angabe ist dennoch Pflicht, da andernfalls kein JSF-Attribut "action" vorhanden waere. -->
+
+	<ui:param name="btnClassFirst"
+		value="#{cc.attrs.showIcon ? ('btn-icon-round btn-icon-round-').concat(cc.attrs.size) : ''}" />
+	<ui:param name="btnClass"
+		value="#{(cc.attrs.btnClass eq '') ? btnClassFirst : cc.attrs.btnClass}" />
+
+	<!-- Buttons werden deaktiviert, sofern eine der folgenden Bedingungen zutrifft  -->
+	<!-- 1) Das Attribut "disabled" ist true -->
+	<!-- 2) Das Attribut "disabled" ist false und das Attribut "showPrintView" ist true -->
+	<ui:param name="btnDisabled"
+		value="#{(cc.attrs.showPrintView and not cc.attrs.disabled) || cc.attrs.disabled}" />
+
+	<ui:fragment rendered="#{btnDisabled}">
+		<button type="submit" jsf:id="buttonIconDisabled"
+			class="btn #{btnClass}" disabled="disabled"
+			title="#{cc.attrs.tooltip}">
+			<ui:fragment rendered="#{cc.attrs.showIcon}">
+				<span class="icon icon-#{cc.attrs.icon}"></span>
+			</ui:fragment>
+			#{cc.attrs.value}
+		</button>
+	</ui:fragment>
+	<ui:fragment rendered="#{not btnDisabled}">
+
+		<ui:fragment rendered="#{not cc.attrs.block}">
+			<button type="submit" jsf:id="buttonIcon" jsf:action="DEFAULT_ACTION"
+				class="btn #{btnClass}" title="#{cc.attrs.tooltip}">
+				<ui:fragment rendered="#{cc.attrs.showIcon}">
+					<span class="icon icon-#{cc.attrs.icon}"></span>
+				</ui:fragment>
+				#{cc.attrs.value}
+				<composite:insertChildren />
+				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}" onevent="isywebjs.blockSingleButton"
+					disabled="#{not cc.attrs.globalConfig.jsEnabled or not cc.attrs.ajax}" />
+			</button>
+		</ui:fragment>
+		<ui:fragment rendered="#{cc.attrs.block}">
+			<button type="submit" jsf:id="buttonIcon_block"
+				jsf:action="DEFAULT_ACTION" class="btn #{btnClass}"
+				title="#{cc.attrs.tooltip}">
+				<ui:fragment rendered="#{cc.attrs.showIcon}">
+					<span class="icon icon-#{cc.attrs.icon}"></span>
+				</ui:fragment>
+				#{cc.attrs.value}
+				<composite:insertChildren />
+				<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
+					disabled="#{not cc.attrs.globalConfig.jsEnabled or not cc.attrs.ajax}" onevent="blockUi"
+					onerror="unblockUi"/>
+			</button>
+		</ui:fragment>
+	</ui:fragment>
+</composite:implementation>
+
+</html>
