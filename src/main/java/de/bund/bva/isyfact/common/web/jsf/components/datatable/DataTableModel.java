@@ -167,14 +167,14 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      *
      * @return alle aktuell angezeigte Tabelleneinträge
      *
-     * @deprecated: nur für Rückwärtskompatibilität. wenn Du glaubst die Tabelleneinträge selbst verwalten zu
-     *              müssen, dann bitte direkt das {@link DataTableDataModel} Untermodel benutzen:
-     *              <code>model.getDataModel().getDisplayItems()</code> Aber sei bewusst dass es nun 2
-     *              unterschiedliche Mengen an Tabelleneinträge gibt, zum einem die gerade Angezeigten, d.h.
-     *              nach Sortieren, Filtern und Paginieren, und alle Tabelleneinträge: diese sind aber i.A.
-     *              nicht verfügbar sondern von der Methode
-     *              {@link DataTableController#readItems(DataTableModel, DataTableRequest)} verwaltet, nur im
-     *              {@link DataTableInMemoryDataModel} gibt es auch die <code>allItems</code> Eigenschaft.
+     * @deprecated nur für Rückwärtskompatibilität. wenn Du glaubst die Tabelleneinträge selbst verwalten zu
+     *             müssen, dann bitte direkt das {@link DataTableDataModel} Untermodel benutzen:
+     *             <code>model.getDataModel().getDisplayItems()</code> Aber sei bewusst dass es nun 2
+     *             unterschiedliche Mengen an Tabelleneinträge gibt, zum einem die gerade Angezeigten, d.h.
+     *             nach Sortieren, Filtern und Paginieren, und alle Tabelleneinträge: diese sind aber i.A.
+     *             nicht verfügbar sondern von der Methode
+     *             {@link DataTableController#readItems(DataTableModel, DataTableRequest)} verwaltet, nur im
+     *             {@link DataTableInMemoryDataModel} gibt es auch die <code>allItems</code> Eigenschaft.
      */
     @Deprecated
     public List<I> getDataTableItems() {
@@ -187,8 +187,8 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      *
      * @return Das Sortierattribut
      *
-     * @deprecated: nur für Rückwärtskompatibilität. Bitte das {@link DataTableSortModel} Untermodel benutzen
-     *              <code>model.getSortModel().getProperty()</code>
+     * @deprecated nur für Rückwärtskompatibilität. Bitte das {@link DataTableSortModel} Untermodel benutzen
+     *             <code>model.getSortModel().getProperty()</code>
      */
     @Deprecated
     public String getSortAttribute() {
@@ -202,8 +202,8 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      * @param property
      *            Das Sortierattribut
      *
-     * @deprecated: nur für Rückwärtskompatibilität. Bitte das {@link DataTableSortModel} Untermodel benutzen
-     *              <code>model.getSortModel().setProperty(property)</code>
+     * @deprecated nur für Rückwärtskompatibilität. Bitte das {@link DataTableSortModel} Untermodel benutzen
+     *             <code>model.getSortModel().setProperty(property)</code>
      */
     @Deprecated
     public void setSortAttribute(String property) {
@@ -216,8 +216,8 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      *
      * @return Die Sortierrichtung
      *
-     * @deprecated: nur für Rückwärtskompatibilität. Bitte das {@link DataTableSortModel} Untermodel benutzen
-     *              <code>model.getSortModel().getDirection()</code>
+     * @deprecated nur für Rückwärtskompatibilität. Bitte das {@link DataTableSortModel} Untermodel benutzen
+     *             <code>model.getSortModel().getDirection()</code>
      */
     @Deprecated
     public SortDirection getSortDirection() {
@@ -231,8 +231,8 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      * @param direction
      *            Die neue Sortierrichtung
      *
-     * @deprecated: nur für Rückwärtskompatibilität. Bitte das {@link DataTableSortModel} Untermodel benutzen
-     *              <code>model.getSortModel().setDirection(direction)</code>
+     * @deprecated nur für Rückwärtskompatibilität. Bitte das {@link DataTableSortModel} Untermodel benutzen
+     *             <code>model.getSortModel().setDirection(direction)</code>
      */
     @Deprecated
     public void setSortDirection(SortDirection direction) {
@@ -245,14 +245,14 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      *
      * @return Anzahl der aktuell angezeigten Tabelleneinträge
      *
-     * @deprecated: nur für Rückwärtskompatibilität. bitte direkt das {@link DataTableDataModel} Untermodel
-     *              benutzen: <code>model.getDataModel().getDisplayItems().size()</code> Aber sei bewusst dass
-     *              es nun 3 unterschiedliche Mengen an Tabelleneinträge gibt, zum einem die gerade
-     *              Angezeigten, d.h. nach Sortieren, Filtern und Paginieren, dann hat man auch Zugriff auf
-     *              die Anzahl der Tabelleneinträge nach dem Filtern und vor dem Paginieren, und alle
-     *              Tabelleneinträge: diese sind aber i.A. nicht verfügbar sondern von der Methode
-     *              {@link DataTableController#readItems(DataTableModel, DataTableRequest)} verwaltet, nur im
-     *              {@link DataTableInMemoryDataModel} gibt es auch die <code>allItems</code> Eigenschaft.
+     * @deprecated nur für Rückwärtskompatibilität. bitte direkt das {@link DataTableDataModel} Untermodel
+     *             benutzen: <code>model.getDataModel().getDisplayItems().size()</code> Aber sei bewusst dass
+     *             es nun 3 unterschiedliche Mengen an Tabelleneinträge gibt, zum einem die gerade
+     *             Angezeigten, d.h. nach Sortieren, Filtern und Paginieren, dann hat man auch Zugriff auf
+     *             die Anzahl der Tabelleneinträge nach dem Filtern und vor dem Paginieren, und alle
+     *             Tabelleneinträge: diese sind aber i.A. nicht verfügbar sondern von der Methode
+     *             {@link DataTableController#readItems(DataTableModel, DataTableRequest)} verwaltet, nur im
+     *             {@link DataTableInMemoryDataModel} gibt es auch die <code>allItems</code> Eigenschaft.
      */
     @Deprecated
     public long getItemCount() {
@@ -264,8 +264,8 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      * Gibt die Liste an aktuell ausgewählten Items zurück.
      *
      * @return Die Liste an Items, leer, falls keine Elemente ausgewählt sind.
-     * @deprecated: nur für Rückwärtskompatibilität. Bitte das {@link DataTableSelectionModel} Untermodel
-     *              benutzen <code>model.getSelectionModel().getSelectedItems()</code>
+     * @deprecated nur für Rückwärtskompatibilität. Bitte das {@link DataTableSelectionModel} Untermodel
+     *             benutzen <code>model.getSelectionModel().getSelectedItems()</code>
      */
     @Deprecated
     public List<Long> getSelectedItems() {
@@ -280,7 +280,7 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      *            Die Item-ID.
      * @return Das Item oder <code>null</code>, falls es nicht vorhanden ist.
      *
-     * @deprecated: nur für Rückwärtskompatibilität. Diese Methode ist nun im {@link DataTableController}.
+     * @deprecated nur für Rückwärtskompatibilität. Diese Methode ist nun im {@link DataTableController}.
      */
     @Deprecated
     public DataTableItem getItemById(Long itemId) {
@@ -302,8 +302,8 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      * Gibt die ID vom Item für welches ein Doppelklick ausgeführt wurde zurück.
      *
      * @return die ID vom Item für welches ein Doppelklick ausgeführt wurde
-     * @deprecated: nur für Rückwärtskompatibilität. Bitte das {@link DataTableSelectionModel} Untermodel
-     *              benutzen <code>model.getSelectionModel().getSelectedItems()</code>
+     * @deprecated nur für Rückwärtskompatibilität. Bitte das {@link DataTableSelectionModel} Untermodel
+     *             benutzen <code>model.getSelectionModel().getSelectedItems()</code>
      */
     @Deprecated
     public Long getDoubleClickSelectedItem() {
@@ -317,14 +317,14 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      * @param items
      *            alle aktuell angezeigte Tabelleneinträge
      *
-     * @deprecated: nur für Rückwärtskompatibilität. wenn Du glaubst die Tabelleneinträge selbst verwalten zu
-     *              müssen, dann bitte direkt das {@link DataTableDataModel} Untermodel benutzen:
-     *              <code>model.getDataModel().setDisplayItems(items)</code> Aber sei bewusst dass es nun 2
-     *              unterschiedliche Mengen an Tabelleneinträge gibt, zum einem die gerade Angezeigten, d.h.
-     *              nach Sortieren, Filtern und Paginieren, und alle Tabelleneinträge: diese sind aber i.A.
-     *              nicht verfügbar sondern von der Methode
-     *              {@link DataTableController#readItems(DataTableModel, DataTableRequest)} verwaltet, nur im
-     *              {@link DataTableInMemoryDataModel} gibt es auch die <code>allItems</code> Eigenschaft.
+     * @deprecated nur für Rückwärtskompatibilität. wenn Du glaubst die Tabelleneinträge selbst verwalten zu
+     *             müssen, dann bitte direkt das {@link DataTableDataModel} Untermodel benutzen:
+     *             <code>model.getDataModel().setDisplayItems(items)</code> Aber sei bewusst dass es nun 2
+     *             unterschiedliche Mengen an Tabelleneinträge gibt, zum einem die gerade Angezeigten, d.h.
+     *             nach Sortieren, Filtern und Paginieren, und alle Tabelleneinträge: diese sind aber i.A.
+     *             nicht verfügbar sondern von der Methode
+     *             {@link DataTableController#readItems(DataTableModel, DataTableRequest)} verwaltet, nur im
+     *             {@link DataTableInMemoryDataModel} gibt es auch die <code>allItems</code> Eigenschaft.
      */
     @Deprecated
     public void setDataTableItems(ArrayList<I> items) {
@@ -338,15 +338,15 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      * @param itemCount
      *            Anzahl der aktuell angezeigten Tabelleneinträge
      *
-     * @deprecated: nur für Rückwärtskompatibilität. Jetzt gibt es die Möglichkeit nicht dieser Wert selbst zu
-     *              verwalten, jetzt wird es so berechnet:
-     *              <code>model.getDataModel().getDisplayItems().size()</code> Aber sei bewusst dass es nun 3
-     *              unterschiedliche Mengen an Tabelleneinträge gibt, zum einem die gerade Angezeigten, d.h.
-     *              nach Sortieren, Filtern und Paginieren, dann hat man auch Zugriff auf die Anzahl der
-     *              Tabelleneinträge nach dem Filtern und vor dem Paginieren, und alle Tabelleneinträge: diese
-     *              sind aber i.A. nicht verfügbar sondern von der Methode
-     *              {@link DataTableController#readItems(DataTableModel, DataTableRequest)} verwaltet, nur im
-     *              {@link DataTableInMemoryDataModel} gibt es auch die <code>allItems</code> Eigenschaft.
+     * @deprecated nur für Rückwärtskompatibilität. Jetzt gibt es die Möglichkeit nicht dieser Wert selbst zu
+     *             verwalten, jetzt wird es so berechnet:
+     *             <code>model.getDataModel().getDisplayItems().size()</code> Aber sei bewusst dass es nun 3
+     *             unterschiedliche Mengen an Tabelleneinträge gibt, zum einem die gerade Angezeigten, d.h.
+     *             nach Sortieren, Filtern und Paginieren, dann hat man auch Zugriff auf die Anzahl der
+     *             Tabelleneinträge nach dem Filtern und vor dem Paginieren, und alle Tabelleneinträge: diese
+     *             sind aber i.A. nicht verfügbar sondern von der Methode
+     *             {@link DataTableController#readItems(DataTableModel, DataTableRequest)} verwaltet, nur im
+     *             {@link DataTableInMemoryDataModel} gibt es auch die <code>allItems</code> Eigenschaft.
      */
     @Deprecated
     public void setItemCount(int itemCount) {
