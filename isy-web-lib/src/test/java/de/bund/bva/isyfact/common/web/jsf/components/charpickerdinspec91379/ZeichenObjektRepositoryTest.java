@@ -1,3 +1,46 @@
+package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.junit.Test;
+
+public class ZeichenObjektRepositoryTest {
+
+    /**
+     * Tests if the complete list of characters can be read.
+     */
+    @Test
+    public void getZeichenliste() {
+        ZeichenObjektRepository repository = new ZeichenObjektRepository();
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379.txt");
+        List<ZeichenObjekt> zeichenliste = repository.getZeichenliste();
+        assertEquals(902, zeichenliste.size());
+    }
+
+    /**
+     * Tests if all characters of the text file are read and returned in the character list.
+     * This includes that the letter 'LATIN CAPITAL LETTER L WITH COMBINING RING BELOW AND COMBINING MACRON'
+     * (as an example for a letter consisting of multiple Unicode character) and the semicolon are
+     * recognized correctly.
+     */
+    @Test
+    public void getZeichenlisteNoTypeTest() {
+        ZeichenObjektRepository repository = new ZeichenObjektRepository();
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-test.txt");
+        List<ZeichenObjekt> zeichenliste = repository.getZeichenliste();
+        assertEquals(8, zeichenliste.size());
+
+        // Tests if the object for a character is created correctly.
+        assertEquals("L̥̄", zeichenliste.get(0).getZeichen());
+        assertEquals("L", zeichenliste.get(0).getGrundzeichen());
+        assertEquals(Schriftzeichengruppe.LATEIN, zeichenliste.get(0).getSchriftzeichengruppe());
+        assertEquals("LATIN CAPITAL LETTER L WITH COMBINING RING BELOW AND COMBINING MACRON",
+                zeichenliste.get(0).getName());
+        assertEquals("<U+004C,U+0325,U+0304>", zeichenliste.get(0).getCodepoint());
 
         // Tests if the character L̥̄ correctly consists of 3 characters.
         assertEquals(3, zeichenliste.get(0).getZeichen().length());
