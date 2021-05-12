@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.common.web.autoconfigure;
 
 import javax.servlet.ServletContext;
 
+import de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379.CharPickerDinSpec91379Controller;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +38,7 @@ import de.bund.bva.isyfact.common.web.webflow.titles.TitlesHelper;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
- * ComponentScan für die Controller von Isy-Web.
+ * ComponentScan for the isy-web controllers.
  */
 @Configuration
 //@ComponentScan(basePackages = "de.bund.bva.isyfact.common.web",
@@ -114,6 +115,13 @@ public class ControllerAutoConfiguration {
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public ErrorController errorController() {
         return new ErrorController();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public CharPickerDinSpec91379Controller charPickerDinSpecController() {
+        return new CharPickerDinSpec91379Controller();
     }
 
     @Bean

@@ -1,7 +1,10 @@
 # v5.1.0
+- `IFS-932`: `IFS-931 IFS-848` auf IFS 2.2 portiert
+- `IFS-931 IFS-848`: Din Spec Charpicker implementiert
+    * Breaking Changes: Um einen Charpicker anzubinden muss das Attribut `charpicker` eines Input-Elements auf `dinSpec` (neu) oder `special` (alt) gesetzt werden.
+    * Nutzungsvorgaben um Informationen zum CharPicker ergänzt
 - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
-
-        `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
+        `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`          
 - `IFE-57`: 
     - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
     - Darstellung von Readonly Felder für Input Controlls vereinheitlicht. 
