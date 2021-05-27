@@ -4,10 +4,10 @@
     * Breaking Changes: Um einen Charpicker anzubinden muss das Attribut `charpicker` eines Input-Elements auf `dinSpec` (neu) oder `special` (alt) gesetzt werden.
     * Nutzungsvorgaben um Informationen zum CharPicker ergänzt
 - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
-        `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`          
-- `IFE-57`: 
+        `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
+- `IFE-57`:
     - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
-    - Darstellung von Readonly Felder für Input Controlls vereinheitlicht. 
+    - Darstellung von Readonly Felder für Input Controlls vereinheitlicht.
 - `IFE-204`: Unterstuetzung von ES6 in isy-web
    - uglify durch terser ersetzt
    - in JS-Sourcen: var wurde auf let/const umgestellt
@@ -21,6 +21,7 @@
         - enthält specialcharpicker.css
 - `IFE-141`: teilt onload.js auf einzelne Komponenten auf
 - `IFE-271`: Funktionalität von buttonInjectPost wiederhergestellt
+- `IFE-247`: HttpRequestHandlerAdapter Bean nur bei Bedarf in WebFlowAutoConfiguration erstellen
 
 # v5.0.0
 - `IFS-411`: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird
@@ -78,7 +79,7 @@ Wichtige Änderungen:
 - `IFS-153`: Listpicker Positions-Autofocus im Dropdownfenster
 - `IFS-154`: Datepicker zeigt nach manueller Eingabe eingegebenes Datum
 - `IFS-163`: Unterstützung für IE8 eingestellt
-- `IFS-165`: UI-Block wird bei manchen Fehlermeldungen nicht deaktiviert 
+- `IFS-165`: UI-Block wird bei manchen Fehlermeldungen nicht deaktiviert
 - `IFS-182`: Datepicker um Übernahme des heutigen Datums erweitert
 - `IFS-202`: DownloadHelper hinzugefügt
 
@@ -95,7 +96,7 @@ Wichtige Änderungen:
 - `IFS-97`: Einklappbare Linksnavigation.
 - `IFS-100`: Cache-Period auf 24 Stunden gesetzt.
 - `IFS-101`: Tab-Widgets blockieren bei Tab-Wechsel.
-- `IFS-107`: Konfiguration von Farben, Texten und Logos. 
+- `IFS-107`: Konfiguration von Farben, Texten und Logos.
 - `IFS-112`: Grunt Maven Plugin durch Frontend Maven Plugin ersetzt.
 
 # v4.5.2
@@ -146,7 +147,7 @@ Wichtige Änderungen:
     Standardmäßig wird ein Tab dementsprechend nicht vorgeladen. Wenn das Vorladen gewünscht ist, müssen beide Attribute explizit auf true gesetzt werden.
 
 ## Neuerungen
-- `IFS-29`: 
+- `IFS-29`:
     * Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
     * DataTable übernimmt Änderungen von DataTable3.
     * Einführung von <h>-Tags für Überschriften von Panels.
