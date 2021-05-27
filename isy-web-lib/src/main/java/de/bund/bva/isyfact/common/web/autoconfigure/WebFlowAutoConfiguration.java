@@ -1,12 +1,14 @@
 package de.bund.bva.isyfact.common.web.autoconfigure;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.faces.config.AbstractFacesFlowConfiguration;
 import org.springframework.faces.webflow.FlowFacesContextLifecycleListener;
 import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter;
 import org.springframework.webflow.config.FlowExecutorBuilder;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
 import org.springframework.webflow.engine.builder.support.FlowBuilderServices;
@@ -99,4 +101,10 @@ public class WebFlowAutoConfiguration extends AbstractFacesFlowConfiguration {
         return securityFlowExecutionListener;
     }
 
+    @Override
+    @Bean
+    @ConditionalOnMissingBean
+    public HttpRequestHandlerAdapter httpRequestHandlerAdapter() {
+        return super.httpRequestHandlerAdapter();
+    }
 }
