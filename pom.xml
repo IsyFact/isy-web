@@ -227,6 +227,26 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!--
+                    Add the complete classpath to the forked java processes instead of temp JAR
+                    with manifest (s. http://maven.apache.org/components/surefire-archives/maven-surefire-2.16/maven-surefire-plugin/examples/class-loading.html#).
+                    The embedded tomcat, used in some tests, uses the URLs from the ClassLoader as file system
+                    paths when resolving resources (flows, JSF template, etc.) from the ServletContext.
+                    This is not possible, when the classpath contains only the path of a single JAR (the temp surefire
+                    booter JAR).
+                    -->
+                    <useManifestOnlyJar>false</useManifestOnlyJar>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>internalnodenpminstall</id>
