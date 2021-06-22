@@ -1,4 +1,5 @@
 # v5.1.0
+- `IFE-601`: Aktualisierung auf JPA 2.2.
 - `IFS-932`: `IFS-931 IFS-848` auf IFS 2.2 portiert
 - `IFS-931 IFS-848`: Din Spec Charpicker implementiert
     * Breaking Changes: Um einen Charpicker anzubinden muss das Attribut `charpicker` eines Input-Elements auf `dinSpec` (neu) oder `special` (alt) gesetzt werden.

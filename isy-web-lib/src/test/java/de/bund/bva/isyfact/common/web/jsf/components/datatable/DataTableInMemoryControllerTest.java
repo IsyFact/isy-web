@@ -10,10 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -191,7 +190,7 @@ public class DataTableInMemoryControllerTest {
 
         verify(request).getSortDirection();
         verify(request).getSortProperty();
-        verify(controller).sortDisplayItems(eq(testItems), anyString(), any(SortDirection.class));
+        verify(controller).sortDisplayItems(testItems, request.getSortProperty(), request.getSortDirection());
 
         verify(controller).paginateItems(testItems, request);
 
