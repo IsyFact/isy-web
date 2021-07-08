@@ -1,3 +1,6 @@
+# v5.2.0
+- `IFS-970`: Anhebung auf IF 2.3
+
 # v5.1.0
 - `IFE-601`: Aktualisierung auf JPA 2.2.
 - `IFS-932`: `IFS-931 IFS-848` auf IFS 2.2 portiert
