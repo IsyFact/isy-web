@@ -1,119 +1,131 @@
 
-List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
-Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
+List of third-party dependencies grouped by their license type.
 
-	(Apache 2):
 
-		* Objenesis (org.objenesis:objenesis:2.6 - http://objenesis.org)
+    Apache 2
 
-	(Apache License, Version 2.0):
+        * Objenesis (org.objenesis:objenesis:2.6 - http://objenesis.org)
 
-		* Apache Commons BeanUtils (commons-beanutils:commons-beanutils:1.9.3 - https://commons.apache.org/proper/commons-beanutils/)
-		* Apache Commons Codec (commons-codec:commons-codec:1.13 - https://commons.apache.org/proper/commons-codec/)
-		* Apache Commons FileUpload (commons-fileupload:commons-fileupload:1.3.3 - http://commons.apache.org/proper/commons-fileupload/)
-		* Apache Commons Lang (org.apache.commons:commons-lang3:3.7 - http://commons.apache.org/proper/commons-lang/)
-		* Dozer :: Core (com.github.dozermapper:dozer-core:6.5.0 - http://nexus.sonatype.org/oss-repository-hosting.html/dozer-parent/dozer-plugins-parent/dozer-core)
-		* IsyFact-Aufrufkontext (de.bund.bva.isyfact:isy-aufrufkontext:1.10.0 - http://isyfact.de/isy-aufrufkontext)
-		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.10.0 - http://isyfact.de/isy-exception-core)
-		* IsyFact-Konfiguration (de.bund.bva.isyfact:isy-konfiguration:1.10.0 - http://isyfact.de/isy-konfiguration)
-		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.10.0 - http://isyfact.de/isy-logging)
-		* IsyFact-Sicherheit (de.bund.bva.isyfact:isy-sicherheit:1.10.0 - http://isyfact.de/isy-sicherheit)
-		* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.10.0 - http://isyfact.de/isy-util)
-		* Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Context (org.springframework:spring-context:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Core (org.springframework:spring-core:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Expression Language (SpEL) (org.springframework:spring-expression:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring JDBC (org.springframework:spring-jdbc:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Object/Relational Mapping (org.springframework:spring-orm:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring TestContext Framework (org.springframework:spring-test:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Transaction (org.springframework:spring-tx:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Web (org.springframework:spring-web:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Web MVC (org.springframework:spring-webmvc:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+    Apache 2.0
 
-	(Apache Software Licenses):
+        * error-prone annotations (com.google.errorprone:error_prone_annotations:2.3.4 - http://nexus.sonatype.org/oss-repository-hosting.html/error_prone_parent/error_prone_annotations)
 
-		* Log4j Implemented Over SLF4J (org.slf4j:log4j-over-slf4j:1.7.25 - http://www.slf4j.org)
+    Apache License, Version 2.0
 
-	(CDDL + GPLv2 with classpath exception):
+        * Apache Commons BeanUtils (commons-beanutils:commons-beanutils:1.9.4 - https://commons.apache.org/proper/commons-beanutils/)
+        * Apache Commons Codec (commons-codec:commons-codec:1.13 - https://commons.apache.org/proper/commons-codec/)
+        * Apache Commons Collections (commons-collections:commons-collections:3.2.2 - http://commons.apache.org/collections/)
+        * Apache Commons FileUpload (commons-fileupload:commons-fileupload:1.3.3 - http://commons.apache.org/proper/commons-fileupload/)
+        * Apache Commons Lang (org.apache.commons:commons-lang3:3.7 - http://commons.apache.org/proper/commons-lang/)
+        * Apache Commons Validator (commons-validator:commons-validator:1.6 - http://commons.apache.org/proper/commons-validator/)
+        * Dozer :: Core (com.github.dozermapper:dozer-core:6.5.0 - http://nexus.sonatype.org/oss-repository-hosting.html/dozer-parent/dozer-plugins-parent/dozer-core)
+        * Guava: Google Core Libraries for Java (com.google.guava:guava:29.0-jre - https://github.com/google/guava/guava)
+        * IsyFact-Aufrufkontext (de.bund.bva.isyfact:isy-aufrufkontext:1.11.0 - http://isyfact.de/isy-aufrufkontext)
+        * IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.11.0 - http://isyfact.de/isy-exception-core)
+        * IsyFact-Konfiguration (de.bund.bva.isyfact:isy-konfiguration:1.11.0 - http://isyfact.de/isy-konfiguration)
+        * IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.11.0 - http://isyfact.de/isy-logging)
+        * IsyFact-Sicherheit (de.bund.bva.isyfact:isy-sicherheit:1.11.0 - http://isyfact.de/isy-sicherheit)
+        * IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.11.0 - http://isyfact.de/isy-util)
+        * Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Context (org.springframework:spring-context:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Core (org.springframework:spring-core:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Expression Language (SpEL) (org.springframework:spring-expression:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring JDBC (org.springframework:spring-jdbc:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Object/Relational Mapping (org.springframework:spring-orm:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring TestContext Framework (org.springframework:spring-test:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Transaction (org.springframework:spring-tx:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Web (org.springframework:spring-web:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Web MVC (org.springframework:spring-webmvc:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 
-		* Expression Language 3.0 API (javax.el:javax.el-api:3.0.0 - http://uel-spec.java.net)
-		* Java Servlet API (javax.servlet:javax.servlet-api:3.1.0 - http://servlet-spec.java.net)
+    Apache Software Licenses
 
-	(COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) plus GPL):
+        * Log4j Implemented Over SLF4J (org.slf4j:log4j-over-slf4j:1.7.25 - http://www.slf4j.org)
 
-		* Oracle's implementation of the JSF 2.2 specification API. (com.sun.faces:jsf-api:2.2.14 - http://java.sun.com/javaee/javaserverfaces/)
-		* Oracle's implementation of the JSF 2.2 specification. (com.sun.faces:jsf-impl:2.2.14 - http://java.sun.com/javaee/javaserverfaces/)
+    CDDL + GPLv2 with classpath exception
 
-	(Eclipse Distribution License (EDL), Version 1.0) (Eclipse Public License (EPL), Version 1.0):
+        * Expression Language 3.0 API (javax.el:javax.el-api:3.0.0 - http://uel-spec.java.net)
+        * Java Servlet API (javax.servlet:javax.servlet-api:3.1.0 - http://servlet-spec.java.net)
 
-		* Java Persistence API, Version 2.1 (org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final - http://hibernate.org)
+    COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) plus GPL
 
-	(Eclipse Public License - v 1.0):
+        * Oracle's implementation of the JSF 2.2 specification. (com.sun.faces:jsf-impl:2.2.14 - http://java.sun.com/javaee/javaserverfaces/)
+        * Oracle's implementation of the JSF 2.2 specification API. (com.sun.faces:jsf-api:2.2.14 - http://java.sun.com/javaee/javaserverfaces/)
 
-		* AspectJ weaver (org.aspectj:aspectjweaver:1.8.9 - http://www.aspectj.org)
+    Eclipse Distribution License (EDL), Version 1.0, Eclipse Public License (EPL), Version 1.0
 
-	(Eclipse Public License - v 1.0) (GNU Lesser General Public License):
+        * Java Persistence API, Version 2.1 (org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final - http://hibernate.org)
 
-		* Logback Classic Module (ch.qos.logback:logback-classic:1.2.3 - http://logback.qos.ch/logback-classic)
-		* Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-classic)
-		* Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-core)
-		* Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-jackson)
-		* Logback Core Module (ch.qos.logback:logback-core:1.2.3 - http://logback.qos.ch/logback-core)
+    Eclipse Public License 1.0
 
-	(Eclipse Public License 1.0):
+        * JUnit (junit:junit:4.12 - http://junit.org)
 
-		* JUnit (junit:junit:4.12 - http://junit.org)
+    Eclipse Public License - v 1.0
 
-	(MIT License):
+        * AspectJ weaver (org.aspectj:aspectjweaver:1.8.9 - http://www.aspectj.org)
 
-		* JCL 1.2 implemented over SLF4J (org.slf4j:jcl-over-slf4j:1.7.25 - http://www.slf4j.org)
-		* SLF4J API Module (org.slf4j:slf4j-api:1.7.25 - http://www.slf4j.org)
+    Eclipse Public License - v 1.0, GNU Lesser General Public License
 
-	(New BSD License):
+        * Logback Classic Module (ch.qos.logback:logback-classic:1.2.3 - http://logback.qos.ch/logback-classic)
+        * Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-jackson)
+        * Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-classic)
+        * Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-core)
+        * Logback Core Module (ch.qos.logback:logback-core:1.2.3 - http://logback.qos.ch/logback-core)
 
-		* Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
+    GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1
 
-	(Public Domain):
+        * SpotBugs Annotations (com.github.spotbugs:spotbugs-annotations:4.2.1 - https://spotbugs.github.io/)
 
-		* AOP alliance (aopalliance:aopalliance:1.0 - http://aopalliance.sourceforge.net)
+    MIT License
 
-	(The Apache Software License, Version 2.0):
+        * JCL 1.2 implemented over SLF4J (org.slf4j:jcl-over-slf4j:1.7.25 - http://www.slf4j.org)
+        * SLF4J API Module (org.slf4j:slf4j-api:1.7.25 - http://www.slf4j.org)
 
-		* Commons Collections (commons-collections:commons-collections:3.2.1 - http://commons.apache.org/collections/)
-		* Commons IO (commons-io:commons-io:2.4 - http://commons.apache.org/io/)
-		* Commons Lang (commons-lang:commons-lang:2.4 - http://commons.apache.org/lang/)
-		* Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
-		* Ehcache Core (net.sf.ehcache:ehcache-core:2.6.6 - http://ehcache.org)
-		* Guava: Google Core Libraries for Java (com.google.guava:guava:19.0 - https://github.com/google/guava/guava)
-		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.10 - http://github.com/FasterXML/jackson)
-		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.10 - https://github.com/FasterXML/jackson-core)
-		* Spring Binding (org.springframework.webflow:spring-binding:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
-		* Spring Faces (org.springframework.webflow:spring-faces:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
-		* Spring JS (org.springframework.webflow:spring-js:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
-		* Spring JS Resources (org.springframework.webflow:spring-js-resources:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
-		* Spring Web Flow (org.springframework.webflow:spring-webflow:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
-		* Tomahawk 2.0 Core (org.apache.myfaces.tomahawk:tomahawk20:1.1.14 - http://myfaces.apache.org/tomahawk-project/tomahawk20)
-		* Validator (commons-validator:commons-validator:1.3.1 - http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/)
-		* XML Commons External Components XML APIs (xml-apis:xml-apis:1.0.b2 - http://xml.apache.org/commons/#external)
-		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.10.1 - http://github.com/FasterXML/jackson)
-		* spring-security-config (org.springframework.security:spring-security-config:4.2.13.RELEASE - https://spring.io/spring-security)
-		* spring-security-core (org.springframework.security:spring-security-core:4.2.13.RELEASE - https://spring.io/spring-security)
-		* spring-security-web (org.springframework.security:spring-security-web:4.2.13.RELEASE - https://spring.io/spring-security)
+    New BSD License
 
-	(The MIT License):
+        * Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
 
-		* Mockito (org.mockito:mockito-all:1.10.19 - http://www.mockito.org)
+    Public Domain
 
-	(Unknown license):
+        * AOP alliance (aopalliance:aopalliance:1.0 - http://aopalliance.sourceforge.net)
 
-		* Batik AWT Utilities (batik:batik-awt-util:1.6-1 - no url defined)
-		* Batik Ext (batik:batik-ext:1.6-1 - no url defined)
-		* Batik GUI Utilities (batik:batik-gui-util:1.6-1 - no url defined)
-		* Batik Utilities (batik:batik-util:1.6-1 - no url defined)
-		* OGNL - Object Graph Navigation Library (opensymphony:ognl:2.6.11 - http://ognl.org)
-		* commons-digester (commons-digester:commons-digester:1.6 - no url defined)
-		* jstl (javax.servlet:jstl:1.2 - no url defined)
-		* oro (oro:oro:2.0.8 - no url defined)
-		* xmlParserAPIs (xml-apis:xmlParserAPIs:2.0.2 - no url defined)
+    The Apache Software License, Version 2.0
+
+        * Commons Digester (commons-digester:commons-digester:1.8.1 - http://commons.apache.org/digester/)
+        * Commons IO (commons-io:commons-io:2.4 - http://commons.apache.org/io/)
+        * Commons Lang (commons-lang:commons-lang:2.4 - http://commons.apache.org/lang/)
+        * Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
+        * Ehcache Core (net.sf.ehcache:ehcache-core:2.6.6 - http://ehcache.org)
+        * FindBugs-jsr305 (com.google.code.findbugs:jsr305:3.0.2 - http://findbugs.sourceforge.net/)
+        * Guava InternalFutureFailureAccess and InternalFutures (com.google.guava:failureaccess:1.0.1 - https://github.com/google/guava/failureaccess)
+        * Guava ListenableFuture only (com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava - https://github.com/google/guava/listenablefuture)
+        * J2ObjC Annotations (com.google.j2objc:j2objc-annotations:1.3 - https://github.com/google/j2objc/)
+        * Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.10 - http://github.com/FasterXML/jackson)
+        * Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.10 - https://github.com/FasterXML/jackson-core)
+        * jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.10.1 - http://github.com/FasterXML/jackson)
+        * Spring Binding (org.springframework.webflow:spring-binding:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
+        * Spring Faces (org.springframework.webflow:spring-faces:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
+        * Spring JS (org.springframework.webflow:spring-js:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
+        * Spring JS Resources (org.springframework.webflow:spring-js-resources:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
+        * spring-security-config (org.springframework.security:spring-security-config:4.2.13.RELEASE - https://spring.io/spring-security)
+        * spring-security-core (org.springframework.security:spring-security-core:4.2.13.RELEASE - https://spring.io/spring-security)
+        * spring-security-web (org.springframework.security:spring-security-web:4.2.13.RELEASE - https://spring.io/spring-security)
+        * Spring Web Flow (org.springframework.webflow:spring-webflow:2.4.8.RELEASE - https://github.com/spring-projects/spring-webflow)
+        * Tomahawk 2.0 Core (org.apache.myfaces.tomahawk:tomahawk20:1.1.14 - http://myfaces.apache.org/tomahawk-project/tomahawk20)
+
+    The MIT License
+
+        * Checker Qual (org.checkerframework:checker-qual:2.11.1 - https://checkerframework.org)
+        * Mockito (org.mockito:mockito-all:1.10.19 - http://www.mockito.org)
+
+    Unknown license
+
+        * Batik AWT Utilities (batik:batik-awt-util:1.6-1 - no url defined)
+        * Batik Ext (batik:batik-ext:1.6-1 - no url defined)
+        * Batik GUI Utilities (batik:batik-gui-util:1.6-1 - no url defined)
+        * Batik Utilities (batik:batik-util:1.6-1 - no url defined)
+        * jstl (javax.servlet:jstl:1.2 - no url defined)
+        * OGNL - Object Graph Navigation Library (opensymphony:ognl:2.6.11 - http://ognl.org)
+        * oro (oro:oro:2.0.8 - no url defined)
+        * xmlParserAPIs (xml-apis:xmlParserAPIs:2.0.2 - no url defined)
