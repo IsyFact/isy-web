@@ -13,6 +13,8 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMe
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.NavigationMenuGenerierenStrategie;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 
+import java.util.Objects;
+
 /**
  * The class is used to create a {@link NavigationMenuModel} and store it in the session. Also
  * the active {@link Applikationsgruppe} is determined here.
@@ -23,6 +25,11 @@ public class NavigationMenuController {
      * Bean: One {@link NavigationMenuGenerierenStrategie}.
      */
     private NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie;
+
+    /**
+     * The last active applicationgroup
+     */
+    private Applikationsgruppe applikationsgruppeCache = null;
 
     /**
      * Creates a {@link NavigationMenuModel} using
@@ -60,16 +67,24 @@ public class NavigationMenuController {
         for (Applikationsgruppe app : model.getApplikationsListe()) {
             app.setAktiv(false);
             if (!treffer && aktuelleRelativeUrl.equals(app.getLink())) {
+                this.applikationsgruppeCache = app;
                 app.setAktiv(true);
                 treffer = true;
             }
             if (!treffer) {
                 for (Anwendung anw : app.getAnwendungen()) {
                     if (!treffer && aktuelleRelativeUrl.equals(anw.getLink())) {
+                        this.applikationsgruppeCache = app;
                         app.setAktiv(true);
                         treffer = true;
                     }
                 }
+            }
+        }
+        if (!treffer) {
+            // When no active applicationgroup found, use the cached one and set it active
+            if (Objects.nonNull(this.applikationsgruppeCache)) {
+                this.applikationsgruppeCache.setAktiv(true);
             }
         }
     }
