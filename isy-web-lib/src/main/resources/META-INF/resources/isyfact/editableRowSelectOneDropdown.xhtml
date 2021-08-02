@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Ein Dropdownmenü innerhalb Formularen. -->
+
+    <composite:interface>
+
+        <!-- Die Referenz des Objekts. -->
+        <composite:attribute name="reference" required="true" />
+        <!-- Der Wert der Auswahl für das Databinding -->
+        <composite:attribute name="value" required="true" />
+        <!-- Ob die Auswahl invalide ist oder nicht. -->
+        <composite:attribute name="invalid" type="Boolean" default="false" />
+
+        <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
+        <composite:attribute name="customId" type="String" required="false" />
+
+        <!-- Ob die Darstellung nur lesend erfolgen soll -->
+        <composite:attribute name="readonly" type="Boolean" required="false"
+                default="false" />
+        <!-- Evente müssen explizit deklariert werden -->
+        <composite:attribute name="valueChangeListener" required="false"
+                targets="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
+        <composite:clientBehavior name="change" event="change"
+                targets="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" />
+
+        <!-- Konverter-Bean für die angezeigten Elemente -->
+        <composite:attribute name="converter" />
+
+        <!-- Parameter für den Konverter -->
+        <composite:attribute name="converterAttribute" />
+
+        <!-- Formspezifisch -->
+        <!-- Die CSS-Klasse für den Eingabebereich. -->
+        <composite:attribute name="inputStyleClass" type="String"
+                default="col-lg-12" />
+        <!-- Die CSS-Klasse 'dropdownStyleClass'. -->
+        <composite:attribute name="dropdownStyleClass" type="String"
+                default="form-selectonedropdown" />
+        <!-- Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. -->
+        <composite:attribute name="showPrintView" type="Boolean"
+                default="#{not empty basisModel and basisModel.showPrintView}" />
+
+        <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+        <composite:attribute name="validationModel" required="false"
+                default="#{validationModel}" />
+        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+        <composite:attribute name="globalConfig" required="false"
+                default="#{globalConfigurationModel}" />
+    </composite:interface>
+
+    <composite:implementation>
+
+        <!-- Validierungsfehler bestimmen -->
+        <ui:param name="validationMessages"
+                value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+        <ui:param name="existsValidationError"
+                value="#{not empty validationMessages}" />
+
+        <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+                data-isy-custom-id="#{cc.attrs.customId}" >
+
+            <div class="#{cc.attrs.inputStyleClass}">
+                <div class="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'dropdown' : ''}">
+                    <h:selectOneMenu id="editableFormSelectOneDropdown"
+                            value="#{cc.attrs.value}"
+                            styleClass="#{cc.attrs.dropdownStyleClass} #{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView ? 'selectpicker' : 'selectpicker-native'} #{cc.attrs.invalid ? 'invalid' : ''} #{cc.attrs.readonly ? 'disabled readonly' : ''}"
+                            converter="#{cc.attrs.converter}" disabled="#{cc.attrs.disabled}">
+                        <composite:insertChildren />
+                        <f:attribute name="converterAttribute" value="#{cc.attrs.converterAttribute}" />
+                    </h:selectOneMenu>
+                </div>
+            </div>
+
+            <!-- Bei Validierungsfehlern -->
+            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
+                <span class="form-control-feedback without-input-group-addon">
+                    <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
+                            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
+                        <span class="icon icon-info"></span>
+                    </a>
+                </span>
+            </ui:fragment>
+        </div>
+    </composite:implementation>
+
+</html>

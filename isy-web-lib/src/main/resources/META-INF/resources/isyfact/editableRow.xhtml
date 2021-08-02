@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:isy="http://java.sun.com/jsf/composite/isyfact"
+        xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:dc="http://java.sun.com/jsf/composite/daisycommon">
+
+    <!--Definiert eine EditableRow. Die EditableRow verwaltet eine Liste von Objekten und kann anhand
+    einer Objektinitialisierungsvorschrift neue Objekte einer der bestehenden Liste hinzufuegen kann.-->
+
+    <composite:interface>
+
+        <!--Der Controller für die EditableRow-->
+        <composite:attribute name="controller" required="true"
+                type="de.bund.bva.isyfact.common.web.jsf.components.editablerow.EditableRowController" />
+        <!--Liste aller in der EditableRow enthaltenen Elemente-->
+        <composite:attribute name="werteliste" required="true" type="java.util.List" />
+        <!--Die Factory (Bean), in der eine entsprechende Methode zur Erstellung eines neuen Objektes existiert-->
+        <composite:attribute name="factory" required="true" />
+        <!--Der Name der spezifschen Methode in der Factory, die ein neues Objekt erzeugt-->
+        <composite:attribute name="factorymethod" required="true" type="java.lang.String" />
+        <!--Die Pfad der Row-Definition-Datei-->
+        <composite:attribute name="rowDefinition" type="java.lang.String" required="true" />
+        <!--Ob die Controll-Buttons der EditableRow zum Hinzufuegen und Loeschen einer Zeile deaktiviert sind.
+        Default ist false - die Buttons sind aktiviert ; true - die Buttons sind deaktiviert -->
+        <composite:attribute name="disabled" type="Boolean" required="false" default="false" />
+        <!-- Die zu ergänzenden Style-Klassen. -->
+        <composite:attribute name="editableRowStyle" required="false" />
+        <!-- Der Inhalt der Headerzeile -->
+        <composite:facet name="editableRowHeader" />
+    </composite:interface>
+
+    <composite:implementation>
+
+        <ui:param name="neuesObjekt" value="#{cc.attrs.factory[cc.attrs.factorymethod]()}" />
+
+        <h:panelGroup id="editableRowId">
+            <div class="#{cc.attrs.editableRowStyle}">
+
+                <div class="row">
+                    <div class="col-lg-11">
+                        <div class="row">
+                            <composite:renderFacet name="editableRowHeader" />
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <!--Extra Platz im Headerbereich fuer die Funktionalitaet-->
+                        <div class="row">
+                            <!--Hinzufuegen-->
+                            <dc:editableRowHeader styleClass="col-lg-6" />
+                            <!--Loeschen-->
+                            <dc:editableRowHeader styleClass="col-lg-6" />
+                        </div>
+                    </div>
+                </div>
+                <h:panelGroup id="tableContent">
+                    <ui:param name="clientIdEditableRowContent"
+                            value="#{jsfHelper.searchClientIdInParents(component,'editableRowId')}" />
+
+                    <!-- Schleife über die Items -->
+                    <ui:repeat
+                            value="#{cc.attrs.controller.liefereNichtLeereWerteliste(cc.attrs.werteliste, neuesObjekt)}"
+                            var="dataTableItem">
+
+                        <!-- Row -->
+                        <div class="row">
+
+                            <div class="col-lg-11">
+                                <div class="row">
+                                    <ui:include src="#{cc.attrs.rowDefinition}" />
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <!--Funktionalitaet fuer die jeweiligen Zeilen-->
+                                <div class="row">
+                                    <!--Loeschen-->
+                                    <div class="col-lg-6">
+                                        <dc:buttonIcon
+                                                action="#{cc.attrs.controller.loescheReihe(cc.attrs.werteliste, dataTableItem)}"
+                                                tooltip="Löschen" render="#{clientIdEditableRowContent}"
+                                                execute="#{clientIdEditableRowContent}"
+                                                disabled="#{cc.attrs.disabled}"
+                                                icon="fa-minus"
+                                                size="small"
+                                                rendered="#{cc.attrs.werteliste ne null and cc.attrs.werteliste.size() > 1}" />
+                                    </div>
+                                    <!--Hinzufuegen-->
+                                    <div class="col-lg-6">
+                                        <dc:buttonIcon
+                                                action="#{cc.attrs.controller.hinzufuegenReihe(cc.attrs.werteliste, dataTableItem, neuesObjekt)}"
+                                                tooltip="Hinzufügen" render="#{clientIdEditableRowContent}"
+                                                execute="#{clientIdEditableRowContent}"
+                                                disabled="#{cc.attrs.disabled}"
+                                                icon="fa-plus"
+                                                size="small" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+
+                </h:panelGroup>
+            </div>
+        </h:panelGroup>
+
+    </composite:implementation>
+
+</html>

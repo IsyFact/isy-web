@@ -1,0 +1,130 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <!-- Datumsfeld für Formulareingaben. -->
+
+    <composite:interface>
+
+        <!-- Tooltip. -->
+        <composite:attribute name="tooltip" type="String" default="" />
+
+        <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
+        <composite:attribute name="customId" required="false" />
+
+        <!-- Die Referenz des Objekts. -->
+        <composite:attribute name="reference" required="true" />
+        <!-- Der Wert für das Databinding im Eingabefeld -->
+        <composite:attribute name="value" required="true" />
+        <!-- Die CSS-Klasse für den Eingabebereich. -->
+        <composite:attribute name="inputStyleClass" type="String"
+                default="col-lg-12" />
+        <!-- Die CSS-Klasse für das Input-Feld im Eingabebereich. -->
+        <composite:attribute name="inputFieldClass" type="String" default="" />
+        <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+        <composite:attribute name="placeholder" type="java.lang.String"
+                required="false" default="TT.MM.JJJJ" />
+
+        <!-- Ob die Darstellung nur lesend erfolgen soll -->
+        <composite:attribute name="readonly" type="Boolean" default="false" />
+
+        <!-- Die Sprache für den Datepicker. -->
+        <composite:attribute name="language" type="java.lang.String"
+                required="false" default="de" />
+        <!-- Das Datumsformat für den Datepicker. -->
+        <composite:attribute name="dateFormat" type="java.lang.String"
+                required="false" default="dd.mm.yyyy" />
+
+        <!-- Das Maskenformat für das Eingabefeld. -->
+        <composite:attribute name="inputmask" type="java.lang.String"
+                required="false" default="99.99.9999" />
+        <!-- Die Eingabemaske: ob text soll überschrieben werden beim eintippen.-->
+        <composite:attribute name="inputmaskInsertMode" type="Boolean"
+                required="false" default="true" />
+        <!-- Die Eingabemaske: Ob beim Verlassen des Feldes die Maskierungsplatzhalter ausgeblendet werden sollen -->
+        <composite:attribute name="inputmaskClearOnBlur" type="Boolean"
+                required="false" default="true" />
+
+        <!-- Ob Picker angezeigt werden soll. -->
+        <composite:attribute name="showPicker" type="java.lang.Boolean"
+                required="false" default="true" />
+
+        <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+        <composite:attribute name="validationModel" required="false"
+                default="#{validationModel}" />
+        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+        <composite:attribute name="globalConfig" required="false"
+                default="#{globalConfigurationModel}" />
+
+    </composite:interface>
+
+    <composite:implementation>
+
+        <!-- In dieses Feld wird die Grenze zum Ergänzen von zweistelligen Jahreszahlen bei Datumsangaben gespeichert.
+             Der Wert wird aus der Konfiguration ausgelesen. -->
+        <input type="hidden" id="formDateJahresZahlenErgaenzenGrenze"
+                value="#{isyWebKonfigurationHelper.getGuiDatumsangabeJahreszahlenErgaenzenGrenze()}" />
+
+        <!-- Ob Validierungsfehler existieren. -->
+        <ui:param name="validationMessages"
+                value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+        <ui:param name="existsValidationError"
+                value="#{not empty validationMessages}" />
+
+        <div class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+                data-isy-custom-id="#{cc.attrs.customId}">
+
+
+            <div class="#{cc.attrs.inputStyleClass}">
+                <div class="rf-datepicker input-group date"
+                        language="#{cc.attrs.language}" dateformat="#{cc.attrs.dateFormat}">
+                    <!-- Edit mode -->
+                    <ui:fragment rendered="#{not cc.attrs.readonly}">
+                        <input type="text"
+                                class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.inputFieldClass}"
+                                id="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                                placeholder="#{cc.attrs.placeholder}"
+                                jsf:value="#{cc.attrs.value}" maxlength="10"
+                                title="#{cc.attrs.tooltip}"
+                                data-isymask-clearonblur="#{cc.attrs.inputmaskClearOnBlur}"
+                                data-isymask-mask="#{cc.attrs.inputmask}"
+                                data-isymask-insertmode="#{cc.attrs.inputmaskInsertMode}">
+                            <composite:insertChildren />
+                        </input>
+
+                        <ui:fragment
+                                rendered="#{cc.attrs.globalConfig.jsEnabled and not basisModel.showPrintView and cc.attrs.showPicker}">
+                            <a
+                                    class="btn btn-icon input-group-addon #{not empty validationMessages ? 'formdatevieraugenicon' : ''}">
+                                <span class="icon icon-calendar"></span>
+                            </a>
+                        </ui:fragment>
+                    </ui:fragment>
+
+                    <!-- Read-Only mode -->
+                    <ui:fragment rendered="#{cc.attrs.readonly}">
+                        <input type="text" class="form-control readonly"
+                                id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                                readonly="readonly" jsf:value="#{cc.attrs.value}">
+                            <composite:insertChildren />
+                        </input>
+                    </ui:fragment>
+                </div>
+            </div>
+
+            <!-- Bei Validierungsfehlern -->
+            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
+                <span class="form-control-feedback with-input-group-addon">
+                    <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
+                            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
+                        <span class="icon icon-info"></span>
+                    </a>
+                </span>
+            </ui:fragment>
+        </div>
+    </composite:implementation>
+
+</html>

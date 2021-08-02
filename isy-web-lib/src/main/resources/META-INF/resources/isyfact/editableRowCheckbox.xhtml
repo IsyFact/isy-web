@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:t="http://myfaces.apache.org/tomahawk"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Ein Eingabefeld für eine Checkbox innerhalb einer EditableRow. -->
+
+    <composite:interface>
+
+        <!-- Die Referenz des Objekts. -->
+        <composite:attribute name="reference" required="true" />
+        <!-- Der Wert für das Databinding im Eingabefeld -->
+        <composite:attribute name="value" required="true" />
+
+        <!-- Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen. Diese wird im Attribut data-isy-custom-id eingetragen. -->
+        <composite:attribute name="customId" required="false" />
+
+        <!-- Die CSS-Klasse für den Eingabebereich. -->
+        <composite:attribute name="inputStyleClass" type="String"
+                default="col-lg-12" />
+
+        <!-- Ob die Checkbox deaktiviert ist oder nicht. -->
+        <composite:attribute name="disabled" required="false" default="false" />
+
+        <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+        <composite:attribute name="validationModel" required="false"
+                default="#{validationModel}" />
+        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+        <composite:attribute name="globalConfig" required="false"
+                default="#{globalConfigurationModel}" />
+
+        <!-- change Event einfach durchwerfen -->
+        <composite:clientBehavior name="change" event="change" targets="selectBooleanCheckbox" />
+        <composite:clientBehavior name="click" event="click" targets="selectBooleanCheckbox" />
+        <composite:attribute name="valueChangeListener" required="false" targets="selectBooleanCheckbox" />
+    </composite:interface>
+
+    <composite:implementation>
+
+        <ui:param name="validationMessages"
+                value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+        <ui:param name="existsValidationError"
+                value="#{not empty validationMessages}" />
+
+        <div
+                class="form-group#{existsValidationError ? ' has-error has-feedback': ''}"
+                data-isy-custom-id="#{cc.attrs.customId}">
+
+            <div class="#{cc.attrs.inputStyleClass}">
+                <div class="checkbox">
+                    <label class="#{existsValidationError ? 'required' : ''} control-label"
+                            for="#{cc.clientId}:selectBooleanCheckbox">
+                        <t:selectBooleanCheckbox id="selectBooleanCheckbox"
+                                value="#{cc.attrs.value}" styleClass="form-control editableRow-checkbox"
+                                disabled="#{cc.attrs.disabled or cc.attrs.mode eq 'input-only' or cc.attrs.showPrintView}" />
+                        <!--Dieses span-Element muss da bleiben und leer, ansonsten wird die Checkbox nicht angezeigt-->
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bei Validierungsfehlern -->
+            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
+                <span class="form-control-feedback without-input-group-addon">
+                    <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
+                            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
+                        <span class="icon icon-info"></span>
+                    </a>
+                </span>
+            </ui:fragment>
+
+        </div>
+    </composite:implementation>
+
+</html>
