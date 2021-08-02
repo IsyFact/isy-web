@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html">
+
+    <composite:interface>
+
+        <!-- Der Header-Name / Spaltenüberschrift. -->
+        <composite:attribute name="name" type="String" />
+        <!-- Der Style der Spalte - Hierbei wird auch die Breite der Spalte angegeben. -->
+        <composite:attribute name="styleClass" required="true" />
+        <!-- Gibt die horizontale Ausrichtung der Spaltenüberschrift an; mögliche Werte
+             sind left, right und center; Defaultwert ist left -->
+        <composite:attribute name="align" type="String" required="false" default="left" />
+
+    </composite:interface>
+
+    <composite:implementation>
+
+        <label class="#{cc.attrs.styleClass} #{empty cc.attrs.align or cc.attrs.align eq '' ? 'text-align:left' : 'text-align:'.concat(cc.attrs.align)}">
+            <h:outputText escape="true" value="#{cc.attrs.name}" />
+        </label>
+
+    </composite:implementation>
+
+</html>

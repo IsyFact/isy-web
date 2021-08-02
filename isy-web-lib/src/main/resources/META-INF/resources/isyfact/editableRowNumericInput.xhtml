@@ -1,0 +1,112 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <!-- Ein Eingabefeld innerhalb Formularen. -->
+
+    <composite:interface>
+
+        <!-- Die Referenz des Objekts. -->
+        <composite:attribute name="reference" required="true" />
+        <!-- Der Wert für das Databinding im Eingabefeld -->
+        <composite:attribute name="value" required="true" />
+        <!-- Ob die Eingabe ein Pflichteingabe ist. -->
+        <composite:attribute name="required" type="Boolean" default="false" />
+        <!-- Ob die Darstellung nur lesend erfolgen soll -->
+        <composite:attribute name="readonly" type="Boolean" default="false" />
+        <!-- Die CSS-Klasse für den Eingabebereich. -->
+        <composite:attribute name="inputStyleClass" type="String"
+                default="col-lg-12" />
+        <!-- Der Platzhalter, welcher im Eingabefeld angezeigt wird. -->
+        <composite:attribute name="placeholder" type="String" required="false" />
+        <!-- Ob das Eingabefeld deaktiviert ist. -->
+        <composite:attribute name="disabled" type="Boolean" default="false" />
+
+        <!-- Die maximale Länge der Eingabe. -->
+        <composite:attribute name="maxlength" type="Integer" required="false"
+                default="255" />
+        <!-- Die maximale Breite des Eingabefeldes. -->
+        <composite:attribute name="width" type="String" required="false"
+                default="100%" />
+        <!-- Tooltip. -->
+        <composite:attribute name="tooltip" type="String" default="" />
+
+        <!-- Ein spezifisches Validation-Model, falls benötigt. -->
+        <composite:attribute name="validationModel" required="false"
+                default="#{validationModel}" />
+        <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
+        <composite:attribute name="globalConfig" required="false"
+                default="#{globalConfigurationModel}" />
+
+        <!-- Änderungen an original formatInput  -->
+        <!-- onchange JavaScript-Funktion wird aufgerufen, wenn der Cursor das Feld verlässt -->
+        <composite:attribute name="onchange" required="false"
+                default="formatNumericValue(this)" />
+        <!-- onkeyup JavaScript-Funktion wird aufgerufen, wenn eine Tastatureingabe in dem Feld gemacht wurde -->
+        <composite:attribute name="onkeyup" required="false"
+                default="deleteNonDigitCharacters(this)" />
+        <!-- Die Anzahl der Nachkommastellen: Default ist 0. -->
+        <composite:attribute name="decimalplaces" type="Integer" required="false" default="0" />
+
+        <!-- Ist ein Tausender-Punkt gewünscht. -->
+        <composite:attribute name="tausenderpunkt" type="Boolean" required="false" default="false" />
+
+        <!-- Ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. Default ist false.-->
+        <composite:attribute name="alignright" type="Boolean" required="false" default="false" />
+
+    </composite:interface>
+
+    <composite:implementation>
+
+        <!-- Validierungsfehler bestimmen -->
+        <ui:param name="validationMessages"
+                value="#{cc.attrs.validationModel.getValidationMessagesForReference(cc.attrs.reference)}" />
+        <ui:param name="existsValidationError"
+                value="#{not empty validationMessages}" />
+
+        <div
+                class="form-group#{existsValidationError ? ' has-error has-feedback': ''}">
+
+            <div class="#{cc.attrs.inputStyleClass}">
+                <div class=" input-group">
+                    <ui:fragment rendered="#{not cc.attrs.readonly}">
+                        <input type="text"
+                                class="form-control#{existsValidationError ? ' invalid': ''} currency-input#{cc.attrs.alignright ? ' currency-input-text-align-right' : ''}"
+                                id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                                placeholder="#{cc.attrs.placeholder}"
+                                jsf:value="#{cc.attrs.value}" maxlength="#{cc.attrs.maxlength}"
+                                onkeyup="#{cc.attrs.onkeyup}" onchange="#{cc.attrs.onchange}"
+                                data-decimalplaces="#{cc.attrs.decimalplaces}"
+                                data-tausenderpunkt="#{cc.attrs.tausenderpunkt}"
+                        >
+                            <composite:insertChildren />
+                            <f:attribute name="disabled" value="#{cc.attrs.disabled}" />
+                        </input>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{cc.attrs.readonly}">
+                        <input type="text" class="form-control readonly#{cc.attrs.alignright ? ' currency-input-text-align-right' : ''}"
+                                jsf:id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                                readonly="readonly" jsf:value="#{cc.attrs.value}" />
+                    </ui:fragment>
+
+                </div>
+            </div>
+
+            <!-- Bei Validierungsfehlern -->
+            <ui:fragment rendered="#{existsValidationError and cc.attrs.globalConfig.jsEnabled}">
+                <span class="form-control-feedback without-input-group-addon">
+                    <a data-delay="100" data-trigger="hover" data-title="" data-placement="top"
+                            data-content="#{cc.attrs.validationModel.getCombinedValidationMessageForReference(cc.attrs.reference)}"
+                            data-toggle="tooltip" class="btn btn-link rf-popover" data-original-title="" title="">
+                        <span class="icon icon-info"></span>
+                    </a>
+                </span>
+            </ui:fragment>
+
+        </div>
+    </composite:implementation>
+
+</html>
