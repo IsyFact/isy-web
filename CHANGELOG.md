@@ -1,9 +1,14 @@
-# v5.2.0
-- `IFS-970`: Anhebung auf IF 2.3
+# v5.3.0
+- `IFS-970`: Anhebung auf IF 2.4
 - Maven Dependency Convergency Fehler behoben
+- `IFS-601`: Aktualisierung auf JPA 2.2.
+
+# v5.2.0
+- `IFS-1115`: Version Anhebung von IsyFact Standards auf 2.3.0
+#### Bekannte Probleme
+- Die Darstellung des DIN SPEC Charpickers in Modalenfenstern ist falsch (betrifft isy-style 5.2.0 und 5.3.0)
 
 # v5.1.0
-- `IFE-601`: Aktualisierung auf JPA 2.2.
 - `IFS-932`: `IFS-931 IFS-848` auf IFS 2.2 portiert
 - `IFS-931 IFS-848`: Din Spec Charpicker implementiert
     * Breaking Changes: Um einen Charpicker anzubinden muss das Attribut `charpicker` eines Input-Elements auf `dinSpec` (neu) oder `special` (alt) gesetzt werden.
