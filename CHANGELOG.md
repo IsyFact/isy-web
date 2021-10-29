@@ -2,6 +2,7 @@
 - `IFS-970`: Anhebung auf IF 2.4
 - Maven Dependency Convergency Fehler behoben
 - `IFS-601`: Aktualisierung auf JPA 2.2.
+- `IFE-311`: Fehlende Selektion bei der Navigation behoben
 - `IFE-177`: adopt fix from `IFE-30` to render readonly dropdowns as labels
 
 # v5.2.0
