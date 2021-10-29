@@ -97,7 +97,7 @@ public class ZeichenObjektRepository {
                     }
                     currentLine++;
                 }
-            } catch (NullPointerException | IOException e) {
+            } catch (NullPointerException | IOException  | StringIndexOutOfBoundsException e) {
                 LOG.warn(EreignisSchluessel.E_SONDERZEICHEN_EINLESEN_FEHLER, "Sonderzeichenliste " +
                         getResource() + " konnte nicht gelesen werden.");
                 return Collections.emptyList();
