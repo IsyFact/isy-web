@@ -1,6 +1,7 @@
 # v5.2.0
 - `IFS-970`: Anhebung auf IF 2.3
 - Maven Dependency Convergency Fehler behoben
+- `IFE-455`: Dependencies aktualisiert, um Sicherheitslücken zu schließen
 
 # v5.1.0
 - `IFE-601`: Aktualisierung auf JPA 2.2.
