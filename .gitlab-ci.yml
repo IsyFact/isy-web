@@ -2,24 +2,17 @@ include:
   - project: 'IsyFact/isy-gitlabci-templates'
     file: '/maven/.gitlab-ci-maven.yml'
 
-stages:
-  - build
-  - test
-  - package
-  - deploy
+build:
+  extends: .maven-build
 
 build:doc:
   extends: .maven-build
   variables:
     MAVEN_BUILD_OPTS: -Pbuild-documentation
   artifacts:
-    expire_in: 2 day
+    expire_in: 1 day
     paths:
-    - "target/pdf/"
-    - "target/html/"
-
-build:
-  extends: .maven-build
+      - '**/target/doc/**'
 
 test:
   extends: .maven-test
@@ -27,8 +20,15 @@ test:
 package:
   extends: .maven-package
 
+deploy-snapshot:
+  extends: .maven-deploy-snapshot
+
 deploy:
   extends: .maven-deploy
 
-deploy-snapshot:
-  extends: .maven-deploy-snapshot
+stages:
+  - build
+  - test
+  - package
+  - deploy
+
