@@ -249,9 +249,8 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>1.12.0</version>
                         <executions>
-
                             <execution>
                                 <id>install node and npm</id>
                                 <goals>
@@ -263,13 +262,21 @@
                                     <nodeDownloadRoot>${env.REPOSITORY_NODE}</nodeDownloadRoot>
                                 </configuration>
                             </execution>
-
+                            <execution>
+                                <id>npm-force-resolutions</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>npx</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>npm-force-resolutions</arguments>
+                                </configuration>
+                            </execution>
                             <execution>
                                 <id>npm install</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
-
                                 <configuration>
                                     <arguments>install</arguments>
                                 </configuration>
