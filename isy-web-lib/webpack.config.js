@@ -4,7 +4,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-    target: ['es5'],
+    target: 'web',
     entry: {
         isyweb: [
             './src/main/js/main.js',
