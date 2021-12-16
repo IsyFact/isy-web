@@ -20,7 +20,7 @@
     </modules>
 
     <properties>
-        <isyfact-bom-version>2.4.0-SNAPSHOT</isyfact-bom-version>
+        <isyfact-bom-version>2.4.0-RC1</isyfact-bom-version>
     </properties>
 
     <dependencyManagement>
