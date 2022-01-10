@@ -4,7 +4,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.initConfig({
 
@@ -21,6 +20,7 @@ module.exports = function (grunt) {
             options: {
                 browser: true,
                 strict: true,
+                esversion: 6,
                 globals: {
                     jQuery: true,
                     angular: true
@@ -53,33 +53,6 @@ module.exports = function (grunt) {
             }
 		},
 
-        // Uglify
-        uglify: {
-            options: {
-                sourceMap: 'www/onload.map'
-            },
-            js: { 
-                files: {
-                    'www/onload.js':['www/onload.debug.js']
-                }
-            },
-            picker: {
-                files: {
-                    'www/specialcharpicker.js':['www/specialcharpicker.debug.js']
-                }
-            },
-            collapse: {
-                files: {
-                    'www/sidebar-collapse.js':['www/sidebar-collapse.debug.js']
-                }
-            },
-			tastatur: {
-                files: {
-                    'www/tastatursteuerung.js':['www/tastatursteuerung.debug.js']
-                }
-            }
-        },
-
 		less: {
             specialcharpicker: {
                 options: {
@@ -94,6 +67,6 @@ module.exports = function (grunt) {
 		
     });
 	
-    grunt.registerTask('default', ['clean', 'jshint', 'copy:towww','uglify','less','copy:toproject']);
+    grunt.registerTask('default', ['clean', 'jshint', 'copy:towww','less','copy:toproject']);
 
 };
