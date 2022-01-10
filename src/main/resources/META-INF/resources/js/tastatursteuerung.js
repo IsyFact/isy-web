@@ -46,7 +46,7 @@ $(document).ready(function() {
 
 tastatursteuerungAktualisieren = function() {
     'use strict';
-    var $inputs = $("input").filter(':not(.tatatursteuerung_ajaxtoken)');
+    const $inputs = $("input").filter(':not(.tatatursteuerung_ajaxtoken)');
 
     // Linksnavigation auf Eingabefeldern
     $inputs.bind('keydown', 'alt+shift+l', function(e) {
@@ -75,7 +75,7 @@ tastatursteuerungAktualisieren = function() {
 
 tastatursteuerungLinksnavigation = function($focuselement, $origin) {
     'use strict';
-    var $neuerFocus;
+    let $neuerFocus;
 
     // Erstes Element fokusieren
     if ($focuselement === null) {
@@ -90,7 +90,7 @@ tastatursteuerungLinksnavigation = function($focuselement, $origin) {
     $neuerFocus.bind('keydown', 'tab', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var $optionNext = $(this).parent().nextAll().find(
+        const $optionNext = $(this).parent().nextAll().find(
                 '.linksnavigation-option');
         if ($optionNext.length > 0) {
             tastatursteuerungLinksnavigation($($optionNext.first()), $origin);
@@ -100,7 +100,7 @@ tastatursteuerungLinksnavigation = function($focuselement, $origin) {
     $neuerFocus.bind('keydown', 'shift+tab', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var $optionPrev = $(this).parent().prevAll().find(
+        const $optionPrev = $(this).parent().prevAll().find(
                 '.linksnavigation-option');
         if ($optionPrev.length > 0) {
             tastatursteuerungLinksnavigation($($optionPrev.last()), $origin);
@@ -136,7 +136,7 @@ tastatursteuerungLinksnavigation = function($focuselement, $origin) {
 
 tastatursteuerungNavigation = function($focuselement, $origin) {
     'use strict';
-    var $neuerFocus;
+    let $neuerFocus;
 
     // Erstes Element fokusieren
     if ($focuselement === null) {
@@ -152,7 +152,7 @@ tastatursteuerungNavigation = function($focuselement, $origin) {
     $neuerFocus.bind('keydown', 'tab', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var $optionNext = $(this).parent().nextAll().find('a');
+        const $optionNext = $(this).parent().nextAll().find('a');
         if ($optionNext.length > 0) {
             tastatursteuerungNavigation($($optionNext.first()), $origin);
         }
@@ -161,7 +161,7 @@ tastatursteuerungNavigation = function($focuselement, $origin) {
     $neuerFocus.bind('keydown', 'shift+tab', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var $optionPrev = $(this).parent().prevAll().find('a');
+        const $optionPrev = $(this).parent().prevAll().find('a');
         if ($optionPrev.length > 0) {
             tastatursteuerungNavigation($($optionPrev.last()), $origin);
         }
@@ -197,10 +197,10 @@ tastatursteuerungNavigation = function($focuselement, $origin) {
 
 tastatursteuerungSeitentoolbar = function(index, $origin) {
     'use strict';
-    var $neuerFocus;
-    var $alleElemente = $("form[id*='seitenToolbarForm']")
+    let $neuerFocus;
+    const $alleElemente = $("form[id*='seitenToolbarForm']")
             .find(".toolbar.page").find("input:enabled, button:enabled, a");
-    var indexFocus = index;
+    const indexFocus = index;
 
     // Erstes Element fokusieren
     if ($alleElemente.length === 0) {
@@ -214,9 +214,9 @@ tastatursteuerungSeitentoolbar = function(index, $origin) {
     $neuerFocus.bind('keydown', 'tab', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var $alleElemente = $("form[id*='seitenToolbarForm']").find(
+        const $alleElemente = $("form[id*='seitenToolbarForm']").find(
                 ".toolbar.page").find("input:enabled, button:enabled, a");
-        var indexNext = $alleElemente.index(this) + 1;
+        const indexNext = $alleElemente.index(this) + 1;
         console.log(indexNext);
         if ($alleElemente.length > indexNext) {
             tastatursteuerungSeitentoolbar(indexNext, $origin);
@@ -226,10 +226,10 @@ tastatursteuerungSeitentoolbar = function(index, $origin) {
     $neuerFocus.bind('keydown', 'shift+tab', function(e, indexFocus) {
         e.preventDefault();
         e.stopPropagation();
-        var $alleElemente = $("form[id*='seitenToolbarForm']").find(
+        const $alleElemente = $("form[id*='seitenToolbarForm']").find(
                 ".toolbar.page").find("input:enabled, button:enabled, a");
 
-        var indexPrev = $alleElemente.index(this) - 1;
+        const indexPrev = $alleElemente.index(this) - 1;
         if (0 <= indexPrev) {
             tastatursteuerungSeitentoolbar(indexPrev, $origin);
         }
