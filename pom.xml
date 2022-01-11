@@ -283,11 +283,13 @@
                             </execution>
 
                             <execution>
-                                <id>grunt build</id>
+                                <id>webpack build</id>
                                 <goals>
-                                    <goal>grunt</goal>
+                                    <goal>npm</goal>
                                 </goals>
-
+                                <configuration>
+                                    <arguments>run webpack</arguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
