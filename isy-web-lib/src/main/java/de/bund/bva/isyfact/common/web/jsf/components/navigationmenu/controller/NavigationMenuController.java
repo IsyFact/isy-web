@@ -4,7 +4,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
@@ -15,17 +14,24 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMe
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.NavigationMenuGenerierenStrategie;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 
+import java.util.Objects;
+
 /**
- * Die Klasse dient dazu ein {@link NavigationMenuModel} zu erstellen und in der Session abzulegen. Außerdem
- * wird die aktive {@link Applikationsgruppe} hier ermittelt.
+ * The class is used to create a {@link NavigationMenuModel} and store it in the session. Also
+ * the active {@link Applikationsgruppe} is determined here.
  */
 @Controller
 public class NavigationMenuController {
 
     /**
-     * Bean: Eine {@link NavigationMenuGenerierenStrategie}.
+     * Bean: One {@link NavigationMenuGenerierenStrategie}.
      */
     private NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie;
+
+    /**
+     * The last active applicationgroup
+     */
+    private Applikationsgruppe applikationsgruppeCache = null;
 
     @Autowired
     public NavigationMenuController(NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie) {
@@ -33,11 +39,11 @@ public class NavigationMenuController {
     }
 
     /**
-     * Erstellt ein {@link NavigationMenuModel} mithilfe von
-     * {@link NavigationMenuGenerierenStrategie#generiereNavigationMenu()} und legt es in der Session ab. Wenn
-     * in der Session bereits ein initialisiertes {@link NavigationMenuModel} vorhanden ist, entfällt der
-     * Aufruf von {@link NavigationMenuGenerierenStrategie}. Schließlich wird die aktive Applikationsgruppe
-     * ermittelt. Dies findet in jedem Fall statt.
+     * Creates a {@link NavigationMenuModel} using
+     * {@link NavigationMenuGenerierenStrategie#generiereNavigationMenu()} ()} and places it in the session. If
+     * there is already an initialized {@link NavigationMenuModel} in the session, there is no need to
+     * call {@link NavigationMenuGenerierenStrategie#generiereNavigationMenu()} ().
+     * Finally, the active application group is determined. This takes place in each case.
      */
     public void initialisiereNavigationMenue() {
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
@@ -53,12 +59,12 @@ public class NavigationMenuController {
     }
 
     /**
-     * Ermittelt die aktive {@link Applikationsgruppe} anhand der aktuellen URL.
+     * Determines the active {@link Applikationsgruppe} based on the current URL.
      * @param model
-     *            Das {@link NavigationMenuModel}, das alle {@link Applikationsgruppe}en enthält.
+     *      The {@link NavigationMenuModel} that contains all {@link Applikationsgruppe}n.
      */
     private void ermittleAktiveApplikationsgruppe(NavigationMenuModel model) {
-        if (model == null) {
+        if (Objects.isNull(model)) {
             return;
         }
 
@@ -68,16 +74,25 @@ public class NavigationMenuController {
         for (Applikationsgruppe app : model.getApplikationsListe()) {
             app.setAktiv(false);
             if (!treffer && aktuelleRelativeUrl.equals(app.getLink())) {
+                this.applikationsgruppeCache = app;
                 app.setAktiv(true);
                 treffer = true;
             }
             if (!treffer) {
                 for (Anwendung anw : app.getAnwendungen()) {
                     if (!treffer && aktuelleRelativeUrl.equals(anw.getLink())) {
+                        this.applikationsgruppeCache = app;
                         app.setAktiv(true);
                         treffer = true;
                     }
                 }
+            }
+        }
+
+        if (!treffer) {
+            // When no active applicationgroup found, use the cached one and set it active
+            if (Objects.nonNull(this.applikationsgruppeCache)) {
+                this.applikationsgruppeCache.setAktiv(true);
             }
         }
     }

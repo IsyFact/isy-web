@@ -1,5 +1,16 @@
 # v5.3.0
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
+- `IFS-970`: Anhebung auf IF 2.4
+- Maven Dependency Convergency Fehler behoben
+- `IFE-455`: Dependencies aktualisiert, um Sicherheitslücken zu schließen
+- `IFS-601`: Aktualisierung auf JPA 2.2.
+- `IFE-311`: Fehlende Selektion bei der Navigation behoben
+- `IFE-177`: adopt fix from `IFE-30` to render readonly dropdowns as labels
+
+# v5.2.0
+- `IFS-1115`: Version Anhebung von IsyFact Standards auf 2.3.0
+- Die Darstellung des DIN SPEC Charpickers in Modalenfenstern ist falsch (betrifft isy-style 5.2.0 und 5.3.0)
+>>>>>>> CHANGELOG.md
 
 # v5.1.0
 - `IFS-932`: `IFS-931 IFS-848` auf IFS 2.2 portiert
