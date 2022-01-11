@@ -4,7 +4,7 @@
 - `IFE-455`: Dependencies aktualisiert, um Sicherheitslücken zu schließen
 - `IFS-601`: Aktualisierung auf JPA 2.2.
 - `IFE-311`: Fehlende Selektion bei der Navigation behoben
-- `IFE-177`: adopt fix from `IFE-30` to render readonly dropdowns as labels
+- `IFE-177`: Fix `IFE-30` übernommen, damit readonly-Dropdowns als Labels dargestellt werden.
 
 # v5.2.0
 - `IFS-1115`: Version Anhebung von IsyFact Standards auf 2.3.0
