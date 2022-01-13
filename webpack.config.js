@@ -1,12 +1,32 @@
 const ESLintPlugin = require('eslint-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: './src/main/js/main.js'
+        isyweb: [
+            './src/main/js/main.js',
+            './src/main/css/specialcharpicker.css'
+        ]
     },
     output: {
-        filename: 'isyweb.bundle.js',
+        filename: '[name].bundle.js',
         path: __dirname + '/target/classes/META-INF/resources/js'
     },
-    plugins: [new ESLintPlugin()]
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+        ],
+    },
+    optimization: {
+        minimizer: [
+            new CssMinimizerPlugin(),
+        ],
+    },
+    plugins: [new ESLintPlugin(), new MiniCssExtractPlugin({
+        filename: "../css/[name].css"
+    })]
 };
