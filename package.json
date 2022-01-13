@@ -8,8 +8,10 @@
 		"webpack:dev": "webpack --mode development"
 	},
 	"devDependencies": {
-		"webpack": "^4.46.0",
-		"webpack-cli": "^3.3.10"
+		"eslint": "^7.13.0",
+		"eslint-webpack-plugin": "^2.3.0",
+		"webpack": "^5.6.0",
+		"webpack-cli": "^4.2.0"
 	},
 	"resolutions": {
 		"json-schema": "0.4.0"

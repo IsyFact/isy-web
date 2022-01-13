@@ -1,1 +1,0 @@
-// Empty file because Webpack 4.x needs an index.js file.
