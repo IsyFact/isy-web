@@ -812,13 +812,13 @@ $(function () {
 
     $(document).ready(function () {
 
-        // Initiale Darstellung
+        // Initial view
         $('.charpicker-dinspec-widget').data("initializer", charPickerInitializer);
 
         charPickerInitializer.initWidget(widget);
         charPickerInitializer.refreshWidget();
 
-        // Reaktion auf AJAX Requests
+        // Reacting to AJAX requests
         if (typeof (jsf) != "undefined") {
             // --------------------------------------------------------
             // Ajax-Callback

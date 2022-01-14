@@ -49,6 +49,8 @@
     <dependencies>
 
         <!-- Deprecated - nur für IsyFact 1.x -->
+        <!-- === -->
+        <!-- Deprecated - for IsyFact 1.x only -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -180,26 +182,37 @@
             <artifactId>tomahawk20</artifactId>
             <exclusions>
                 <!-- Bereinigung Convergence Warnings: IFE-144 -->
+                <!-- === -->
+                <!-- Cleanup of convergence warnings: IFE-144 -->
                 <exclusion>
                     <groupId>commons-codec</groupId>
                     <artifactId>commons-codec</artifactId>
                     <!-- dependency-convergence: Version durch isy-sicherheit gegeben -->
+                    <!-- === -->
+                    <!-- dependency-convergence: Version determined by isy-sicherheit -->
                 </exclusion>
                 <exclusion>
                     <groupId>commons-beanutils</groupId>
                     <artifactId>commons-beanutils</artifactId>
                     <!-- dependency-convergence: Version durch com.github.dozermapper:dozer-core gegeben -->
+                    <!-- === -->
+                    <!-- dependency-convergence: Version determined by com.github.dozermapper:dozer-core  -->
                 </exclusion>
                 <exclusion>
                     <groupId>commons-collections</groupId>
                     <artifactId>commons-collections</artifactId>
                     <!-- dependency-convergence: Version durch com.github.dozermapper:dozer-core gegeben -->
+                    <!-- === -->
+                    <!-- dependency-convergence: Version determined by com.github.dozermapper:dozer-core  -->
                 </exclusion>
             </exclusions>
         </dependency>
 
         <!-- Servlet -->
+
         <!-- Wird durch den Tomcat bereitgestellt -->
+        <!-- === -->
+        <!-- Provided by Tomcat -->
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
@@ -340,6 +353,8 @@
                         <executions>
 
                             <!-- Erzeugt das Glossar -->
+                            <!-- === -->
+                            <!--Creates the glossary -->
                             <execution>
                                 <id>generate-glossary</id>
                                 <phase>generate-sources</phase>
@@ -357,6 +372,8 @@
                             </execution>
 
                             <!-- Erzeugt das Literaturverzeichnis -->
+                            <!-- === -->
+                            <!-- Creates the bibliography -->
                             <execution>
                                 <id>generate-bibliography</id>
                                 <phase>generate-sources</phase>
@@ -375,6 +392,8 @@
                             </execution>
 
                             <!-- Erzeugt ... -->
+                            <!-- === -->
+                            <!-- Creates ... -->
                             <execution>
                                 <id>generate-lists</id>
                                 <phase>generate-sources</phase>

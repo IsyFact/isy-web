@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     tastatursteuerungAktualisieren();
 
-    // Tastatursteuerung für Linksnavigation
+    // keyboard controls for link navigation
     $(document).bind('keydown', 'alt+shift+l', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -26,7 +26,7 @@ $(document).ready(function() {
         tastatursteuerungLinksnavigation(null, $(e.target));
     });
 
-    // Tastatursteuerung für Hauptmenü
+    // keyboard controls for main menu
     $(document).bind('keydown', 'alt+shift+m', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -34,7 +34,7 @@ $(document).ready(function() {
         tastatursteuerungNavigation(null, $(e.target));
     });
 
-    // Tastatursteuerung für Seitentoolbar
+    // keyboard controls for side toolbar
     $(document).bind('keydown', 'alt+shift+s', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -48,21 +48,21 @@ tastatursteuerungAktualisieren = function() {
     'use strict';
     const $inputs = $("input").filter(':not(.tatatursteuerung_ajaxtoken)');
 
-    // Linksnavigation auf Eingabefeldern
+    // link navigation on input fields
     $inputs.bind('keydown', 'alt+shift+l', function(e) {
         e.preventDefault();
         e.stopPropagation();
 
         tastatursteuerungLinksnavigation(null, $(e.target));
     });
-    // Tastatursteuerung für Hauptmenü
+    // keyboard controls for main menu
     $inputs.bind('keydown', 'alt+shift+m', function(e) {
         e.preventDefault();
         e.stopPropagation();
 
         tastatursteuerungNavigation(null, $(e.target));
     });
-    // Tastatursteuerung für Seitentoolbar
+    // keyboard controls for side toolbar
     $inputs.bind('keydown', 'alt+shift+s', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -77,7 +77,7 @@ tastatursteuerungLinksnavigation = function($focuselement, $origin) {
     'use strict';
     let $neuerFocus;
 
-    // Erstes Element fokusieren
+    // focus first element
     if ($focuselement === null) {
         $neuerFocus = $($('.linksnavigation-option').first());
     } else {
@@ -86,7 +86,7 @@ tastatursteuerungLinksnavigation = function($focuselement, $origin) {
 
     $neuerFocus.focus();
 
-    // Tabs registrieren
+    // register tabs
     $neuerFocus.bind('keydown', 'tab', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -108,14 +108,14 @@ tastatursteuerungLinksnavigation = function($focuselement, $origin) {
 
     });
 
-    // Beim Drücken von Enter Link öffnen
+    // open link on pressing enter
     $neuerFocus.bind('keydown', 'enter', function(e) {
         e.preventDefault();
         e.stopPropagation();
         $(this).click();
     });
 
-    // Beim Drücken von Esc das alte Element fokussieren
+    // focus origin on pressing Esc
     $neuerFocus.bind('keydown', 'esc', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -127,7 +127,7 @@ tastatursteuerungLinksnavigation = function($focuselement, $origin) {
         }
     });
 
-    // Beim Verlassen alle Listener entfernen
+    // remove listeners on focusout
     $neuerFocus.focusout(function($neuerFocus) {
         $(this).unbind();
     });
@@ -138,7 +138,7 @@ tastatursteuerungNavigation = function($focuselement, $origin) {
     'use strict';
     let $neuerFocus;
 
-    // Erstes Element fokusieren
+    // focus first element
     if ($focuselement === null) {
         $neuerFocus = $($("[id*='main-nav'] ul li a").first());
     } else {
@@ -148,7 +148,7 @@ tastatursteuerungNavigation = function($focuselement, $origin) {
     $neuerFocus.focus();
     $neuerFocus.addClass('main-nav-focus');
 
-    // Tabs registrieren
+    // register tabs
     $neuerFocus.bind('keydown', 'tab', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -168,14 +168,14 @@ tastatursteuerungNavigation = function($focuselement, $origin) {
 
     });
 
-    // Beim Drücken von Enter Link öffnen
+    // open link when pressing enter
     $neuerFocus.bind('keydown', 'enter', function(e) {
         e.preventDefault();
         e.stopPropagation();
         $(this).click();
     });
 
-    // Beim Drücken von Esc das alte Element fokussieren
+    // focus origin when pressing Esc
     $neuerFocus.bind('keydown', 'esc', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -187,7 +187,7 @@ tastatursteuerungNavigation = function($focuselement, $origin) {
         }
     });
 
-    // Beim Verlassen alle Listener entfernen
+    // remove listeners on focusout
     $neuerFocus.focusout(function($neuerFocus) {
         $(this).removeClass('main-nav-focus');
         $(this).unbind();
@@ -202,7 +202,7 @@ tastatursteuerungSeitentoolbar = function(index, $origin) {
             .find(".toolbar.page").find("input:enabled, button:enabled, a");
     const indexFocus = index;
 
-    // Erstes Element fokusieren
+    // focus first element
     if ($alleElemente.length === 0) {
         return;
     }
@@ -210,7 +210,7 @@ tastatursteuerungSeitentoolbar = function(index, $origin) {
 
     $neuerFocus.focus();
 
-    // Tabs registrieren
+    // register tabs
     $neuerFocus.bind('keydown', 'tab', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -236,14 +236,14 @@ tastatursteuerungSeitentoolbar = function(index, $origin) {
 
     });
 
-    // Beim Drücken von Enter Link öffnen
+    // open link when pressing enter
     $neuerFocus.bind('keydown', 'enter', function(e) {
         e.preventDefault();
         e.stopPropagation();
         $(this).click();
     });
 
-    // Beim Drücken von Esc das alte Element fokussieren
+    // focus origin when pressing Escape
     $neuerFocus.bind('keydown', 'esc', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -255,7 +255,7 @@ tastatursteuerungSeitentoolbar = function(index, $origin) {
         }
     });
 
-    // Beim Verlassen alle Listener entfernen
+    // remove listeners on focusout
     $neuerFocus.focusout(function($neuerFocus) {
         $(this).unbind();
     });
