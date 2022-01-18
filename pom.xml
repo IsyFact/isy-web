@@ -238,6 +238,35 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tidy-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>internalnodenpminstall</id>
@@ -465,7 +494,7 @@
                                     </sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>
-                                        ${project.build.directory}/html/IsyFact-Erweiterungen/Bausteine/KonzeptJSF.html
+                                        ${project.build.directory}/doc/html/IsyFact-Erweiterungen/Bausteine/KonzeptJSF.html
                                     </outputFile>
                                 </configuration>
                             </execution>
@@ -483,7 +512,7 @@
                                     </sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>
-                                        ${project.build.directory}/pdf/20_IsyFact-Erweiterungen/20_Bausteine/JSF/Konzept_JSF.pdf
+                                        ${project.build.directory}/doc/pdf/20_IsyFact-Erweiterungen/20_Bausteine/JSF/Konzept_JSF.pdf
                                     </outputFile>
                                 </configuration>
                             </execution>
@@ -501,7 +530,7 @@
                                     </sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>
-                                        ${project.build.directory}/html/IsyFact-Erweiterungen/Bausteine/NutzungsvorgabenJSF.html
+                                        ${project.build.directory}/doc/html/IsyFact-Erweiterungen/Bausteine/NutzungsvorgabenJSF.html
                                     </outputFile>
                                 </configuration>
                             </execution>
@@ -519,7 +548,7 @@
                                     </sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>
-                                        ${project.build.directory}/pdf/20_IsyFact-Erweiterungen/20_Bausteine/JSF/Nutzungsvorgaben_JSF.pdf
+                                        ${project.build.directory}/doc/pdf/20_IsyFact-Erweiterungen/20_Bausteine/JSF/Nutzungsvorgaben_JSF.pdf
                                     </outputFile>
                                 </configuration>
                             </execution>
