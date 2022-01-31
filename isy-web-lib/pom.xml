@@ -226,6 +226,11 @@
             <artifactId>spring-boot-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- TODO: Remove if Spotbug issues are fixed -->
         <dependency>
             <groupId>com.github.spotbugs</groupId>
