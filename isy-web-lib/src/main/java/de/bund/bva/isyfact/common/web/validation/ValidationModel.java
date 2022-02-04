@@ -41,7 +41,7 @@ public class ValidationModel implements Serializable {
     /**
      * Enthält die Validierungsfehler für die aktuelle Maske.
      */
-    private List<ValidationMessage> validationMessages = new ArrayList<ValidationMessage>();
+    private List<ValidationMessage> validationMessages = new ArrayList<>();
 
     /**
      * Enthält die Überschrift der Validierungsfehler-Nachrichten.
@@ -51,7 +51,7 @@ public class ValidationModel implements Serializable {
     /**
      * Enthält die Validierungsfehler, welche als Faces Messages dargestellt werden können.
      */
-    private List<FacesMessage> validationFacesMessages = new ArrayList<FacesMessage>();
+    private List<FacesMessage> validationFacesMessages = new ArrayList<>();
 
     public List<ValidationMessage> getValidationMessages() {
         return this.validationMessages;
@@ -84,7 +84,7 @@ public class ValidationModel implements Serializable {
      * @return Die zugehörigen Validierungsnachrichten.
      */
     public List<ValidationMessage> getValidationMessagesForReference(String reference) {
-        List<ValidationMessage> filteredValidationMessages = new ArrayList<ValidationMessage>();
+        List<ValidationMessage> filteredValidationMessages = new ArrayList<>();
 
         if (this.validationMessages == null) {
             return filteredValidationMessages;
@@ -110,7 +110,7 @@ public class ValidationModel implements Serializable {
      * @return Die Validierungsnachrichten ohne Referenz.
      */
     public List<FacesMessage> getValidationMessagesWithoutReference() {
-        List<FacesMessage> filteredValidationFacesMessages = new ArrayList<FacesMessage>();
+        List<FacesMessage> filteredValidationFacesMessages = new ArrayList<>();
 
         if (this.validationMessages == null) {
             return filteredValidationFacesMessages;
@@ -135,10 +135,10 @@ public class ValidationModel implements Serializable {
      */
     public String getCombinedValidationMessageForReference(String reference) {
 
-        List<String> messages = new ArrayList<String>();
+        List<String> messages = new ArrayList<>();
 
         for (ValidationMessage validationMessage : getValidationMessagesForReference(reference)) {
-            String message = validationMessage.getMessage() + " (" + validationMessage.getCode() + ")";
+            String message = validationMessage.getMessage();
             if (validationMessage.isShowReadableReferenceValidationMessageForReference()) {
                 message = validationMessage.getReadableReference() + " " + message;
             }
