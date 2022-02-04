@@ -27,30 +27,27 @@ import de.bund.bva.isyfact.common.web.global.NachrichtenProvider;
 import de.bund.bva.isyfact.common.web.konstanten.MaskentexteSchluessel;
 
 /**
- * Ein Controller, welcher sich um Validierungsnachrichten kümmert.
- * 
- * @author Capgemini, Andreas Hörning.
- * @version $Id: ValidationController.java 130854 2015-02-18 10:42:27Z sdm_mhartung $
+ * A controller that takes care of validation messages.
+ *
  */
 public class ValidationController {
 
     /**
-     * Die View-Scope Variable für das Validierungsmodel.
+     * The view scope variable for the validation model.
      */
     private static final String FLASH_SCOPE_VALIDATION_MODEL_VARIABLE = "validationModel";
 
     /**
-     * Verarbeitet die übergebenen Validierungsnachrichten und schreibt diese in den Flash-Scope.
+     * Processes the passed validation messages and writes them to the Flash scope.
      * 
      * @param validationMessages
-     *            Die Validierungsnachrichten
+     *            the validation messages
      */
     public void processValidationMessages(List<ValidationMessage> validationMessages) {
 
         ValidationModel validationModel = null;
 
-        // Falls bereits ein Validation Model existiert, wird dieses aktualisiert, ansonsten wird ein neues
-        // erzeugt.
+        // If a validation model already exists, it will be updated, otherwise a new one will be created.
         validationModel =
             (ValidationModel) RequestContextHolder.getRequestContext().getFlashScope()
                 .get(FLASH_SCOPE_VALIDATION_MODEL_VARIABLE);
@@ -59,7 +56,7 @@ public class ValidationController {
             validationModel = new ValidationModel();
         }
 
-        // Validierungsfehler hinzufügen
+        // Add validation errors
         if (validationModel.getValidationMessages() == null) {
             validationModel.setValidationMessages(new ArrayList<>());
         }
@@ -67,14 +64,14 @@ public class ValidationController {
             validationModel.getValidationMessages().addAll(validationMessages);
         }
 
-        // Übergeordnete Faces Message schreiben
+        // Write parent Faces Message
         if (!validationMessages.isEmpty() && validationModel.getGlobalValidationFacesMessage() == null) {
             validationModel.setGlobalValidationFacesMessage(new FacesMessage(FacesMessage.SEVERITY_WARN,
                 new NachrichtenProvider().getMessage(MaskentexteSchluessel.MEL_UNZULAESSIGE_DATEN_VORHANDEN),
                 new NachrichtenProvider().getMessage(MaskentexteSchluessel.MEL_GEKENNZEICHNETE_FELDER_PRUEFEN)));
         }
 
-        // Validierungsfehler als Faces Messages festhalten
+        // Add validation errors as Faces messages
         for (ValidationMessage validationMessage : validationMessages) {
             validationModel.getValidationFacesMessages().add(
                 new FacesMessage(FacesMessage.SEVERITY_WARN, validationMessage.getReadableReference(),
@@ -83,7 +80,7 @@ public class ValidationController {
 
         if (!validationMessages.isEmpty()) {
 
-            // In View Scope schreiben
+            // Write to View Scope
             RequestContextHolder.getRequestContext().getFlashScope()
                 .put(FLASH_SCOPE_VALIDATION_MODEL_VARIABLE, validationModel);
         }
