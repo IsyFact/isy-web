@@ -61,7 +61,7 @@ public class ValidationController {
 
         // Validierungsfehler hinzufügen
         if (validationModel.getValidationMessages() == null) {
-            validationModel.setValidationMessages(new ArrayList<ValidationMessage>());
+            validationModel.setValidationMessages(new ArrayList<>());
         }
         if (!validationMessages.isEmpty()) {
             validationModel.getValidationMessages().addAll(validationMessages);
@@ -78,7 +78,7 @@ public class ValidationController {
         for (ValidationMessage validationMessage : validationMessages) {
             validationModel.getValidationFacesMessages().add(
                 new FacesMessage(FacesMessage.SEVERITY_WARN, validationMessage.getReadableReference(),
-                    validationMessage.getMessage() + " (" + validationMessage.getCode() + ")"));
+                    validationMessage.getMessage()));
         }
 
         if (!validationMessages.isEmpty()) {
