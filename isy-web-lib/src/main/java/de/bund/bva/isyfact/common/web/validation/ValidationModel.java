@@ -26,30 +26,28 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 
 /**
- * Das Validation-Model hält die Validerungsnachrichten für eine Maske.
+ * The validation model stores the validation messages for a mask.
  *
- * @author Capgemini
- * @version $Id: ValidationModel.java 124952 2014-11-12 13:31:30Z sdm_ahoerning $
  */
 public class ValidationModel implements Serializable {
 
     /**
-     * Die Serial-Version UID.
+     * The serial version UID.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Enthält die Validierungsfehler für die aktuelle Maske.
+     * Contains the validation errors for the current mask.
      */
     private List<ValidationMessage> validationMessages = new ArrayList<>();
 
     /**
-     * Enthält die Überschrift der Validierungsfehler-Nachrichten.
+     * Contains the headline of validation error messages.
      */
     private FacesMessage globalValidationFacesMessage;
 
     /**
-     * Enthält die Validierungsfehler, welche als Faces Messages dargestellt werden können.
+     * Contains the validation errors, which can be displayed as Faces Messages.
      */
     private List<FacesMessage> validationFacesMessages = new ArrayList<>();
 
@@ -78,10 +76,10 @@ public class ValidationModel implements Serializable {
     }
 
     /**
-     * Liest die aktuellen Validierungsnachrichten zu einer gegebenen Referenz.
+     * Reads the current validation messages for a given reference.
      * @param reference
-     *            Die Referenz.
-     * @return Die zugehörigen Validierungsnachrichten.
+     *            the reference.
+     * @return The associated validation messages.
      */
     public List<ValidationMessage> getValidationMessagesForReference(String reference) {
         List<ValidationMessage> filteredValidationMessages = new ArrayList<>();
@@ -91,11 +89,9 @@ public class ValidationModel implements Serializable {
         }
 
         for (ValidationMessage validationMessage : this.validationMessages) {
-
             if (Strings.isNullOrEmpty(validationMessage.getReference())) {
                 continue;
             }
-
             if (validationMessage.getReference().equals(reference)) {
                 filteredValidationMessages.add(validationMessage);
             }
@@ -105,9 +101,9 @@ public class ValidationModel implements Serializable {
     }
 
     /**
-     * Liest die aktuellen Validierungsnachrichten ohne eine Referenz aus.
+     * Reads the current validation messages without a reference.
      *
-     * @return Die Validierungsnachrichten ohne Referenz.
+     * @return The validation messages without a reference.
      */
     public List<FacesMessage> getValidationMessagesWithoutReference() {
         List<FacesMessage> filteredValidationFacesMessages = new ArrayList<>();
@@ -117,7 +113,6 @@ public class ValidationModel implements Serializable {
         }
 
         for (FacesMessage validationFacesMessage : this.validationFacesMessages) {
-
             if (Strings.isNullOrEmpty(validationFacesMessage.getSummary())) {
                 filteredValidationFacesMessages.add(validationFacesMessage);
             }
@@ -127,11 +122,11 @@ public class ValidationModel implements Serializable {
     }
 
     /**
-     * Gibt eine zusammengefügte Validierungsnachricht als String aus allen vorhanden Validierungsnachrichten
-     * für die angegebene Referenz zurück.
+     * Returns a concatenated validation message as a string from all existing validation messages
+     * for the given reference.
      * @param reference
-     *            Die Referenz.
-     * @return Die Validierungsnachricht.
+     *            the reference.
+     * @return The validation message.
      */
     public String getCombinedValidationMessageForReference(String reference) {
 
