@@ -2,6 +2,7 @@
 - `IFE-177`: adopt fix from `IFE-30` to render readonly dropdowns as labels
 - `IFE-455`: Dependencies aktualisiert, um Sicherheitslücken zu schließen
 - `IFE-203`: Unterstützung von Webpack und ES6
+- `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
 
 # v4.11.0
 - `IFS-1116`: Version Anhebung von IsyFact Standards auf 1.10.0
