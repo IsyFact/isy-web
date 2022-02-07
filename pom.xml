@@ -5,28 +5,32 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.9.1-SNAPSHOT</version>
+        <version>1.10.0</version>
     </parent>
 
     <artifactId>isy-web</artifactId>
-    <version>4.10.1-SNAPSHOT</version>
+    <version>4.12.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>IsyFact-Web</name>
+
+    <properties>
+        <node.version>v12.16.0</node.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
-                <version>1.9.0</version>
+                <version>1.10.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-standards-bom</artifactId>
-                <version>1.9.0</version>
+                <version>1.10.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -45,6 +49,8 @@
     <dependencies>
 
         <!-- Deprecated - nur für IsyFact 1.x -->
+        <!-- === -->
+        <!-- Deprecated - for IsyFact 1.x only -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -176,26 +182,37 @@
             <artifactId>tomahawk20</artifactId>
             <exclusions>
                 <!-- Bereinigung Convergence Warnings: IFE-144 -->
+                <!-- === -->
+                <!-- Cleanup of convergence warnings: IFE-144 -->
                 <exclusion>
                     <groupId>commons-codec</groupId>
                     <artifactId>commons-codec</artifactId>
                     <!-- dependency-convergence: Version durch isy-sicherheit gegeben -->
+                    <!-- === -->
+                    <!-- dependency-convergence: Version determined by isy-sicherheit -->
                 </exclusion>
                 <exclusion>
                     <groupId>commons-beanutils</groupId>
                     <artifactId>commons-beanutils</artifactId>
                     <!-- dependency-convergence: Version durch com.github.dozermapper:dozer-core gegeben -->
+                    <!-- === -->
+                    <!-- dependency-convergence: Version determined by com.github.dozermapper:dozer-core  -->
                 </exclusion>
                 <exclusion>
                     <groupId>commons-collections</groupId>
                     <artifactId>commons-collections</artifactId>
                     <!-- dependency-convergence: Version durch com.github.dozermapper:dozer-core gegeben -->
+                    <!-- === -->
+                    <!-- dependency-convergence: Version determined by com.github.dozermapper:dozer-core  -->
                 </exclusion>
             </exclusions>
         </dependency>
 
         <!-- Servlet -->
+
         <!-- Wird durch den Tomcat bereitgestellt -->
+        <!-- === -->
+        <!-- Provided by Tomcat -->
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
@@ -238,6 +255,35 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tidy-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>internalnodenpminstall</id>
@@ -249,38 +295,47 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>1.12.0</version>
                         <executions>
-
                             <execution>
                                 <id>install node and npm</id>
                                 <goals>
                                     <goal>install-node-and-npm</goal>
                                 </goals>
                                 <configuration>
-                                    <nodeVersion>v8.9.4</nodeVersion>
+                                    <nodeVersion>${node.version}</nodeVersion>
                                     <serverId>repository</serverId>
                                     <nodeDownloadRoot>${env.REPOSITORY_NODE}</nodeDownloadRoot>
                                 </configuration>
                             </execution>
-
+                            <execution>
+                                <id>npm-force-resolutions</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>npx</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>npm-force-resolutions</arguments>
+                                </configuration>
+                            </execution>
                             <execution>
                                 <id>npm install</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
-
                                 <configuration>
                                     <arguments>install</arguments>
                                 </configuration>
                             </execution>
 
                             <execution>
-                                <id>grunt build</id>
+                                <id>webpack build</id>
                                 <goals>
-                                    <goal>grunt</goal>
+                                    <goal>npm</goal>
                                 </goals>
-
+                                <configuration>
+                                    <arguments>run webpack</arguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -327,6 +382,8 @@
                         <executions>
 
                             <!-- Erzeugt das Glossar -->
+                            <!-- === -->
+                            <!--Creates the glossary -->
                             <execution>
                                 <id>generate-glossary</id>
                                 <phase>generate-sources</phase>
@@ -344,6 +401,8 @@
                             </execution>
 
                             <!-- Erzeugt das Literaturverzeichnis -->
+                            <!-- === -->
+                            <!-- Creates the bibliography -->
                             <execution>
                                 <id>generate-bibliography</id>
                                 <phase>generate-sources</phase>
@@ -362,6 +421,8 @@
                             </execution>
 
                             <!-- Erzeugt ... -->
+                            <!-- === -->
+                            <!-- Creates ... -->
                             <execution>
                                 <id>generate-lists</id>
                                 <phase>generate-sources</phase>
@@ -458,7 +519,7 @@
                                     </sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>
-                                        ${project.build.directory}/html/IsyFact-Erweiterungen/Bausteine/KonzeptJSF.html
+                                        ${project.build.directory}/doc/html/IsyFact-Erweiterungen/Bausteine/KonzeptJSF.html
                                     </outputFile>
                                 </configuration>
                             </execution>
@@ -476,7 +537,7 @@
                                     </sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>
-                                        ${project.build.directory}/pdf/20_IsyFact-Erweiterungen/20_Bausteine/JSF/Konzept_JSF.pdf
+                                        ${project.build.directory}/doc/pdf/20_IsyFact-Erweiterungen/20_Bausteine/JSF/Konzept_JSF.pdf
                                     </outputFile>
                                 </configuration>
                             </execution>
@@ -494,7 +555,7 @@
                                     </sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>
-                                        ${project.build.directory}/html/IsyFact-Erweiterungen/Bausteine/NutzungsvorgabenJSF.html
+                                        ${project.build.directory}/doc/html/IsyFact-Erweiterungen/Bausteine/NutzungsvorgabenJSF.html
                                     </outputFile>
                                 </configuration>
                             </execution>
@@ -512,7 +573,7 @@
                                     </sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>
-                                        ${project.build.directory}/pdf/20_IsyFact-Erweiterungen/20_Bausteine/JSF/Nutzungsvorgaben_JSF.pdf
+                                        ${project.build.directory}/doc/pdf/20_IsyFact-Erweiterungen/20_Bausteine/JSF/Nutzungsvorgaben_JSF.pdf
                                     </outputFile>
                                 </configuration>
                             </execution>
@@ -521,6 +582,5 @@
                 </plugins>
             </build>
         </profile>
-
 	</profiles>
 </project>

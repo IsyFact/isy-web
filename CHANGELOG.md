@@ -1,5 +1,13 @@
-# v4.10.1
+# v4.12.0
+- `IFE-177`: adopt fix from `IFE-30` to render readonly dropdowns as labels
+- `IFE-455`: Dependencies aktualisiert, um Sicherheitslücken zu schließen
+- `IFE-203`: Unterstützung von Webpack und ES6
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
+
+# v4.11.0
+- `IFS-1116`: Version Anhebung von IsyFact Standards auf 1.10.0
+#### Bekannte Probleme
+- Die Darstellung des DIN SPEC Charpickers in Modalenfenstern ist falsch (betrifft isy-style 4.4.0 und 4.5.0)
 
 # v4.10.0
 - `IFS-931 IFS-848`: Din Spec Charpicker implementiert

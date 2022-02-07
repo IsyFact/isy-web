@@ -11,11 +11,11 @@ $(document).ready(function () {
             .addOnError(function (data) {
 
                 // determine error message
-                var errorMessage = $("[id$='ajaxErrorMessage']").val();
-                var errorMessageTitle = $("[id$='ajaxErrorMessageTitle']").val();
+                let errorMessage = $("[id$='ajaxErrorMessage']").val();
+                const errorMessageTitle = $("[id$='ajaxErrorMessageTitle']").val();
 
                 // write to console
-                var error = data.description;
+                const error = data.description;
                 console.log(error);
 
                 // replace error message
@@ -66,9 +66,9 @@ $(document).ready(function () {
         lazyLoad();
     });
     $(window).resize(function () {
-        var tag = "resizeTimer";
-        var self = $(this);
-        var timer = self.data(tag);
+        const tag = "resizeTimer";
+        const self = $(this);
+        let timer = self.data(tag);
         if (timer) {
             clearTimeout(timer);
         }
@@ -127,20 +127,20 @@ function refreshFunctions() {
 
 
         // current column
-        var $divCol = $(this).parents(".col-lg-4").first();
+        const $divCol = $(this).parents(".col-lg-4").first();
 
         // current row
-        var $divRow = $divCol.parents(".row").first();
+        const $divRow = $divCol.parents(".row").first();
 
         // next elements
-        var $liMenu;
-        var $liMenuNext;
-        var $divRowNext;
-        var divColNext;
+        let $liMenu;
+        let $liMenuNext;
+        let $divRowNext;
+        let divColNext;
 
         // remember current column index
-        var $divColNeighbour = $divCol;
-        var colIndex = 1;
+        let $divColNeighbour = $divCol;
+        let colIndex = 1;
         while ($divColNeighbour.prev().length !== 0) {
             $divColNeighbour = $divColNeighbour.prev();
             colIndex = colIndex + 1;
@@ -244,20 +244,20 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Panels
     // --------------------------------------------------------
-    var $panels = $(".panel-collapse[id$='PanelCollapse']").filter(':not(.panel_ajaxtoken)');
+    const $panels = $(".panel-collapse[id$='PanelCollapse']").filter(':not(.panel_ajaxtoken)');
     $panels.on('hidden.bs.collapse', function (e) {
-        var $panel = $(this).parents('.panel').first();
+        const $panel = $(this).parents('.panel').first();
 
         // set value of hidden input element
-        var $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
+        const $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
         $serverProperty.val('false');
         e.stopPropagation();
     });
     $panels.on('shown.bs.collapse', function (e) {
-        var $panel = $(this).parents('.panel').first();
+        const $panel = $(this).parents('.panel').first();
 
         // set value of hidden input element
-        var $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
+        const $serverProperty = $panel.find("input[id$='panelCollapseAttribute']").first();
         $serverProperty.val('true');
         e.stopPropagation();
     });
@@ -267,7 +267,7 @@ function refreshFunctions() {
     // Modal dialogs
     // --------------------------------------------------------
     // show modal dialog, if any exist
-    var $modalDialogs = $('#modal-add-personal').filter(':not(.modal_ajaxtoken)');
+    const $modalDialogs = $('#modal-add-personal').filter(':not(.modal_ajaxtoken)');
     $modalDialogs.modal('show');
     $modalDialogs.addClass('modal_ajaxtoken');
 
@@ -276,7 +276,7 @@ function refreshFunctions() {
     // the modal dialog is rerendered as well.
     // This causes another "modal-backdrop" to be added, which overlaps with the previous one.
     // The prior removal ensures that at most one backdrop exists.
-    var $modalVisible = $('.modal-dialog').is(':visible');
+    const $modalVisible = $('.modal-dialog').is(':visible');
     $($(".modal-backdrop").get().reverse()).each(function (index, element) {
         // Removal if a .modal-backdrop exists, even though there is no modal dialog (happens in edge-cases).
         // also:  "get().reverse()" removes the older .modal-backdrops,
@@ -293,10 +293,10 @@ function refreshFunctions() {
     // Additionally the focusOnloadForce id can be used to force a specific focus element.
     // --------------------------------------------------------
 
-    var $focusOnloadActive = $("[id$='focusOnloadActive']").last();
-    var $focusOnloadDeactivated;
-    var $focusOnloadForce;
-    var focusOnloadElement = "[id$='focusOnloadElement']";
+    const $focusOnloadActive = $("[id$='focusOnloadActive']").last();
+    let $focusOnloadDeactivated;
+    let $focusOnloadForce;
+    const focusOnloadElement = "[id$='focusOnloadElement']";
 
     if ($('#modal-add-personal').val() === undefined) {
 
@@ -336,24 +336,24 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Helper function for datatables ( expand clickable area )
     // --------------------------------------------------------
-    var $rfDataTables = $('.rf-data-table').filter(':not(.rf-data-table_ajaxtoken)');
+    const $rfDataTables = $('.rf-data-table').filter(':not(.rf-data-table_ajaxtoken)');
     // (1) expand clickable area of header columns
     $rfDataTables.find('th.sortable').click(function (event) {
-        var $target = $(event.target);
+        const $target = $(event.target);
         if ($target.is("th")) {
             $(this).find('a').click();
         }
     });
     // function to highlight a selected row
-    var formatRowsFunction = function ($trs, $tr, selectionMode) {
+    const formatRowsFunction = function ($trs, $tr, selectionMode) {
         // moossenm: added row-selection class to differentiate row selection checkboxes from others
-        var $input = $tr.find("td div.row-selection .checkbox label input");
+        const $input = $tr.find("td div.row-selection .checkbox label input");
         if ($input.is(":checked")) {
             $tr.addClass("active");
             // if selection mode is "single" other input checkboxes have to be disabled
             if (selectionMode === "single") {
-                var $prevs = $tr.prevAll().find("td div.row-selection .checkbox label input:checked");
-                var $nexts = $tr.nextAll().find("td div.row-selection .checkbox label input:checked");
+                const $prevs = $tr.prevAll().find("td div.row-selection .checkbox label input:checked");
+                const $nexts = $tr.nextAll().find("td div.row-selection .checkbox label input:checked");
                 $prevs.attr("checked", false);
                 $nexts.attr("checked", false);
                 $prevs.each(function () {
@@ -369,32 +369,32 @@ function refreshFunctions() {
     };
     // (2) expand clickable area for selection of rows / set double click / initialize selection mode
     $rfDataTables.each(function () {
-        var $rfDataTable = $(this);
-        var $rfDataTableSelectOption = $(this).find("[id$='rfDataTableSelectableOption']").first();
-        var selectionMode = $(this).find("[id$='rfDataTableSelectionMode']").first().val();
-        var selectActive = ($rfDataTableSelectOption.val() === 'true');
-        var $rfDataTableDoubleClickActive = $(this).parent().find("[id$='rfDataTableDoubleClickActive']").first();
-        var doubleClickActive = ($rfDataTableDoubleClickActive.text() === 'true');
+        const $rfDataTable = $(this);
+        const $rfDataTableSelectOption = $(this).find("[id$='rfDataTableSelectableOption']").first();
+        const selectionMode = $(this).find("[id$='rfDataTableSelectionMode']").first().val();
+        const selectActive = ($rfDataTableSelectOption.val() === 'true');
+        const $rfDataTableDoubleClickActive = $(this).parent().find("[id$='rfDataTableDoubleClickActive']").first();
+        const doubleClickActive = ($rfDataTableDoubleClickActive.text() === 'true');
 
-        var $rows = $(this).find("tbody tr");
+        const $rows = $(this).find("tbody tr");
         $rows.each(function () {
-            var $row = $(this);
-            var clicks = 0;
-            var timer = null;
+            const $row = $(this);
+            let clicks = 0;
+            let timer = null;
 
-            var functionSingleClick = null;
+            let functionSingleClick = null;
             if (selectActive) {
                 functionSingleClick = function (a) {
 
                     if (!$(a.target).is("input") && !$(a.target).is("span") && !$(a.target).is("button")) {
-                        var $input = $row.find("td div.row-selection .checkbox label input");
+                        const $input = $row.find("td div.row-selection .checkbox label input");
                         $input.click();
                     }
                     formatRowsFunction($rows, $row, selectionMode);
                 };
             }
 
-            var functionDoubleClick = null;
+            let functionDoubleClick = null;
             if (doubleClickActive) {
                 functionDoubleClick = function (e) {
                     if (!$(e.target).is("input") && !$(e.target).is("span")) {
@@ -425,7 +425,7 @@ function refreshFunctions() {
         }
     });
     // (3) register "select all" checkbox
-    var selectAllFunction = function ($selectAllCheckbox, $rfDataTable) {
+    const selectAllFunction = function ($selectAllCheckbox, $rfDataTable) {
         //firstly, remove indeterminate state
         $selectAllCheckbox.prop("indeterminate", false);
 
@@ -437,8 +437,8 @@ function refreshFunctions() {
             $rfDataTable.find("tbody").first().find(".checkbox input").prop("checked", true);
         }
         // select rows if needed
-        var selectionMode = $rfDataTable.find("[id$='rfDataTableSelectionMode']").first().val();
-        var $rows = $rfDataTable.find("tbody tr");
+        const selectionMode = $rfDataTable.find("[id$='rfDataTableSelectionMode']").first().val();
+        const $rows = $rfDataTable.find("tbody tr");
         $rows.each(function () {
             // moossenm: DSD-509 - 16.06.2015
             // add missing parameters rows and selectionMode; now the selected rows are highlighted
@@ -446,18 +446,18 @@ function refreshFunctions() {
         });
     };
     // (4) register show-/hide-detail logic
-    var showDetail = function (e) {
+    const showDetail = function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        var $this = $(this);
-        var $tr = $this.parents('tr');
-        var $table = $this.parents("table.CLIENT.rf-data-table");
-        var allowMultiple = $table.find("input[id$='rfDataTableDetailMode']").val() == 'multiple';
+        const $this = $(this);
+        const $tr = $this.parents('tr');
+        const $table = $this.parents("table.CLIENT.rf-data-table");
+        const allowMultiple = $table.find("input[id$='rfDataTableDetailMode']").val() == 'multiple';
         if (!allowMultiple) {
             // hide all detail rows
             $table.find("tr[id*='detail-']").addClass('hidden');
             // change eventhandler, tooltip, id for hideDetail-Buttons
-            var $hideDetailButtons = $table.find('div.detailview-actions button[id*=hideDetail]');
+            const $hideDetailButtons = $table.find('div.detailview-actions button[id*=hideDetail]');
             $hideDetailButtons.find('span').removeClass('icon-minus').addClass('icon-plus');
             $hideDetailButtons.attr('title', $this.parents('div.detailview-actions').data('show-tooltip'));
             $hideDetailButtons.attr('id', $this.attr('id').replace("hideDetail", "showDetail"));
@@ -478,11 +478,11 @@ function refreshFunctions() {
             lazyLoad();
         }, 50);
     };
-    var hideDetail = function (e) {
+    const hideDetail = function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        var $this = $(this);
-        var $tr = $this.parents('tr');
+        const $this = $(this);
+        const $tr = $this.parents('tr');
         $tr.next().addClass('hidden');
         $this.attr('title', $this.parents('div.detailview-actions').data('show-tooltip'));
         $this.attr('id', $this.attr('id').replace("hideDetail", "showDetail"));
@@ -492,45 +492,45 @@ function refreshFunctions() {
         $this.on('click.showdetail', showDetail);
     };
     $("table.CLIENT.rf-data-table").each(function () {
-        var $table = $(this);
+        const $table = $(this);
         // =============== START DETAILVIEW ===================== //
         $table.find('tbody div.detailview-actions button').prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
-        var $showDetail = $table.find('div.detailview-actions button[id*=showDetail]');
+        const $showDetail = $table.find('div.detailview-actions button[id*=showDetail]');
         $showDetail.on('click.showdetail', showDetail);
-        var $hideDetail = $table.find('div.detailview-actions button[id*=hideDetail]');
+        const $hideDetail = $table.find('div.detailview-actions button[id*=hideDetail]');
         $hideDetail.on('click.hidedetail', hideDetail);
         // =============== END DETAILVIEW ===================== //
     });
     // (5) activate JS Sorting
     $('.rf-data-table').each(function () {
-        var $rfDataTable = $(this);
-        var $sortFunction = $rfDataTable.find("[id$='rfDataTableJsSortFunction']");
+        const $rfDataTable = $(this);
+        const $sortFunction = $rfDataTable.find("[id$='rfDataTableJsSortFunction']");
 
         if ($sortFunction.length > 0) {
 
-            var $sortAttribute = $rfDataTable.find("[id$='rfDataTableSortProperty']");
-            var $sortDirection = $rfDataTable.find("[id$='rfDataTableSortDirection']");
-            var $jsSortedList = $rfDataTable.find("[id$='rfDataTableJsSortedList']");
+            const $sortAttribute = $rfDataTable.find("[id$='rfDataTableSortProperty']");
+            const $sortDirection = $rfDataTable.find("[id$='rfDataTableSortDirection']");
+            const $jsSortedList = $rfDataTable.find("[id$='rfDataTableJsSortedList']");
 
-            var $ths = $(this).find("th");
+            const $ths = $(this).find("th");
             $ths.each(function (index) {
-                var $th = $(this);
+                const $th = $(this);
 
                 if ($th.hasClass("sortable")) {
 
-                    var $thLink = $th.find("a");
+                    const $thLink = $th.find("a");
                     $thLink.prop("onclick", null); // IE11 doesn't support .removeAttr() for "onclick"
                     $thLink.unbind("click");
                     $thLink.click(function (event) {
                         event.preventDefault();
 
                         // save details before sorting
-                        var $details = $rfDataTable.find("tbody .details-preview");
+                        const $details = $rfDataTable.find("tbody .details-preview");
                         $details.remove();
 
                         // determine new sort attribute and direction
                         $rfDataTable.find("thead th.sorted").removeClass("sorted");
-                        var newSortDirection = "";
+                        let newSortDirection = "";
 
                         if ($sortDirection.val() == "ASCENDING") {
                             $th.removeClass("sort-up");
@@ -559,10 +559,10 @@ function refreshFunctions() {
                         window[$sortFunction.val()]($rfDataTable, $th, index, newSortDirection);
 
                         // save sorting
-                        var $trsNeu = $rfDataTable.find("tbody tr");
-                        var sortedList = "";
+                        const $trsNeu = $rfDataTable.find("tbody tr");
+                        let sortedList = "";
                         $trsNeu.each(function () {
-                            var id = $(this).attr("id");
+                            const id = $(this).attr("id");
                             if (sortedList.length > 0) {
                                 sortedList = sortedList + ",";
                             }
@@ -572,9 +572,9 @@ function refreshFunctions() {
 
                         // reassign details after sorting
                         $details.each(function () {
-                            var $detail = $(this);
-                            var idDetail = $detail.attr("id");
-                            var $afterTr = $rfDataTable.find("tbody tr[id='" + idDetail + "']");
+                            const $detail = $(this);
+                            const idDetail = $detail.attr("id");
+                            const $afterTr = $rfDataTable.find("tbody tr[id='" + idDetail + "']");
                             $detail.insertAfter($afterTr);
                         });
 
@@ -587,11 +587,11 @@ function refreshFunctions() {
     });
 
     //(6) always set the correct state to the "select all" checkbox
-    var tristateBerechnen = function ($checkboxes, $selectAllCheckbox, $rfDataTable) {
+    const tristateBerechnen = function ($checkboxes, $selectAllCheckbox, $rfDataTable) {
         $selectAllCheckbox.prop("indeterminate", false);
 
-        var alleAusgewaehlt = true;
-        var keineAusgewahlt = true;
+        let alleAusgewaehlt = true;
+        let keineAusgewahlt = true;
         $checkboxes.each(function () {
             if ($(this).is(":checked")) {
                 keineAusgewahlt = false;
@@ -612,8 +612,8 @@ function refreshFunctions() {
 
 
     $rfDataTables.each(function () {
-        var $selectAllCheckbox = $(this).find("[id*='dataTableSelectAll']").first();
-        var $rfDataTable = $(this);
+        const $selectAllCheckbox = $(this).find("[id*='dataTableSelectAll']").first();
+        const $rfDataTable = $(this);
 
         //register click on the tri-state-checkbox
         $selectAllCheckbox.parent().find("span").click(function () {
@@ -621,7 +621,7 @@ function refreshFunctions() {
         });
 
         //register click on other checkboxes
-        var $checkboxes = $rfDataTable.find("tbody").first().find(".checkbox input");
+        const $checkboxes = $rfDataTable.find("tbody").first().find(".checkbox input");
         $checkboxes.each(function () {
             $(this).click(function () {
                 tristateBerechnen($checkboxes, $selectAllCheckbox, $rfDataTable);
@@ -642,9 +642,9 @@ function refreshFunctions() {
     $('.rf-popover').filter(':not(.rf-popover_ajaxtoken)').popover({animation: false});
     // Popovers, that would overflow to the right, will be moved further to the left
     $('.rf-popover').filter(':not(.rf-popover_ajaxtoken)').on('shown.bs.popover', function (e) {
-        var $popover = $(e.target).next();
+        const $popover = $(e.target).next();
         if ($(document).width() < ($popover.offset().left + $popover.width() + 30)) {
-            var positionLeft = -($(document).width() - $popover.offset().left) + 20;
+            const positionLeft = -($(document).width() - $popover.offset().left) + 20;
             $popover.css("left", positionLeft + "px");
         }
     });
@@ -666,7 +666,7 @@ function refreshFunctions() {
     // Datepicker
     // --------------------------------------------------------
 
-    var $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)');
+    const $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)');
     $datepickers.each(function () {
         $(this).datepicker({
             format: $(this).attr('dateformat'),
@@ -685,16 +685,16 @@ function refreshFunctions() {
 
         $(this).children("a").click(
             function () {// open a datepicker
-                var dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
-                var inputField = $(this).prev();
-                var date = inputField.val().split('.');
+                const dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
+                const inputField = $(this).prev();
+                let date = inputField.val().split('.');
 
                 // delete underscore placeholders
-                var placeholderReg = /\D/gi;
+                const placeholderReg = /\D/gi;
                 date[0] = date[0].replace(placeholderReg, "");
                 date[1] = date[1].replace(placeholderReg, "");
                 date[2] = date[2].replace(placeholderReg, "");
-                var dateString;
+                let dateString;
                 if (date[0] === "99") {
                     // Secret-Code: 99 = set focus of the datepicker to current date
                     dateString = currentDateAsString();
@@ -710,15 +710,15 @@ function refreshFunctions() {
             });
 
         //read the limit for expanding two-digit years. Is used later on.
-        var zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
-        var $datumInputFeld = $(this).find('input');
+        const zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
+        const $datumInputFeld = $(this).find('input');
         $datumInputFeld.focusout(function (event) {
             if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
                 datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
             }
 
             // Magic Number: set date to today
-            var date = $datumInputFeld.val().split('.');
+            const date = $datumInputFeld.val().split('.');
             if (date[0] === "99") {
                 $datumInputFeld.val(currentDateAsString());
             } else {
@@ -733,11 +733,11 @@ function refreshFunctions() {
     });
 
     function fixDateOutOfRange(date) {
-        var year = date[2],
+        let year = date[2],
             month = date[1],
             day = date[0];
         // Assume not leap year by default (note zero index for Jan)
-        var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
         // If evenly divisible by 4 and not evenly divisible by 100,
         // or is evenly divisible by 400, then a leap year
@@ -751,7 +751,7 @@ function refreshFunctions() {
         }
 
         // Get max days for month and fix days if out of range
-        var maxDays = daysInMonth[month - 1];
+        const maxDays = daysInMonth[month - 1];
         if (day > maxDays) {
             day = maxDays;
         }
@@ -763,9 +763,9 @@ function refreshFunctions() {
     // Input Masks
     // --------------------------------------------------------
     // all input elements that have the attribut "inputmask"
-    var $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
+    const $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
     $inputMasks.each(function () {
-        var $inputMask = $(this);
+        const $inputMask = $(this);
         if ($inputMask.attr('name').indexOf('listpickerField') > -1) {
             if ($inputMask.val().indexOf(" - ") >= 0) {
                 //verhindere, dass Ziffern aus dem Wert im Feld verbleiben
@@ -780,12 +780,12 @@ function refreshFunctions() {
     });
 
     $inputMasks.bind('keydown keypress', function (e) {
-        var $inputMask = $(this);
+        const $inputMask = $(this);
 
         if (e.key === 'Enter') {
             // delete all placeholder characters
-            var existentVal = $inputMask.val();
-            var newVal = existentVal.replace(/_/g, '');
+            const existentVal = $inputMask.val();
+            const newVal = existentVal.replace(/_/g, '');
             $inputMask.val(newVal);
         }
     });
@@ -802,14 +802,14 @@ function refreshFunctions() {
      * @param listpickerfield The Listpickerfield.
      * @param indexSpalteSchluesselWert index of the header column whose contents should be extracted
      */
-    var listpickerLoeseSchluesselAuf = function (listpickerfield, indexSpalteSchluesselWert) {
+    const listpickerLoeseSchluesselAuf = function (listpickerfield, indexSpalteSchluesselWert) {
         if (listpickerfield.val().indexOf(" - ") >= 0) {
             // cut previously resolved value from the input field
             // only keep the key that will be resolved
             listpickerfield.val(listpickerfield.val().substring(0,
                 listpickerfield.val().indexOf(" - ")));
         }
-        var $id;
+        let $id;
         if (listpickerfield.attr('data-isymask-mask') !== undefined) {
             listpickerfield.mask();
             $id = listpickerfield.val();
@@ -818,16 +818,16 @@ function refreshFunctions() {
                 listpickerfield.val("");
             }
         }
-        var $parent = listpickerfield.parent();
-        var $tr = $parent.find("tr[id='" + $id + "']");
-        var $td = $tr.find("td:nth-child(" + indexSpalteSchluesselWert + ")");
-        var $value = $td.text();
+        const $parent = listpickerfield.parent();
+        const $tr = $parent.find("tr[id='" + $id + "']");
+        const $td = $tr.find("td:nth-child(" + indexSpalteSchluesselWert + ")");
+        const $value = $td.text();
         if ($value !== '') {
             listpickerfield.val($id + ' - ' + $value);
         } else {
-            var $filter = $parent.find("input[id*='listpickerFilter']");
-            var $listpickerContent = $parent.find(".listpicker-content");
-            var $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");
+            const $filter = $parent.find("input[id*='listpickerFilter']");
+            const $listpickerContent = $parent.find(".listpicker-content");
+            const $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");
             if ($parent.find(".listpicker-content").css("display") === 'none') {
                 if (listpickerfield.val() !== $listpickerLastFilter.val()) {
                     if ($(".ajax-status span").text() !== 'begin') { // prevents collision with other ajax requests
@@ -843,7 +843,7 @@ function refreshFunctions() {
      * The function masks the listpickerfield, if a mask is defined
      * @param listpickerfield The Listpickerfield.
      */
-    var listpickerMaskieren = function (listpickerfield) {
+    const listpickerMaskieren = function (listpickerfield) {
         if (listpickerfield.val().indexOf(" - ") >= 0) {
             // prevents that digits from the value remain in the input field
             listpickerfield.val(listpickerfield.val().substring(0,
@@ -854,18 +854,18 @@ function refreshFunctions() {
         }
     };
 
-    var $listpickerContainer = $(".listpicker-container").filter(':not(.rf-listpicker_ajaxtoken)');
+    const $listpickerContainer = $(".listpicker-container").filter(':not(.rf-listpicker_ajaxtoken)');
     $listpickerContainer.each(function () {
 
-        var $listpicker = $(this);
-        var $listpickerField = $listpicker.find("[id$='listpickerField']");
-        var $listpickerContent = $listpicker.find(".listpicker-content").first();
-        var $listpickerFilter = $listpicker.find("[id$='listpickerFilter']");
-        var $listpickerMinWidth = $listpicker.find("[id$='listpickerMinWidth']");
-        var listpickerAjaxFormId = $listpicker.find("[id$='listpickerAjaxForm']").val();
-        var $listpickerAjaxForm = null;
+        const $listpicker = $(this);
+        const $listpickerField = $listpicker.find("[id$='listpickerField']");
+        const $listpickerContent = $listpicker.find(".listpicker-content").first();
+        const $listpickerFilter = $listpicker.find("[id$='listpickerFilter']");
+        const $listpickerMinWidth = $listpicker.find("[id$='listpickerMinWidth']");
+        const listpickerAjaxFormId = $listpicker.find("[id$='listpickerAjaxForm']").val();
+        let $listpickerAjaxForm = null;
         //find the hidden input, that contains the column which should be used as a value
-        var listpickerSchluesselwertSpalte = $listpicker.find("[id$='inputComplement']").val();
+        const listpickerSchluesselwertSpalte = $listpicker.find("[id$='inputComplement']").val();
         if (typeof (listpickerAjaxFormId) != "undefined") {
             $listpickerAjaxForm = $("form[id$='" + listpickerAjaxFormId + "']");
         }
@@ -883,13 +883,13 @@ function refreshFunctions() {
         // after the dropdown was opened
         $listpicker.on('shown.bs.dropdown', function (e) {
             // close all charpickers
-            var $charpickers = $(".special-char-picker-widget");
+            const $charpickers = $(".special-char-picker-widget");
             $charpickers.each(function () {
                 $(this).hide();
             });
 
             // if a charpicker is open and new listpickers are opened, the old focus is removed
-            var $active_charpickers_field = $(".charpicker-focused");
+            const $active_charpickers_field = $(".charpicker-focused");
             $active_charpickers_field.each(function () {
                 $(this).focusout();
                 $(this).removeClass("charpicker-focused");
@@ -910,7 +910,7 @@ function refreshFunctions() {
 
             // highlight current selection as active
             if ($listpickerField.val() !== '') {
-                var id;
+                let id;
                 // if the key of the input field was already resolved, we need to reisolate the key
                 if ($listpickerField.val().indexOf(" - ") >= 0) {
                     id = $listpickerField.val().substring(0, $listpickerField.val().indexOf(" - "));
@@ -921,7 +921,7 @@ function refreshFunctions() {
                 $listpickerContent.find("tbody tr").not("[id='" + id + "']").removeClass("active");
 
                 // set cursor in Listpickerwidget to currently active row
-                var $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
+                const $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
                 scroll_to($listpickerContent.find('.rf-listpicker-table-container'), $activeVisibleRow);
             } else {
                 // on an empty or deleted $listpickerField delete previously 'active' elements
@@ -934,7 +934,7 @@ function refreshFunctions() {
         // intercept clicks and close picker if needed
         $(document).click(function (e) {
 
-            var $target = $(e.target);
+            const $target = $(e.target);
 
             if ($listpickerContent.has($target).length <= 0) {
                 // click is outside of the dropdown, close picker
@@ -942,7 +942,7 @@ function refreshFunctions() {
             } else {
                 // click is on the dropdown, select current row
                 if ($target.is("tr") || $target.is("td")) {
-                    var $row = null;
+                    let $row = null;
                     if ($target.is("td")) {
                         $row = $target.parent();
                     } else {
@@ -964,7 +964,7 @@ function refreshFunctions() {
                 e.stopPropagation();
 
                 // on pressing enter, select the currently active entry
-                var $row = $listpickerContent.find("tbody tr:visible.active").first();
+                let $row = $listpickerContent.find("tbody tr:visible.active").first();
                 // if there is no active entry, the first entry will be selected
                 if ($row.length <= 0) {
                     $row = $listpickerContent.find("tbody tr:visible").first();
@@ -979,8 +979,8 @@ function refreshFunctions() {
 
         // ensure that the change-event is triggered whenever the listpickerfilter is changed
         $listpickerFilter.bind('keyup.ensureChange', function (event) {
-            var keyCode = event.keyCode;
-            var valid = inputChangingKeycode(keyCode); // does the key press change the filter content?
+            const keyCode = event.keyCode;
+            const valid = inputChangingKeycode(keyCode); // does the key press change the filter content?
             if (valid) {
                 $(this).change();
             }
@@ -998,22 +998,22 @@ function refreshFunctions() {
                             function () {
 
                                 // Filter
-                                var $rows = $listpickerContent
+                                const $rows = $listpickerContent
                                     .find(".rf-listpicker-table tbody tr");
 
-                                var filterFunction = function ($row,
+                                const filterFunction = function ($row,
                                                                inverse) {
 
-                                    var $tdsAfterFilter = $row
+                                    const $tdsAfterFilter = $row
                                         .find('td')
                                         .filter(
                                             function () {
-                                                var $td = $(this);
-                                                var text = $td
+                                                const $td = $(this);
+                                                const text = $td
                                                     .text();
-                                                var listpickerVal = $listpickerFilter
+                                                const listpickerVal = $listpickerFilter
                                                     .val();
-                                                var compare = text
+                                                const compare = text
                                                     .toLowerCase()
                                                     .indexOf(
                                                         listpickerVal
@@ -1028,12 +1028,12 @@ function refreshFunctions() {
                                     }
                                 };
 
-                                var $filteredRows = $rows
+                                const $filteredRows = $rows
                                     .filter(function () {
                                         return filterFunction(
                                             $(this), false);
                                     });
-                                var $unfilteredRows = $rows
+                                const $unfilteredRows = $rows
                                     .filter(function () {
                                         return filterFunction(
                                             $(this), true);
@@ -1050,10 +1050,10 @@ function refreshFunctions() {
 
         $listpickerFilter.bind('keydown', function (e) {
 
-            var keyPressed = e.which;
+            const keyPressed = e.which;
 
             // currently active visible element
-            var $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
+            const $activeVisibleRow = $listpickerContent.find("tbody tr:visible.active");
 
             // downwards arrow key
             if (keyPressed == 40) {
@@ -1127,7 +1127,7 @@ function refreshFunctions() {
 
     // close all listpickers, if a selectpicker is opened
     // TODO: the solution currently isn't generic. This should be improved upon.
-    var $buttonSelectpicker = $('button.selectpicker');
+    const $buttonSelectpicker = $('button.selectpicker');
     $buttonSelectpicker.click(function (event) {
         $listpickerContainer.removeClass('open');
     });
@@ -1137,17 +1137,17 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // control preloaded tabs
     $('.isy-tab').each(function () {
-        var $isyTab = $(this);
+        const $isyTab = $(this);
 
         // TabAutoscroll: Is "tabHochScrollen" in a tabGroub active?
-        var $tabHochScrollen = false;
+        let $tabHochScrollen = false;
         if ($isyTab.hasClass('tabHochScrollen')) {
             $tabHochScrollen = true;
         }
 
         $isyTab.children().each(function () {
-            var $li = $(this);
-            var $liLink = $(this).find("a");
+            const $li = $(this);
+            const $liLink = $(this).find("a");
 
             if ($li.hasClass('skipAction')) {
                 $liLink.unbind("click");
@@ -1160,16 +1160,16 @@ function refreshFunctions() {
                 }
 
                 // remove current tab
-                var liIdAlt = $isyTab.find(".active").attr('id');
+                const liIdAlt = $isyTab.find(".active").attr('id');
                 $isyTab.find(".active").removeClass("active");
                 $isyTab.next().find("#" + liIdAlt).removeClass("active");
 
                 // activate tab
-                var liIdNeu = $li.attr('id');
+                const liIdNeu = $li.attr('id');
                 $li.addClass("active");
                 //$isyTab.next().find("#" + liIdNeu).addClass("active");
 
-                var aktiverTab = $isyTab.next().find("#" + liIdNeu);
+                const aktiverTab = $isyTab.next().find("#" + liIdNeu);
                 aktiverTab.addClass("active");
 
                 // support tab-autoscroll
@@ -1189,16 +1189,16 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Button Inject POST
     // --------------------------------------------------------
-    var $buttonInjectPostGroups = $("[id$='buttonInjectPostGroup']");
+    const $buttonInjectPostGroups = $("[id$='buttonInjectPostGroup']");
     $buttonInjectPostGroups.each(function () {
-        var $group = $(this);
+        const $group = $(this);
 
         // find clickable element in the ButtonInjectPostGroup
-        var $actualButton = $group.find(":nth-child(4)");
+        const $actualButton = $group.find(":nth-child(4)");
 
         // find button for POST-action
-        var $postButtonId = $group.find("[id$='postButton']").val();
-        var $postButton = $("[id$='" + $postButtonId + "']");
+        const $postButtonId = $group.find("[id$='postButton']").val();
+        let $postButton = $("[id$='" + $postButtonId + "']");
         //jsf ids might have other suffixes delimited with ':', e.g. ':ajax_button'
         //prefer no-suffix version, but if none is found, look for suffixed buttons as well
         if ($postButton.length === 0){
@@ -1206,10 +1206,10 @@ function refreshFunctions() {
         }
 
         // find field for posted
-        var $posted = $group.find("[id$='posted']");
+        const $posted = $group.find("[id$='posted']");
 
         // fiend field for continue
-        var $continue = $group.find("[id$='continue']");
+        const $continue = $group.find("[id$='continue']");
 
         if ($posted.attr("value") === 'true') {
             // the POST action was successfully completed. Reset the flag.
@@ -1242,18 +1242,18 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // Default Buttons
     // --------------------------------------------------------
-    var $forms = $("form");
+    const $forms = $("form");
     $forms.each(function () {
-        var $form = $(this);
+        const $form = $(this);
         $form.unbind("keypress");
-        var $defaultButton = $form.find("[id*='" + $form.find("[id$='defaultButtonID']").val() + "']");
+        const $defaultButton = $form.find("[id*='" + $form.find("[id$='defaultButtonID']").val() + "']");
         if ($defaultButton.length > 0) {
             // remove original bind
             $form.unbind("keypress");
             // the form contains a default button
             $form.bind("keypress", function (event) {
                 if (event.keyCode == 13) {
-                    var $source = $(document.activeElement);
+                    const $source = $(document.activeElement);
                     // No link, button, charpicker or other submit-element is focused,
                     // that has their own action on enter
                     if (!$source.is("[type='submit']") &&
@@ -1284,8 +1284,8 @@ function refreshFunctions() {
         // the problem is that while initializing the dialog is not shown yet
         // so all sizes are 0.
         // the hack: to wait until visible and to refresh then
-        var $bc = $(this);
-        var timerId;
+        const $bc = $(this);
+        let timerId;
 
         function checkForVisibility() {
             if ($bc.next().is(':visible')) {
@@ -1303,12 +1303,12 @@ function refreshFunctions() {
     $("table.CLIENT.rf-data-table:not('datatable-client-init')")
         .addClass('datatable-client-init') // mark as initialized
         .each(function () {
-            var $table = $(this);
+            const $table = $(this);
 
             // =============== START FILTER-ROW ===================== //
-            var timeId = 0;
+            let timeId = 0;
             // replace buttons so that no server action is called
-            var $filterRow = $table.find("thead tr.filter-row");
+            const $filterRow = $table.find("thead tr.filter-row");
             $filterRow
                 .find("button.btn:not(.selectpicker)")
                 .replaceWith("<button type='button' class='btn hidden' />");
@@ -1332,7 +1332,7 @@ function refreshFunctions() {
 
             // reset events for all filters
             $filterRow.find("td.table-clear-all-filter button").click(function (e) {
-                var $this = $(this);
+                const $this = $(this);
                 $filterRow.find('select.filter-dropdown').selectpicker('val', '');
                 $filterRow.find('select.filter-dropdown').data('property', '');
                 $filterRow.find('input.table-filter').val('');
@@ -1343,11 +1343,11 @@ function refreshFunctions() {
             });
 
             //list of items with details, is used by multiple functions
-            var $itemsWithDetails = $table.find("tbody tr");
-            var $allFilters = $filterRow.find('td');
-            var filterSingle = function ($td) {
+            let $itemsWithDetails = $table.find("tbody tr");
+            const $allFilters = $filterRow.find('td');
+            const filterSingle = function ($td) {
                 // filter value
-                var filter = '';
+                let filter = '';
                 if ($td.find('input.table-filter').length) {
                     filter = $td.find('input.table-filter').val();
                 } else if ($td.find('select.filter-dropdown').length) {
@@ -1362,10 +1362,10 @@ function refreshFunctions() {
                     return;
                 }
                 // column that should be filtered
-                var filterTd = 'td:nth-child(' + ($td.index() + 1) + ')';
-                var lastMatched = false; // helpervariable for showing details
+                const filterTd = 'td:nth-child(' + ($td.index() + 1) + ')';
+                let lastMatched = false; // helpervariable for showing details
                 $.each($itemsWithDetails, function (i, item) {
-                    var $item = $(this);
+                    const $item = $(this);
                     if (!$item.is(":visible")) {
                         // already filtered out
                         lastMatched = false;
@@ -1379,8 +1379,8 @@ function refreshFunctions() {
                         return;
                     }
                     // determine value
-                    var $td = $item.find(filterTd);
-                    var val = $td.data('filter');
+                    const $td = $item.find(filterTd);
+                    let val = $td.data('filter');
                     if (val === undefined || val === '') {
                         val = $td.text();
                     }
@@ -1394,7 +1394,7 @@ function refreshFunctions() {
                     $item.hide().addClass('filtered');
                 });
             };
-            var filterAll = function (init) {
+            const filterAll = function (init) {
                 $itemsWithDetails.show().removeClass('filtered');
                 $.each($allFilters, function (i, td) {
                     filterSingle($(td));
@@ -1409,64 +1409,64 @@ function refreshFunctions() {
             // =============== END FILTER-ROW ===================== //
 
             // =============== START PAGINATION ===================== //
-            var $pageControl = $table.find("tfoot tr").eq(0).find("td").eq(0);
-            var getCurrentPage = function () {
+            const $pageControl = $table.find("tfoot tr").eq(0).find("td").eq(0);
+            const getCurrentPage = function () {
                 return $pageControl.data("currentpage") || 1;
             };
-            var setCurrentPage = function (pageNumber) {
+            const setCurrentPage = function (pageNumber) {
                 $pageControl.data("currentpage", pageNumber);
                 $table.find("input[type=hidden][id$=rfDataTableCurrentPage]").val(pageNumber);
             };
-            var getPageSize = function () {
+            const getPageSize = function () {
                 return $pageControl.data("pagesize") || getItemCount();
             };
-            var getItemCount = function () {
+            const getItemCount = function () {
                 return $table.find("tbody tr:not('.details-preview'):not('.filtered')").length;
             };
-            var getPageCount = function () {
-                var pageSize = getPageSize();
+            const getPageCount = function () {
+                const pageSize = getPageSize();
                 return Math.floor((getItemCount() + pageSize - 1) / pageSize);
             };
-            var isFirstPage = function () {
+            const isFirstPage = function () {
                 return (getCurrentPage() == 1);
             };
-            var isLastPage = function () {
+            const isLastPage = function () {
                 return (getCurrentPage() == getPageCount());
             };
-            var getPageFrom = function () {
+            const getPageFrom = function () {
                 return Math.max(getCurrentPage() - getPaginatorSize() + 1, 1);
             };
-            var getPageTo = function () {
+            const getPageTo = function () {
                 return Math.min(getCurrentPage() + getPaginatorSize() - 1, getPageCount());
             };
-            var getPaginatorSize = function () {
+            const getPaginatorSize = function () {
                 return $pageControl.data("paginatorsize");
             };
-            var rePageNumber = new RegExp('\\{0\\}', 'gi');
-            var rePageCount = new RegExp('\\{1\\}', 'gi');
-            var setupLi = function ($li, pageNumber, disabled) {
+            const rePageNumber = new RegExp('\\{0\\}', 'gi');
+            const rePageCount = new RegExp('\\{1\\}', 'gi');
+            const setupLi = function ($li, pageNumber, disabled) {
                 setupButton($li.find('button'), pageNumber, disabled);
                 $li.data('page', pageNumber);
             };
-            var setupButton = function ($btn, pageNumber, disabled) {
-                var text = $btn.parents('li').data('text');
+            const setupButton = function ($btn, pageNumber, disabled) {
+                const text = $btn.parents('li').data('text');
                 $btn.text(text.replace(rePageNumber, pageNumber).replace(rePageCount, getPageCount()));
-                var tooltip = $btn.parents('li').data('tooltip');
+                const tooltip = $btn.parents('li').data('tooltip');
                 $btn.attr('title', tooltip.replace(rePageNumber, pageNumber).replace(rePageCount, getPageCount()));
                 $btn.prop('disabled', disabled);
             };
-            var doPagination = function () {
-                var text = $pageControl.find('li.pagination-text').data('text');
+            const doPagination = function () {
+                const text = $pageControl.find('li.pagination-text').data('text');
                 $pageControl.find('li.pagination-text').text(text.replace(rePageNumber, getCurrentPage()).replace(rePageCount, getPageCount()));
 
                 setupLi($pageControl.find('li.page-first'), 1, isFirstPage());
                 setupLi($pageControl.find('li.page-pre'), isFirstPage() ? 1 : getCurrentPage() - 1, isFirstPage());
 
                 $pageControl.find("li.page-number.generated").remove();
-                var $next = $pageControl.find('li.page-next');
-                var pageNum = getPageFrom();
+                const $next = $pageControl.find('li.page-next');
+                let pageNum = getPageFrom();
                 for (pageNum = pageNum; pageNum <= getPageTo(); pageNum++) {
-                    var $page = $pageControl.find("li.page-number.master").clone().removeClass("master hidden").addClass("generated");
+                    const $page = $pageControl.find("li.page-number.master").clone().removeClass("master hidden").addClass("generated");
                     setupLi($page, pageNum, false);
                     if (pageNum == getCurrentPage()) {
                         $page.addClass('active');
@@ -1477,28 +1477,28 @@ function refreshFunctions() {
                 setupLi($pageControl.find('li.page-last'), getPageCount(), isLastPage());
                 $pageControl.find('ul.pagination').show();
             };
-            var cumulative = $pageControl.hasClass('SIMPLE');
-            var renderPage = function () {
+            const cumulative = $pageControl.hasClass('SIMPLE');
+            const renderPage = function () {
                 if ($pageControl.hasClass('NORMAL')) {
                     doPagination();
                 }
-                var currentPage = getCurrentPage();
-                var pageSize = getPageSize();
+                const currentPage = getCurrentPage();
+                const pageSize = getPageSize();
                 // find all table entries with details-preview and hide them
                 $itemsWithDetails.hide();
-                var itemCount = getItemCount();
+                const itemCount = getItemCount();
                 // limit
-                var itemFrom = cumulative ? 0 : (currentPage - 1) * pageSize;
-                var itemTo = Math.min(currentPage * pageSize, itemCount);
-                var isLastPage = (itemCount == itemTo);
-                var items = $itemsWithDetails.filter(":not(.details-preview):not(.filtered)");
-                var itemFromIndex = items.eq(itemFrom).index();
-                var pageItems;
+                const itemFrom = cumulative ? 0 : (currentPage - 1) * pageSize;
+                const itemTo = Math.min(currentPage * pageSize, itemCount);
+                const isLastPage = (itemCount == itemTo);
+                const items = $itemsWithDetails.filter(":not(.details-preview):not(.filtered)");
+                const itemFromIndex = items.eq(itemFrom).index();
+                let pageItems;
                 if (isLastPage) {
                     pageItems = $itemsWithDetails.slice(itemFromIndex);
                 } else {
-                    var lastItemToShow = items.eq(itemTo - 1);
-                    var itemToIndex = lastItemToShow.index();
+                    const lastItemToShow = items.eq(itemTo - 1);
+                    let itemToIndex = lastItemToShow.index();
                     if (lastItemToShow.next().hasClass('details-preview')) {
                         itemToIndex++;
                     }
@@ -1506,10 +1506,9 @@ function refreshFunctions() {
                 }
                 // fix body widths wenn using pagination with scrolling. do you really have to?
                 if ($table.hasClass("tablescroll_body")) {
-                    var header = $table.parent().prev().find("thead tr:first-of-type th");
-                    var body = pageItems.filter(':not(.filtered)').eq(0).find("td");
-                    var i;
-                    for (i = 0; i < header.length; i++) {
+                    const header = $table.parent().prev().find("thead tr:first-of-type th");
+                    const body = pageItems.filter(':not(.filtered)').eq(0).find("td");
+                    for (let i = 0; i < header.length; i++) {
                         body.eq(i).attr("style", header.eq(i).attr("style"));
                     }
                 }
@@ -1548,7 +1547,7 @@ function refreshFunctions() {
                     if (!skipDisabledTest && $(this).find('button').prop('disabled')) {
                         return false;
                     }
-                    var page = $(this).data('page');
+                    const page = $(this).data('page');
                     setCurrentPage(page);
                     doPagination();
                     renderPage();
@@ -1567,40 +1566,40 @@ function refreshFunctions() {
 
             // =============== START SORTING ===================== //
             $table.find("thead th.sortable").each(function () {
-                var $th = $(this);
+                const $th = $(this);
                 $th.find('a').each(function () {
-                    var $a = $(this);
+                    const $a = $(this);
                     $a.prop("onclick", null); // IE11 doesn't support .removeAttr() for "onclick"-events
                     $a.unbind("click");
                 });
             });
-            var getSortProperty = function () {
+            const getSortProperty = function () {
                 return $table.find("input[type=hidden][id$=rfDataTableSortProperty]").val();
             };
-            var setSortProperty = function (sortProperty) {
+            const setSortProperty = function (sortProperty) {
                 return $table.find("input[type=hidden][id$=rfDataTableSortProperty]").val(sortProperty);
             };
-            var getSortDirection = function () {
+            const getSortDirection = function () {
                 return $table.find("input[type=hidden][id$=rfDataTableSortDirection]").val();
             };
-            var setSortDirection = function (sortDirection) {
+            const setSortDirection = function (sortDirection) {
                 return $table.find("input[type=hidden][id$=rfDataTableSortDirection]").val(sortDirection);
             };
-            var sortValue = function (tr, index) {
-                var filter = 'td:nth-child(' + index + ')';
-                var $td = $(tr).find(filter);
-                var val = $td.data('sort');
+            const sortValue = function (tr, index) {
+                const filter = 'td:nth-child(' + index + ')';
+                const $td = $(tr).find(filter);
+                let val = $td.data('sort');
                 if (val === undefined || val === '') {
                     val = $td.text().trim();
                 }
                 return val;
             };
-            var sort = function ($th) {
-                var thisSortProperty = $th.data("sortattribute");
-                var index = $th.index() + 1;
-                var items = $itemsWithDetails.filter(":not(.details-preview)");
-                var isAsc = $th.hasClass('sort-up');
-                var comp = function (v1, v2) {
+            const sort = function ($th) {
+                const thisSortProperty = $th.data("sortattribute");
+                const index = $th.index() + 1;
+                const items = $itemsWithDetails.filter(":not(.details-preview)");
+                const isAsc = $th.hasClass('sort-up');
+                const comp = function (v1, v2) {
                     if (v1 > v2) {
                         return isAsc ? 1 : -1;
                     }
@@ -1610,8 +1609,8 @@ function refreshFunctions() {
                     return 0;
                 };
                 items.sort(function (tr1, tr2) {
-                    var v1 = sortValue(tr1, index);
-                    var v2 = sortValue(tr2, index);
+                    const v1 = sortValue(tr1, index);
+                    const v2 = sortValue(tr2, index);
                     if (+v1 === +v1 && +v2 === +v2) {
                         // compare as numbers
                         return comp(+v1, +v2);
@@ -1621,28 +1620,28 @@ function refreshFunctions() {
                 });
                 // at this point the table entries are sorted without the details
                 // we need to correctly assign the details now
-                var newItems = [];
+                let newItems = [];
                 $.each(items, function (i, item) {
-                    var $item = $(item);
-                    var index = $item.index(); // index in DOM before sorting
+                    const $item = $(item);
+                    const index = $item.index(); // index in DOM before sorting
                     newItems.push($item);
                     // check if details are visible
-                    var detail = $itemsWithDetails.eq(index).next();
+                    const detail = $itemsWithDetails.eq(index).next();
                     if (detail.hasClass('details-preview')) {
                         // preserve detail-row
                         newItems.push(detail);
                     }
                 });
                 $itemsWithDetails.detach();
-                var tbody = $table.find("tbody");
+                let tbody = $table.find("tbody");
                 tbody.append(newItems);
                 $itemsWithDetails = $table.find("tbody tr");
             };
             $table.find('thead th.sortable a').bind('click', function (e) {
                 e.preventDefault();
-                var $th = $(this).parents('th');
-                var sortClass = 'sort-up'; // sort ascending by default
-                var thisSortProperty = $th.data("sortattribute");
+                const $th = $(this).parents('th');
+                let sortClass = 'sort-up'; // sort ascending by default
+                const thisSortProperty = $th.data("sortattribute");
                 if (thisSortProperty == getSortProperty()) {
                     // invert sort direction
                     if ($th.hasClass('sort-up')) {
@@ -1669,7 +1668,7 @@ function refreshFunctions() {
             // =============== END SORTING ===================== //
 
             // main function
-            var doItAll = function (init) {
+            const doItAll = function (init) {
                 filterAll(init);
                 // if there is an application specific sort function, use that
                 if (typeof window.sortDataTable === 'function') {
@@ -1701,8 +1700,8 @@ function refreshFunctions() {
         // the problem is that while initializing the dialog is not shown yet
         // so all sizes are 0.
         // the hack: to wait until visible and to refresh then
-        var $list = $(this);
-        var timerId;
+        const $list = $(this);
+        let timerId;
 
         function checkForVisibility() {
             if ($list.next().is(':visible')) {
@@ -1721,15 +1720,15 @@ function refreshFunctions() {
         .addClass('toggle-filter-ajax') // mark as already initialized
         .removeClass('hidden')
         .each(function () {
-            var $this = $(this);
-            var $sel = $this.find('select');
+            const $this = $(this);
+            const $sel = $this.find('select');
             $sel.find('option').each(function () {
                 if (!this.value) return; // überspringe platzhalter
                 $this.append('<button type="button" class="btn btn-default' + (this.selected ? ' active' : '') + (this.disabled ? ' disabled' : '') + '" value="' + this.value + '">' + this.text + '</button>');
             });
         }).on('click', 'button', function () {
         if ($(this).hasClass('active') || $(this).hasClass('disabled')) return;
-        var $sel = $(this).parent().find('select');
+        const $sel = $(this).parent().find('select');
         $sel.val(this.value);
         $(this).parent().find('input[type=submit]').click();
     });
@@ -1739,9 +1738,9 @@ function listpickerAjaxReload(callback, keyCode) {
     'use strict';
 
     // the listpicker filter that sends the event
-    var $listpickerFilter = $(callback.source).first();
-    var $listpickerContent = $listpickerFilter.parents(".listpicker-container").first().find(".listpicker-content");
-    var $ajaxSpinner = $listpickerFilter.parent().parent().parent().parent().find('.listpicker-ajax-spinner');
+    const $listpickerFilter = $(callback.source).first();
+    const $listpickerContent = $listpickerFilter.parents(".listpicker-container").first().find(".listpicker-content");
+    const $ajaxSpinner = $listpickerFilter.parent().parent().parent().parent().find('.listpicker-ajax-spinner');
 
 
     if (callback.status === 'begin' && $listpickerFilter.is($(document.activeElement))) {
@@ -1772,11 +1771,11 @@ function listpickerAjaxReload(callback, keyCode) {
 
     if (callback.status === 'success') {
 
-        var listpickerAjaxFormId = $listpickerContent.find("[id$='listpickerAjaxForm']").val();
-        var $listpickerAjaxForm = $("form[id$='" + listpickerAjaxFormId + "']");
+        const listpickerAjaxFormId = $listpickerContent.find("[id$='listpickerAjaxForm']").val();
+        const $listpickerAjaxForm = $("form[id$='" + listpickerAjaxFormId + "']");
 
         $listpickerContent.find("tbody").replaceWith($listpickerAjaxForm.find("tbody").clone());
-        var $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");
+        const $listpickerLastFilter = $listpickerContent.find("input[id*=lastfilter]");
         $listpickerLastFilter.val($listpickerFilter.val());
         $listpickerFilter.parents(".listpicker-container").find("input[id*='listpickerField']").focusout();
     }
@@ -1793,7 +1792,7 @@ function inputChangingKeycode(keyCode) {
     // Common control characters will be ignored.
     // invalid Keycodes:
     // 0 OR 9-13 OR 16-20 OR 27 OR 33-45 OR 91-93 OR 112-123 OR 144 OR 145 OR 181-183
-    var invalid = (keyCode > 8 && keyCode < 14) ||
+    const invalid = (keyCode > 8 && keyCode < 14) ||
         (keyCode > 15 && keyCode < 21) ||
         keyCode === 0 || keyCode === 27 ||
         (keyCode > 32 && keyCode < 46) ||
@@ -1831,9 +1830,9 @@ function lazyLoad() {
 
     // images
     $("[data-src].lazy").each(function () {
-        var $lazyImage = $(this);
+        const $lazyImage = $(this);
         if ($lazyImage.visible()) {
-            var src = $lazyImage.attr("data-src");
+            const src = $lazyImage.attr("data-src");
             $lazyImage.attr("src", src);
             $lazyImage.removeAttr("data-src");
         }
@@ -1853,10 +1852,10 @@ scriptLoadedOnload = function () {
  */
 function formatAmountOfMoney(ref) {
     'use strict';
-    var inputField = document.getElementById(ref.id);
+    const inputField = document.getElementById(ref.id);
     if (ref.value !== "") {
-        var dezimalstellen = $(inputField).data("decimalplaces");
-        var result = formatiereInput(ref.value, dezimalstellen);
+        const dezimalstellen = $(inputField).data("decimalplaces");
+        let result = formatiereInput(ref.value, dezimalstellen);
         result = kuerzeInput(result, ref.maxLength);
         result = setzeTausenderPunkte(result);
         inputField.value = result;
@@ -1871,11 +1870,11 @@ function formatAmountOfMoney(ref) {
  */
 function formatNumericValue(ref) {
     'use strict';
-    var inputField = document.getElementById(ref.id);
+    const inputField = document.getElementById(ref.id);
     if (ref.value !== "") {
-        var dezimalstellen = $(inputField).data("decimalplaces");
-        var tausenderpunktGewuenscht = $(inputField).data("tausenderpunkt");
-        var result = formatiereInput(ref.value, dezimalstellen);
+        const dezimalstellen = $(inputField).data("decimalplaces");
+        const tausenderpunktGewuenscht = $(inputField).data("tausenderpunkt");
+        let result = formatiereInput(ref.value, dezimalstellen);
         result = kuerzeInput(result, ref.maxLength);
         if (tausenderpunktGewuenscht) {
             result = setzeNumerischeTausenderPunkte(result);
@@ -1892,9 +1891,9 @@ function formatNumericValue(ref) {
  */
 function formatiereInput(input, dezimalstellen) {
     'use strict';
-    var value = input.split(".").join("");
+    let value = input.split(".").join("");
     value = value.replace(',', '.');
-    var tmp = parseFloat(value).toFixed(dezimalstellen);
+    let tmp = parseFloat(value).toFixed(dezimalstellen);
     return tmp.replace('.', ',');
 }
 
@@ -1903,8 +1902,8 @@ function formatiereInput(input, dezimalstellen) {
  */
 function kuerzeInput(value, length) {
     'use strict';
-    var kommaPosition = value.indexOf(",");
-    var anzahlTausenderPunkte = parseInt(((kommaPosition - 1) / 3));
+    let kommaPosition = value.indexOf(",");
+    let anzahlTausenderPunkte = parseInt(((kommaPosition - 1) / 3));
     while (value.length > (length - anzahlTausenderPunkte)) {
         value = value.substring(0, kommaPosition - 1) + value.substring(kommaPosition);
         kommaPosition = value.indexOf(",");
@@ -1918,8 +1917,8 @@ function kuerzeInput(value, length) {
  */
 function setzeTausenderPunkte(value) {
     'use strict';
-    var kommaPosition = value.indexOf(",");
-    for (var i = 1; i < kommaPosition; i++) {
+    const kommaPosition = value.indexOf(",");
+    for (let i = 1; i < kommaPosition; i++) {
         if (i % 3 === 0) {
             value = value.substring(0, kommaPosition - i) + "." + value.substring(kommaPosition - i);
         }
@@ -1933,11 +1932,11 @@ function setzeTausenderPunkte(value) {
  */
 function setzeNumerischeTausenderPunkte(value) {
     'use strict';
-    var kommaPosition = value.indexOf(",");
+    let kommaPosition = value.indexOf(",");
     if (kommaPosition === -1) {
         kommaPosition = value.length;
     }
-    for (var i = 1; i < kommaPosition; i++) {
+    for (let i = 1; i < kommaPosition; i++) {
         if (i % 3 === 0) {
             value = value.substring(0, kommaPosition - i) + "." + value.substring(kommaPosition - i);
         }
@@ -1957,13 +1956,13 @@ function deleteNonDigitCharacters(ref) {
     if (ref.value !== "") {
         // saves the current cursor position as a variable
         // needed for browser compatibility with IE and Chrome
-        var start = ref.selectionStart;
-        var end = ref.selectionEnd;
+        let start = ref.selectionStart;
+        let end = ref.selectionEnd;
 
         // length of text is saved:
         // is used later on to determine how many characters were removed
         // to calculate the shift in position of the cursor
-        var length = ref.value.length;
+        const length = ref.value.length;
 
         // removes all characters but numbers and comma as a decimal separator
         // Attention: dots as thousands separators are also removed
@@ -1971,7 +1970,7 @@ function deleteNonDigitCharacters(ref) {
 
         // checks whether characters were removed and shifts the cursor
         // accordingly - is needed for IE and Chrome; for FF replacing the text is sufficient
-        var lengthAfterReplace = ref.value.length;
+        const lengthAfterReplace = ref.value.length;
         if (length > lengthAfterReplace) {
             start = start - (length - lengthAfterReplace);
             end = end - (length - lengthAfterReplace);
@@ -1992,12 +1991,12 @@ function stringToBoolean(str) {
 
 function currentDateAsString() {
     "use strict";
-    var currentDate = new Date();
-    var dayOfMonth = currentDate.getDate();
-    var month = currentDate.getMonth() + 1;
-    var year = currentDate.getFullYear();
-    var heute = dayOfMonth.toString() + '.' + month.toString() + '.' + year.toString();
-    var heuteMitFuehrendenNullen = heute.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
+    const currentDate = new Date();
+    const dayOfMonth = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    const heute = dayOfMonth.toString() + '.' + month.toString() + '.' + year.toString();
+    const heuteMitFuehrendenNullen = heute.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
 
     return heuteMitFuehrendenNullen;
 }
@@ -2014,11 +2013,11 @@ function refreshDatatableFilterRow() {
     $("table.rf-data-table:not('datatable-filterrow-init')")
         .addClass('datatable-filterrow-init') // mark as initialized
         .each(function () {
-            var $table = $(this);
+            const $table = $(this);
             // validate number of columns as a hint for the developer
-            var spaltenImHeader = $table.find('thead tr').eq(0).find('th').length;
-            var spaltenImFilter = $table.find('thead tr').eq(1).find('th').length || spaltenImHeader;
-            var spaltenImBody = $table.find('tbody tr').eq(0).find('td').length || spaltenImHeader;
+            const spaltenImHeader = $table.find('thead tr').eq(0).find('th').length;
+            const spaltenImFilter = $table.find('thead tr').eq(1).find('th').length || spaltenImHeader;
+            const spaltenImBody = $table.find('tbody tr').eq(0).find('td').length || spaltenImHeader;
             if (spaltenImHeader != spaltenImFilter || spaltenImHeader != spaltenImBody) {
                 $table.css({border: '5px solid #FF0000'});
                 if (spaltenImHeader != spaltenImFilter) {
@@ -2029,9 +2028,9 @@ function refreshDatatableFilterRow() {
                 }
             }
             // filter
-            var $filterRow = $table.find("thead tr.filter-row");
-            var $clearAllFilterIcon = $filterRow.find("td.table-clear-all-filter button");
-            var resetFilter = function () {
+            const $filterRow = $table.find("thead tr.filter-row");
+            const $clearAllFilterIcon = $filterRow.find("td.table-clear-all-filter button");
+            const resetFilter = function () {
                 // reset all filters
                 $filterRow.find('input.table-filter').val('').data('property', '');
                 // reset all dropdown filters
@@ -2041,13 +2040,13 @@ function refreshDatatableFilterRow() {
                 // hide "clear-all-filters" icon
                 $clearAllFilterIcon.hide();
             };
-            var hasFilter = function () {
+            const hasFilter = function () {
                 // at least one filterfield has a value or one dropdown is selected
                 return ($filterRow.find('input.table-filter, select.filter-dropdown').filter(function () {
                     return !!this.value;
                 }).length);
             };
-            var checkClearAllFilter = function () {
+            const checkClearAllFilter = function () {
                 if (hasFilter()) {
                     // show clear-all-filters icon
                     $clearAllFilterIcon.show();
@@ -2075,7 +2074,7 @@ function refreshDatatableFilterRow() {
                 });
             $filterRow.find('select.filter-dropdown')
                 .change(function (e) {
-                    var $this = $(this);
+                    const $this = $(this);
                     checkClearAllFilter();
                     // click on hidden button to execute its action
                     $this.parent().next().click();
@@ -2084,7 +2083,7 @@ function refreshDatatableFilterRow() {
             // resets filter, adjusts view of the clear-filter/clear-all-filter icons and executes the action
             $filterRow.find('a.table-clear-filter')
                 .click(function () {
-                    var $this = $(this);
+                    const $this = $(this);
                     // resets filter
                     $this.prev().val('');
                     // hides clear-filter icon and if necessary clear-all-filter icon
@@ -2097,7 +2096,7 @@ function refreshDatatableFilterRow() {
             $filterRow.find('input.table-filter')
                 .attr("autocomplete", "off")
                 .keypress(function (event) {
-                    var isClient = $table.hasClass('CLIENT');
+                    const isClient = $table.hasClass('CLIENT');
                     // if enter was pressed
                     if (event.which == 13) {
                         // execute action
@@ -2116,13 +2115,13 @@ function refreshDatatableFilterRow() {
                 }).keyup(function (e) {
                 // only in CLIENT mode
                 if ($table.hasClass('CLIENT')) {
-                    var $this = $(this);
+                    const $this = $(this);
                     $(this).trigger('blur');
                     $(this).focus();
                 }
             // generally: execute action if the filter loses focus, but only if the filter has changed
             }).blur(function () {
-                var $this = $(this);
+                const $this = $(this);
                 $this.trigger('change');
                 if ($this.val() != $this.data('property')) {
                     // click on hidden button to execute action
@@ -2131,7 +2130,7 @@ function refreshDatatableFilterRow() {
                 }
                 // adjust view of clear-filter and clear-all-filter icons
             }).change(function () {
-                var $this = $(this);
+                const $this = $(this);
                 if ($this.val()) {
                     // if new value is not empty, show clear-filter icon
                     $this.next().show();
@@ -2148,18 +2147,18 @@ function refreshDatatableFilterRow() {
 datumErgaenzen = function (inputFeld, grenze) {
     "use strict";
     //The given "grenze" as a limit is added to the current year, so the resulting limit year will update over time
-    var aktuellesJahr = parseInt(new Date().getFullYear().toString().substring(2, 4));
+    const aktuellesJahr = parseInt(new Date().getFullYear().toString().substring(2, 4));
     grenze = (aktuellesJahr + parseInt(grenze)).toString();
-    var aktuelleWerte = inputFeld.val().split('.');
+    const aktuelleWerte = inputFeld.val().split('.');
     if (aktuelleWerte.length === 3 && aktuelleWerte[2].replace(/_/g, '').length === 2) {
-        var praefix;
-        var jahresZahl = aktuelleWerte[2].replace(/_/g, '');
+        let praefix;
+        const jahresZahl = aktuelleWerte[2].replace(/_/g, '');
         if (jahresZahl <= grenze) {
             praefix = "20";
         } else if (jahresZahl > grenze) {
             praefix = "19";
         }
-        var ergebnis = praefix + jahresZahl;
+        const ergebnis = praefix + jahresZahl;
         aktuelleWerte[2] = ergebnis;
         inputFeld.val(aktuelleWerte[0] + "." + aktuelleWerte[1] + "." + aktuelleWerte[2]);
     }
@@ -2168,7 +2167,7 @@ datumErgaenzen = function (inputFeld, grenze) {
 //Code that triggers initialization of a listpicker through the servlet
 initialisierenListpickerServlet = function () {
     "use strict";
-    var $listpicker = $(".servlet.listpicker-filter");
+    const $listpicker = $(".servlet.listpicker-filter");
     $listpicker.each(function (i, listpicker) {
         registerListpickerfilter(listpicker);
     });
@@ -2178,22 +2177,22 @@ initialisierenListpickerServlet = function () {
 //register a listpicker
 registerListpickerfilter = function (identifier) {
     "use strict";
-    var $listpickerFilter = $(identifier);
-    var listpickerFilterInput = $listpickerFilter.children()[0];
-    var url = $listpickerFilter.siblings("div.rf-listpicker-table-container").find(".servletTable")[0].getAttribute("data-servleturl");
+    const $listpickerFilter = $(identifier);
+    const listpickerFilterInput = $listpickerFilter.children()[0];
+    const url = $listpickerFilter.siblings("div.rf-listpicker-table-container").find(".servletTable")[0].getAttribute("data-servleturl");
 
     //Hereafter the url paramaters will be encoded
     //only the paramater value will be encoded, not the parameter name itself
-    var urlsplit = url.split("?");
+    const urlsplit = url.split("?");
 
     //the first part of the URL (the part before the parameters) remains unchanged
-    var urlEncoded = urlsplit[0] + '?';
+    let urlEncoded = urlsplit[0] + '?';
 
     //split the second part
     if (urlsplit.length > 1) {
-        var attributeGesetzt = urlsplit[1].split("&");
+        const attributeGesetzt = urlsplit[1].split("&");
         attributeGesetzt.forEach(function (attribut) {
-            var attributSplit = attribut.split("=");
+            const attributSplit = attribut.split("=");
             urlEncoded = urlEncoded + attributSplit[0] + '=' + encodeURIComponent(attributSplit[1]) + "&";
         });
     }
@@ -2205,9 +2204,9 @@ registerListpickerfilter = function (identifier) {
     });
     listpickerFilterInput.dataset.oldvalue = listpickerFilterInput.value;
 
-    var $listpickerContent = $listpickerFilter.parent().parent();
-    var $listpickerContainer = $listpickerContent.parent();
-    var $listpickerField = $listpickerContainer.find('*[id*=listpickerField]');
+    const $listpickerContent = $listpickerFilter.parent().parent();
+    const $listpickerContainer = $listpickerContent.parent();
+    const $listpickerField = $listpickerContainer.find('*[id*=listpickerField]');
 
     //if a filter dropdown menu was focused and another area is clicked, the fields will be updated
     $(listpickerFilterInput).focusout(function () {
@@ -2236,12 +2235,12 @@ function servletListpickerFilterChanged(event) {
     "use strict";
     event.stopImmediatePropagation();
     //fetch the needed values from the data-attributes of the event (were set when called)
-    var servletUrl = event.data.url;
-    var listpickerFilter = event.data.listpickerfilter;
-    var listpickerFilterInput = event.data.listpickerfilter;
-    var delay = 500;
+    const servletUrl = event.data.url;
+    const listpickerFilter = event.data.listpickerfilter;
+    const listpickerFilterInput = event.data.listpickerfilter;
+    const delay = 500;
     window.setTimeout(function (filter) {
-        var input = listpickerFilter.children()[0];
+        const input = listpickerFilter.children()[0];
         if (input.dataset.oldvalue == "undefined" || input.value != input.dataset.oldvalue) {
             $.get(servletUrl + "filter=" + encodeURIComponent(input.value)).done(function (data) {
                 createListpickerTable(data, listpickerFilter);
@@ -2254,22 +2253,22 @@ function servletListpickerFilterChanged(event) {
 //Creates a ListpickerTable based on the responseText.
 createListpickerTable = function (responseText, listfilter) {
     "use strict";
-    var $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
-    var $table = $tablecontainer.find(".servletTable");
+    const $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
+    let $table = $tablecontainer.find(".servletTable");
     $table.empty();
-    var tableJson = JSON.parse(responseText);
-    for (var j in tableJson.items) {
-        var item = tableJson.items[j];
-        var tr = $('<tr>').attr('id', item.id);
-        for (var i = 0; i < item.attrs.length; i++) {
-            var td = $('<td>').text(item.attrs[i].trim());
+    const tableJson = JSON.parse(responseText);
+    for (let j in tableJson.items) {
+        const item = tableJson.items[j];
+        let tr = $('<tr>').attr('id', item.id);
+        for (let i = 0; i < item.attrs.length; i++) {
+            const td = $('<td>').text(item.attrs[i].trim());
             tr.append(td);
         }
         $table.append(tr);
     }
     if (tableJson.weiterFiltern === true) {
-        var trWeiterFiltern = $('<tr>');
-        var tdWeiterFiltern = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
+        let trWeiterFiltern = $('<tr>');
+        const tdWeiterFiltern = $("<td>").text(tableJson.messageItem).attr('colspan', 2);
         trWeiterFiltern.append(tdWeiterFiltern);
         $table.append(trWeiterFiltern);
     }
@@ -2280,9 +2279,9 @@ createListpickerTable = function (responseText, listfilter) {
 //and additionally the focusout-method will be triggered, to cause the key to be resolved
 $(document).click(function (e) {
     "use strict";
-    var $target = $(e.target);
-    var $listpickerContainer = $('.listpicker-container.open');
-    var $listpickerContent = $listpickerContainer.find('.listpicker-content');
+    const $target = $(e.target);
+    const $listpickerContainer = $('.listpicker-container.open');
+    const $listpickerContent = $listpickerContainer.find('.listpicker-content');
     if ($listpickerContent.has($target).length <= 0 && $listpickerContainer.hasClass('open')) {
         $listpickerContainer.removeClass('open');
         $listpickerContent.siblings('.form-control').focusout();

@@ -24,7 +24,6 @@ build/
 www/
 node/
 node_modules/
-package-lock.json
 
 # Ignore generated Asciidoc files
 src/docs/asciidoc/**/listoffigures.adoc

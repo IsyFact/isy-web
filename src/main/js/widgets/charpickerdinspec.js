@@ -12,7 +12,7 @@ $(function () {
      */
     function createEventHandler(fn, context) {
         return function (event) {
-            var ret = fn.call(context, event, $(this));
+            const ret = fn.call(context, event, $(this));
             event.preventDefault();
             event.stopPropagation();
             return ret;
@@ -45,7 +45,7 @@ $(function () {
     /**
      * @class CharPickerPopup
      */
-    var CharPickerPopup = function () {
+    const CharPickerPopup = function () {
         // Find the master overlay
         this.$masterOverlayEl = $('.charpicker-dinspec');
         // Additional reference
@@ -84,7 +84,7 @@ $(function () {
          */
         show: function ($inputEl) {
             if ($inputEl) {
-                var $listpickerContainer = $(".listpicker-container");
+                const $listpickerContainer = $(".listpicker-container");
                 $listpickerContainer.each(function () {
                     // $(this) is the elements in the dom that is executing this script;
                     // closes dropdowns I suppose
@@ -113,8 +113,8 @@ $(function () {
                 this.$overlayEl.show();
 
                 // Calculate position
-                var top = 30;
-                var left = ($inputEl.width() - this.$overlayEl.width()) / 2;
+                const top = 30;
+                let left = ($inputEl.width() - this.$overlayEl.width()) / 2;
                 if ($inputEl.offset().left - left < 0) {
                     left = left - $inputEl.offset().left - left;
                 }
@@ -147,7 +147,7 @@ $(function () {
             switch (datentyp) {
                 case "DATENTYP_A":
                     this.$charItems.each(function (index, el){
-                        var $el = $(el);
+                        const $el = $(el);
                         if ($el.data().charGroup == "N2" || $el.data().charGroup == "N3" ||
                             $el.data().charGroup == "N4" || $el.data().charGroup == "E1" ||
                             $el.data().charGroup == "GRIECHISCH" ||
@@ -158,7 +158,7 @@ $(function () {
                     break;
                 case "DATENTYP_B":
                     this.$charItems.each(function (index, el){
-                        var $el = $(el);
+                        const $el = $(el);
                         if ($el.data().charGroup == "N3" ||
                             $el.data().charGroup == "N4" || $el.data().charGroup == "E1" ||
                             $el.data().charGroup == "GRIECHISCH" ||
@@ -169,7 +169,7 @@ $(function () {
                     break;
                 case "DATENTYP_C":
                     this.$charItems.each(function (index, el){
-                        var $el = $(el);
+                        const $el = $(el);
                         if ($el.data().charGroup == "E1" ||
                             $el.data().charGroup == "GRIECHISCH" ||
                             $el.data().charGroup == "KYRILLISCH") {
@@ -179,7 +179,7 @@ $(function () {
                     break;
                 case "DATENTYP_D":
                     this.$charItems.each(function (index, el){
-                        var $el = $(el);
+                        const $el = $(el);
                         if ($el.data().charGroup == "N4" ||
                             $el.data().charGroup == "KYRILLISCH") {
                             $el.addClass("illegal");
@@ -202,7 +202,7 @@ $(function () {
             switch (datentyp) {
                 case "DATENTYP_A":
                     this.$groupFilterItems.each(function (index, el){
-                        var $el = $(el);
+                        const $el = $(el);
                         if ($el.html() == "N2" || $el.html() == "N3" ||
                             $el.html() == "N4" || $el.html() == "E1" ||
                             $el.html() == "GRIECHISCH" ||
@@ -214,7 +214,7 @@ $(function () {
                     break;
                 case "DATENTYP_B":
                     this.$groupFilterItems.each(function (index, el){
-                        var $el = $(el);
+                        const $el = $(el);
                         if ($el.html() == "N3" ||
                             $el.html() == "N4" || $el.html() == "E1" ||
                             $el.html() == "GRIECHISCH" ||
@@ -226,7 +226,7 @@ $(function () {
                     break;
                 case "DATENTYP_C":
                     this.$groupFilterItems.each(function (index, el){
-                        var $el = $(el);
+                        const $el = $(el);
                         if ($el.html() == "E1" ||
                             $el.html() == "GRIECHISCH" ||
                             $el.html() == "KYRILLISCH") {
@@ -237,7 +237,7 @@ $(function () {
                     break;
                 case "DATENTYP_D":
                     this.$groupFilterItems.each(function (index, el){
-                        var $el = $(el);
+                        const $el = $(el);
                         if ($el.html() == "N4" ||
                             $el.html() == "KYRILLISCH") {
                             $el.addClass("illegal");
@@ -397,7 +397,7 @@ $(function () {
 
             // Fix collapsible events!
             this.$collapsibles.each(function (index, elem) {
-                var $elem = $(elem);
+                const $elem = $(elem);
                 $('[href="#' + elem.id + '"]').click(function (event) {
                     $elem.collapse('toggle');
                 });
@@ -425,12 +425,12 @@ $(function () {
 
             // Keyboard combinations for control inside the char picker
             this.$overlayEl.on('keydown', createEventHandler(function (event, $el) {
-                var dirOffset = event.shiftKey ? -1 : 1;
-                var keyCode = event.which;
+                const dirOffset = event.shiftKey ? -1 : 1;
+                const keyCode = event.which;
 
-                var $displayedChars;
-                var $index;
-                var $newActive;
+                let $displayedChars;
+                let $index;
+                let $newActive;
 
                 switch (keyCode) {
                     case 13: // [ENTER]
@@ -451,9 +451,9 @@ $(function () {
 
                     case 9: // [TAB]
                         // switch to next/previous filter item
-                        var selectedFilterIndex = this.$filterItems.index(this.$activeFilter);
-                        var nextIndex = getInBoundIndex(selectedFilterIndex + dirOffset, this.$filterItems.length);
-                        var $nextFilter = $(this.$filterItems[nextIndex]);
+                        const selectedFilterIndex = this.$filterItems.index(this.$activeFilter);
+                        let nextIndex = getInBoundIndex(selectedFilterIndex + dirOffset, this.$filterItems.length);
+                        let $nextFilter = $(this.$filterItems[nextIndex]);
                         // loop till a legal filter is found
                         while ($nextFilter.hasClass('illegal')) {
                             nextIndex = getInBoundIndex(nextIndex + dirOffset, this.$filterItems.length);
@@ -461,7 +461,7 @@ $(function () {
                         }
                         this.selectFilter($nextFilter);
                         // open collapsible if filter is inside one
-                        var $collapsible = $nextFilter.closest('.panel-collapse');
+                        const $collapsible = $nextFilter.closest('.panel-collapse');
                         if (!!$collapsible) {
                             $collapsible.collapse('show');
                         }
@@ -516,7 +516,7 @@ $(function () {
         },
 
         setDetailsView: function ($charEl) {
-            var charData = $charEl.data();
+            const charData = $charEl.data();
             this.$activeCharPreviewSerif.html(charData.charZeichen);
             this.$activeCharPreviewSansSerif.html(charData.charZeichen);
             this.$activeCharName.html(charData.charName);
@@ -558,9 +558,9 @@ $(function () {
          */
         selectBaseFilter: function (base) {
             this.$charItems.each(function (index, el) {
-                var $el = $(el);
-                var data = $el.data();
-                var charBase = data && data.charBase;
+                const $el = $(el);
+                const data = $el.data();
+                const charBase = data && data.charBase;
 
                 // Sets base to undefined, so all characters without a base are displayed when the category
                 // "*" is selected.
@@ -583,9 +583,9 @@ $(function () {
          */
         selectGroupFilter: function (group) {
             this.$charItems.each(function (index, el) {
-                var $el = $(el);
-                var data = $el.data();
-                var charGroup = data && data.charGroup;
+                const $el = $(el);
+                const data = $el.data();
+                const charGroup = data && data.charGroup;
 
                 if (group !== charGroup) {
                     $el.addClass('hidden');
@@ -615,12 +615,12 @@ $(function () {
 
         scrollIntoView: function ($context, $item) {
             if (!this.scrollFunc) {
-                var isIE = window.navigator.userAgent.match(/(MSIE|Trident)/);
+                const isIE = window.navigator.userAgent.match(/(MSIE|Trident)/);
                 if (isIE) {
                     this.scrollFunc = function ($context, $item) {
                         // accommodate for paddings
-                        var offset = $item.offset().top - $context.offset().top - 1;
-                        var scrollPos;
+                        let offset = $item.offset().top - $context.offset().top - 1;
+                        let scrollPos;
                         if (offset < 0) {
                             scrollPos = $context.scrollTop() + offset;
                             $context.animate({ scrollTop: scrollPos }, 10);
@@ -650,9 +650,9 @@ $(function () {
          * @private
          */
         insert: function ($charEl) {
-            var character = $charEl.data().charZeichen;
+            const character = $charEl.data().charZeichen;
 
-            var inputVal, pre, post, value;
+            let inputVal, pre, post, value;
 
             this.$inputEl.focus();
 
@@ -681,7 +681,7 @@ $(function () {
             // IE 8 fix
             if (this.$inputEl.caret() != pos) {
                 if (this.$inputEl[0].createTextRange) {
-                    var range = this.$inputEl[0].createTextRange();
+                    const range = this.$inputEl[0].createTextRange();
                     range.collapse(true);
                     range.moveEnd('character', pos);
                     range.moveStart('character', pos);
@@ -692,7 +692,7 @@ $(function () {
 
     };
 
-    var CharPickerPopupInitializer = function () {
+    const CharPickerPopupInitializer = function () {
         this.popup = "";
     };
 
@@ -700,7 +700,7 @@ $(function () {
 
         initWidget: function (widget) {
             this.popup = widget;
-            var popupWidget = this.popup;
+            const popupWidget = this.popup;
 
             window.onclick = function () {
                 popupWidget.close();
@@ -712,11 +712,11 @@ $(function () {
         },
 
         refreshWidget: function () {
-            var $inputElements = $('input.inputWithCharPickerDinSpec[type=text], textarea.inputWithCharPickerDinSpec').filter(':not(.charpickerdinspec_ajaxtoken)');
-            var $openButton = $('.charpicker-open-button').filter(':not(.charpickerdinspec_ajaxtoken)');
+            const $inputElements = $('input.inputWithCharPickerDinSpec[type=text], textarea.inputWithCharPickerDinSpec').filter(':not(.charpickerdinspec_ajaxtoken)');
+            const $openButton = $('.charpicker-open-button').filter(':not(.charpickerdinspec_ajaxtoken)');
 
-            var $currInputEl;
-            var popup = this.popup;
+            let $currInputEl;
+            const popup = this.popup;
 
             $inputElements.keydown(function (event) {
                 switch (event.which) {
@@ -806,26 +806,26 @@ $(function () {
 
     };
 
-    var widget = new CharPickerPopup();
+    const widget = new CharPickerPopup();
 
-    var charPickerInitializer = new CharPickerPopupInitializer();
+    const charPickerInitializer = new CharPickerPopupInitializer();
 
     $(document).ready(function () {
 
-        // Initiale Darstellung
+        // Initial view
         $('.charpicker-dinspec-widget').data("initializer", charPickerInitializer);
 
         charPickerInitializer.initWidget(widget);
         charPickerInitializer.refreshWidget();
 
-        // Reaktion auf AJAX Requests
+        // Reacting to AJAX requests
         if (typeof (jsf) != "undefined") {
             // --------------------------------------------------------
             // Ajax-Callback
             // --------------------------------------------------------
             jsf.ajax.addOnEvent(function (callback) {
 
-                var initializer = $('.charpicker-dinspec-widget').data("initializer");
+                const initializer = $('.charpicker-dinspec-widget').data("initializer");
 
                 if (callback.status === 'begin') {
                     if (initializer !== undefined) {
