@@ -1,3 +1,5 @@
+import { createDatepicker } from '../widgets/datepicker/datepicker';
+
 $(document).ready(function () {
     'use strict';
 
@@ -667,97 +669,13 @@ function refreshFunctions() {
     // --------------------------------------------------------
 
     const $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)');
-    $datepickers.each(function () {
-        $(this).datepicker({
-            format: $(this).attr('dateformat'),
-            weekStart: 1,
-            // in version 1.8.x the attribute componentButtonOnly was removed
-            // componentButtonOnly: true,
-            todayBtn: "linked",
-            language: $(this).attr('language'),
-            autoclose: true,
-            todayHighlight: true,
-            // showOnFocus: If false, the datepicker will be prevented from showing when the input field associated with it receives focus.
-            showOnFocus: false,
-            // enableOnReadonly: If false the datepicker will not show on a readonly datepicker field.
-            enableOnReadonly: false
-        });
 
-        $(this).children("a").click(
-            function () {// open a datepicker
-                const dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
-                const inputField = $(this).prev();
-                let date = inputField.val().split('.');
-
-                // delete underscore placeholders
-                const placeholderReg = /\D/gi;
-                date[0] = date[0].replace(placeholderReg, "");
-                date[1] = date[1].replace(placeholderReg, "");
-                date[2] = date[2].replace(placeholderReg, "");
-                let dateString;
-                if (date[0] === "99") {
-                    // Secret-Code: 99 = set focus of the datepicker to current date
-                    dateString = currentDateAsString();
-                } else if (date[0] === "00" || date[1] === "00") {
-                    dateString = setValidDateAsString(date);
-                } else {
-                    // copy the manuell entered date into the datepicker
-                    // out of range date inputs will be fixed
-                    dateString = fixDateOutOfRange(date);
-                }
-                $(this).parent().datepicker('setDate', dateString);
-                $(this).parent().datepicker('update');
-            });
-
-        //read the limit for expanding two-digit years. Is used later on.
-        const zweistelligeJahreszahlenErgaenzenGrenze = $('#formDateJahresZahlenErgaenzenGrenze').val();
-        const $datumInputFeld = $(this).find('input');
-        $datumInputFeld.focusout(function (event) {
-            if (zweistelligeJahreszahlenErgaenzenGrenze !== "-1") {
-                datumErgaenzen($datumInputFeld, zweistelligeJahreszahlenErgaenzenGrenze);
-            }
-
-            // Magic Number: set date to today
-            const date = $datumInputFeld.val().split('.');
-            if (date[0] === "99") {
-                $datumInputFeld.val(currentDateAsString());
-            } else {
-                // out of range date inputs will be fixed
-                $datumInputFeld.val(fixDateOutOfRange(date));
-            }
-        });
-    });
+    $datepickers.each(createDatepicker);
 
     $datepickers.on('changeDate', function (ev) {
         $(this).find('input').val(ev.format());
     });
 
-    function fixDateOutOfRange(date) {
-        let year = date[2],
-            month = date[1],
-            day = date[0];
-        // Assume not leap year by default (note zero index for Jan)
-        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-        // If evenly divisible by 4 and not evenly divisible by 100,
-        // or is evenly divisible by 400, then a leap year
-        if ((year % 4 === 0) && (year % 100 !== 0) || (year % 400 === 0)) {
-            daysInMonth[1] = 29;
-        }
-
-        // Check if month is out of range and fix
-        if (month > 12) {
-            month = 12;
-        }
-
-        // Get max days for month and fix days if out of range
-        const maxDays = daysInMonth[month - 1];
-        if (day > maxDays) {
-            day = maxDays;
-        }
-
-        return day + '.' + month + '.' + year;
-    }
 
     // --------------------------------------------------------
     // Input Masks
@@ -1839,7 +1757,7 @@ function lazyLoad() {
     });
 }
 
-scriptLoadedOnload = function () {
+const scriptLoadedOnload = function () {
     'use strict';
 
     return true;
@@ -1989,25 +1907,6 @@ function stringToBoolean(str) {
     return ((str == "true") ? true : false);
 }
 
-function currentDateAsString() {
-    "use strict";
-    const currentDate = new Date();
-    const dayOfMonth = currentDate.getDate();
-    const month = currentDate.getMonth() + 1;
-    const year = currentDate.getFullYear();
-    const heute = dayOfMonth.toString() + '.' + month.toString() + '.' + year.toString();
-    const heuteMitFuehrendenNullen = heute.replace(/(^|\D)(\d)(?!\d)/g, '$10$2');
-
-    return heuteMitFuehrendenNullen;
-}
-
-function setValidDateAsString(date) {
-    "use strict";
-    date[0] = date[0].replace("00", "01");
-    date[1] = date[1].replace("00", "01");
-    return date[0] + '.' + date[1] + '.' + date[2];
-}
-
 function refreshDatatableFilterRow() {
     "use strict";
     $("table.rf-data-table:not('datatable-filterrow-init')")
@@ -2143,29 +2042,8 @@ function refreshDatatableFilterRow() {
         });
 }
 
-// This function transforms two digit years into four digit years in date input fields.
-datumErgaenzen = function (inputFeld, grenze) {
-    "use strict";
-    //The given "grenze" as a limit is added to the current year, so the resulting limit year will update over time
-    const aktuellesJahr = parseInt(new Date().getFullYear().toString().substring(2, 4));
-    grenze = (aktuellesJahr + parseInt(grenze)).toString();
-    const aktuelleWerte = inputFeld.val().split('.');
-    if (aktuelleWerte.length === 3 && aktuelleWerte[2].replace(/_/g, '').length === 2) {
-        let praefix;
-        const jahresZahl = aktuelleWerte[2].replace(/_/g, '');
-        if (jahresZahl <= grenze) {
-            praefix = "20";
-        } else if (jahresZahl > grenze) {
-            praefix = "19";
-        }
-        const ergebnis = praefix + jahresZahl;
-        aktuelleWerte[2] = ergebnis;
-        inputFeld.val(aktuelleWerte[0] + "." + aktuelleWerte[1] + "." + aktuelleWerte[2]);
-    }
-};
-
 //Code that triggers initialization of a listpicker through the servlet
-initialisierenListpickerServlet = function () {
+const initialisierenListpickerServlet = function () {
     "use strict";
     const $listpicker = $(".servlet.listpicker-filter");
     $listpicker.each(function (i, listpicker) {
@@ -2175,7 +2053,7 @@ initialisierenListpickerServlet = function () {
 
 
 //register a listpicker
-registerListpickerfilter = function (identifier) {
+const registerListpickerfilter = function (identifier) {
     "use strict";
     const $listpickerFilter = $(identifier);
     const listpickerFilterInput = $listpickerFilter.children()[0];
@@ -2251,7 +2129,7 @@ function servletListpickerFilterChanged(event) {
 }
 
 //Creates a ListpickerTable based on the responseText.
-createListpickerTable = function (responseText, listfilter) {
+const createListpickerTable = function (responseText, listfilter) {
     "use strict";
     const $tablecontainer = $(listfilter).siblings("div.rf-listpicker-table-container");
     let $table = $tablecontainer.find(".servletTable");
