@@ -1,4 +1,5 @@
 import { createDatepicker } from '../widgets/datepicker/datepicker';
+import { createTabGroup } from './tabs';
 
 $(document).ready(function () {
     'use strict';
@@ -1054,55 +1055,7 @@ function refreshFunctions() {
     // Tabs
     // --------------------------------------------------------
     // control preloaded tabs
-    $('.isy-tab').each(function () {
-        const $isyTab = $(this);
-
-        // TabAutoscroll: Is "tabHochScrollen" in a tabGroub active?
-        let $tabHochScrollen = false;
-        if ($isyTab.hasClass('tabHochScrollen')) {
-            $tabHochScrollen = true;
-        }
-
-        $isyTab.children().each(function () {
-            const $li = $(this);
-            const $liLink = $(this).find("a");
-
-            if ($li.hasClass('skipAction')) {
-                $liLink.unbind("click");
-                $liLink.prop("onclick", null); // IE11 doesn't support .removeAttr() for "onclick"
-            }
-
-            $liLink.click(function (event) {
-                if ($li.hasClass('skipAction')) {
-                    event.preventDefault();
-                }
-
-                // remove current tab
-                const liIdAlt = $isyTab.find(".active").attr('id');
-                $isyTab.find(".active").removeClass("active");
-                $isyTab.next().find("#" + liIdAlt).removeClass("active");
-
-                // activate tab
-                const liIdNeu = $li.attr('id');
-                $li.addClass("active");
-                //$isyTab.next().find("#" + liIdNeu).addClass("active");
-
-                const aktiverTab = $isyTab.next().find("#" + liIdNeu);
-                aktiverTab.addClass("active");
-
-                // support tab-autoscroll
-                if ($tabHochScrollen) {
-                    $('html, body').animate({
-                        scrollTop: $(aktiverTab).offset().top - 50
-                    }, 'slow');
-                }
-
-                // save state
-                $isyTab.next().find("[id$='isyTabCurrentActiveTab']").first().val(liIdNeu.replace("tabId", ""));
-                lazyLoad();
-            });
-        });
-    });
+    $('.isy-tab').each(createTabGroup);
 
     // --------------------------------------------------------
     // Button Inject POST
