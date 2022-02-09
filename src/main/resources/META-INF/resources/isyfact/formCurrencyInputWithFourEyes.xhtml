@@ -53,10 +53,10 @@
 
     <!-- Änderungen an original formatInput: onchange JavaScript-Funktion wird aufgerufen, wenn der Cursor das Feld verlässt -->
         <composite:attribute name="onchange" required="false"
-                default="formatAmountOfMoney(this)" />
+                default="isywebjs.formatAmountOfMoney(this)" />
         <!-- onkeyup JavaScript-Funktion wird aufgerufen, wenn eine Tastatureingabe in dem Feld gemacht wurde -->
         <composite:attribute name="onkeyup" required="false"
-                default="deleteNonDigitCharacters(this)" />
+                default="isywebjs.deleteNonDigitCharacters(this)" />
         <!-- Die Anzahl der Nachkommastellen: Default ist 2. -->
         <composite:attribute name="decimalplaces" type="Integer" required="false" default="2" />
 

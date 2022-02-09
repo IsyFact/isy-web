@@ -1,5 +1,6 @@
 import { listpickerAjaxReload } from'../widgets/listpicker/listpicker';
 import { blockSingleButton } from '../widgets/buttons';
+import { formatAmountOfMoney, formatNumericValue, deleteNonDigitCharacters } from '../widgets/input';
 
 /**
  * Global exports needed for direct calls from xhtml-Elements.
@@ -8,6 +9,9 @@ import { blockSingleButton } from '../widgets/buttons';
 const isywebjs = {};
 isywebjs.listpickerAjaxReload = listpickerAjaxReload;
 isywebjs.blockSingleButton = blockSingleButton;
+isywebjs.formatAmountOfMoney = formatAmountOfMoney;
+isywebjs.formatNumericValue = formatNumericValue;
+isywebjs.deleteNonDigitCharacters = deleteNonDigitCharacters;
 
 window.isywebjs = isywebjs;
 
