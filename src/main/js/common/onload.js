@@ -587,18 +587,4 @@ function refreshFunctions() {
 }
 
 
-const scriptLoadedOnload = function () {
-    'use strict';
-
-    return true;
-};
-
-/**
- * JavaScript type conversion of String = "true" to Boolean = true
- */
-function stringToBoolean(str) {
-    "use strict";
-    return ((str == "true") ? true : false);
-}
-
 
