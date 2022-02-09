@@ -1,4 +1,5 @@
 import { listpickerAjaxReload } from'../widgets/listpicker/listpicker';
+import { blockSingleButton } from '../widgets/buttons';
 
 /**
  * Global exports needed for direct calls from xhtml-Elements.
@@ -6,5 +7,7 @@ import { listpickerAjaxReload } from'../widgets/listpicker/listpicker';
  */
 const isywebjs = {};
 isywebjs.listpickerAjaxReload = listpickerAjaxReload;
+isywebjs.blockSingleButton = blockSingleButton;
 
 window.isywebjs = isywebjs;
+
