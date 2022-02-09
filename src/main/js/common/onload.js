@@ -13,6 +13,7 @@ import { registerListpickerHandlers, initialisierenListpickerServlet } from '../
 import { bindReturnToDefaultButton } from '../widgets/buttons';
 import { applyMask, deletePlaceholdersOnReturn } from '../widgets/inputmask';
 import { initNavigation } from './tastatursteuerung-navigation';
+import { initSelectlists } from '../widgets/selectlist';
 
 $(document).ready(function () {
     'use strict';
@@ -114,10 +115,9 @@ function refreshFunctions() {
     lazyLoad();
     initNavigation();
     initialisierenListpickerServlet();
+    initSelectlists();
 
-    // --------------------------------------------------------
-    // refresh selectpickers (so bootstrap-select renders them correctly)
-    // --------------------------------------------------------
+    // refresh selectpickers
     $('.selectpicker').selectpicker('refresh');
 
     // --------------------------------------------------------
@@ -411,31 +411,6 @@ function refreshFunctions() {
     // Datatable Filter
     // --------------------------------------------------------
     refreshDatatableFilterRow();
-
-    // --------------------------------------------------------
-    // Selectlist
-    // --------------------------------------------------------
-    $("select.selectlist").filter(":not(.selectlist_ajaxtoken)")
-        .addClass("selectlist_ajaxtoken")
-        .selectlist({
-            size: 10
-        }).each(function () {
-        // hack to make it work with modal dialogs
-        // the problem is that while initializing the dialog is not shown yet
-        // so all sizes are 0.
-        // the hack: to wait until visible and to refresh then
-        const $list = $(this);
-        let timerId;
-
-        function checkForVisibility() {
-            if ($list.next().is(':visible')) {
-                window.clearInterval(timerId);
-                $list.selectlist('refresh');
-            }
-        }
-
-        timerId = window.setInterval(checkForVisibility, 200);
-    });
 
     // --------------------------------------------------------
     // Toggle Filter
