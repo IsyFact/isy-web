@@ -11,6 +11,7 @@ import { createTabGroup } from './tabs';
 import { lazyLoad } from './common-utils';
 import { registerListpickerHandlers, initialisierenListpickerServlet } from '../widgets/listpicker/listpicker';
 import { bindReturnToDefaultButton } from '../widgets/buttons';
+import { applyMask, deletePlaceholdersOnReturn } from '../widgets/inputmask';
 
 $(document).ready(function () {
     'use strict';
@@ -413,31 +414,8 @@ function refreshFunctions() {
     // --------------------------------------------------------
     // all input elements that have the attribut "inputmask"
     const $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
-    $inputMasks.each(function () {
-        const $inputMask = $(this);
-        if ($inputMask.attr('name').indexOf('listpickerField') > -1) {
-            if ($inputMask.val().indexOf(" - ") >= 0) {
-                //verhindere, dass Ziffern aus dem Wert im Feld verbleiben
-                $inputMask.val($inputMask.val().substring(0, $inputMask.val().indexOf(" - ")));
-            }
-        }
-
-        $inputMask.mask();
-
-        // max length is set via mask, otherwise ctrl+v wouldn't work
-        $inputMask.removeAttr('maxlength');
-    });
-
-    $inputMasks.bind('keydown keypress', function (e) {
-        const $inputMask = $(this);
-
-        if (e.key === 'Enter') {
-            // delete all placeholder characters
-            const existentVal = $inputMask.val();
-            const newVal = existentVal.replace(/_/g, '');
-            $inputMask.val(newVal);
-        }
-    });
+    $inputMasks.each(applyMask);
+    $inputMasks.bind('keydown keypress', deletePlaceholdersOnReturn);
 
     $inputMasks.addClass('isyfact-inputmask_ajaxtoken');
 
