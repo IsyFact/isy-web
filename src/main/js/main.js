@@ -3,3 +3,5 @@ import './common/tastatursteuerung.js';
 import './common/sidebar-collapse';
 import './widgets/specialcharpicker';
 import './widgets/charpickerdinspec';
+
+import './common/global-exports'
