@@ -14,7 +14,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,10 +90,6 @@ public class ResourceCacheHeaderFilter implements Filter {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings(
-            value = "DM_BOXED_PRIMITIVE_FOR_PARSING",
-            justification = "Solved with IFS-806"
-    )
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException {
