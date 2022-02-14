@@ -1,4 +1,44 @@
-import { refreshDatatableFilterRow } from './datatable-utils';
+import {refreshDatatableFilterRow} from "./datatable-filterrow";
+import {
+    activateJSSorting,
+    initClickableArea,
+    setSelectAllCheckboxState,
+    showHideDetail
+} from "./datatable-functionalities";
+
+/**
+ * Adds Handlers for all datatables that aren't initialized yet.
+ * Already initialized Tables are marked with rf-data-table_ajaxtoken
+ */
+export function initDatatables(){
+    const $rfDataTables = $('.rf-data-table').filter(':not(.rf-data-table_ajaxtoken)');
+    // (1) expand clickable area of header columns
+    $rfDataTables.find('th.sortable').click(function (event) {
+        const $target = $(event.target);
+        if ($target.is("th")) {
+            $(this).find('a').click();
+        }
+    });
+    // (2) expand clickable area for selection of rows / set double click / initialize selection mode
+    $rfDataTables.each(initClickableArea);
+    // (3) register show-/hide-detail logic
+    $("table.CLIENT.rf-data-table").each(showHideDetail);
+    // (4) activate JS Sorting
+    $rfDataTables.each(activateJSSorting);
+    // (5) always set the correct state to the "select all" checkbox
+    $rfDataTables.each(setSelectAllCheckboxState);
+
+    $rfDataTables.addClass('rf-data-table_ajaxtoken');
+}
+
+/**
+ * Init Datatables in Clientmode.
+ */
+export function initDatatablesClientmode(){
+    $("table.CLIENT.rf-data-table:not('datatable-client-init')")
+        .addClass('datatable-client-init') // mark as initialized
+        .each(createDatatable);
+}
 
 /**
  * Creates a datatable and its necessary event handlers
@@ -321,7 +361,7 @@ export function createDatatable() {
         });
         // at this point the table entries are sorted without the details
         // we need to correctly assign the details now
-        let newItems = [];
+        const newItems = [];
         $.each(items, function (i, item) {
             const $item = $(item);
             const index = $item.index(); // index in DOM before sorting
@@ -334,7 +374,7 @@ export function createDatatable() {
             }
         });
         $itemsWithDetails.detach();
-        let tbody = $table.find("tbody");
+        const tbody = $table.find("tbody");
         tbody.append(newItems);
         $itemsWithDetails = $table.find("tbody tr");
     };
@@ -344,7 +384,7 @@ export function createDatatable() {
         let sortClass = 'sort-up'; // sort ascending per default
         const thisSortProperty = $th.data("sortattribute");
         if (thisSortProperty == getSortProperty()) {
-            // reverse order
+            // invert sort direction
             if ($th.hasClass('sort-up')) {
                 sortClass = 'sort-down';
             }

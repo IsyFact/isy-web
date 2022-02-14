@@ -1,23 +1,24 @@
-import { createDatepicker } from '../widgets/datepicker/datepicker';
-import { createDatatable } from '../widgets/datatable/datatable';
-import { refreshDatatableFilterRow } from '../widgets/datatable/datatable-utils';
-import {
-    initClickableArea,
-    activateJSSorting,
-    setSelectAllCheckboxState,
-    showHideDetail
-} from '../widgets/datatable/datatable-functionalities';
-import { createTabGroup } from './tabs';
-import { lazyLoad } from './common-utils';
-import { registerListpickerHandlers, initialisierenListpickerServlet } from '../widgets/listpicker/listpicker';
+import { initDatepickers } from '../widgets/datepicker/datepicker';
+import { initDatatablesClientmode, initDatatables } from '../widgets/datatable/datatable';
+import { refreshDatatableFilterRow } from '../widgets/datatable/datatable-filterrow';
+import { createTabGroup } from '../widgets/tabs';
+import { enableMultipartFormIfNeeded, lazyLoad } from './common-utils';
+import { initialisierenListpickerServlet, initListpickers } from '../widgets/listpicker/listpicker';
 import { bindReturnToDefaultButton } from '../widgets/buttons';
-import { applyMask, deletePlaceholdersOnReturn } from '../widgets/inputmask';
+import { initInputMasks } from '../widgets/inputmask';
 import { initNavigation } from './tastatursteuerung-navigation';
-import { initSelectlists } from '../widgets/selectlist';
 import { focusOnload } from './focusOnload';
-import { createToggleFilter, applyToggleFilter } from '../widgets/togglefilter';
+import { initToggleFilters} from '../widgets/togglefilter';
 import { enableTooltips } from '../widgets/tooltip';
 import { initPanels } from '../widgets/panels';
+import { initModalDialogs } from '../widgets/modaldialog';
+import { initSelectpickers } from '../widgets/selectpicker';
+import { initImagePopups } from '../widgets/imagepopup';
+import { initBrowseCollect } from '../widgets/browsecollect';
+import { executeAndRefreshButtonInjectPostGroups } from '../widgets/buttoninjectpostgroup';
+import { renderAjaxErrorMessage, trackAjaxRequests } from './ajax';
+import { addHandlersToSidebar } from './sidebar-collapse';
+import { initSelectlists } from "../widgets/selectlist";
 
 $(document).ready(function () {
     'use strict';
@@ -25,67 +26,27 @@ $(document).ready(function () {
     // Handler for AJAX requests
     // jsf = JSF JavaScript Library
     if (typeof (jsf) != "undefined") {
-        // --------------------------------------------------------
-        // Error Handling
-        // --------------------------------------------------------
-        jsf.ajax
-            .addOnError(function (data) {
 
-                // determine error message
-                let errorMessage = $("[id$='ajaxErrorMessage']").val();
-                const errorMessageTitle = $("[id$='ajaxErrorMessageTitle']").val();
+        // render error messages
+        jsf.ajax.addOnError(renderAjaxErrorMessage);
+        // track status
+        jsf.ajax.addOnEvent(trackAjaxRequests);
+        // refresh handlers after ajax call
 
-                // write to console
-                const error = data.description;
-                console.log(error);
-
-                // replace error message
-                errorMessage = errorMessage.replace("%%FEHLER%%", error);
-
-                // render as a message
-                $("[id$='messagesPlaceholder']").replaceWith(
-                    "<div role='alert' class='alert alert-danger'>" +
-                    "<span><span class='icon icon-placeholder'></span>" +
-                    "<strong>" + errorMessageTitle + "</strong></span>" +
-                    "<span>" + errorMessage + "</span>" +
-                    "</div>");
-
-            });
-
-        // --------------------------------------------------------
-        // Ajax-Callback
-        // --------------------------------------------------------
         jsf.ajax.addOnEvent(function (callback) {
-
-            if (callback.status === 'begin') {
-                $(".ajax-status span").text("begin");
-            }
-
-            if (callback.status === 'complete') {
-                $(".ajax-status span").text("complete");
-            }
 
             if (callback.status === 'success') {
                 refreshFunctions();
-                initialisierenListpickerServlet();
             }
 
         });
     }
 
-    // --------------------------------------------------------
-    // Magnific Popup initialization
-    // --------------------------------------------------------
-    $(document).ready(function () {
-        $('.image-link').magnificPopup({type: 'image'});
-    });
-
-    // --------------------------------------------------------
     // Lazy Loading
-    // --------------------------------------------------------
     $(document).scrolled(0, function () {
         lazyLoad();
     });
+
     $(window).resize(function () {
         const tag = "resizeTimer";
         const self = $(this);
@@ -101,10 +62,11 @@ $(document).ready(function () {
     });
 
 
-    // --------------------------------------------------------
-    // initialize functions
-    // --------------------------------------------------------
+    // init handlers on first load
     refreshFunctions();
+
+    // handlers that will only need to be loaded once, as they are generally not changed by ajax requests
+    addHandlersToSidebar();
 
 });
 
@@ -117,232 +79,40 @@ function refreshFunctions() {
     'use strict';
 
     lazyLoad();
+    // Initialize all custom Handlers
+    initBrowseCollect();
     initNavigation();
     initSelectlists();
-    initToggleFilters();
     initPanels();
     initialisierenListpickerServlet();
+    initToggleFilters();
+    initModalDialogs();
+    initDatepickers();
+    initSelectpickers();
+    initImagePopups();
+    initListpickers();
+    initInputMasks();
 
-    // refresh selectpickers
-    $('.selectpicker').selectpicker('refresh');
+    //data tables
+    initDatatables();
+    initDatatablesClientmode();
+    refreshDatatableFilterRow();
 
-    // --------------------------------------------------------
-    // activate multipart forms if needed
-    // --------------------------------------------------------
-    if ($("[id$='multipartFormEnabled']").val() === 'true') {
-        $("form").attr("enctype", "multipart/form-data");
-    }
+    executeAndRefreshButtonInjectPostGroups();
 
-    // --------------------------------------------------------
-    // Modal dialogs
-    // --------------------------------------------------------
-    // show modal dialog, if any exist
-    const $modalDialogs = $('#modal-add-personal').filter(':not(.modal_ajaxtoken)');
-    $modalDialogs.modal('show');
-    $modalDialogs.addClass('modal_ajaxtoken');
-
-    // brandest: DSD-1467 modal dialog backgrounds become darker when triggering actions
-    // If actions are executed in a modal dialog, which cause the form to reload via AJAX,
-    // the modal dialog is rerendered as well.
-    // This causes another "modal-backdrop" to be added, which overlaps with the previous one.
-    // The prior removal ensures that at most one backdrop exists.
-    const $modalVisible = $('.modal-dialog').is(':visible');
-    $($(".modal-backdrop").get().reverse()).each(function (index, element) {
-        // Removal if a .modal-backdrop exists, even though there is no modal dialog (happens in edge-cases).
-        // also:  "get().reverse()" removes the older .modal-backdrops,
-        // keep the newest (index=0) as only the newest is linked to the button-event
-        if (!$modalVisible || index > 0) {
-            $(element).remove();
-        }
-    });
-
-    // --------------------------------------------------------
-    // FocusOnload
-    // Focus the element on the upper left of the content area on load.
-    // The element to be focussed can be overwritten or deactivated using the isy:focusOnload tag.
-    // Additionally the focusOnloadForce id can be used to force a specific focus element.
-    // --------------------------------------------------------
     focusOnload();
-
-    // --------------------------------------------------------
-    // Activate functionalities for a datatable
-    // --------------------------------------------------------
-    const $rfDataTables = $('.rf-data-table').filter(':not(.rf-data-table_ajaxtoken)');
-    // (1) expand clickable area of header columns
-    $rfDataTables.find('th.sortable').click(function (event) {
-        const $target = $(event.target);
-        if ($target.is("th")) {
-            $(this).find('a').click();
-        }
-    });
-    $rfDataTables.each(initClickableArea);
-    // (3) register show-/hide-detail logic
-    $("table.CLIENT.rf-data-table").each(showHideDetail);
-    // (4) activate JS Sorting
-    $('.rf-data-table').each(activateJSSorting);
-    // (5) always set the correct state to the "select all" checkbox
-    $rfDataTables.each(setSelectAllCheckboxState);
-
-
-    $rfDataTables.addClass('rf-data-table_ajaxtoken');
-
-    // --------------------------------------------------------
-    // Popovers and Tooltips
-    // --------------------------------------------------------
-
     enableTooltips();
-    // --------------------------------------------------------
-    // Maginific Popup (Plugin for image-popups)
-    // --------------------------------------------------------
-    $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)').magnificPopup({
-        type: 'image'
-    });
-    $('.rf-image-popup').filter(':not(.rf-imagepopup_ajaxtoken)').addClass('rf-imagepopup_ajaxtoken');
+    enableMultipartFormIfNeeded();
 
 
-    // --------------------------------------------------------
-    // Datepicker
-    // --------------------------------------------------------
-
-    const $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)');
-
-    $datepickers.each(createDatepicker);
-
-    $datepickers.on('changeDate', function (ev) {
-        $(this).find('input').val(ev.format());
-    });
-
-
-    // --------------------------------------------------------
-    // Input Masks
-    // --------------------------------------------------------
-    // all input elements that have the attribut "inputmask"
-    const $inputMasks = $('input[data-isymask-mask][data-isymask-mask!=""]').filter(':not(.isyfact-inputmask_ajaxtoken)');
-    $inputMasks.each(applyMask);
-    $inputMasks.bind('keydown keypress', deletePlaceholdersOnReturn);
-
-    $inputMasks.addClass('isyfact-inputmask_ajaxtoken');
-
-
-    // --------------------------------------------------------
-    // Listpicker
-    // --------------------------------------------------------
-    /**
-     * The function ensures that the key in a listpicker field is resolved.
-     * The value is extracted from the underlying table using the given column index and added to the listpicker-field.
-     * @param listpickerfield The Listpickerfield.
-     * @param indexSpalteSchluesselWert index of the header column whose contents should be extracted
-     */
-    const $listpickerContainer = $(".listpicker-container").filter(':not(.rf-listpicker_ajaxtoken)');
-    $listpickerContainer.each(registerListpickerHandlers);
-    $listpickerContainer.addClass('rf-listpicker_ajaxtoken');
-
-    // close all listpickers, if a selectpicker is opened
-    const $buttonSelectpicker = $('button.selectpicker');
-    $buttonSelectpicker.click(function (event) {
-        $listpickerContainer.removeClass('open');
-    });
-
-    // --------------------------------------------------------
-    // Tabs
-    // --------------------------------------------------------
     // control preloaded tabs
     $('.isy-tab').each(createTabGroup);
 
-    // --------------------------------------------------------
-    // Button Inject POST
-    // --------------------------------------------------------
-    const $buttonInjectPostGroups = $("[id$='buttonInjectPostGroup']");
-    $buttonInjectPostGroups.each(function () {
-        const $group = $(this);
 
-        // find clickable element in the ButtonInjectPostGroup
-        const $actualButton = $group.find(":nth-child(4)");
 
-        // find button for POST-action
-        const $postButtonId = $group.find("[id$='postButton']").val();
-        let $postButton = $("[id$='" + $postButtonId + "']");
-        //jsf ids might have other suffixes delimited with ':', e.g. ':ajax_button'
-        //prefer no-suffix version, but if none is found, look for suffixed buttons as well
-        if ($postButton.length === 0){
-            $postButton = $("[id*='" + $postButtonId + ":']");
-        }
+    // Bind Enter to Defaultbutton for all forms
+    $("form").each(bindReturnToDefaultButton);
 
-        // find field for posted
-        const $posted = $group.find("[id$='posted']");
-
-        // fiend field for continue
-        const $continue = $group.find("[id$='continue']");
-
-        if ($posted.attr("value") === 'true') {
-            // the POST action was successfully completed. Reset the flag.
-            $posted.attr("value", "false");
-
-            // only click if continue-flag was set
-            if ($continue.attr("value") === 'true') {
-                $actualButton.trigger("onclickStandby");
-            }
-        }
-
-        // bind events, if they haven't already
-        if (!$group.hasClass("isyfact-buttonInjectPostGroup_ajaxtoken")) {
-            // <a>-tag: remove onclick
-            $actualButton.on("onclickStandby", $actualButton.prop("onclick"));
-            $actualButton.prop("onclick", null); // IE11 unterstützt .removeAttr() für "onclick" nicht
-
-            // <input type=submit ...> prevent transmission
-            // overwrite button action
-            $actualButton.on("click.postInject", function (event) {
-                event.preventDefault();
-                $posted.attr("value", "true");
-                $postButton.click();
-            });
-            $group.addClass('isyfact-buttonInjectPostGroup_ajaxtoken');
-        }
-
-    });
-
-    // --------------------------------------------------------
-    // Default Buttons
-    // --------------------------------------------------------
-    const $forms = $("form");
-    $forms.each(bindReturnToDefaultButton);
-
-    // --------------------------------------------------------
-    // Browse and Collect
-    // --------------------------------------------------------
-    $("select.browsecollect").filter(":not(.browsecollect_ajaxtoken)")
-        .addClass("browsecollect_ajaxtoken")
-        .browsecollect({
-            size: 10
-        }).each(function () {
-        // hack to make it work with modal dialogs
-        // the problem is that while initializing the dialog is not shown yet
-        // so all sizes are 0.
-        // the hack: to wait until visible and to refresh then
-        const $bc = $(this);
-        let timerId;
-
-        function checkForVisibility() {
-            if ($bc.next().is(':visible')) {
-                window.clearInterval(timerId);
-                $bc.browsecollect('refresh');
-            }
-        }
-
-        timerId = window.setInterval(checkForVisibility, 200);
-    });
-
-    // --------------------------------------------------------
-    // Datatable Client
-    // --------------------------------------------------------
-    $("table.CLIENT.rf-data-table:not('datatable-client-init')")
-        .addClass('datatable-client-init') // mark as initialized
-        .each(createDatatable);
-    // --------------------------------------------------------
-    // Datatable Filter
-    // --------------------------------------------------------
-    refreshDatatableFilterRow();
 
 
 }

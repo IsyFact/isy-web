@@ -5,7 +5,7 @@
 export function currentDateAsString() {
     "use strict";
     const currentDate = new Date();
-    const dayOfMonth = 6; //currentDate.getDate();
+    const dayOfMonth = currentDate.getDate();
     const month = currentDate.getMonth() + 1;
     const year = currentDate.getFullYear();
     const heute = dayOfMonth.toString() + '.' + month.toString() + '.' + year.toString();
@@ -28,6 +28,9 @@ export function setValidDateAsString(date) {
 
 /**
  * This function transforms two digit years into four digit years in date input fields.
+ *
+ * @param inputFeld input field containing a date
+ * @param grenze threshold indicating if the prefix "19" oder "20" should be added to the two digit year
  */
 export function datumErgaenzen(inputFeld, grenze) {
     "use strict";
@@ -56,8 +59,8 @@ export function datumErgaenzen(inputFeld, grenze) {
  * @returns {string}
  */
 export function fixDateOutOfRange(date) {
-    let year = date[2],
-        month = date[1],
+    const year = date[2];
+    let month = date[1],
         day = date[0];
     // Assumes it's not a leap year by default (note zero index for Jan)
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

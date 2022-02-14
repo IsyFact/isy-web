@@ -1,4 +1,5 @@
-/** Initializes togglefilters.
+/**
+ * Initializes togglefilters.
  * Adds eventhandlers and adds a token-class "toggle-filter-ajax" to mark already initialized toggle-filters.
  * Marked objects will be ignored on subsequent calls.
  */

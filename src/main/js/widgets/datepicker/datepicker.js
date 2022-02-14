@@ -1,9 +1,23 @@
 import { currentDateAsString, setValidDateAsString, datumErgaenzen, fixDateOutOfRange } from './datum-utils';
 
 /**
+ * Adds handlers to all datepickers that haven't been initialized yet.
+ * Initialized datepickers are marked with a token class (rf-datepicker_ajaxtoken).
+ */
+export function initDatepickers() {
+    const $datepickers = $('.rf-datepicker').filter(':not(.rf-datepicker_ajaxtoken)').filter(':not(.rf-datepicker_readonly)');
+    $datepickers.addClass('rf-datepicker_ajaxtoken');
+    $datepickers.each(createDatepicker);
+
+    $datepickers.on('changeDate', function (ev) {
+        $(this).find('input').val(ev.format());
+    });
+}
+
+/**
  * Initializes the datepicker when it is loaded and handles the actions when the user interacts with the datepicker.
  */
-export function createDatepicker () {
+function createDatepicker () {
     $(this).datepicker({
         format: $(this).attr('dateformat'),
         weekStart: 1,
@@ -24,6 +38,9 @@ export function createDatepicker () {
     $datumInputFeld.focusout(datepickerFocusout);
 }
 
+/**
+ * Opens a datepicker.
+ */
 function openDatepicker() {
     // opens a datepicker
     const dateReg = /^\d{2}[.]\d{2}[.]\d{4}$/;
@@ -43,7 +60,7 @@ function openDatepicker() {
         dateString = setValidDateAsString(date);
     } else {
         // copy the manually entered date into the datepicker
-        // invalid date inputs will be fixed
+        // out of range date inputs will be fixed
         dateString = fixDateOutOfRange(date);
     }
     $(this).parent().datepicker('setDate', dateString);
@@ -65,7 +82,7 @@ function datepickerFocusout () {
     if (date[0] === "99") {
         $datumInputFeld.val(currentDateAsString());
     } else {
-        // wrong dates will be fixed
+        // out of range date inputs will be fixed
         $datumInputFeld.val(fixDateOutOfRange(date));
     }
 }
