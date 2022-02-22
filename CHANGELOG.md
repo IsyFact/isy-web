@@ -3,6 +3,7 @@
 - `IFE-455`: Dependencies aktualisiert, um Sicherheitslücken zu schließen
 - `IFE-203`: Unterstützung von Webpack und ES6
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
+- `IFE-476`: Entfernen des Fehlerschlüssels aus den Fehler-Tooltips
 
 # v4.11.0
 - `IFS-1116`: Version Anhebung von IsyFact Standards auf 1.10.0
@@ -17,9 +18,9 @@
 
 # v4.9.2
 
- - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
- 
-            `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
+- `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
+
+           `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
 - `IFS-568`: Test gefixt nach Einbau der neuen isy-util Version
 - `IFE-271`: Stellt Funktionalität von buttonInjectPost-Element wieder her.
 
