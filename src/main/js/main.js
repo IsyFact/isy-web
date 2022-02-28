@@ -1,5 +1,7 @@
 import './common/onload.js';
-import './common/tastatursteuerung.js';
-import './common/sidebar-collapse';
+import './common/tastatursteuerung';
 import './widgets/specialcharpicker';
 import './widgets/charpickerdinspec';
+
+//exports needed by jsf-components
+import './common/global-exports'

@@ -4,6 +4,7 @@
 - `IFE-203`: Unterstützung von Webpack und ES6
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
 - `IFE-476`: Entfernen des Fehlerschlüssels aus den Fehler-Tooltips
+- `IFE-205`: teilt onload.js auf einzelne Komponenten auf
 
 # v4.11.0
 - `IFS-1116`: Version Anhebung von IsyFact Standards auf 1.10.0
