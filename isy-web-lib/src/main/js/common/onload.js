@@ -1,24 +1,24 @@
-import { initDatepickers } from "../widgets/datepicker/datepicker";
-import { initDatatablesClientmode, initDatatables } from "../widgets/datatable/datatable";
-import { refreshDatatableFilterRow } from "../widgets/datatable/datatable-filterrow";
-import { createTabGroup } from "../widgets/tabs";
-import { enableMultipartFormIfNeeded, lazyLoad } from "./common-utils";
-import { initialisierenListpickerServlet, initListpickers } from '../widgets/listpicker';
-import { bindReturnToDefaultButton } from "../widgets/buttons";
-import { initInputMasks } from "../widgets/inputmask";
-import { initNavigation } from "./tastatursteuerung-navigation";
-import { initSelectlists } from "../widgets/selectlist";
-import { focusOnload } from "./focusOnload";
-import { initToggleFilters } from "../widgets/togglefilter";
-import { enableTooltips } from "../widgets/tooltip";
-import { initPanels } from "../widgets/panels";
-import { initModalDialogs } from "../widgets/modaldialog";
-import { initSelectpickers } from "../widgets/selectpicker";
-import { initImagePopups } from "../widgets/imagepopup";
-import { initBrowseCollect } from "../widgets/browsecollect";
-import { executeAndRefreshButtonInjectPostGroups } from "../widgets/buttoninjectpostgroup";
-import { renderAjaxErrorMessage, trackAjaxRequests } from "./ajax";
-import { addHandlersToSidebar } from "./sidebar-collapse";
+import {initDatepickers} from "../widgets/datepicker/datepicker";
+import {initDatatables, initDatatablesClientmode} from "../widgets/datatable/datatable";
+import {refreshDatatableFilterRow} from "../widgets/datatable/datatable-filterrow";
+import {createTabGroup} from "../widgets/tabs";
+import {enableMultipartFormIfNeeded, lazyLoad} from "./common-utils";
+import {initialisierenListpickerServlet, initListpickers} from '../widgets/listpicker';
+import {bindReturnToDefaultButton} from "../widgets/buttons";
+import {initInputMasks} from "../widgets/inputmask";
+import {initNavigation} from "./tastatursteuerung-navigation";
+import {initSelectlists} from "../widgets/selectlist";
+import {focusOnload} from "./focusOnload";
+import {initToggleFilters} from "../widgets/togglefilter";
+import {enableTooltips} from "../widgets/tooltip";
+import {initPanels} from "../widgets/panels";
+import {initModalDialogs} from "../widgets/modaldialog";
+import {initSelectpickers} from "../widgets/selectpicker";
+import {initImagePopups} from "../widgets/imagepopup";
+import {initBrowseCollect} from "../widgets/browsecollect";
+import {executeAndRefreshButtonInjectPostGroups} from "../widgets/buttoninjectpostgroup";
+import {renderAjaxErrorMessage, trackAjaxRequests} from "./ajax";
+import {addHandlersToSidebar} from "./sidebar-collapse";
 
 $(document).ready(function () {
     'use strict';
@@ -74,9 +74,7 @@ function refreshFunctions() {
 
     lazyLoad();
     // Initialize all custom Handlers
-    initBrowseCollect();
     initNavigation();
-    initSelectlists();
     initPanels();
     initialisierenListpickerServlet();
     initToggleFilters();
@@ -104,4 +102,7 @@ function refreshFunctions() {
 
     // Bind enter to Defaultbutton for all Forms
     $("form").each(bindReturnToDefaultButton);
+
+    initBrowseCollect();
+    initSelectlists();
 }
