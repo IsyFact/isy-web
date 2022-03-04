@@ -1,3 +1,5 @@
+# v5.3.1
+
 # v5.3.0
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
 - `IFS-970`: Anhebung auf IF 2.4
