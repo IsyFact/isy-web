@@ -55,7 +55,7 @@
 			styleClass="btn btn-default #{cc.attrs.styleClass}"
 			value="#{cc.attrs.value}" disabled="#{btnDisabled}">
 			<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
-				disabled="#{not cc.attrs.ajax}" onevent="blockSingleButton" />
+				disabled="#{not cc.attrs.ajax}" onevent="isywebjs.blockSingleButton" />
 		</h:commandButton>
 	</ui:fragment>
 	<ui:fragment
