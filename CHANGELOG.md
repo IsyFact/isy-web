@@ -2,6 +2,7 @@
 
 - Ursprüngliche (vor `IFE-141`) Reihenfolge der Funktionen in onload.js wiederhergestellt.
   * browseCollect und selectLists haben spezielle Behandlung für modale Dialoge und müssen nach den modalen Dialogen initialisiert werden.
+- `WebFlowAutoConfiguration` registriert automatisch alle `FlowExecutionListener` Beans aus dem Spring Kontext.
 
 # v5.3.0
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
