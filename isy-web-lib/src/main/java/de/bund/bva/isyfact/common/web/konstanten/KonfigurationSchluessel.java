@@ -20,7 +20,9 @@ package de.bund.bva.isyfact.common.web.konstanten;
  * Konstantenklasse für Konfigurationsschlüssel.
  *
  */
-public abstract class KonfigurationSchluessel {
+public final class KonfigurationSchluessel {
+
+    private KonfigurationSchluessel () {}
 
     /**
      * Der zu inkludierende Nutzerbereich.
@@ -31,6 +33,11 @@ public abstract class KonfigurationSchluessel {
      * Die erzwungene Sprache für Maskentexte, beispielsweise nur Deutsch.
      */
     public static final String GUI_LANGUAGE_FORCED_LOCALE = "gui.language.forced.locale";
+
+    /**
+     * The logout url as {@link String}
+     */
+    public static final String GUI_LOGOUT_URL = "gui.logout.url";
 
     /**
      * Die Systemversion.
