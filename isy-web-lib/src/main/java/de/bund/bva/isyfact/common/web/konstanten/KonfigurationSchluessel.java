@@ -25,11 +25,6 @@ public final class KonfigurationSchluessel {
     }
 
     /**
-     * The user area to be included.
-     */
-    public static final String GUI_HEADER_NUTZERBEREICH_XHTML_SRC = "gui.header.nutzerbereich.xhtml.src";
-
-    /**
      * The forced language for mask texts, for example German only.
      */
     public static final String GUI_LANGUAGE_FORCED_LOCALE = "gui.language.forced.locale";

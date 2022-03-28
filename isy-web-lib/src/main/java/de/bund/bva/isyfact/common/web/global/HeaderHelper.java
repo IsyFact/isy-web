@@ -103,16 +103,6 @@ public class HeaderHelper {
     }
 
     /**
-     * Returns the XHTML source for the user area.
-     *
-     * @param request is the {@link HttpServletRequest}
-     * @return The source.
-     */
-    public String ermittleXhtmlSrcNutzerbereich(HttpServletRequest request) {
-        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_NUTZERBEREICH_XHTML_SRC);
-    }
-
-    /**
      * Returns the path to the right header logo.
      *
      * @param request is the {@link HttpServletRequest}
