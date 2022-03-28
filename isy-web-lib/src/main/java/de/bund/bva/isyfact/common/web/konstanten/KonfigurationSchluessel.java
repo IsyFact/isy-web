@@ -6,7 +6,7 @@
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,78 +17,78 @@
 package de.bund.bva.isyfact.common.web.konstanten;
 
 /**
- * Konstantenklasse für Konfigurationsschlüssel.
- *
+ * Constant class for configuration keys.
  */
 public final class KonfigurationSchluessel {
 
-    private KonfigurationSchluessel () {}
+    private KonfigurationSchluessel() {
+    }
 
     /**
-     * Der zu inkludierende Nutzerbereich.
+     * The user area to be included.
      */
     public static final String GUI_HEADER_NUTZERBEREICH_XHTML_SRC = "gui.header.nutzerbereich.xhtml.src";
 
     /**
-     * Die erzwungene Sprache für Maskentexte, beispielsweise nur Deutsch.
+     * The forced language for mask texts, for example German only.
      */
     public static final String GUI_LANGUAGE_FORCED_LOCALE = "gui.language.forced.locale";
 
     /**
-     * The logout url as {@link String}
+     * The logout url.
      */
     public static final String GUI_LOGOUT_URL = "gui.logout.url";
 
     /**
-     * Die Systemversion.
+     * The system version.
      */
     public static final String SYSTEM_VERSION = "system.version";
 
     /**
-     * Der Systemname.
+     * The system name.
      */
     public static final String SYSTEM_NAME = "system.name";
 
     /**
-     * Ob die Versionsnummer im Seitentitel angezeigt werden soll.
+     * Whether to display the version number in the page title.
      */
     public static final String GUI_VERSIONSANZEIGE_SEITENTITEL_AKTIV =
-        "gui.versionsanzeige.seitentitel.aktiv";
+            "gui.versionsanzeige.seitentitel.aktiv";
 
     /**
-     * Der relative Pfad zum Logo, das im Header rechts angezeigt werden soll. Bsp.:
-     * /resources/img/logo-rechts.png
+     * The relative path to the logo to be displayed in the header on the right.
+     * Example: /resources/img/logo-rechts.png
      */
     public static final String GUI_HEADER_LOGO_RECHTS_PFAD = "gui.header.logo.rechts.pfad";
 
     /**
-     * Der relative Pfad zum Logo, das im Header links angezeigt werden soll. Bsp.:
-     * /resources/img/logo-links.png
+     * The relative path to the logo to be displayed in the header on the left.
+     * Example: /resources/img/logo-links.png
      */
     public static final String GUI_HEADER_LOGO_LINKS_PFAD = "gui.header.logo.links.pfad";
 
     /**
-     * Der Text, der im span neben dem rechten Logo angezeigt werden soll.
+     * The text to be displayed in the span next to the right logo.
      */
     public static final String GUI_HEADER_TEXT_LOGO_RECHTS = "gui.header.text.logo.rechts";
 
     /**
-     * Zweistellige Jahreszahlen werden bei einer Datumsangabe ergänzt zu 19XX bzw. 20XX. Die Grenze legt
-     * fest, bis welchen Wert 20XX ergänzt wird bzw. ab welchem Wert 19XX ergänzt wird. Dabei werden Grenzwert
-     * und das aktuelle Jahr addiert, damit der resultierende Wert im Laufe der Jahre mitläuft. Beispiel für
-     * konfigurierte Grenze 3 und Jahr 2017: Eingaben 0-20 werden auf 2000-2020 ergänzt und Eingaben 21-99
-     * werden auf 1921-1999 ergänzt.
+     * Two-digit years are supplemented to 19XX or 20XX when a date is specified. The limit defines
+     * defines up to which value 20XX is added or from which value 19XX is added. The limit value
+     * and the current year are added, so that the resulting value runs along in the course of the years. Example for
+     * configured limit 3 and year 2017: Inputs 0-20 are supplemented to 2000-2020 and inputs 21-99
+     * are supplemented to 1921-1999.
      */
     public static final String GUI_DATUMSANGABE_JAHRESZAHLEN_ERGAENZEN_GRENZE =
-        "gui.datumsangabe.jahreszahlen.ergaenzen.grenze";
+            "gui.datumsangabe.jahreszahlen.ergaenzen.grenze";
 
     /**
-     * Schluesselwert fuer die Extraktion der Anwendungsgruppen-Ids aus der Konfigurationsdatei.
+     * Key value for extracting the application group ids from the configuration file.
      */
     public static final String GUI_ANWENDUNGSGRUPPEN_IDS = "gui.anwendungsgruppen.ids";
 
     /**
-     * Schluesselwert fuer die Extraktion der Anwendungsgruppen-URLs aus der Konfigurationsdatei.
+     * Key value for extracting the application group URLs from the configuration file.
      */
     public static final String GUI_ANWENDUNGSGRUPPEN_URLS = "gui.anwendungsgruppen.urls";
 }
