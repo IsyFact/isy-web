@@ -23,11 +23,6 @@ package de.bund.bva.isyfact.common.web.konstanten;
 public abstract class KonfigurationSchluessel {
 
     /**
-     * Der zu inkludierende Nutzerbereich.
-     */
-    public static final String GUI_HEADER_NUTZERBEREICH_XHTML_SRC = "gui.header.nutzerbereich.xhtml.src";
-
-    /**
      * Die erzwungene Sprache für Maskentexte, beispielsweise nur Deutsch.
      */
     public static final String GUI_LANGUAGE_FORCED_LOCALE = "gui.language.forced.locale";
@@ -84,4 +79,9 @@ public abstract class KonfigurationSchluessel {
      * Schluesselwert fuer die Extraktion der Anwendungsgruppen-URLs aus der Konfigurationsdatei.
      */
     public static final String GUI_ANWENDUNGSGRUPPEN_URLS = "gui.anwendungsgruppen.urls";
+
+    /**
+     * The logout url.
+     */
+    public static final String GUI_LOGOUT_URL = "gui.logout.url";
 }

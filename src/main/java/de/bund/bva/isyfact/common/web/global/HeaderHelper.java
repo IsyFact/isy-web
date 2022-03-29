@@ -95,16 +95,6 @@ public class HeaderHelper {
     }
 
     /**
-     * Gibt die XHTML Quelle für den Nutzerbereich zurück.
-     *
-     * @param request ist der {@link HttpServletRequest}
-     * @return Die Quelle.
-     */
-    public String ermittleXhtmlSrcNutzerbereich(HttpServletRequest request) {
-        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_NUTZERBEREICH_XHTML_SRC);
-    }
-
-    /**
      * Gibt den Pfad zum rechten Header Logo zurück.
      *
      * @param request ist der {@link HttpServletRequest}
@@ -234,5 +224,14 @@ public class HeaderHelper {
         } catch (KonfigurationException ex) {
             return null;
         }
+    }
+
+    /**
+     * Gets the logout Url for the header.
+     *
+     * @return Logout Url as {@link String}. Default Value: "/logout"
+     */
+    public String ermittleLogoutUrl () {
+        return konfiguration.getAsString(KonfigurationSchluessel.GUI_LOGOUT_URL, "/logout");
     }
 }
