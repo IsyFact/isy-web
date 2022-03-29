@@ -19,7 +19,10 @@ package de.bund.bva.isyfact.common.web.konstanten;
 /**
  * Constant class for configuration keys.
  */
-public abstract class KonfigurationSchluessel {
+public final class KonfigurationSchluessel {
+
+    private KonfigurationSchluessel() {
+    }
 
     /**
      * The forced language for mask texts, for example German only.
