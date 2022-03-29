@@ -1,4 +1,5 @@
 # v4.12.0
+- `IFE-424`: Implementierung eines Nutzerbereichs
 - `IFE-177`: adopt fix from `IFE-30` to render readonly dropdowns as labels
 - `IFE-455`: Dependencies aktualisiert, um Sicherheitslücken zu schließen
 - `IFE-203`: Unterstützung von Webpack und ES6
