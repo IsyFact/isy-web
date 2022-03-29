@@ -20,17 +20,20 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
+
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
 
@@ -80,7 +83,7 @@ public class HeaderHelper {
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
         synchronized (sessionMap.getMutex()) {
             NavigationMenuModel navigationMenuModel =
-                (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
+                    (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
             if (navigationMenuModel != null) {
                 List<Applikationsgruppe> applikationListe = navigationMenuModel.getApplikationsListe();
                 for (Applikationsgruppe applikation : applikationListe) {
@@ -103,7 +106,7 @@ public class HeaderHelper {
     public String ermittlePfadHeaderLogoRechts(HttpServletRequest request) {
         String flowname = getFlownameFromRequest(request);
         String konfigValue =
-            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_RECHTS_PFAD);
+                getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_RECHTS_PFAD);
 
         if (konfigValue != null) {
             return konfigValue;
@@ -121,7 +124,7 @@ public class HeaderHelper {
     public String ermittlePfadHeaderLogoLinks(HttpServletRequest request) {
         String flowname = getFlownameFromRequest(request);
         String konfigValue =
-            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_LINKS_PFAD);
+                getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_LINKS_PFAD);
 
         if (konfigValue != null) {
             return konfigValue;
@@ -139,7 +142,7 @@ public class HeaderHelper {
     public String ermittleTextHeaderLogoRechts(HttpServletRequest request) {
         String flowname = getFlownameFromRequest(request);
         String konfigValue =
-            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_TEXT_LOGO_RECHTS);
+                getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_TEXT_LOGO_RECHTS);
 
         if (konfigValue != null) {
             return konfigValue;
@@ -155,11 +158,11 @@ public class HeaderHelper {
      */
     private List<String> ermittleAnwendungsgruppenIds() {
         String anwendungsgruppenIds =
-            getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_IDS);
+                getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_IDS);
 
         if (!Strings.isNullOrEmpty(anwendungsgruppenIds)) {
             return Lists
-                .newArrayList(Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenIds));
+                    .newArrayList(Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenIds));
         } else {
             return Collections.emptyList();
         }
@@ -172,18 +175,18 @@ public class HeaderHelper {
      */
     private List<String> ermittleAnwendungsgruppenUrls(String gruppenId) {
         String anwendungsgruppenUrls =
-            getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_URLS + "." + gruppenId);
+                getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_URLS + "." + gruppenId);
 
         if (!Strings.isNullOrEmpty(anwendungsgruppenUrls)) {
             return Lists
-                .newArrayList(Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenUrls));
+                    .newArrayList(Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenUrls));
         } else {
             return Collections.emptyList();
         }
     }
 
 
-/**
+    /**
      * Determines the flow name from the requestUri.
      *
      * @param request is the {@link HttpServletRequest}
@@ -191,13 +194,13 @@ public class HeaderHelper {
      */
     private String getFlownameFromRequest(HttpServletRequest request) {
         return request.getRequestURI()
-            .substring(request.getContextPath().length() + request.getServletPath().length() + 1);
+                .substring(request.getContextPath().length() + request.getServletPath().length() + 1);
     }
 
     /**
      * Get the value for a given configuration key from Configuration.
      *
-     * @param flowname name of the current WebFlow.
+     * @param flowname                 name of the current WebFlow.
      * @param konfigurationsSchluessel the configuration key
      * @return value for the configuration key
      */
@@ -231,7 +234,7 @@ public class HeaderHelper {
      *
      * @return Logout Url as {@link String}. Default Value: "/logout"
      */
-    public String ermittleLogoutUrl () {
+    public String ermittleLogoutUrl() {
         return konfiguration.getAsString(KonfigurationSchluessel.GUI_LOGOUT_URL, "/logout");
     }
 }
