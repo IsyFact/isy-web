@@ -2,6 +2,7 @@
 - `IFS-1115`: Version Anhebung von IsyFact Standards auf 2.3.0
 #### Bekannte Probleme
 - Die Darstellung des DIN SPEC Charpickers in Modalenfenstern ist falsch (betrifft isy-style 5.2.0 und 5.3.0)
+- `IFS-1398`: Update auf IsyFact Standards 2.3.2 (CVE-2022-22965)
 
 # v5.1.0
 - `IFS-932`: `IFS-931 IFS-848` auf IFS 2.2 portiert
