@@ -9,7 +9,7 @@
 	},
 	"devDependencies": {
 		"css-loader": "^5.2.7",
-		"css-minimizer-webpack-plugin": "^1.1.5",
+		"css-minimizer-webpack-plugin": "^2.0.0",
 		"eslint": "^7.32.0",
 		"eslint-plugin-es": "^4.1.0",
 		"eslint-webpack-plugin": "^2.6.0",
