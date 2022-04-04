@@ -1,3 +1,6 @@
+# v5.1.1
+- `IFS-1398`: Update auf IsyFact Standards 2.2.2 (CVE-2022-22965)
+
 # v5.1.0
 - `IFS-932`: `IFS-931 IFS-848` auf IFS 2.2 portiert
 - `IFS-931 IFS-848`: Din Spec Charpicker implementiert
