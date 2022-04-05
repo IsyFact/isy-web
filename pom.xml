@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>isy-web-parent</artifactId>
-    <version>5.4.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>IsyFact-Web</name>
@@ -21,6 +21,7 @@
 
     <properties>
         <isyfact-bom-version>2.5.0-SNAPSHOT</isyfact-bom-version>
+        <revision>0.0.0-SNAPSHOT</revision>
     </properties>
 
     <dependencyManagement>
@@ -66,4 +67,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
