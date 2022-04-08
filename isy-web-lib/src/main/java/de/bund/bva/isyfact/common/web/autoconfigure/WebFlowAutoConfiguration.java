@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.common.web.autoconfigure;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter;
 import org.springframework.webflow.config.FlowExecutorBuilder;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
 import org.springframework.webflow.engine.builder.support.FlowBuilderServices;
+import org.springframework.webflow.execution.FlowExecutionListener;
 import org.springframework.webflow.executor.FlowExecutor;
 import org.springframework.webflow.security.SecurityFlowExecutionListener;
 
@@ -22,16 +23,6 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 @Configuration
 public class WebFlowAutoConfiguration extends AbstractFacesFlowConfiguration {
-
-    /**
-     * Zugriff auf die Konfigurationsbean.
-     */
-    private Konfiguration konfiguration;
-
-    @Autowired
-    public WebFlowAutoConfiguration(Konfiguration konfiguration) {
-        this.konfiguration = konfiguration;
-    }
 
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
@@ -48,29 +39,25 @@ public class WebFlowAutoConfiguration extends AbstractFacesFlowConfiguration {
     }
 
     @Bean
-    public FlowExecutor flowExecutor(TitlesListener titlesListener,
-                                     SecurityFlowExecutionListener securityListener,
-                                     FlowFacesContextLifecycleListener facesContextListener) {
-        FlowExecutorBuilder builder = getFlowExecutorBuilder(flowRegistry())
-                .addFlowExecutionListener(facesContextListener)
-                .addFlowExecutionListener(securityListener)
-                .addFlowExecutionListener(titlesListener);
+    public FlowExecutor flowExecutor(
+            Konfiguration konfiguration,
+            ObjectProvider<FlowExecutionListener> flowExecutionListeners) {
+
+        final FlowExecutorBuilder builder = getFlowExecutorBuilder(flowRegistry());
+
+        flowExecutionListeners.forEach(builder::addFlowExecutionListener);
 
         // Benutze spezifische Werte nur, falls diese konfiguriert wurden. Ansonsten wird automatisch der
         // Spring-Standard verwendet.
-        if (this.konfiguration.getAsString("gui.webflow.max.executions", null) != null) {
-            builder =
-                    builder.setMaxFlowExecutions(this.konfiguration.getAsInteger("gui.webflow.max.executions"));
+        if (konfiguration.getSchluessel().contains("gui.webflow.max.executions")) {
+            builder.setMaxFlowExecutions(konfiguration.getAsInteger("gui.webflow.max.executions"));
         }
 
-        if (this.konfiguration.getAsString("gui.webflow.max.snapshots", null) != null) {
-            builder =
-                    builder.setMaxFlowExecutionSnapshots(this.konfiguration
-                            .getAsInteger("gui.webflow.max.snapshots"));
+        if (konfiguration.getSchluessel().contains("gui.webflow.max.snapshots")) {
+            builder.setMaxFlowExecutionSnapshots(konfiguration.getAsInteger("gui.webflow.max.snapshots"));
         }
 
         return builder.build();
-
     }
 
     // Logging
