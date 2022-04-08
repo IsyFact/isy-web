@@ -1,5 +1,7 @@
-# v5.3.1
+# v5.4.0
 
+# v5.3.1
+- `IFS-1397`: Anhebung auf Isyfact-erweiterungen 2.4.1 mit Spring Boot 2.5.12 (Fix CVE-2022-22965)
 - Ursprüngliche (vor `IFE-141`) Reihenfolge der Funktionen in onload.js wiederhergestellt.
   * browseCollect und selectLists haben spezielle Behandlung für modale Dialoge und müssen nach den modalen Dialogen initialisiert werden.
 - `WebFlowAutoConfiguration` registriert automatisch alle `FlowExecutionListener` Beans aus dem Spring Kontext.
@@ -7,11 +9,12 @@
 # v5.3.0
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
 - `IFS-970`: Anhebung auf IF 2.4
-- Maven Dependency Convergency Fehler behoben
+    - Maven Dependency Convergency Fehler behoben
 - `IFE-455`: Dependencies aktualisiert, um Sicherheitslücken zu schließen
 - `IFS-601`: Aktualisierung auf JPA 2.2.
 - `IFE-311`: Fehlende Selektion bei der Navigation behoben
 - `IFE-177`: Fix `IFE-30` übernommen, damit readonly-Dropdowns als Labels dargestellt werden.
+- `IFE-471`: Entfernen des Fehlerschlüssels aus den Fehler-Tooltips
 
 # v5.2.0
 - `IFS-1115`: Version Anhebung von IsyFact Standards auf 2.3.0
