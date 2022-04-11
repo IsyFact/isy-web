@@ -1,3 +1,6 @@
+# 4.11.1
+- IsyFact-Standards auf v1.10.1 angehoben
+
 # v4.11.0
 - `IFS-1116`: Version Anhebung von IsyFact Standards auf 1.10.0
 #### Bekannte Probleme
@@ -10,9 +13,7 @@
 - `IFS-650`: Version Anhebung von IsyFact Standards auf 1.9.0
 
 # v4.9.2
-
  - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
- 
             `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
 - `IFS-568`: Test gefixt nach Einbau der neuen isy-util Version
 - `IFE-271`: Stellt Funktionalität von buttonInjectPost-Element wieder her.
