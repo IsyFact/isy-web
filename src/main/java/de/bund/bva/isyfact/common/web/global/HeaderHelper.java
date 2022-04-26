@@ -20,32 +20,35 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMenuModel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
+
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
 
 /**
- * Helper-Klasse für den Header.
+ * Helper class for the header.
  */
 public class HeaderHelper {
 
     /**
-     * Die Konfiguration.
+     * Configuration.
      */
     private final Konfiguration konfiguration;
 
     /**
-     * Zuordnung von URL-Requests (Flows) zu Anwendungsgruppen-Ids.
+     * Mapping URL requests (flows) to application group ids.
      */
     private final Map<String, String> flowToAnwendungsgruppe = new HashMap<>();
 
@@ -56,7 +59,7 @@ public class HeaderHelper {
     }
 
     /**
-     * Erstellt eine Zuordnung von URLs zu Anwendungsgruppen-IDs.
+     * Creates a mapping of URLs to application group IDs.
      */
     private void initialisiereAnwendungsgruppenKonfiguration() {
         List<String> anwendungsgruppenIds = ermittleAnwendungsgruppenIds();
@@ -69,18 +72,18 @@ public class HeaderHelper {
     }
 
     /**
-     * Ermittelt den Farbwert der Anwendungsgruppe.
-     * Der Wert wird dem {@link NavigationMenuModel} entnommen, das in der Session abgelegt ist.
-     * Genauer wird der Wert der aktiven {@link Applikationsgruppe} genommen.
-     * Sollte keine {@link Applikationsgruppe} aktiv sein, dann wird keine Farbe gesetzt.
+     * Determines the color value of the application group.
+     * The value is taken from the {@link NavigationMenuModel} stored in the session.
+     * More precisely, the value of the active {@link Applikationsgruppe} is taken.
+     * If no {@link Applikationsgruppe} is active, then no color is set.
      *
-     * @return der Farbwert der Anwendungsgruppe
+     * @return the color value of the application group.
      */
     public String ermittleFarbwertAnwendungsgruppe() {
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
         synchronized (sessionMap.getMutex()) {
             NavigationMenuModel navigationMenuModel =
-                (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
+                    (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
             if (navigationMenuModel != null) {
                 List<Applikationsgruppe> applikationListe = navigationMenuModel.getApplikationsListe();
                 for (Applikationsgruppe applikation : applikationListe) {
@@ -95,25 +98,15 @@ public class HeaderHelper {
     }
 
     /**
-     * Gibt die XHTML Quelle für den Nutzerbereich zurück.
+     * Returns the path to the right header logo.
      *
-     * @param request ist der {@link HttpServletRequest}
-     * @return Die Quelle.
-     */
-    public String ermittleXhtmlSrcNutzerbereich(HttpServletRequest request) {
-        return this.konfiguration.getAsString(KonfigurationSchluessel.GUI_HEADER_NUTZERBEREICH_XHTML_SRC);
-    }
-
-    /**
-     * Gibt den Pfad zum rechten Header Logo zurück.
-     *
-     * @param request ist der {@link HttpServletRequest}
-     * @return Pfad, der aus der Konfiguration stammt, Fallback auf Defaultpfad.
+     * @param request is the {@link HttpServletRequest}
+     * @return path that comes from the configuration, fallback to default path.
      */
     public String ermittlePfadHeaderLogoRechts(HttpServletRequest request) {
         String flowname = getFlownameFromRequest(request);
         String konfigValue =
-            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_RECHTS_PFAD);
+                getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_RECHTS_PFAD);
 
         if (konfigValue != null) {
             return konfigValue;
@@ -123,15 +116,15 @@ public class HeaderHelper {
     }
 
     /**
-     * Gibt den Pfad zum linken Header Logo zurück.
+     * Returns the path to the left header logo.
      *
-     * @param request ist der {@link HttpServletRequest}
-     * @return Den Pfad, der aus der Konfiguration stammt, Fallback auf Defaultpfad.
+     * @param request is the {@link HttpServletRequest}
+     * @return The path that comes from the configuration, fallback to default path.
      */
     public String ermittlePfadHeaderLogoLinks(HttpServletRequest request) {
         String flowname = getFlownameFromRequest(request);
         String konfigValue =
-            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_LINKS_PFAD);
+                getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_LOGO_LINKS_PFAD);
 
         if (konfigValue != null) {
             return konfigValue;
@@ -141,15 +134,15 @@ public class HeaderHelper {
     }
 
     /**
-     * Gibt den Text, der im span neben dem rechten Logo angezeigt werden soll, zurück.
+     * Returns the text to be displayed in the span next to the right logo.
      *
-     * @param request ist der {@link HttpServletRequest}
-     * @return Den Text, der aus der Konfiguration stammt, Fallback auf Defaultpfad.
+     * @param request is the {@link HttpServletRequest}
+     * @return The text that comes from the configuration, fallback to default path.
      */
     public String ermittleTextHeaderLogoRechts(HttpServletRequest request) {
         String flowname = getFlownameFromRequest(request);
         String konfigValue =
-            getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_TEXT_LOGO_RECHTS);
+                getKonfigurationsWert(flowname, KonfigurationSchluessel.GUI_HEADER_TEXT_LOGO_RECHTS);
 
         if (konfigValue != null) {
             return konfigValue;
@@ -159,34 +152,34 @@ public class HeaderHelper {
     }
 
     /**
-     * Ermittle die zulässigen AnwendungsgruppenIds und schreibe diese in konfigurierteGuiAnwendungsgruppenIds.
+     * Determine the allowed application groupIds and write them to configuredGuiApplication groupIds.
      *
-     * @return true, wenn GUI-Anwendungsgruppen-Ids definiert sind.
+     * @return {@code true} if GUI application groupIds are defined.
      */
     private List<String> ermittleAnwendungsgruppenIds() {
         String anwendungsgruppenIds =
-            getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_IDS);
+                getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_IDS);
 
         if (!Strings.isNullOrEmpty(anwendungsgruppenIds)) {
             return Lists
-                .newArrayList(Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenIds));
+                    .newArrayList(Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenIds));
         } else {
             return Collections.emptyList();
         }
     }
 
     /**
-     * Ermittle die zulässigen Anwendungsgruppen-URLs und schreibe diese in flowToAnwendungsgruppe (MAP).
+     * Determine the allowed application group URLs and write them to flowToApplication Group (MAP).
      *
-     * @return true, wenn GUI-Anwendungsgruppen-Urls definiert sind.
+     * @return {@code true} if GUI application group urls are defined.
      */
     private List<String> ermittleAnwendungsgruppenUrls(String gruppenId) {
         String anwendungsgruppenUrls =
-            getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_URLS + "." + gruppenId);
+                getKonfigurationsWert(KonfigurationSchluessel.GUI_ANWENDUNGSGRUPPEN_URLS + "." + gruppenId);
 
         if (!Strings.isNullOrEmpty(anwendungsgruppenUrls)) {
             return Lists
-                .newArrayList(Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenUrls));
+                    .newArrayList(Splitter.on(",").omitEmptyStrings().trimResults().split(anwendungsgruppenUrls));
         } else {
             return Collections.emptyList();
         }
@@ -194,22 +187,22 @@ public class HeaderHelper {
 
 
     /**
-     * Ermittelt den Flownamen aus dem RequestUri.
+     * Determines the flow name from the requestUri.
      *
-     * @param request ist der {@link HttpServletRequest}
-     * @return Flownamen.
+     * @param request is the {@link HttpServletRequest}
+     * @return flow name.
      */
     private String getFlownameFromRequest(HttpServletRequest request) {
         return request.getRequestURI()
-            .substring(request.getContextPath().length() + request.getServletPath().length() + 1);
+                .substring(request.getContextPath().length() + request.getServletPath().length() + 1);
     }
 
     /**
-     * Hole den Wert für einen gegebenen Konfigurationsschluessel aus Konfiguration.
+     * Get the value for a given configuration key from Configuration.
      *
-     * @param flowname                 Name des aktuellen WebFlows
-     * @param konfigurationsSchluessel der Konfigurationsschlüssel
-     * @return Wert für den Konfigurationsschlüssel
+     * @param flowname                 name of the current WebFlow.
+     * @param konfigurationsSchluessel the configuration key
+     * @return value for the configuration key
      */
     private String getKonfigurationsWert(String flowname, String konfigurationsSchluessel) {
 
@@ -223,10 +216,10 @@ public class HeaderHelper {
     }
 
     /**
-     * Hole den Wert für einen gegebenen Konfigurationsschluessel aus Konfiguration.
+     * Get the value for a given configuration key from Configuration.
      *
-     * @param konfigParam Name des Konfigurationsparameters
-     * @return Der Konfigurationswert für den übergebenen Konfigurationsschlüssel.
+     * @param konfigParam Name of the configuration parameter.
+     * @return The configuration value for the given configuration key.
      */
     private String getKonfigurationsWert(String konfigParam) {
         try {
@@ -234,5 +227,14 @@ public class HeaderHelper {
         } catch (KonfigurationException ex) {
             return null;
         }
+    }
+
+    /**
+     * Gets the logout url for the header.
+     *
+     * @return Logout Url as {@link String}. Default Value: "/logout"
+     */
+    public String ermittleLogoutUrl() {
+        return konfiguration.getAsString(KonfigurationSchluessel.GUI_LOGOUT_URL, "/logout");
     }
 }
