@@ -2332,6 +2332,10 @@ Das Eingabefeld für Geldbeträge:
 * besitzt kein Attribut `inputmask`, da sich diese nicht mit der JavaScript-Funktion verträgt, welche die Daten formatiert.
 * lässt nur die Eingabe von Zahlen und Kommata zu; alle anderen Zeichen werden direkt nach Eingabe sofort wieder gelöscht.
 * besitzt das Attribut `onchange` - dort kann eine JavaScript-Funktion übergeben werden, die aufgerufen wird, sobald der Cursor das Feld verlässt.
+* rundet die eingegebene Zahl ab einer Länge von mehr als 15 Ziffern automatisch. Daraus lassen sich folgende Beispiele ableiten:
+** Ohne Nachkommastelle ist 999999999999999
+** für 1 Nachkommastelle ist 99999999999999,9
+** für 2 Nachkommastellen ist 9999999999999,99 der maximale Betrag ohne Rundung.
 
 Folgende Parameter sind Pflicht:
 
@@ -4136,6 +4140,12 @@ Außerdem gibt es folgende optionale Parameter:
 * `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
 * `alignright`: Gibt an, ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. (Standard: `false`, Typ: `Boolean`)
 
+Folgender Hinweis ist bei der Eingabe von Geldbeträgen zu beachten:
+
+* die eingegebene Zahl wird ab einer Länge von mehr als 15 Ziffern automatisch gerundet. Daraus lassen sich folgende Beispiele ableiten:
+** Ohne Nachkommastelle ist 999999999999999
+** für 1 Nachkommastelle ist 99999999999999,9
+** für 2 Nachkommastellen ist 9999999999999,99 der maximale Betrag ohne Rundung.
 
 Codebeispiel:
 

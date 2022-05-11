@@ -1,6 +1,7 @@
 # v5.4.0
 - `IFS-1344`: Umstellung auf CI-Friendly builds
 - `IFE-424`: Implementierung eines Nutzerbereichs
+- `IFE-431`: Nutzungsvorgaben um Hinweis auf Rundung bei der Eingabe von Geldbeträgen als Fließkommazahl ergänzt
 
 # v5.3.1
 - `IFS-1397`: Anhebung auf Isyfact-erweiterungen 2.4.1 mit Spring Boot 2.5.12 (Fix CVE-2022-22965)
