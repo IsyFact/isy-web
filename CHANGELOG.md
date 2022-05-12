@@ -1,3 +1,8 @@
+# 5.3.2
+- Ursprüngliche (vor `IFE-141`) Reihenfolge der Funktionen in onload.js wiederhergestellt.
+  * browseCollect und selectLists haben spezielle Behandlung für modale Dialoge und müssen nach den modalen Dialogen initialisiert werden.
+- `WebFlowAutoConfiguration` registriert automatisch alle `FlowExecutionListener` Beans aus dem Spring Kontext.
+
 # v5.3.1
 - `IFS-1397`: Anhebung auf Isyfact-erweiterungen 2.4.1 mit Spring Boot 2.5.12 (Fix CVE-2022-22965)
 
