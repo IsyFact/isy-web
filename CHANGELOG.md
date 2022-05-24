@@ -4,6 +4,8 @@
 - `IFE-431`: Nutzungsvorgaben um Hinweis auf Rundung bei der Eingabe von Geldbeträgen als Fließkommazahl ergänzt
 - `IFS-1155`: Download von Dateien mit Leerzeichen in den Namen behoben
 - `IFS-1512`: Migration der Dokumentation zu Antora
+- `IFS-1492`: Fehler in `selectlist` JavaScript Code behoben
+  - Der Fehler befindet sich im JavaScript Code, der die Darstellung der Komponente verzögert (`TimeHandler`-Funktion). Damit wird die Ausführung weiterer `TimeHandler`-Funktionen verhindert, bspw. wenn beide `selectlist` und `browsecollect` verwendet werden. Der Fehler ist mit v5.1.0 eingeführt worden.
 
 # v5.3.1
 - `IFS-1397`: Anhebung auf Isyfact-erweiterungen 2.4.1 mit Spring Boot 2.5.12 (Fix CVE-2022-22965)
