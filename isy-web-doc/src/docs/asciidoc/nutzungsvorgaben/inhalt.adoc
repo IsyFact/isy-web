@@ -3645,8 +3645,9 @@ Ein Beispiel zur Umsetzung eines Suchformulars findet sich im Abschnitt <<layout
 
 ==== Toggle Filter
 
-Ein Toggle-Filter wird über das Tag `<isy:toggleFilter>` eingebunden.
-Die einzelnen Filter sollten als <f:selectItem> angegeben werden.
+Ein Toggle-Filter ist eine Tabellen-Toolbar, mit der durch einen Klick auf einen Button eine Liste
+von Objekten oder Formularen nach bestimmten vordefinierten Kriterien eingeschränkt werden kann.
+Der Filter wird über das Tag `<isy:toggleFilter>` eingebunden und die einzelnen Filter-Optionen sollten als <f:selectItem> angegeben werden.
 
 Die Komponente besitzt folgende notwendige Parameter:
 
