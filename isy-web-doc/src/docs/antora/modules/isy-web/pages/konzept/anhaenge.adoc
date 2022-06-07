@@ -5,8 +5,7 @@ include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 [[checkliste-zur-qs]]
 == Anhang A: Checkliste zur QS
 
-Die Checkliste für die QS stellt Prüfpunkte zur Verfügung, anhand derer wichtige Kriterien zur Umsetzung der
-Oberfläche überprüft werden können.
+Die Checkliste für die QS stellt Prüfpunkte zur Verfügung, anhand derer wichtige Kriterien zur Umsetzung der Oberfläche überprüft werden können.
 
 [[id-vergabe-jsf]]
 === ID Vergabe JSF
@@ -36,7 +35,7 @@ Bei mehrschrittigen Datenerfassungen muss die Behandlung der Transaktion mit ein
 [[einhaltung-styleguide]]
 === Einhaltung Styleguide
 
-Die Applikation muss auf die Vorgaben des <<Styleguide,Styleguides>> überprüft werden.
+Die Applikation muss auf die Vorgaben des xref:isyfact-standards-doku:isy-style:styleguide.adoc[Styleguide] überprüft werden.
 
 [[flow-konfiguration]]
 === Flow Konfiguration
@@ -86,12 +85,11 @@ Der Zugriff auf Masken und Dialogelemente muss anhand der Systemspezifikation ü
 [[regeln-bei-der-javascript-programmierung]]
 === Regeln bei der JavaScript-Programmierung
 
-Die unter <<vorgaben-javascript>> und <<vermeidung-von-sicherheitsluecken-bei-aktiviertem-javascript>>
-beschriebenen Regeln müssen überprüft werden.
+Die unter xref:konzept/konzept.adoc#vorgaben-javascript[Vorgaben zur Verwendung von JavaScript] und xref:konzept/konzept.adoc#vermeidung-von-sicherheitsluecken-bei-aktiviertem-javascript[vermeidung-von-sicherheitsluecken-bei-aktiviertem-javascript] beschriebenen Regeln müssen überprüft werden.
 
 [[regeln-der-sicheren-softwareentwicklung]]
 === Regeln der sicheren Softwareentwicklung
 
 Bei der Entwicklung von Web-Anwendungen müssen in besonderem Maße Sicherheitsaspekte berücksichtigt werden.
-Die entsprechenden Regeln sind im <<KonzeptSicherheit>> beschrieben.
+Die entsprechenden Regeln sind im xref:isyfact-standards-doku:isy-sicherheit:konzept/master.adoc[Konzept Sicherheit] beschrieben.
 // end::inhalt[]
