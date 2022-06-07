@@ -1,4 +1,5 @@
 # v5.4.0
+- `IFS-1384`: Verwendung von JSF-Konvertern bei read-only Feldern
 - `IFS-1344`: Umstellung auf CI-Friendly builds
 - `IFE-424`: Implementierung eines Nutzerbereichs
 - `IFE-431`: Nutzungsvorgaben um Hinweis auf Rundung bei der Eingabe von Geldbeträgen als Fließkommazahl ergänzt
