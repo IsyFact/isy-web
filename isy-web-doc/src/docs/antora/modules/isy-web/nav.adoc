@@ -1,5 +1,3 @@
-* JavaServer Faces
-** xref:isy-web:konzept/konzept.adoc[Konzept]
-*** xref:isy-web:konzept/anhaenge.adoc[Anhänge]
-** xref:isy-web:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
-*** xref:isy-web:nutzungsvorgaben/anhaenge.adoc[Anhänge]
+* xref:isy-web:konzept/konzept.adoc[Konzept]
+** xref:isy-web:konzept/anhaenge.adoc[Anhänge]
+* xref:isy-web:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]

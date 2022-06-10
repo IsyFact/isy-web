@@ -7,6 +7,7 @@
 - `IFE-311`: Fehlende Selektion bei der Navigation behoben
 - `IFE-177`: Fix `IFE-30` übernommen, damit readonly-Dropdowns als Labels dargestellt werden.
 - `IFE-471`: Entfernen des Fehlerschlüssels aus den Fehler-Tooltips
+- `IFS-1512`: Migration der Dokumentation zu Antora
 
 # v5.2.0
 - `IFS-1115`: Version Anhebung von IsyFact Standards auf 2.3.0
@@ -18,10 +19,11 @@
     * Breaking Changes: Um einen Charpicker anzubinden muss das Attribut `charpicker` eines Input-Elements auf `dinSpec` (neu) oder `special` (alt) gesetzt werden.
     * Nutzungsvorgaben um Informationen zum CharPicker ergänzt
 - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
-        `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
+    * 0130 - Latin Capital Letter I with Dot above
+    * 0131 - Latin Small Letter I dotless
 - `IFE-57`:
-    - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
-    - Darstellung von Readonly Felder für Input Controlls vereinheitlicht.
+  - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
+  - Darstellung von Readonly Felder für Input Controlls vereinheitlicht.
 - `IFE-204`: Unterstuetzung von ES6 in isy-web
    - uglify durch terser ersetzt
    - in JS-Sourcen: var wurde auf let/const umgestellt

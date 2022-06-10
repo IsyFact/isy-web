@@ -1,26 +1,24 @@
-:doctitle: JavaServer Faces (JSF)
-:document-type: Konzept
-:vs-einstufung: open-source
+= Konzept
 
-toc::[]
-colophon::[factory="IsyFact-Standards", open-source="true"]
+include::glossary:licence:partial$licence.adoc[]
 
-include::docinfo.adoc[]
+*Java Bibliothek / IT-System*
 
-// Einleitung
-= Konzept JSF: Einleitung
-include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
+[cols="5,2,3",options="header"]
+|====
+|Name |Art |Version
+m|isy-web |Bibliothek |v5.3.0
+|====
 
-// tag::inhalt[]
-[[Einleitung]]
+[[einleitung]]
 == Einleitung
 
 Im Dokument xref:isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/master.adoc[Softwaretechnische Architektur] ist der Aufbau von xref:glossary:glossary:master.adoc#glossar-it-System[IT-Systemen] in fünf Komponenten beschrieben.
 Eine davon ist die Komponente GUI (s. <<image-IFRefArcITSysGUI>>).
 
 //F1
+[[image-IFRefArcITSysGUI]]
 .Softwaretechnische Architektur eines IT-Systems (GUI hervorgehoben)
-[id="image-IFRefArcITSysGUI",reftext="{figure-caption} {counter:figures}"]
 image::konzept/IFRefArcITSysGUI.png[align="center"]
 
 Dieses Konzept baut auf dem xref:isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI] auf und beschreibt die Architektur der GUI-Komponente, umgesetzt mit den Technologien JSF und Spring Web Flow.
@@ -40,7 +38,7 @@ Schließlich enthält es noch ein Kapitel zum Thema Session Behandlung.
 
 Im Anhang steht eine Checkliste, die als Ausgangspunkt für die Qualitätssicherung der nach diesem Konzept umgesetzten xref:glossary:glossary:master.adoc#glossar-gui[GUIs] dienen soll.
 
-Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isy-style-doc:isy-style:styleguide.adoc[Styleguide].
+Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide].
 
 [[zielsetzung]]
 === Zielsetzung des Bausteins JSF
@@ -71,13 +69,7 @@ Folgende Anforderungen müssen bei der Entwicklung von Web-Anwendungen berücksi
 * Vertrauliche Informationen dürfen nicht als GET-Parameter übermittelt werden.
 Dies verhindert, dass solche Informationen ungewollt in Log-Dateien, Caches usw.
 gespeichert werden.
-// end::inhalt[]
 
-// Inhalt
-= Konzept JSF: Inhalt
-include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
-
-// tag::inhalt[]
 [[basistechnologien]]
 == Einführung in die Basistechnologien
 Die Übersicht der Basistechnologien soll dem Leser einen einfacheren Einstieg in die angewendeten Frameworks und Technologien ermöglichen.
@@ -114,8 +106,8 @@ Die Spezifikation der Java Server Faces definiert einen sogenannten Lebenszyklus
 JSF-Anwendung mit jedem Aufruf erneut durchläuft.
 Dieser Lebenszyklus ist in sechs _Phasen_ (englisch _Phases_) aufgeteilt.
 
+[[image-PhasemodJSF]]
 .Phasenmodell JSF
-[id="image-PhasemodJSF",reftext="{figure-caption} {counter:figures}"]
 image::konzept/jsf-phasen.png[align="center"]
 
 1.  _Restore View_ („Sicht wiederherstellen“) wählt anhand der eingehenden Anforderung eine Sicht (_View_) aus und baut den dazu passenden Komponentenbaum bei Bedarf auf.
@@ -147,7 +139,7 @@ Das Mapping der Controls auf die Daten geschieht über die in JSF verwendete Exp
 Mit der EL werden direkt die Attribute des zugehörigen Beans genutzt.
 
 Ein weiterer Vorteil von Facelets ist die Verwendung von Templates.
-Durch diese ist es möglich, bereits einen zum xref:isyfact-standards-doku:isy-style:styleguide.adoc[Styleguide] konformen Rahmen zur Verfügung zu stellen, in welchen die
+Durch diese ist es möglich, bereits einen zum xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide] konformen Rahmen zur Verfügung zu stellen, in welchen die
 Applikation lediglich durch definierte Einfügungen ihre Inhalte einbetten.
 
 [[taglibs]]
@@ -220,7 +212,7 @@ Flow zurückgeht, auch der alte Status zum Zeitpunkt dieses Request angezeigt we
 Die xref:glossary:glossary:master.adoc#glossar-gui[GUI]-Komponente und der xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] sind Teil derselben Web-Applikation und werden per Spring-Konfiguration miteinander verbunden.
 
 Oft gibt es den Fall, dass über die GUI eine Aktion in einer anderen Anwendung ausgelöst werden soll.
-Ein Beispiel dafür ist die GUI einer xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendug] zur Datenerfassung, wobei die Speicherung der Daten über einen Service einer anderen Fachanwendung implementiert ist.
+Ein Beispiel dafür ist die GUI einer xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung] zur Datenerfassung, wobei die Speicherung der Daten über einen Service einer anderen Fachanwendung implementiert ist.
 In diesem Fall enthält der Anwendungskern der Fachanwendung zur Datenerfassung nur wenig Funktionalität: in ihm werden die Daten für den Serviceaufruf der nachgelagerten Fachanwendung aufbereitet und der Serviceaufruf selbst durchgeführt.
 Wichtig in diesem Fall ist, dass es nach Zielarchitektur keine Transaktionen über Serviceaufrufe hinweg gibt.
 
@@ -286,8 +278,8 @@ Sie besitzt, aufgrund der Vorgaben und der eingesetzten Technologien, folgende E
 
 <<image-aufbau-gui-komponente>> zeigt den Aufbau einer Web-GUI mit JSF und Spring Web Flow und verdeutlicht die Integration der Technologien in die Architektur.
 
+[[image-aufbau-gui-komponente]]
 .Aufbau einer Web-GUI mit JSF und Spring Web Flow
-[id="image-aufbau-gui-komponente",reftext="{figure-caption} {counter:figures}"]
 image::konzept/aufbau-gui-komponente.png[align="center"]
 
 Im Rahmen der Anwendungsentwicklung sind die gelb hervorgehobenen Teile bereitzustellen:
@@ -307,15 +299,15 @@ Der Schnitt der Komponenten ist fachlich motiviert und in der Systemspezifikatio
 Die Dialog-Komponenten einer GUI-Komponente können einen gemeinsamen AWK-Wrapper und in ihren Modellen gemeinsame Klassen verwenden.
 Trotzdem sind die Dialog-Komponenten zu kapseln, d.h. Controller und UI-Models dürfen nicht gemeinsam verwendet werden (siehe <<image-innensicht-gui-komponente>>).
 
+[[image-innensicht-gui-komponente]]
 .Innensicht einer GUI-Komponente mit ihren Dialog-Komponenten
-[id="image-innensicht-gui-komponente",reftext="{figure-caption} {counter:figures}"]
 image::konzept/innensicht-gui-komponente.png[align="center"]
 
 Zentral ist also die Forderung, dass die Elemente jeder Dialog-Komponente (Flow, Controller, Model und View) in definierter Weise ausschließlich untereinander kommunizieren und Zugriffe auf Elemente anderer Dialog-Komponenten unterbleiben.
 <<image-kommunikation-innerhalb-gui-komponente>> zeigt die Kommunikation innerhalb einer Dialog-Komponente.
 
+[[image-kommunikation-innerhalb-gui-komponente]]
 .Kommunikation innerhalb einer Dialog-Komponente
-[id="image-kommunikation-innerhalb-gui-komponente",reftext="{figure-caption} {counter:figures}"]
 image::konzept/kommunikation-innerhalb-gui-komponente.png[align="center"]
 
 [[flows]]
@@ -360,9 +352,8 @@ Das Model Bean ist ein Datenobjekt (einfaches POJO) und hält die Daten einer GU
 Es hat keine Abhängigkeiten zu View, Controller oder xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] und enthält im Regelfall keine Logik.
 Das Model Bean wird durch den Flow erzeugt (durch Definition einer Web Flow-Variablen) und ist somit automatisch im View sichtbar.
 
-:desc-listing-CreaModinFlow: Erzeugung einer Model-Instanz im Flow
-[id="listing-CreaModinFlow",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-CreaModinFlow}
+[[listing-CreaModinFlow]]
+.Erzeugung einer Model-Instanz im Flow
 [source,xml]
 ----
 <flow ...">
@@ -429,9 +420,8 @@ Hier gilt analog, dass nicht das gesamte Model B, sondern lediglich Kopien eines
 
 Das folgende Beispiel zeigt wie ein Flow an einen Subflow Parameter übergibt und von diesem einen Ausgabewert empfängt.
 
-:desc-listing-InfoExFaufF1: Informationsaustausch zwischen Flows – aufrufender Flow
-[id="listing-InfoExFaufF1",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-InfoExFaufF1}
+[[listing-InfoExFaufF1]]
+.Informationsaustausch zwischen Flows – aufrufender Flow
 [source,xml]
 ----
 <subflow-state id="loeschenViewState" subflow="loeschenFlow">
@@ -447,9 +437,8 @@ Das folgende Beispiel zeigt wie ein Flow an einen Subflow Parameter übergibt un
 Innerhalb des Subflows werden übergebene Parameter entgegengenommen und verarbeitet.
 Im Endzustand wird ein Rückgabewert zurückgegeben.
 
-:desc-listing-InfoExFaufF2: Informationsaustausch zwischen Flows – aufgerufener Flow
-[id="listing-InfoExFaufF2",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-InfoExFaufF2}
+[[listing-InfoExFaufF2]]
+.Informationsaustausch zwischen Flows – aufgerufener Flow
 [source,xml]
 ----
 <input name="terminfindung" type="de.msg.terminfindung.gui.terminfindung.model.TerminfindungModel"/>
@@ -492,7 +481,7 @@ Die folgenden Abschnitte beschreiben allgemeine Vorgaben bei der Verwendung JSF-
 [[verwendung-von-jsf-widgets]]
 ==== Verwendung von JSF-Widgets
 
-Für die Arbeit mit JSF werden gemäß dem xref:isyfact-standards-doku:isy-style:styleguide.adoc[Styleguide] sowohl Seitenelemente als auch Bedienelemente bereitgestellt.
+Für die Arbeit mit JSF werden gemäß dem xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide] sowohl Seitenelemente als auch Bedienelemente bereitgestellt.
 Seitenelemente helfen, den Seitenrahmen aufzubauen und erleichtern so einen zum Styleguide konformen Aufbau der Masken.
 Bedienelemente helfen, die Masken selbst zu strukturieren und bieten vorgefertigte Widgets zur Anzeige und Eingabe von Daten.
 Daneben gibt es noch einige spezielle Komponenten, z.B. um den Fokus beim Laden der Maske zu setzen oder eine Druckansicht bereitzustellen.
@@ -513,8 +502,8 @@ Für die Anbindung des dort definierten `Berechtigungsmanager` an Spring Securit
 Der `WebFlowAuthenticationProvider` prüft bei Bedarf, ob der Anwender die notwendigen Berechtigungen besitzt, bzw. es wird für die weitere Verarbeitung in Spring Security der notwendige Kontext aufgebaut.
 <<image-integration-baustein-sicherheit-klassendiagramm>> zeigt die Integration des Bausteins Sicherheit in Spring Security.
 
+[[image-integration-baustein-sicherheit-klassendiagramm]]
 .Integration des Bausteins Sicherheit in Spring Security
-[id="image-integration-baustein-sicherheit-klassendiagramm",reftext="{figure-caption} {counter:figures}"]
 image::konzept/integration-baustein-sicherheit-klassendiagramm.png[align="center"]
 
 <<image-integration-baustein-sicherheit-sequenzdiagramm>> stellt den Zugriff des `WebFlowAuthenticationProvider` auf den Baustein Sicherheit dar.
@@ -522,8 +511,8 @@ Hierbei werden die Rollen eines Benutzers über den Berechtigungsmanager gelesen
 Token geschrieben.
 Dieser Token findet dann bei der Autorisierung einzelner Benutzerinteraktion durch Spring Security Verwendung.
 
+[[image-integration-baustein-sicherheit-sequenzdiagramm]]
 .Sequenzdiagramm Zugriff auf Sicherheitskomponente
-[id="image-integration-baustein-sicherheit-sequenzdiagramm",reftext="{figure-caption} {counter:figures}"]
 image::konzept/integration-baustein-sicherheit-sequenzdiagramm.png[align="center"]
 
 Mehr Details hierzu sind in der Bausteindokumentation (xref:isyfact-standards-doku:isy-sicherheit:konzept/master.adoc[Konzept Sicherheit] und xref:isyfact-standards-doku:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Sicherheit]) sowie in den xref:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben JSF] zu finden.
@@ -562,9 +551,8 @@ In diesem Fall muss es möglich sein zu erkennen, welcher Button zu welchem Elem
 Die hierfür in JSF 2.x vorgesehenen Lösung mit `f:param` erfordert den Einsatz von JavaScript und kann daher Probleme in der Abwärtskompatibilität hervorbringen (z.B. wenn kein JavaScript aktiviert ist).
 Die Umsetzung sollte daher in der Regel mit einem Action Listener stattfinden (siehe <<listing-UseActionListVIEW>>):
 
-:desc-listing-UseActionListVIEW: Verwendung eines Action Listeners (View)
-[id="listing-UseActionListVIEW",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-UseActionListVIEW}
+[[listing-UseActionListVIEW]]
+.Verwendung eines Action Listeners (View)
 [source,html]
 ----
 <h:commandLink id="bearbeite_SV_#{sachverhalt.id}"
@@ -577,9 +565,8 @@ Die Umsetzung sollte daher in der Regel mit einem Action Listener stattfinden (s
 
 Dabei kann in der Methode `waehleSachverhalt` der Wert des Attributs aus der `RequestParameterMap` des `FacesContext` gelesen werden (siehe <<listing-EvalRequestAttr>>).
 
-:desc-listing-EvalRequestAttr: Auswertung von Request Attributen
-[id="listing-EvalRequestAttr",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-EvalRequestAttr}
+[[listing-EvalRequestAttr]]
+.Auswertung von Request Attributen
 [source,html]
 ----
 FacesContext.getCurrentInstance().getExternalContext() .getRequestParameterMap().get("sachverhaltId");
@@ -605,9 +592,8 @@ Werden die Anfragen an die Web-Anwendung durch den Loadbalancer an verschiedene 
 JSF-Konverter dürfen sowohl zur Konvertierung aus dem Model zur View (Darstellung) als auch aus der View zum Model (Eingabe) verwendet werden.
 Standard-JSF-Konverter bieten sich jedoch nur bedingt an, da diese bei der Konvertierung „freier Eingaben“ nicht mit Fehleingaben umgehen können.
 
-:desc-listing-ConvDatewihConv: Umwandlung eines Datums mittels Standard-JSF-Konverter
-[id="listing-ConvDatewihConv",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-ConvDatewihConv}
+[[listing-ConvDatewihConv]]
+.Umwandlung eines Datums mittels Standard-JSF-Konverter
 [source,xml]
 ----
 <h:inputText id="datum" value="#{erstellenModel.newDate}">
@@ -852,9 +838,7 @@ Als Session-Manager wird die Bibliothek `isy-session` verwendet, die eine verein
 Konfiguration von `Spring Session` (der eigentlichen Implementierung des Session-Managers)
 ermöglicht. `isy-session` kapselt und vereinfacht die Nutzung von `Spring-Session`.
 
-Weitere Erläuterungen zum Session-Manager finden sich im <<KonzeptSessionManagement>>,
-Die Einbindung des Session-Managers ist in <<NutzungsvorgabenIsySession>> beschrieben.
-Konkrete Anweisungen zum Aufbau des Session-Speichers finden sich in <<NutzungsvorgabenRedis>>.
+Weitere Erläuterungen zum Session-Manager finden sich im dazugehörigen `Konzept Session Management`. Die Einbindung des Session-Managements ist in den `Nutzungsvorgaben isy-session` beschrieben. Konkrete Anweisungen zum Aufbau des Session-Speichers finden sich in den `Nutzungsvorgaben Redis`.
 
 
 Wenn `ìsy-session` als Erweiterung der IsyFact nicht eingesetzt wird, muss die Session-Persistierung auf andere Weise durchgeführt
@@ -864,13 +848,6 @@ die Performance der Anwendung nicht zu verschlechtern.
 
 Die Größe der Session wird maßgeblich durch die „im Webflow“ gespeicherten Model-Daten bestimmt.
 Daher muss darauf geachtet werden, nur unbedingt notwendige Daten im Model zu halten.
-// end::inhalt[]
 
-// Anhänge
 include::anhaenge.adoc[tags=inhalt]
-
-// Changelog
-include::changelog.adoc[leveloffset=1]
-
-
 

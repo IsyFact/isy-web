@@ -1,6 +1,6 @@
 name: isyfact-jsf-doku
 title: JavaServer Faces (JSF)
 version: '2.5-SNAPSHOT'
-start_page: konzept:konzept-jsf.adoc
+start_page: isy-web:konzept/konzept.adoc
 nav:
   - modules/isy-web/nav.adoc
