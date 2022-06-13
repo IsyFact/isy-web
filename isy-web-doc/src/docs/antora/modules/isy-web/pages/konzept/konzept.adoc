@@ -55,9 +55,9 @@ Dazu zählen:
 Hierzu werden folgende Themenbereiche genauer definiert:
 
 * Konfiguration der Dialog Abläufe (Flow)
-* Anbindung der Backend Services (Spring Beans)
+* Anbindung der Backend-Services (Spring Beans)
 
-*Einfachheit des Session Managements:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche wiederverwendbaren Services zur Verfügung gestellt werden.
+*Einfachheit des Session-Managements:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche wiederverwendbaren Services zur Verfügung gestellt werden.
 
 [[sicherheitsanforderungen]]
 === Sicherheitsanforderungen
@@ -76,7 +76,7 @@ Die Übersicht der Basistechnologien soll dem Leser einen einfacheren Einstieg i
 Zusätzlich findet sich noch ein Verweis auf die konkret eingesetzten Implementierungen.
 Hierbei werden auch Architekturprinzipien angesprochen, welche in den Technologien Verwendung finden.
 
-Für detaillierte Informationen über die verwendeten Technologien sei auf entsprechende Literatur verwiesen: xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[Jakarta Server Faces], xref:glossary:literaturextern:inhalt.adoc#litextern-swf[Spring Web Flow] und xref:glossary:literaturextern:inhalt.adoc#litextern-spring[Spring].
+Für detaillierte Informationen über die verwendeten Technologien sei auf entsprechende Literatur verwiesen: xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[JavaServer Faces], xref:glossary:literaturextern:inhalt.adoc#litextern-swf[Spring Web Flow] und xref:glossary:literaturextern:inhalt.adoc#litextern-spring[Spring].
 
 [[jsf-facelets]]
 === JSF / Facelets
@@ -86,7 +86,7 @@ Der Schwerpunkt von JSF ist die Bereitstellung grafischer Komponenten wie z.B. T
 Das zentrale Konzept hinter JSF ist die Erstellung eines Komponentenbaumes aus diesen grafischen Komponenten.
 Aus diesem Komponentenbaum wird schließlich die auszuliefernde HTML-Seite generiert.
 
-Die IsyFact setzt die Referenzimplementierung von Oracle (xref:glossary:literaturextern:inhalt.adoc#litextern-javaserver-faces[JavaServer Faces]) ein und erweitert diese im Bereich der Komponenten um die Bibliothek xref:glossary:literaturextern:inhalt.adoc#litextern-tomahawk[Apache Tomahawk] Apache Tomahawk.
+Die IsyFact setzt die Referenzimplementierung von Oracle (xref:glossary:literaturextern:inhalt.adoc#litextern-javaserver-faces[JavaServer Faces]) ein und erweitert diese im Bereich der Komponenten um die Bibliothek xref:glossary:literaturextern:inhalt.adoc#litextern-tomahawk[Apache Tomahawk].
 
 *Facelets* ist eine Template-Engine und die Standard-View-Technologie von JSF.
 Facelets löst in dieser Funktion JSP ab.
@@ -102,8 +102,7 @@ Als Implementierung kommt wiederum die Referenzimplementierung von Oracle (xref:
 [[bearbeitungsmodell-einer-jsf-anfrage]]
 ==== Bearbeitungsmodell einer JSF Anfrage
 
-Die Spezifikation der Java Server Faces definiert einen sogenannten Lebenszyklus xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[Jakarta Server Faces] , den eine
-JSF-Anwendung mit jedem Aufruf erneut durchläuft.
+Die Spezifikation der Java Server Faces definiert einen sogenannten Lebenszyklus xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[JavaServer Faces], den eine JSF-Anwendung mit jedem Aufruf erneut durchläuft.
 Dieser Lebenszyklus ist in sechs _Phasen_ (englisch _Phases_) aufgeteilt.
 
 [[image-PhasemodJSF]]
@@ -134,7 +133,7 @@ Die einem Flow zugeordneten Model Beans werden durch den Flow instanziiert und u
 ==== Facelets
 
 Mit den Facelets werden das visuelle Layout und die Controls für die Ansicht im Browser definiert.
-Durch die Nähe zu HTML sind schnell die notwendigen Ansichten designed und können getestet werden.
+Durch die Nähe zu HTML sind schnell die notwendigen Ansichten designt und können getestet werden.
 Das Mapping der Controls auf die Daten geschieht über die in JSF verwendete Expression Language (EL).
 Mit der EL werden direkt die Attribute des zugehörigen Beans genutzt.
 
@@ -150,14 +149,13 @@ Vielmehr müssen diese noch separat mit einer Deskription versehen werden, aus w
 ersichtlich sind und ihr Mapping auf die zugehörigen Klassen definiert ist.
 
 Für den Einsatz der myFaces Tomahawk Library wird eine entsprechende Konfiguration zur Verfügung gestellt.
-Der Einsatz dieser Library unterliegt für den Einsatz in der IsyFact der allgemeinen Einschränkung bei der Verwendung von JavaScript.
-Siehe auch Kapitel "Benötigte Bibliotheken" in xref:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben JSF].
+Der Einsatz dieser Library unterliegt für den Einsatz in der IsyFact der allgemeinen Einschränkung bei der Verwendung von JavaScript (siehe auch xref:nutzungsvorgaben/nutzungsvorgaben.adoc#benoetigte-bibliotheken[Benötigte Bibliotheken] in den Nutzungsvorgaben).
 
 [[spring-web-flow]]
 === Spring Web Flow
 
 Spring Web Flow ist ein Framework für die Ablaufsteuerung von Anwendungsfällen innerhalb von Web-Anwendungen.
-Ein solcher „Flow“ innerhalb von Spring Web Flow ist eine Abfolge zusammenhängender Masken, wie z.B. das Durchlaufen der Schritte zur Registrierung eines neuen Benutzers in einer Web Anwendung.
+Ein solcher „Flow“ innerhalb von Spring Web Flow ist eine Abfolge zusammenhängender Masken, wie z.B. das Durchlaufen der Schritte zur Registrierung eines neuen Benutzers in einer Web-Anwendung.
 
 Ein erklärtes Ziel von Spring Web Flow ist die Unterstützung der Browser-Navigation, die in der Web-Entwicklung immer wieder zu Problemen führt.
 Das Framework übernimmt dabei die Navigation zwischen den einzelnen Views und stellt darüber hinaus einen eigenen Scope Container für Model Beans zur Verfügung.
@@ -273,7 +271,7 @@ Sie besitzt, aufgrund der Vorgaben und der eingesetzten Technologien, folgende E
 * Dialogsteuerung über Spring Web Flow
 * Bildung von gekapselten GUI-Komponenten über Facelets
 * Präsentation über JSF und Facelets
-* Verwaltung von Sessions über Spring Web Flow
+* Verwaltung von Sessions mit Spring Web Flow
 * Interaktive Oberflächenelemente mit JQuery
 
 <<image-aufbau-gui-komponente>> zeigt den Aufbau einer Web-GUI mit JSF und Spring Web Flow und verdeutlicht die Integration der Technologien in die Architektur.
@@ -350,16 +348,17 @@ Komponenten-View aufgerufen.
 
 Das Model Bean ist ein Datenobjekt (einfaches POJO) und hält die Daten einer GUI-Komponente.
 Es hat keine Abhängigkeiten zu View, Controller oder xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] und enthält im Regelfall keine Logik.
-Das Model Bean wird durch den Flow erzeugt (durch Definition einer Web Flow-Variablen) und ist somit automatisch im View sichtbar.
+Das Model Bean wird durch den Flow erzeugt (durch Definition einer Web-Flow-Variablen) und ist somit automatisch im View sichtbar.
 
 [[listing-CreaModinFlow]]
 .Erzeugung einer Model-Instanz im Flow
 [source,xml]
 ----
-<flow ...">
+<flow>
   <!-- Erzeuge das Model zur Benutzung durch diesen Flow. -->
   <var name="erstellenModel"
-  class="de.msg.terminfindung.gui.terminfindung.erstellen.ErstellenModel" />
+    class="de.msg.terminfindung.gui.terminfindung.erstellen.ErstellenModel" />
+</flow>
 ----
 
 Der View liest die Daten zur Präsentation der Webseite aus dem Model Bean.
@@ -368,7 +367,7 @@ Werden Formularinhalte in Form eines Post-Requests auf den Server gesendet, so s
 
 Da das Model Bean durch den Flow erzeugt wird und Flow Scope besitzt, wird es automatisch mit in die Session-Persistierung einbezogen.
 Dazu muss das Model das Interface Serializable implementieren.
-Die Daten des Models werden bei den Dialogschritten eines Flow zwischen Client (Browser) und Server transparent für den Entwickler abgeglichen.
+Die Daten des Models werden bei den Dialogschritten eines Flows zwischen Client (Browser) und Server transparent für den Entwickler abgeglichen.
 
 Das Model Bean ist nicht mit den JPA-Datenobjekten verbunden.
 Das Schreiben in das Model bewirkt also zunächst keine Änderung in der Datenbank.
@@ -413,7 +412,7 @@ Der Austausch von Informationen erfolgt stattdessen über Input/Output-Elemente 
 
 Ist ein Subflow B mit Daten aus dem aufrufenden Flow A zu versorgen, so bekommt dieser nicht das Model A, sondern eine Kopie eines einzelnen Objekts aus Model A übergeben.
 Dies kann auch eine Datenstruktur, darf aber niemals das gesamte Model A sein.
-Es ist wichtig, dass eine Kopie übergeben wird, damit Flow B nicht Teile des Model A absichtlich oder versehentlich ändert.
+Es ist wichtig, dass eine Kopie übergeben wird, damit Flow B nicht Teile des Models A absichtlich oder versehentlich ändert.
 
 Besteht Bedarf, dass ein Subflow B an den aufrufenden Flow A Daten zurückgibt, so erfolgt dies über ein Output-Element.
 Hier gilt analog, dass nicht das gesamte Model B, sondern lediglich Kopien eines Teils des Models übergeben werden.
@@ -441,27 +440,29 @@ Im Endzustand wird ein Rückgabewert zurückgegeben.
 .Informationsaustausch zwischen Flows – aufgerufener Flow
 [source,xml]
 ----
-<input name="terminfindung" type="de.msg.terminfindung.gui.terminfindung.model.TerminfindungModel"/>
-<on-start>
-  <evaluate expression="loeschenModel.setTerminfindung(terminfindung)"/>
-</on-start>
-<view-state id="loeschenViewState">
-  <on-entry>
-    <evaluate expression="loeschenController.setzeAuswahlZurueck(loeschenModel)"/>
-  </on-entry>
-  <transition on="cancel" to="finished"/>
-  <transition on="delete" to="loeschenViewState">
-    <evaluate expression="loeschenController.loescheZeitraeume(loeschenModel)"/>
-  </transition>
-</view-state>
+<flow>
+  <input name="terminfindung" type="de.msg.terminfindung.gui.terminfindung.model.TerminfindungModel"/>
+  <on-start>
+    <evaluate expression="loeschenModel.setTerminfindung(terminfindung)"/>
+  </on-start>
+  <view-state id="loeschenViewState">
+    <on-entry>
+      <evaluate expression="loeschenController.setzeAuswahlZurueck(loeschenModel)"/>
+    </on-entry>
+    <transition on="cancel" to="finished"/>
+    <transition on="delete" to="loeschenViewState">
+      <evaluate expression="loeschenController.loescheZeitraeume(loeschenModel)"/>
+    </transition>
+  </view-state>
 
-<end-state id="finished">
-  <output name="loeschenTerminfindung"
-          value="loeschenModel.getTerminfindung()"/>
-</end-state>
+  <end-state id="finished">
+    <output name="loeschenTerminfindung"
+            value="loeschenModel.getTerminfindung()"/>
+  </end-state>
+</flow>
 ----
 
-Zur Datenübergabe können auch mehrere Input und mehrere Output-Elemente verwendet werden.
+Zur Datenübergabe können auch mehrere Input- und mehrere Output-Elemente verwendet werden.
 
 ==== Zugriff auf querschnittliche Controller
 
@@ -498,7 +499,7 @@ Die Nutzung der durch den Styleguide definierten Elemente und durch den Baustein
 Die Absicherung von Masken erfolgt auf Ebene des Dialogablaufs, also von Spring Web Flow.
 Die Berechtigungsprüfung verwendet den Baustein Sicherheit der IsyFact.
 
-Für die Anbindung des dort definierten `Berechtigungsmanager` an Spring Security findet die Möglichkeit zur Erstellung eines “Custom Authentication Providers” in Form des `WebFlowAuthenticationProvider` Anwendung.
+Für die Anbindung des dort definierten `Berechtigungsmanager` an Spring Security findet die Möglichkeit zur Erstellung eines "Custom Authentication Providers" in Form des `WebFlowAuthenticationProvider` Anwendung.
 Der `WebFlowAuthenticationProvider` prüft bei Bedarf, ob der Anwender die notwendigen Berechtigungen besitzt, bzw. es wird für die weitere Verarbeitung in Spring Security der notwendige Kontext aufgebaut.
 <<image-integration-baustein-sicherheit-klassendiagramm>> zeigt die Integration des Bausteins Sicherheit in Spring Security.
 
@@ -518,10 +519,10 @@ image::konzept/integration-baustein-sicherheit-sequenzdiagramm.png[align="center
 Mehr Details hierzu sind in der Bausteindokumentation (xref:isyfact-standards-doku:isy-sicherheit:konzept/master.adoc[Konzept Sicherheit] und xref:isyfact-standards-doku:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Sicherheit]) sowie in den xref:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben JSF] zu finden.
 
 [[verwendung-csrf-schutz]]
-==== Verwendung des CSRF-Schutz
+==== Verwendung des CSRF-Schutzes
 
 Bei einem Cross-Site Request Forgery (CSRF) Angriff versuchen die Angreifer einem angemeldeten Benutzer einen HTTP-basierten Request unterzuschieben.
-Mit Hilfe der Session des Benutzers kann der Angreifer so Änderungen am System ausführen.
+Mithilfe der Session des Benutzers kann der Angreifer so Änderungen am System ausführen.
 
 .CSRF-Schutz je nach Schutzbedarf
 [cols="1,2,3"]
@@ -567,7 +568,7 @@ Dabei kann in der Methode `waehleSachverhalt` der Wert des Attributs aus der `Re
 
 [[listing-EvalRequestAttr]]
 .Auswertung von Request Attributen
-[source,html]
+[source,java]
 ----
 FacesContext.getCurrentInstance().getExternalContext() .getRequestParameterMap().get("sachverhaltId");
 ----
@@ -615,7 +616,7 @@ Die Konvertierung findet in diesem Fall nicht durch einen Konverter statt, sonde
 
 Die Validierung und Prüfung der in der GUI erfassten Daten soll entweder vollständig durch die GUI oder aber vollständig im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] durchgeführt werden.
 Die Validierung in der GUI ist dabei bevorzugt.
-In diesem Falle wird der Validierungsmechanismus von Spring Web Flow verwendet (s. Abschnitt 5.10 in der Dokumentation des xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[Jakarta Server Faces], xref:glossary:literaturextern:inhalt.adoc#litextern-swf[Spring Web Flows] ).
+In diesem Falle wird der Validierungsmechanismus von Spring Web Flow verwendet (s. Abschnitt 5.10 in der Dokumentation des xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[JavaServer Faces], xref:glossary:literaturextern:inhalt.adoc#litextern-swf[Spring Web Flows] ).
 Standard-JSF-Validatoren oder -Konverter sollten für die Validierung aus den im Abschnitt <<datenkonvertierung-fuer-darstellung-und-eingabe>> genannten Gründen nicht verwendet werden.
 
 [[vorgaben-javascript]]
@@ -676,7 +677,7 @@ Hierdurch wird der Angriff abgewehrt.
 // tag::important[]
 [ARCHITEKTURREGEL]
 ====
-*Nutzung von anonymen Funktion anstatt benannter Funktionen*
+*Nutzung von anonymen Funktionen anstatt benannter Funktionen*
 
 *Begründung:* Definierte JavaScript-Funktionen sind in der Regel im globalen Variablen-Kontext gültig.
 Würde insbesondere für jede Callback-Funktion (z.B. beim Event Binding) eine eigene Funktion definiert, würde das den Speicher unnötig belasten.
@@ -848,6 +849,3 @@ die Performance der Anwendung nicht zu verschlechtern.
 
 Die Größe der Session wird maßgeblich durch die „im Webflow“ gespeicherten Model-Daten bestimmt.
 Daher muss darauf geachtet werden, nur unbedingt notwendige Daten im Model zu halten.
-
-include::anhaenge.adoc[tags=inhalt]
-

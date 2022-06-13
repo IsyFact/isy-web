@@ -4,7 +4,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 *Java Bibliothek / IT-System*
 
-[cols="5,2,3",options="header"]
+[cols="5,2,3",&amp;amp;ptions="header"]
 |====
 |Name |Art |Version
 m|isy-web |Bibliothek |v5.3.0
@@ -391,7 +391,7 @@ Für spezifische Anpassungen (z.B. AJAX-Listpicker) müssen jedoch eigene Forms 
    <!-- Form für AJAX-Seiteninhalt definieren -->
    <ui:define name="form">
      <h:form id="listpickerAjaxForm">
-        <isy:formListpickerAjaxContent ... />
+        <isy:formListpickerAjaxContent />
      </h:form>
     </ui:define>
 
@@ -416,7 +416,7 @@ Innerhalb dieser Facelets wird im Normalfall nichts mehr inkludiert.
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:isy="http://java.sun.com/jsf/composite/isyfact">
 
-	<!-- Download des PDF geht nur bei ajax='false' -->
+	<!-- Download des PDFs geht nur bei ajax='false' -->
 	<isy:buttonIcon id="druck_icon"
 	   name="#{msg.MEL_Drucken}"
 	   icon="print"
@@ -459,8 +459,6 @@ Das erschwert jedoch den automatischen Test der Oberfläche.
 [source,xml]
 ----
 <h:selectOneMenu id="vonZeit"
-   value="#{tag.vonZeitraum}"
-   converter="calCon">
    value="#{erstellenModel.alleZeitraeume}"
    var="von" itemValue="#{von}" itemLabel="#{von}"
 />
@@ -539,7 +537,7 @@ Enthält eine View interaktive Elemente, wird eine entsprechend benannte JavaScr
 .Einbindung viewspezifischer JavaScript-Dateien
 [source,xml]
 ----
-<script type=“text/javascript“
+<script type="text/javascript"
     src="#{facesContext.externalContext.requestContextPath}/js/vorgangSuchen.js">
 </script>
 ----
@@ -623,8 +621,8 @@ Die Parameter müssen ggf. angepasst werden.
         // Mehrere Url-Pfade sind kommasepariert anzugeben. Es ist pro Url ein fuehrendes "/" anzugeben.
         registrationBean.addInitParameter("urlsToSkip", "/app/resources");
         registrationBean.addInitParameter("ajaxRedirectUrl", "/");
-        // Plicht-Parameter:
-        // Der Parameter "urlApplicationInitialisierung" enthaelt die Url zur Application-Initialisierungsseite.
+        // Pflicht-Parameter:
+        // Der Parameter "urlApplicationInitialisierung" enthält die Url zur Application-Initialisierungsseite.
         // Es ist ein fuehrendes "/" anzugeben.
         registrationBean.addInitParameter("urlApplicationInitialisierung",
             "/app/common/init/applicationInitialisierung.xhtml");
@@ -635,7 +633,7 @@ Die Parameter müssen ggf. angepasst werden.
 [[konfiguration-der-navigation]]
 === Konfiguration der Navigation
 
-Nachfolgend werden die notwendigen Konfigurationen beschrieben, um die konkreten Dialog Flows zu definieren, und wo die entsprechenden Anpassungen vorgenommen werden müssen.
+Nachfolgend werden die notwendigen Konfigurationen beschrieben, um die konkreten Dialog-Flows zu definieren, und wo die entsprechenden Anpassungen vorgenommen werden müssen.
 
 [[jsf-flow-builder-service]]
 ==== JSF Flow Builder Service
@@ -659,7 +657,7 @@ Standardmäßig sollte hier keine spezifische Konfiguration vorgenommen werden.
 
 Die Spring Webflow Konfiguration erfolgt standardmäßig in der Isy-Web Autokonfiguration.
 Als Lokation der Flows ist dabei `/WEB-INF/gui/**/*Flow.xml` angegeben.
-Das heißt die Flows sind in Unterordnern von `/WEB-INF/gui` abzulegen und als Namenkonvention mit `Flow.xml` enden (z.B. `beispielFlow.xml`).
+Das heißt, die Flows sind in Unterordnern von `/WEB-INF/gui` abzulegen und als Namenskonvention mit `Flow.xml` enden (z.B. `beispielFlow.xml`).
 
 [[konfiguration-maskentexte]]
 === Konfiguration der Maskentexte
@@ -675,7 +673,7 @@ Die Maskentexte des jeweiligen Flows können dann beispielsweise wie folgt ausge
 <h:outputText value="#{msg_currentflow.MAS_Ueberschrift}" />
 ----
 
-Um übergreifende Maskentexte Spring bekannt zu machen müssen die Lokationen Spring bekannt gemacht werden.
+Um übergreifende Maskentexte Spring bekannt zu machen, müssen die Lokationen Spring bekannt gemacht werden.
 Hierfür wird eine ResourceBundleMessageSource als Bean definiert:
 
 [[listing-maskentextebean]]
@@ -1008,11 +1006,13 @@ Um die Behandlung solcher Fehler zu ermöglichen, stellt die Bibliothek `isy-web
 .Flow Übergang auf Fehlerseite
 [source,xml]
 ----
-<subflow-state id="fehler" subflow="errorFlow" />
+<flow>
+  <subflow-state id="fehler" subflow="errorFlow" />
 
-<global-transitions>
-  <transition on-exception="java.lang.Exception" to="fehler" />
-</global-transitions>
+  <global-transitions>
+    <transition on-exception="java.lang.Exception" to="fehler" />
+  </global-transitions>
+</flow>
 ----
 
 *Konfiguration des JSF Exception Handlers:* Dieser Handler wird in der `faces-config.xml` konfiguriert:
@@ -1030,10 +1030,10 @@ Um die Behandlung solcher Fehler zu ermöglichen, stellt die Bibliothek `isy-web
 
 *Bereitstellung des globalen Error-Flows:* Der Flow `errorFlow` bietet eine globale Fehlerseite an.
 
-[[behandlung-von-exceptions-außerhalb-des-dialogablaufs]]
+[[behandlung-von-exceptions-ausserhalb-des-dialogablaufs]]
 ==== Behandlung von Fehlern außerhalb des Dialogablaufs
 
-Es gibt Exceptions, die außerhalb des “normalen“ Dialogablaufs auftreten.
+Es gibt Exceptions, die außerhalb des "normalen" Dialogablaufs auftreten.
 Beispiele dazu sind fehlende Flow-Definitionen, abgelaufene Sessions und Fehler bei der Autorisierung.
 Solche Fehler werden im Rahmen der HTTP-Request-Bearbeitung auf erster Ebene durch einen `FlowHandler` behandelt, den Spring Web Flow mitbringt.
 Kann dieser den Fehler nicht behandeln, wird er auf zweiter Ebene durch einen `ExceptionResolver` von Spring MVC behandelt.
@@ -1084,7 +1084,7 @@ Fehlt dem Benutzer diese, wird die Fehlerseite angezeigt.
 <view-state id="erstellenViewState1" model="erstellenModel">
     <secured attributes="Erstellen"/>
     <transition on="continue" to="validiereStammdaten"/>
-    <transition on="add" to="erstellenViewState1">
+    <transition on="add" to="erstellenViewState1" />
     ...
 </view-state>
 ----
@@ -1116,7 +1116,7 @@ Beantwortet der BerechtigungsController den Methoden-Aufruf von `getBenutzerDarf
 .JSF-Komponente berechtigungsabhängig ausblenden
 [source,xml]
 ----
-<t:commandButton ... rendered="#{berechtigungsController.benutzerDarfAdministrieren}"/>
+<t:commandButton rendered="#{berechtigungsController.benutzerDarfAdministrieren}"/>
 ----
 
 Sollen mehrere oder nicht-JSF Komponenten berechtigungs­abhängig ausgeblendet werden, kann das Fragment-Tag der Facelets-Bibliothek verwendet werden.
@@ -1126,7 +1126,7 @@ Dieses kann eine beliebige Anzahl an weiteren Maskenelementen umschließen und b
 .GUI-Komponenten berechtigungsabhängig ausblenden
 [source,xml]
 ----
-<ui:fragment +
+<ui:fragment
    rendered="#{berechtigungsController.benutzerDarfAnwenderAdministrieren}">
            […] weitere Komponenten […]
 </ui:fragment>
@@ -1445,7 +1445,7 @@ Um hiervon Gebrauch zu machen, muss die entsprechende Konfigurationsdatei über 
 ----
 <beans>
     ...
-    <bean id="konfiguration" ...>
+    <bean id="konfiguration">
         <constructor-arg>
             <list>
                 ...
@@ -1876,13 +1876,11 @@ Einen Button, bei dem die Oberfläche während der Ajax-Aktion blockiert ist, w�
 .Codebeispiel für `<isy:button>`
 [source, xml]
 ----
-Ein Button. Einbindung über	<isy:button>
-
 <isy:button
-		id="buttonBlockTest"
-		action="blockButtonAction"
-		value="Button (Block)"
-		block="true"/>
+  id="buttonBlockTest"
+  action="blockButtonAction"
+  value="Button (Block)"
+  block="true"/>
 ----
 
 
@@ -1904,8 +1902,6 @@ Folgende optionale Parameter sind für das Tag `<isy:buttonRow>` zulässig:
 .Codebeispiel für `<isy:buttonRow>`
 [source, xml]
 ----
-Eine Button Row
-
 <isy:buttonRow>
 	<isy:buttonToolbar
 		icon="placeholder"
@@ -1934,7 +1930,7 @@ Folgende optionale Parameter sind für das Tag `<isy:buttonGroup>` zulässig:
 ----
 <f:facet name="tableToolbar">
     <isy:buttonGroup>
-        <isy:buttonToolbar .../>
+        <isy:buttonToolbar />
     </isy:buttonGroup>
 </f:facet>
 ----
@@ -2768,7 +2764,6 @@ Ein Beispiel:
 [source, xml]
 ----
 <isy:formListpicker
-	....
   servletUrl="/app/listpicker?weitererFilterParameter1={#eingabeModel.weitererFilterParameter1}&weitererFilterParameter2={#eingabeModel.weitererFilterParameter2}" />
 ----
 
@@ -2816,7 +2811,7 @@ Beispiel für die Definition einer `<isy:dataTable>`:
 
   <f:facet name="tableToolbar">
     <isy:buttonGroup>
-       <isy:buttonToolbar .../>
+       <isy:buttonToolbar />
     </isy:buttonGroup>
   </f:facet>
 
@@ -3685,13 +3680,13 @@ Um ein einfaches Suchformular umzusetzen, genügt z.B. folgender Code:
 <div class="form-horizontal">
   <div class="row">
     <div class="col-lg-6">
-      <isy:formInput reference="vorname" ... />
-      <isy:formInput reference="nachname" .... />
+      <isy:formInput reference="vorname" />
+      <isy:formInput reference="nachname" />
     </div>
     <div class="col-lg-6">
-      <isy:formInput reference="geburtsort" ... />
-      <isy:formSelectOneDropdown reference="geschlecht" ... />
-      <isy:formListpicker reference="staatsangehoerigkeit" ... />
+      <isy:formInput reference="geburtsort" />
+      <isy:formSelectOneDropdown reference="geschlecht" />
+      <isy:formListpicker reference="staatsangehoerigkeit" />
     </div>
   </div>
 </div>
@@ -3864,7 +3859,7 @@ Die folgenden beiden Listings zeigen entsprechende Codebeispiele für die Umsetz
 .4-Augen-Komponente Flow: Initialisierung und Action-State (speichern)
 [source, xml]
 ----
- ...
+<flow>
    <var name="maskenModel" class="de.bund.bva... .VieraugenMaskeModel"/>
    <on-start>
       <evaluate expression="maskenController.initModel(maskenModel)"/>
@@ -3872,10 +3867,10 @@ Die folgenden beiden Listings zeigen entsprechende Codebeispiele für die Umsetz
 
    <view-state id="vieraugenMaskeViewState">
       <on-entry>
-         <evaluate expression=maskenController.initModel(maskenModel)"/>
+         <evaluate expression="maskenController.initModel(maskenModel)"/>
       </on-entry>
       <transition on="speichern">
-         <evaluate expression=maskenController.initModel(maskenModel)"/>
+         <evaluate expression="maskenController.initModel(maskenModel)"/>
       </transition>
       ...
    </view-state>
@@ -3904,7 +3899,7 @@ public class VieraugenMaskenController extends AbstractGuiController<VieraugenMa
     private VieraugenMaskeModel model = new VieraugenMaskeModel();
 
     public void speichern(VieraugenMaskeModel model) {
-      ...
+      // ...
     }
 
     @Override
@@ -3915,7 +3910,7 @@ public class VieraugenMaskenController extends AbstractGuiController<VieraugenMa
 
         this.globalFlowController.getValidationController().
 		     processValidationMessages(validationMessages);
-		. . .
+		// ...
     }
 }
 ----
@@ -4244,9 +4239,9 @@ Codebeispiel:
 
 [[listing-codeFormNumericInputWithFourEyes]]
 .Codebeispiel für formNumericInputWithFourEyes JSP-Komponente
-[source, xml]
+[source, html]
 ----
-<div class="row>
+<div class="row">
 	<h2>isy:formNumericInputWithFourEyes</h2>
 </div>
 <div class="col-lg-12">

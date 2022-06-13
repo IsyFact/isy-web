@@ -2,7 +2,6 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-// tag::inhalt[]
 [[checkliste-zur-qs]]
 == Anhang A: Checkliste zur QS
 
@@ -86,11 +85,10 @@ Der Zugriff auf Masken und Dialogelemente muss anhand der Systemspezifikation ü
 [[regeln-bei-der-javascript-programmierung]]
 === Regeln bei der JavaScript-Programmierung
 
-Die unter xref:konzept/konzept.adoc#vorgaben-javascript[Vorgaben zur Verwendung von JavaScript] und xref:konzept/konzept.adoc#vermeidung-von-sicherheitsluecken-bei-aktiviertem-javascript[vermeidung-von-sicherheitsluecken-bei-aktiviertem-javascript] beschriebenen Regeln müssen überprüft werden.
+Die unter xref:konzept/konzept.adoc#vorgaben-javascript[Vorgaben zur Verwendung von JavaScript] und xref:konzept/konzept.adoc#vermeidung-von-sicherheitsluecken-bei-aktiviertem-javascript[Vermeidung von Sicherheitslücken bei aktiviertem JavaScript] beschriebenen Regeln müssen überprüft werden.
 
 [[regeln-der-sicheren-softwareentwicklung]]
 === Regeln der sicheren Softwareentwicklung
 
 Bei der Entwicklung von Web-Anwendungen müssen in besonderem Maße Sicherheitsaspekte berücksichtigt werden.
 Die entsprechenden Regeln sind im xref:isyfact-standards-doku:isy-sicherheit:konzept/master.adoc[Konzept Sicherheit] beschrieben.
-// end::inhalt[]
