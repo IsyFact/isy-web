@@ -7,6 +7,7 @@
 - `IFE-311`: Fehlende Selektion bei der Navigation behoben
 - `IFE-476`: Entfernen des Fehlerschlüssels aus den Fehler-Tooltips
 - `IFE-205`: teilt onload.js auf einzelne Komponenten auf
+- `IFS-1155`: Download von Dateien mit Leerzeichen in den Namen behoben
 
 # v4.11.0
 - `IFS-1116`: Version Anhebung von IsyFact Standards auf 1.10.0

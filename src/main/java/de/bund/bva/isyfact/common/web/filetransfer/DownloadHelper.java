@@ -1,26 +1,28 @@
 package de.bund.bva.isyfact.common.web.filetransfer;
 
-import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
-import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
-
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.util.UriUtils;
+
+import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
+import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
+import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 
 /**
  * @author Timo Brandes, msg
@@ -147,7 +149,7 @@ public class DownloadHelper {
             "UTF-8 is apparently not supported on this platform.";
 
         private static final String SENDFILE_HEADER = "%s;filename=\"%2$s\"; filename*=UTF-8''%2$s";
-        private static final Charset UTF_8 = Charset.forName("UTF-8");
+        private static final Charset UTF_8 = StandardCharsets.UTF_8;
 
         private Faces() {
             // prevent instantiation
@@ -178,19 +180,14 @@ public class DownloadHelper {
          * URL-encode the given string using UTF-8.
          *
          * @param string The string to be URL-encoded using UTF-8.
-         * @return The given string, URL-encoded using UTF-8, or <code>null</code> if <code>null</code> was
+         * @return The given string, URL-encoded using UTF-8, or {@code null} if {@code null} was
          *         given.
          * @throws UnsupportedOperationException When this platform does not support UTF-8.
          * @since 1.4
          */
         private static String encodeURL(String string) {
-
-            if (string == null) {
-                return null;
-            }
-
             try {
-                return URLEncoder.encode(string, UTF_8.name());
+                return UriUtils.encodePath(string, UTF_8.name());
             } catch (UnsupportedEncodingException e) {
                 throw new UnsupportedOperationException(ERROR_UNSUPPORTED_ENCODING, e);
             }
