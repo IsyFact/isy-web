@@ -2414,7 +2414,7 @@ Außerdem gibt es folgende optionale Parameter:
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
 
-Für den Datepicker wird ein http://bootstrap-datepicker.readthedocs.io[externes Plug-In] verwendet.
+Für den Datepicker wird ein xref:glossary:literaturextern:inhalt.adoc#litextern-eternicode-bootstrap-datepicker-docs[externes Plug-In] verwendet.
 Das Bedienelement selbst bietet eine automatische Konfiguration des Plug-Ins sowie eine zum Rest der JSF-Bedienelemente einheitlich Schnittstelle.
 
 
