@@ -19,7 +19,19 @@
 				<span>#{headerHelper.ermittleTextHeaderLogoRechts(request)}</span>
 			</div>
 
-			<ui:include src="#{headerHelper.ermittleXhtmlSrcNutzerbereich(request)}" />
+			<form class="form-horizontal" role="form" action="#{headerHelper.ermittleLogoutUrl()}"
+				  method="post">
+				<ui:fragment
+						rendered="#{not empty globalConfigurationModel and not globalConfigurationModel.jsEnabled}">
+					<img class="icon icon-nojs"
+						 src="${request.contextPath}/app/resources/img/no-js.png"
+						 alt="Javascript ist deaktiviert." />
+				</ui:fragment>
+				<ui:fragment
+						rendered="#{not empty globalFlowModel.sachbearbeiterName}">
+					<span class="icon icon-user"></span><span id="benutzername"> #{globalFlowModel.sachbearbeiterName}</span></ui:fragment>
+				<button class="btn btn-default" type="submit">Abmelden</button>
+			</form>
 
 			<div class="btn-group">
 				<ul aria-labelledby="dropdownMenu1" role="menu"

@@ -1424,11 +1424,9 @@ image::nutzungsvorgaben/header-aufbau.png[align="center", width=610]
 ===== Nutzerbereich
 
 //todo: Nutzer vom Begriff nicht besser in Bediener ändern?
-Der Nutzerbereich wird nicht von der `isy-web` zur Verfügung gestellt.
-Es gelten die Anforderungen aus dem Styleguide, vor allem hinsichtlich des Verhaltens des Logout-Buttons.
-
-Konkrete Anwendungen müssen über die Konfigurationseinstellung `gui.header.nutzerbereich.xhtml.src` die Datei angeben, welche den Nutzerbereich definiert.
-Die Angabe der Konfiguration ist verpflichtend.
+Der Nutzerbereich wird von der `isy-web` zur Verfügung gestellt.
+Damit der Logout bei allen Anwendungen einheitlich funktioniert, ist ein Default-Verhalten implementiert (/logout).
+Um das Verhalten zu überschreiben, kann die Property `gui.logout.url` angepasst werden.
 
 ===== Logos und Texte im Header-Bereich
 Es besteht die Möglichkeit, für jeden Flow die folgenden Teile des Seitenrahmens anzupassen:
@@ -1437,7 +1435,7 @@ Es besteht die Möglichkeit, für jeden Flow die folgenden Teile des Seitenrahme
 * rechtes Logo im Header (`gui.header.logo.rechts.pfad`),
 * Text unterhalb des rechten Logos im Header (`gui.header.text.logo.rechts`).
 
-Um hiervon Gebrauch zu machen, muss die entsprechende Konfigurationsdatei über die Bean-Definition eingebunden werden:
+Um hiervon Gebrauch zu machen, muss eine entsprechende Konfigurationsdatei über die Bean-Definition eingebunden werden:
 
 [[listing-anpassung-rahmen-config]]
 .Konfigurationsdatei zur Anpassung des Seitenrahmens einbinden
@@ -1495,6 +1493,7 @@ Das folgende Beispiel zeigt eine vollständige Konfiguration.
 gui.header.logo.links.pfad = /javax.faces.resource/img/isyfactschriftzug.jpeg
 gui.header.logo.rechts.pfad = /javax.faces.resource/img/isyfactlogo.jpeg
 gui.header.text.logo.rechts = IsyFact
+gui.logout.url = /logout
 
 # Defintion der Anwendungsgruppen
 gui.anwendungsgruppen.ids = gruppeEins,gruppeZwei,gruppeDrei
@@ -2296,6 +2295,10 @@ Das Eingabefeld für Geldbeträge:
 * besitzt kein Attribut `inputmask`, da sich diese nicht mit der JavaScript-Funktion verträgt, welche die Daten formatiert.
 * lässt nur die Eingabe von Zahlen und Kommata zu; alle anderen Zeichen werden direkt nach Eingabe sofort wieder gelöscht.
 * besitzt das Attribut `onchange` - dort kann eine JavaScript-Funktion übergeben werden, die aufgerufen wird, sobald der Cursor das Feld verlässt.
+* rundet die eingegebene Zahl ab einer Länge von mehr als 15 Ziffern automatisch. Daraus lassen sich folgende Beispiele ableiten:
+** Ohne Nachkommastelle ist 999999999999999
+** für 1 Nachkommastelle ist 99999999999999,9
+** für 2 Nachkommastellen ist 9999999999999,99 der maximale Betrag ohne Rundung.
 
 Folgende Parameter sind Pflicht:
 
@@ -4046,6 +4049,13 @@ Außerdem gibt es folgende optionale Parameter:
 * `decimalplaces`: Die Anzahl der Nachkommastellen. (Standard: `2`, Typ: `Integer`)
 * `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
 * `alignright`: Gibt an, ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. (Standard: `false`, Typ: `Boolean`)
+
+Folgender Hinweis ist bei der Eingabe von Geldbeträgen zu beachten:
+
+* die eingegebene Zahl wird ab einer Länge von mehr als 15 Ziffern automatisch gerundet. Daraus lassen sich folgende Beispiele ableiten:
+** Ohne Nachkommastelle ist 999999999999999
+** für 1 Nachkommastelle ist 99999999999999,9
+** für 2 Nachkommastellen ist 9999999999999,99 der maximale Betrag ohne Rundung.
 
 [[listing-codeFormCurrencyWith4Eyes]]
 .Codebeispiel für formCurrencyInputWithFourEyes JSP-Komponente

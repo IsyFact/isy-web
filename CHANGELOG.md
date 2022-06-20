@@ -1,3 +1,15 @@
+# v5.4.0
+- `IFS-1344`: Umstellung auf CI-Friendly builds
+- `IFE-424`: Implementierung eines Nutzerbereichs
+- `IFE-431`: Nutzungsvorgaben um Hinweis auf Rundung bei der Eingabe von Geldbeträgen als Fließkommazahl ergänzt
+- `IFS-1155`: Download von Dateien mit Leerzeichen in den Namen behoben
+
+# v5.3.1
+- `IFS-1397`: Anhebung auf Isyfact-erweiterungen 2.4.1 mit Spring Boot 2.5.12 (Fix CVE-2022-22965)
+- Ursprüngliche (vor `IFE-141`) Reihenfolge der Funktionen in onload.js wiederhergestellt.
+  * browseCollect und selectLists haben spezielle Behandlung für modale Dialoge und müssen nach den modalen Dialogen initialisiert werden.
+- `WebFlowAutoConfiguration` registriert automatisch alle `FlowExecutionListener` Beans aus dem Spring Kontext.
+
 # v5.3.0
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
 - `IFS-970`: Anhebung auf IF 2.4
