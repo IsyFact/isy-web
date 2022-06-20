@@ -3,6 +3,7 @@
 - `IFE-424`: Implementierung eines Nutzerbereichs
 - `IFE-431`: Nutzungsvorgaben um Hinweis auf Rundung bei der Eingabe von Geldbeträgen als Fließkommazahl ergänzt
 - `IFS-1155`: Download von Dateien mit Leerzeichen in den Namen behoben
+- `IFS-1512`: Migration der Dokumentation zu Antora
 
 # v5.3.1
 - `IFS-1397`: Anhebung auf Isyfact-erweiterungen 2.4.1 mit Spring Boot 2.5.12 (Fix CVE-2022-22965)
@@ -19,7 +20,6 @@
 - `IFE-311`: Fehlende Selektion bei der Navigation behoben
 - `IFE-177`: Fix `IFE-30` übernommen, damit readonly-Dropdowns als Labels dargestellt werden.
 - `IFE-471`: Entfernen des Fehlerschlüssels aus den Fehler-Tooltips
-- `IFS-1512`: Migration der Dokumentation zu Antora
 
 # v5.2.0
 - `IFS-1115`: Version Anhebung von IsyFact Standards auf 2.3.0
