@@ -5,13 +5,12 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriUtils;
 
 import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
 import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
@@ -26,7 +26,6 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
  * @author msg
- *
  */
 @Component
 public class DownloadHelper {
@@ -38,11 +37,11 @@ public class DownloadHelper {
     private ZipHelper zipHelper;
 
     /**
-     * Startet den Download einer Datei mit entsprechendem Namen und Inhalt. Bei einem Fehler wird automatisch
-     * eine Meldung ausgegeben.
+     * Starts the download of a file with corresponding name and content.
+     * In the event of an error, a message is automatically issued.
      *
-     * @param fileModel das {@link FileModel} der herunterzulandenen Datei
-     * @return true, falls erfolgreich
+     * @param fileModel the {@link FileModel} to be downloaded
+     * @return true, if successful
      */
     public boolean starteDownload(FileModel fileModel) {
 
@@ -63,12 +62,12 @@ public class DownloadHelper {
     }
 
     /**
-     * Startet den Download einer Datei mit entsprechendem Namen und Inhalt. Bei einem Fehler wird automatisch
-     * eine Meldung ausgegeben.
+     * Starts the download of a file with corresponding name and content.
+     * In case of an error, a message is issued automatically.
      *
-     * @param dokumenteDatenModel @{@link DokumentDatenModel} der herunterzulandenden Datei; der enthaltene
-     *      Dateiname wird als ohne Endung betrachtet.
-     * @return true, falls erfolgreich
+     * @param dokumenteDatenModel @{@link DokumentDatenModel} of the file to be downloaded.
+     *                            The included filename is considered to have no extension.
+     * @return true, if successful
      */
     public boolean starteDownload(DokumentDatenModel dokumenteDatenModel) {
 
@@ -90,12 +89,13 @@ public class DownloadHelper {
     }
 
     /**
-     * Startet den Download einer zip-Datei mit entsprechendem Namen und einer Liste von durch
-     * {@link FileModel}s definierten Datien. Bei einem Fehler wird automatisch eine Meldung ausgegeben.
+     * Starts the download of a zip file with a corresponding name
+     * and a list of files defined by {@link FileModel}s.
+     * In case of an error, a message is issued automatically.
      *
-     * @param dateiname der Name der Datei, inkl. Endung
-     * @param dateien beliebig lange Liste von Dateien in Form von {@link FileModel}s
-     * @return <code>true</code>, falls erfolgreich, sonst <code>false</code>
+     * @param dateiname the name of the file, incl. extension
+     * @param dateien   arbitrary long list of files in form of {@link FileModel}s
+     * @return <code>true</code>, if successful, else <code>false</code>
      */
     public boolean downloadZipFileByModel(String dateiname, FileModel... dateien) {
 
@@ -126,8 +126,8 @@ public class DownloadHelper {
 
     /**
      * <p>
-     * Copy aus OmniFaces.<br/>
-     * Siehe auch:
+     * Copy from OmniFaces.<br/>
+     * See also:
      * </p>
      *
      * <pre>
@@ -136,7 +136,6 @@ public class DownloadHelper {
      * </pre>
      *
      * @author msg
-     *
      */
     private static final class Faces {
 
@@ -149,7 +148,7 @@ public class DownloadHelper {
             "UTF-8 is apparently not supported on this platform.";
 
         private static final String SENDFILE_HEADER = "%s;filename=\"%2$s\"; filename*=UTF-8''%2$s";
-        private static final Charset UTF_8 = Charset.forName("UTF-8");
+        private static final Charset UTF_8 = StandardCharsets.UTF_8;
 
         private Faces() {
             // prevent instantiation
@@ -180,22 +179,11 @@ public class DownloadHelper {
          * URL-encode the given string using UTF-8.
          *
          * @param string The string to be URL-encoded using UTF-8.
-         * @return The given string, URL-encoded using UTF-8, or <code>null</code> if <code>null</code> was
-         *         given.
-         * @throws UnsupportedOperationException When this platform does not support UTF-8.
+         * @return The given string, URL-encoded using UTF-8, or {@code null} if {@code null} was given.
          * @since 1.4
          */
         private static String encodeURL(String string) {
-
-            if (string == null) {
-                return null;
-            }
-
-            try {
-                return URLEncoder.encode(string, UTF_8.name());
-            } catch (UnsupportedEncodingException e) {
-                throw new UnsupportedOperationException(ERROR_UNSUPPORTED_ENCODING, e);
-            }
+            return UriUtils.encodePath(string, UTF_8);
         }
 
         private static String getMimeType(FacesContext context, String name) {
@@ -212,13 +200,13 @@ public class DownloadHelper {
         /**
          * Internal global method to send the given input stream to the response.
          *
-         * @param context the faces context
-         * @param input The file content as input stream.
-         * @param filename The file name which should appear in content disposition header.
+         * @param context       the faces context
+         * @param input         The file content as input stream.
+         * @param filename      The file name which should appear in content disposition header.
          * @param contentLength The content length, or -1 if it is unknown.
-         * @param attachment Whether the file should be provided as attachment, or just inline.
+         * @param attachment    Whether the file should be provided as attachment, or just inline.
          * @throws IOException Whenever something fails at I/O level. The caller should preferably not catch
-         *         it, but just redeclare it in the action method. The servletcontainer will handle it.
+         *                     it, but just redeclare it in the action method. The servletcontainer will handle it.
          */
         public static void sendFile(FacesContext context, InputStream input, String filename,
             long contentLength, boolean attachment) throws IOException {
@@ -261,7 +249,7 @@ public class DownloadHelper {
          * the input and output streams will implicitly be closed after streaming, regardless of whether an
          * exception is been thrown or not.
          *
-         * @param input The input stream.
+         * @param input  The input stream.
          * @param output The output stream.
          * @return The length of the written bytes.
          * @throws IOException When an I/O error occurs.

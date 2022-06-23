@@ -10,15 +10,6 @@ build:
   variables:
     MAVEN_BUILD_OPTS: -pl !isy-web-doc
 
-build:doc:
-  extends: .maven-build
-  variables:
-    MAVEN_BUILD_OPTS: -pl isy-web-doc
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - '**/target/doc/**'
-
 test:isy-web-lib:
   extends: .maven-test
 

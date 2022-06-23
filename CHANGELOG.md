@@ -1,6 +1,9 @@
 # v5.4.0
 - `IFS-1344`: Umstellung auf CI-Friendly builds
 - `IFE-424`: Implementierung eines Nutzerbereichs
+- `IFE-431`: Nutzungsvorgaben um Hinweis auf Rundung bei der Eingabe von Geldbeträgen als Fließkommazahl ergänzt
+- `IFS-1155`: Download von Dateien mit Leerzeichen in den Namen behoben
+- `IFS-1512`: Migration der Dokumentation zu Antora
 
 # v5.3.1
 - `IFS-1397`: Anhebung auf Isyfact-erweiterungen 2.4.1 mit Spring Boot 2.5.12 (Fix CVE-2022-22965)
@@ -28,10 +31,11 @@
     * Breaking Changes: Um einen Charpicker anzubinden muss das Attribut `charpicker` eines Input-Elements auf `dinSpec` (neu) oder `special` (alt) gesetzt werden.
     * Nutzungsvorgaben um Informationen zum CharPicker ergänzt
 - `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
-        `0130 - Latin Capital Letter I with Dot above; 0131 - Latin Small Letter I dotless`
+    * 0130 - Latin Capital Letter I with Dot above
+    * 0131 - Latin Small Letter I dotless
 - `IFE-57`:
-    - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
-    - Darstellung von Readonly Felder für Input Controlls vereinheitlicht.
+  - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
+  - Darstellung von Readonly Felder für Input Controlls vereinheitlicht.
 - `IFE-204`: Unterstuetzung von ES6 in isy-web
    - uglify durch terser ersetzt
    - in JS-Sourcen: var wurde auf let/const umgestellt
