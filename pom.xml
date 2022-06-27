@@ -20,7 +20,7 @@
     </modules>
 
     <properties>
-        <isyfact-bom-version>2.5.0-SNAPSHOT</isyfact-bom-version>
+        <isyfact-boms.version>2.5.0-SNAPSHOT</isyfact-boms.version>
         <revision>0.0.0-SNAPSHOT</revision>
         <commons-io.version>2.4</commons-io.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>
@@ -34,14 +34,14 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
-                <version>${isyfact-bom-version}</version>
+                <version>${isyfact-boms.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-standards-bom</artifactId>
-                <version>${isyfact-bom-version}</version>
+                <version>${isyfact-boms.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
