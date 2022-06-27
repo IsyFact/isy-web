@@ -8,27 +8,23 @@ export function initSelectlists() {
         .addClass("selectlist_ajaxtoken")
         .selectlist({
             size: 10
-        }).each(addRefreshTimer());
-}
+        }).each(function() {
+            // hack to make it work with modal dialogs
+            // the problem is that while initializing the dialog is not shown yet
+            // so all sizes are 0.
+            // the hack: to wait until visible and to refresh then
+            const $list = $(this);
+            let timerId;
 
-/**
- * Adds a timer to selectlist that checks for visibility and refreshes once the selectlist is visible.
- * Workaround needed for modal dialogs.
- */
-function addRefreshTimer(){
-        // hack to make it work with modal dialogs
-        // the problem is that while initializing the dialog is not shown yet
-        // so all sizes are 0.
-        // the hack: to wait until visible and to refresh then
-        const $list = $(this);
-        let timerId;
-
-        function refreshVisibleSelectlist() {
-            if ($list.next().is(':visible')) {
-                window.clearInterval(timerId);
-                $list.selectlist('refresh');
+            function refreshVisibleSelectlist() {
+                if ($list.next().is(':visible')) {
+                    window.clearInterval(timerId);
+                    $list.selectlist('refresh');
+                }
             }
-        }
 
-        timerId = window.setInterval(refreshVisibleSelectlist, 200);
+            timerId = window.setInterval(refreshVisibleSelectlist, 200);
+    });
 }
+
+
