@@ -172,10 +172,9 @@
                         <composite:insertChildren />
                     </ui:fragment>
                     <ui:fragment rendered="#{cc.attrs.readonly and not cc.attrs.showPrintView}">
-                        <span class="form-control readonly" style="width: #{cc.attrs.width}"
-                              id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
-                             #{cc.attrs.value}
-                        </span>
+                        <h:outputText styleClass="form-control readonly" style="width: #{cc.attrs.width}"
+                                      id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                                      value="#{cc.attrs.value}"/>
                     </ui:fragment>
                     <ui:fragment rendered="#{cc.attrs.showPrintView}">
                         <input type="#{cc.attrs.type}" class="form-control"

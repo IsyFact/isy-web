@@ -96,7 +96,7 @@
         <!-- Das Label falls readonly. -->
         <ui:fragment rendered="#{cc.attrs.readonly}">
             <label class="control-label#{cc.attrs.required ? ' mandatory' : ''} #{cc.attrs.labelStyleClass}"
-                   for="#{cc.clientId}:#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly">
+                   for="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}">
                 <h:outputText value="#{cc.attrs.label}"/>
             </label>
         </ui:fragment>
@@ -132,10 +132,10 @@
 
                 <!-- readonly -->
                 <ui:fragment rendered="#{cc.attrs.readonly}">
-                    <span class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.readonly?'readonly':''}"
-                           jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly" >
-                        #{cc.attrs.value}
-                    </span>
+                    <h:outputText
+                            styleClass="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.readonly?'readonly':''}"
+                            id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                            value="#{cc.attrs.value}"/>
                 </ui:fragment>
 
                 <a data-delay="100" data-trigger="hover" data-title=""
