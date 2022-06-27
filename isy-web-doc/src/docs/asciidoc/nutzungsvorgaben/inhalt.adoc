@@ -483,10 +483,22 @@ Ein geeigneter Konverter muss auch ungültige Daten ins Modell schreiben können
 Wenn dies aufgrund der Nutzung spezieller Datentypen (wie z.B. `Date`) nicht möglich ist, muss im View-Model der Datentyp `String` verwendet werden.
 Die Konvertierung findet in diesem Fall nicht durch einen Konverter statt, sondern erst nach oder während der Validierung.
 
-[TIP]
-====
-JSF-Konverter werden auch für readonly Felder verwendet.
-====
+Vorhandene JSF-Konverter werden auch automatisch bei der Darstellung der folgenden Komponenten im Readonly Modus berücksichtigt:
+
+* `actionInput`
+* `actionInputWithFourEyes`
+* `formActionInput`
+* `formActionInputWithFourEyes`
+* `formCurrencyInput`
+* `formCurrencyInputWithFourEyes`
+* `formDate`
+* `formDateWithFourEyes`
+* `formInput`
+* `formInputWithFourEyes`
+* `formNumericInput`
+* `formNumericInputWithFourEyes`
+* `formTextArea`
+* `formTextAreaWithFourEyes`
 
 Oft ist es notwendig, im Model Schlüssel eines Schlüsselverzeichnisses zu verwenden.
 Dieser sollte in der Regel in der Maske nicht als Schlüssel, sondern in einer verständlichen Form dargestellt werden.
