@@ -1,6 +1,9 @@
 # 5.3.2
-- Ursprüngliche (vor `IFE-141`) Reihenfolge der Funktionen in onload.js wiederhergestellt.
-  * browseCollect und selectLists haben spezielle Behandlung für modale Dialoge und müssen nach den modalen Dialogen initialisiert werden.
+
+- `IFS-1492`: Fehler in `selectlist` JavaScript Code behoben
+    * Der Fehler befindet sich im JavaScript Code, der die Darstellung der Komponente verzögert (`TimeHandler`-Funktion). Damit wird die Ausführung weiterer `TimeHandler`-Funktionen verhindert, bspw. wenn beide `selectlist` und `browsecollect` verwendet werden. Der Fehler ist mit v5.1.0 eingeführt worden.
+-  Ursprüngliche (vor `IFE-141`) Reihenfolge der Funktionen in onload.js wiederhergestellt.
+    * browseCollect und selectLists haben spezielle Behandlung für modale Dialoge und müssen nach den modalen Dialogen initialisiert werden.
 - `WebFlowAutoConfiguration` registriert automatisch alle `FlowExecutionListener` Beans aus dem Spring Kontext.
 
 # v5.3.1
