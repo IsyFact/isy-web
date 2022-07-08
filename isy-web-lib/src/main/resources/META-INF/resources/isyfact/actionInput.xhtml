@@ -39,7 +39,7 @@
     <!-- Ob die Komponente deaktivert ist oder nicht. -->
     <composite:attribute name="disabled" type="Boolean" default="false"/>
     <!-- Ob die Darstellung nur lesend erfolgen soll -->
-    <composite:attribute name="readonly" type="Boolean" default="false" />
+    <composite:attribute name="readonly" type="Boolean" default="false"/>
     <!-- Die CSS-Klasse für den Eingabebereich. Zur Zeit nicht implementiert-->
     <composite:attribute name="inputStyleClass" type="String"/>
 </composite:interface>
@@ -89,10 +89,10 @@
         <!-- readonly -->
         <ui:fragment
                 rendered="#{cc.attrs.readonly}">
-            <span class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.readonly?'readonly':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
-                   jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly" >
-                #{cc.attrs.value}
-            </span>
+            <h:outputText
+                    styleClass="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.readonly?'readonly':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
+                    id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                    value="#{cc.attrs.value}"/>
         </ui:fragment>
 
         <a data-delay="100" data-trigger="hover" data-title=""

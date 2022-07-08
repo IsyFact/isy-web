@@ -93,10 +93,10 @@
         <!-- disabled or button-only -->
         <ui:fragment
                 rendered="#{cc.attrs.readonly}">
-            <span class="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.readonly?'readonly':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
-                   jsf:id="#{jsfHelper.escapeIdentifier(cc.attrs.reference)}-readonly" >
-                #{cc.attrs.value}
-            </span>
+            <h:outputText
+                    styleClass="form-control#{existsValidationError ? ' invalid': ''} #{cc.attrs.readonly?'readonly':''} #{cc.attrs.mode eq 'button-only'?'button-only':''}"
+                    id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                    value="#{cc.attrs.value}"/>
         </ui:fragment>
 
         <a data-delay="100" data-trigger="hover" data-title=""
