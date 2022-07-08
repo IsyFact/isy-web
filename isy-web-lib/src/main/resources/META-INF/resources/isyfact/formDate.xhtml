@@ -131,11 +131,10 @@
 
                     <!-- Read-Only mode -->
                     <ui:fragment rendered="#{cc.attrs.readonly}">
-                        <span class="form-control readonly"
-                                id="#{cc.clientId}:readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}" >
-                            #{cc.attrs.value}
-                            <!-- composite:insertChildren /-->
-                        </span>
+                        <h:outputText
+                                styleClass="form-control readonly"
+                                id="readonly_#{jsfHelper.escapeIdentifier(cc.attrs.reference)}"
+                                value="#{cc.attrs.value}"/>
                     </ui:fragment>
                 </div>
             </div>
