@@ -31,3 +31,6 @@ src/docs/asciidoc/**/listoflistings.adoc
 src/docs/asciidoc/**/listoftables.adoc
 src/docs/asciidoc/**/glossary.adoc
 src/docs/asciidoc/**/bibliography.adoc
+
+# CI friendly pipeline
+.flattened-pom.xml
