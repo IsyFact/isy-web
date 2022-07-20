@@ -976,7 +976,7 @@ Durch den Aufruf der Validierung mit `evaluate` wird die Validierung daher expli
 Bei der Übermittlung von Werten in JSF müssen die Vorgaben aus Kapitel <<datenkonvertierung-fuer-darstellung-und-eingabe>> beachtet werden:
 Die Eingabe von ungültigen Werten (z.B. ungültiges Datum, Buchstaben in einem Zahlenfeld) muss grundsätzlich möglich sein.
 Ggf. müssen entsprechende Datentypen und JSF-Converter erzeugt werden.
-Die Validierung in der xref:glossary:glossary:master.adoc#glossar-Anwendungskontext#glossar-gui[GUI], aber spätestens im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern], muss die fehlerhafte Eingabe feststellen.
+Die Validierung in der xref:glossary:glossary:master.adoc#glossar-gui[GUI], aber spätestens im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern], muss die fehlerhafte Eingabe feststellen.
 Die Validierung über JSF ist derzeit nicht vorgesehen.
 
 

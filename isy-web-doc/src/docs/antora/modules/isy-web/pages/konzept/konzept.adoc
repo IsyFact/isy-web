@@ -13,7 +13,7 @@ m|isy-web |Bibliothek |v5.3.0
 [[einleitung]]
 == Einleitung
 
-Im Dokument xref:isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/master.adoc[Softwaretechnische Architektur] ist der Aufbau von xref:glossary:glossary:master.adoc#glossar-it-System[IT-Systemen] in fünf Komponenten beschrieben.
+Im Dokument xref:isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/master.adoc[Softwaretechnische Architektur] ist der Aufbau von xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systemen] in fünf Komponenten beschrieben.
 Eine davon ist die Komponente GUI (s. <<image-IFRefArcITSysGUI>>).
 
 //F1
@@ -65,7 +65,7 @@ Hierzu werden folgende Themenbereiche genauer definiert:
 Web-Anwendungen sind besonderen Gefährdungen ausgesetzt.
 Folgende Anforderungen müssen bei der Entwicklung von Web-Anwendungen berücksichtigt werden:
 
-* Entwickler müssen sich mit den TOP10 Risiken für Web-Anwendungen gemäß OWASP vertraut machen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-owasp10[OWASP Top 10])
+* Entwickler müssen sich mit den TOP10 Risiken für Web-Anwendungen gemäß OWASP vertraut machen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-owasp[OWASP Top 10])
 * Vertrauliche Informationen dürfen nicht als GET-Parameter übermittelt werden.
 Dies verhindert, dass solche Informationen ungewollt in Log-Dateien, Caches usw.
 gespeichert werden.
@@ -97,7 +97,7 @@ Im Gegensatz zu Taglibs erfolgt ein Include der Komponente und kein Aufruf von J
 
 Facelets bieten vielfältige Möglichkeiten, Vorlagenfragmente zu einer Gesamtseite zusammenzusetzen, um z.B. auf jeder Seite einen einheitlichen Seitenrahmen zu realisieren.
 Weiter können Facelets mit herkömmlichen HTML-Editoren bearbeitet werden und sind somit einfacher zu verstehen und zu editieren.
-Als Implementierung kommt wiederum die Referenzimplementierung von Oracle (xref:glossary:literaturextern:inhalt.adoc#litextern-litextern-javaserver-faces[JavaServer Faces]) zum Einsatz.
+Als Implementierung kommt wiederum die Referenzimplementierung von Oracle (xref:glossary:literaturextern:inhalt.adoc#litextern-javaserver-faces[JavaServer Faces]) zum Einsatz.
 
 [[bearbeitungsmodell-einer-jsf-anfrage]]
 ==== Bearbeitungsmodell einer JSF Anfrage
