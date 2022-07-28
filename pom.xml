@@ -20,8 +20,13 @@
     </modules>
 
     <properties>
-        <isyfact-bom-version>2.5.0-SNAPSHOT</isyfact-bom-version>
+        <isyfact-boms.version>2.5.0-SNAPSHOT</isyfact-boms.version>
         <revision>0.0.0-SNAPSHOT</revision>
+        <commons-io.version>2.4</commons-io.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
+        <geronimo-el_2.2_spec.version>1.0.1</geronimo-el_2.2_spec.version>
+        <geronimo-servlet_2.5_spec.version>1.2</geronimo-servlet_2.5_spec.version>
+        <myfaces-api.version>2.0.15</myfaces-api.version>
     </properties>
 
     <dependencyManagement>
@@ -29,41 +34,41 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
-                <version>${isyfact-bom-version}</version>
+                <version>${isyfact-boms.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-standards-bom</artifactId>
-                <version>${isyfact-bom-version}</version>
+                <version>${isyfact-boms.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.4</version>
+                <version>${commons-io.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
-                <version>1.4</version>
+                <version>${commons-fileupload.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-el_2.2_spec</artifactId>
-                <version>1.0.1</version>
+                <version>${geronimo-el_2.2_spec.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-servlet_2.5_spec</artifactId>
-                <version>1.2</version>
+                <version>${geronimo-servlet_2.5_spec.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-api</artifactId>
-                <version>2.0.15</version>
+                <version>${myfaces-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
