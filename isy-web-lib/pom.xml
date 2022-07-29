@@ -12,7 +12,7 @@
 
     <properties>
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-        <node.version>v16.14.0</node.version>
+        <node.version>v16.16.0</node.version>
         <skip.js.tests>false</skip.js.tests>
     </properties>
 
