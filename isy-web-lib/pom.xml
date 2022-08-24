@@ -5,14 +5,14 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isy-web-parent</artifactId>
-        <version>5.3.3</version>
+        <version>5.3.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>isy-web</artifactId>
 
     <properties>
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-        <node.version>v16.14.0</node.version>
+        <node.version>v16.16.0</node.version>
         <skip.js.tests>false</skip.js.tests>
     </properties>
 
