@@ -29,5 +29,8 @@
 	},
     "optionalDependencies": {
 		"@isyfact/isy-style": "^5.4.1"
-    }
+    },
+	"overrides": {
+		"terser": "5.14.2"
+	}
 }
