@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.4
+
+- `IFS-1642`: Anhebung Node Version 16.16.0
+
 ## 5.3.3
 
 - `IFS-1492`: Fehler in `selectlist` JavaScript Code behoben
