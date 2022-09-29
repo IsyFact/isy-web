@@ -121,7 +121,7 @@ public class ErrorControllerTest {
         when(ausnahmeIdMapperMock.getFehlertextProvider()).thenReturn(fehlertextProviderMock);
         when(ausnahmeIdMapperMock.getFallbackAusnahmeId()).thenReturn(FEHLER_ID);
 
-        // Zufällige UUID wird generiert
+        // Random UUID is generated
         when(fehlertextProviderMock
             .getMessage(eq(FehlerSchluessel.FEHLERTEXT_GUI_TECHNISCH), eq(FEHLER_ID), any(String.class)))
             .thenReturn(ERGEBNIS_NACHRICHT);
