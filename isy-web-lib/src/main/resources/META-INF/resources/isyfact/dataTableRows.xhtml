@@ -1,8 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:composite="http://java.sun.com/jsf/composite"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <!-- Der eigentliche Inhalt der Datatable. Dieses Tag sollte nach den Headern in den Body der Data-Table geschrieben werden. -->
 <!-- Dieses Tag inkludiert für jede Zeile ein XHTML. In diesem kann über den UI-Parameter "dataTableItem" auf das Item der aktuellen Zeile zugegriffen werden. -->
@@ -23,7 +21,7 @@
   <composite:attribute name="globalConfig" required="false"
     default="#{globalConfigurationModel}" />
 
-    
+
 </composite:interface>
 
 <composite:implementation>
@@ -39,7 +37,7 @@
   <ui:repeat var="dataTableItem" id="dataTableRows"
     value="#{cc.parent.attrs.dataTableModel.dataModel.displayItems}"
     varStatus="dataTableItemRepeatStatus">
-  
+
     <ui:param name="detailViewEnabled"
       value="#{cc.parent.attrs.dataTableModel.detailViewModel.isDetailView(dataTableItem.identifierForItem)}" />
     <ui:param name="detailViewPreloadingJs"
@@ -51,19 +49,19 @@
     <ui:param name="dataTableController"
       value="#{cc.parent.attrs.dataTableController}" />
 
-    <!-- Row -->
-    <tr id="#{dataTableItem.identifierForItem}"
-      class="#{cc.parent.attrs.dataTableModel.selectionModel.doubleClickSelectedItem eq dataTableItem.identifierForItem? 'doubleClickSelectedItem':''}"
-      style="">
-      <ui:include src="#{cc.attrs.rowDefinition}" />
-    </tr>
-    <!-- DetailView -->
-    <ui:fragment rendered="#{detailViewEnabled or clientMode or detailViewPreloadingJs}">
-      <tr id="detail-#{dataTableItem.identifierForItem}"
-        class="details-preview #{not detailViewEnabled?'hidden':''} #{cc.parent.attrs.dataTableModel.selectionModel.doubleClickSelectedItem eq dataTableItem.identifierForItem? 'doubleClickSelectedItem':''}">
+        <!-- Row -->
+        <tr id="#{dataTableItem.identifierForItem}"
+            class="#{cc.parent.attrs.dataTableModel.selectionModel.doubleClickSelectedItem eq dataTableItem.identifierForItem? 'doubleClickSelectedItem':''}"
+            style="">
+            <ui:include src="#{cc.attrs.rowDefinition}"/>
+        </tr>
+        <!-- DetailView -->
+        <ui:fragment rendered="#{cc.attrs.detailDefinition != null and (detailViewEnabled or clientMode or detailViewPreloadingJs)}">
+          <tr id="detail-#{dataTableItem.identifierForItem}"
+              class="details-preview #{not detailViewEnabled?'hidden':''} #{cc.parent.attrs.dataTableModel.selectionModel.doubleClickSelectedItem eq dataTableItem.identifierForItem? 'doubleClickSelectedItem':''}">
 
-        <ui:include src="#{cc.attrs.detailDefinition}"></ui:include>
-      </tr>
+            <ui:include src="#{cc.attrs.detailDefinition}" />
+          </tr>
     </ui:fragment>
   </ui:repeat>
 
