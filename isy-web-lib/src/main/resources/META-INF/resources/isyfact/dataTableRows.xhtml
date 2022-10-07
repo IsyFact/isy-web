@@ -7,10 +7,10 @@
 
 <composite:interface>
 
-  <!-- Die XHTML der Zeile. Wird mehrfach inkludiert. -->
-  <composite:attribute name="rowDefinition" />
+    <!-- Die XHTML der Zeile. Wird mehrfach inkludiert. -->
+    <composite:attribute name="rowDefinition"/>
 
-  <!-- Die XHTML der Detailansicht. Kann mehrfach inkludiert werden. -->
+    <!-- Die XHTML der Detailansicht. Kann mehrfach inkludiert werden. -->
   <composite:attribute name="detailDefinition" />
 
   <!-- Die Anzahl an Elementen, die im JS Modus für die Detailansicht vorgeladen werden. -->
@@ -38,31 +38,35 @@
     value="#{cc.parent.attrs.dataTableModel.dataModel.displayItems}"
     varStatus="dataTableItemRepeatStatus">
 
-    <ui:param name="detailViewEnabled"
-      value="#{cc.parent.attrs.dataTableModel.detailViewModel.isDetailView(dataTableItem.identifierForItem)}" />
-    <ui:param name="detailViewPreloadingJs"
-      value="#{cc.attrs.preloadingSize gt dataTableItemRepeatStatus.index and cc.attrs.globalConfig.jsEnabled}" />
+      <ui:param name="detailViewEnabled"
+                value="#{cc.parent.attrs.dataTableModel.detailViewModel.isDetailView(dataTableItem.identifierForItem)}"/>
+      <ui:param name="detailViewPreloadingJs"
+                value="#{cc.attrs.preloadingSize gt dataTableItemRepeatStatus.index and cc.attrs.globalConfig.jsEnabled}"/>
 
-    <!-- Parameter für weitere Tags setzen -->
-    <ui:param name="dataTableModel"
-      value="#{cc.parent.attrs.dataTableModel}" />
-    <ui:param name="dataTableController"
-      value="#{cc.parent.attrs.dataTableController}" />
+      <!-- Parameter für weitere Tags setzen -->
+      <ui:param name="dataTableModel"
+                value="#{cc.parent.attrs.dataTableModel}"/>
+      <ui:param name="dataTableController"
+                value="#{cc.parent.attrs.dataTableController}"/>
+      <ui:param name="doubleClickSelected"
+                value="#{cc.parent.attrs.dataTableModel.selectionModel.doubleClickSelectedItem eq dataTableItem.identifierForItem}"/>
+      <ui:param name="rowSelected"
+                value="#{cc.parent.attrs.dataTableModel.selectionModel.selected[dataTableItem.identifierForItem]}"/>
 
-        <!-- Row -->
-        <tr id="#{dataTableItem.identifierForItem}"
-            class="#{cc.parent.attrs.dataTableModel.selectionModel.doubleClickSelectedItem eq dataTableItem.identifierForItem? 'doubleClickSelectedItem':''}"
-            style="">
-            <ui:include src="#{cc.attrs.rowDefinition}"/>
-        </tr>
-        <!-- DetailView -->
+      <!-- Row -->
+      <tr id="#{dataTableItem.identifierForItem}"
+          class="#{doubleClickSelected ? 'doubleClickSelectedItem' : ''} #{rowSelected ? 'active' : ''} #{detailViewEnabled ? 'details-preview-master' : ''}"
+          style="">
+          <ui:include src="#{cc.attrs.rowDefinition}"/>
+      </tr>
+      <!-- DetailView -->
         <ui:fragment rendered="#{cc.attrs.detailDefinition != null and (detailViewEnabled or clientMode or detailViewPreloadingJs)}">
           <tr id="detail-#{dataTableItem.identifierForItem}"
               class="details-preview #{not detailViewEnabled?'hidden':''} #{cc.parent.attrs.dataTableModel.selectionModel.doubleClickSelectedItem eq dataTableItem.identifierForItem? 'doubleClickSelectedItem':''}">
 
-            <ui:include src="#{cc.attrs.detailDefinition}" />
+              <ui:include src="#{cc.attrs.detailDefinition}"/>
           </tr>
-    </ui:fragment>
+      </ui:fragment>
   </ui:repeat>
 
 </composite:implementation>
