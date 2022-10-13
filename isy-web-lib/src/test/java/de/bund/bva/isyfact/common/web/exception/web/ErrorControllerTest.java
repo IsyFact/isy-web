@@ -18,8 +18,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -121,7 +121,7 @@ public class ErrorControllerTest {
         when(ausnahmeIdMapperMock.getFehlertextProvider()).thenReturn(fehlertextProviderMock);
         when(ausnahmeIdMapperMock.getFallbackAusnahmeId()).thenReturn(FEHLER_ID);
 
-        // Zufällige UUID wird generiert
+        // Random UUID is generated
         when(fehlertextProviderMock
             .getMessage(eq(FehlerSchluessel.FEHLERTEXT_GUI_TECHNISCH), eq(FEHLER_ID), any(String.class)))
             .thenReturn(ERGEBNIS_NACHRICHT);

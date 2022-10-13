@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -68,7 +68,7 @@ public class ApplicationInitialisierungFilterTest {
 
         filter.doFilter(httpRequest, httpResponse, filterChain);
 
-        verifyZeroInteractions(httpResponse);
+        verifyNoInteractions(httpResponse);
         verify(filterChain).doFilter(httpRequest, httpResponse);
     }
 
@@ -105,7 +105,7 @@ public class ApplicationInitialisierungFilterTest {
         filter.doFilter(httpRequest, httpResponse, filterChain);
 
         verify(httpSession).getAttribute(GuiParameterSchluessel.JAVASCRIPT_AKTIVIERT_SCHLUESSEL);
-        verifyZeroInteractions(httpResponse);
+        verifyNoInteractions(httpResponse);
         verify(filterChain).doFilter(httpRequest, httpResponse);
     }
 

@@ -3,6 +3,7 @@ include:
     file: '/maven/.gitlab-ci-maven.yml'
 
 variables:
+  NEXT_VERSION: 6.0.0
   MAVEN_PACKAGE_OPTS: -pl !isy-web-doc
   # no browser is available in zssi
   MAVEN_TEST_OPTS: -Dskip.js.tests=true

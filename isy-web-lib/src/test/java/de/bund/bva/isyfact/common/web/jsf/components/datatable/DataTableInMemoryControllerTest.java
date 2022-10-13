@@ -224,7 +224,7 @@ public class DataTableInMemoryControllerTest {
 
         controller.sortDisplayItems(items, "", SortDirection.ASCENDING);
 
-        verifyZeroInteractions(items);
+        verifyNoInteractions(items);
     }
 
     public static class TestDataTableItem implements DataTableItem {
