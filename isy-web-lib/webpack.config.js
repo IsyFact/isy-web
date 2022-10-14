@@ -1,3 +1,4 @@
+const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -13,17 +14,53 @@ module.exports = {
     },
     // js bundle
     output: {
-        filename: '[name].bundle.js',
-        path: __dirname + '/target/classes/META-INF/resources/js'
+        filename: 'js/[name].bundle.js',
+        path: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources')
     },
     // config for css minimization
     module: {
         rules: [
             {
+                test: /fonts\/[^/]+\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: '[name][ext]',
+                    publicPath: '../fonts/',
+                    outputPath: 'fonts/',
+                }
+            },
+            {
+                test: /webfonts\/[^/]+\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: '[name][ext]',
+                    publicPath: '../webfonts/',
+                    outputPath: 'webfonts/',
+                }
+            },
+            {
+                test: /img\/[^/]+\.(png|gif)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: '[name][ext]',
+                    publicPath: '../img/',
+                    outputPath: 'img/',
+                }
+            },
+            {
+                test: /img\/controls\/[^/]+\.(png|gif)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: '[name][ext]',
+                    publicPath: '../img/controls/',
+                    outputPath: 'img/controls/',
+                }
+            },
+            {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
-            },
-        ],
+            }
+        ]
     },
     optimization: {
         minimizer: [
@@ -36,6 +73,6 @@ module.exports = {
         ],
     },
     plugins: [new ESLintPlugin(), new MiniCssExtractPlugin({
-        filename: "../css/[name].css"
+        filename: "/css/[name].css"
     })]
 };
