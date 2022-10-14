@@ -13,10 +13,10 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             // jquery first, since it should be available when adding bootstrap
-            "node_modules/@isyfact/isy-style/dist/lib/jquery.min.js",
-            "node_modules/@isyfact/isy-style/dist/lib/bootstrap.min.js",
-            "node_modules/@isyfact/isy-style/dist/lib/modernizr.js",
-            "node_modules/@isyfact/isy-style/dist/plugins/*.js",
+            "target/classes/META-INF/resources/lib/jquery.min.js",
+            "target/classes/META-INF/resources/lib/bootstrap.min.js",
+            "target/classes/META-INF/resources/lib/modernizr.js",
+            "target/classes/META-INF/resources/plugins/*.js",
             {'pattern': 'src/test/js/**/*.spec.js', 'watched': false}
         ],
 

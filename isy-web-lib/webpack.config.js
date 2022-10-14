@@ -3,6 +3,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     target:  ['es5', 'web'],
@@ -72,7 +73,26 @@ module.exports = {
             new CssMinimizerPlugin(),
         ],
     },
-    plugins: [new ESLintPlugin(), new MiniCssExtractPlugin({
-        filename: "/css/[name].css"
-    })]
+    plugins: [
+        new ESLintPlugin(),
+        new MiniCssExtractPlugin({
+            filename: "/css/[name].css"
+        }),
+        new CopyWebpackPlugin({
+            "patterns": [
+            {
+                from: 'node_modules/jquery/dist/jquery.min.js',
+                to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'lib')
+            },
+            {
+                from: 'node_modules/bootstrap/dist/js/bootstrap.min.js',
+                to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'lib')
+            },
+            {
+                from: 'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
+                to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'magnific-popup.min.js')
+            }
+            ]
+        })
+    ]
 };
