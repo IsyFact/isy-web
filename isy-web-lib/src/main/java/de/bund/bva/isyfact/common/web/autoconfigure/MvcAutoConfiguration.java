@@ -2,7 +2,6 @@ package de.bund.bva.isyfact.common.web.autoconfigure;
 
 
 
-import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter;
 import de.bund.bva.isyfact.common.web.exception.IsyFactFlowHandlerMapping;
 import de.bund.bva.isyfact.common.web.exception.OptimisticLockHandler;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
@@ -86,17 +85,6 @@ public class MvcAutoConfiguration implements WebMvcConfigurer {
             new FilterRegistrationBean<>();
         registrationBean.setFilter(new RequestContextFilter());
         registrationBean.addUrlPatterns("/*");
-        return registrationBean;
-    }
-
-    //Automatisches setzen der Korrelations-ID
-    @Bean
-    FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> httpHeaderNestedDiagnosticContextFilter() {
-        FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> registrationBean =
-            new FilterRegistrationBean<>();
-        registrationBean.setFilter(new HttpHeaderNestedDiagnosticContextFilter());
-        registrationBean.addUrlPatterns("/*");
-        registrationBean.setOrder(1);
         return registrationBean;
     }
 
