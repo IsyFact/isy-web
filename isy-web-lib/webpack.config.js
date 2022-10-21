@@ -99,6 +99,10 @@ module.exports = {
             {
                 from: 'node_modules/jquery.inputmask/dist/jquery.inputmask.bundle.js',
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'jquery.inputmask.bundle.js')
+            },
+            {
+                from: 'isy-web-lib/node_modules/jquery.maskedinput/src/jquery.maskedinput.js',
+                to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'jquery.maskedinput.js')
             }
             ]
         })
