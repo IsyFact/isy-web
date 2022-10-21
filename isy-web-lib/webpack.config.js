@@ -11,7 +11,16 @@ module.exports = {
         isyweb: [
             './src/main/js/main.js',
             './src/main/css/specialcharpicker.css'
-        ]
+        ],
+        styles: {
+            import: './src/main/less/styles-jsf.less'
+        },
+        print: {
+            import: './src/main/less/print-jsf.less'
+        },
+        color: {
+            import: './src/main/less/portal-color.less'
+        }
     },
     // js bundle
     output: {
@@ -60,6 +69,10 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
+                test: /\.less$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader',  'less-loader']
             }
         ]
     },
@@ -88,10 +101,20 @@ module.exports = {
                 from: 'node_modules/bootstrap/dist/js/bootstrap.min.js',
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'lib')
             },
+            // Code copied and modified by Ergosign
+            // {
+            //     from: 'node_modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js',
+            //     to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', "bootstrap-timepicker.min.js")
+            // },
             {
                 from: 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', "bootstrap-select.min.js")
             },
+            // IFS-182 + locale = de + bugfix in show() for readonly case -> this.picker.hide().detach();
+            // {
+            //     from: "node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+            //     to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', "bootstrap-datepicker.min.js")
+            // },
             {
                 from: 'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'magnific-popup.min.js')
