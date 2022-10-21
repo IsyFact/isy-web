@@ -15,7 +15,8 @@
     "magnific-popup": "0.9.9",
     "jquery-hotkeys": "0.2.2",
     "jquery.inputmask": "3.3.4",
-    "jquery.maskedinput": "1.4.1"
+    "jquery.maskedinput": "1.4.1",
+    "jquery-visible": "1.2.0"
   },
   "devDependencies": {
     "css-loader": "^5.2.7",
