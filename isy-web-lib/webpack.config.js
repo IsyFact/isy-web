@@ -89,6 +89,10 @@ module.exports = {
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'lib')
             },
             {
+                from: 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
+                to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', "bootstrap-select.min.js")
+            },
+            {
                 from: 'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'magnific-popup.min.js')
             },
