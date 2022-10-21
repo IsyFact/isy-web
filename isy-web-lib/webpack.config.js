@@ -95,6 +95,10 @@ module.exports = {
             {
                 from: 'node_modules/jquery-hotkeys/jquery-hotkeys.js',
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'jquery.hotkeys.js')
+            },
+            {
+                from: 'node_modules/jquery.inputmask/dist/jquery.inputmask.bundle.js',
+                to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'jquery.inputmask.bundle.js')
             }
             ]
         })

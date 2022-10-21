@@ -13,7 +13,8 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "bootstrap": "3.4.1",
     "magnific-popup": "0.9.9",
-    "jquery-hotkeys": "0.2.2"
+    "jquery-hotkeys": "0.2.2",
+    "jquery.inputmask": "3.3.4"
   },
   "devDependencies": {
     "css-loader": "^5.2.7",
