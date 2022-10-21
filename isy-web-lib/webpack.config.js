@@ -91,6 +91,10 @@ module.exports = {
             {
                 from: 'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'magnific-popup.min.js')
+            },
+            {
+                from: 'node_modules/jquery-hotkeys/jquery-hotkeys.js',
+                to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'jquery.hotkeys.js')
             }
             ]
         })
