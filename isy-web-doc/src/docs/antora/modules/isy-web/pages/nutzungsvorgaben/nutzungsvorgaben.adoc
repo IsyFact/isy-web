@@ -40,7 +40,7 @@ Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-s
 [[benoetigte-bibliotheken]]
 == Benötigte Bibliotheken
 
-Die Bibliothek `isy-web` enthält alle notwendigen Abhängigkeiten, Spring-Konfigurationen, JSF-Komponenten (Composite Components) sowie zugehörige XHTML-Templates zur Erstellung der GUI-Komponente.
+Die Bibliothek `isy-web` enthält alle notwendigen Abhängigkeiten, Spring-Konfigurationen, JSF-Komponenten (Composite Components) sowie zugehörige XHTML-Templates, CSS-, JavaScript-, Bilddateien und Schriftarten zur Erstellung der GUI-Komponente.
 Sie wird über eine Maven-Abhängigkeit eingebunden.
 Bei Verwendung des IsyFact-BOMs wird die Version automatisch ermittelt.
 
@@ -57,15 +57,13 @@ Bei Verwendung des IsyFact-BOMs wird die Version automatisch ermittelt.
 // TODO In den Styleguide verschieben?
 Für die Erstellung von Web-GUIs existieren Vorgaben in Form eines xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguides].
 Der Baustein Styleguide legt Anforderungen an die Gestaltung und Nutzbarkeit von Oberflächen fest.
-Die zugehörige Bibliothek `isy-style` enthält die CSS-, JavaScript- und Bilddateien des Styleguides zur produktiven Nutzung aufbereitet.
+Die Bibliothek `isy-web` enthält die CSS-, JavaScript-, Bilddateien und  Schriftarten des Styleguides zur produktiven Nutzung aufbereitet.
 
-Die CSS-Dateien für eine zum Styleguide konforme Anwendung werden bei Nutzung der Bibliothek `isy-style` automatisch geladen und eingebunden.
+Die CSS-Dateien für eine zum Styleguide konforme Anwendung werden bei Nutzung der Bibliothek `isy-web` automatisch geladen und eingebunden.
 Zur anwendungsspezifischen Anpassung der Stylesheets dienen folgende, innerhalb der Anwendung liegende, Dateien:
 
 * `/css/custom-styles.css` - spezielle CSS Klassen für die Anwendung,
 * `/css/custom-print.css` - spezielle CSS Klassen für die Druckansicht der Anwendung.
-
-Eine explizite Abhängigkeit zur Bibliothek `isy-style` ist in der Regel nicht nötig, da sie implizit mit eingebunden wird.
 
 [[erstellung-der-gui-komponente]]
 == Erstellung der GUI-Komponente
@@ -504,7 +502,7 @@ Ein geeigneter Konverter muss auch ungültige Daten ins Modell schreiben können
 Wenn dies aufgrund der Nutzung spezieller Datentypen (wie z.B. `Date`) nicht möglich ist, muss im View-Model der Datentyp `String` verwendet werden.
 Die Konvertierung findet in diesem Fall nicht durch einen Konverter statt, sondern erst nach oder während der Validierung.
 
-JSF-Konverter werden auch für die Darstellung von readonly Felder verwendet. 
+JSF-Konverter werden auch für die Darstellung von readonly Felder verwendet.
 Folgende Komponenten werden entsprechend behandelt:
 
 * `actionInput`
@@ -1403,7 +1401,7 @@ Die Einbindung erfolgt dann per Depedency Injection z.B. in einem Controller.
 
 TIP: Die IsyFact enthält die Demo-Anwendung `isy-webgui`.
 
-Die Anwendung zeigt die Features der Bibliotheken `isy-web` sowie `isy-style` beispielhaft.
+Die Anwendung zeigt die Features der Bibliothek `isy-web` beispielhaft.
 Insbesondere demonstriert sie Aussehen und Verhalten der nachfolgend beschriebenen JSF-Seitenelemente.
 Für die Verwendung dieser Elemente muss in den View-Templates folgender Namespace eingebunden werden: `xmlns:isy="http://java.sun.com/jsf/composite/isyfact"`.
 
@@ -1855,7 +1853,7 @@ Abweichungen zu diesen Vorgaben können im Spezialfall möglich sein.
 
 TIP: Die IsyFact enthält die Demo-Anwendung `isy-webgui`.
 
-Die Anwendung zeigt die Features der xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliotheken] `isy-web` sowie `isy-style` beispielhaft.
+Die Anwendung zeigt die Features der xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek] `isy-web` beispielhaft.
 Insbesondere demonstriert sie Aussehen und Verhalten der nachfolgend beschriebenen JSF-Bedienelemente.
 
 === Button
@@ -3837,7 +3835,7 @@ Die Namensgebung der 4-Augen-Komponenten folgt dem Schema, dass dem Namen der Ba
 
 [TIP]
 ====
-Die IsyFact enthält die Demo-Anwendung `isy-webgui` und zeigt darin die Features der Bibliotheken `isy-web` sowie `isy-style` beispielhaft.
+Die IsyFact enthält die Demo-Anwendung `isy-webgui` und zeigt darin die Features der Bibliothek `isy-web`.
 Insbesondere demonstriert die Demoanwendung Aussehen und Verhalten der nachfolgend beschriebenen JSF-Seitenelemente.
 Alle Screenshots der beschriebenen 4-Augen-Prinzip Komponenten wurden dieser Demoanwendung entnommen.
 ====
