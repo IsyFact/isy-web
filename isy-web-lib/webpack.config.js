@@ -112,11 +112,10 @@ module.exports = {
                 from: 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', "bootstrap-select.min.js")
             },
-            // IFS-182 + locale = de + bugfix in show() for readonly case -> this.picker.hide().detach();
-            // {
-            //     from: "node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
-            //     to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', "bootstrap-datepicker.min.js")
-            // },
+            {
+                from: "node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+                to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', "bootstrap-datepicker.js")
+            },
             {
                 from: 'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
                 to: path.resolve(__dirname, 'target', 'classes', 'META-INF', 'resources', 'plugins', 'magnific-popup.min.js')
