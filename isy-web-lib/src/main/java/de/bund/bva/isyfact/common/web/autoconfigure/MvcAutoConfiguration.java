@@ -38,7 +38,7 @@ public class MvcAutoConfiguration implements WebMvcConfigurer {
             .setCachePeriod(86400);
     }
 
-    //Speichert die Message-Source fuer statische Zugriffe auf Messages.
+    // Saves Message-Source for static access to Messages.
     @Bean
     @ConditionalOnMissingBean
     public MessageSourceHolder messageSourceHolder() {
@@ -55,7 +55,7 @@ public class MvcAutoConfiguration implements WebMvcConfigurer {
         return isyFactFlowHandlerMapping;
     }
 
-    // Loest die XHTML Views auf
+    // Resolves XHTML views
     @Bean
     public UrlBasedViewResolver jsfViewResolver() {
         UrlBasedViewResolver jsfViewResolver = new UrlBasedViewResolver();
@@ -88,7 +88,7 @@ public class MvcAutoConfiguration implements WebMvcConfigurer {
         return registrationBean;
     }
 
-    //Character-Encoding auf UTF-8
+    // UTF-8 character encoding
     @Bean
     FilterRegistrationBean<CharacterEncodingFilter> characterEncodingFilter() {
         FilterRegistrationBean<CharacterEncodingFilter> registrationBean = new FilterRegistrationBean<>();
