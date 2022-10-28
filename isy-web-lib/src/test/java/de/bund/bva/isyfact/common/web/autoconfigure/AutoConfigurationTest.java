@@ -16,6 +16,7 @@ import org.springframework.security.access.AccessDecisionManager;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterAutoConfiguration;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
@@ -67,5 +68,24 @@ public class AutoConfigurationTest {
     @Test
     public void testContextSuccessful() {
         contextRunner.run(context -> assertThat(context).hasNotFailed());
+    }
+
+    private final WebApplicationContextRunner contextRunner_withAllowBeanOverridingFalse_withIsyAufrufKontext = new WebApplicationContextRunner(AnnotationConfigServletWebServerApplicationContext::new)
+            .withInitializer(initializer)
+            .withConfiguration(AutoConfigurations.of(
+                    MdcFilterAutoConfiguration.class,
+                    MvcAutoConfiguration.class,
+                    WebFlowAutoConfiguration.class,
+                    ControllerAutoConfiguration.class
+            ))
+            .withUserConfiguration(TestConfiguration.class)
+            .withPropertyValues(
+                    "spring.main.allow-bean-definition-overriding=false"
+            );
+
+    @Test
+    public void test_withAufrufKontextAutoConfig_withAllowBeanOverridingFalse_doesNotThrow() {
+        contextRunner_withAllowBeanOverridingFalse_withIsyAufrufKontext
+                .run(context -> assertThat(context).hasNotFailed());
     }
 }
