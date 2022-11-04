@@ -1,6 +1,7 @@
 # Changelog
 
 ## v6.0.0
+- IFS-1946: HttpHeaderNestedDiagnosticContextFilter entfernt, da bereits in Isy-Aufrufkontext definiert
 - IFS-1616: Anpassung an Spring Boot Version 2.7.2
 - IFS-1344: Umstellung auf CI-Friendly builds
 - IFE-424: Implementierung eines Nutzerbereichs
@@ -9,6 +10,8 @@
 - IFS-1552: Einheitliche Verwendung von Maven-Properties für Versionsnummern
 - IFS-1973: Quellcode von `isy-style` in `isy-web` verlagert
   - JSF Anwendungen müssen nicht mehr `isy-style` anbinden
+- IFS-1334: Positionierung von Tooltips gefixt
+
 
 ## 5.3.4
 
