@@ -1,0 +1,91 @@
+// This file has been created by ERGOSIGN GmbH - All rights reserved - http://www.ergosign.de
+// DO NOT ALTER OR REMOVE  THIS COPYRIGHT NOTICE OR THIS FILE HEADER.
+//
+// This file and the code contained in it are subject to the agreed contractual terms and conditions,
+// in particular with regard to resale and publication.
+
+// styling of all form controls
+
+.checkbox,
+.checkbox-inline {
+    input[type="checkbox"]:not([disabled]):hover + span {
+        color: @es-portal-color-100;
+    }
+    input[type="checkbox"]:focus + span {
+        &:before {
+            border-color: @input-border-focus;
+        }
+    }
+}
+
+.radio,
+.radio-inline {
+
+    input[type="radio"]:not([disabled]):hover + span {
+        color: @es-portal-color-100;
+    }
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="text"]:read-only:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+    @color-rgba: rgba(red(@input-border-focus), green(@input-border-focus), blue(@input-border-focus), 0.6);
+    border-color: @input-border-focus;
+    //box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px @color-rgba;
+    outline: 0 none;
+}
+
+textarea.form-control {
+    &:focus {
+        border: 1px solid @input-border-focus;
+        //box-shadow: 0 0 0 1px @input-border-focus
+    }
+
+    &:focus:hover {
+        border: 1px solid @input-border-focus;
+        //box-shadow: 0 0 0 1px @input-border-focus;
+    }
+
+    &.required,
+    &.invalid {
+        &:focus {
+            border: 2px solid @input-border-focus;
+        }
+    }
+}
+
+.has-error {
+    .form-control {
+        border: 2px solid @es-orange-100;
+        background-color: @es-orange-20;
+        &:focus {
+            border: 2px solid @input-border-focus;
+        }
+        &:focus:hover {
+            border: 2px solid @input-border-focus;
+        }
+    }
+}
+
+.control-label.mandatory.optional:after {
+    color: @input-border-focus;
+}
+
+input[readonly] {
+    background: @es-white;
+}
+

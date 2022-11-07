@@ -1,5 +1,7 @@
 import { currentDateAsString, setValidDateAsString, datumErgaenzen, fixDateOutOfRange } from "./datum-utils";
 
+import 'bootstrap-datepicker/js/locales/bootstrap-datepicker.de';
+
 /**
  * Adds handlers to all datepickers that haven't been initialized yet.
  * Initialized datepickers are marked with a token class (rf-datepicker_ajaxtoken).
@@ -32,7 +34,12 @@ export function createDatepicker () {
         // showOnFocus: If false, the datepicker will be prevented from showing when the input field associated with it receives focus.
         showOnFocus: false,
         // enableOnReadonly: If false the datepicker will not show on a readonly datepicker field.
-        enableOnReadonly: false
+        enableOnReadonly: false,
+        // remove arrows, set by css styles
+        templates: {
+            leftArrow: ' ',
+            rightArrow: ' '
+        }
     });
 
     $(this).children("a").click(openDatepicker);

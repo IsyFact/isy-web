@@ -8,7 +8,10 @@
 - IFE-431: Nutzungsvorgaben um Hinweis auf Rundung bei der Eingabe von Geldbeträgen als Fließkommazahl ergänzt
 - IFS-1512: Migration der Dokumentation zu Antora
 - IFS-1552: Einheitliche Verwendung von Maven-Properties für Versionsnummern
+- IFS-1973: Quellcode von `isy-style` in `isy-web` verlagert
+  - JSF Anwendungen müssen nicht mehr `isy-style` anbinden
 - IFS-1334: Positionierung von Tooltips gefixt
+
 
 ## 5.3.4
 
