@@ -88,15 +88,4 @@ public class MvcAutoConfiguration implements WebMvcConfigurer {
         return registrationBean;
     }
 
-    // UTF-8 character encoding
-    @Bean
-    FilterRegistrationBean<CharacterEncodingFilter> characterEncodingFilter() {
-        FilterRegistrationBean<CharacterEncodingFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new CharacterEncodingFilter());
-        registrationBean.addUrlPatterns("/*");
-        registrationBean.addInitParameter("encoding", "UTF-8");
-        registrationBean.addInitParameter("forceEncoding", "true");
-        return registrationBean;
-    }
-
 }
