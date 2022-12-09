@@ -1,12 +1,6 @@
 package de.bund.bva.isyfact.common.web.autoconfigure;
 
 
-
-import de.bund.bva.isyfact.common.web.exception.IsyFactFlowHandlerMapping;
-import de.bund.bva.isyfact.common.web.exception.OptimisticLockHandler;
-import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
-import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
-import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
@@ -15,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.faces.mvc.JsfView;
 import org.springframework.faces.webflow.JsfFlowHandlerAdapter;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -24,6 +17,12 @@ import org.springframework.web.servlet.mvc.UrlFilenameViewController;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
 import org.springframework.webflow.executor.FlowExecutor;
+
+import de.bund.bva.isyfact.common.web.exception.IsyFactFlowHandlerMapping;
+import de.bund.bva.isyfact.common.web.exception.OptimisticLockHandler;
+import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
+import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 @EnableWebMvc
 @Configuration
@@ -34,8 +33,8 @@ public class MvcAutoConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**")
-            .addResourceLocations("/")
-            .setCachePeriod(86400);
+                .addResourceLocations("/")
+                .setCachePeriod(86400);
     }
 
     // Saves Message-Source for static access to Messages.
@@ -47,9 +46,9 @@ public class MvcAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
     public IsyFactFlowHandlerMapping isyFactFlowHandlerMapping(FlowDefinitionRegistry flowRegistry,
-        AusnahmeIdMapper ausnahmeIdMapper) {
+                                                               AusnahmeIdMapper ausnahmeIdMapper) {
         IsyFactFlowHandlerMapping isyFactFlowHandlerMapping =
-            new IsyFactFlowHandlerMapping(ausnahmeIdMapper, "snapshotNotFoundFlow", "accessDeniedFlow");
+                new IsyFactFlowHandlerMapping(ausnahmeIdMapper, "snapshotNotFoundFlow", "accessDeniedFlow");
         isyFactFlowHandlerMapping.setFlowRegistry(flowRegistry);
         isyFactFlowHandlerMapping.setDefaultHandler(new UrlFilenameViewController());
         return isyFactFlowHandlerMapping;
@@ -82,7 +81,7 @@ public class MvcAutoConfiguration implements WebMvcConfigurer {
     @Bean
     FilterRegistrationBean<RequestContextFilter> requestContextFilter() {
         FilterRegistrationBean<RequestContextFilter> registrationBean =
-            new FilterRegistrationBean<>();
+                new FilterRegistrationBean<>();
         registrationBean.setFilter(new RequestContextFilter());
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
