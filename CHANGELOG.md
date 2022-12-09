@@ -1,6 +1,7 @@
 # Changelog
 
 ## v6.0.0
+- IFS-2008: Anbindung der HttpEncodingAutoConfiguration
 - IFS-1946: HttpHeaderNestedDiagnosticContextFilter entfernt, da bereits in Isy-Aufrufkontext definiert
 - IFS-1616: Anpassung an Spring Boot Version 2.7.2
 - IFS-1344: Umstellung auf CI-Friendly builds
