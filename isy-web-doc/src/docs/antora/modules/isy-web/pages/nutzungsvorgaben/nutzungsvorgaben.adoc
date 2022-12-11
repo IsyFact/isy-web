@@ -1663,6 +1663,47 @@ Im Folgenden ein Beispiel:
 </ui:define>
 ----
 
+[[konfiguration-portalfarbe]]
+=== Konfiguration Portalfarbe
+
+Für eine Anwendung kann eine Basisfarbe / Portalfarbe konfiguriert werden.
+Von dieser `portalColor` werden viele der weiteren Farbstyles für die Anwendung abgeleitet und in der generierten Datei `color.css` abgelegt, die in der Zielanwendung einzubinden ist.
+Es kann zudem eine abweichende Fokusfarbe für Bedienelemente `focusColor` konfiguriert werden.
+Standardmäßig wird die `portalColor` auch als Fokusfarbe der Bedienelemente gesetzt.
+
+Zur Generierung der Datei `color.css` mit der eigenen Portalfarbe sind folgende Schritte erforderlich:
+
+1. *Konfiguration der Portalfarbe*: In der Datei `isy-web-lib/src/main/less/portal-color.less` des `isy-web` Repositories ist die Basisfarbe / Portalfarbe zu setzen. Hier kann auch eine abweichende Fokusfarbe für Bedienelemente konfiguriert werden.
+
+[[listing-gruntPortalfarbe]]
+.Portalfarbe konfigurieren
+[source, javascript]
+----
+@portal-color: #004179;
+@focus-color: @portal-color;
+
+@es-portal-color-100: @portal-color;
+@es-portal-color-80: tint(@portal-color, 20%);
+@es-portal-color-60: tint(@portal-color, 40%);
+@es-portal-color-40: tint(@portal-color, 60%);
+@es-portal-color-20: tint(@portal-color, 80%);
+@input-border-focus: @focus-color;
+
+@import "es/color/color-base";
+
+----
+
+[start=2]
+2. *Maven Install*: In dem Modul `isy-web-lib` ist ein "Maven install" durchzuführen.
+Dadurch wird ein "webpack build" ausgelöst und die Farbstyles befinden sich nach der Generierung in `target/classes/META-INF/resources/css/color.css`.
+
+3. *Einbindung in Zielanwendung*: Die Datei `color.css` aus dem Target-Verzeichnis von `isy-web-lib` ist in die Zielanwendung unterhalb des WEB-INF Verzeichnisses zu kopieren.
+
+[[image-colorCssPosition]]
+.Zielordner für color.css Datei
+image::nutzungsvorgaben/color-css-position.png[align="center"]
+
+
 
 === Modaler Dialog
 
