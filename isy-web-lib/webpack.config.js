@@ -89,7 +89,7 @@ module.exports = {
     plugins: [
         new ESLintPlugin(),
         new MiniCssExtractPlugin({
-            filename: "/css/[name].css"
+            filename: "css/[name].css"
         }),
         // Copy javascript libraries as expected by the src/main/resources/META-INF/resources/WEB-INF/gui/common/layout/basis.xhtml
         // ideally they should be bundled in isyweb.bundle.js
