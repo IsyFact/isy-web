@@ -2,24 +2,24 @@
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<!-- Der eigentliche Inhalt der Datatable. Dieses Tag sollte nach den Headern in den Body der Data-Table geschrieben werden. -->
-<!-- Dieses Tag inkludiert für jede Zeile ein XHTML. In diesem kann über den UI-Parameter "dataTableItem" auf das Item der aktuellen Zeile zugegriffen werden. -->
+<!-- The data table's actual content. This tag is intended to be added to the data tables body after the headers. -->
+<!-- This tag includes a XHTML for every row. From there the item of the current row can be accessed via the UI parameter 'dataTableItem'. -->
 
 <composite:interface>
 
-    <!-- Die XHTML der Zeile. Wird mehrfach inkludiert. -->
+    <!-- The rows XHTML. Is included multiple times-->
     <composite:attribute name="rowDefinition"/>
 
-    <!-- Die XHTML der Detailansicht. Kann mehrfach inkludiert werden. -->
-  <composite:attribute name="detailDefinition" />
+    <!-- The detail view's XHTML. Can be included multiple times -->
+    <composite:attribute name="detailDefinition" />
 
-  <!-- Die Anzahl an Elementen, die im JS Modus für die Detailansicht vorgeladen werden. -->
-  <composite:attribute name="preloadingSize" default="0"
-    type="java.lang.Integer" />
+    <!-- Number of elements that are, in JS mode, preloaded for the detail view -->
+    <composite:attribute name="preloadingSize" default="0"
+        type="java.lang.Integer" />
 
-  <!-- Eine spezifsche globale Konfiguration, falls benötigt. -->
-  <composite:attribute name="globalConfig" required="false"
-    default="#{globalConfigurationModel}" />
+    <!-- Specific global configuration, if necessary -->
+    <composite:attribute name="globalConfig" required="false"
+        default="#{globalConfigurationModel}" />
 
 
 </composite:interface>
@@ -33,7 +33,7 @@
   <ui:param name="itemsToShowMin"
     value="#{cc.parent.attrs.dataTableModel.paginationModel.type eq 'NORMAL'? (itemsToShowMax - cc.parent.attrs.dataTableModel.paginationModel.pageSize): 0}" />
 
-  <!-- Schleife über die Items -->
+  <!-- Loop over the items -->
   <ui:repeat var="dataTableItem" id="dataTableRows"
     value="#{cc.parent.attrs.dataTableModel.dataModel.displayItems}"
     varStatus="dataTableItemRepeatStatus">
@@ -43,7 +43,7 @@
       <ui:param name="detailViewPreloadingJs"
                 value="#{cc.attrs.preloadingSize gt dataTableItemRepeatStatus.index and cc.attrs.globalConfig.jsEnabled}"/>
 
-      <!-- Parameter für weitere Tags setzen -->
+      <!-- Set parameters for additional tags -->
       <ui:param name="dataTableModel"
                 value="#{cc.parent.attrs.dataTableModel}"/>
       <ui:param name="dataTableController"
