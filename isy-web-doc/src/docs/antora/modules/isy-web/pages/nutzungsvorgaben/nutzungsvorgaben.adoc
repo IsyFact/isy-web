@@ -1694,10 +1694,10 @@ Zur Generierung der Datei `color.css` mit der eigenen Portalfarbe sind folgende 
 ----
 
 [start=2]
-2. *Maven Install*: In dem Modul `isy-web-lib` ist ein "Maven install" durchzuführen.
+. *Maven Install*: In dem Modul `isy-web-lib` ist ein "Maven install" durchzuführen.
 Dadurch wird ein "webpack build" ausgelöst und die Farbstyles befinden sich nach der Generierung in `target/classes/META-INF/resources/css/color.css`.
 
-3. *Einbindung in Zielanwendung*: Die Datei `color.css` aus dem Target-Verzeichnis von `isy-web-lib` ist in die Zielanwendung unterhalb des WEB-INF Verzeichnisses zu kopieren.
+. *Einbindung in Zielanwendung*: Die Datei `color.css` aus dem Target-Verzeichnis von `isy-web-lib` ist in die Zielanwendung unterhalb des WEB-INF Verzeichnisses zu kopieren.
 
 [[image-colorCssPosition]]
 .Zielordner für color.css Datei
