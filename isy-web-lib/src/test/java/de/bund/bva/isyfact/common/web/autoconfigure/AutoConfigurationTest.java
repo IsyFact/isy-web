@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener;
 import org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration;
 import org.springframework.boot.logging.LogLevel;
+import org.springframework.boot.logging.LoggingSystem;
 import org.springframework.boot.test.context.ConfigDataApplicationContextInitializer;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -34,6 +35,7 @@ public class AutoConfigurationTest {
             LogLevel.DEBUG);
 
     private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner(AnnotationConfigServletWebServerApplicationContext::new)
+            .withInitializer(ctx -> LoggingSystem.get(ctx.getClassLoader()).beforeInitialize())
             .withInitializer(conditionEvalReport)
             .withInitializer(new ConfigDataApplicationContextInitializer())
             .withAllowCircularReferences(false)

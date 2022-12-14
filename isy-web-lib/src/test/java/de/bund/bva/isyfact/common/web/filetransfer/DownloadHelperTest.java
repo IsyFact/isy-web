@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.sun.faces.config.WebConfiguration;
 import com.sun.faces.context.FacesContextImpl;
@@ -22,6 +23,11 @@ import com.sun.faces.lifecycle.LifecycleImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DownloadHelperTest {
+
+    static {
+        SLF4JBridgeHandler.removeHandlersForRootLogger();
+        SLF4JBridgeHandler.install();
+    }
 
     private final DownloadHelper sut = new DownloadHelper();
 
