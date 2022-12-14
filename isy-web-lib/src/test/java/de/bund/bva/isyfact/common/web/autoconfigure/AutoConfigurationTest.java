@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportL
 import org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.boot.test.context.ConfigDataApplicationContextInitializer;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -28,20 +27,22 @@ import de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterAutoConfiguratio
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
-@SpringBootTest
 public class AutoConfigurationTest {
 
     // enable autoconfiguration conditions evaluation report
-    private final ConditionEvaluationReportLoggingListener initializer = new ConditionEvaluationReportLoggingListener(
+    private final ConditionEvaluationReportLoggingListener conditionEvalReport = new ConditionEvaluationReportLoggingListener(
             LogLevel.DEBUG);
 
     private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner(AnnotationConfigServletWebServerApplicationContext::new)
-            .withInitializer(initializer)
+            .withInitializer(conditionEvalReport)
             .withInitializer(new ConfigDataApplicationContextInitializer())
+            .withAllowCircularReferences(false)
+            .withAllowBeanDefinitionOverriding(false)
             .withConfiguration(AutoConfigurations.of(
                     MvcAutoConfiguration.class,
                     WebFlowAutoConfiguration.class,
                     ControllerAutoConfiguration.class,
+                    MdcFilterAutoConfiguration.class,
                     HttpEncodingAutoConfiguration.class
             ))
             .withUserConfiguration(TestConfiguration.class);
@@ -81,23 +82,11 @@ public class AutoConfigurationTest {
         contextRunner.run(context -> assertThat(context).hasNotFailed());
     }
 
-    private final WebApplicationContextRunner contextRunner_withAllowBeanOverridingFalse_withIsyAufrufKontext = new WebApplicationContextRunner(AnnotationConfigServletWebServerApplicationContext::new)
-            .withInitializer(initializer)
-            .withConfiguration(AutoConfigurations.of(
-                    MdcFilterAutoConfiguration.class,
-                    MvcAutoConfiguration.class,
-                    WebFlowAutoConfiguration.class,
-                    ControllerAutoConfiguration.class
-            ))
-            .withUserConfiguration(TestConfiguration.class)
-            .withPropertyValues(
-                    "spring.main.allow-bean-definition-overriding=false"
-            );
+
 
     @Test
     public void test_withAufrufKontextAutoConfig_withAllowBeanOverridingFalse_doesNotThrow() {
-        contextRunner_withAllowBeanOverridingFalse_withIsyAufrufKontext
-                .run(context -> assertThat(context).hasNotFailed());
+        contextRunner.run(context -> assertThat(context).hasNotFailed());
     }
 
     @Test
