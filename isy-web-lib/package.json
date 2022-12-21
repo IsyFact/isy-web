@@ -22,7 +22,7 @@
     "jquery-visible": "1.2.0"
   },
   "devDependencies": {
-    "css-loader": "^5.2.7",
+    "css-loader": "^6.7.2",
     "css-minimizer-webpack-plugin": "^4.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-es": "^4.1.0",
@@ -36,13 +36,10 @@
     "karma-junit-reporter": "^2.0.1",
     "karma-sourcemap-loader": "^0.3.8",
     "karma-webpack": "^5.0.0",
-    "mini-css-extract-plugin": "^1.6.2",
+    "mini-css-extract-plugin": "^2.7.2",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0",
     "copy-webpack-plugin": "^11.0.0",
     "less-loader": "^11.1.0"
-  },
-  "overrides": {
-    "terser": "5.14.2"
   }
 }
