@@ -1,4 +1,4 @@
-import { lazyLoad } from "../../common/common-utils";
+import {lazyLoad} from "../../common/common-utils";
 
 /**
  * Function to highlight a selected row.
@@ -150,6 +150,7 @@ export function showDetail () {
         $hideDetailButtons.off('click.hidedetail');
         $hideDetailButtons.on('click.showdetail', showDetail);
     }
+    $tr.addClass('details-preview-master');
     $tr.next().removeClass('hidden');
     $this.attr('title', $this.parents('div.detailview-actions').data('hide-tooltip'));
     $this.attr('id', $this.attr('id').replace("showDetail", "hideDetail"));
@@ -174,6 +175,7 @@ export function hideDetail (e) {
     e.stopImmediatePropagation();
     const $this = $(this);
     const $tr = $this.parents('tr');
+    $tr.remove('details-preview-master');
     $tr.next().addClass('hidden');
     $this.attr('title', $this.parents('div.detailview-actions').data('show-tooltip'));
     $this.attr('id', $this.attr('id').replace("hideDetail", "showDetail"));
