@@ -1,3 +1,5 @@
+# v4.13.0
+
 # v4.12.0
 - `IFE-424`: Implementierung eines Nutzerbereichs
 - `IFE-177`: adopt fix from `IFE-30` to render readonly dropdowns as labels
