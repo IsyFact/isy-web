@@ -4,10 +4,10 @@ include::glossary:licence:partial$licence.adoc[]
 
 *Java Bibliothek / IT-System*
 
-[cols="5,2,3",&amp;amp;amp;amp;ptions="header"]
+[cols="5m,2,3",options="header"]
 |====
 |Name |Art |Version
-m|isy-web |Bibliothek |v5.3.0
+|isy-web |Bibliothek |v5.3.0
 |====
 
 [[Einleitung]]
