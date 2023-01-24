@@ -35,7 +35,7 @@ Es folgen generelle Vorgaben zum Arbeiten mit JSF, insbesondere zu den Themen, d
 Diese Vorgaben umfassen sowohl Hinweise zur Programmierung als auch Konfiguration.
 Es folgt eine detaillierte Beschreibung der bereitgestellten Seiten- und Bedienelemente auf Basis von JSF.
 
-Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide].
+Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide].
 
 [[benoetigte-bibliotheken]]
 == Benötigte Bibliotheken
@@ -55,7 +55,7 @@ Bei Verwendung des IsyFact-BOMs wird die Version automatisch ermittelt.
 ----
 
 // TODO In den Styleguide verschieben?
-Für die Erstellung von Web-GUIs existieren Vorgaben in Form eines xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguides].
+Für die Erstellung von Web-GUIs existieren Vorgaben in Form eines xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguides].
 Der Baustein Styleguide legt Anforderungen an die Gestaltung und Nutzbarkeit von Oberflächen fest.
 Die Bibliothek `isy-web` enthält die CSS-, JavaScript-, Bilddateien und  Schriftarten des Styleguides zur produktiven Nutzung aufbereitet.
 
@@ -1016,7 +1016,7 @@ Hierdurch werden alle Fehler, unabhängig von ihren JSF-IDs, in einer Liste darg
 <h:messages/>
 ----
 
-Die Darstellung von Fehlern und Validierungsnachrichten wird auch im xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide] beschrieben.
+Die Darstellung von Fehlern und Validierungsnachrichten wird auch im xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide] beschrieben.
 
 [[umgang-mit-validierungsfehlern]]
 ==== Umgang mit Validierungsfehlern
@@ -1340,7 +1340,7 @@ Zum Beispiel sollten nicht benötigte Elemente ausgeblendet und Farben für den 
 Für die Druckvorschau einer Seite sollten die benutzten Widgets so aufbereitet werden, dass alle Inhalte auf der Seite
 angezeigt werden (z.B. bei Tabs alle Tabs anzeigen).
 
-Im xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide] finden sich Beispiele für Druckansichten.
+Im xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide] finden sich Beispiele für Druckansichten.
 
 [[image-seitendruck1]]
 image::nutzungsvorgaben/Browser_Druckfunktion.png[align="center"]
@@ -1694,10 +1694,10 @@ Zur Generierung der Datei `color.css` mit der eigenen Portalfarbe sind folgende 
 ----
 
 [start=2]
-2. *Maven Install*: In dem Modul `isy-web-lib` ist ein "Maven install" durchzuführen.
+. *Maven Install*: In dem Modul `isy-web-lib` ist ein "Maven install" durchzuführen.
 Dadurch wird ein "webpack build" ausgelöst und die Farbstyles befinden sich nach der Generierung in `target/classes/META-INF/resources/css/color.css`.
 
-3. *Einbindung in Zielanwendung*: Die Datei `color.css` aus dem Target-Verzeichnis von `isy-web-lib` ist in die Zielanwendung unterhalb des WEB-INF Verzeichnisses zu kopieren.
+. *Einbindung in Zielanwendung*: Die Datei `color.css` aus dem Target-Verzeichnis von `isy-web-lib` ist in die Zielanwendung unterhalb des WEB-INF Verzeichnisses zu kopieren.
 
 [[image-colorCssPosition]]
 .Zielordner für color.css Datei
