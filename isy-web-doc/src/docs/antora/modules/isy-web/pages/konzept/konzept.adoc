@@ -255,7 +255,7 @@ Die Details dazu, wie in Spring Web Flow die zu speichernden Daten einer Session
 [[jquery]]
 === JQuery
 
-JQuery ist ein JavaScript-Framework, das auf einfache Weise JavaScript-Funktionen bereitstellt, die insbesondere auf die grafische Gestaltung einer Oberfläche benötigt werden.
+JQuery ist ein JavaScript-Framework, das auf einfache Weise JavaScript-Funktionen bereitstellt, die insbesondere für die grafische Gestaltung einer Oberfläche benötigt werden.
 Erklärtes Ziel ist es, die Oberfläche durch den Einsatz von JavaScript eleganter nutzbar zu machen.
 Besonderer Fokus liegt dabei auf den Sicherheitsaspekten, die eine Aktivierung von JavaScript mit sich bringt.
 Die Oberfläche muss jedoch auch mit deaktiviertem JavaScript mit Komforteinschränkungen nutzbar sein.
@@ -842,7 +842,7 @@ ermöglicht. `isy-session` kapselt und vereinfacht die Nutzung von `Spring-Sessi
 Weitere Erläuterungen zum Session-Manager finden sich im dazugehörigen `Konzept Session Management`. Die Einbindung des Session-Managements ist in den `Nutzungsvorgaben isy-session` beschrieben. Konkrete Anweisungen zum Aufbau des Session-Speichers finden sich in den `Nutzungsvorgaben Redis`.
 
 
-Wenn `ìsy-session` als Erweiterung der IsyFact nicht eingesetzt wird, muss die Session-Persistierung auf andere Weise durchgeführt
+Wenn `isy-session` als Erweiterung der IsyFact nicht eingesetzt wird, muss die Session-Persistierung auf andere Weise durchgeführt
 werden, wobei sicherzustellen ist, dass die Requests eines Benutzers immer auf die gleiche
 Instanz gehen (Sticky Sessions). Die Session-Daten müssen dabei möglichst klein gehalten werden, um
 die Performance der Anwendung nicht zu verschlechtern.
