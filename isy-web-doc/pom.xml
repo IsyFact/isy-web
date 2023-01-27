@@ -9,4 +9,8 @@
     </parent>
 
     <artifactId>isy-web-doc</artifactId>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 </project>
