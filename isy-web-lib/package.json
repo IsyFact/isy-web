@@ -41,5 +41,8 @@
     "webpack-cli": "^4.10.0",
     "copy-webpack-plugin": "^11.0.0",
     "less-loader": "^11.1.0"
+  },
+  "overrides": {
+    "json5": "2.2.3"
   }
 }
