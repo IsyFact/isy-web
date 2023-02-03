@@ -35,7 +35,7 @@ Es folgen generelle Vorgaben zum Arbeiten mit JSF, insbesondere zu den Themen, d
 Diese Vorgaben umfassen sowohl Hinweise zur Programmierung als auch Konfiguration.
 Es folgt eine detaillierte Beschreibung der bereitgestellten Seiten- und Bedienelemente auf Basis von JSF.
 
-Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide].
+Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide].
 
 [[benoetigte-bibliotheken]]
 == Benötigte Bibliotheken
@@ -55,7 +55,7 @@ Bei Verwendung des IsyFact-BOMs wird die Version automatisch ermittelt.
 ----
 
 // TODO In den Styleguide verschieben?
-Für die Erstellung von Web-GUIs existieren Vorgaben in Form eines xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguides].
+Für die Erstellung von Web-GUIs existieren Vorgaben in Form eines xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguides].
 Der Baustein Styleguide legt Anforderungen an die Gestaltung und Nutzbarkeit von Oberflächen fest.
 Die Bibliothek `isy-web` enthält die CSS-, JavaScript-, Bilddateien und  Schriftarten des Styleguides zur produktiven Nutzung aufbereitet.
 
@@ -391,8 +391,7 @@ Jeder View-State in der Flow-Definition der GUI-Komponente ist mit einer eigenen
 Spring Web Flow steuert das Rendering des Views.
 
 Der View einer GUI Komponente ist nach dem Umsetzungsmuster der IsyFact wie folgt aufgebaut: Eine Facelet-Datei dient dazu, die im Seitentemplate inkludierte Definition der Seitenbereiche des Inhaltsbereiches zu definieren.
-Das Tag `<ui:composition>` referenziert hierbei das Seitentemplate, in welchem die über `<ui:define>`
-definierten Teile eingebunden werden.
+Das Tag `<ui:composition>` referenziert hierbei das Seitentemplate, in welchem die über `<ui:define>` definierten Teile eingebunden werden.
 
 Je nach Seitentyp muss entweder
 
@@ -562,20 +561,20 @@ Die Konvertierung findet in diesem Fall nicht durch einen Konverter statt, sonde
 JSF-Konverter werden auch für die Darstellung von readonly Felder verwendet. 
 Folgende Komponenten werden entsprechend behandelt:
 
-* `actionInput`
-* `actionInputWithFourEyes`
-* `formActionInput`
-* `formActionInputWithFourEyes`
-* `formCurrencyInput`
-* `formCurrencyInputWithFourEyes`
-* `formDate`
-* `formDateWithFourEyes`
-* `formInput`
-* `formInputWithFourEyes`
-* `formNumericInput`
-* `formNumericInputWithFourEyes`
-* `formTextArea`
-* `formTextAreaWithFourEyes`
+* `actionInput`,
+* `actionInputWithFourEyes`,
+* `formActionInput`,
+* `formActionInputWithFourEyes`,
+* `formCurrencyInput`,
+* `formCurrencyInputWithFourEyes`,
+* `formDate`,
+* `formDateWithFourEyes`,
+* `formInput`,
+* `formInputWithFourEyes`,
+* `formNumericInput`,
+* `formNumericInputWithFourEyes`,
+* `formTextArea`,
+* `formTextAreaWithFourEyes`.
 
 Oft ist es notwendig, im Model Schlüssel eines Schlüsselverzeichnisses zu verwenden.
 Dieser sollte in der Regel in der Maske nicht als Schlüssel, sondern in einer verständlichen Form dargestellt werden.
@@ -597,10 +596,10 @@ Im Hinblick auf aktiviertes JavaScript darf bei `outputText` niemals das Attribu
 === Interaktive Elemente mit JQuery
 Folgende JQuery-Module dürfen eingesetzt werden:
 
-* `jquery-core` (Kernfunktionalität zur DOM-Manipulation)
-* `jquery-effects` (Effekte für das Ein- und Ausblenden von Elementen)
-* `jqueryui-datepicker` (Kalender-Widget)
-* `jquery-validation-plugin` (Datenvalidierung)
+* `jquery-core` (Kernfunktionalität zur DOM-Manipulation),
+* `jquery-effects` (Effekte für das Ein- und Ausblenden von Elementen),
+* `jqueryui-datepicker` (Kalender-Widget),
+* `jquery-validation-plugin` (Datenvalidierung).
 
 Die Module `jquery-data` und `jquery-ajax` dürfen nicht verwendet werden, da AJAX-Funktionalität im Hinblick auf die eingesetzte Seitenlogik mit Spring Web Flow nicht angeboten werden soll.
 
@@ -646,7 +645,7 @@ Die Konfiguration erfolgt in der Regel mit `@Configuration`-annotierten Java-Kla
 
 Standardmäßig ist die Startseite der Anwendung die index.html.
 In ihr muss ein Redirect auf den Startflow erfolgen.
-Dieses ist notwendig, weil eine Angabe der Flow Engine im für Welcome Files nicht direkt möglich ist.
+Dieses ist notwendig, weil eine Angabe der Flow Engine für Welcome Files nicht direkt möglich ist.
 
 Die Datei `index.html` sieht folgendermaßen aus:
 
@@ -725,7 +724,7 @@ Standardmäßig sollte hier keine spezifische Konfiguration vorgenommen werden, 
 
 Die Spring Webflow Konfiguration erfolgt standardmäßig in der Autokonfiguration.
 Als Lokation der Flows ist dabei `/WEB-INF/gui/**/*Flow.xml` angegeben.
-Das heißt, die Flows sind in Unterordnern von `/WEB-INF/gui` abzulegen und als Namenskonvention mit `Flow.xml` enden (z.B. `beispielFlow.xml`).
+Das heißt, die Flows sind in Unterordnern von `/WEB-INF/gui` abzulegen und enden gemäß Namenskonvention mit `Flow.xml` (z.B. `beispielFlow.xml`).
 
 [[konfiguration-maskentexte]]
 === Konfiguration der Maskentexte
@@ -769,7 +768,7 @@ Im Beispiel aus <<listing-maskentextebean>> referenziert dabei der Basename `res
 [[konfiguration-des-resource-caching-mechanismus]]
 === Konfiguration des Resource Caching Mechanismus
 
-Möchte man Webressourcen wie Bilder oder CSS-Dateien von Softwareversionen abhängig machen, muss das folgende gemacht werden:
+Möchte man Webressourcen wie Bilder oder CSS-Dateien von Softwareversionen abhängig machen, muss das Folgende gemacht werden:
 
 [[jsf-resourcehandler-einrichten]]
 ==== JSF ResourceHandler einrichten
@@ -868,8 +867,8 @@ Dies macht man in `faces-config.xml` (Java Server Faces Konfigurationsdatei) auf
 Es gibt noch eine letzte Bedingung, die man erfüllen muss, damit der JSF _ResourceHandler_ die Ressourcen überhaupt behandelt.
 Es müssen JSF Tags benutzt werden:
 
-* JavaScript: `<h:outputScript>` anstatt `<script>`
-* CSS: `<h:outputStylesheet>` anstatt `<link>`
+* JavaScript: `<h:outputScript>` anstatt `<script>`,
+* CSS: `<h:outputStylesheet>` anstatt `<link>`.
 
 Dank ihnen werden die jeweiligen Ressourcen für unseren _ResourceHandler_ sichtbar und werden von ihm nun verwaltet.
 
@@ -935,7 +934,7 @@ Auch hier ist eine Schrittnummer anzuhängen, wenn der Flow mehrere View-States 
 * Die bei einem View-State verwendete JavaScript-Datei trägt den Namen des View-States (z.B. `erstellenFormular1.js`).
 Gibt es View-übergreifende Funktionalität, kann diese in eine wiederverwendbare JavaScript-Datei ausgelagert werden (z.B. `erstellenFormular.js`).
 
-<<image-VerzBspErstellen>> zeigt den Verzeichnisbaum der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] und verdeutlicht, wie die Elemente einer Dialog-Komponente (hier: `Erstellen`) im Dateisystem abgelegt werden.
+Die Abbildung  <<image-VerzBspErstellen>> zeigt einen Verzeichnisbaum und verdeutlicht, wie die Elemente einer Dialog-Komponente (hier: `Erstellen`) im Dateisystem abgelegt werden.
 
 [[image-VerzBspErstellen]]
 .Verzeichnisstruktur der Dialog-Komponente Erstellen
@@ -1008,7 +1007,7 @@ Hierdurch werden alle Fehler, unabhängig von ihren JSF-IDs, in einer Liste darg
 <h:messages/>
 ----
 
-Die Darstellung von Fehlern und Validierungsnachrichten wird auch im xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide] beschrieben.
+Die Darstellung von Fehlern und Validierungsnachrichten wird auch im xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide] beschrieben.
 
 [[umgang-mit-validierungsfehlern]]
 ==== Umgang mit Validierungsfehlern
@@ -1227,9 +1226,9 @@ Die zur Integration mit Spring Webflow benötigten Listener liefert `isy-web` in
 
 In der Regel müssen zusätzlich folgende Beans definiert werden:
 
-* aus isy-sicherheit: `Sicherheit` und `AccessManager`
-* aus isy-aufrufkontext: `AufrufKontextVerwalter` und `AufrufKontextFactory`
-* aus spring-security: `AccessDecisionManager`, der auf die Bean `Sicherheit` delegiert
+* aus isy-sicherheit: `Sicherheit` und `AccessManager`,
+* aus isy-aufrufkontext: `AufrufKontextVerwalter` und `AufrufKontextFactory`,
+* aus spring-security: `AccessDecisionManager`, der auf die Bean `Sicherheit` delegiert.
 
 [[listing-sec]]
 .Konfiguration Sicherheitskomponente
@@ -1335,7 +1334,7 @@ Zum Beispiel sollten nicht benötigte Elemente ausgeblendet und Farben für den 
 Für die Druckvorschau einer Seite sollten die benutzten Widgets so aufbereitet werden, dass alle Inhalte auf der Seite
 angezeigt werden (z.B. bei Tabs alle Tabs anzeigen).
 
-Im xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide] finden sich Beispiele für Druckansichten.
+Im xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide] finden sich Beispiele für Druckansichten.
 
 [[image-seitendruck1]]
 image::nutzungsvorgaben/Browser_Druckfunktion.png[align="center"]
@@ -1475,9 +1474,9 @@ image::nutzungsvorgaben/Aufbau_Applikationsseite.png[align="center", width="629"
 
 *Aufbau*
 
-* Header-Bereich
-* Linksnavigation (optional)
-* Inhaltsbereich
+* Header-Bereich,
+* Linksnavigation (optional),
+* Inhaltsbereich.
 
 [[header-bereich]]
 ==== Header-Bereich
@@ -1590,7 +1589,7 @@ Applikationsseiten werden über den Controller `ApplikationseiteController` und 
 
 Wenn eine Applikationsseite erstellt werden soll, dann muss der Flow der Applikationsseite vom Flow `applikationseiteParentFlow` erben.
 Es muss weiterhin ein Controller erstellt werden, der vom `AbstractGuiController` erbt und ein Model, das vom `AbstractMaskenModel` erbt.
-Die XHTML-Seiten der ViewStates müssen alle vom -Masken-Template `/WEB-INF/gui/common/layout/applikation.xhtml` erben (s.a. <<listing-jsfViewState>>).
+Die XHTML-Seiten der ViewStates müssen alle vom Masken-Template `/WEB-INF/gui/common/layout/applikation.xhtml` erben (s.a. <<listing-jsfViewState>>).
 
 Der `ApplikationseiteController` stellt sicher, dass alle layoutspezifischen Funktionen (z.B. der Linksnavigation) einer Applikationsseite initialisiert und zur Verfügung gestellt werden.
 Abweichungen vom Standardvorgehen (z.B. Linksnavigation ausblenden) können durch Zugriff auf den Controller und Model in spezifischeren Controllern beim Initialisieren durchgeführt werden.
@@ -1696,10 +1695,10 @@ Zur Generierung der Datei `color.css` mit der eigenen Portalfarbe sind folgende 
 ----
 
 [start=2]
-2. *Maven Install*: In dem Modul `isy-web-lib` ist ein "Maven install" durchzuführen.
+. *Maven Install*: In dem Modul `isy-web-lib` ist ein "Maven install" durchzuführen.
 Dadurch wird ein "webpack build" ausgelöst und die Farbstyles befinden sich nach der Generierung in `target/classes/META-INF/resources/css/color.css`.
 
-3. *Einbindung in Zielanwendung*: Die Datei `color.css` aus dem Target-Verzeichnis von `isy-web-lib` ist in die Zielanwendung unterhalb des WEB-INF Verzeichnisses zu kopieren.
+. *Einbindung in Zielanwendung*: Die Datei `color.css` aus dem Target-Verzeichnis von `isy-web-lib` ist in die Zielanwendung unterhalb des WEB-INF Verzeichnisses zu kopieren.
 
 [[image-colorCssPosition]]
 .Zielordner für color.css Datei
@@ -1712,9 +1711,9 @@ image::nutzungsvorgaben/color-css-position.png[align="center"]
 Modale Dialoge werden mit dem Tag `<isy:modalDialogContent>` definiert.
 Der Dialog besitzt folgende Facets:
 
-* Der Header-Bereich
-* Der Body-Bereich
-* Der Footer-Bereich
+* Der Header-Bereich,
+* Der Body-Bereich,
+* Der Footer-Bereich.
 
 [[image-modaler-dialo]]
 .Beispiel eines modalen Dialogs
@@ -1833,10 +1832,10 @@ Wizards werden mit dem Tag `<isy:wizard>` definiert.
 
 Der Wizard besitzt folgende Facets:
 
-* `wizardHeader`: Der Header-Bereich
-* `wizardBody`: Der Body-Bereich
-* `wizardFooterLeftButtons`: Ergänzungen zu den angezeigten Buttons auf der linken Seite
-* `wizardFooterRightButtons`: Ergänzungen zu den angezeigten Buttons auf der rechten Seite
+* `wizardHeader`: Der Header-Bereich,
+* `wizardBody`: Der Body-Bereich,
+* `wizardFooterLeftButtons`: Ergänzungen zu den angezeigten Buttons auf der linken Seite,
+* `wizardFooterRightButtons`: Ergänzungen zu den angezeigten Buttons auf der rechten Seite.
 
 Die Komponente besitzt folgende notwendige Parameter:
 
@@ -1844,7 +1843,7 @@ Die Komponente besitzt folgende notwendige Parameter:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `width`: Die Breite des modalen Dialogs. (Standard: `auto`)
+* `width`: Die Breite des modalen Dialogs (Standard: `auto`),
 * `globalConfig`: Eine spezifische globale Konfiguration, falls notwendig.
 * `stepVisible`: Gibt an, ob die Step Nummer gezeigt werden soll. (Standard: `true`, Typ: `Boolean` )
 
@@ -1875,18 +1874,18 @@ Außerdem gibt es folgende optionale Parameter:
 Eine einzelne Seite eines Wizards wird über ein Objekt des Typs `WizardDialogPage` definiert.
 Eine `WizardDialogPage` hat u.A. folgende Attribute:
 
-* `wizardDialogPageId`: Eine ID, welche die Wizardseite eindeutig innerhalb des Wizards identifiziert
-* `title`: Title der Wizardseite
-* `pageDone`: Seite wurde abgearbeitet
-* `pageSuccessful`: Seite wurde erfolgreich oder nicht erfolgreich abgearbeitet
-* `pageDisabled`: Seite wurde deaktiviert
+* `wizardDialogPageId`: Eine ID, welche die Wizardseite eindeutig innerhalb des Wizards identifiziert.
+* `title`: Title der Wizardseite,
+* `pageDone`: Seite wurde abgearbeitet.
+* `pageSuccessful`: Seite wurde erfolgreich oder nicht erfolgreich abgearbeitet.
+* `pageDisabled`: Seite wurde deaktiviert.
 
 Jeder Wizard besitzt die folgenden, vordefinierten Buttons:
 
-* `previous`: zurück zur vorherigen Seite
-* `next`: weiter zur nächsten Seite
-* `complete`: Wizard abschließen
-* `abort`: Wizard abbrechen
+* `previous`: zurück zur vorherigen Seite,
+* `next`: weiter zur nächsten Seite,
+* `complete`: Wizard abschließen,
+* `abort`: Wizard abbrechen.
 
 Für jeden dieser Buttons gibt es die folgenden Einstellungen:
 
@@ -1899,18 +1898,18 @@ Für jeden dieser Buttons gibt es die folgenden Einstellungen:
 
 Weiterhin benötigt ein Wizard ein Model des Typs `WizardDialogModel`. Ein `WizardDialogModel` hat folgende Attribute und Methoden:
 
-* `activeWizardDialogPageId`: ID der derzeit aktiven Seite
-* `activeWizardDialogPage`: momentan aktive Seite
-* `nextActiveWizardDialogPageId`: ID der nächsten Seite
-* `wizardDialogPages`: Liste der einzelnen Seiten des Wizards (`WizardDialogPage`-Objekte)
-* `boolean isPageDone(String id)`: Gibt an, ob die Seite mit der angegebenen ID bereits abgearbeitet wurde
-* `boolean isPageDisabled(String id)`: Gibt an, ob die Seite mit der angegebenen ID deaktiviert ist
+* `activeWizardDialogPageId`: ID der derzeit aktiven Seite,
+* `activeWizardDialogPage`: momentan aktive Seite,
+* `nextActiveWizardDialogPageId`: ID der nächsten Seite,
+* `wizardDialogPages`: Liste der einzelnen Seiten des Wizards (`WizardDialogPage`-Objekte),
+* `boolean isPageDone(String id)`: Gibt an, ob die Seite mit der angegebenen ID bereits abgearbeitet wurde.
+* `boolean isPageDisabled(String id)`: Gibt an, ob die Seite mit der angegebenen ID deaktiviert ist.
 * `WizardDialogPage getWizardDialogPage(String wizardDialogPageId)`: Gibt die Seite zur angegebenen ID zurück.
 
 Für die Verwendung eines Wizards muss ein Controller erstellt werden, der vom `WizardDialogController` erbt.
 Folgende Methoden müssen dabei überschrieben werden:
 
-* `boolean finish(WizardDialogModel model)` beendet die Verarbeitung des Wizards,
+* `boolean finish(WizardDialogModel model)` beendet die Verarbeitung des Wizards.
 * `boolean cancel(WizardDialogModel model)` bricht die Verarbeitung ab.
 
 Folgende Methoden können genutzt und optional überschrieben werden:
@@ -1967,12 +1966,12 @@ image::nutzungsvorgaben/demopanel-button.png[align="center", scaledwidth="60%"]
 
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `action`: Die auszuführende Aktion.
-* `value`: Das Label des Buttons.
+* `action`: Die auszuführende Aktion,
+* `value`: Das Label des Buttons,
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `styleClass`: Die zu ergänzenden Style-Klassen.
+* `styleClass`: Die zu ergänzenden Style-Klassen,
 * `disabled`: Gibt an, ob der Button deaktiviert ist oder nicht. (Standard: `false`, Typ: `Boolean`)
 * `showPrintView`: Gibt an, ob die Komponente innerhalb einer Druckansicht angezeigt werden soll. (Standard: `#\{not empty basisModel and basisModel.showPrintView}`, Typ: `Boolean`)
 * `ajax`: AJAX: Soll eine AJAX Aktion ausgeführt werden. (Standard: `true`, Typ: `Boolean`)
@@ -2059,7 +2058,7 @@ Dadurch lässt sich eine andere Aktion vor der eigentlichen Aktion des Buttons i
 
 Folgende Parameter sind notwendig:
 
-* `postButton`: Die ID des Buttons, der die zusätzliche POST-Aktion durchführen soll
+* `postButton`: Die ID des Buttons, der die zusätzliche POST-Aktion durchführen soll.
 * `continueAfterPost`: Über diesen Wert true/false kann gesteuert werden, ob nach der POST-Aktion auch tatsächlich der eigentliche Button geklickt werden soll (z.B. um Fehlerfälle abzufangen).
 
 [[button-toolbar]]
@@ -2068,7 +2067,7 @@ Folgende Parameter sind notwendig:
 Eine Button-Toolbar wird über das Tag `<isy:buttonToolbar>` eingebunden.
 Die Buttons innerhalb der Toolbar können sowohl horizontal als auch vertikal angeordnet sein.
 
-Die folgende Abbildung zeigt z.B. die Verwendung der Komponente `<isy:buttonToolbar` oberhalb einer DataTable-Komponente.
+Die folgende Abbildung zeigt z.B. die Verwendung der Komponente `<isy:buttonToolbar>` oberhalb einer DataTable-Komponente.
 
 [[image-toolbarButton]]
 .<isy:buttonToolbar> mit Button-Komponenten
@@ -2080,7 +2079,7 @@ Eine Button-Toolbar besitzt folgende notwendige Parameter:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `value`: Der Wert/Text des Buttons. (Standard: ``)
+* `value`: Der Wert/Text des Buttons, (Standard: ``)
 * `icon`: Das Icon aus der Icon-Bibliothek (ohne Präfix 'icon-'). (Standard: `placeholder`)
 * `showIcon`: Gibt an, ob ein Icon angezeigt werden soll oder nicht. (Standard: `true`, Typ: `Boolean`)
 * `reverseIconPosition`: Gibt an, ob das Icon rechts angezeigt werden soll. (Standard: `false`, Typ: `java.lang.Boolean`)
@@ -2128,9 +2127,9 @@ Ein Toggle Button besitzt folgende notwendige Parameter:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `buttonId`: Eindeutige ButtonId.
-* `value`: Der Wert/Text des Buttons. (Standard: ``)
-* `icon`: Das Icon aus der Icon-Bibliothek (ohne Präfix 'icon-'). (Standard: `placeholder`)
+* `buttonId`: Eindeutige ButtonId,
+* `value`: Der Wert/Text des Buttons, (Standard: ``)
+* `icon`: Das Icon aus der Icon-Bibliothek (ohne Präfix 'icon-'), (Standard: `placeholder`)
 * `showIcon`: Gibt an, ob ein Icon angezeigt werden soll oder nicht. (Standard: `true`, Typ: `Boolean`)
 * `reverseIconPosition`: Gibt an, ob das Icon rechts angezeigt werden soll. (Standard: `false`, Typ: `java.lang.Boolean`)
 * `disabled`: Gibt an, ob der Button deaktiviert sein soll. Standard: false. (Standard: `false`, Typ: `java.lang.Boolean`)
@@ -2155,9 +2154,9 @@ Ein Icon Button besitzt folgende notwendige Parameter:
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `value`: Das Label des Buttons. (Standard: ``)
-* `size`: Die Größe des Icons. Mögliche Werte: small/large. (Standard: `large`)
-* `icon`: Der Suffix des zu verwendenden Icons. (Standard: `placeholder`)
+* `value`: Das Label des Buttons, (Standard: ``)
+* `size`: Die Größe des Icons, (Mögliche Werte: small/large. (Standard: `large`))
+* `icon`: Der Suffix des zu verwendenden Icons, (Standard: `placeholder`)
 * `showIcon`: Gibt an, ob das Icon angezeigt werden soll oder nicht. (Standard: `true`, Typ: `java.lang.Boolean`)
 * `tooltip`: Tooltip, der über dem Icon angezeigt werden soll. (Standard: ``)
 * `disabled`: Gibt an, ob der Button deaktiviert ist oder nicht. (Standard: `false`, Typ: `Boolean`)
@@ -2193,11 +2192,11 @@ Dieses Tag stellt sicher, dass falls JavaScript deaktiviert ist, ein Button mit 
 
 Ein Hyperlink besitzt folgende optionale Parameter:
 
-* `action`: Die Action, die ausgeführt werden soll.
-* `value`: Das Label des Links
-* `title`: Der Alternativtext.
-* `baseStyleClass`:  Die Basis-CSS-Klasse zum Überschreiben. (Standard: `cmdbtn-link`)
-* `additionalStyleClass`: Eine zusätzliche Styleklasse. (Standard: ``)
+* `action`: Die Action, die ausgeführt werden soll,
+* `value`: Das Label des Links,
+* `title`: Der Alternativtext,
+* `baseStyleClass`:  Die Basis-CSS-Klasse zum Überschreiben, (Standard: `cmdbtn-link`)
+* `additionalStyleClass`: Eine zusätzliche Styleklasse, (Standard: ``)
 * `openInNewTab`: Gibt an, ob der Link in einem neuen Tab geöffnet werden soll. Funktioniert nur mit aktiviertem JavaScript. (Standard: `false`, Typ: `Boolean`)
 
 Das Tag stellt folgende ActionSource bereit:
@@ -2218,13 +2217,13 @@ Für das Ausgeben eines Textes (mit zugehörigem Label) in einem Formular kann d
 
 Es besitzt folgende optionale Parameter:
 
-* `reference`: Referenz des Objekts für die Validierung.
-* `value`: Text des Ausgabebereichs
-* `label`: Text des Labels
-* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse des Ausgabebereiches. (Standard: `col-lg-6`)
-* `textStyleClass`: Die CSS-Klasse des auszugebenden Textes.
-* `tooltip`: Tooltip des Ausgabebereichs.
+* `reference`: Referenz des Objekts für die Validierung,
+* `value`: Text des Ausgabebereichs,
+* `label`: Text des Labels,
+* `labelStyleClass`: Die CSS-Klasse des Labels, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Ausgabebereiches, (Standard: `col-lg-6`)
+* `textStyleClass`: Die CSS-Klasse des auszugebenden Textes,
+* `tooltip`: Tooltip des Ausgabebereichs,
 * `escapeLabel`: Gibt an, ob Sonderzeichen für das Label escaped werden sollen. (Standard: `true`)
 * `breakWords`: Gibt an, ob der Überlauf von Text in die nächste Zeile erlaubt ist. (Standard: `true`)
 * `converter`: ID des JSF-Converters, welche die Ausgabe in einen Text konvertiert. (Standard: leer)
@@ -2242,7 +2241,7 @@ Nähere Informationen hierzu finden sich in <<layout-von-Formularen>>.
 
 Ein Eingabefeld besitzt folgende notwendige Parameter:
 
-* `reference`: Die Referenz des Objekts.
+* `reference`: Die Referenz des Objekts,
 * `value`: Der Wert für das Databinding im Eingabefeld.
 
 Außerdem gibt es folgende optionale Parameter:
@@ -2251,19 +2250,19 @@ Außerdem gibt es folgende optionale Parameter:
 Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Standard: `text`)
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
-* `label`: Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
+* `label`: Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse des Labels, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches, (Standard: `col-lg-6`)
 * `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird.
-* `inputmask`: Eingabemaske
+* `inputmask`: Eingabemaske,
 * `inputmaskInsertMode`: Gibt an, ob der Text bei der Eingabe überschrieben wird. (Standard: `true`)
-* `maxlength`: Die maximale Länge der Eingabe. (Standard: 255)
-* `width`: Die maximale Breite des Eingabefeldes. (Standard: 100%)
+* `maxlength`: Die maximale Länge der Eingabe, (Standard: 255)
+* `width`: Die maximale Breite des Eingabefeldes, (Standard: 100%)
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
-* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht. (Standard: `basisModel.showPrintView`)
+* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht, (Standard: `basisModel.showPrintView`)
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
-* `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
+* `globalConfig`: Spezifische, globale Konfiguration, (Standard: `globalConfigurationModel`)
 * `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll.
 Wird der Wert auf `dinSpec` gesetzt, wird der Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt.
 Soll der alte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden.
@@ -2271,7 +2270,7 @@ Standardmäßig wird kein Character-Picker verwendet.
 
 Eingabefelder besitzen folgende Facets:
 
-* `contentRight`: Inhalt, der rechts vom Eingabefeld angezeigt wird
+* `contentRight`: Inhalt, der rechts vom Eingabefeld angezeigt wird.
 
 [[charpicker]]
 ==== Character-Picker
@@ -2292,11 +2291,11 @@ Dazu muss, wie im folgenden Beispiel (<<listing-charpicker>>), der Parameter `ch
 Der Parameter `datentyp` gibt an, welche Sonderzeichen vom CharPicker unterstützt werden sollen.
 Zur Auswahl stehen folgende Optionen:
 
-* `DATENTYP_A`
-* `DATENTYP_B`
-* `DATENTYP_C`
-* `DATENTYP_D`
-* `DATENTYP_E`
+* `DATENTYP_A`,
+* `DATENTYP_B`,
+* `DATENTYP_C`,
+* `DATENTYP_D`,
+* `DATENTYP_E`.
 
 Für den Fall, dass kein Parameter gewählt wird, werden alle Zeichen aus `DATENTYP_E` verwendet.
 Alternativ kann der Parameter `charpicker` auf den Wert `special` gesetzt werden, um den alten CharPicker zu verwenden.
@@ -2322,12 +2321,12 @@ image::nutzungsvorgaben/charpicker-widget.png[align="center"]
 
 Alternativ kann der CharPicker auch mit den folgenden Eingaben mit der Tastatur bedient werden:
 
-* `Alt+Runter` öffnet den CharPicker, wenn das Eingabefeld fokussiert ist
-* `Alt+Hoch` bzw. `Escape` schließt den CharPicker
-* Pfeiltasten können zum Auswählen von Schriftzeichen verwendet werden
-* Mit `Enter` wird das ausgewählte Schriftzeichen in das Eingabefeld eingefügt
-* `TAB` wechselt zur nächsten Kategorie
-* `Shift+TAB` wechselt zur vorherigen Kategorie
+* `Alt+Runter` öffnet den CharPicker, wenn das Eingabefeld fokussiert ist.
+* `Alt+Hoch` bzw. `Escape` schließt den CharPicker.
+* Pfeiltasten können zum Auswählen von Schriftzeichen verwendet werden.
+* Mit `Enter` wird das ausgewählte Schriftzeichen in das Eingabefeld eingefügt.
+* `TAB` wechselt zur nächsten Kategorie.
+* `Shift+TAB` wechselt zur vorherigen Kategorie.
 
 [[eingabefelder-ohne-label-ueberschrift]]
 === Eingabefelder ohne Label
@@ -2336,7 +2335,7 @@ Für Eingabefelder ohne Label existiert das Tag `<isy:input>`.
 
 Ein Eingabefeld ohne Label besitzt folgende notwendige Parameter:
 
-* `reference`: Die Referenz des Objekts.
+* `reference`: Die Referenz des Objekts,
 * `value`: Der Wert für das Databinding im Eingabefeld.
 
 Außerdem gibt es folgende optionale Parameter:
@@ -2344,17 +2343,17 @@ Außerdem gibt es folgende optionale Parameter:
 * `type`: Typ des Eingabefelds, sodass diese Komponente z.B. auch für Passwort-Felder verwendet werden kann.
 Mögliche Werte sind alle Werte für das Feld `type` des HTML-Tags `input`. (Standard: `text`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
-* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
+* `labelStyleClass`: Die CSS-Klasse des Labels, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches, (Standard: `col-lg-6`)
 * `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird.
-* `inputmask`: Eingabemaske
+* `inputmask`: Eingabemaske,
 * `inputmaskInsertMode`: Gibt an, ob der Text bei der Eingabe überschrieben wird. (Standard: `true`)
-* `maxlength`: Die maximale Länge der Eingabe. (Standard: 255)
-* `width`: Die maximale Breite des Eingabefeldes. (Standard: 100%)
+* `maxlength`: Die maximale Länge der Eingabe, (Standard: 255)
+* `width`: Die maximale Breite des Eingabefeldes, (Standard: 100%)
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
-* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht. (Standard: `basisModel.showPrintView`)
+* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht, (Standard: `basisModel.showPrintView`)
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
-* `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
+* `globalConfig`: Spezifische, globale Konfiguration, (Standard: `globalConfigurationModel`)
 * `charpicker`: Gibt an, welche Eingabe für Sonderzeichen verwendet werden soll.
 Wird der Wert auf `dinSpec` gesetzt, wird der neue Character-Picker verwendet, welcher alle Zeichen der DIN SPEC 91379 unterstützt.
 Soll der alte Legacy-Character-Picker verwendet werden, muss der Wert auf `special` gesetzt werden.
@@ -2362,7 +2361,7 @@ Standardmäßig wird kein Character-Picker verwendet.
 
 Eingabefelder besitzen folgende Facets:
 
-* `contentRight`: Inhalt, der rechts vom Eingabefeld angezeigt wird
+* `contentRight`: Inhalt, der rechts vom Eingabefeld angezeigt wird.
 
 Der CharPicker funktioniert wie im Abschnitt <<charpicker>> beschrieben.
 
@@ -2377,27 +2376,27 @@ image::nutzungsvorgaben/Aktionseingabefeld.png[align="center"]
 
 Ein Aktionseingabefeld besitzt folgende notwendige Parameter:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert für das Databinding im Eingabefeld.
-* `action`: Die auszulösende Aktion.
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert für das Databinding im Eingabefeld,
+* `action`: Die auszulösende Aktion,
 * `icon`: Das anzuzeigendes Icon aus der Icon-Bibliothek.
 
 Außerdem gibt es folgende optionale Parameter:
 
 * `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird.
-* `maxlength`: Die maximale Länge der Eingabe. (Standard: 20)
-* `iconColor`: Farbe des Icons. (Standard: `#45484D`)
+* `maxlength`: Die maximale Länge der Eingabe, (Standard: 20)
+* `iconColor`: Farbe des Icons, (Standard: `#45484D`)
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: `...`)
-* `mode`: [normal|button-only|input-only]. `normal` für Eingabefeld und Icon aktiv. `button-only` für nur Icon aktiv. `input-only` für nur Eingabefeld aktiv. (Standard: `normal`)
+* `mode`: [normal|button-only|input-only]. `normal` für Eingabefeld und Icon aktiv, `button-only` für nur Icon aktiv, `input-only` für nur Eingabefeld aktiv, (Standard: `normal`)
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
 
 Folgende Parameter sind zusätzlich zu den eben genannten für `<isy:formActionInput>` zulässig:
 
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
-* `label`: Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
+* `label`: Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse des Labels, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches, (Standard: `col-lg-6`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
 
@@ -2412,32 +2411,32 @@ Das Eingabefeld für Geldbeträge:
 * lässt nur die Eingabe von Zahlen und Kommata zu; alle anderen Zeichen werden direkt nach Eingabe sofort wieder gelöscht.
 * besitzt das Attribut `onchange` - dort kann eine JavaScript-Funktion übergeben werden, die aufgerufen wird, sobald der Cursor das Feld verlässt.
 * rundet die eingegebene Zahl ab einer Länge von mehr als 15 Ziffern automatisch. Daraus lassen sich folgende Beispiele ableiten:
-** Ohne Nachkommastelle ist 999999999999999
-** für 1 Nachkommastelle ist 99999999999999,9
-** für 2 Nachkommastellen ist 9999999999999,99 der maximale Betrag ohne Rundung.
+** Ohne Nachkommastelle ist `999999999999999`,
+** für 1 Nachkommastelle ist `99999999999999,9`,
+** für 2 Nachkommastellen ist `9999999999999,99` der maximale Betrag ohne Rundung.
 
 Folgende Parameter sind Pflicht:
 
-* `reference`: Die Referenz des Objekts.
+* `reference`: Die Referenz des Objekts,
 * `value`: Der Wert für das Databinding im Eingabefeld.
 
 Außerdem gibt es folgende optionale Parameter:
 
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
-* `label`: Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
+* `label`: Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse des Labels,(Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches, (Standard: `col-lg-6`)
 * `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird.
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
-* `maxlength`: Die maximale Länge der Eingabe. (Standard: 255)
-* `width`: Die maximale Breite des Eingabefeldes. (Standard: 100%)
+* `maxlength`: Die maximale Länge der Eingabe, (Standard: 255)
+* `width`: Die maximale Breite des Eingabefeldes, (Standard: 100%)
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
-* `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
-* `onchange`: JavaScript-Funktion, die bei Verlassen des Feldes aufgerufen wird
-* `onkeyup`: JavaScript-Funktion, die direkt nach einer Eingabe aufgerufen wird
-* `decimalplaces`: Anzahl der Nachkommastellen. (Standard: 2)
+* `globalConfig`: Spezifische, globale Konfiguration, (Standard: `globalConfigurationModel`)
+* `onchange`: JavaScript-Funktion, die bei Verlassen des Feldes aufgerufen wird.
+* `onkeyup`: JavaScript-Funktion, die direkt nach einer Eingabe aufgerufen wird.
+* `decimalplaces`: Anzahl der Nachkommastellen, (Standard: 2)
 * `alignright`: Gibt an, ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. (Standard: `false`)
 
 [[upload]]
@@ -2447,20 +2446,20 @@ Für den Upload von Dateien existiert das Tag `<isy:formUpload>`.
 
 Folgende Parameter sind Pflicht:
 
-* `reference`: Die Referenz des Objekts.
+* `reference`: Die Referenz des Objekts,
 * `value`: Der Wert für das Databinding im Eingabefeld.
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `accept`: Einschränkung der angenommenen Dateien gemäß ihres MIME-Types
+* `accept`: Einschränkung der angenommenen Dateien gemäß ihres MIME-Types,
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
-* `label`: Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
+* `label`: Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse des Labels, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches, (Standard: `col-lg-6`)
 * `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird.
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
-* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht. (Standard: `basisModel.showPrintView`)
+* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht, (Standard: `basisModel.showPrintView`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
 
@@ -2469,7 +2468,7 @@ Außerdem gibt es folgende optionale Parameter:
 
 Eine Textbox kann über das HTML-Tag `<textarea>` mit der CSS-Klasse `form-control` von Bootstrap eingebunden werden.
 
-Text Boxen sehen optisch aus wie Eingabefelder, es können jedoch mehrzeilige Daten eingegeben werden.
+Textboxen sehen optisch aus wie Eingabefelder, es können jedoch mehrzeilige Daten eingegeben werden.
 
 [[image-bildtextbox]]
 .Textbox
@@ -2479,7 +2478,7 @@ Für Formulare kann das Tag `<isy:formTextarea>` verwendet werden.
 
 Folgende Parameter sind Pflicht:
 
-* `reference`: Die Referenz des Objekts.
+* `reference`: Die Referenz des Objekts,
 * `value`: Der Wert für das Databinding im Eingabefeld.
 
 Außerdem gibt es folgende optionale Parameter:
@@ -2487,17 +2486,17 @@ Außerdem gibt es folgende optionale Parameter:
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
-* `label`: Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
-* `textareaStyleClass`: Die CSS-Klasse der Textbox. (Standard: leer)
+* `label`: Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse des Labels, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches, (Standard: `col-lg-6`)
+* `textareaStyleClass`: Die CSS-Klasse der Textbox, (Standard: leer)
 * `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird.
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: '')
-* `rows`: Anzahl an Zeilen. (Standard: 5)
-* `cols`: Anzahl an Spalten
-* `maxlength`: Die maximale Länge der Eingabe. (Standard: 4000)
-* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht. (Standard: `basisModel.showPrintView`)
-* `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
+* `rows`: Anzahl an Zeilen, (Standard: 5)
+* `cols`: Anzahl an Spalten,
+* `maxlength`: Die maximale Länge der Eingabe, (Standard: 4000)
+* `showPrintView`: Spezifisches Flag zur Erkennung der Druckansicht, (Standard: `basisModel.showPrintView`)
+* `validationModel`: Ein spezifisches Validation-Model, falls diese benötigt wird. (Standard: `#\{validationModel}`)
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
 
 ==== Date Picker
@@ -2509,21 +2508,21 @@ Der Date Picker wird über das Tag `<isy:formDate>` eingebunden.
 
 Folgende Parameter sind Pflicht:
 
-* `reference`: Die Referenz des Objekts.
+* `reference`: Die Referenz des Objekts,
 * `value`: Der Wert für das Databinding im Eingabefeld.
 
 Außerdem gibt es folgende optionale Parameter:
 
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
-* `label`: Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
-* `inputFieldClass`: Die CSS-Klasse des Eingabefeldes. (Standard: leer)
+* `label`: Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse des Labels, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches, (Standard: `col-lg-6`)
+* `inputFieldClass`: Die CSS-Klasse des Eingabefeldes, (Standard: leer)
 * `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird. (Standard: `TT.MM.JJJJ`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
-* `language`: Angezeigte Sprache. (Standard: `de`)
-* `dateformat`: Datumsformat. (Standard: `dd.mm.yyyy`)
-* `inputmask`: Eingabemaske
+* `language`: Angezeigte Sprache, (Standard: `de`)
+* `dateformat`: Datumsformat, (Standard: `dd.mm.yyyy`)
+* `inputmask`: Eingabemaske,
 * `inputmaskInsertMode`: Gibt an, ob der Text bei der Eingabe überschrieben wird. (Standard: `true`)
 * `inputmaskClearOnBlur`: Gibt an, ob beim Verlassen des Feldes die Maskierungsplatzhalter ausgeblendet werden. (Standard: `true`)
 * `showPicker`: Gibt an, ob der Kalender angezeigt wird. (Standard: `true`)
@@ -2568,7 +2567,7 @@ Außerdem gibt es folgende optionale Parameter:
 * `converter`: Konverter-Bean für die angezeigten Elemente.
 * `converterAttribute`: Attribut für den Konverter.
 
-Für das Bedienelement `<isy:formSelectOneDropdown />`gibt es zusätzlich die folgenden Parameter:
+Für das Bedienelement `<isy:formSelectOneDropdown />` gibt es zusätzlich die folgenden Parameter:
 
 * `label`: Text für das Label.
 * `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
@@ -2998,13 +2997,13 @@ Ein Tag entspricht dabei einem Titel einer Spalte.
 
 Folgende optionale Parameter gibt es für einen Header:
 
-* `name`: Header-Name / Spaltenüberschrift
+* `name`: Header-Name / Spaltenüberschrift,
 * `sortable`: Gibt an, ob die Spalte sortierbar ist. (Standard: `false`)
 * `hidden`: Gibt an, ob die Spalte ausgeblendet ist. (Standard: `false`)
-* `sortProperty`: Attribut der Datensätze (Items), nach dem sortiert wird
-* `width`: Breite der Spalte
+* `sortProperty`: Attribut der Datensätze (Items), nach dem sortiert wird.
+* `width`: Breite der Spalte,
 * `title`: Tooltip, der über der Spalte angezeigt wird. (Standard: '')
-* `align`: horizontale Ausrichtung der Spaltenüberschrift
+* `align`: horizontale Ausrichtung der Spaltenüberschrift.
 
 [[dataTableRows]]
 ==== Zeilen einer Tabelle
@@ -3046,9 +3045,9 @@ Die Reihenfolge der Spalten werden durch die Definition des Tabellen-Headers fes
 Das Tag `<isy:dataTableCell>` hat derzeit folgende Parameter:
 
 * `hidden`: Gibt an, ob die Spalte angezeigt werden soll. (Standard: `false`, Typ: `Boolean`)
-* `id`: Identifier.
-* `sortData`: Optionales Feld für die clientseitige Sortierung, falls nicht nach dem Inhalt sortieren werden soll, z.B. bei Datum
-* `filterData`: Damit Client- und Server-Mode konsistent sind, sollte hier die sortProperty des Headers angegeben werden
+* `id`: Identifier,
+* `sortData`: Optionales Feld für die clientseitige Sortierung, falls nicht nach dem Inhalt (z.B. beim Datum) sortieren werden soll.
+* `filterData`: Damit Client- und Server-Mode konsistent sind, sollte hier die sortProperty des Headers angegeben werden.
 * `align`: Gibt die horizontale Ausrichtung des Inhalts der Tabellenzelle an.
 Mögliche Werte sind left, right und center. (Standard: `left`)
 
@@ -3134,7 +3133,7 @@ image::nutzungsvorgaben/no-js.png[align="center"]
 Die Komfortfunktionen der Filter-Zeile können ohne JavaScript nicht zur Verfügung gestellt werden.
 Die Filter-Zeile ist in diesem Fall nicht vorhanden und wird auch nicht angezeigt.
 
-Die Komponente <isy:dataTableFilter> hat folgende optionale Parameter:
+Die Komponente `<isy:dataTableFilter>` hat folgende optionale Parameter:
 
 * `property`: Die Property, die gefiltert werden soll, i.A. gleich zur sortProperty im zugehörigen Header, falls nicht angegeben wird einfach eine Platzhalter-Spalte generiert. (Standard: ``)
 * `dropdown`: Gibt an, ob eine Auswahlliste zur Filterung angezeigt werden soll.
@@ -3142,7 +3141,7 @@ Falls ja, müssen die Einträge mittels selectItem(s) angegeben werden. (Standar
 * `clearFilterTooltip`: Tooltip, der über dem Icon "clear-filter" angezeigt werden soll. (Standard: `Filter aufheben`)
 
 
-<isy:dataTableFilterClearer> -  Tooltip, der über dem Icon "clear-all-filter" angezeigt werden soll.
+`<isy:dataTableFilterClearer>` -  Tooltip, der über dem Icon "clear-all-filter" angezeigt werden soll.
 
 Die Komponente hat folgende optionale Parameter:
 
@@ -3286,8 +3285,6 @@ Der Benutzer kann beliebige Optionen auswählen.
 
 Eine einzelne Checkbox wird über das Tag `<isy:selectBooleanCheckbox>` eingebunden.
 
-Eine einzelne Checkbox wird über das Tag `<isy:selectBooleanCheckbox>` eingebunden.
-
 Die Komponente besitzt folgende notwendige Parameter:
 
 * `value`: Der Wert der Checkbox für das Databinding in Models.
@@ -3322,23 +3319,23 @@ Für Formulare existiert das Tag `<isy:formCheckbox>`.
 
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert für das Databinding im Eingabefeld.
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert für das Databinding im Eingabefeld,
 * `disabled`: Gibt an, ob die Checkbox deaktiviert ist oder nicht. (Standard: `false`)
 
 Außerdem gibt es folgende optionale Parameter:
 
 * `customId`: Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen.
 Diese wird im Attribut data-isy-custom-id eingetragen.
-* `label`: Der Text für das Label.
-* `labelRight`: Der Text für das Label rechts daneben.
-* `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
+* `label`: Der Text für das Label,
+* `labelRight`: Der Text für das Label rechts daneben,
+* `labelStyleClass`: Die CSS-Klasse für das Label, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich, (Standard: `col-lg-6`)
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `optional`: Gibt an, ob die Eingabe ein optionale Pflichteingabe ist (blaues Sternchen). (Standard: `false`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#\{globalConfigurationModel}`)
-* `valueChangeListener`: Value Change Listener
+* `valueChangeListener`: Value Change Listener.
 
 [[radio-button-ueberschrift]]
 ==== Radio Button
@@ -3357,8 +3354,8 @@ Ein Radio Button wird über das Tag `<isy:selectOneRadio>` (bzw. `<isy:selectOne
 Über das Tag `<isy:selectOneRadioInline>` werden Radiobuttons horizontal gruppiert dargestellt.
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `value`: Der Wert der Auswahl für das Data-Binding
-* `selectItems`: Liste der auszuwählenden Werte, den Select-Items.
+* `value`: Der Wert der Auswahl für das Data-Binding,
+* `selectItems`: Liste der auszuwählenden Werte den Select-Items.
 Jedes Item entspricht einem Radio-Button.
 
 Außerdem gibt es folgende optionale Parameter:
@@ -3371,7 +3368,7 @@ Außerdem gibt es folgende optionale Parameter:
 
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `value`: Der Wert der Auswahl für das Data-Binding
+* `value`: Der Wert der Auswahl für das Data-Binding,
 * `selectItems`: Liste der auszuwählenden Werte, den Select-Items.
 Jedes Item entspricht einem Radio-Button.
 
@@ -3385,7 +3382,7 @@ Das Tag `<isy:formSelectOneRadio>` ermöglicht die Gruppierung von Radiobuttons 
 
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `value`: Der Wert der Auswahl für das Data-Binding.
+* `value`: Der Wert der Auswahl für das Data-Binding,
 * `selectItems`: Liste der auszuwählenden Werte, den Select-Items. Jedes Item entspricht einem Radio-Button.
 * `reference`: Die Referenz des Objekts.
 
@@ -3395,14 +3392,14 @@ Außerdem gibt es folgende optionale Parameter:
 Diese wird im Attribut data-isy-custom-id eingetragen.
 * `inline`: Gibt an, ob die Radio-Buttons inline angezeigt werden sollen. (Standard: `false`, Typ: `Boolean`)
 * `disabled`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`, Typ: `Boolean`)
-* `label`: Der Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
-* `inlineInputStyleClass`: Die CSS-Klasse für den Eingabebereich eines einzelnen Inline-Radio-Buttons. (Standard: ``)
-* `required`: Ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
+* `label`: Der Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse für das Label, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich, (Standard: `col-lg-6`)
+* `inlineInputStyleClass`: Die CSS-Klasse für den Eingabebereich eines einzelnen Inline-Radio-Button, (Standard: ``)
+* `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#\{globalConfigurationModel}`)
-* `valueChangeListener`: Value Change Listener
+* `valueChangeListener`: Value Change Listener.
 
 
 [[navigation]]
@@ -3690,7 +3687,7 @@ Ein Beispiel zur Umsetzung eines Suchformulars findet sich im Abschnitt <<layout
 
 Ein Toggle-Filter ist eine Tabellen-Toolbar, mit der durch einen Klick auf einen Button eine Liste
 von Objekten oder Formularen nach bestimmten vordefinierten Kriterien eingeschränkt werden kann.
-Der Filter wird über das Tag `<isy:toggleFilter>` eingebunden und die einzelnen Filter-Optionen sollten als <f:selectItem> angegeben werden.
+Der Filter wird über das Tag `<isy:toggleFilter>` eingebunden und die einzelnen Filter-Optionen sollten als `<f:selectItem>` angegeben werden.
 
 Die Komponente besitzt folgende notwendige Parameter:
 
@@ -3835,7 +3832,7 @@ Sie bringen ein Label sowie eine integrierte Validierung mit sich.
 Die einzelnen Formularkomponenten sind zusammen mit ihren jeweiligen Bedienelementen beschrieben.
 
 In den Formularen kann durch die Verwendung von `<isy:formDefaultButton>` ein Standard-Button zum Abschicken des Formulars definiert werden.
-Ein Druck auf kbd:[Enter] führt die Aktion aus.
+Ein Druck auf `kbd:[Enter]` führt die Aktion aus.
 Diese Funktionalität ist nur bei aktiviertem JavaScript verfügbar.
 
 Das Tag `<isy:formCustom>` bietet schließlich die Möglichkeit, anwendungsspezifische Elemente in ein Formular zu integrieren.
@@ -3869,11 +3866,11 @@ Das Tag `<isy:tooltip>` bindet einen Tooltip ein und wird in der Regel um ein Ho
 
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `text`: Text, der bei Hover über das Element angezeigt werden soll
+* `text`: Text, der bei Hover über das Element angezeigt werden soll.
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `title`: Optionale Überschrift, die fett über dem Text angezeigt wird.
+* `title`: Optionale Überschrift, die fett über dem Text angezeigt wird,
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `#\{globalConfigurationModel}`)
 
 
@@ -3919,10 +3916,10 @@ Der `ValidierungController` erlaubt es, der aktuellen Seite über folgende Metho
 
 Eine einzelne Nachricht besteht dabei aus folgenden Attributen:
 
-* `code`: Der (Fehler)Code der Nachricht (z.B. `ISYWG99999`)
-* `reference`: Die Referenz auf den Fehler (z.B. `person.geburtsdatum`)
-* `readableReference`: Die lesbare Darstellung der Referenz (z.B. "Geburtsdatum")
-* `message`: Text der Nachricht (z.B. "Geburtsdatum liegt weniger als 18 Jahre zurück.")
+* `code`: Der (Fehler)Code der Nachricht, (z.B. `ISYWG99999`)
+* `reference`: Die Referenz auf den Fehler, (z.B. `person.geburtsdatum`)
+* `readableReference`: Die lesbare Darstellung der Referenz,(z.B. "Geburtsdatum")
+* `message`: Text der Nachricht. (z.B. "Geburtsdatum liegt weniger als 18 Jahre zurück.")
 
 Validierungsnachrichten werden nur für den aktuellen Aufruf (FlashScope) angezeigt.
 Wenn JavaScript nicht aktiviert ist, werden alle Validierungsnachrichten in einer Liste angezeigt.
@@ -4051,20 +4048,20 @@ image::nutzungsvorgaben/demopanel-formActionInput.png[align="center"]
 
 Das Aktionseingabefeld `<isy:actionInputWithFourEyes>` besitzt folgende notwendige Parameter:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert für das Databinding im Eingabefeld.
-* `action`: Die auszulösende Aktion.
-* `icon`: Das anzuzeigendes Icon aus der Icon-Bibliothek.
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert für das Databinding im Eingabefeld,
+* `action`: Die auszulösende Aktion,
+* `icon`: Das anzuzeigendes Icon aus der Icon-Bibliothek,
 * `fourEyesMode`: Zustandsmodus des Feldes `[locked|unlocked]`.
 
 Außerdem gibt es folgende optionale Parameter:
 
 * `fourEyesLastValue`: Wert, der vom ersten Bearbeiter eingegeben wurde.
 * `placeholder`: Platzhalter, welcher im Eingabefeld angezeigt wird.
-* `maxlength`: Die maximale Länge der Eingabe. (Standard: 20)
-* `iconColor`: Farbe des Icons. (Standard: `#45484D`)
+* `maxlength`: Die maximale Länge der Eingabe, (Standard: 20)
+* `iconColor`: Farbe des Icons, (Standard: `#45484D`)
 * `tooltip`: Tooltip, der über dem Eingabefeld angezeigt wird. (Standard: `...`, drei Punkte)
-* `mode`: [normal|button-only|input-only]. `normal` für Eingabefeld und Icon aktiv. `button-only` für nur Icon aktiv. `input-only` für nur Eingabefeld aktiv. (Standard: `normal`)
+* `mode`: [normal|button-only|input-only]. `normal` für Eingabefeld und Icon aktiv, `button-only` für nur Icon aktiv, `input-only` für nur Eingabefeld aktiv, (Standard: `normal`)
 * `disabled`: Flag, ob das Eingabefeld deaktiviert ist. (Standard: `false`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`)
 * `inputStyleClass`: Die CSS-Klasse für das Eingabefeld. (nicht implementiert)
@@ -4075,9 +4072,9 @@ Außerdem gibt es folgende optionale Parameter:
 Zusätzlich zu den eben genannten Parametern bei `<isy:actionInputWithFourEyes>` sind bei Verwendung von `<isy:formActionInputWithFourEyes>` auch folgende Parameter zulässig:
 
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`)
-* `label`: Der Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse des Labels. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches. (Standard: `col-lg-6`)
+* `label`: Der Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse des Labels, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse des Eingabebereiches, (Standard: `col-lg-6`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
 
@@ -4094,25 +4091,25 @@ image::nutzungsvorgaben/demopanel-formCheckboxWithFourEyes.png[align="center", s
 
 Folgende Komponentenattribute müssen angegeben werden:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert für das Databinding im Eingabefeld.
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert für das Databinding im Eingabefeld,
 * `disabled`: Gibt an, ob die Checkbox deaktiviert ist oder nicht. (Standard: `false`)
-* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock)
+* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock).
 
 
 Folgende Komponentenattribute sind optional:
 
 * `customId`: Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen.
 Diese wird im Attribut data-isy-custom-id eingetragen.
-* `label`: Der Text für das Label.
-* `labelRight`: Fontawesome char-Zeichen für die Anzeige rechts neben dem Eingabefeld. (Standard: offenes Vorhängeschloss)
-* `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
+* `label`: Der Text für das Label,
+* `labelRight`: Fontawesome char-Zeichen für die Anzeige rechts neben dem Eingabefeld, (Standard: offenes Vorhängeschloss)
+* `labelStyleClass`: Die CSS-Klasse für das Label, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich, (Standard: `col-lg-6`)
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `optional`: Gibt an, ob die Eingabe eine Optionale-Pflichteingabe ist (blaues Sternchen). (Standard: `false`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#\{globalConfigurationModel}`)
-* `valueChangeListener`: Value Change Listener
+* `valueChangeListener`: Value Change Listener,
 * `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
 
 [[listing-codeFormCheckbox4]]
@@ -4143,32 +4140,33 @@ Diese wird im Attribut data-isy-custom-id eingetragen.
 Die Komponente `<isy:formCurrencyInputWithFourEyes>` stellt ein Eingabefeld für eine Fließkommazahl nach dem Vier-Augen-Prinzip innerhalb von Formularen zur Verfügung.
 
 [[image-demopanelformCurrencyInpu]]
-Ansicht von isy_formCurrencyInputWithFourEyes
+.Ansicht von isy_formCurrencyInputWithFourEyes
+[id="demopanel-formCurrencyInput.png",reftext={figure-caption}{counter:figures}]
 image::nutzungsvorgaben/demopanel-formCurrencyInput.png[align="center"]
 
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert für das Databinding im Eingabefeld.
-* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock)
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert für das Databinding im Eingabefeld,
+* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock).
 
 
 Außerdem gibt es folgende optionale Parameter:
 
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`, Typ: `Boolean`)
-* `label`: Der Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
+* `label`: Der Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse für das Label, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich, (Standard: `col-lg-6`)
 * `placeholder`: Der Platzhalter, welcher im Eingabefeld angezeigt wird.
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`, Typ: `Boolean`)
-* `maxlength`: Die maximale Länge der Eingabe. (Standard: `255`, Typ: `Integer`)
+* `maxlength`: Die maximale Länge der Eingabe, (Standard: `255`, Typ: `Integer`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#\{globalConfigurationModel}`)
 * `onchange`: onchange JavaScript-Funktion wird aufgerufen, wenn der Cursor das Feld verlässt. (Standard: `formatAmountOfMoney(this)`)
 * `onkeyup`: onkeyup JavaScript-Funktion wird aufgerufen, wenn eine Tastatureingabe in dem Feld gemacht wurde. (Standard: `deleteNonDigitCharacters(this)`)
-* `decimalplaces`: Die Anzahl der Nachkommastellen. (Standard: `2`, Typ: `Integer`)
-* `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
+* `decimalplaces`: Die Anzahl der Nachkommastellen, (Standard: `2`, Typ: `Integer`)
+* `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld,
 * `alignright`: Gibt an, ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. (Standard: `false`, Typ: `Boolean`)
 
 Folgender Hinweis ist bei der Eingabe von Geldbeträgen zu beachten:
@@ -4208,26 +4206,26 @@ image::nutzungsvorgaben/demopanel-formDate.png[align="center", scaledwidth="70%"
 
 Folgende Komponentenattribute müssen angegeben werden:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert für das Databinding im Eingabefeld.
-* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock)
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert für das Databinding im Eingabefeld,
+* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock).
 
 
 Folgende Komponentenattribute sind optional:
 
-* `tooltip`: Tooltip. (Standard: '')
+* `tooltip`: Tooltip, (Standard: '')
 * `customId`: Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen.
 Diese wird im Attribut data-isy-custom-id eingetragen.
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
-* `label`: Der Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
-* `inputFieldClass`: Die CSS-Klasse für das Input-Feld im Eingabebereich. (Standard: ``)
+* `label`: Der Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse für das Label, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich, (Standard: `col-lg-6`)
+* `inputFieldClass`: Die CSS-Klasse für das Input-Feld im Eingabebereich, (Standard: ``)
 * `placeholder`: Der Platzhalter, welcher im Eingabefeld angezeigt wird. (Standard: `TT.MM.JJJJ`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`, Typ: `Boolean`)
-* `language`: Die Sprache für den Datepicker. (Standard: `de`)
-* `dateFormat`: Das Datumsformat für den Datepicker. (Standard: `dd.mm.yyyy`)
-* `inputmask`: Das Maskenformat für das Eingabefeld. (Standard: `99.99.9999`)
+* `language`: Die Sprache für den Datepicker, (Standard: `de`)
+* `dateFormat`: Das Datumsformat für den Datepicker, (Standard: `dd.mm.yyyy`)
+* `inputmask`: Das Maskenformat für das Eingabefeld, (Standard: `99.99.9999`)
 * `inputmaskInsertMode`: Die Eingabemaske: Gibt an, ob der Text beim Eintippen überschrieben werden soll. (Standard: `true`, Typ: `Boolean`)
 * `inputmaskClearOnBlur`: Die Eingabemaske: Gibt an, ob beim Verlassen des Feldes die Maskierungsplatzhalter ausgeblendet werden sollen. (Standard: `true`, Typ: `Boolean`)
 * `showPicker`: Gibt an, ob Picker angezeigt werden soll. (Standard: `true`, Typ: `java.lang.Boolean`)
@@ -4273,9 +4271,9 @@ Folgende Facets können innerhalb des Tags verwendet werden:
 
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert für das Databinding im Eingabefeld.
-* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock)
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert für das Databinding im Eingabefeld,
+* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock).
 
 
 Außerdem gibt es folgende optionale Parameter:
@@ -4284,16 +4282,16 @@ Außerdem gibt es folgende optionale Parameter:
 Diese wird im Attribut data-isy-custom-id eingetragen.
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`, Typ: `Boolean`)
-* `label`: Der Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
+* `label`: Der Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse für das Label, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich, (Standard: `col-lg-6`)
 * `placeholder`: Der Platzhalter, welcher im Eingabefeld angezeigt wird.
-* `inputmask`: Die Eingabemaske.
+* `inputmask`: Die Eingabemaske,
 * `inputmaskInsertMode`: Die Eingabemaske: Gibt an, ob text soll überschrieben werden beim eintippen. (Standard: `true`, Typ: `Boolean`)
-* `maxlength`: Die maximale Länge der Eingabe. (Standard: `255`, Typ: `Integer`)
-* `width`: Die maximale Breite des Eingabefeldes. (Standard: `100%`)
-* `showPrintView`: Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. (Standard: `#\{not empty basisModel and basisModel.showPrintView}`, Typ: `Boolean`)
-* `tooltip`: Tooltip. (Standard: '')
+* `maxlength`: Die maximale Länge der Eingabe, (Standard: `255`, Typ: `Integer`)
+* `width`: Die maximale Breite des Eingabefeldes, (Standard: `100%`)
+* `showPrintView`: Zur aktuellen Druckansicht-Anzeige aus dem BasisModel, (Standard: `#\{not empty basisModel and basisModel.showPrintView}`, Typ: `Boolean`)
+* `tooltip`: Tooltip, (Standard: '')
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#\{globalConfigurationModel}`)
@@ -4341,28 +4339,28 @@ image::nutzungsvorgaben/demopanel-formNumericInputWithFourEyes.png[align="center
 
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert für das Databinding im Eingabefeld.
-* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock)
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert für das Databinding im Eingabefeld,
+* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock).
 
 
 Außerdem gibt es folgende optionale Parameter:
 
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`, Typ: `Boolean`)
-* `label`: Der Text für das Label.
-* `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
+* `label`: Der Text für das Label,
+* `labelStyleClass`: Die CSS-Klasse für das Label, (Standard: `col-lg-6`)
+* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich, (Standard: `col-lg-6`)
 * `placeholder`: Der Platzhalter, welcher im Eingabefeld angezeigt wird.
 * `disabled`: Gibt an, ob das Eingabefeld deaktiviert ist. (Standard: `false`, Typ: `Boolean`)
-* `maxlength`: Die maximale Länge der Eingabe. (Standard: `255`, Typ: `Integer`)
+* `maxlength`: Die maximale Länge der Eingabe, (Standard: `255`, Typ: `Integer`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#\{globalConfigurationModel}`)
 * `onchange`: onchange JavaScript-Funktion wird aufgerufen, wenn der Cursor das Feld verlässt. (Standard: `formatNumericValue(this)`)
 * `onkeyup`: onkeyup JavaScript-Funktion wird aufgerufen, wenn eine Tastatureingabe in dem Feld gemacht wurde. (Standard: `deleteNonDigitCharacters(this)`)
 * `decimalplaces`: Die Anzahl der Nachkommastellen: Default ist 0. (Standard: `0`, Typ: `Integer`)
 * `tausenderPunkt`: Wird ein Tausender-Punkt gewünscht? (Standard: `false`, Typ: `Boolean`)
-* `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
+* `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld,
 * `alignright`: Gibt an, ob der Text innerhalb des Eingabefeldes rechts ausgerichtet sein soll. Default ist false.(Standard: `false`, Typ: `Boolean`)
 
 
@@ -4403,9 +4401,9 @@ image::nutzungsvorgaben/demopanel-formSelectOneDropdownWithFourEyes.png[align="c
 
 Folgende Komponentenattribute müssen angegeben werden:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert der Auswahl für das Databinding
-* `fourEyesMode`: Events müssen explizit deklariert werden
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert der Auswahl für das Databinding,
+* `fourEyesMode`: Events müssen explizit deklariert werden.
 
 
 Folgende Komponentenattribute sind optional:
@@ -4419,15 +4417,15 @@ Folgende Komponentenattribute sind optional:
 Besonderheit: Das formSelectOneDropDownWithFourEyes-Widget wird im Modus `readonly="true"` als Label gerendert und ohne Schloss-Icon dargestellt.
 ====
 
-* `valueChangeListener`: Value Change Listener
-* `fourEyesLastValue`: 4 Augen Prinzip Mode (locked, unlock)
-* `converter`: Letzter Wert im 4-Augen-Eingabefeld.
-* `converterAttribute`: Konverter-Bean für die angezeigten Elemente
-* `label`: Parameter für den Konverter
-* `labelStyleClass`: Formspezifisch. (Standard: `col-lg-6`)
-* `inputStyleClass`: Der Text für das Label. (Standard: `col-lg-6`)
-* `dropdownStyleClass`: Die CSS-Klasse für das Label. (Standard: `form-selectonedropdown`)
-* `showPrintView`: Die CSS-Klasse für den Eingabebereich. (Standard: `#\{not empty basisModel and basisModel.showPrintView}`, Typ: `Boolean`)
+* `valueChangeListener`: Value Change Listener,
+* `fourEyesLastValue`: 4 Augen Prinzip Mode, (locked, unlock)
+* `converter`: Letzter Wert im 4-Augen-Eingabefeld,
+* `converterAttribute`: Konverter-Bean für die angezeigten Elemente,
+* `label`: Parameter für den Konverter,
+* `labelStyleClass`: Formspezifisch, (Standard: `col-lg-6`)
+* `inputStyleClass`: Der Text für das Label, (Standard: `col-lg-6`)
+* `dropdownStyleClass`: Die CSS-Klasse für das Label, (Standard: `form-selectonedropdown`)
+* `showPrintView`: Die CSS-Klasse für den Eingabebereich, (Standard: `#\{not empty basisModel and basisModel.showPrintView}`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. (Standard: `#\{globalConfigurationModel}`)
 
@@ -4443,9 +4441,9 @@ image::nutzungsvorgaben/demopanel-formTextarea.png[align="center"]
 
 Folgende Komponentenattribute müssen angegeben werden:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert für das Databinding im Eingabefeld.
-* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock)
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert für das Databinding im Eingabefeld,
+* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock).
 
 
 Folgende Komponentenattribute sind optional:
@@ -4455,16 +4453,16 @@ Diese wird im Attribut data-isy-custom-id eingetragen.
 * `required`: Gibt an, ob die Eingabe eine Pflichteingabe ist. (Standard: `false`, Typ: `Boolean`)
 * `disabled`: Gibt an, ob die Bearbeitung aktiviert ist oder nicht(Standard: `false`, Typ: `Boolean`)
 * `readonly`: Gibt an, ob auf das Feld nur lesend zugegriffen wird. (Standard: `false`, Typ: `Boolean`)
-* `label`: Der Text für das Label.
+* `label`: Der Text für das Label,
 * `labelStyleClass`: Die CSS-Klasse für das Label. (Standard: `col-lg-6`)
-* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich. (Standard: `col-lg-6`)
-* `textareaStyleClass`: Die CSS-Klasse für die Textarea. (Standard: ``)
+* `inputStyleClass`: Die CSS-Klasse für den Eingabebereich, (Standard: `col-lg-6`)
+* `textareaStyleClass`: Die CSS-Klasse für die Textarea, (Standard: ``)
 * `tooltip`: Der Tooltip, welcher angezeigt wird.
 * `placeholder`: Der Platzhalter, welcher im Eingabefeld angezeigt wird.
-* `rows`: Die Anzahl an Zeilen. (Standard: `5`, Typ: `Integer`)
-* `cols`: Die Anzahl an Spalten (Typ: `Integer`)
-* `maxlength`: Die maximal Anzahl von Zeichen. (Standard: `4000`, Typ: `Integer`)
-* `showPrintView`: Zur aktuellen Druckansicht-Anzeige aus dem BasisModel. (Standard: `#\{not empty basisModel and basisModel.showPrintView}`, Typ: `Boolean`)
+* `rows`: Die Anzahl an Zeilen, (Standard: `5`, Typ: `Integer`)
+* `cols`: Die Anzahl an Spalten, (Typ: `Integer`)
+* `maxlength`: Die maximal Anzahl von Zeichen, (Standard: `4000`, Typ: `Integer`)
+* `showPrintView`: Zur aktuellen Druckansicht-Anzeige aus dem BasisModel, (Standard: `#\{not empty basisModel and basisModel.showPrintView}`, Typ: `Boolean`)
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Eine spezifische globale Konfiguration, falls benötigt. (Standard: `#\{globalConfigurationModel}`)
 * `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
@@ -4501,19 +4499,19 @@ Gegenüber der Komponente `<isy:selectOneDropdownWithfourEyes>` besitzt `<isy:se
 
 Die Komponente besitzt folgende notwendige Parameter:
 
-* `reference`: Die Referenz des Objekts.
-* `value`: Der Wert der Auswahl für das Databinding
-* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock)
+* `reference`: Die Referenz des Objekts,
+* `value`: Der Wert der Auswahl für das Databinding,
+* `fourEyesMode`: 4 Augen Prinzip Mode (locked, unlock).
 
 
 Außerdem gibt es folgende optionale Parameter:
 
-* `referenceId`: Der Wert der id. (Standard: `#\{jsfHelper.escapeIdentifier(cc.attrs.reference)}`)
+* `referenceId`: Der Wert der id, (Standard: `#\{jsfHelper.escapeIdentifier(cc.attrs.reference)}`)
 * `invalid`: Gibt an, ob die Auswahl invalide ist oder nicht. (Standard: `false`, Typ: `Boolean`)
 * `disabled`: Gibt an, ob die Auswahl deaktiviert ist oder nicht. (Standard: `false`, Typ: `Boolean`)
-* `title`: Der Tooltip über dem SelectOneDropdown.
+* `title`: Der Tooltip über dem SelectOneDropdown,
 * `globalConfig`: Eine spezifische globale Konfiguration, falls notwendig. (Standard: `#\{globalConfigurationModel}`)
-* `dropdownStyleClass`: Die CSS-Klasse für das Dropdownmenü.
+* `dropdownStyleClass`: Die CSS-Klasse für das Dropdown-Menü,
 * `readonly`: Gibt an, ob die Darstellung nur lesend erfolgen soll. (Standard: `false`, Typ: `Boolean`)
 
 [NOTE]
@@ -4522,12 +4520,12 @@ Besonderheit: Das formSelectOneDropDownWithFourEyes-Widget wird im Modus `readon
 ====
 
 * `disabled`: Gibt an, ob die Auswahl deaktiviert ist oder nicht. (Standard: `false`, Typ: `Boolean`)
-* `converter`: Konverter-Bean für die angezeigten Elemente
-* `converterAttribute`: Parameter für den Konverter
+* `converter`: Konverter-Bean für die angezeigten Elemente,
+* `converterAttribute`: Parameter für den Konverter,
 * `customId`: Erlaubt, eine spezielle ID zu setzen, um die Komponente z.B. für JavaScript oder Tests zugreifbar zu machen.
 Diese wird im Attribut data-isy-custom-id eingetragen.
-* `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld.
-* `valueChangeListener`: Value Change Listener
+* `fourEyesLastValue`: Letzter Wert im 4-Augen-Eingabefeld,
+* `valueChangeListener`: Value Change Listener.
 
 [[listing-codeSelectOneDropdownWithfourEyes]]
 .Codebeispiel für selectOneDropdownWithFourEyes JSP-Komponente

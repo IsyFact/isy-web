@@ -35,7 +35,7 @@ Bei mehrschrittigen Datenerfassungen muss die Behandlung der Transaktion mit ein
 [[einhaltung-styleguide]]
 === Einhaltung Styleguide
 
-Die Applikation muss auf die Vorgaben des xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide] überprüft werden.
+Die Applikation muss auf die Vorgaben des xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide] überprüft werden.
 
 [[flow-konfiguration]]
 === Flow Konfiguration
