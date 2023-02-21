@@ -9,7 +9,7 @@ variables:
   MAVEN_TEST_OPTS: -Dskip.js.tests=true -pl isy-web-lib
 
 default:
-  image: $REPOSITORY_IFS_DOCKER/isy-build-maven:3-openjdk17-alpine
+  image: $REPOSITORY_IFS_DOCKER/isy-build-maven:3-openjdk8-alpine
 
 next-version:
   before_script:
