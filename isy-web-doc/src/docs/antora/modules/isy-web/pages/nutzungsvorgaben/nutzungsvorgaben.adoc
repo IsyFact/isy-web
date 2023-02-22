@@ -638,7 +638,8 @@ Für bestimmte Zusatzanforderungen (z.B. bedingtes Deaktivieren eines Felds, wei
 === Konfiguration der Web-Anwendung
 
 Mit SpringBoot 2 ist eine `web.xml` nicht mehr vorgesehen.
-Die Konfiguration erfolgt in der Regel mit `@Configuration`-annotierten Java-Klassen. Zur Autokonfiguration von Controllern, WebMVC und Flows sind hierbei die Klassen `ControllerAutoConfiguration`, `MvcAutoConfiguration` und `WebFlowAutoConfiguration` vorgesehen und müssen importiert werden.
+Die Konfiguration erfolgt in der Regel mit `@Configuration`-annotierten Java-Klassen.
+Zur Autokonfiguration von Controllern, WebMVC und Flows sind hierbei die Klassen `ControllerAutoConfiguration`, `MvcAutoConfiguration` und `WebFlowAutoConfiguration` vorgesehen und müssen importiert werden.
 
 [[festlegung-der-startseite]]
 ==== Festlegung der Startseite
