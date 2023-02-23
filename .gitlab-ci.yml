@@ -11,7 +11,3 @@ variables:
 
 default:
   image: $REPOSITORY_IFS_DOCKER/isy-build-maven:3-openjdk8-alpine
-
-next-version:
-  before_script:
-    - git config --global --add safe.directory /builds/IsyFact/isy-web
