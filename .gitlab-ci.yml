@@ -1,12 +1,13 @@
 include:
   - project: 'IsyFact/isy-gitlabci-templates'
-    file: 'Maven.gitlab-ci.yml'
+    file: 'Maven-Doc.gitlab-ci.yml'
 
 variables:
   NEXT_VERSION: 6.0.0
   MAVEN_COMPILE_OPTS: -pl !isy-web-doc
   # no browser is available in zssi
   MAVEN_TEST_OPTS: -Dskip.js.tests=true -pl isy-web-lib
+  MAVEN_DOC_MODULE_NAME: isy-web-doc
 
 default:
   image: $REPOSITORY_IFS_DOCKER/isy-build-maven:3-openjdk8-alpine
