@@ -13,6 +13,7 @@
 - IFS-1973: Quellcode von `isy-style` in `isy-web` verlagert
   - JSF Anwendungen müssen nicht mehr `isy-style` anbinden
 - IFS-1334: Positionierung von Tooltips gefixt
+- IFS-2430: Klassen und Komponenten als deprecated markiert
 
 
 ## 5.3.4
