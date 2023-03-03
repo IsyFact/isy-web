@@ -19,7 +19,10 @@ package de.bund.bva.isyfact.common.web.tempwebresource;
 /**
  * Komponentenschnittstelle zum Zugriff auf temporäre Web-Ressourcen.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public interface TempWebResourceZugriff {
     /**
      * Speichert eine temporäre Web-Ressource.

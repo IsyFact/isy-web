@@ -32,7 +32,10 @@ import de.bund.bva.isyfact.logging.LogKategorie;
 /**
  * Diese Klasse löscht nach einem vorgegebenen Zeitraum alle alten Web-Ressourcen aus der Datenbank.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class TempWebResourcePurgeService implements InitializingBean {
 
     /** Logger. */

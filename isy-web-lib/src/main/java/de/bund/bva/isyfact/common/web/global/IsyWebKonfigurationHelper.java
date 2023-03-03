@@ -9,7 +9,10 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Helfer-Klasse um den Zugriff auf die Konfiguration zu kapseln.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Component
 public class IsyWebKonfigurationHelper {
     /**

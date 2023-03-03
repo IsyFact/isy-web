@@ -28,7 +28,10 @@ import javax.faces.model.SelectItem;
  * @param <T>
  *            Das spezifische ListpickerItem.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public abstract class ListpickerModel<T extends ListpickerItem> implements Serializable {
 
     /**

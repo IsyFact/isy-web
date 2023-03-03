@@ -23,7 +23,10 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
  *
  * @author Capgemini
  * @version $Id: ApplikationseiteModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class ApplikationseiteModel extends AbstractMaskenModel {
 
     // TODO Erweitern um gruppe aktiver quicklinks, bei leer default alle anzeigen

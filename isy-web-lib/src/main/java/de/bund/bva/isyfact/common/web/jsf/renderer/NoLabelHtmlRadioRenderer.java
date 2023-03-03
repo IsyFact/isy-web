@@ -54,7 +54,10 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.util.JavascriptUtils;
  * 
  * @author Capgemini
  * @version $Id: NoLabelHtmlRadioRenderer.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
 
     private static final String LAYOUT_SPREAD = "spread";

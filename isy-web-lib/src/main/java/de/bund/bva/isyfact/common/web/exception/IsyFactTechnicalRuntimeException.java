@@ -23,7 +23,10 @@ import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
  *
  * @author Capgemini
  * @version $Id: IsyFactTechnicalRuntimeException.java 129989 2015-02-09 14:33:06Z sdm_tgroeger $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class IsyFactTechnicalRuntimeException extends TechnicalRuntimeException {
 
     /**

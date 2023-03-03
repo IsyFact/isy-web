@@ -51,7 +51,10 @@ import de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerGuiKon
  *    }</pre>
  * </li>
  * </ul>
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public abstract class AbstractListpickerProviderRequestHandler implements HttpRequestHandler {
 
     @Override

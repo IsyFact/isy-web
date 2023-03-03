@@ -23,7 +23,10 @@ import java.io.Serializable;
  *
  * @author Capmgemini
  * @version $Id: ValidationMessage.java 124952 2014-11-12 13:31:30Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class ValidationMessage implements Serializable {
 
     /**

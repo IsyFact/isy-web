@@ -6,6 +6,11 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.io.IOUtils;
 
+/**
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
+ */
+@Deprecated
 public class UploadHelper {
 
     private static final String QUOTATION_MARK_REPLACEMENT = "";

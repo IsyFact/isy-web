@@ -4,7 +4,10 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMe
 
 /**
  * Die Klasse enthält Konstanten rund um das Navigationsmenü.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public abstract class NavigationMenuKonstanten {
 
     /**

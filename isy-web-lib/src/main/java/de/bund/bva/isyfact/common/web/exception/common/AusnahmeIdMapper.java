@@ -32,7 +32,10 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
  *
  * @author Capgemini
  * @version $Id: AusnahmeIdMapper.java 141870 2015-07-16 10:07:27Z sdm_jmalkiewicz $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public interface AusnahmeIdMapper {
 
     /**

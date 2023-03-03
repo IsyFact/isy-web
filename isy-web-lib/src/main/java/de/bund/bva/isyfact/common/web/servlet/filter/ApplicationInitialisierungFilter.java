@@ -54,7 +54,10 @@ import de.bund.bva.isyfact.common.web.konstanten.GuiParameterSchluessel;
  *
  * @author Capgemini
  * @version $Id: ApplicationInitialisierungFilter.java 137477 2015-05-26 13:46:06Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class ApplicationInitialisierungFilter implements Filter {
 
     /** Ist eine Liste mit auszulassenden Url-Pfaden, relativ zum ApplicationContext-Root. */

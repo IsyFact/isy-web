@@ -29,7 +29,10 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 /**
  * This class re-sets the HTTP headers for resources to be cached, overriding the no-cache pragma
  * and the analogous cache control values. The expiration time is configurable.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Component
 public class ResourceCacheHeaderFilter implements Filter {
 

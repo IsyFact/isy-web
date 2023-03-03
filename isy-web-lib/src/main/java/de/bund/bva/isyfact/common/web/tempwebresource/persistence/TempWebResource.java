@@ -36,7 +36,10 @@ import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
  * Web-GUI benötigt wird. Es kann sich z.B. um ein Bild handeln oder um eine Datei, die dem Benutzer zum
  * Download bereit gestellt wird.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Entity
 @Table(name = "TEMP_WEB_RESOURCE")
 public class TempWebResource implements TempWebResourceRo {

@@ -25,7 +25,10 @@ import de.bund.bva.isyfact.common.web.jsf.components.listpicker.Listpickerangabe
 
 /**
  * JSF Converter für eine Listpickerangabe.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @FacesConverter(forClass = Listpickerangabe.class)
 public class ListpickerangabeJsfConverter implements Converter {
 

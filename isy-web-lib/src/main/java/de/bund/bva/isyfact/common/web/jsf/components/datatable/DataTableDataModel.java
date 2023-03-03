@@ -28,7 +28,10 @@ import java.util.List;
  *
  * @author msg
  * @author Capgemini
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class DataTableDataModel<I extends DataTableItem> implements Serializable {
 
     private static final long serialVersionUID = 1L;

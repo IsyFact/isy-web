@@ -29,7 +29,10 @@ import com.google.common.collect.Sets;
  * Das Auswahlmodell einer Tabelle.
  *
  * @author msg
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class DataTableSelectionModel implements Serializable {
 
     /**

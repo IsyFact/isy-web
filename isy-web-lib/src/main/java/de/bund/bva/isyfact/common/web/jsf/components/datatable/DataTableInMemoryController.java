@@ -41,7 +41,10 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  *
  * @param <I> Der konkrete Tabelleneintrag.
  * @param <M> Das konkrete Modell.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class DataTableInMemoryController<I extends DataTableItem, M extends DataTableInMemoryModel<I>>
     extends DataTableController<I, M> {
 

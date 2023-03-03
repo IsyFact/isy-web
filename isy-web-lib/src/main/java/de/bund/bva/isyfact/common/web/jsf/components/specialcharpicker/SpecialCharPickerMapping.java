@@ -19,7 +19,10 @@ package de.bund.bva.isyfact.common.web.jsf.components.specialcharpicker;
 /**
  * Der Inhalt eines Sonderzeichen-Mappings.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class SpecialCharPickerMapping {
 
     /** Der beschreibende Text zu einem Sonderzeichen . */

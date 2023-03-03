@@ -15,6 +15,11 @@ import de.bund.bva.isyfact.common.web.jsf.components.specialcharpicker.SpecialCh
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 
+/**
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
+ */
+@Deprecated
 public class ZeichenObjektRepository {
 
     /** List of character objects. */

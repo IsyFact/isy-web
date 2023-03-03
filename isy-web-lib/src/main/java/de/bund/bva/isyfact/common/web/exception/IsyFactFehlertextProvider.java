@@ -28,7 +28,10 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
  *
  * @author Capgemini
  * @version $Id: IsyFactFehlertextProvider.java 130620 2015-02-17 08:49:16Z sdm_tgroeger $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class IsyFactFehlertextProvider implements FehlertextProvider {
 
     /**

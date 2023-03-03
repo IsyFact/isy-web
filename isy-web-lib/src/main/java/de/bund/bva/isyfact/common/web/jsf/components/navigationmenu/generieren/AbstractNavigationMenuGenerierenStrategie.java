@@ -6,7 +6,10 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikations
 /**
  * Abstrakte Oberklasse, von der geerbt werden sollte, um {@link NavigationMenuGenerierenStrategie} zu
  * implementieren.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public abstract class AbstractNavigationMenuGenerierenStrategie implements NavigationMenuGenerierenStrategie {
 
     /**

@@ -27,7 +27,10 @@ import java.util.List;
  * Tabelleneinträge pro Seite und Anzahl der Seiten.
  *
  * @author msg
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class DataTablePaginationModel implements Serializable {
 
     /** Der Paginator-Typ. */

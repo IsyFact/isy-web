@@ -6,7 +6,10 @@ import java.util.Stack;
 
 /**
  * Modelklasse zur Darstellung eines einfachen Location-Breadcrumb.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class LocationBreadcrumbModel implements Serializable {
 
     private String objektname = "";

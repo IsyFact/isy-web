@@ -25,7 +25,10 @@ import de.bund.bva.isyfact.common.web.jsf.components.datatable.SortAttribute;
  *
  * @author Capgemini
  * @version $Id: InMemoryPropertySortAttribute.java 129989 2015-02-09 14:33:06Z sdm_tgroeger $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public interface InMemoryPropertySortAttribute {
 
     /**

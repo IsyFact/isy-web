@@ -35,7 +35,10 @@ import org.apache.commons.beanutils.PropertyUtils;
  * @author msg
  * @author Capgemini
  * @param <T> Typparameter
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class NullSafeBeanComparator<T> implements Serializable, Comparator<T> {
 
     private static final long serialVersionUID = 1L;

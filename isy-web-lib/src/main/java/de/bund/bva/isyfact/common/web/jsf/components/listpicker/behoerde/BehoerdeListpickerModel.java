@@ -24,7 +24,10 @@ import de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerModel;
 
 /**
  * Das Listpicker-Model für Behörden.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class BehoerdeListpickerModel extends ListpickerModel<BehoerdeListpickerItem> {
 
     /**

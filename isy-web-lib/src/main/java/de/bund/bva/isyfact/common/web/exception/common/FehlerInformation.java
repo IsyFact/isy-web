@@ -23,7 +23,10 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
  * Klasse beschreibt alle Informationen, die in einem Isy-Fehler vorhanden sind.
  *
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class FehlerInformation {
 
     /** Fehlertextprovider zum Auslesen von Fehlertexten. */

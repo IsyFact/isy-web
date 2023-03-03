@@ -27,7 +27,10 @@ import de.bund.bva.isyfact.util.exception.MessageSourceFehlertextProvider;
  * 
  * @author Capgemini
  * @version $Id:$
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class AusnahmeIdMapperImpl implements AusnahmeIdMapper {
 
     /** die AusnahmeId, die verwendet wird, wenn ein Fehler unbekannt ist. (Generischer Fehler). */

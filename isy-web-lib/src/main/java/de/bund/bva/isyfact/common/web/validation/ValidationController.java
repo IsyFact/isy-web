@@ -32,7 +32,10 @@ import de.bund.bva.isyfact.common.web.konstanten.MaskentexteSchluessel;
 /**
  * A controller that takes care of validation messages.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ValidationController {

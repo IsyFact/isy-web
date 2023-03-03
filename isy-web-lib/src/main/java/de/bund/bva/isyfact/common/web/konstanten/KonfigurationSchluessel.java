@@ -18,7 +18,10 @@ package de.bund.bva.isyfact.common.web.konstanten;
 
 /**
  * Constant class for configuration keys.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public final class KonfigurationSchluessel {
 
     private KonfigurationSchluessel() {

@@ -28,7 +28,10 @@ import com.google.common.base.Strings;
 /**
  * The validation model stores the validation messages for a mask.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class ValidationModel implements Serializable {
 
     /**

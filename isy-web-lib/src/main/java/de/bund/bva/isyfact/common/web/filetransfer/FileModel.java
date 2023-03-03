@@ -9,7 +9,10 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
  * wird, damit der Mime-Type richtig ermittelt und im Header gesetzt werden kann.
  *
  * @author msg
- **/
+ ** @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
+ */
+@Deprecated
 public class FileModel extends AbstractMaskenModel {
 
     private static final long serialVersionUID = 1L;

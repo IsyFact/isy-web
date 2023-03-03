@@ -22,7 +22,10 @@ import java.util.TreeMap;
 
 /**
  * Model für Quicklinks.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class QuicklinksModel implements Serializable {
 
     /**

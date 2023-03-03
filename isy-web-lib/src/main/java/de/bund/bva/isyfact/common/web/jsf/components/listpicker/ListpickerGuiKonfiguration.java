@@ -9,8 +9,10 @@ import de.bund.bva.isyfact.common.web.servlet.requesthandler.AbstractListpickerP
  * werden, falls der Listpicker begrenzbar sein soll, was die maximale Anzahl angezeigter Elemente angeht. Die
  * Klasse wird von {@link AbstractListpickerProviderRequestHandler} verwendet und in JSON umgewandelt, so dass
  * die Informationen in JavaScript verfügbar sind.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
-
+@Deprecated
 public class ListpickerGuiKonfiguration {
 
     /**

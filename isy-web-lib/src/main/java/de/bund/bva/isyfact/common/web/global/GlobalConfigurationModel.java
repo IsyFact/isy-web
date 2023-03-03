@@ -27,7 +27,10 @@ import java.io.Serializable;
  *
  * @author Capgemini
  * @version $Id: GlobalConfigurationModel.java 137444 2015-05-26 11:32:38Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class GlobalConfigurationModel implements Serializable {
 
     /**

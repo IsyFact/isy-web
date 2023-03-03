@@ -21,7 +21,10 @@ package de.bund.bva.isyfact.common.web.layout;
  * 
  * @author Capgemini
  * @version $Id: InformationsbereichModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 // TODO: Das Informationsbereich-Model sollte in XHTML ausgelagert werden (Überschriften usw. sollten nicht in
 // JAVA-Code gehalten werden)
 public class InformationsbereichModel extends AbstractSeitenelementModel {

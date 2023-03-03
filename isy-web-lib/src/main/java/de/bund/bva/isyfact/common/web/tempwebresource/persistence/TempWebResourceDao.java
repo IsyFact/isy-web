@@ -33,7 +33,10 @@ import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
 /**
  * Die DAO-Klasse für die Entität TempWebResource.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Repository
 @ConditionalOnBean(EntityManager.class)
 public class TempWebResourceDao {

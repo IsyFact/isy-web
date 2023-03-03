@@ -28,7 +28,10 @@ import de.bund.bva.isyfact.logging.LogKategorie;
 
 /**
  * Setzt das angegebene Default Locale.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class SetDefaultLocaleFactoryBean implements BeanFactoryPostProcessor {
 
     /**

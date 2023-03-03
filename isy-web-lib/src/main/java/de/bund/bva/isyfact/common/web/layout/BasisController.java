@@ -33,7 +33,10 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
  *
  * @author Capgemini
  * @version $Id: BasisController.java 144984 2015-08-18 13:53:33Z sdm_bpiatkowski $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class BasisController extends AbstractGuiController<BasisModel> {

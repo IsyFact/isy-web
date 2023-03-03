@@ -39,7 +39,10 @@ import com.google.common.collect.Lists;
  *
  * @author Capgemini
  * @version $Id: JsfHelper.java 138219 2015-06-05 10:14:36Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Component
 public class JsfHelper {
 

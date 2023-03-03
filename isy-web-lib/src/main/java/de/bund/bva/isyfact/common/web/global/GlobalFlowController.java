@@ -39,7 +39,10 @@ import de.bund.bva.isyfact.common.web.validation.ValidationController;
  *
  * @author Capgemini
  * @version $Id: GlobalFlowController.java 128983 2015-01-27 16:42:36Z sdm_tgroeger $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel> {

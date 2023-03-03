@@ -43,7 +43,10 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  * behandelt dieser technische Fehler, welche innerhalb der Flows auftreten.
  *
  * @author Capgemini
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ErrorController implements ApplicationContextAware, GuiController {

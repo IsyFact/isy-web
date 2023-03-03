@@ -21,6 +21,11 @@ import de.bund.bva.isyfact.common.web.exception.web.SimpleMappingExceptionResolv
 import de.bund.bva.isyfact.common.web.webflow.titles.TitlesListener;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
+/**
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
+ */
+@Deprecated
 @Configuration
 public class WebFlowAutoConfiguration extends AbstractFacesFlowConfiguration {
 

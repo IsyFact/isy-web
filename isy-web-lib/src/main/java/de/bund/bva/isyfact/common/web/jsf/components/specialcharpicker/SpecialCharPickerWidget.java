@@ -39,7 +39,10 @@ import com.google.common.collect.TreeMultimap;
 
 /**
  * Zeigt das Overlay für eine Sonderzeichenliste an.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class SpecialCharPickerWidget extends UIComponentBase {
 
     /** Default resource für den Zugriff auf die Sonderzeichen. */

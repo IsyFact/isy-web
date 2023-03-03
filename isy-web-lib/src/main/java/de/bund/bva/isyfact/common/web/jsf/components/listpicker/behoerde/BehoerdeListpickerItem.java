@@ -20,7 +20,10 @@ import de.bund.bva.isyfact.common.web.jsf.components.listpicker.ListpickerItem;
 
 /**
  * Ein Behördenkennzeichen als ListpickerItem.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class BehoerdeListpickerItem implements ListpickerItem {
 
     /**

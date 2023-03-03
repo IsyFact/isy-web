@@ -21,7 +21,10 @@ import java.io.Serializable;
 /**
  * Eine Angabe, die den Text in einem Listpickerfeld enthaelt. Im Kern enthaelt sie nur den Schluessel, in der
  * Oberflaeche auch den Wert.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class Listpickerangabe implements Serializable {
 
     /**

@@ -9,7 +9,10 @@ import static java.lang.Boolean.TRUE;
  * <p>Details siehe
  * <a href="https://stackoverflow.com/questions/44633039/jsf-composite-component-target-actions-fail-within-the-cforeach-tag">hier</a>
  * </p>
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class FaceletViewHandlingStrategyPatch extends javax.faces.view.ViewDeclarationLanguageFactory {
 
     /** Original ViewDevlarationLanguageFactory, */

@@ -6,7 +6,10 @@ import java.util.List;
 
 /**
  * Eine Applikationsgruppe mit allen Infos um sie in einem Navigationsmenü darzustellen.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class Applikationsgruppe implements Serializable, Comparable<Applikationsgruppe> {
     /**
      * Die serialVersionUID

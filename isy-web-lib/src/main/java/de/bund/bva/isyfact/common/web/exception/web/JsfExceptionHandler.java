@@ -39,7 +39,10 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  *
  * @author Capgemini
  * @version $Id: JsfExceptionHandler.java 143397 2015-07-30 08:49:32Z sdm_apheino $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 
     /**
