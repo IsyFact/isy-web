@@ -6,11 +6,9 @@ import java.util.Map;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import de.bund.bva.isyfact.common.TestFieldSetter;
 import de.bund.bva.isyfact.common.web.MockFacesContext;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
-import de.bund.bva.isyfact.common.web.exception.common.FehlerInformation;
-import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
+import de.bund.bva.isyfact.common.web.exception.common.FehlertextProviderImpl;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.BaseException;
 import org.junit.Before;
@@ -18,8 +16,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,24 +35,7 @@ public class ErrorControllerTest {
 
     private Map<String, String> requestParameterMap = new HashMap<>();
 
-    private FehlertextProvider fehlertextProviderMock;
-
-    @Before
-    public void setupFehlertextProvider() throws Exception {
-        fehlertextProviderMock = mock(FehlertextProvider.class);
-
-        TestFieldSetter.setFinalStatic(FehlerInformation.class.getDeclaredField("FEHLERTEXT_PROVIDER"),
-            fehlertextProviderMock);
-
-        when(fehlertextProviderMock
-            .getMessage(FehlerSchluessel.FEHLERTEXT_GUI_TECHNISCH, FEHLER_ID, UNIQUE_ID))
-            .thenReturn(ERGEBNIS_NACHRICHT);
-        when(fehlertextProviderMock
-            .getMessage(FehlerSchluessel.FEHLERTEXT_GUI_TECHNISCH_UEBERSCHRIFT, FEHLER_ID, UNIQUE_ID))
-            .thenReturn(ERGEBNIS_UEBERSCHRIFT);
-        when(fehlertextProviderMock.getMessage(FEHLER_ID)).thenReturn(ERGEBNIS_NACHRICHT);
-    }
-
+    private FehlertextProvider fehlertextProviderMock = new FehlertextProviderImpl();
 
     @Before
     public void setupRequestParameterMap() {
@@ -120,14 +99,6 @@ public class ErrorControllerTest {
         when(applicationContextMock.getBean(AusnahmeIdMapper.class)).thenReturn(ausnahmeIdMapperMock);
         when(ausnahmeIdMapperMock.getFehlertextProvider()).thenReturn(fehlertextProviderMock);
         when(ausnahmeIdMapperMock.getFallbackAusnahmeId()).thenReturn(FEHLER_ID);
-
-        // Random UUID is generated
-        when(fehlertextProviderMock
-            .getMessage(eq(FehlerSchluessel.FEHLERTEXT_GUI_TECHNISCH), eq(FEHLER_ID), any(String.class)))
-            .thenReturn(ERGEBNIS_NACHRICHT);
-        when(fehlertextProviderMock
-            .getMessage(eq(FehlerSchluessel.FEHLERTEXT_GUI_TECHNISCH_UEBERSCHRIFT), eq(FEHLER_ID),
-                any(String.class))).thenReturn(ERGEBNIS_UEBERSCHRIFT);
 
         ErrorModel model = new ErrorModel();
 
