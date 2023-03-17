@@ -24,6 +24,11 @@ import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.common.web.global.GlobalFlowController;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
+/**
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
+ */
+@Deprecated
 @EnableWebMvc
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)

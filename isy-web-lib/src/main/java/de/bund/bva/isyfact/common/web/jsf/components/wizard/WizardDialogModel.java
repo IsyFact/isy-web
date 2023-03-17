@@ -25,7 +25,10 @@ import java.util.List;
  *
  * @author Capgemini
  * @version $Id: WizardDialogModel.java 136928 2015-05-18 07:04:43Z sdm_tgroeger $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class WizardDialogModel implements Serializable {
 
     /**

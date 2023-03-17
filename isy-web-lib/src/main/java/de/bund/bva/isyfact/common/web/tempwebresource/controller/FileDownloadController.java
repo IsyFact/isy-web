@@ -30,7 +30,10 @@ import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
  * Controller-Klasse für den "Speichern unter"-Dialog. Es können Fingerabdrücke und XML-Dateien gespeichert
  * werden.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class FileDownloadController extends ResourceController implements GuiController {
 
     /** Header zum Starten des "Speichern Unter"-Dialogs. */

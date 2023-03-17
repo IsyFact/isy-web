@@ -29,7 +29,10 @@ import java.util.List;
  * @author  msg
  *
  * @see DataTableRequest
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class DataTableResult<I extends DataTableItem> {
 
     /** Die Anzahl der Einträge ohne Pagination-Einschränkungen. */

@@ -40,7 +40,10 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  * Controller für die Linksnavigation.
  * @author Capgemini
  * @version $Id: LinksnavigationController.java 124975 2014-11-12 17:20:41Z sdm_jzitz $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class LinksnavigationController extends AbstractGuiController<ApplikationseiteModel> {

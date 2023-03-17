@@ -20,7 +20,10 @@ import java.io.Serializable;
 
 /**
  * Modell für ein Quicklinkselement.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class QuicklinksElementModel implements Serializable {
 
     /**

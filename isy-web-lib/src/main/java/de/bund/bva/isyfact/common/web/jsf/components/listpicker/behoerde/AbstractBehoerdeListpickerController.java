@@ -28,7 +28,10 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 /**
  * Der konkrete Listpicker-Controller für Behörden.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public abstract class AbstractBehoerdeListpickerController
     extends ListpickerController<BehoerdeListpickerModel> {
 

@@ -21,7 +21,10 @@ package de.bund.bva.isyfact.common.web.global;
  *
  * @author Capgemini
  * @version $Id: GlobalFlowModel.java 142517 2015-07-23 10:35:01Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class GlobalFlowModel extends AbstractMaskenModel {
 
     /**

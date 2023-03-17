@@ -4,7 +4,10 @@ import java.io.Serializable;
 
 /**
  * Eine Anwendung zum Einbinden in das Navigationsmenü.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class Anwendung implements Serializable, Comparable<Anwendung> {
 
     /**

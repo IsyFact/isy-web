@@ -28,7 +28,10 @@ import de.bund.bva.isyfact.common.web.tempwebresource.persistence.TempWebResourc
 /**
  * Implementierung der Komponente TempWebResourceZugriff.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Transactional
 public class TempWebResourceZugriffImpl implements TempWebResourceZugriff {
 

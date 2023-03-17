@@ -27,7 +27,10 @@ import de.bund.bva.isyfact.logging.LogKategorie;
 /**
  * Generiert das {@link NavigationMenuModel} anhand der Konfiguration der Anwendung. Eine entsprechende
  * Konfigurations-Datei muss von der Anwendung bereitgestellt werden.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Component
 public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigationMenuGenerierenStrategie {
 

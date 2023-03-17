@@ -35,7 +35,10 @@ import de.bund.bva.isyfact.common.web.GuiController;
  *
  * @author Capgemini
  * @version $Id: TabController.java 144628 2015-08-12 13:56:14Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class TabController implements GuiController {

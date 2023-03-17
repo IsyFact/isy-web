@@ -5,7 +5,10 @@ import java.io.Serializable;
 /**
  * @author msg
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class DokumentDatenModel implements Serializable {
 
     private static final long serialVersionUID = 1L;

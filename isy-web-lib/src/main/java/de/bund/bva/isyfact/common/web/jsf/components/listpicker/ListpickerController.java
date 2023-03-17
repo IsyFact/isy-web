@@ -23,7 +23,10 @@ import de.bund.bva.isyfact.common.web.GuiController;
  *
  * @param <T>
  *            Das spezifische Listpicker Model.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public abstract class ListpickerController<T extends ListpickerModel<?>> implements GuiController {
 
     /**

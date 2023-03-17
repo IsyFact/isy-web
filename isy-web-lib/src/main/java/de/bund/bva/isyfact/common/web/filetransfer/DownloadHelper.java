@@ -26,7 +26,10 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
  * @author msg
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Component
 public class DownloadHelper {
 

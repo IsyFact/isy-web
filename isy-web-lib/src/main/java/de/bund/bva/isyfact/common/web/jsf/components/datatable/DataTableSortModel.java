@@ -24,7 +24,10 @@ import java.io.Serializable;
  * Das Sortieren nach mehreren Attributen wird nicht unterstützt.
  *
  * @author msg
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class DataTableSortModel implements Serializable {
 
     /** Die Serial-Version UID. */

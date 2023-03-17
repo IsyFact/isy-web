@@ -27,7 +27,10 @@ import java.util.Map;
  *
  * @see DataTableResult
  * @see DataTableController#readItems(DataTableModel, DataTableRequest)
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class DataTableRequest {
 
     /**

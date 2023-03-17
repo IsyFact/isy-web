@@ -18,7 +18,10 @@ package de.bund.bva.isyfact.common.web.common.konstanten;
 
 /**
  * This class contains event keys for logging.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class EreignisSchluessel {
 
     /** No object id found in request String {}. */

@@ -11,7 +11,10 @@ import java.util.stream.Stream;
  * @author msg systems ag
  * @version 1.0
  * @created 21-Sep-2016 10:35:45
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public enum DateitypEnum {
     /**
      * Bitmap files

@@ -20,7 +20,10 @@ import java.io.Serializable;
 
 /**
  * Dies ist die Oberklasse für Listpicker Items, welche einem Listpicker-Model zugewiesen werden.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public interface ListpickerItem extends Serializable {
 
     /**

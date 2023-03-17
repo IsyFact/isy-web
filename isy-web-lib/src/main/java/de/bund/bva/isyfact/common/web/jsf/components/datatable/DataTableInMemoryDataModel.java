@@ -26,7 +26,10 @@ import java.util.List;
  *            Der konkrete Tabelleneintrag.
  *
  * @author msg
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class DataTableInMemoryDataModel<I extends DataTableItem> extends DataTableDataModel<I> {
 
     private static final long serialVersionUID = 1L;

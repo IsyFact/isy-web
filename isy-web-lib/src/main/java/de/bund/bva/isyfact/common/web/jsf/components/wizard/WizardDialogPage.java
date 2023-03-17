@@ -23,7 +23,10 @@ import java.io.Serializable;
  *
  * @author Capgemini
  * @version $Id: WizardDialogPage.java 144104 2015-08-05 16:04:58Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class WizardDialogPage implements Serializable {
 
     /**

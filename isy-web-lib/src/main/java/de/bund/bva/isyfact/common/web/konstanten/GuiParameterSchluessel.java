@@ -21,7 +21,10 @@ package de.bund.bva.isyfact.common.web.konstanten;
  *
  * @author Capgemini
  * @version $Id: GuiParameterSchluessel.java 137477 2015-05-26 13:46:06Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public abstract class GuiParameterSchluessel {
 
     /**

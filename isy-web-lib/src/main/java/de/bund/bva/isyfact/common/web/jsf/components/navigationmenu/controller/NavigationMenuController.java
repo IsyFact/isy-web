@@ -19,7 +19,10 @@ import java.util.Objects;
 /**
  * The class is used to create a {@link NavigationMenuModel} and store it in the session. Also
  * the active {@link Applikationsgruppe} is determined here.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 public class NavigationMenuController {
 

@@ -29,7 +29,10 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 
 /**
  * {@link SimpleMappingExceptionResolver}, der Ausnahmen in AJAX-Requests behandelt und ins Log schreibt.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class SimpleMappingExceptionResolverWithAdvancedLogging extends SimpleMappingExceptionResolver {
 
     private static final IsyLogger LOG =

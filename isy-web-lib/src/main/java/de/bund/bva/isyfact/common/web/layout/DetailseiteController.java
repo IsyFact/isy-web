@@ -28,7 +28,10 @@ import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
  *
  * @author Capgemini
  * @version $Id: DetailseiteController.java 136137 2015-05-06 13:01:17Z sdm_skern $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DetailseiteController extends AbstractGuiController<DetailseiteModel> {

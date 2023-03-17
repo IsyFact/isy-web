@@ -29,7 +29,10 @@ import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
 /**
  * Controller-Klasse zur Darstellung von Bildern.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class BildController extends ResourceController implements GuiController {
     /**
      * Diese Methode stellt Bilder zur direkten Anzeige in der GUI bereit.

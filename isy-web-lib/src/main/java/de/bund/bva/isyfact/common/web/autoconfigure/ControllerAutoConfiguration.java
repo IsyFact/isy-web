@@ -39,11 +39,14 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * ComponentScan for the isy-web controllers.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
 @Configuration
 //@ComponentScan(basePackages = "de.bund.bva.isyfact.common.web",
 //    excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX,
 //            pattern = "de\\.bund\\.bva\\.isyfact\\.common\\.web\\.autoconfigure\\..*"))
+@Deprecated
 public class ControllerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean

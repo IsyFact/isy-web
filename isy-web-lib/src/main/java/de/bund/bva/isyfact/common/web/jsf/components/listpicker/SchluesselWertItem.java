@@ -18,7 +18,10 @@ package de.bund.bva.isyfact.common.web.jsf.components.listpicker;
 
 /**
  * Item der beinhaltet Schlüssel und Wert.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public abstract class SchluesselWertItem implements ListpickerItem {
 
     /**

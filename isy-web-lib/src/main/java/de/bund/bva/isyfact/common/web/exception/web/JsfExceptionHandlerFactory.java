@@ -29,7 +29,10 @@ import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
  *
  * @author Capgemini
  * @version $Id: JsfExceptionHandlerFactory.java 128695 2015-01-22 15:49:46Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class JsfExceptionHandlerFactory extends ExceptionHandlerFactory {
 
     /**

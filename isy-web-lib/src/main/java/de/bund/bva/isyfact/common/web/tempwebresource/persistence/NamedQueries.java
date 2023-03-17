@@ -21,7 +21,10 @@ package de.bund.bva.isyfact.common.web.tempwebresource.persistence;
  * die Queries dieser Datei sollte nur ueber Konstanten dieser Klasse geschehen, damit ihre Verwendung
  * nachverfolgt werden kann.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public final class NamedQueries {
 
     /**

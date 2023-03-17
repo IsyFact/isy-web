@@ -24,7 +24,10 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  * Bietet Funktionen zum Ein- und Ausblenden des Hilfebuttons und zum generieren der URL zum Hilfe-Wiki.
  *
  * @author msg
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class HilfeController extends AbstractGuiController<HilfeModel> {

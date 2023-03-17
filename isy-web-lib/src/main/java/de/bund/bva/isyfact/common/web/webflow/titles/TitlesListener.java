@@ -43,7 +43,10 @@ import org.springframework.webflow.execution.RequestContextHolder;
  *
  * @author Capgemini
  * @version $Id: TitlesListener.java 143397 2015-07-30 08:49:32Z sdm_apheino $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class TitlesListener extends FlowExecutionListenerAdapter {
 
     /**

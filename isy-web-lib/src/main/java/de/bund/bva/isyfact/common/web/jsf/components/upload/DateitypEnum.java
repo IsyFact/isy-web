@@ -3,7 +3,10 @@ package de.bund.bva.isyfact.common.web.jsf.components.upload;
 /**
  * Enum mit Mime-Types je Dateityp.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public enum DateitypEnum {
 
     /**

@@ -13,7 +13,10 @@ import de.bund.bva.isyfact.common.web.servlet.requesthandler.AbstractListpickerP
  * Attribute-Liste zu einem Item speichert und diesem Item eine ID zuweist. Es muss darauf geachtet werden,
  * dass die Attribute (attrs) in der Reihenfolge in der Liste erscheinen, wie man sie im Header des
  * Listpickers definiert hat.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class ListpickerGuiItem {
 
     /**

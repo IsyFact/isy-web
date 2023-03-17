@@ -6,7 +6,10 @@ import java.util.List;
 
 /**
  * Enthält eine Liste von {@link Applikationsgruppe}n um ein Navigationsmenü zu darzustellen.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class NavigationMenuModel implements Serializable {
 
     /**

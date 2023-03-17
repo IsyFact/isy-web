@@ -22,7 +22,10 @@ import java.util.Date;
  * Read-Only-Interface auf die Entität TempWebResource. Eine TempWebResource repräsentiert eine Ressource, die
  * temporär für die Web-GUI benötigt wird, z.B. ein Bild oder eine PDF-Datei.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public interface TempWebResourceRo {
 
     /**

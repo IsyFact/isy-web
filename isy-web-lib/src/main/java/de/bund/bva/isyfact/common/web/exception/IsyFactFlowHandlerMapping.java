@@ -22,7 +22,10 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  * Konkret werden {@link FlowExecutionRestorationFailureException} und {@link FlowExecutionException} mit
  * einer {@link AccessDeniedException} als Grund behandelt.
  * Für diese Ausnahmen können Flows definiert werden, die als Ergebnis des Handlings angesprungen werden.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class IsyFactFlowHandlerMapping extends FlowHandlerMapping {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsyFactFlowHandlerMapping.class);

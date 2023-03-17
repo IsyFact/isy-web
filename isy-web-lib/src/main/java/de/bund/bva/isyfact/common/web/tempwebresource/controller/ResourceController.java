@@ -42,7 +42,10 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
 /**
  * Abstrakte Oberklasse für Controller zum Herunterladen von Bildern und Dateien.
  *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public abstract class ResourceController implements Controller, GuiController {
 
     /** Logger. */

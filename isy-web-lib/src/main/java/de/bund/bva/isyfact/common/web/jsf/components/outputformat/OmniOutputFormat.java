@@ -58,7 +58,10 @@ import javax.faces.context.ResponseWriter;
  *
  * @author Capgemini
  * @since 1.2
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @FacesComponent(createTag = true, tagName = "outputFormat", namespace = "http://java.sun.com/jsf/isyfact2",
     value = OmniOutputFormat.COMPONENT_TYPE)
 public class OmniOutputFormat extends HtmlOutputFormat {

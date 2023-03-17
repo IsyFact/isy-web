@@ -26,7 +26,10 @@ import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
  *
  * @author Capgemini
  * @version $Id: ApplikationseiteController.java 123824 2014-10-13 10:05:13Z sdm_ahoerning $
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 @Controller
 public class ApplikationseiteController extends AbstractGuiController<ApplikationseiteModel> {
 

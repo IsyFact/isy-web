@@ -26,7 +26,10 @@ import javax.faces.render.Renderer;
 
 /**
  * Rendert ein SonderzeichenOverlay als HTML.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use isy-angular-widgets instead.
  */
+@Deprecated
 public class SpecialCharPickerRenderer extends Renderer {
 
     /** Name des HTML div Elements. */
