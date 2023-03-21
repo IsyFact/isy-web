@@ -21,3 +21,7 @@ code-coverage:
   extends: .coverage-generation
   variables:
     MAVEN_MODULE: isy-web-lib
+
+next-version:
+  before_script:
+    - git config --global --add safe.directory /builds/IsyFact/isy-web
