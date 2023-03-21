@@ -8,7 +8,7 @@ variables:
   MAVEN_DOC_MODULE_NAME: isy-web-doc
 
 default:
-  image: $REPOSITORY_IFS_DOCKER/isy-build-maven:3-openjdk8-alpine
+  image: $REPOSITORY_IFS_DOCKER/isy-build-maven:3-openjdk17-alpine
 
 test:
   extends: .maven-test
