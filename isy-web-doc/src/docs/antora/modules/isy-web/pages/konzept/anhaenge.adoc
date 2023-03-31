@@ -2,6 +2,9 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
+:linkaktuell: Konzept isy-web-angular (Anmerkung: Dies ist noch ein Closed Source Baustein)
+include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
+
 [[checkliste-zur-qs]]
 == Anhang A: Checkliste zur QS
 

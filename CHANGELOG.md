@@ -14,6 +14,7 @@
   - JSF Anwendungen müssen nicht mehr `isy-style` anbinden
 - IFS-1334: Positionierung von Tooltips gefixt
 - IFS-2430: Klassen und Komponenten als deprecated markiert
+- IFS-2275: Dokumentation als deprecated markiert
 
 
 ## 5.3.4
