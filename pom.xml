@@ -27,8 +27,6 @@
         <geronimo-el_2.2_spec.version>1.0.1</geronimo-el_2.2_spec.version>
         <geronimo-servlet_2.5_spec.version>1.2</geronimo-servlet_2.5_spec.version>
         <myfaces-api.version>2.0.15</myfaces-api.version>
-        <maven-compiler-plugin.source>1.8</maven-compiler-plugin.source>
-        <maven-compiler-plugin.target>1.8</maven-compiler-plugin.target>
     </properties>
 
     <dependencyManagement>
@@ -80,14 +78,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration combine.self="override">
-                    <source>${maven-compiler-plugin.source}</source>
-                    <target>${maven-compiler-plugin.target}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
             </plugin>
         </plugins>
     </build>

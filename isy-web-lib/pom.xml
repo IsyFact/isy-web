@@ -12,7 +12,7 @@
 
     <properties>
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-        <node.version>v16.16.0</node.version>
+        <node.version>v18.13.0</node.version>
         <skip.js.tests>false</skip.js.tests>
         <commons-io.version>2.4</commons-io.version>
         <commons-collections.version>3.2.2</commons-collections.version>
@@ -315,57 +315,70 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>${frontend-maven-plugin.version}</version>
-                <executions>
-
-                    <execution>
-                        <id>install node and npm</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>${node.version}</nodeVersion>
-                            <serverId>repository</serverId>
-                            <nodeDownloadRoot>${REPOSITORY_NODE}</nodeDownloadRoot>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm install</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>webpack build</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run webpack</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>js tests</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run test</arguments>
-                            <skip>${skip.js.tests}</skip>
-                        </configuration>
-                    </execution>
-
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>node-with-install</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>${frontend-maven-plugin.version}</version>
+                        <executions>
+
+                            <execution>
+                                <id>install node and npm</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>install-node-and-npm</goal>
+                                </goals>
+                                <configuration>
+                                    <nodeVersion>${node.version}</nodeVersion>
+                                    <serverId>repository</serverId>
+                                    <nodeDownloadRoot>${REPOSITORY_NODE}</nodeDownloadRoot>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>npm install</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>install</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>webpack build</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run webpack</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>js tests</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run test</arguments>
+                                    <skip>${skip.js.tests}</skip>
+                                </configuration>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

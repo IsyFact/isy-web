@@ -1,32 +1,73 @@
 include:
   - project: 'IsyFact/isy-gitlabci-templates'
-    file: '/maven/.gitlab-ci-maven.yml'
+    file: 'Maven-Doc.gitlab-ci.yml'
+  - project: 'IsyFact/isy-gitlabci-templates'
+    file: 'Jobs/Npm/Install.gitlab-ci.yml'
 
 variables:
   NEXT_VERSION: 6.0.0
-  MAVEN_PACKAGE_OPTS: -pl !isy-web-doc
-  # no browser is available in zssi
-  MAVEN_TEST_OPTS: -Dskip.js.tests=true
+  MAVEN_COMPILE_OPTS: -pl !isy-web-doc -P !node-with-install
+  MAVEN_DEPLOY_OPTS: -pl !isy-web-doc -P !node-with-install
+  MAVEN_DOC_MODULE_NAME: isy-web-doc
 
-build:
-  extends: .maven-build
-  variables:
-    MAVEN_BUILD_OPTS: -pl !isy-web-doc
+default:
+  image: $REPOSITORY_IFS_DOCKER/isy-build-maven:3-openjdk17-alpine
 
-test:isy-web-lib:
+install:
+  extends: .npm-install
+  image: $REPOSITORY_IFS_DOCKER/isy-build-node:16-alpine
+  before_script:
+    # language=sh
+    - |
+      cd isy-web-lib
+
+webpack:
+  stage: build
+  image: $REPOSITORY_IFS_DOCKER/isy-build-node:16-alpine
+  needs: [install]
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_COMMIT_BRANCH
+  before_script:
+    # language=sh
+    - |
+      cd isy-web-lib
+  script:
+    # language=sh
+    - |
+      npm run webpack
+  after_script:
+    # language=sh
+    - |
+      mv isy-web-lib/target isy-web-lib/dist
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - 'isy-web-lib/dist/'
+
+compile:
+  extends: .maven-compile
+  needs: [webpack]
+  before_script:
+    # language=sh
+    - |
+      cp -r isy-web-lib/dist isy-web-lib/target
+
+test:
   extends: .maven-test
+  variables:
+    # no browser is available in zssi
+    MAVEN_TEST_OPTS: -Dskip.js.tests=true  -P !node-with-install
+    MAVEN_MODULE: isy-web-lib
 
-package:
-  extends: .maven-package
+code-coverage:
+  extends: .coverage-generation
+  variables:
+    MAVEN_MODULE: isy-web-lib
 
-deploy-snapshot:
-  extends: .maven-deploy-snapshot
-
-deploy:
-  extends: .maven-deploy
-
-stages:
-  - build
-  - test
-  - package
-  - deploy
+next-version:
+  before_script:
+    - git config --global --add safe.directory /builds/IsyFact/isy-web
