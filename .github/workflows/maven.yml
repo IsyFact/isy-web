@@ -1,0 +1,15 @@
+name: Build Maven
+on:
+  pull_request:
+    branches:
+      - release/5.x
+  push:
+    branches:
+      - release/5.x
+jobs:
+  Maven:
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_template.yml@master
+    with:
+      jdk-version: 8
+      maven-opts: '-pl isy-web-lib -Dskip.js.tests=true'
+      checkout-lfs: true
