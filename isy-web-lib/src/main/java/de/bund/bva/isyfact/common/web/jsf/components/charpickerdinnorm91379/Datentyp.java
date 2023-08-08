@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
+package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinnorm91379;
 
 /**
  * @deprecated This module is deprecated and will be removed in a future release.

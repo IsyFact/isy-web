@@ -47,7 +47,7 @@ $(function () {
      */
     var CharPickerPopup = function () {
         // Find the master overlay
-        this.$masterOverlayEl = $('.charpicker-dinspec');
+        this.$masterOverlayEl = $('.charpicker-dinnorm');
         // Additional reference
         this.$overlayEl = this.$masterOverlayEl;
 
@@ -279,7 +279,7 @@ $(function () {
         },
 
         getName: function () {
-            return "CharPickerDinSpec";
+            return "CharPickerDinNorm";
         },
 
         isActive: function () {
@@ -712,8 +712,8 @@ $(function () {
         },
 
         refreshWidget: function () {
-            var $inputElements = $('input.inputWithCharPickerDinSpec[type=text], textarea.inputWithCharPickerDinSpec').filter(':not(.charpickerdinspec_ajaxtoken)');
-            var $openButton = $('.charpicker-open-button').filter(':not(.charpickerdinspec_ajaxtoken)');
+            var $inputElements = $('input.inputWithCharPickerDinNorm[type=text], textarea.inputWithCharPickerDinNorm').filter(':not(.charpickerdinnorm_ajaxtoken)');
+            var $openButton = $('.charpicker-open-button').filter(':not(.charpickerdinnorm_ajaxtoken)');
 
             var $currInputEl;
             var popup = this.popup;
@@ -795,8 +795,8 @@ $(function () {
             });
 
             $openButton.addClass('enabled');
-            $inputElements.addClass('charpickerdinspec_ajaxtoken');
-            $openButton.addClass('charpickerdinspec_ajaxtoken');
+            $inputElements.addClass('charpickerdinnorm_ajaxtoken');
+            $openButton.addClass('charpickerdinnorm_ajaxtoken');
         },
 
         getName: function () {
@@ -813,7 +813,7 @@ $(function () {
     $(document).ready(function () {
 
         // Initiale Darstellung
-        $('.charpicker-dinspec-widget').data("initializer", charPickerInitializer);
+        $('.charpicker-dinnorm-widget').data("initializer", charPickerInitializer);
 
         charPickerInitializer.initWidget(widget);
         charPickerInitializer.refreshWidget();
@@ -825,7 +825,7 @@ $(function () {
             // --------------------------------------------------------
             jsf.ajax.addOnEvent(function (callback) {
 
-                var initializer = $('.charpicker-dinspec-widget').data("initializer");
+                var initializer = $('.charpicker-dinnorm-widget').data("initializer");
 
                 if (callback.status === 'begin') {
                     if (initializer !== undefined) {

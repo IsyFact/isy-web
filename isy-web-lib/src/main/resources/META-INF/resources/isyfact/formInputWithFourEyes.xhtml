@@ -126,7 +126,7 @@
                     <ui:fragment rendered="#{not (cc.attrs.readonly or cc.attrs.showPrintView)}">
 
                         <ui:param name="charPickerClass" value="#{empty cc.attrs.charpicker or empty cc.attrs.globalConfig or not cc.attrs.globalConfig.jsEnabled ? '' :
-                          cc.attrs.charpicker == 'dinSpec' ? ' inputWithCharPickerDinSpec' :
+                          cc.attrs.charpicker == 'dinSpec' ? ' inputWithCharPickerDinNorm' :
                           cc.attrs.charpicker == 'special' ? ' inputWithSpecialCharPicker' : ''}" />
 
                         <!-- input -->
