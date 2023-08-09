@@ -18,7 +18,7 @@ public class ZeichenObjektRepositoryTest {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
         repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste();
-        assertEquals(902, zeichenliste.size());
+        assertEquals(907, zeichenliste.size());
     }
 
     /**
