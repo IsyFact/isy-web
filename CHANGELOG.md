@@ -15,6 +15,7 @@
 - IFS-1334: Positionierung von Tooltips gefixt
 - IFS-2430: Klassen und Komponenten als deprecated markiert
 - IFS-2275: Dokumentation als deprecated markiert
+- DIN Norm 91379 Erweiterung des charpicker um weitere Sonderzeichen
 
 
 ## 5.3.4
