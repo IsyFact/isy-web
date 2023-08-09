@@ -1,6 +1,6 @@
-package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
+package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinnorm91379;
 
-/** Contains character groups as defined by DIN spec 91379. */
+/** Contains character groups as defined by DIN NORM 91379. */
 public enum Schriftzeichengruppe {
 
     /** Group "Lateinische Buchstaben" (Latin letters). */

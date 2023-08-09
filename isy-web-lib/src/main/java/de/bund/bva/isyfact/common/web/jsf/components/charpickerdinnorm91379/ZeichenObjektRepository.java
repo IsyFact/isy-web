@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
+package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinnorm91379;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,9 +24,9 @@ public class ZeichenObjektRepository {
     private static final IsyLogger LOG =
             IsyLoggerFactory.getLogger(ZeichenObjektRepository.class);
 
-    /** Default resource for access to all usable DIN SPEC 91379 characters. */
+    /** Default resource for access to all usable DIN NORM 91379 characters. */
     private static final String DEFAULT_RESOURCE =
-            "/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379.txt";
+            "/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379.txt";
 
     /** The resource of all characters which will be displayed. */
     private String resource;
@@ -60,7 +60,7 @@ public class ZeichenObjektRepository {
     }
 
     /**
-     * Returns all characters that are allowed in DIN SPEC 91379.
+     * Returns all characters that are allowed in DIN NORM 91379.
      * @return List of all usable character objects
      */
     public List<ZeichenObjekt> getZeichenliste() {
