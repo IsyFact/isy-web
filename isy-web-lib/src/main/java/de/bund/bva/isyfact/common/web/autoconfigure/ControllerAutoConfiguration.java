@@ -2,7 +2,6 @@ package de.bund.bva.isyfact.common.web.autoconfigure;
 
 import javax.servlet.ServletContext;
 
-import de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379.CharPickerDinSpec91379Controller;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +20,7 @@ import de.bund.bva.isyfact.common.web.global.HeaderHelper;
 import de.bund.bva.isyfact.common.web.global.IsyWebKonfigurationHelper;
 import de.bund.bva.isyfact.common.web.global.JsfHelper;
 import de.bund.bva.isyfact.common.web.global.MessageController;
+import de.bund.bva.isyfact.common.web.jsf.components.charpickerdinnorm91379.CharPickerDinNorm91379Controller;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller.NavigationMenuController;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.NavigationMenuGenerierenStrategie;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.impl.NavigationMenuGenerierenAusKonfiguration;
@@ -120,8 +120,8 @@ public class ControllerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public CharPickerDinSpec91379Controller charPickerDinSpecController() {
-        return new CharPickerDinSpec91379Controller();
+    public CharPickerDinNorm91379Controller charPickerDinNormController() {
+        return new CharPickerDinNorm91379Controller();
     }
 
     @Bean

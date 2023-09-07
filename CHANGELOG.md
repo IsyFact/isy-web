@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.4.0
+- DIN Norm 91379 Erweiterung des Charpicker um weitere Sonderzeichen
+
 ## 5.3.4
 
 - `IFS-1642`: Anhebung Node Version 16.16.0

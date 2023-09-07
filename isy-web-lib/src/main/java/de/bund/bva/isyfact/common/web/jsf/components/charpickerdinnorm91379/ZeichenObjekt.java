@@ -1,9 +1,9 @@
-package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
+package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinnorm91379;
 
 import java.io.Serializable;
 
 /**
- * An object containing a character and the attributes needed to be represented in the DIN SPEC 91379
+ * An object containing a character and the attributes needed to be represented in the DIN NORM 91379
  * character picker.
  */
 public class ZeichenObjekt implements Serializable {
@@ -11,7 +11,7 @@ public class ZeichenObjekt implements Serializable {
 
     private static final long serialVersionUID = -3213045454719019600L;
 
-    /** A character that is part of the DIN SPEC 91379. */
+    /** A character that is part of the DIN NORM 91379. */
     private String zeichen;
 
     /** The base character of the character. */

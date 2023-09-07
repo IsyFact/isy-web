@@ -1,15 +1,15 @@
-package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
+package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinnorm91379;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Controller
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class CharPickerDinSpec91379Controller {
+public class CharPickerDinNorm91379Controller {
 
     /**
      * Repository for getting all supported characters.
