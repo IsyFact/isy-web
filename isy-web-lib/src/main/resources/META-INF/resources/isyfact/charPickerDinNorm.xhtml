@@ -8,14 +8,14 @@
     </cc:interface>
     <cc:implementation>
 
-        <div class="picker picker-dropdown picker-orient-left picker-orient-top charpicker charpicker-dinspec charpicker-dinspec-widget" tabindex="-1" style="display: none">
+        <div class="picker picker-dropdown picker-orient-left picker-orient-top charpicker charpicker-dinnorm charpicker-dinnorm-widget" tabindex="-1" style="display: none">
             <div class="charpicker-sidebar">
                 <div class="btn btn-light charpicker-filter charpicker-filter-all">Alle</div>
                 <isy:panelGroup>
                     <isy:panel collapse="true">
                         <f:facet name="panelHeader">Basiszeichen</f:facet>
                         <f:facet name="panelBody">
-                            <ui:repeat value="#{charPickerDinSpecController.baseSymbols}" var="baseSymbol">
+                            <ui:repeat value="#{charPickerDinNormController.baseSymbols}" var="baseSymbol">
                                 <a class="btn btn-light charpicker-filter charpicker-filter-base">#{empty baseSymbol ? '*' : baseSymbol}</a>
                             </ui:repeat>
                         </f:facet>
@@ -23,7 +23,7 @@
                     <isy:panel collapse="true">
                         <f:facet name="panelHeader">Gruppen</f:facet>
                         <f:facet name="panelBody">
-                            <ui:repeat value="#{charPickerDinSpecController.groups}" var="gruppe">
+                            <ui:repeat value="#{charPickerDinNormController.groups}" var="gruppe">
                                 <a class="btn btn-light charpicker-filter charpicker-filter-group">#{gruppe}</a>
                             </ui:repeat>
                         </f:facet>
@@ -32,7 +32,7 @@
             </div>
             <div class="charpicker-content-container">
                 <div class="charpicker-content">
-                    <ui:repeat value="#{charPickerDinSpecController.symbols}" var="symbol">
+                    <ui:repeat value="#{charPickerDinNormController.symbols}" var="symbol">
                         <div class="btn btn-light charpicker-special-char-button charpicker-special-char"
                              data-char-zeichen="#{symbol.zeichen}"
                              data-char-base="#{symbol.grundzeichen}"

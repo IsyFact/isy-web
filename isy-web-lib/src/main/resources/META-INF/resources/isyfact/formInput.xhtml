@@ -113,7 +113,8 @@
                     <ui:fragment rendered="#{not cc.attrs.showPrintView and not cc.attrs.readonly}">
 
                         <ui:param name="charPickerClass" value="#{empty cc.attrs.charpicker or empty cc.attrs.globalConfig or not cc.attrs.globalConfig.jsEnabled ? '' :
-                          cc.attrs.charpicker == 'dinSpec' ? ' inputWithCharPickerDinSpec' :
+                          cc.attrs.charpicker == 'dinSpec' ? ' inputWithCharPickerDinNorm' :
+                          cc.attrs.charpicker == 'dinNorm' ? ' inputWithCharPickerDinNorm' :
                           cc.attrs.charpicker == 'special' ? ' inputWithSpecialCharPicker' : ''}" />
 
                         <!-- input -->
@@ -148,6 +149,7 @@
 
                             <ui:param name="pickerButtonClass" value="#{empty cc.attrs.charpicker ? '' :
                                 cc.attrs.charpicker == 'dinSpec' ? 'charpicker-open-button' :
+                                cc.attrs.charpicker == 'dinNorm' ? 'charpicker-open-button' :
                                 cc.attrs.charpicker == 'special' ? 'special-char-button' : ''}" />
 
                             <a

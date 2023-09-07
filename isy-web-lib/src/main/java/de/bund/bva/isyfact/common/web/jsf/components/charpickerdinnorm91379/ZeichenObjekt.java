@@ -1,9 +1,9 @@
-package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
+package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinnorm91379;
 
 import java.io.Serializable;
 
 /**
- * An object containing a character and the attributes needed to be represented in the DIN SPEC 91379
+ * An object containing a character and the attributes needed to be represented in the DIN NORM 91379
  * character picker.
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
