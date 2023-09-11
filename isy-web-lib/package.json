@@ -28,7 +28,7 @@
 		"webpack-cli": "^4.10.0"
 	},
     "optionalDependencies": {
-		"@isyfact/isy-style": "^5.4.3"
+		"@isyfact/isy-style": "5.5.0-RC1"
     },
 	"overrides": {
 		"terser": "5.14.2"
