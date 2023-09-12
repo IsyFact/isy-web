@@ -279,7 +279,7 @@ $(function () {
         },
 
         getName: function () {
-            return "CharPickerDinSpec";
+            return "CharPickerDinNorm";
         },
 
         isActive: function () {

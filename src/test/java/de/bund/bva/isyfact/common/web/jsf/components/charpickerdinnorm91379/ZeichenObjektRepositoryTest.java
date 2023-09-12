@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinspec91379;
+package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinnorm91379;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,9 +16,9 @@ public class ZeichenObjektRepositoryTest {
     @Test
     public void getZeichenliste() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
-        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379.txt");
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste();
-        assertEquals(902, zeichenliste.size());
+        assertEquals(907, zeichenliste.size());
     }
 
     /**
@@ -30,7 +30,7 @@ public class ZeichenObjektRepositoryTest {
     @Test
     public void getZeichenlisteNoTypeTest() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
-        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-test.txt");
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379-test.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste();
         assertEquals(8, zeichenliste.size());
 
@@ -58,7 +58,7 @@ public class ZeichenObjektRepositoryTest {
     @Test
     public void getZeichenlistedatentypATest() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
-        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-test.txt");
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379-test.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste(Datentyp.DATENTYP_A);
         assertEquals(2, zeichenliste.size());
     }
@@ -69,7 +69,7 @@ public class ZeichenObjektRepositoryTest {
     @Test
     public void getZeichenlistedatentypBTest() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
-        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-test.txt");
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379-test.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste(Datentyp.DATENTYP_B);
         assertEquals(3, zeichenliste.size());
     }
@@ -80,7 +80,7 @@ public class ZeichenObjektRepositoryTest {
     @Test
     public void getZeichenlistedatentypCTest() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
-        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-test.txt");
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379-test.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste(Datentyp.DATENTYP_C);
         assertEquals(5, zeichenliste.size());
     }
@@ -91,7 +91,7 @@ public class ZeichenObjektRepositoryTest {
     @Test
     public void getZeichenlistedatentypDTest() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
-        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-test.txt");
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379-test.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste(Datentyp.DATENTYP_D);
         assertEquals(6, zeichenliste.size());
     }
@@ -102,7 +102,7 @@ public class ZeichenObjektRepositoryTest {
     @Test
     public void getZeichenlistedatentypETest() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
-        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-test.txt");
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379-test.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste(Datentyp.DATENTYP_E);
         assertEquals(8, zeichenliste.size());
     }
@@ -114,7 +114,7 @@ public class ZeichenObjektRepositoryTest {
     @Test
     public void getZeichenlisteInvalidGroupTest() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
-        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-invalid-group.txt");
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379-invalid-group.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste();
         assertEquals(0, zeichenliste.size());
     }
@@ -127,7 +127,7 @@ public class ZeichenObjektRepositoryTest {
     public void getZeichenlisteInvalidBaseSymbol() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
         repository.setResource(
-                "/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-invalid-base-symbol.txt");
+                "/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379-invalid-base-symbol.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste();
         assertEquals(0, zeichenliste.size());
     }
@@ -139,7 +139,7 @@ public class ZeichenObjektRepositoryTest {
     @Test
     public void getZeichenlisteInvalidLine() {
         ZeichenObjektRepository repository = new ZeichenObjektRepository();
-        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-spec-91379-invalid-line.txt");
+        repository.setResource("/resources/isy-web/sonderzeichen/sonderzeichen-din-norm-91379-invalid-line.txt");
         List<ZeichenObjekt> zeichenliste = repository.getZeichenliste();
         assertEquals(0, zeichenliste.size());
     }
