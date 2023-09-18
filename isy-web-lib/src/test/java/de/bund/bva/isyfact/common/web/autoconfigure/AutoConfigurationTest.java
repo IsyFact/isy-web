@@ -22,7 +22,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterAutoConfiguration;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
@@ -42,7 +41,6 @@ public class AutoConfigurationTest {
                     MvcAutoConfiguration.class,
                     WebFlowAutoConfiguration.class,
                     ControllerAutoConfiguration.class,
-                    MdcFilterAutoConfiguration.class,
                     HttpEncodingAutoConfiguration.class
             ))
             .withUserConfiguration(TestConfiguration.class);
@@ -79,7 +77,7 @@ public class AutoConfigurationTest {
 
 
     @Test
-    public void test_withAufrufKontextAutoConfig_withAllowBeanOverridingFalse_doesNotThrow() {
+    public void test_withAutoConfig_withAllowBeanOverridingFalse_doesNotThrow() {
         contextRunner.run(context -> assertThat(context).hasNotFailed());
     }
 

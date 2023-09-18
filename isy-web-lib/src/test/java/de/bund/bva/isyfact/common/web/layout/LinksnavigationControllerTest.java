@@ -1,10 +1,12 @@
 package de.bund.bva.isyfact.common.web.layout;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.webflow.definition.FlowDefinition;
@@ -23,7 +25,7 @@ public class LinksnavigationControllerTest {
 
     private LinksnavigationController controller;
 
-    private AufrufKontext aufrufKontext = mock(AufrufKontext.class);
+    private Berechtigungsmanager berechtigungsmanager = mock(Berechtigungsmanager.class);
 
     @Before
     public void setup() {
@@ -35,11 +37,7 @@ public class LinksnavigationControllerTest {
         when(requestContext.getFlowExecutionContext()).thenReturn(flowExecutionContext);
         when(flowExecutionContext.getDefinition()).thenReturn(flowDefinition);
 
-
-        AufrufKontextVerwalter aufrufKontextVerwalter = mock(AufrufKontextVerwalter.class);
-        when(aufrufKontextVerwalter.getAufrufKontext()).thenReturn(aufrufKontext);
-
-        controller = new LinksnavigationController(konfiguration, aufrufKontextVerwalter);
+        controller = new LinksnavigationController(konfiguration, berechtigungsmanager);
 
         reset(konfiguration);
     }
@@ -69,7 +67,7 @@ public class LinksnavigationControllerTest {
 
         when(flowDefinition.getId()).thenReturn("testFlow1");
 
-        when(aufrufKontext.getRolle()).thenReturn(new String[] { "testRolle1", "testRolle3" });
+        when(berechtigungsmanager.getRollen()).thenReturn(new HashSet<>(Arrays.asList("testRolle1", "testRolle3")));
 
         ApplikationseiteModel model = new ApplikationseiteModel();
 
@@ -100,7 +98,7 @@ public class LinksnavigationControllerTest {
 
         when(flowDefinition.getId()).thenReturn("testFlow1");
 
-        when(aufrufKontext.getRolle()).thenReturn(new String[] { "testRolle1", "testRolle3" });
+        when(berechtigungsmanager.getRollen()).thenReturn(new HashSet<>(Arrays.asList("testRolle1", "testRolle3")));
 
         ApplikationseiteModel model = new ApplikationseiteModel();
         model.setLinksnavigationModel(new LinksnavigationModel());

@@ -35,9 +35,8 @@ import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceRo;
 import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceZugriff;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 
 /**
  * Abstrakte Oberklasse für Controller zum Herunterladen von Bildern und Dateien.
@@ -60,21 +59,11 @@ public abstract class ResourceController implements Controller, GuiController {
     /** TempWebResourceZugriff-Instanz. */
     private TempWebResourceZugriff tempWebResourceZugriff;
 
-    /** Zugriff auf den AufrufKontext. */
-    private AufrufKontextVerwalter<? extends AufrufKontext> aufrufKontextVerwalter;
+    /** Zugriff auf den Berechtigungsmanager. */
+    private Berechtigungsmanager berechtigungsmanager;
 
     /** Fehlertextprovider zum Auslesen von Fehlertexten. */
     private static final FehlertextProvider FEHLERTEXT_PROVIDER = new FehlertextProviderImpl();
-
-    /**
-     * Setzt das Feld {@link #aufrufKontextVerwalter}.
-     * @param aufrufKontextVerwalter
-     *            Neuer Wert für aufrufKontextVerwalter
-     */
-    public void setAufrufKontextVerwalter(
-        AufrufKontextVerwalter<? extends AufrufKontext> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
-    }
 
     /**
      * Diese Methode stellt die Datei zum Herunterladen bereit.
@@ -124,9 +113,9 @@ public abstract class ResourceController implements Controller, GuiController {
 
         TempWebResourceRo webResource = null;
         try {
-            String benutzerkennung =
-                this.aufrufKontextVerwalter.getAufrufKontext().getDurchfuehrenderBenutzerKennung();
-            String bhknz = this.aufrufKontextVerwalter.getAufrufKontext().getDurchfuehrendeBehoerde();
+            String benutzerkennung = (String) berechtigungsmanager.getTokenAttribute("preferred_username");
+            String bhknz = (String) berechtigungsmanager.getTokenAttribute("bhknz");
+
             webResource = this.tempWebResourceZugriff.ladeTempWebResource(objectId, benutzerkennung, bhknz);
         } catch (ZugriffBerechtigungException e) {
             LOG.error("Berechtigungsfehler beim Laden von Ressource {}", e, objectId);
