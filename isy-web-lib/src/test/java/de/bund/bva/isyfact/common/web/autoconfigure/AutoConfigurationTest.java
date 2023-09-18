@@ -22,8 +22,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterAutoConfiguration;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
@@ -60,12 +58,6 @@ public class AutoConfigurationTest {
         @Bean
         Konfiguration konfiguration() {
             return Mockito.mock(Konfiguration.class);
-        }
-
-        @Bean
-        @SuppressWarnings("unchecked")
-        AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter() {
-            return Mockito.mock(AufrufKontextVerwalter.class);
         }
 
         @Bean
