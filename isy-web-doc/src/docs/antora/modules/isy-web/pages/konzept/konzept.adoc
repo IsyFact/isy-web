@@ -498,27 +498,10 @@ Die Nutzung der durch den Styleguide definierten Elemente und durch den Baustein
 [[absicherung-von-jsf-guis]]
 ==== Absicherung von JSF-GUIs
 
-Die Absicherung von Masken erfolgt auf Ebene des Dialogablaufs, also von Spring Web Flow.
-Die Berechtigungsprüfung verwendet den Baustein Sicherheit der IsyFact.
+Die Absicherung von Masken erfolgt auf Ebene des Dialogablaufs über Spring Web Flow.
+Die Berechtigungsprüfung verwendet dabei den Baustein Security der IsyFact.
 
-Für die Anbindung des dort definierten `Berechtigungsmanager` an Spring Security findet die Möglichkeit zur Erstellung eines "Custom Authentication Providers" in Form des `WebFlowAuthenticationProvider` Anwendung.
-Der `WebFlowAuthenticationProvider` prüft bei Bedarf, ob der Anwender die notwendigen Berechtigungen besitzt, bzw. es wird für die weitere Verarbeitung in Spring Security der notwendige Kontext aufgebaut.
-<<image-integration-baustein-sicherheit-klassendiagramm>> zeigt die Integration des Bausteins Sicherheit in Spring Security.
-
-[[image-integration-baustein-sicherheit-klassendiagramm]]
-.Integration des Bausteins Sicherheit in Spring Security
-image::konzept/integration-baustein-sicherheit-klassendiagramm.png[align="center"]
-
-<<image-integration-baustein-sicherheit-sequenzdiagramm>> stellt den Zugriff des `WebFlowAuthenticationProvider` auf den Baustein Sicherheit dar.
-Hierbei werden die Rollen eines Benutzers über den Berechtigungsmanager gelesen und in einen Spring Security konformen
-Token geschrieben.
-Dieser Token findet dann bei der Autorisierung einzelner Benutzerinteraktion durch Spring Security Verwendung.
-
-[[image-integration-baustein-sicherheit-sequenzdiagramm]]
-.Sequenzdiagramm Zugriff auf Sicherheitskomponente
-image::konzept/integration-baustein-sicherheit-sequenzdiagramm.png[align="center"]
-
-Mehr Details hierzu sind in der Bausteindokumentation (xref:isyfact-standards-doku:isy-sicherheit:konzept/master.adoc[Konzept Sicherheit] und xref:isyfact-standards-doku:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Sicherheit]) sowie in den xref:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben JSF] zu finden.
+Für die Anbindung von Spring Web Flow an den Baustein Security wird das Spring Security-Interface `AccessDecisionManager` durch die Klasse `WebDelegatingAccessDecisionManager` implementiert. In der Implementierung wird mittels einer Abfrage an `Berechtigungsmanager` aus dem Security-Baustein geprüft, ob ein Anwender die notwendigen Berechtigungen besitzt.
 
 [[verwendung-csrf-schutz]]
 ==== Verwendung des CSRF-Schutzes
