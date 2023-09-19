@@ -16,10 +16,16 @@
  */
 package de.bund.bva.isyfact.common.web.webflow.titles;
 
-import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Locale;
+
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
+
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.MessageSource;
 import org.springframework.util.StringUtils;
@@ -34,14 +40,10 @@ import org.springframework.webflow.execution.FlowSession;
 import org.springframework.webflow.execution.RequestContext;
 import org.springframework.webflow.execution.RequestContextHolder;
 
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Locale;
+import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 
 /**
  * Stellt zusammen mit breadcrumbleiste.xhtml den Breadcrumb bereit.
@@ -72,7 +74,7 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
 
     /**
      * Enthält den Schlüssel zum Finden der Sitemap in den Attribut-Maps der Scopes.
-     * */
+     */
     private static final String BREADCRUMB_ATTRIBUT = "breadcrumb";
 
     /**
@@ -82,7 +84,7 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
 
     /**
      * Enthält den Schlüssel zum Finden der verkürzten Sitemap in den Attribut-Maps der Scopes.
-     * */
+     */
     private static final String BREADCRUMB_ATTRIBUT_ABGESCHNITTEN = "breadcrumbAbgeschnitten";
 
     /**
@@ -121,7 +123,9 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      */
     private boolean dynamischerStartseitenLink;
 
-    /** Zum Abschneiden von zu langen Breadcrumb-Listen. */
+    /**
+     * Zum Abschneiden von zu langen Breadcrumb-Listen.
+     */
     private BreadcrumbAbschneider breadcrumbAbschneider;
 
     /**
@@ -157,7 +161,7 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * Füge beim Starten eines neuen Flows den Link zu der Startseite hinzu.
      */
     @Override
@@ -172,8 +176,8 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
 
     /**
      * Gibt die Message aus den Message-Sources zurück.
-     * @param key
-     *            Der Schlüssel.
+     *
+     * @param key Der Schlüssel.
      * @return Die Message.
      */
     protected String getMessage(String key) {
@@ -182,10 +186,9 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
 
     /**
      * Verarbeitet eine Aktion.
-     * @param context
-     *            der Context
-     * @param aktion
-     *            die Aktion
+     *
+     * @param context der Context
+     * @param aktion  die Aktion
      */
     private void verarbeiteAktion(RequestContext context, Annotated aktion) {
         if (bestimmeBreadcrumbTitel(aktion) != null) {
@@ -201,16 +204,14 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      * <p>
      * Wird aufgerufen, wenn eine Änderung stattfindet, die sich auf die Sitemap auswirkt.
      *
-     * @param context
-     *            der AufrufKontext, in welchem etwas interessantes passiert ist.
-     * @param stateOrTransition
-     *            der annotierte ViewState
+     * @param context           der AufrufKontext, in welchem etwas interessantes passiert ist.
+     * @param stateOrTransition der annotierte ViewState
      */
     private void breadcrumbStateEntering(RequestContext context, Annotated stateOrTransition) {
 
         final Deque<BreadcrumbEintrag> sitemap = getSitemap(context);
         final BreadcrumbEintrag neuerBreadcrumbEintrag =
-            erzeugeBreadcrumbEintragAusViewState(stateOrTransition);
+                erzeugeBreadcrumbEintragAusViewState(stateOrTransition);
 
         if (sitemap.isEmpty()) {
             sitemap.add(neuerBreadcrumbEintrag);
@@ -225,15 +226,12 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      * Aktualisiert den Link vom letzten Breadcrumb, schneidet die Breadcrumbs wenn nötig ab und fügt den
      * letzten Breadcrumb-Eintrag am Ende hinzu.
      *
-     * @param context
-     *            SWF-Context
-     * @param sitemap
-     *            Sitemap
-     * @param neuerBreadcrumbEintrag
-     *            der neue {@link BreadcrumbEintrag}
+     * @param context                SWF-Context
+     * @param sitemap                Sitemap
+     * @param neuerBreadcrumbEintrag der neue {@link BreadcrumbEintrag}
      */
     private void aktualisiereSitemapMitNeuemBreadcrumbEintrag(final RequestContext context,
-        final Deque<BreadcrumbEintrag> sitemap, final BreadcrumbEintrag neuerBreadcrumbEintrag) {
+                                                              final Deque<BreadcrumbEintrag> sitemap, final BreadcrumbEintrag neuerBreadcrumbEintrag) {
 
         int entfernteEintraege = 0;
         if (istBreadcrumbGruppeInSitemapVorhanden(neuerBreadcrumbEintrag.getGruppe(), sitemap)) {
@@ -241,7 +239,7 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
 
         } else if (sitemap.contains(neuerBreadcrumbEintrag)) {
             entfernteEintraege =
-                entferneBreadrumbsAbDemGleichenBreadcrumbEintrag(sitemap, neuerBreadcrumbEintrag);
+                    entferneBreadrumbsAbDemGleichenBreadcrumbEintrag(sitemap, neuerBreadcrumbEintrag);
         }
 
         if (entfernteEintraege == 0) {
@@ -257,14 +255,12 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
     /**
      * Prüft, ob die übergebene Breadcrumb-Gruppe in einem Eintrag des Sitemaps existiert.
      *
-     * @param breadcrumbGruppe
-     *            die Breadcrumb-Gruppe, nach der gesucht wird
-     * @param sitemap
-     *            Sitemap
+     * @param breadcrumbGruppe die Breadcrumb-Gruppe, nach der gesucht wird
+     * @param sitemap          Sitemap
      * @return true, wenn übergebene Breadcrumb-Gruppe in einem Eintrag des Sitemaps existiert
      */
     private boolean istBreadcrumbGruppeInSitemapVorhanden(String breadcrumbGruppe,
-        Deque<BreadcrumbEintrag> sitemap) {
+                                                          Deque<BreadcrumbEintrag> sitemap) {
 
         if (breadcrumbGruppe == null) {
             return false;
@@ -281,16 +277,14 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      * Aktualisiert den Link des letzten Sitemap-Eintrages mit einem neuen Schlüssel. Dann legt das
      * Schlüssel-Titel Paar in das FlowExecutionRepository.
      *
-     * @param link
-     *            der Link der aktuellen FlowExecution
-     * @param letzterEintrag
-     *            der letzte {@link BreadcrumbEintrag} in der Sitemap
+     * @param link           der Link der aktuellen FlowExecution
+     * @param letzterEintrag der letzte {@link BreadcrumbEintrag} in der Sitemap
      */
     private void aktualisiereLetztenBreadcrumbLink(String link, BreadcrumbEintrag letzterEintrag) {
 
         if (letzterEintrag.getLink() == null && link != null) {
             LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.E_SITEMAP_DATEN_ERHALT,
-                "behalte Sitemap Daten für: {}", link);
+                    "behalte Sitemap Daten für: {}", link);
             letzterEintrag.setLink(link);
         }
     }
@@ -299,14 +293,12 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      * Entfernt alle Breadcrumb-Einträge ab dem Eintrag mit der übergebenen Gruppe aus Sitemap, inkl. dieses
      * letzten Elementes.
      *
-     * @param sitemap
-     *            Sitemap
-     * @param breadcrumbGruppe
-     *            die Breadcrumb-Gruppe, ab der das Sitemap abgeschnitten werden soll
+     * @param sitemap          Sitemap
+     * @param breadcrumbGruppe die Breadcrumb-Gruppe, ab der das Sitemap abgeschnitten werden soll
      * @return Anzahl der entfernten Einträge
      */
     private int entferneBreadcrumbsAbDerGruppe(final Deque<BreadcrumbEintrag> sitemap,
-        final String breadcrumbGruppe) {
+                                               final String breadcrumbGruppe) {
         int anzEntfernt = 0;
 
         Iterator<BreadcrumbEintrag> breadcrumbIterator = sitemap.descendingIterator();
@@ -324,14 +316,12 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      * Entfernt alle Breadcrumb-Einträge ab dem übergebenen Eintrag aus Sitemap, inkl. dieses letzten
      * Elementes.
      *
-     * @param sitemap
-     *            Sitemap
-     * @param breadcrumbEintrag
-     *            der Breadcrumb-Eintrag, ab dem das Sitemap abgeschnitten werden soll
+     * @param sitemap           Sitemap
+     * @param breadcrumbEintrag der Breadcrumb-Eintrag, ab dem das Sitemap abgeschnitten werden soll
      * @return die Anzahl de rentfernten Einträge
      */
     private int entferneBreadrumbsAbDemGleichenBreadcrumbEintrag(final Deque<BreadcrumbEintrag> sitemap,
-        final BreadcrumbEintrag breadcrumbEintrag) {
+                                                                 final BreadcrumbEintrag breadcrumbEintrag) {
 
         int anzahlEntfernt = 0;
         Iterator<BreadcrumbEintrag> breadcrumbIterator = sitemap.descendingIterator();
@@ -349,10 +339,8 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      * Fügt das Sitemap in FlowScope hinzu. Wenn das Sitemap bereits in FlowScope existiert, wird es
      * überschrieben.
      *
-     * @param context
-     *            SWF-Context
-     * @param sitemap
-     *            das Sitemap
+     * @param context SWF-Context
+     * @param sitemap das Sitemap
      */
     private void fuegeSitemapInFlowScopeHinzu(RequestContext context, final Deque<BreadcrumbEintrag> sitemap) {
         final MutableAttributeMap<Object> flowScope = context.getFlowScope();
@@ -360,7 +348,7 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
         flowScope.put(BREADCRUMB_ATTRIBUT, sitemap);
         if (this.breadcrumbAbschneider != null) {
             flowScope.put(BREADCRUMB_ATTRIBUT_ABGESCHNITTEN,
-                this.breadcrumbAbschneider.schneideBreadcrumbsAb(sitemap));
+                    this.breadcrumbAbschneider.schneideBreadcrumbsAb(sitemap));
         }
     }
 
@@ -368,8 +356,7 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      * Erzeugt anhand der annotierten Attribute vom {@link ViewState} einen {@link BreadcrumbEintrag}. Der
      * Titel und (wenn vorhanden) die Gruppe wird gesetzt. Der Link wird zu diesem Zeitpunkt nicht gesetzt.
      *
-     * @param stateOrTransition
-     *            {@link StateDefinition} vom {@link ViewState}
+     * @param stateOrTransition {@link StateDefinition} vom {@link ViewState}
      * @return der {@link BreadcrumbEintrag}
      */
     private BreadcrumbEintrag erzeugeBreadcrumbEintragAusViewState(Annotated stateOrTransition) {
@@ -385,8 +372,7 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      * die auf dem Parent-Flow basiert ist. Wenn der Parent-Flow nicht existiert, wird eine frische Sitemap
      * erstellt.
      *
-     * @param context
-     *            der RequestContext, aus dem der ParentFlow bzw. der Scope gelesen wird
+     * @param context der RequestContext, aus dem der ParentFlow bzw. der Scope gelesen wird
      * @return die ermittelte oder neue Sitemap
      */
     @SuppressWarnings("unchecked")
@@ -400,7 +386,7 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
             sitemap = new LinkedList<>();
             if (parentFlow != null) {
                 Deque<BreadcrumbEintrag> parentSitemap =
-                    (Deque<BreadcrumbEintrag>) parentFlow.getScope().get(BREADCRUMB_ATTRIBUT);
+                        (Deque<BreadcrumbEintrag>) parentFlow.getScope().get(BREADCRUMB_ATTRIBUT);
                 if (parentSitemap != null) {
                     sitemap.addAll(parentSitemap);
                 }
@@ -417,10 +403,9 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
      * wird der Wert "xxx" aufgeloest. So ist bspw. eine Aufloesung von "bc" durch Angabe des Attribut-Werts
      * "#{bc}" gegen "flowScope.bc" moeglich.
      *
-     * @param annotatedStateOrTransition
-     *            der betretene Zustand bzw die ausgelöste Transition.
+     * @param annotatedStateOrTransition der betretene Zustand bzw die ausgelöste Transition.
      * @return der Breadcrumb-Titel, der an state annotiert wurde, aus den Nachrichten oder <code>null</code>
-     *         falls keine Annotation gefunden werden konnte bzw. wenn der Name leer ist
+     * falls keine Annotation gefunden werden konnte bzw. wenn der Name leer ist
      */
     private String bestimmeBreadcrumbTitel(Annotated annotatedStateOrTransition) {
 
@@ -453,8 +438,8 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
 
             // Angabe mit ViewState-Name wird ausgelesen
             breadcrumbTitel =
-                getMessage(PRAEFIX_TEXTS + "_" + flowName + "_" + this.viewStateName + "_"
-                    + BREADCRUMB_PROPERTY);
+                    getMessage(PRAEFIX_TEXTS + "_" + flowName + "_" + this.viewStateName + "_"
+                            + BREADCRUMB_PROPERTY);
 
             if (breadcrumbTitel == null) {
                 // Angabe ohne ViewState-Name wird ausgelesen
@@ -468,10 +453,9 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
     /**
      * Bestimmt die Breadcrumb-Gruppe des Sitemap-Eintrages.
      *
-     * @param stateOrTransition
-     *            der betretene Zustand.
+     * @param stateOrTransition der betretene Zustand.
      * @return die Breadcrumb-Gruppe, die an state annotiert wurde, oder <code>null</code> falls keine
-     *         Annotation gefunden werden konnte bzw. wenn die Gruppe leer ist
+     * Annotation gefunden werden konnte bzw. wenn die Gruppe leer ist
      */
     private String bestimmeBreadcrumbGruppe(Annotated stateOrTransition) {
         if (stateOrTransition == null) {
@@ -487,10 +471,9 @@ public class BreadcrumbListener extends FlowExecutionListenerAdapter {
 
     /**
      * Löst die EL-Expression als String auf.
-     * @param elExpression
-     *            Die EL-Expression.
-     * @param nextFlow
-     *            Der Name des neuen Flows.
+     *
+     * @param elExpression Die EL-Expression.
+     * @param nextFlow     Der Name des neuen Flows.
      * @return Der String
      */
     private String resolveElExpression(String elExpression, String nextFlow) {

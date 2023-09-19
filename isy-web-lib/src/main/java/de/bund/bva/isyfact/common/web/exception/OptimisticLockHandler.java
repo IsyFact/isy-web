@@ -48,7 +48,7 @@ public class OptimisticLockHandler {
      * Sucht im übergebenen {@link Throwable} rekursiv nach einer {@link ObjectOptimisticLockingFailureException} und
      * falls es sich um einen konkurrierenden Zugriff handelt, wird dieser gesondert behandelt.
      *
-     * @param t Throwable
+     * @param t       Throwable
      * @param context der aktuelle {@link RequestContext}
      * @return die ID des Flow-States, zu dem gewechselt werden soll
      */
@@ -120,5 +120,4 @@ public class OptimisticLockHandler {
 
         return startState.getId();
     }
-
 }

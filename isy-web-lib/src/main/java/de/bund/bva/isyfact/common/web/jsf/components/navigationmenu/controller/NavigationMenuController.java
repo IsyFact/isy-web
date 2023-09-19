@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller;
 
+import java.util.Objects;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,11 +16,10 @@ import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.NavigationMe
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.NavigationMenuGenerierenStrategie;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten.NavigationMenuKonstanten;
 
-import java.util.Objects;
-
 /**
  * The class is used to create a {@link NavigationMenuModel} and store it in the session. Also
  * the active {@link Applikationsgruppe} is determined here.
+ *
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */
@@ -52,7 +53,7 @@ public class NavigationMenuController {
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
         synchronized (sessionMap.getMutex()) {
             NavigationMenuModel model =
-                (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
+                    (NavigationMenuModel) sessionMap.get(NavigationMenuKonstanten.SESSION_KEY_NAVIGATION_MENU);
             if (model == null) {
                 model = this.navigationMenuGenerierenStrategie.generiereNavigationMenu();
             }
@@ -63,8 +64,8 @@ public class NavigationMenuController {
 
     /**
      * Determines the active {@link Applikationsgruppe} based on the current URL.
-     * @param model
-     *      The {@link NavigationMenuModel} that contains all {@link Applikationsgruppe}n.
+     *
+     * @param model The {@link NavigationMenuModel} that contains all {@link Applikationsgruppe}n.
      */
     private void ermittleAktiveApplikationsgruppe(NavigationMenuModel model) {
         if (Objects.isNull(model)) {
@@ -102,16 +103,16 @@ public class NavigationMenuController {
 
     private String ermittleAktuelleUrlMitKontextPfad() {
         StringBuffer requestURL =
-            ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-                .getRequestURL();
+                ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+                        .getRequestURL();
         String contextPath =
-            ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-                .getContextPath();
+                ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+                        .getContextPath();
         return requestURL.substring(requestURL.indexOf(contextPath), requestURL.length());
     }
 
     public void setNavigationMenuGenerierenStrategie(
-        NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie) {
+            NavigationMenuGenerierenStrategie navigationMenuGenerierenStrategie) {
         this.navigationMenuGenerierenStrategie = navigationMenuGenerierenStrategie;
     }
 }

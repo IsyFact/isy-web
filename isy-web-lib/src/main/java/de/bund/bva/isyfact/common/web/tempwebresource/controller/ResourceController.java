@@ -22,9 +22,10 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.common.base.Strings;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
+
+import com.google.common.base.Strings;
 
 import de.bund.bva.isyfact.common.web.GuiController;
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;

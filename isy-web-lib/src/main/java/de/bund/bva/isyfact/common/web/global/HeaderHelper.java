@@ -24,7 +24,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 import org.springframework.webflow.context.ExternalContextHolder;
 import org.springframework.webflow.core.collection.SharedAttributeMap;
@@ -42,6 +41,7 @@ import de.bund.bva.isyfact.konfiguration.common.exception.KonfigurationException
 
 /**
  * Helper class for the header.
+ *
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

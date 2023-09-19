@@ -31,8 +31,7 @@ public class UploadHelper {
     /**
      * Gibt den ursprünglichen Dateinamen zurück.
      *
-     * @param part
-     *            die hochgeladene Datei
+     * @param part die hochgeladene Datei
      * @return den ursprünglichen Dateinamen
      */
     public static String getFileName(Part part) {
@@ -47,7 +46,7 @@ public class UploadHelper {
         for (String headerPart : header.split(HEADERPART_SEPARATOR)) {
             if (headerPart.trim().startsWith(HEADERPART_FILENAME)) {
                 return headerPart.substring(headerPart.indexOf(HEADERPART_VALUE_SEPARATOR) + 1).trim()
-                    .replace(QUOTATION_MARK_TO_REPLACE, QUOTATION_MARK_REPLACEMENT);
+                        .replace(QUOTATION_MARK_TO_REPLACE, QUOTATION_MARK_REPLACEMENT);
             }
         }
         return null;
@@ -56,11 +55,9 @@ public class UploadHelper {
     /**
      * Liest den Inhalt der hochgeladenen Datei.
      *
-     * @param part
-     *            die hochgeladene Datei
+     * @param part die hochgeladene Datei
      * @return den Inhalt der hochgeladenen Datei
-     * @throws IOException
-     *             bei I/O-Fehlern
+     * @throws IOException bei I/O-Fehlern
      */
     public static byte[] readData(Part part) throws IOException {
 

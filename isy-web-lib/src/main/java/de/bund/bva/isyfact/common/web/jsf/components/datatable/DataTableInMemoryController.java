@@ -46,7 +46,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  */
 @Deprecated
 public class DataTableInMemoryController<I extends DataTableItem, M extends DataTableInMemoryModel<I>>
-    extends DataTableController<I, M> {
+        extends DataTableController<I, M> {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(DataTableInMemoryController.class);
 
@@ -67,9 +67,9 @@ public class DataTableInMemoryController<I extends DataTableItem, M extends Data
         }
 
         Set<Map.Entry<String, String>> nonEmptyFilters = filters.entrySet().stream().filter(
-            filter -> filter.getKey() != null && !filter.getKey().trim().isEmpty()
-                && filter.getValue() != null && !filter.getValue().trim().isEmpty())
-            .collect(Collectors.toSet());
+                        filter -> filter.getKey() != null && !filter.getKey().trim().isEmpty()
+                                && filter.getValue() != null && !filter.getValue().trim().isEmpty())
+                .collect(Collectors.toSet());
 
         for (Iterator<I> it = result.iterator(); it.hasNext(); ) {
             I item = it.next();
@@ -79,14 +79,14 @@ public class DataTableInMemoryController<I extends DataTableItem, M extends Data
                     value = PropertyUtils.getProperty(item, filter.getKey());
                 } catch (Exception e) {
                     IsyFactTechnicalRuntimeException runtimeException =
-                        new IsyFactTechnicalRuntimeException("", e);
+                            new IsyFactTechnicalRuntimeException("", e);
                     LOG.error(
-                        "anscheinend ist die Property {} in dataTable2:facet[tableFilter] falsch konfiguriert",
-                        runtimeException, filter.getKey());
+                            "anscheinend ist die Property {} in dataTable2:facet[tableFilter] falsch konfiguriert",
+                            runtimeException, filter.getKey());
                     throw runtimeException;
                 }
                 if (value == null || !value.toString().toLowerCase()
-                    .contains(filter.getValue().toLowerCase())) {
+                        .contains(filter.getValue().toLowerCase())) {
                     // remove not matching item
                     it.remove();
                     break;

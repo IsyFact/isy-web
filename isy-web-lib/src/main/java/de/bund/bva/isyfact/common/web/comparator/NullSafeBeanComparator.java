@@ -16,25 +16,25 @@
  */
 package de.bund.bva.isyfact.common.web.comparator;
 
-import de.bund.bva.isyfact.common.web.exception.IsyFactTechnicalRuntimeException;
-import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
-
 import java.io.Serializable;
 import java.util.Comparator;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.beanutils.PropertyUtils;
 
+import de.bund.bva.isyfact.common.web.exception.IsyFactTechnicalRuntimeException;
+import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
+
 /**
  * Ein Bean Comparator, welcher auf dem {@link BeanComparator} basiert, jedoch mit <code>null</code>-Werten
  * umgehen kann.
- *
+ * <p>
  * Der Unterschied zu der ursprüngliche Implementierung von Capgemini ist dass diese keine Generics
  * Warnings verursacht.
  *
+ * @param <T> Typparameter
  * @author msg
  * @author Capgemini
- * @param <T> Typparameter
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */
@@ -51,8 +51,7 @@ public class NullSafeBeanComparator<T> implements Serializable, Comparator<T> {
     /**
      * Konstruktor.
      *
-     * @param sortProperty
-     *            Die Property, nach welcher sortiert werden soll.
+     * @param sortProperty Die Property, nach welcher sortiert werden soll.
      */
     public NullSafeBeanComparator(String sortProperty) {
         this.sortProperty = sortProperty;
@@ -86,7 +85,7 @@ public class NullSafeBeanComparator<T> implements Serializable, Comparator<T> {
                 }
             } catch (Throwable t) {
                 throw new IsyFactTechnicalRuntimeException(FehlerSchluessel.FEHLERTEXT_GUI_FACHLICH, t,
-                    "Das Vergleichen ist nicht möglich.");
+                        "Das Vergleichen ist nicht möglich.");
             }
         }
     }
