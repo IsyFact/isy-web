@@ -1,5 +1,8 @@
 # Changelog
 
+## v6.0.1
+- ISY-501: Umbenennung der Ressourcen von Styleguide zu Bedienkonzept
+
 ## v6.0.0
 - IFS-2008: Anbindung der HttpEncodingAutoConfiguration
 - IFS-1156: Für Data Table: Farbliche Hervorhebung der in Detail-Ansicht gezeigten Zeile
