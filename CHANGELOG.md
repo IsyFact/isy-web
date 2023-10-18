@@ -2,6 +2,7 @@
 
 ## 5.4.0
 - DIN Norm 91379 Erweiterung des Charpicker um weitere Sonderzeichen
+- `ISY-391`: SBOM-Erstellung und GPG-Signierung beim Deploy hinzugefügt
 
 ## 5.3.4
 
