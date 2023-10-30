@@ -7,7 +7,7 @@ include::glossary:licence:partial$licence.adoc[]
 [cols="5m,2,3",options="header"]
 |====
 |Name |Art |Version
-|isy-web |Bibliothek |v5.3.0
+|isy-web |Bibliothek |v6.0.0
 |====
 :linkaktuell: Nutzungsvorgaben isy-web-angular (Anmerkung: Dies ist noch ein Closed Source Baustein)
 include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
