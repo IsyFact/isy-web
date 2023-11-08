@@ -1,0 +1,27 @@
+name: Release Maven
+on:
+  release:
+    types: [released]
+
+jobs:
+  Build:
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
+    with:
+      jdk-version: 8
+      maven-opts: '-pl isy-web-lib -Dskip.js.tests=true'
+      checkout-lfs: true
+      version: ${{ github.ref_name }}
+
+  Deploy:
+    needs: [Build]
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
+    with:
+      jdk-version: 8
+      maven-opts: '-pl isy-web-lib -Dskip.js.tests=true'
+      checkout-lfs: true
+      version: ${{ github.ref_name }}
+    secrets:
+      MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      MAVEN_CENTRAL_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
+      MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
