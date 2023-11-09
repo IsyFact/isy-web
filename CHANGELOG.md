@@ -1,7 +1,9 @@
 # Changelog
 
 ## 5.4.0
-- DIN Norm 91379 Erweiterung des Charpicker um weitere Sonderzeichen
+- `ISY-150`: DIN Norm 91379 Erweiterung des Charpicker um weitere Sonderzeichen 
+- `ISY-381`: Update auf IF-Standards 2.5.0
+
 
 ## 5.3.4
 
