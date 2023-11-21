@@ -20,7 +20,20 @@ jobs:
     needs: [Version]
     uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
     with:
-      jdk-version: 17
       maven-opts: '-pl isy-web-lib -Dskip.js.tests=true'
       checkout-lfs: true
       version: ${{ needs.Version.outputs.next-version }}
+
+  Snapshot:
+    if: github.event_name == 'push'
+    needs: [Version, Maven]
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
+    with:
+      version: ${{ needs.Version.outputs.next-version }}
+      checkout-lfs: true
+      maven-opts: '-s ./.github/settings.xml -pl isy-web-lib -Dskip.js.tests=true'
+      deploy-url-snapshot: 'https://maven.pkg.github.com/IsyFact/isy-web'
+    secrets:
+      DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
+      DEPLOY_SERVER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
