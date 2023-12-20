@@ -10,10 +10,17 @@ on:
       - 'release/**'
 
 jobs:
+  Version:
+    uses: IsyFact/isyfact-standards/.github/workflows/next_version.yml@master
+    with:
+      # remove after release 6.0.0 / tag is set
+      next-version: 6.0.0
+
   Maven:
+    needs: [Version]
     uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
     with:
       jdk-version: 17
       maven-opts: '-pl isy-web-lib -Dskip.js.tests=true'
       checkout-lfs: true
-      version: '6.0.0-SNAPSHOT'
+      version: ${{ needs.Version.outputs.next-version }}
