@@ -499,9 +499,10 @@ Die Nutzung der durch den Styleguide definierten Elemente und durch den Baustein
 ==== Absicherung von JSF-GUIs
 
 Die Absicherung von Masken erfolgt auf Ebene des Dialogablaufs über Spring Web Flow.
-Die Berechtigungsprüfung verwendet dabei den Baustein Security der IsyFact.
+Die Berechtigungsprüfung verwendet dabei den in <<KonzeptSecurity>> beschriebenen Baustein Security der IsyFact.
 
-Für die Anbindung von Spring Web Flow an den Baustein Security wird das Spring Security-Interface `AccessDecisionManager` durch die Klasse `WebDelegatingAccessDecisionManager` implementiert. In der Implementierung wird mittels einer Abfrage an `Berechtigungsmanager` aus dem Security-Baustein geprüft, ob ein Anwender die notwendigen Berechtigungen besitzt.
+Für die Anbindung von Spring Web Flow an den Baustein Security wird das Spring Security-Interface `AccessDecisionManager` durch die Klasse `WebDelegatingAccessDecisionManager` implementiert.
+In der Implementierung wird mittels einer Abfrage an `Berechtigungsmanager` aus dem Security-Baustein geprüft, ob ein Anwender die notwendigen Berechtigungen besitzt (siehe dazu <<NutzungsvorgabenSecurity>>).
 
 [[verwendung-csrf-schutz]]
 ==== Verwendung des CSRF-Schutzes
