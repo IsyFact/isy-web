@@ -18,10 +18,17 @@ package de.bund.bva.isyfact.common.web.tempwebresource.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.server.resource.BearerTokenErrors;
+import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -37,7 +44,6 @@ import de.bund.bva.isyfact.common.web.tempwebresource.TempWebResourceZugriff;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 
 /**
  * Abstrakte Oberklasse für Controller zum Herunterladen von Bildern und Dateien.
@@ -59,9 +65,6 @@ public abstract class ResourceController implements Controller, GuiController {
 
     /** TempWebResourceZugriff-Instanz. */
     private TempWebResourceZugriff tempWebResourceZugriff;
-
-    /** Zugriff auf den Berechtigungsmanager. */
-    private Berechtigungsmanager berechtigungsmanager;
 
     /** Fehlertextprovider zum Auslesen von Fehlertexten. */
     private static final FehlertextProvider FEHLERTEXT_PROVIDER = new FehlertextProviderImpl();
@@ -114,8 +117,8 @@ public abstract class ResourceController implements Controller, GuiController {
 
         TempWebResourceRo webResource = null;
         try {
-            String benutzerkennung = (String) berechtigungsmanager.getTokenAttribute("preferred_username");
-            String bhknz = (String) berechtigungsmanager.getTokenAttribute("bhknz");
+            String benutzerkennung = getTokenValueOfCurrentUser("login");
+            String bhknz = getTokenValueOfCurrentUser("bhknz");
 
             webResource = this.tempWebResourceZugriff.ladeTempWebResource(objectId, benutzerkennung, bhknz);
         } catch (ZugriffBerechtigungException e) {
@@ -163,4 +166,38 @@ public abstract class ResourceController implements Controller, GuiController {
     public void setTempWebResourceZugriff(TempWebResourceZugriff tempWebResourceZugriff) {
         this.tempWebResourceZugriff = tempWebResourceZugriff;
     }
+
+    /**
+     * Returns the value of a security attribute of the current user's token
+     * or an empty Optional if the attribute is not set.
+     * @param attribute
+     *         the name of the attribute
+     * @return the value of the attribute
+     */
+    public static String getTokenValueOfCurrentUser(String attribute) {
+        String key = ResourceBundle
+            .getBundle("config.isy-security-token")
+            .getString("isy.security.oauth2.claim." + attribute);
+        String login = (String) getTokenAttribute(key);
+        return Optional.ofNullable(login).orElse("");
+    }
+
+    /**
+     * Retrieves an attribute of the access token if the currently authenticated principal is an OAuth 2.0 token.
+     *
+     * @param key
+     *         the key to retrieve the given attribute
+     * @return the attribute in the access token for the given key, or {@code null}
+     * @throws OAuth2AuthenticationException
+     *         if the authenticated principal is not a {@link AbstractOAuth2TokenAuthenticationToken}
+     */
+    public static Object getTokenAttribute(String key) {
+        Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
+        if (currentAuthentication instanceof AbstractOAuth2TokenAuthenticationToken) {
+            return ((AbstractOAuth2TokenAuthenticationToken<?>) currentAuthentication).getTokenAttributes().get(key);
+        } else {
+            throw new OAuth2AuthenticationException(BearerTokenErrors.invalidToken("Authentication is not an OAuth2 token authentication."));
+        }
+    }
+
 }
