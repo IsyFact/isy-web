@@ -37,7 +37,7 @@ Es folgen generelle Vorgaben zum Arbeiten mit JSF, insbesondere zu den Themen, d
 Diese Vorgaben umfassen sowohl Hinweise zur Programmierung als auch Konfiguration.
 Es folgt eine detaillierte Beschreibung der bereitgestellten Seiten- und Bedienelemente auf Basis von JSF.
 
-Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide].
+Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept].
 
 [[benoetigte-bibliotheken]]
 == Benötigte Bibliotheken
@@ -56,12 +56,11 @@ Bei Verwendung des IsyFact-BOMs wird die Version automatisch ermittelt.
 </dependency>
 ----
 
-// TODO In den Styleguide verschieben?
-Für die Erstellung von Web-GUIs existieren Vorgaben in Form eines xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguides].
-Der Baustein Styleguide legt Anforderungen an die Gestaltung und Nutzbarkeit von Oberflächen fest.
-Die Bibliothek `isy-web` enthält die CSS-, JavaScript-, Bilddateien und  Schriftarten des Styleguides zur produktiven Nutzung aufbereitet.
+Für die Erstellung von Web-GUIs existieren Vorgaben in Form eines xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzepts].
+Der Baustein Bedienkonzept legt Anforderungen an die Gestaltung und Nutzbarkeit von Oberflächen fest.
+Die Bibliothek `isy-web` enthält die CSS-, JavaScript-, Bilddateien und  Schriftarten des Bedienkonzepts zur produktiven Nutzung aufbereitet.
 
-Die CSS-Dateien für eine zum Styleguide konforme Anwendung werden bei Nutzung der Bibliothek `isy-web` automatisch geladen und eingebunden.
+Die CSS-Dateien für eine zum Bedienkonzept konforme Anwendung werden bei Nutzung der Bibliothek `isy-web` automatisch geladen und eingebunden.
 Zur anwendungsspezifischen Anpassung der Stylesheets dienen folgende, innerhalb der Anwendung liegende, Dateien:
 
 * `/css/custom-styles.css` - spezielle CSS Klassen für die Anwendung,
@@ -451,7 +450,7 @@ Für spezifische Anpassungen (z.B. AJAX-Listpicker) müssen jedoch eigene Forms 
      </h:form>
     </ui:define>
 
-   <!-- Der Inhaltsbereich (Hauptanwendungsbereich s.a. Styleguide) -->
+   <!-- Der Inhaltsbereich (Hauptanwendungsbereich s.a. Bedienkonzept) -->
    <ui:define name="inhaltsbereich">
       ...
       	<ui:include src="./DruckButtonZeile.xhtml" />
@@ -1010,7 +1009,7 @@ Hierdurch werden alle Fehler, unabhängig von ihren JSF-IDs, in einer Liste darg
 <h:messages/>
 ----
 
-Die Darstellung von Fehlern und Validierungsnachrichten wird auch im xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide] beschrieben.
+Die Darstellung von Fehlern und Validierungsnachrichten wird auch im xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept] beschrieben.
 
 [[umgang-mit-validierungsfehlern]]
 ==== Umgang mit Validierungsfehlern
@@ -1337,7 +1336,7 @@ Zum Beispiel sollten nicht benötigte Elemente ausgeblendet und Farben für den 
 Für die Druckvorschau einer Seite sollten die benutzten Widgets so aufbereitet werden, dass alle Inhalte auf der Seite
 angezeigt werden (z.B. bei Tabs alle Tabs anzeigen).
 
-Im xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide] finden sich Beispiele für Druckansichten.
+Im xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept] finden sich Beispiele für Druckansichten.
 
 [[image-seitendruck1]]
 image::nutzungsvorgaben/Browser_Druckfunktion.png[align="center"]
@@ -1469,7 +1468,7 @@ Für die Verwendung dieser Elemente muss in den View-Templates folgender Namespa
 [[hauptfenster]]
 === Hauptfenster
 
-Das im Styleguide beschriebene Anwendungslayout besteht im Allgemeinen aus einem Hauptfenster mit einem Header und einem Inhaltsbereich, dessen Inhalt je nach Seitentyp und Applikation variieren kann.
+Das im Bedienkonzept beschriebene Anwendungslayout besteht im Allgemeinen aus einem Hauptfenster mit einem Header und einem Inhaltsbereich, dessen Inhalt je nach Seitentyp und Applikation variieren kann.
 
 [[image-aufbauapplikationsseite]]
 .Aufbau einer Applikationsseite

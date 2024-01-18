@@ -35,10 +35,10 @@ Jeder Flow muss eine (oder mehrere) Model Bean hinterlegt haben, in welcher die 
 
 Bei mehrschrittigen Datenerfassungen muss die Behandlung der Transaktion mit einem besonderen Augenmerk behandelt werden.
 
-[[einhaltung-styleguide]]
-=== Einhaltung Styleguide
+[[einhaltung-bedienkonzept]]
+=== Einhaltung Bedienkonzept
 
-Die Applikation muss auf die Vorgaben des xref:isyfact-standards-doku:isy-styleguide:styleguide.adoc[Styleguide] überprüft werden.
+Die Applikation muss auf die Vorgaben des xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzepts] überprüft werden.
 
 [[flow-konfiguration]]
 === Flow Konfiguration
@@ -55,7 +55,7 @@ ist es notwendig sich über die Größe des Komponenten-Baumes Gedanken zu mache
 
 Mögliche Maßnahmen:
 
-* Begrenzung der real verwendeten Komponenten auf die Ein und Ausgabe Elemente.
+* Begrenzung der real verwendeten Komponenten auf die Ein- und Ausgabeelemente.
 * Statische Texte bevorzugt nur im HTML verwenden.
 
 [[optimierung-snapshots]]
