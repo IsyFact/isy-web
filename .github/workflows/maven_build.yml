@@ -19,7 +19,6 @@ jobs:
     needs: [Version]
     uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
     with:
-      jdk-version: 17
       maven-opts: '-pl isy-web-lib -Dskip.js.tests=true'
       checkout-lfs: true
       version: ${{ needs.Version.outputs.next-version }}
