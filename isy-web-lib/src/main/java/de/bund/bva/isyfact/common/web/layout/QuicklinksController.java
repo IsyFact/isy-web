@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
@@ -70,7 +69,7 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
         // Der aktuelle Flow. Wenn ein Subflow aufgerufen wurde, dann wird hier der ursprüngliche Flow
         // ausgelesen.
         FlowDefinition flowDefinition =
-            RequestContextHolder.getRequestContext().getFlowExecutionContext().getDefinition();
+                RequestContextHolder.getRequestContext().getFlowExecutionContext().getDefinition();
 
         String flowName = flowDefinition.getId();
         Splitter splitter = Splitter.on(",").trimResults();
@@ -80,17 +79,17 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
             if (!gruppenIds.isEmpty()) {
                 // Gruppen existieren => Sessiondaten laden und synchronisieren
                 SharedAttributeMap<Object> sessionMap =
-                    ExternalContextHolder.getExternalContext().getSessionMap();
+                        ExternalContextHolder.getExternalContext().getSessionMap();
                 synchronized (sessionMap.getMutex()) {
                     QuicklinksModel quicklinksModel =
-                        (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
+                            (QuicklinksModel) sessionMap.get(SESSION_KEY_QUICKLINKS);
                     if (quicklinksModel == null) {
                         quicklinksModel = new QuicklinksModel();
                         sessionMap.put(SESSION_KEY_QUICKLINKS, quicklinksModel);
                     }
                     for (String gruppeId : gruppenIds) {
                         QuicklinksGruppeModel quicklinksGruppeModel =
-                            quicklinksModel.getQuicklinksGruppen().get(gruppeId);
+                                quicklinksModel.getQuicklinksGruppen().get(gruppeId);
                         if (quicklinksGruppeModel == null) {
                             quicklinksGruppeModel = new QuicklinksGruppeModel();
                             quicklinksGruppeModel.setGruppeId(gruppeId);
@@ -98,7 +97,7 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
                         }
                         // Attribut contextflow laden
                         String contextFlowKonfig = this.konfiguration
-                            .getAsString("gui.quicklinks." + gruppeId + ".contextflow", null);
+                                .getAsString("gui.quicklinks." + gruppeId + ".contextflow", null);
                         if (contextFlowKonfig != null) {
                             List<String> contextFlows = Lists.newArrayList(splitter.split(contextFlowKonfig));
                             quicklinksGruppeModel.setSichtbar(contextFlows.contains(flowName));
@@ -108,7 +107,7 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
 
                         // Attribut text laden
                         String text =
-                            this.konfiguration.getAsString("gui.quicklinks." + gruppeId + ".text", null);
+                                this.konfiguration.getAsString("gui.quicklinks." + gruppeId + ".text", null);
 
                         if (text == null) {
                             // Fallback Gruppen ID verwenden
@@ -137,17 +136,14 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
     /**
      * Fügt einen Quicklink hinzu.
      *
-     * @param quicklinkselementModel
-     *            der Quicklink
-     * @param gruppeId
-     *            Die Gruppen ID der Quicklinks (Oder der Headername, falls ohne Konfiguration gearbeitet
-     *            wird.)
-     * @param maxAnzahl
-     *            Die maximale Anzahl der anzuzeigenden Elemente.
+     * @param quicklinkselementModel der Quicklink
+     * @param gruppeId               Die Gruppen ID der Quicklinks (Oder der Headername, falls ohne Konfiguration gearbeitet
+     *                               wird.)
+     * @param maxAnzahl              Die maximale Anzahl der anzuzeigenden Elemente.
      * @return QuicklinkselementModel
      */
     public QuicklinksElementModel fuegeQuicklinkHinzu(QuicklinksElementModel quicklinkselementModel,
-        String gruppeId, int maxAnzahl) {
+                                                      String gruppeId, int maxAnzahl) {
 
         // Variable aus der Session holen
         SharedAttributeMap<Object> sessionMap = ExternalContextHolder.getExternalContext().getSessionMap();
@@ -165,7 +161,7 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
 
             // Quicklink immer am Anfang einfügen
             QuicklinksElementModel quicklinkselementModelGeloescht = addQuicklinkselementModelAtTheBeginning(
-                quicklinksModel, quicklinkselementModel, gruppeId, maxAnzahl);
+                    quicklinksModel, quicklinkselementModel, gruppeId, maxAnzahl);
 
             // Variable immer wieder in Session schreiben, damit übergeordnete Sessionmanager auf jeden Fall
             // eine
@@ -181,8 +177,7 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
      * Entfernt einen Quicklink, der eine bestimmte ID besitzt. Diese Funktion iteriert über ALLE möglichen
      * Quicklinksgruppen.
      *
-     * @param id
-     *            die ID
+     * @param id die ID
      */
     public void entferneQuicklink(String id) {
 
@@ -218,10 +213,8 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
     /**
      * Entfernt einen Quicklink, der eine bestimmte ID besitzt.
      *
-     * @param gruppeId
-     *            Die ID der Gruppe.
-     * @param id
-     *            die ID.
+     * @param gruppeId Die ID der Gruppe.
+     * @param id       die ID.
      */
     public void entferneQuicklink(String gruppeId, String id) {
 
@@ -266,13 +259,10 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
     /**
      * Verschiebt alle Quicklink-Elemente von einer Quicklink-Liste zu einer Anderen.
      *
-     * @param vonGruppeId
-     *            Die Gruppen ID der ursprünglichen Quicklinks-Liste (alternativ die Header-Bezeichnung)
-     * @param nachGruppeId
-     *            Die Gruppen ID der Quicklinks-Liste in welche die Element verschoben werden soll.
-     *            (alternativ die Header-Bezeichnung)
-     * @param maxAnzahl
-     *            Die maximale Anzahl der anzuzeigenden Elemente.
+     * @param vonGruppeId  Die Gruppen ID der ursprünglichen Quicklinks-Liste (alternativ die Header-Bezeichnung)
+     * @param nachGruppeId Die Gruppen ID der Quicklinks-Liste in welche die Element verschoben werden soll.
+     *                     (alternativ die Header-Bezeichnung)
+     * @param maxAnzahl    Die maximale Anzahl der anzuzeigenden Elemente.
      */
     public void verschiebeQuicklinks(String vonGruppeId, String nachGruppeId, int maxAnzahl) {
 
@@ -284,7 +274,7 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
 
             if (quicklinksModel != null && quicklinksModel.getQuicklinksGruppen().get(vonGruppeId) != null) {
                 List<QuicklinksElementModel> elemente =
-                    quicklinksModel.getQuicklinksGruppen().get(vonGruppeId).getQuicklinksElemente();
+                        quicklinksModel.getQuicklinksGruppen().get(vonGruppeId).getQuicklinksElemente();
                 ListIterator<QuicklinksElementModel> iterator = elemente.listIterator(elemente.size());
 
                 List<QuicklinksElementModel> elementeVerschieben = new ArrayList<>();
@@ -309,19 +299,14 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
     /**
      * Fügt ein neues QuicklinkselementModel am Anfang hinzu.
      *
-     * @param quicklinksModel
-     *            Das QuicklinksModel.
-     * @param quicklinkselementModel
-     *            Das neue QuicklinksElementModel.
-     * @param gruppeId
-     *            Die ID der Gruppe.
-     * @param maxAnzahl
-     *            Die maximale Anzahl an Quicklinks in der Gruppe.
-     *
+     * @param quicklinksModel        Das QuicklinksModel.
+     * @param quicklinkselementModel Das neue QuicklinksElementModel.
+     * @param gruppeId               Die ID der Gruppe.
+     * @param maxAnzahl              Die maximale Anzahl an Quicklinks in der Gruppe.
      * @return quicklinkselementModelGeloescht.
      */
     private QuicklinksElementModel addQuicklinkselementModelAtTheBeginning(QuicklinksModel quicklinksModel,
-        QuicklinksElementModel quicklinkselementModel, String gruppeId, int maxAnzahl) {
+                                                                           QuicklinksElementModel quicklinkselementModel, String gruppeId, int maxAnzahl) {
 
         QuicklinksGruppeModel quicklinksGruppeModel = quicklinksModel.getQuicklinksGruppen().get(gruppeId);
 
@@ -343,21 +328,19 @@ public class QuicklinksController extends AbstractGuiController<Applikationseite
 
     /**
      * Limitiert die Anzahl an Quicklinks in einer Gruppe.
-     * @param maxAnzahl
-     *            Die maximale Anzahl.
-     * @param quicklinksGruppeModel
-     *            Die Gruppe.
      *
+     * @param maxAnzahl             Die maximale Anzahl.
+     * @param quicklinksGruppeModel Die Gruppe.
      * @return quicklinkselementModelGeloescht.
      */
     private QuicklinksElementModel limitiereAnzahl(int maxAnzahl,
-        QuicklinksGruppeModel quicklinksGruppeModel) {
+                                                   QuicklinksGruppeModel quicklinksGruppeModel) {
         QuicklinksElementModel quicklinkselementModelGeloescht = null;
         if (quicklinksGruppeModel.getQuicklinksElemente().size() > maxAnzahl) {
             quicklinkselementModelGeloescht = quicklinksGruppeModel.getQuicklinksElemente()
-                .get(quicklinksGruppeModel.getQuicklinksElemente().size() - 1);
+                    .get(quicklinksGruppeModel.getQuicklinksElemente().size() - 1);
             quicklinksGruppeModel.getQuicklinksElemente()
-                .remove(quicklinksGruppeModel.getQuicklinksElemente().size() - 1);
+                    .remove(quicklinksGruppeModel.getQuicklinksElemente().size() - 1);
         }
 
         return quicklinkselementModelGeloescht;

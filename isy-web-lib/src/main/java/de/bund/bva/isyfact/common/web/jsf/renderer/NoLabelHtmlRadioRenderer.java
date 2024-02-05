@@ -43,15 +43,15 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.util.JavascriptUtils;
 /**
  * Erweitert den Standard-Radio Renderer von Tomahawk, damit kein Label gerendert wird. Dies übernimmt die
  * Composite Component.
- * 
+ * <p>
  * Durchgeführte Änderungen:
- * 
+ * <p>
  * Methode {@link #renderLabel(ResponseWriter, UIComponent, UIComponent, String, SelectItem, boolean)} rendert
  * kein Label mehr.
- * 
+ * <p>
  * Methode {@link #renderRadio(FacesContext, HtmlRadio)} und {@link #decode(FacesContext, UIComponent)} kann
  * jetzt das Input Element auch relativ suchen.
- * 
+ *
  * @author Capgemini
  * @version $Id: NoLabelHtmlRadioRenderer.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
@@ -66,10 +66,12 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
 
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
-        if (context == null)
+        if (context == null) {
             throw new NullPointerException("context");
-        if (component == null)
+        }
+        if (component == null) {
             throw new NullPointerException("component");
+        }
 
         if (component instanceof HtmlRadio) {
             renderRadio(context, (HtmlRadio) component);
@@ -84,7 +86,7 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
             }
         } else {
             throw new IllegalArgumentException("Unsupported component class "
-                + component.getClass().getName());
+                    + component.getClass().getName());
         }
     }
 
@@ -103,7 +105,7 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
 
         if (uiComponent == null) {
             throw new IllegalStateException("Could not find component '" + forAttr
-                + "' (calling findComponent on component '" + radio.getClientId(facesContext) + "')");
+                    + "' (calling findComponent on component '" + radio.getClientId(facesContext) + "')");
         }
         if (!(uiComponent instanceof UISelectOne)) {
             throw new IllegalStateException("UISelectOne expected");
@@ -124,11 +126,11 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
 
         Object currentValue = RendererUtils.getObjectValue(uiSelectOne);
         currentValue =
-            RendererUtils.getConvertedStringValue(facesContext, uiSelectOne, converter, currentValue);
+                RendererUtils.getConvertedStringValue(facesContext, uiSelectOne, converter, currentValue);
         SelectItem selectItem = (SelectItem) selectItemList.get(index);
         String itemStrValue =
-            RendererUtils
-                .getConvertedStringValue(facesContext, uiSelectOne, converter, selectItem.getValue());
+                RendererUtils
+                        .getConvertedStringValue(facesContext, uiSelectOne, converter, selectItem.getValue());
 
         ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -144,8 +146,8 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
 
         // Render the radio component
         String itemId =
-            renderRadio(facesContext, uiSelectOne, radio, itemStrValue, selectItem.isDisabled(),
-                itemStrValue.equals(currentValue), false, index);
+                renderRadio(facesContext, uiSelectOne, radio, itemStrValue, selectItem.isDisabled(),
+                        itemStrValue.equals(currentValue), false, index);
 
         // Render the
         // label element after the input
@@ -158,13 +160,13 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
 
     @Override
     protected String renderRadio(FacesContext facesContext, UISelectOne uiComponent, HtmlRadio radio,
-        String value, boolean disabled, boolean checked, boolean renderId, Integer itemNum)
-        throws IOException {
+                                 String value, boolean disabled, boolean checked, boolean renderId, Integer itemNum)
+            throws IOException {
         String clientId = uiComponent.getClientId(facesContext);
 
         String itemId =
-            radio.isRenderLogicalId() ? clientId + UINamingContainer.getSeparatorChar(facesContext) + itemNum
-                : radio.getClientId(facesContext);
+                radio.isRenderLogicalId() ? clientId + UINamingContainer.getSeparatorChar(facesContext) + itemNum
+                        : radio.getClientId(facesContext);
 
         ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -191,24 +193,24 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
 
         Map<String, List<ClientBehavior>> behaviors = null;
         if (uiComponent instanceof ClientBehaviorHolder
-            && JavascriptUtils.isJavascriptAllowed(facesContext.getExternalContext())) {
+                && JavascriptUtils.isJavascriptAllowed(facesContext.getExternalContext())) {
             behaviors = ((ClientBehaviorHolder) uiComponent).getClientBehaviors();
 
             renderBehaviorizedOnchangeEventHandler(facesContext, writer, radio, uiComponent, itemId,
-                behaviors);
+                    behaviors);
             renderBehaviorizedEventHandlers(facesContext, writer, radio, uiComponent, itemId, behaviors);
             renderBehaviorizedFieldEventHandlersWithoutOnchange(facesContext, writer, radio, uiComponent,
-                itemId, behaviors);
+                    itemId, behaviors);
             renderHTMLAttributes(writer, radio, uiComponent,
-                HTML.INPUT_PASSTHROUGH_ATTRIBUTES_WITHOUT_DISABLED_AND_EVENTS);
+                    HTML.INPUT_PASSTHROUGH_ATTRIBUTES_WITHOUT_DISABLED_AND_EVENTS);
         } else {
             renderHTMLAttributes(writer, radio, uiComponent,
-                HTML.INPUT_PASSTHROUGH_ATTRIBUTES_WITHOUT_DISABLED);
+                    HTML.INPUT_PASSTHROUGH_ATTRIBUTES_WITHOUT_DISABLED);
         }
 
         if (isDisabled(facesContext, uiComponent)) {
             writer.writeAttribute(org.apache.myfaces.shared_tomahawk.renderkit.html.HTML.DISABLED_ATTR,
-                Boolean.TRUE, null);
+                    Boolean.TRUE, null);
         }
 
         writer.endElement(HTML.INPUT_ELEM);
@@ -217,12 +219,12 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
     }
 
     public static void renderLabel(ResponseWriter writer, UIComponent radio, UIComponent component,
-        String forClientId, SelectItem item, boolean disabled) throws IOException {
+                                   String forClientId, SelectItem item, boolean disabled) throws IOException {
         // Es wird kein Label gerendert
     }
 
     private static boolean renderHTMLAttributes(ResponseWriter writer, UIComponent radio,
-        UIComponent selectOne, String[] attributes) throws IOException {
+                                                UIComponent selectOne, String[] attributes) throws IOException {
         boolean somethingDone = false;
         for (int i = 0, len = attributes.length; i < len; i++) {
             String attrName = attributes[i];
@@ -238,13 +240,13 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
     }
 
     private static boolean renderBehaviorizedOnchangeEventHandler(FacesContext facesContext,
-        ResponseWriter writer, UIComponent radio, UIComponent uiComponent, String targetClientId,
-        Map<String, List<ClientBehavior>> clientBehaviors) throws IOException {
+                                                                  ResponseWriter writer, UIComponent radio, UIComponent uiComponent, String targetClientId,
+                                                                  Map<String, List<ClientBehavior>> clientBehaviors) throws IOException {
         boolean hasChange =
-            HtmlRendererUtils.hasClientBehavior(ClientBehaviorEvents.CHANGE, clientBehaviors, facesContext);
+                HtmlRendererUtils.hasClientBehavior(ClientBehaviorEvents.CHANGE, clientBehaviors, facesContext);
         boolean hasValueChange =
-            HtmlRendererUtils.hasClientBehavior(ClientBehaviorEvents.VALUECHANGE, clientBehaviors,
-                facesContext);
+                HtmlRendererUtils.hasClientBehavior(ClientBehaviorEvents.VALUECHANGE, clientBehaviors,
+                        facesContext);
 
         String value = (String) radio.getAttributes().get(HTML.ONCHANGE_ATTR);
         if (value == null) {
@@ -252,72 +254,72 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
         }
         if (hasChange && hasValueChange) {
             String chain =
-                HtmlRendererUtils.buildBehaviorChain(facesContext, uiComponent, targetClientId,
-                    ClientBehaviorEvents.CHANGE, null, ClientBehaviorEvents.VALUECHANGE, null,
-                    clientBehaviors, value, null);
+                    HtmlRendererUtils.buildBehaviorChain(facesContext, uiComponent, targetClientId,
+                            ClientBehaviorEvents.CHANGE, null, ClientBehaviorEvents.VALUECHANGE, null,
+                            clientBehaviors, value, null);
 
             return HtmlRendererUtils.renderHTMLAttribute(writer, HTML.ONCHANGE_ATTR, HTML.ONCHANGE_ATTR,
-                chain);
+                    chain);
         } else if (hasChange) {
             return HtmlRendererUtils.renderBehaviorizedAttribute(facesContext, writer, HTML.ONCHANGE_ATTR,
-                uiComponent, targetClientId, ClientBehaviorEvents.CHANGE, null, clientBehaviors,
-                HTML.ONCHANGE_ATTR, value);
+                    uiComponent, targetClientId, ClientBehaviorEvents.CHANGE, null, clientBehaviors,
+                    HTML.ONCHANGE_ATTR, value);
         } else if (hasValueChange) {
             return HtmlRendererUtils.renderBehaviorizedAttribute(facesContext, writer, HTML.ONCHANGE_ATTR,
-                uiComponent, targetClientId, ClientBehaviorEvents.VALUECHANGE, null, clientBehaviors,
-                HTML.ONCHANGE_ATTR, value);
+                    uiComponent, targetClientId, ClientBehaviorEvents.VALUECHANGE, null, clientBehaviors,
+                    HTML.ONCHANGE_ATTR, value);
         } else {
             return HtmlRendererUtils.renderHTMLAttribute(writer, HTML.ONCHANGE_ATTR, HTML.ONCHANGE_ATTR,
-                value);
+                    value);
         }
     }
 
     private static void renderBehaviorizedEventHandlers(FacesContext facesContext, ResponseWriter writer,
-        UIComponent radio, UIComponent uiComponent, String targetClientId,
-        Map<String, List<ClientBehavior>> clientBehaviors) throws IOException {
+                                                        UIComponent radio, UIComponent uiComponent, String targetClientId,
+                                                        Map<String, List<ClientBehavior>> clientBehaviors) throws IOException {
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONCLICK_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.CLICK, clientBehaviors, HTML.ONCLICK_ATTR);
+                targetClientId, ClientBehaviorEvents.CLICK, clientBehaviors, HTML.ONCLICK_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONDBLCLICK_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.DBLCLICK, clientBehaviors, HTML.ONDBLCLICK_ATTR);
+                targetClientId, ClientBehaviorEvents.DBLCLICK, clientBehaviors, HTML.ONDBLCLICK_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONMOUSEDOWN_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.MOUSEDOWN, clientBehaviors, HTML.ONMOUSEDOWN_ATTR);
+                targetClientId, ClientBehaviorEvents.MOUSEDOWN, clientBehaviors, HTML.ONMOUSEDOWN_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONMOUSEUP_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.MOUSEUP, clientBehaviors, HTML.ONMOUSEUP_ATTR);
+                targetClientId, ClientBehaviorEvents.MOUSEUP, clientBehaviors, HTML.ONMOUSEUP_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONMOUSEOVER_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.MOUSEOVER, clientBehaviors, HTML.ONMOUSEOVER_ATTR);
+                targetClientId, ClientBehaviorEvents.MOUSEOVER, clientBehaviors, HTML.ONMOUSEOVER_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONMOUSEMOVE_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.MOUSEMOVE, clientBehaviors, HTML.ONMOUSEMOVE_ATTR);
+                targetClientId, ClientBehaviorEvents.MOUSEMOVE, clientBehaviors, HTML.ONMOUSEMOVE_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONMOUSEOUT_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.MOUSEOUT, clientBehaviors, HTML.ONMOUSEOUT_ATTR);
+                targetClientId, ClientBehaviorEvents.MOUSEOUT, clientBehaviors, HTML.ONMOUSEOUT_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONKEYPRESS_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.KEYPRESS, clientBehaviors, HTML.ONKEYPRESS_ATTR);
+                targetClientId, ClientBehaviorEvents.KEYPRESS, clientBehaviors, HTML.ONKEYPRESS_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONKEYDOWN_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.KEYDOWN, clientBehaviors, HTML.ONKEYDOWN_ATTR);
+                targetClientId, ClientBehaviorEvents.KEYDOWN, clientBehaviors, HTML.ONKEYDOWN_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONKEYUP_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.KEYUP, clientBehaviors, HTML.ONKEYUP_ATTR);
+                targetClientId, ClientBehaviorEvents.KEYUP, clientBehaviors, HTML.ONKEYUP_ATTR);
     }
 
     private static void renderBehaviorizedFieldEventHandlersWithoutOnchange(FacesContext facesContext,
-        ResponseWriter writer, UIComponent radio, UIComponent uiComponent, String targetClientId,
-        Map<String, List<ClientBehavior>> clientBehaviors) throws IOException {
+                                                                            ResponseWriter writer, UIComponent radio, UIComponent uiComponent, String targetClientId,
+                                                                            Map<String, List<ClientBehavior>> clientBehaviors) throws IOException {
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONFOCUS_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.FOCUS, clientBehaviors, HTML.ONFOCUS_ATTR);
+                targetClientId, ClientBehaviorEvents.FOCUS, clientBehaviors, HTML.ONFOCUS_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONBLUR_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.BLUR, clientBehaviors, HTML.ONBLUR_ATTR);
+                targetClientId, ClientBehaviorEvents.BLUR, clientBehaviors, HTML.ONBLUR_ATTR);
         renderBehaviorizedAttribute(facesContext, writer, HTML.ONSELECT_ATTR, radio, uiComponent,
-            targetClientId, ClientBehaviorEvents.SELECT, clientBehaviors, HTML.ONSELECT_ATTR);
+                targetClientId, ClientBehaviorEvents.SELECT, clientBehaviors, HTML.ONSELECT_ATTR);
     }
 
     private static boolean renderBehaviorizedAttribute(FacesContext facesContext, ResponseWriter writer,
-        String componentProperty, UIComponent radio, UIComponent component, String targetClientId,
-        String eventName, Map<String, List<ClientBehavior>> clientBehaviors, String htmlAttrName)
-        throws IOException {
+                                                       String componentProperty, UIComponent radio, UIComponent component, String targetClientId,
+                                                       String eventName, Map<String, List<ClientBehavior>> clientBehaviors, String htmlAttrName)
+            throws IOException {
         String attributeValue = (String) radio.getAttributes().get(componentProperty);
         if (attributeValue == null) {
             attributeValue = (String) component.getAttributes().get(componentProperty);
         }
         return HtmlRendererUtils.renderBehaviorizedAttribute(facesContext, writer, componentProperty,
-            component, targetClientId, eventName, null, clientBehaviors, htmlAttrName, attributeValue);
+                component, targetClientId, eventName, null, clientBehaviors, htmlAttrName, attributeValue);
     }
 
     @Override
@@ -345,7 +347,7 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
             UIComponent uiSelectOne = search(forAttr, radio);
             if (uiSelectOne == null) {
                 throw new IllegalStateException("Could not find component '" + forAttr
-                    + "' (calling findComponent on component '" + radio.getClientId(facesContext) + "')");
+                        + "' (calling findComponent on component '" + radio.getClientId(facesContext) + "')");
             }
             if (!(uiSelectOne instanceof UISelectOne)) {
                 throw new IllegalStateException("UISelectOne expected");
@@ -383,11 +385,9 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
 
     /**
      * Sucht eine UIComponent über die integrierte JSF-Suche oder relativ.
-     * 
-     * @param searchExpression
-     *            Die Suchanfrage.
-     * @param base
-     *            Von welchem Element aus gesucht wird.
+     *
+     * @param searchExpression Die Suchanfrage.
+     * @param base             Von welchem Element aus gesucht wird.
      * @return Die UI-Component.
      */
     private UIComponent search(String searchExpression, UIComponent base) {
@@ -422,5 +422,4 @@ public class NoLabelHtmlRadioRenderer extends HtmlRadioRenderer {
 
         return uiComponent;
     }
-
 }

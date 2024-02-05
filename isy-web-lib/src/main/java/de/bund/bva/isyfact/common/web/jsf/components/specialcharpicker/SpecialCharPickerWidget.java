@@ -39,25 +39,36 @@ import com.google.common.collect.TreeMultimap;
 
 /**
  * Zeigt das Overlay für eine Sonderzeichenliste an.
+ *
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */
 @Deprecated
 public class SpecialCharPickerWidget extends UIComponentBase {
 
-    /** Default resource für den Zugriff auf die Sonderzeichen. */
+    /**
+     * Default resource für den Zugriff auf die Sonderzeichen.
+     */
     private static final String DEFAULT_RESOURCE = "/resources/isy-web/sonderzeichen/sonderzeichen.txt";
 
-    /** Das Basiszeichen, das verwendet wird, wenn keines definiert ist. */
+    /**
+     * Das Basiszeichen, das verwendet wird, wenn keines definiert ist.
+     */
     public static final char DEFAULT_BASISZEICHEN = '*';
 
-    /** Die Ressource mit den anzuzeigenden Sonderzeichen, absolut im Klassenpfad. */
+    /**
+     * Die Ressource mit den anzuzeigenden Sonderzeichen, absolut im Klassenpfad.
+     */
     private String resource;
 
-    /** Das Mapping für die Sonderzeichen. */
+    /**
+     * Das Mapping für die Sonderzeichen.
+     */
     private transient Map<String, SpecialCharPickerMapping> sonderzeichenMapping;
 
-    /** Das Mapping für die Sonderzeichen. */
+    /**
+     * Das Mapping für die Sonderzeichen.
+     */
     private transient Multimap<Character, String> basiszeichenZuSonderzeichen;
 
     private static final Pattern zeichen = Pattern.compile("[^;]+");
@@ -79,11 +90,8 @@ public class SpecialCharPickerWidget extends UIComponentBase {
      * Objekt ist so gebaut, dass {@link #restoreState} den Zustand der Komponente wieder aus dem Objekt
      * herstellen kann.
      *
-     * @param context
-     *            der aktuelle FacesContext.
-     *
+     * @param context der aktuelle FacesContext.
      * @return das Objekt mit dem Zustand der Komponente.
-     *
      * @see javax.faces.component.UIComponentBase#saveState(FacesContext)
      */
     @Override
@@ -98,11 +106,8 @@ public class SpecialCharPickerWidget extends UIComponentBase {
      * Liest den Zustand der Komponente aus einem serialisierbaren Objekt und setzt den Zustand in dieser
      * Komponente Das Objekt ist mit {@link #saveState} erzeugt.
      *
-     * @param context
-     *            der aktuelle Faces-Kontext.
-     * @param state
-     *            der Zustand, der wiederhergestellt werden soll, nicht null.
-     *
+     * @param context der aktuelle Faces-Kontext.
+     * @param state   der Zustand, der wiederhergestellt werden soll, nicht null.
      * @see javax.faces.component.UIComponentBase#restoreState(FacesContext, Object)
      */
     @Override
@@ -133,11 +138,8 @@ public class SpecialCharPickerWidget extends UIComponentBase {
     /**
      * Setzt die Ressource mit den anzuzeigenden Sonderzeichen, absolut im Klassenpfad.
      *
-     * @param resource
-     *            die Ressource, nicht null.
-     *
-     * @throws NullPointerException
-     *             wenn resource null ist.
+     * @param resource die Ressource, nicht null.
+     * @throws NullPointerException wenn resource null ist.
      */
     public void setResource(String resource) {
         if (resource == null) {
@@ -150,7 +152,6 @@ public class SpecialCharPickerWidget extends UIComponentBase {
      * Gibt die Komponente als String zurück.
      *
      * @return die Komponente als String.
-     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -216,7 +217,7 @@ public class SpecialCharPickerWidget extends UIComponentBase {
 
         try (InputStream mappingResource = SpecialCharPickerWidget.class.getResourceAsStream(getResource());
              BufferedReader reader = new BufferedReader(new InputStreamReader(mappingResource, StandardCharsets.UTF_8))) {
-            for(String line = reader.readLine(); line != null; line = reader.readLine()) {
+            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 String[] mapping = leseMappingZeile(line);
 
                 sonderzeichenMapping.put(mapping[0], new SpecialCharPickerMapping(mapping[1].charAt(0), mapping[2]));

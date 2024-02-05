@@ -2,8 +2,8 @@ package de.bund.bva.isyfact.common.web.global;
 
 import de.bund.bva.isyfact.common.web.exception.web.ErrorController;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller.NavigationMenuController;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
+
 import org.junit.Test;
 import org.springframework.webflow.definition.FlowDefinition;
 import org.springframework.webflow.execution.RequestContext;
@@ -25,11 +25,9 @@ public class GlobalFlowControllerTest {
         when(errorController.getAjaxErrorMessage()).thenReturn(errorMessage);
         when(errorController.getAjaxErrorMessageTitle()).thenReturn(errorMessageTitle);
 
-        AufrufKontextVerwalter aufrufKontextVerwalter = mock(AufrufKontextVerwalter.class);
-        AufrufKontext aufrufKontext = mock(AufrufKontext.class);
+        Berechtigungsmanager berechtigungsmanager = mock(Berechtigungsmanager.class);
         final String bearbeiterName = "bearbeiterName";
-        when(aufrufKontextVerwalter.getAufrufKontext()).thenReturn(aufrufKontext);
-        when(aufrufKontext.getDurchfuehrenderSachbearbeiterName()).thenReturn(bearbeiterName);
+        when(berechtigungsmanager.getTokenAttribute("name")).thenReturn(bearbeiterName);
 
         RequestContext requestContext = mock(RequestContext.class);
         RequestContextHolder.setRequestContext(requestContext);
@@ -39,7 +37,7 @@ public class GlobalFlowControllerTest {
         when(flowDefinition.getId()).thenReturn(flowId);
 
         GlobalFlowController controller = new GlobalFlowController(
-                null, null, errorController, aufrufKontextVerwalter, navigationMenuController);
+                null, null, errorController, berechtigungsmanager, navigationMenuController);
 
         GlobalFlowModel model = new GlobalFlowModel();
 

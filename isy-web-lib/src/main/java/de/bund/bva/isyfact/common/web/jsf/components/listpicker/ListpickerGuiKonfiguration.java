@@ -9,6 +9,7 @@ import de.bund.bva.isyfact.common.web.servlet.requesthandler.AbstractListpickerP
  * werden, falls der Listpicker begrenzbar sein soll, was die maximale Anzahl angezeigter Elemente angeht. Die
  * Klasse wird von {@link AbstractListpickerProviderRequestHandler} verwendet und in JSON umgewandelt, so dass
  * die Informationen in JavaScript verfügbar sind.
+ *
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */
@@ -37,8 +38,7 @@ public class ListpickerGuiKonfiguration {
      * Konstruktor für Listpicker, die keine Begrenzung bzgl. der Anzahl der angezeigten Elemente haben
      * sollen. weiterFiltern wird mit {@code false} initialisiert und messageItem mit dem leeren String.
      *
-     * @param items
-     *            Liste von GuiItems die angezeigt werden sollen.
+     * @param items Liste von GuiItems die angezeigt werden sollen.
      */
     ListpickerGuiKonfiguration(List<ListpickerGuiItem> items) {
         this.items = items;
@@ -48,15 +48,13 @@ public class ListpickerGuiKonfiguration {
 
     /**
      * Konstruktor für Listpicker, die eine Begrenzung bzgl. der Anzahl der angezeigten Elemente haben sollen.
-     * @param items
-     *            Liste von GuiItems die angezeigt werden sollen.
-     * @param messageItem
-     *            Der Text der angezeigt werden soll, falls weiterFiltern {@code true} ist.
-     * @param weiterFiltern
-     *            Legt fest, ob messageItem angezeigt werden soll oder nicht.
+     *
+     * @param items         Liste von GuiItems die angezeigt werden sollen.
+     * @param messageItem   Der Text der angezeigt werden soll, falls weiterFiltern {@code true} ist.
+     * @param weiterFiltern Legt fest, ob messageItem angezeigt werden soll oder nicht.
      */
     public ListpickerGuiKonfiguration(List<ListpickerGuiItem> items, String messageItem,
-        boolean weiterFiltern) {
+                                      boolean weiterFiltern) {
         this.items = items;
         this.messageItem = messageItem;
         this.weiterFiltern = weiterFiltern;

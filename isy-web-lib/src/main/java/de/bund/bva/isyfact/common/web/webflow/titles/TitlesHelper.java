@@ -1,7 +1,6 @@
 package de.bund.bva.isyfact.common.web.webflow.titles;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
@@ -9,6 +8,7 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Helper-Klasse für den Seitentitel.
+ *
  * @author Capgemini
  * @version $Id:$
  * @deprecated This module is deprecated and will be removed in a future release.
@@ -30,13 +30,14 @@ public class TitlesHelper {
 
     /**
      * Prüft ob die Versionsanzeige in der Anwendung aktiviert ist.
+     *
      * @return {@code true}, falls die Versionanzeige aktiviert ist. Ansonsten {@code false}. Wenn der
-     *         entsprechende Eintrag in der Konfiguration gar nicht vorhanden ist, wird {@code false}
-     *         zurückgegeben und somit die Abwärtskompatibilität gewährleistet.
+     * entsprechende Eintrag in der Konfiguration gar nicht vorhanden ist, wird {@code false}
+     * zurückgegeben und somit die Abwärtskompatibilität gewährleistet.
      */
     private boolean istVersionsanzeigeAktiviert() {
         boolean aktiv = this.konfiguration
-            .getAsBoolean(KonfigurationSchluessel.GUI_VERSIONSANZEIGE_SEITENTITEL_AKTIV, false);
+                .getAsBoolean(KonfigurationSchluessel.GUI_VERSIONSANZEIGE_SEITENTITEL_AKTIV, false);
         return aktiv;
     }
 
@@ -44,6 +45,7 @@ public class TitlesHelper {
      * Ermittelt den Text, der im Titel zusätzlich angezeigt werden soll, wenn die entsprechende
      * Konfigurations-Eigenschaft aktiviert ist. Der Text enthält - sofern gesetzt - den Anwendungsnamen und
      * die Versionsnummer der Anwendung.
+     *
      * @return Der ermittelte Text.
      */
     public String ermittleVersionsnummer() {

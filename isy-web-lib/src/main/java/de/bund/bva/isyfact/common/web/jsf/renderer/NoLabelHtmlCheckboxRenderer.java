@@ -45,11 +45,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 /**
  * Erweitert den Standard Checkbox Renderer von Tomahawk, damit kein Label gerendert wird. Dies übernimmt die
  * Composite Component.
- * 
+ * <p>
  * Durchgeführte Änderungen:
- * 
+ * <p>
  * Methode {@link #renderSingleCheckbox(FacesContext, HtmlCheckbox)} rendert kein Label mehr.
- * 
+ *
  * @author Capgemini
  * @version $Id: NoLabelHtmlCheckboxRenderer.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
@@ -68,15 +68,17 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
 
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
-        if (context == null)
+        if (context == null) {
             throw new NullPointerException("context");
-        if (component == null)
+        }
+        if (component == null) {
             throw new NullPointerException("component");
+        }
 
         if (component instanceof HtmlCheckbox) {
             renderSingleCheckbox(context, (HtmlCheckbox) component);
         } else if (component instanceof DisplayValueOnlyCapable
-            && HtmlRendererUtils.isDisplayValueOnly(component)) {
+                && HtmlRendererUtils.isDisplayValueOnly(component)) {
             HtmlRendererUtils.renderDisplayValueOnlyForSelects(context, component, true);
         } else if (component instanceof UISelectMany) {
             String layout = getLayout((UISelectMany) component);
@@ -89,7 +91,7 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
             super.encodeEnd(context, component);
         } else {
             throw new IllegalArgumentException("Unsupported component class "
-                + component.getClass().getName());
+                    + component.getClass().getName());
         }
     }
 
@@ -104,16 +106,16 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
                 renderCheckboxListHorizontally(facesContext, selectMany, converter);
             } else {
                 log.error("Wrong layout attribute for component " + selectMany.getClientId(facesContext)
-                    + ": " + layout);
+                        + ": " + layout);
             }
         }
     }
 
     @Override
     protected void renderCheckboxListHorizontally(FacesContext facesContext, UISelectMany selectMany,
-        Converter converter) throws IOException {
+                                                  Converter converter) throws IOException {
         Set lookupSet =
-            RendererUtils.getSubmittedValuesAsSet(facesContext, selectMany, converter, selectMany);
+                RendererUtils.getSubmittedValuesAsSet(facesContext, selectMany, converter, selectMany);
         boolean useSubmittedValues = lookupSet != null;
         if (!useSubmittedValues) {
             lookupSet = RendererUtils.getSelectedValuesAsSet(facesContext, selectMany, converter, selectMany);
@@ -134,8 +136,8 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
 
     @Override
     protected void renderRowForHorizontal(FacesContext facesContext, UISelectMany selectMany,
-        Converter converter, Set lookupSet, ResponseWriter writer, int totalRows, int rowNum)
-        throws IOException {
+                                          Converter converter, Set lookupSet, ResponseWriter writer, int totalRows, int rowNum)
+            throws IOException {
 
         writer.startElement(HTML.TR_ELEM, selectMany);
         int colNum = 0;
@@ -147,7 +149,7 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
                 SelectItem selectItem = (SelectItem) items.get(count);
                 writer.startElement(HTML.TD_ELEM, selectMany);
                 renderGroupOrItemCheckbox(facesContext, selectMany, selectItem, lookupSet != null, lookupSet,
-                    converter, false);
+                        converter, false);
                 writer.endElement(HTML.TD_ELEM);
             }
         }
@@ -165,10 +167,10 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
 
     @Override
     protected void renderCheckboxListVertically(FacesContext facesContext, UISelectMany selectMany,
-        Converter converter) throws IOException {
+                                                Converter converter) throws IOException {
 
         Set lookupSet =
-            RendererUtils.getSubmittedValuesAsSet(facesContext, selectMany, converter, selectMany);
+                RendererUtils.getSubmittedValuesAsSet(facesContext, selectMany, converter, selectMany);
         boolean useSubmittedValues = lookupSet != null;
         if (!useSubmittedValues) {
             lookupSet = RendererUtils.getSelectedValuesAsSet(facesContext, selectMany, converter, selectMany);
@@ -189,7 +191,7 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
                 if (count < totalItems) {
                     SelectItem selectItem = (SelectItem) items.get(count);
                     renderGroupOrItemCheckbox(facesContext, selectMany, selectItem, lookupSet != null,
-                        lookupSet, converter, true);
+                            lookupSet, converter, true);
                 }
                 writer.endElement(HTML.TD_ELEM);
                 if (i < numCols - 1) {
@@ -203,8 +205,8 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
 
     @Override
     protected void renderGroupOrItemCheckbox(FacesContext facesContext, UIComponent uiComponent,
-        SelectItem selectItem, boolean useSubmittedValues, Set lookupSet, Converter converter,
-        boolean pageDirectionLayout) throws IOException {
+                                             SelectItem selectItem, boolean useSubmittedValues, Set lookupSet, Converter converter,
+                                             boolean pageDirectionLayout) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
 
         boolean isSelectItemGroup = (selectItem instanceof SelectItemGroup);
@@ -212,16 +214,16 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
         if (isSelectItemGroup) {
             SelectItemGroup selectItemGroup = (SelectItemGroup) selectItem;
             renderCheckboxGroup(facesContext, uiComponent, selectItemGroup, useSubmittedValues, lookupSet,
-                converter, pageDirectionLayout);
+                    converter, pageDirectionLayout);
         } else {
             UISelectMany selectMany = (UISelectMany) uiComponent;
             Object itemValue = selectItem.getValue(); // TODO : Check here for getSubmittedValue. Look at
-                                                      // RendererUtils.getValue
+            // RendererUtils.getValue
             String itemStrValue = getItemStringValue(facesContext, selectMany, converter, itemValue);
 
             boolean checked =
-                (useSubmittedValues && lookupSet.contains(itemStrValue))
-                    || (!useSubmittedValues && lookupSet.contains(itemValue));
+                    (useSubmittedValues && lookupSet.contains(itemStrValue))
+                            || (!useSubmittedValues && lookupSet.contains(itemValue));
 
             boolean disabled = selectItem.isDisabled();
 
@@ -240,7 +242,7 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
 
     @Override
     protected void renderLabelClassIfNecessary(FacesContext facesContext, UISelectMany selectMany,
-        boolean disabled) throws IOException {
+                                               boolean disabled) throws IOException {
         String labelClass = null;
         boolean componentDisabled = isDisabled(facesContext, selectMany);
         if (componentDisabled || disabled) {
@@ -256,13 +258,14 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
 
     @Override
     protected void renderCheckboxGroup(FacesContext facesContext, UIComponent uiComponent,
-        SelectItemGroup selectItemGroup, boolean useSubmittedValues, Set lookupSet, Converter converter,
-        boolean pageDirectionLayout) throws IOException {
+                                       SelectItemGroup selectItemGroup, boolean useSubmittedValues, Set lookupSet, Converter converter,
+                                       boolean pageDirectionLayout) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         UISelectMany selectMany = (UISelectMany) uiComponent;
         writer.startElement(HTML.TABLE_ELEM, selectMany);
-        if (pageDirectionLayout)
+        if (pageDirectionLayout) {
             writer.startElement(HTML.TR_ELEM, selectMany);
+        }
         writer.startElement(HTML.TD_ELEM, selectMany);
         if (selectItemGroup.isEscape()) {
             writer.writeText(selectItemGroup.getLabel(), HTML.LABEL_ATTR);
@@ -282,20 +285,21 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
         SelectItem[] selectItems = selectItemGroup.getSelectItems();
         for (int i = 0; i < selectItems.length; i++) {
             renderGroupOrItemCheckbox(facesContext, selectMany, selectItems[i], useSubmittedValues,
-                lookupSet, converter, pageDirectionLayout);
+                    lookupSet, converter, pageDirectionLayout);
         }
 
         writer.endElement(HTML.TABLE_ELEM);
         writer.endElement(HTML.TD_ELEM);
-        if (pageDirectionLayout)
+        if (pageDirectionLayout) {
             writer.endElement(HTML.TR_ELEM);
+        }
         writer.endElement(HTML.TABLE_ELEM);
     }
 
     /**
      * Determines the layout setting. Defaults to <code>lineDirection</code> if not specified.
-     * @param selectMany
-     *            the component
+     *
+     * @param selectMany the component
      * @return the layout
      */
     @Override
@@ -310,8 +314,8 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
     /**
      * Gets the layout width. Returns the default layout width of 1 if the layout width is not set or is less
      * than 1.
-     * @param selectMany
-     *            the component
+     *
+     * @param selectMany the component
      * @return the layout width
      */
     @Override
@@ -351,7 +355,7 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
         UIComponent uiComponent = search(forAttr, checkbox);
         if (uiComponent == null) {
             throw new IllegalStateException("Could not find component '" + forAttr
-                + "' (calling findComponent on component '" + checkbox.getClientId(facesContext) + "')");
+                    + "' (calling findComponent on component '" + checkbox.getClientId(facesContext) + "')");
         }
         if (!(uiComponent instanceof UISelectMany)) {
             throw new IllegalStateException("UISelectMany expected");
@@ -370,12 +374,12 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
 
         // TODO: we must cache this Set!
         Set lookupSet =
-            RendererUtils.getSubmittedValuesAsSet(facesContext, uiComponent, converter, uiSelectMany);
+                RendererUtils.getSubmittedValuesAsSet(facesContext, uiComponent, converter, uiSelectMany);
 
         boolean useSubmittedValues = (lookupSet != null);
         if (!useSubmittedValues) {
             lookupSet =
-                RendererUtils.getSelectedValuesAsSet(facesContext, uiComponent, converter, uiSelectMany);
+                    RendererUtils.getSelectedValuesAsSet(facesContext, uiComponent, converter, uiSelectMany);
         }
 
         ResponseWriter writer = facesContext.getResponseWriter();
@@ -388,8 +392,8 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
         // lookupSet.contains(itemStrValue), true);
 
         String itemId =
-            renderCheckbox(facesContext, uiSelectMany, itemStrValue, isDisabled(facesContext, uiSelectMany),
-                lookupSet.contains(itemStrValue), false, index);
+                renderCheckbox(facesContext, uiSelectMany, itemStrValue, isDisabled(facesContext, uiSelectMany),
+                        lookupSet.contains(itemStrValue), false, index);
 
         // Render the
         // label element after the input
@@ -422,7 +426,7 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
 
     @Override
     protected String getItemStringValue(FacesContext facesContext, UISelectMany selectMany,
-        Converter converter, Object itemValue) {
+                                        Converter converter, Object itemValue) {
         String itemStrValue;
         if (converter == null) {
             itemStrValue = itemValue.toString();
@@ -437,13 +441,13 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
      */
     @Override
     public Object getConvertedValue(FacesContext facesContext, UIComponent component, Object submittedValue)
-        throws ConverterException {
+            throws ConverterException {
         RendererUtils.checkParamValidity(facesContext, component, null);
 
         if (component instanceof UISelectMany) {
             // invoke getConvertedUISelectManyValue() with considerValueType = true
             return RendererUtils.getConvertedUISelectManyValue(facesContext, (UISelectMany) component,
-                submittedValue, true);
+                    submittedValue, true);
         } else {
             // component is not a UISelectMany --> no change needed
             return super.getConvertedValue(facesContext, component, submittedValue);
@@ -466,11 +470,9 @@ public class NoLabelHtmlCheckboxRenderer extends HtmlCheckboxRenderer {
 
     /**
      * Sucht eine UIComponent über die integrierte JSF-Suche oder relativ.
-     * 
-     * @param searchExpression
-     *            Die Suchanfrage.
-     * @param base
-     *            Von welchem Element aus gesucht wird.
+     *
+     * @param searchExpression Die Suchanfrage.
+     * @param base             Von welchem Element aus gesucht wird.
      * @return Die UI-Component.
      */
     private UIComponent search(String searchExpression, UIComponent base) {

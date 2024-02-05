@@ -17,7 +17,6 @@
 package de.bund.bva.isyfact.common.web.locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 import de.bund.bva.isyfact.common.web.konstanten.KonfigurationSchluessel;
@@ -25,6 +24,7 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Kapselt den Zugriff auf Konfiguration bezüglich Lokalisierung.
+ *
  * @author Capgemini
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
@@ -45,6 +45,7 @@ public class LocaleConfiguration {
 
     /**
      * Ermittelt die erzwungene Sprache für Maskentexte, falls sie existiert.
+     *
      * @return Die erzwungene Sprache oder null, falls keine gesetzt ist.
      */
     public String ermittleForcedLocale() {

@@ -106,7 +106,7 @@ public enum DateitypEnum {
     private String dateiErweiterung;
 
 
-    private DateitypEnum (String mimeType, String dateiErweiterung) {
+    private DateitypEnum(String mimeType, String dateiErweiterung) {
         this.label = name().toLowerCase();
         this.mimeType = mimeType;
         this.dateiErweiterung = dateiErweiterung;
@@ -133,9 +133,8 @@ public enum DateitypEnum {
     /**
      * Gibt den Dateityp für den übergebenen Mimetype zurück.
      *
+     * @param mimetype Der Mimetype der Datei
      * @return der Dateityp
-     *
-     * @param mimetype    Der Mimetype der Datei
      */
     public static Optional<DateitypEnum> getDateitypFuerMimeType(String mimetype) {
         return Stream.of(DateitypEnum.values()).filter(typ -> typ.getMimeType().equals(mimetype)).findFirst();
@@ -149,10 +148,10 @@ public enum DateitypEnum {
     /**
      * Liefert für das übergebene label die Enum-Ausprägung
      *
-     * @param label    Label
+     * @param label Label
      * @return zugehöriger Enumwert
      */
-    public static Optional<DateitypEnum> forLabel(String label){
+    public static Optional<DateitypEnum> forLabel(String label) {
         return Stream.of(values()).filter(typ -> typ.label.equalsIgnoreCase(label)).findFirst();
     }
 
@@ -167,5 +166,4 @@ public enum DateitypEnum {
 
         return dateitypen.stream().map(DateitypEnum::getDateiErweiterung).collect(Collectors.joining(","));
     }
-
 }

@@ -3,6 +3,9 @@ package de.bund.bva.isyfact.common.web.jsf.components.charpickerdinnorm91379;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;

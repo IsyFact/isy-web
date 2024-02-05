@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
@@ -31,10 +30,9 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.common.web.global.AbstractGuiController;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 
 /**
  * Controller für die Linksnavigation.
@@ -49,19 +47,19 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 public class LinksnavigationController extends AbstractGuiController<ApplikationseiteModel> {
 
     /**
-     * Die Konfiguration.
+     * Konfiguration.
      */
     private Konfiguration konfiguration;
 
     /**
-     * Zugriff auf den AufrufKontext.
+     * Berechtigungsmanager.
      */
-    private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
+    private Berechtigungsmanager berechtigungsmanager;
 
     @Autowired
-    public LinksnavigationController(Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+    public LinksnavigationController(Konfiguration konfiguration, Berechtigungsmanager berechtigungsmanager) {
         this.konfiguration = konfiguration;
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+        this.berechtigungsmanager = berechtigungsmanager;
     }
 
     /**
@@ -218,7 +216,7 @@ public class LinksnavigationController extends AbstractGuiController<Applikation
      */
     private boolean istBerechtigt(List<String> rollen) {
 
-        for (String rolle : Arrays.asList(this.aufrufKontextVerwalter.getAufrufKontext().getRolle())) {
+        for (String rolle : berechtigungsmanager.getRollen()) {
             if (rollen.contains(rolle)) {
                 return true;
             }
@@ -239,8 +237,5 @@ public class LinksnavigationController extends AbstractGuiController<Applikation
         this.konfiguration = konfiguration;
     }
 
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
-    }
 
 }

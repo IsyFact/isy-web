@@ -5,11 +5,11 @@ import javax.servlet.ServletContext;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.access.AccessDecisionManager;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.common.web.exception.common.AusnahmeIdMapper;
 import de.bund.bva.isyfact.common.web.exception.web.ErrorController;
 import de.bund.bva.isyfact.common.web.filetransfer.DownloadHelper;
@@ -32,10 +32,14 @@ import de.bund.bva.isyfact.common.web.layout.HilfeController;
 import de.bund.bva.isyfact.common.web.layout.LinksnavigationController;
 import de.bund.bva.isyfact.common.web.layout.QuicklinksController;
 import de.bund.bva.isyfact.common.web.locale.LocaleConfiguration;
+import de.bund.bva.isyfact.common.web.security.WebDelegatingAccessDecisionManager;
 import de.bund.bva.isyfact.common.web.servlet.filter.ResourceCacheHeaderFilter;
 import de.bund.bva.isyfact.common.web.validation.ValidationController;
 import de.bund.bva.isyfact.common.web.webflow.titles.TitlesHelper;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
+import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfiguration;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
+import de.bund.bva.isyfact.security.core.Security;
 
 /**
  * ComponentScan for the isy-web controllers.
@@ -43,9 +47,7 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
  * It is recommended to use isy-angular-widgets instead.
  */
 @Configuration
-//@ComponentScan(basePackages = "de.bund.bva.isyfact.common.web",
-//    excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX,
-//            pattern = "de\\.bund\\.bva\\.isyfact\\.common\\.web\\.autoconfigure\\..*"))
+@Import(IsySecurityAutoConfiguration.class)
 @Deprecated
 public class ControllerAutoConfiguration {
     @Bean
@@ -75,12 +77,12 @@ public class ControllerAutoConfiguration {
     public GlobalFlowController globalFlowController(MessageController messageController,
                                                  ValidationController validationController,
                                                  ErrorController errorController,
-                                                 AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
+                                                 Berechtigungsmanager berechtigungsmanager,
                                                  NavigationMenuController navigationMenuController) {
         return new GlobalFlowController(messageController,
                 validationController,
                 errorController,
-                aufrufKontextVerwalter,
+                berechtigungsmanager,
                 navigationMenuController);
     }
 
@@ -109,8 +111,8 @@ public class ControllerAutoConfiguration {
     @ConditionalOnMissingBean
     @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public LinksnavigationController linksnavigationController(
-            Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
-        return new LinksnavigationController(konfiguration, aufrufKontextVerwalter);
+            Konfiguration konfiguration, Berechtigungsmanager berechtigungsmanager) {
+        return new LinksnavigationController(konfiguration, berechtigungsmanager);
     }
 
     @Bean
@@ -159,8 +161,8 @@ public class ControllerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public NavigationMenuGenerierenAusKonfiguration navigationMenuGenerierenAusKonfiguration(
-            Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
-        return new NavigationMenuGenerierenAusKonfiguration(konfiguration, aufrufKontextVerwalter);
+            Konfiguration konfiguration, Berechtigungsmanager berechtigungsmanager) {
+        return new NavigationMenuGenerierenAusKonfiguration(konfiguration, berechtigungsmanager);
     }
 
     @Bean
@@ -209,5 +211,11 @@ public class ControllerAutoConfiguration {
     @ConditionalOnMissingBean
     public ZipHelper zipHelper() {
         return new ZipHelper();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public AccessDecisionManager accessDecisionManager(Security security) {
+        return new WebDelegatingAccessDecisionManager(security);
     }
 }

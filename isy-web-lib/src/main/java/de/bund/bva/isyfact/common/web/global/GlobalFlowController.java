@@ -27,11 +27,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.webflow.definition.FlowDefinition;
 import org.springframework.webflow.execution.RequestContextHolder;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.common.web.exception.web.ErrorController;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.controller.NavigationMenuController;
 import de.bund.bva.isyfact.common.web.validation.ValidationController;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 
 /**
  * Ein globaler Controller der Zustände für einen konkreten Flow kontrolliert und Querschnittsfunktionalität
@@ -63,9 +62,9 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
     private ErrorController errorController;
 
     /**
-     * Zugriff auf den AufrufKontext.
+     * Zugriff auf den Berechtigungsmanager.
      */
-    private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
+    private Berechtigungsmanager berechtigungsmanager;
 
     /**
      * Zugriff auf navigationMenuController.
@@ -76,12 +75,12 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
     public GlobalFlowController(MessageController messageController,
                                 ValidationController validationController,
                                 ErrorController errorController,
-                                AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
+                                Berechtigungsmanager berechtigungsmanager,
                                 NavigationMenuController navigationMenuController) {
         this.messageController = messageController;
         this.validationController = validationController;
         this.errorController = errorController;
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+        this.berechtigungsmanager = berechtigungsmanager;
         this.navigationMenuController = navigationMenuController;
     }
 
@@ -97,8 +96,7 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
         initialisiereResourcesBundleCurrentFlow(model);
 
         // Benutzernamen merken
-        model.setSachbearbeiterName(
-                this.aufrufKontextVerwalter.getAufrufKontext().getDurchfuehrenderSachbearbeiterName());
+        model.setSachbearbeiterName((String) berechtigungsmanager.getTokenAttribute("name"));
 
         // Beim Laden soll ein bestimmtes Element des Inhaltsbereichs fokussiert werden
         model.setFocusOnloadActive(true);
@@ -118,7 +116,7 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
         ResourceBundle resourcesBundleCurrentFlow = null;
         try {
             resourcesBundleCurrentFlow = ResourceBundle
-                    .getBundle("resources.nachrichten.maskentexte." + flowName, Locale.getDefault());
+                .getBundle("resources.nachrichten.maskentexte." + flowName, Locale.getDefault());
         } catch (MissingResourceException e) {
             // Wenn keine Ressource gefunden wurde ist das in Ordnung.
         }
@@ -151,9 +149,6 @@ public class GlobalFlowController extends AbstractGuiController<GlobalFlowModel>
         this.errorController = errorController;
     }
 
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
-    }
 
     public void setNavigationMenuController(NavigationMenuController navigationMenuController) {
         this.navigationMenuController = navigationMenuController;

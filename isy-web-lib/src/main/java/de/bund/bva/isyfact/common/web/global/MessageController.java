@@ -24,7 +24,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
@@ -55,10 +54,14 @@ public class MessageController implements GuiController {
      */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(MessageController.class);
 
-    /** Wird für die weitere Kategorisierung von Infomeldungen verwendet. */
+    /**
+     * Wird für die weitere Kategorisierung von Infomeldungen verwendet.
+     */
     private static final String INFO_SUMMARY_TAG = "INFO";
 
-    /** Wird für die weitere Kategorisierung von Infomeldungen verwendet. */
+    /**
+     * Wird für die weitere Kategorisierung von Infomeldungen verwendet.
+     */
     private static final String SUCCESS_SUMMARY_TAG = "SUCCESS";
 
     /**
@@ -75,50 +78,49 @@ public class MessageController implements GuiController {
 
     /**
      * Schreibt eine Info-Nachricht.
-     * @param information
-     *            Der Inhalt.
+     *
+     * @param information Der Inhalt.
      */
     public void writeInfoMessage(String information) {
         FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, INFO_SUMMARY_TAG, information));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, INFO_SUMMARY_TAG, information));
     }
 
     /**
      * Schreibt eine Erfolgs-Meldung.
-     * @param success
-     *            Der Inhalt.
+     *
+     * @param success Der Inhalt.
      */
     public void writeSuccessMessage(String success) {
         FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, SUCCESS_SUMMARY_TAG, success));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, SUCCESS_SUMMARY_TAG, success));
     }
 
     /**
      * Schreibt eine Warnmeldung.
-     * @param warning
-     *            Der Inhalt der Warnmeldung.
-     * @param summary
-     *            Die Zusammenfassung/der Titel.
+     *
+     * @param warning Der Inhalt der Warnmeldung.
+     * @param summary Die Zusammenfassung/der Titel.
      */
     public void writeWarnMessage(String warning, String summary) {
         FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_WARN, summary, warning));
+                new FacesMessage(FacesMessage.SEVERITY_WARN, summary, warning));
     }
 
     /**
      * Schreibt eine Fehlermeldung.
-     * @param error
-     *            Der Inhalt der Fehlermeldung.
-     * @param summary
-     *            Die Zusammenfassung/der Titel.
+     *
+     * @param error   Der Inhalt der Fehlermeldung.
+     * @param summary Die Zusammenfassung/der Titel.
      */
     public void writeErrorMessage(String error, String summary) {
         FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, error));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, error));
     }
 
     /**
      * Gibt die aktuellen Infomeldungen aus dem FacesContext zurück.
+     *
      * @return Die Meldungen
      */
     public List<FacesMessage> getCurrentInfoMessages() {
@@ -127,6 +129,7 @@ public class MessageController implements GuiController {
 
     /**
      * Gibt die aktuellen Erfolgsmeldungen aus dem FacesContext zurück.
+     *
      * @return Die Meldungen
      */
     public List<FacesMessage> getCurrentSuccessMessages() {
@@ -135,6 +138,7 @@ public class MessageController implements GuiController {
 
     /**
      * Gibt die aktuellen Warnmeldungen aus dem FacesContext zurück.
+     *
      * @return Die Meldungen
      */
     public List<FacesMessage> getCurrentWarnMessages() {
@@ -143,6 +147,7 @@ public class MessageController implements GuiController {
 
     /**
      * Gibt die aktuellen Fehlermeldungen aus dem FacesContext zurück.
+     *
      * @return Die Meldungen
      */
     public List<FacesMessage> getCurrentErrorMessages() {
@@ -152,11 +157,8 @@ public class MessageController implements GuiController {
     /**
      * Gibt die aktuellen Nachrichten mit den angegebenen Eigenschaften zurück.
      *
-     * @param severity
-     *            Die Kategorie der Nachricht.
-     * @param summaryTag
-     *            Das zu beinhaltende Summary-Tag, falls Nachrichten noch weiter klassifiziert werden sollen.
-     *
+     * @param severity   Die Kategorie der Nachricht.
+     * @param summaryTag Das zu beinhaltende Summary-Tag, falls Nachrichten noch weiter klassifiziert werden sollen.
      * @return Die Liste an Nachrichten.
      */
     private List<FacesMessage> getCurrentMessages(FacesMessage.Severity severity, String summaryTag) {
@@ -179,28 +181,28 @@ public class MessageController implements GuiController {
 
     /**
      * Schreibt und loggt eine Exception.
-     * @param t
-     *            die Exception
+     *
+     * @param t die Exception
      */
     public void writeAndLogException(Throwable t) {
 
         // Schreibe LOG-Eintrag
         FehlerInformation fehlerInformation =
-            FehlertextUtil.schreibeLogEintragUndErmittleFehlerinformation(t, this.ausnahmeIdMapper, LOG);
+                FehlertextUtil.schreibeLogEintragUndErmittleFehlerinformation(t, this.ausnahmeIdMapper, LOG);
 
         writeErrorFacesMessage(fehlerInformation);
     }
 
     /**
      * Schreibt eine Exception.
-     * @param t
-     *            die Exception
+     *
+     * @param t die Exception
      */
     public void writeException(Throwable t) {
 
         // Ermittle Fehlerinformation
         FehlerInformation fehlerInformation =
-            FehlertextUtil.ermittleFehlerinformation(t, this.ausnahmeIdMapper);
+                FehlertextUtil.ermittleFehlerinformation(t, this.ausnahmeIdMapper);
 
         writeErrorFacesMessage(fehlerInformation);
     }
@@ -208,22 +210,21 @@ public class MessageController implements GuiController {
     /**
      * Schreibt eine Fehlernachricht auf Basis der Fehlerinformationen.
      *
-     * @param fehlerInformation
-     *            Die Fehlerinformation
+     * @param fehlerInformation Die Fehlerinformation
      */
     private void writeErrorFacesMessage(FehlerInformation fehlerInformation) {
         // Schreibe Faces-Message
         FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(
-                fehlerInformation.getTyp().equals(Fehlertyp.TECHNISCH) ? FacesMessage.SEVERITY_ERROR
-                    : FacesMessage.SEVERITY_WARN,
-                fehlerInformation.getGuiErrorMessageTitle(), fehlerInformation.getGuiErrorMessage()));
+                new FacesMessage(
+                        fehlerInformation.getTyp().equals(Fehlertyp.TECHNISCH) ? FacesMessage.SEVERITY_ERROR
+                                : FacesMessage.SEVERITY_WARN,
+                        fehlerInformation.getGuiErrorMessageTitle(), fehlerInformation.getGuiErrorMessage()));
     }
 
     /**
      * Loggt eine Exception.
-     * @param t
-     *            die Exception
+     *
+     * @param t die Exception
      */
     public void logException(Throwable t) {
 

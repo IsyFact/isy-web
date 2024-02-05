@@ -1129,17 +1129,13 @@ Auftretende Fehler (z.B. Server nicht erreichbar, Serverfehler) werden daher nic
 [[sicherheit]]
 === Sicherheit
 
-Die Absicherung von Masken erfolgt auf Dialogablauf-Ebene.
-Die Berechtigungsprüfung verwendet die Sicherheits-Komponente.
-
-Gekapselt werden die Bestandteile der Sicherheits-Komponente hinter Spring Security.
-Durch den Einsatz von Spring Security ist es einfacher eine Integration der Berechtigungen in die Spring Umgebung, insbesondere Spring Web Flow, zu erreichen.
+Die Absicherung von Masken erfolgt auf Dialogablauf-Ebene mittels Spring Web Flow. Die Berechtigungsprüfung verwendet den Security-Baustein.
 
 [[autorisierung]]
 ==== Autorisierung
 
-Für die Absicherung von Dialogabläufen wird innerhalb der Spring Web Flow Konfiguration auf dem `<view-state>` ein `<secured>` Tag mit dem geforderten Recht gesetzt.
-Die verwendeten Rechte müssen durch die Rollenrechte-Konfiguration (siehe xref:isyfact-standards-doku:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Sicherheit]) für den eingeloggten Benutzer entsprechend gesetzt werden.
+Für die Absicherung von Dialogabläufen wird innerhalb der Spring Web Flow-Konfiguration auf dem `<view-state>` ein `<secured>` Tag mit dem geforderten Recht gesetzt.
+Die verwendeten Rechte müssen durch die Rollenrechte-Konfiguration (siehe xref:isyfact-standards-doku:isy-security:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Security]) für den eingeloggten Benutzer entsprechend gesetzt werden.
 Durch die Verwendung des Tags wird vor dem Anzeigen des `<view-state>` eine Überprüfung der Berechtigung des anfragenden Benutzers durchgeführt.
 Fehlt dem Benutzer diese, wird die Fehlerseite angezeigt.
 
@@ -1171,7 +1167,7 @@ Fehlt dem Benutzer diese, wird die Fehlerseite angezeigt.
 ==== Berechtigungsabhängige Darstellung in Masken
 
 Um eine berechtigungsabhängige Darstellung von Maskenelementen zu realisieren, muss die Anwendung einen Controller bereitstellen, mit dessen Hilfe über nicht parametrisierte Methoden Anfragen nach den benötigten Rechten gestellt werden können.
-Dieser Controller ist dafür zuständig, den Rechte-Schlüssel aufzulösen und die Anfrage an die Komponente Sicherheit zu delegieren.
+Dieser Controller ist dafür zuständig, den Rechte-Schlüssel aufzulösen und die Anfrage an die Komponente Security zu delegieren.
 Beantwortet werden die Anfragen stets mit einem einfachen Booleschen Wert.
 
 Mithilfe dieses Controllers lassen sich einzelne Maskenelemente, aber auch Gruppen von Maskenelementen berechtigungsabhängig ausblenden.
@@ -1218,60 +1214,12 @@ auslesen oder in einen falschen Kontext setzen.
 XML-encodiert einzubinden (siehe Element `outputText` in Kapitel <<datenkonvertierung-fuer-darstellung-und-eingabe>>).
 Somit wird verhindert, dass ein Angreifer ein ungewünschtes Script-Tag übergibt.
 
-[[konfiguration-sicherheitskomponente]]
-===== Konfiguration Sicherheitskomponente
+[[konfiguration-securitykomponente]]
+===== Konfiguration Security-Komponente
 
-Die Konfiguration der Sicherheitskomponente ist im Konzept xref:isyfact-standards-doku:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Sicherheit] beschrieben.
+Die Konfiguration der Security-Komponente ist in den xref:isyfact-standards-doku:isy-security:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Security] beschrieben.
 
 Die zur Integration mit Spring Webflow benötigten Listener liefert `isy-web` in der Autokonfiguration mit.
-
-
-In der Regel müssen zusätzlich folgende Beans definiert werden:
-
-* aus isy-sicherheit: `Sicherheit` und `AccessManager`,
-* aus isy-aufrufkontext: `AufrufKontextVerwalter` und `AufrufKontextFactory`,
-* aus spring-security: `AccessDecisionManager`, der auf die Bean `Sicherheit` delegiert.
-
-[[listing-sec]]
-.Konfiguration Sicherheitskomponente
-[source,java]
-----
-@Configuration
-public class SecurityConfiguration {
-
-    @Bean
-    Sicherheit<AufrufKontext> sicherheit(AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
-        AufrufKontextFactory<AufrufKontext> aufrufKontextFactory, AccessManager accessManager,
-        IsySicherheitConfigurationProperties properties) {
-        return new SicherheitImpl<AufrufKontext, AuthentifizierungErgebnis>(
-            "/resources/sicherheit/rollenrechte.xml", aufrufKontextVerwalter, aufrufKontextFactory,
-            accessManager, properties);
-    }
-
-    @Bean
-    @ConditionalOnMissingBean(AufrufKontextFactory.class)
-    public AufrufKontextFactory<AufrufKontext> aufrufKontextFactory() {
-        AufrufKontextFactoryImpl<AufrufKontext> aufrufKontextFactory = new AufrufKontextFactoryImpl<>();
-        aufrufKontextFactory.setAufrufKontextKlasse(AufrufKontextImpl.class);
-        return aufrufKontextFactory;
-    }
-
-    @Bean
-    public AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter() {
-        return new AufrufKontextVerwalterImpl<>();
-    }
-
-    @Bean
-    public AccessDecisionManager accessDecisionManager(Sicherheit<AufrufKontext> sicherheit) {
-        return new DelegatingAccessDecisionManager(sicherheit);
-    }
-
-    @Bean
-    AccessManager accessManager() {
-        // der entsprechende AccessManager
-    }
-}
-----
 
 [[setup-csrf-protection]]
 ==== Konfiguration des CSRF Schutzes
@@ -3411,17 +3359,18 @@ Diese wird im Attribut data-isy-custom-id eingetragen.
 ==== Horizontale Navigation
 
 Die Navigationsleiste im Header-Bereich lässt sich konfigurierbar gestalten.
-Hierzu muss jede Anwendung zunächst eine Instanz von `NavigationMenuGenerierenAusKonfiguration` im Application-Context zur Verfügung stellen und korrekt konfigurieren.
-Die Bean benötigt lediglich einen `AufrufkontextVerwalter` und eine `Konfiguration`, um korrekt zu funktionieren.
+Hierzu muss jede Anwendung zunächst eine Instanz von `de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.impl.NavigationMenuGenerierenAusKonfiguration` im Application-Context zur Verfügung stellen und korrekt konfigurieren.
+Die Bean benötigt lediglich einen `de.bund.bva.isyfact.security.core.Berechtigungsmanager` und eine `de.bund.bva.isyfact.konfiguration.common.Konfiguration`, um korrekt zu funktionieren.
 
 [[listing-bspBeanHauptnavigation]]
 .Beispiel für die Deklaration der Bean
-[source, xml]
+[source]
 ----
-<bean id="navigationMenuGenerierenStrategie" class="de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.generieren.impl.NavigationMenuGenerierenAusKonfiguration">
-	<property name="konfiguration" ref="konfiguration"/>
-	<property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
-</bean>
+@Bean
+public NavigationMenuGenerierenAusKonfiguration navigationMenuGenerierenStrategie(
+        Konfiguration konfiguration, Berechtigungsmanager berechtigungsmanager) {
+    return new NavigationMenuGenerierenAusKonfiguration(konfiguration, berechtigungsmanager);
+}
 ----
 
 Ein einzelner Eintrag in der Navigation lässt sich nach folgendem Schema konfigurieren:

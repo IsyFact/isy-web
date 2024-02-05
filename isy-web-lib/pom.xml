@@ -41,7 +41,7 @@
 
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-sicherheit</artifactId>
+            <artifactId>isy-security</artifactId>
         </dependency>
 
         <dependency>
@@ -275,6 +275,20 @@
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging-processor</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging-annotations</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

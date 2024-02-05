@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.base.CharMatcher;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.common.web.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Anwendung;
 import de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.Applikationsgruppe;
@@ -23,6 +21,7 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 
 /**
  * Generiert das {@link NavigationMenuModel} anhand der Konfiguration der Anwendung. Eine entsprechende
@@ -44,15 +43,15 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
     private Konfiguration konfiguration;
 
     @Autowired
-    public NavigationMenuGenerierenAusKonfiguration(Konfiguration konfiguration, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+    public NavigationMenuGenerierenAusKonfiguration(Konfiguration konfiguration, Berechtigungsmanager berechtigungsmanager) {
         this.konfiguration = konfiguration;
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+        this.berechtigungsmanager = berechtigungsmanager;
     }
 
     /**
-     * Bean: Der AufrufKontextVerwalter.
+     * Bean: Access {@link Berechtigungsmanager}.
      */
-    private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
+    private Berechtigungsmanager berechtigungsmanager;
 
     /**
      * Generiert ein {@link NavigationMenuModel}. Die benötigten Daten werden hierbei aus der
@@ -63,7 +62,7 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
         Set<String> alleSchluessel = this.konfiguration.getSchluessel();
         Set<Integer> idsApplikationsgruppen = ermittleIdsApplikationsgruppen(alleSchluessel);
         List<Applikationsgruppe> applikationsgruppen = new ArrayList<>();
-        String[] userRollen = this.aufrufKontextVerwalter.getAufrufKontext().getRolle();
+        String[] userRollen = berechtigungsmanager.getRollen().toArray(new String[0]);
         for (int i : idsApplikationsgruppen) {
             // Lies zuerst die Anwendungen. Eine Applikationsgruppe muss jedoch nicht zwingend Anwendungen
             // haben.
@@ -199,9 +198,6 @@ public class NavigationMenuGenerierenAusKonfiguration extends AbstractNavigation
         return idsApplikationsgruppen;
     }
 
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<AufrufKontext> aufrufKontextverwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextverwalter;
-    }
 
     public void setKonfiguration(Konfiguration konfiguration) {
         this.konfiguration = konfiguration;
