@@ -19,11 +19,6 @@
             <password>${env.GH_PACKAGES_TOKEN}</password>
         </server>
         <server>
-            <id>${env.DEPLOY_SERVER_ID}</id>
-            <username>${env.DEPLOY_SERVER_USERNAME}</username>
-            <password>${env.DEPLOY_SERVER_TOKEN}</password>
-        </server>
-        <server>
             <id>gpg.passphrase</id>
             <passphrase>${env.GPG_PASSPHRASE}</passphrase>
         </server>
