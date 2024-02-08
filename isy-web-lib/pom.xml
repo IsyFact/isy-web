@@ -9,6 +9,7 @@
     </parent>
 
     <artifactId>isy-web</artifactId>
+    <name>IsyFact-Web</name>
 
     <properties>
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
