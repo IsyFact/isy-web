@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>isy-web</artifactId>
-    
+
     <name>IsyFact-Web</name>
 
     <properties>
