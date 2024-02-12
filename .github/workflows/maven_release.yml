@@ -8,7 +8,7 @@ jobs:
     uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
     with:
       jdk-version: 8
-      maven-opts: '-pl isy-web-lib -Dskip.js.tests=true -s ./.github/settings.xml'
+      maven-opts: '-pl !isy-web-doc -Dskip.js.tests=true'
       checkout-lfs: true
       version: ${{ github.ref_name }}
     secrets:
@@ -19,7 +19,7 @@ jobs:
     uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
     with:
       jdk-version: 8
-      maven-opts: '-pl isy-web-lib -Dskip.js.tests=true -s ./.github/settings.xml -P centralRelease'
+      maven-opts: '-pl !isy-web-doc -Dskip.js.tests=true -P centralRelease'
       checkout-lfs: true
       version: ${{ github.ref_name }}
       deploy-server-id: ossrh
@@ -28,6 +28,5 @@ jobs:
     secrets:
       GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
       GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-      DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
-      DEPLOY_SERVER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+      DEPLOY_SERVER_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
+      DEPLOY_SERVER_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
