@@ -14,7 +14,7 @@ jobs:
     uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
     with:
       jdk-version: 8
-      maven-opts: '-pl isy-web-lib -Dskip.js.tests=true'
+      maven-opts: '-s ./.github/settings.xml -pl !isy-web-doc -Dskip.js.tests=true'
       checkout-lfs: true
       version: '5.4.0-SNAPSHOT'
     secrets:
@@ -27,7 +27,7 @@ jobs:
     with:
       version: '5.4.0-SNAPSHOT'
       checkout-lfs: true
-      maven-opts: '-s ./.github/settings.xml -pl isy-web-lib -Dskip.js.tests=true'
+      maven-opts: '-s ./.github/settings.xml -pl !isy-web-doc -Dskip.js.tests=true'
       deploy-url-snapshot: 'https://maven.pkg.github.com/IsyFact/isy-web'
     secrets:
       DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
