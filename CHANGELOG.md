@@ -1,5 +1,5 @@
 # v4.13.0
-- DIN Norm 91379 Erweiterung des Charpicker um weitere Sonderzeichen
+- `ISY-150`: DIN Norm 91379 Erweiterung des Charpicker um weitere Sonderzeichen
 
 # v4.12.0
 - `IFE-424`: Implementierung eines Nutzerbereichs
