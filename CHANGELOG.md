@@ -15,7 +15,7 @@
 - IFS-1334: Positionierung von Tooltips gefixt
 - IFS-2430: Klassen und Komponenten als deprecated markiert
 - IFS-2275: Dokumentation als deprecated markiert
-- DIN Norm 91379 Erweiterung des charpicker um weitere Sonderzeichen
+- ISY-150: DIN Norm 91379 Erweiterung des charpicker um weitere Sonderzeichen
 - ISY-344: Umstellung von isy-sicherheit auf isy-security
   #### _Breaking Change:_
   * isy-sicherheit wird nicht mehr unterstützt
