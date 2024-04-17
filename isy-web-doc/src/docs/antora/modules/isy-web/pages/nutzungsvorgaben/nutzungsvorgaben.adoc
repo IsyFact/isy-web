@@ -87,7 +87,7 @@ Ermöglicht es, herauszufinden, welche Features durch den Browser unterstützt w
 
 *Bootstrap Datepicker 1.8.0*
 
-Implementiert einen interaktiven https://github.com/eternicode/bootstrap-datepicker[Standard Date Picker]
+Implementiert einen interaktiven https://github.com/uxsolutions/bootstrap-datepicker[Standard Date Picker]
 
 *Bootstrap Select 1.13.18*
 

@@ -602,7 +602,7 @@ Die Konvertierung findet in diesem Fall nicht durch einen Konverter statt, sonde
 
 Die Validierung und Prüfung der in der GUI erfassten Daten soll entweder vollständig durch die GUI oder aber vollständig im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] durchgeführt werden.
 Die Validierung in der GUI ist dabei bevorzugt.
-In diesem Falle wird der Validierungsmechanismus von Spring Web Flow verwendet (s. Abschnitt 5.10 in der Dokumentation des https://de.wikipedia.org/wiki/Jakarta_Server_Faces[JavaServer Faces], https://spring.io/projects/spring-webflow[Spring Web Flows] ).
+In diesem Falle wird der Validierungsmechanismus von Spring Web Flow verwendet (s. Abschnitt 5.10 in der Dokumentation des https://de.wikipedia.org/wiki/Jakarta_Server_Faces[JavaServer Faces], https://spring.io/projects/spring-webflow/[Spring Web Flows] ).
 Standard-JSF-Validatoren oder -Konverter sollten für die Validierung aus den im Abschnitt <<datenkonvertierung-fuer-darstellung-und-eingabe>> genannten Gründen nicht verwendet werden.
 
 [[vorgaben-javascript]]
