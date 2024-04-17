@@ -67,7 +67,7 @@ Hierzu werden folgende Themenbereiche genauer definiert:
 Web-Anwendungen sind besonderen Gefährdungen ausgesetzt.
 Folgende Anforderungen müssen bei der Entwicklung von Web-Anwendungen berücksichtigt werden:
 
-* Entwickler müssen sich mit den TOP10 Risiken für Web-Anwendungen gemäß OWASP vertraut machen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-owasp[OWASP Top 10])
+* Entwickler müssen sich mit den TOP10 Risiken für Web-Anwendungen gemäß OWASP vertraut machen (siehe https://owasp.org/Top10/[OWASP Top 10])
 * Vertrauliche Informationen dürfen nicht als GET-Parameter übermittelt werden.
 Dies verhindert, dass solche Informationen ungewollt in Log-Dateien, Caches usw.
 gespeichert werden.
@@ -78,7 +78,7 @@ Die Übersicht der Basistechnologien soll dem Leser einen einfacheren Einstieg i
 Zusätzlich findet sich noch ein Verweis auf die konkret eingesetzten Implementierungen.
 Hierbei werden auch Architekturprinzipien angesprochen, welche in den Technologien Verwendung finden.
 
-Für detaillierte Informationen über die verwendeten Technologien sei auf entsprechende Literatur verwiesen: xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[JavaServer Faces], xref:glossary:literaturextern:inhalt.adoc#litextern-swf[Spring Web Flow] und xref:glossary:literaturextern:inhalt.adoc#litextern-spring[Spring].
+Für detaillierte Informationen über die verwendeten Technologien sei auf entsprechende Literatur verwiesen: https://de.wikipedia.org/wiki/Jakarta_Server_Faces[JavaServer Faces], https://spring.io/projects/spring-webflow[Spring Web Flow] und https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/[Spring].
 
 [[jsf-facelets]]
 === JSF / Facelets
@@ -88,7 +88,7 @@ Der Schwerpunkt von JSF ist die Bereitstellung grafischer Komponenten wie z.B. T
 Das zentrale Konzept hinter JSF ist die Erstellung eines Komponentenbaumes aus diesen grafischen Komponenten.
 Aus diesem Komponentenbaum wird schließlich die auszuliefernde HTML-Seite generiert.
 
-Die IsyFact setzt die Referenzimplementierung von Oracle (xref:glossary:literaturextern:inhalt.adoc#litextern-javaserver-faces[JavaServer Faces]) ein und erweitert diese im Bereich der Komponenten um die Bibliothek xref:glossary:literaturextern:inhalt.adoc#litextern-tomahawk[Apache Tomahawk].
+Die IsyFact setzt die Referenzimplementierung von Oracle (https://www.oracle.com/java/technologies/javaserverfaces.html[JavaServer Faces]) ein und erweitert diese im Bereich der Komponenten um die Bibliothek https://svn.apache.org/repos/asf/myfaces/site/publish/tomahawk/index.html[Apache Tomahawk].
 
 *Facelets* ist eine Template-Engine und die Standard-View-Technologie von JSF.
 Facelets löst in dieser Funktion JSP ab.
@@ -99,12 +99,12 @@ Im Gegensatz zu Taglibs erfolgt ein Include der Komponente und kein Aufruf von J
 
 Facelets bieten vielfältige Möglichkeiten, Vorlagenfragmente zu einer Gesamtseite zusammenzusetzen, um z.B. auf jeder Seite einen einheitlichen Seitenrahmen zu realisieren.
 Weiter können Facelets mit herkömmlichen HTML-Editoren bearbeitet werden und sind somit einfacher zu verstehen und zu editieren.
-Als Implementierung kommt wiederum die Referenzimplementierung von Oracle (xref:glossary:literaturextern:inhalt.adoc#litextern-javaserver-faces[JavaServer Faces]) zum Einsatz.
+Als Implementierung kommt wiederum die Referenzimplementierung von Oracle (https://www.oracle.com/java/technologies/javaserverfaces.html[JavaServer Faces]) zum Einsatz.
 
 [[bearbeitungsmodell-einer-jsf-anfrage]]
 ==== Bearbeitungsmodell einer JSF Anfrage
 
-Die Spezifikation der Java Server Faces definiert einen sogenannten Lebenszyklus xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[JavaServer Faces], den eine JSF-Anwendung mit jedem Aufruf erneut durchläuft.
+Die Spezifikation der Java Server Faces definiert einen sogenannten Lebenszyklus https://de.wikipedia.org/wiki/Jakarta_Server_Faces[JavaServer Faces], den eine JSF-Anwendung mit jedem Aufruf erneut durchläuft.
 Dieser Lebenszyklus ist in sechs _Phasen_ (englisch _Phases_) aufgeteilt.
 
 [[image-PhasemodJSF]]
@@ -602,7 +602,7 @@ Die Konvertierung findet in diesem Fall nicht durch einen Konverter statt, sonde
 
 Die Validierung und Prüfung der in der GUI erfassten Daten soll entweder vollständig durch die GUI oder aber vollständig im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] durchgeführt werden.
 Die Validierung in der GUI ist dabei bevorzugt.
-In diesem Falle wird der Validierungsmechanismus von Spring Web Flow verwendet (s. Abschnitt 5.10 in der Dokumentation des xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[JavaServer Faces], xref:glossary:literaturextern:inhalt.adoc#litextern-swf[Spring Web Flows] ).
+In diesem Falle wird der Validierungsmechanismus von Spring Web Flow verwendet (s. Abschnitt 5.10 in der Dokumentation des https://de.wikipedia.org/wiki/Jakarta_Server_Faces[JavaServer Faces], https://spring.io/projects/spring-webflow/[Spring Web Flows] ).
 Standard-JSF-Validatoren oder -Konverter sollten für die Validierung aus den im Abschnitt <<datenkonvertierung-fuer-darstellung-und-eingabe>> genannten Gründen nicht verwendet werden.
 
 [[vorgaben-javascript]]

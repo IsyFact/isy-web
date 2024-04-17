@@ -87,15 +87,15 @@ Ermöglicht es, herauszufinden, welche Features durch den Browser unterstützt w
 
 *Bootstrap Datepicker 1.8.0*
 
-Implementiert einen interaktiven xref:glossary:literaturextern:inhalt.adoc#litextern-eternicode-bootstrap-datepicker[Standard Date Picker]
+Implementiert einen interaktiven https://github.com/uxsolutions/bootstrap-datepicker[Standard Date Picker]
 
 *Bootstrap Select 1.13.18*
 
-Implementiert eine xref:glossary:literaturextern:inhalt.adoc#litextern-snapappointments-bootstrap-auswahlbox[Auswahlbox]
+Implementiert eine https://developer.snapappointments.com/bootstrap-select/[Auswahlbox]
 
 *Bootstrap Timepicker 0.3.0*
 
-Implementiert einen interaktiven xref:glossary:literaturextern:inhalt.adoc#litextern-jdewit-bootstrap-time-picker[Standard Time Picker]
+Implementiert einen interaktiven https://github.com/jdewit/bootstrap-timepicker/[Standard Time Picker]
 
 *ExtendedBootstrapTab 0.1*
 
@@ -2479,7 +2479,7 @@ Außerdem gibt es folgende optionale Parameter:
 * `validationModel`: Ein spezifisches Validation-Model, falls benötigt. (Standard: `#\{validationModel}`)
 * `globalConfig`: Spezifische, globale Konfiguration. (Standard: `globalConfigurationModel`)
 
-Für den Datepicker wird ein xref:glossary:literaturextern:inhalt.adoc#litextern-eternicode-bootstrap-datepicker-docs[externes Plug-In] verwendet.
+Für den Datepicker wird ein https://bootstrap-datepicker.readthedocs.io[externes Plug-In] verwendet.
 Das Bedienelement selbst bietet eine automatische Konfiguration des Plug-Ins sowie eine zum Rest der JSF-Bedienelemente einheitlich Schnittstelle.
 
 
