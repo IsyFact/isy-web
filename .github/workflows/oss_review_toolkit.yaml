@@ -13,3 +13,4 @@ jobs:
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
           report-formats: HtmlTemplate -O HtmlTemplate=template.path=${{ GITHUB_WORKSPACE }}/.ort-data/vulnerability_report.ftl
+
