@@ -12,7 +12,4 @@ jobs:
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
-          report-formats: HtmlTemplate
-          report-extra-args: >
-            --report-option
-            HtmlTemplate=template.path=/project/.ort-data/vulnerability_report.ftl
+          report-formats: HtmlTemplate -O HtmlTemplate=template.path=/project/.ort-data/vulnerability_report.ftl
