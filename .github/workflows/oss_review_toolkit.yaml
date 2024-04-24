@@ -14,5 +14,5 @@ jobs:
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
-          report-formats: PdfTemplate -O PdfTemplate=template.path=/${{ github.workspace }}/ort-data/defect_report.ftl
+          report-formats: PdfTemplate -O PdfTemplate=template.id=disclosure_document
 
