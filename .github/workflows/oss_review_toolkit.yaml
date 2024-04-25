@@ -2,6 +2,15 @@ name: OSS Review Toolkit
 on:
   push:
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Mount local directory into Docker container
+        run: docker run -v $PWD:/mnt/${github_workspace}/ort-data/vulnerability_report.ftl ort_docker_image
   ort:
     runs-on: ubuntu-latest
     steps:
@@ -11,9 +20,10 @@ jobs:
         uses: actions/checkout@v3
       - name: Show paths
         run: cat "/${{ github.workspace }}/ort-data/vulnerability_report.ftl"
+      - name: Mount ftl to Docker
+        run:
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
           report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.path=${{ github.workspace }}/ort-data/test_template.ftl
-
 
