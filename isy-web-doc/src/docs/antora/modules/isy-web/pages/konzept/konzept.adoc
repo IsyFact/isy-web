@@ -334,7 +334,7 @@ welches Änderungen an den Daten des Models vornimmt oder diese aufbereitet bzw.
 Services des Anwendungskern-Wrappers aufruft.
 Das Model Bean wird dem Controller mit jedem Aufruf übergeben.
 
-[example]
+// ARCHITEKTURREGEL
 ====
 Die Implementierung des Controllers ist zustandslos und stellt nur Methoden bereit.
 ====
@@ -392,7 +392,7 @@ Ein View kann auch auf mehrere zum Flow gehörende Model Beans zugreifen.
 Im View können Actions definiert sein (z.B. Submit durch einen Command-Button). Dabei werden nur Action-Tokens
 (String, der die Aktion benennt) übergeben, die dann im Flow entgegengenommen werden und dann Methodenaufrufe auf dem Controller auslösen.
 
-[example]
+// ARCHITEKTURREGEL
 ====
 Aus einer Aktion des Views sollte i.d.R. immer ein Zustandstoken zur Steuerung von Transitionen im Flow erzeugt werden.
 Dies ist vor allem bei Maskenübergängen und fachlichen Aktionen zu verwenden. +
@@ -611,7 +611,7 @@ Standard-JSF-Validatoren oder -Konverter sollten für die Validierung aus den im
 Bei der Verwendung von JavaScript sind grundsätzlich die folgenden Vorgaben einzuhalten:
 
 // tag::important[]
-[example]
+// ARCHITEKTURREGEL
 ====
 `eval()` *darf nicht verwendet werden*
 
@@ -633,7 +633,7 @@ Die Funktion muss sicherstellen, dass kein Angriff möglich ist.
 // end::important[]
 
 // tag::important[]
-[example]
+// ARCHITEKTURREGEL
 ====
 `setTimeout()` *darf keine Funktion als Zeichenkette übergeben werden*
 
@@ -661,7 +661,7 @@ Hierdurch wird der Angriff abgewehrt.
 // end::important[]
 
 // tag::important[]
-[example]
+// ARCHITEKTURREGEL
 ====
 *Nutzung von anonymen Funktionen anstatt benannter Funktionen*
 
@@ -680,7 +680,7 @@ Anonyme Funktionen können außerdem auf Variablen der umgebenden Funktion zugre
 // end::important[]
 
 // tag::important[]
-[example]
+// ARCHITEKTURREGEL
 ====
 *Benannte Funktionen sollten in Namespaces deklariert werden*
 
@@ -695,7 +695,7 @@ Die Verwendung von z.B. des View-Names als „Namespace“ vermeidet, Funktionen
 // end::important[]
 
 // tag::important[]
-[example]
+// ARCHITEKTURREGEL
 ====
 *Nutzung einer anonymen Funktion zur Kapselung*
 
@@ -715,7 +715,7 @@ und endet vor der Deklaration von wiederverwendbaren Funktionen bzw. Namespaces 
 // end::important[]
 
 // tag::important[]
-[example]
+// ARCHITEKTURREGEL
 ====
 *Inline-JavaScript ist zu vermeiden*
 
@@ -730,7 +730,7 @@ Eine Implikation dieser Regel ist, dass Event-Binding stets im Code selbst und n
 // end::important[]
 
 // tag::important[]
-[example]
+// ARCHITEKTURREGEL
 ====
 *DOM-Zugriff mit der $-Funktion nur über IDs*
 
@@ -747,7 +747,7 @@ Wird z.B. ein weiterer Knoten eingefügt, greift die Funktion ggf. nicht und die
 // end::important[]
 
 // tag::important[]
-[example]
+// ARCHITEKTURREGEL
 ====
 *Alle Parameter müssen korrekt encodiert und escaped werden*
 
