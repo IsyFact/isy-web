@@ -4,6 +4,8 @@ on:
 jobs:
   ort:
     runs-on: ubuntu-latest
+    env:
+      NULL: ""
     steps:
       - name: Use HTTPS instead of SSH for Git cloning
         run: git config --global url.https://github.com/.insteadOf ssh://git@github.com/
@@ -14,5 +16,4 @@ jobs:
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
-          report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.path=https://github.com/IsyFact/isy-web/blob/feature/master_ort/ort-data/vulnerability_report.ftl
-
+          report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.path=${{ NULL }}https://github.com/IsyFact/isy-web/blob/feature/master_ort/ort-data/vulnerability_report.ftl
