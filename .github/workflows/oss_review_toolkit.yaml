@@ -11,8 +11,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Show paths
         run: cat "/${{ github.workspace }}/ort-data/vulnerability_report.ftl"
-      - name: Mount ftl to Docker
-        run:
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
