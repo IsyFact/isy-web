@@ -14,4 +14,5 @@ jobs:
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
+          docker-cli-args: "--mount type=bind,source=${{ github.workspace }}/ort-data,target=/home/ort/templates"
           report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.path=templates/ort-data/vulnerability_report.ftl
