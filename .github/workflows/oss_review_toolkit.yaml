@@ -16,6 +16,6 @@ jobs:
         with:
           docker-cli-args: "--mount type=bind,source=${{ github.workspace }}/ort-data,target=/home/ort/templates"
           ort-config-repository: https://github.com/mariusarltmsg/ort-config.git
-          report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.id=NOTICE_SUMMARY
+          report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.id=NOTICE_SUMMARY2
 
 
