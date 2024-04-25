@@ -18,3 +18,4 @@ jobs:
           ort-config-repository: https://github.com/mariusarltmsg/ort-config.git
           report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.id=NOTICE_SUMMARY
 
+
