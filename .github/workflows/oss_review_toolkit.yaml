@@ -14,4 +14,6 @@ jobs:
       - name: Run GitHub Action for ORT
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
-          report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.path=${{ env.NULL }}https://github.com/IsyFact/isy-web/blob/feature/master_ort/ort-data/vulnerability_report.ftl
+          docker-cli-args:
+            --mount type=bind,source=${{ github.workspace }}/ort-data/,target=/home/ort \
+          report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.path=ort-data/vulnerability_report.ftl
