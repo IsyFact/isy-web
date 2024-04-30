@@ -15,4 +15,4 @@ jobs:
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
           ort-config-repository: https://github.com/mariusarltmsg/ort-config.git
-          report-formats: WebApp,StaticHtml,HtmlTemplate -O HtmlTemplate=template.path=.ort/config/text-templates/asciidoc_test.adoc
+          report-formats: WebApp,StaticHtml,HtmlTemplate -O HtmlTemplate=template.path=.ort/config/text-templates/test_template.ftl
