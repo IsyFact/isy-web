@@ -1,22 +1,3 @@
-[#--
-    Copyright (C) 2020 The ORT Project Authors (see <https://github.com/oss-review-toolkit/ort/blob/main/NOTICE>)
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        https://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    SPDX-License-Identifier: Apache-2.0
-    License-Filename: LICENSE
---]
-
 [#assign PurlUtils = statics['org.ossreviewtoolkit.model.utils.PurlExtensionsKt']]
 
 :publisher: OSS Review Toolkit
@@ -26,5 +7,34 @@
 :sectnums:
 :toc:
 
-<<<
+== Packages
+[#assign advisorResults = helper.advisorResultsWithVulnerabilities()]
+
+[#list advisorResults as id, results]
+=== ${PurlUtils.toPurl(id)}
+
+[#list results as result]
+
+*Advisor: ${result.advisor.name}*
+[#assign total = 0]
+[#list helper.filterForUnresolvedVulnerabilities(result.vulnerabilities) as vulnerability]
+
+* ${vulnerability.id}
+[#list vulnerability.references?filter(ref -> ref.scoringSystem?? && ref.severity??) as reference]
+[#assign severityString = vulnerabilityReference.getSeverityString(reference.scoringSystem, reference.severity)]
+[#if reference.severityRating == "MEDIUM"]
+[#assign total = total + 1]
 [/#if]
+** Source: ${reference.url} +
+   Severity: [.severity-${severityString?lower_case}]#${reference.severity}# (${reference.scoringSystem})
+
+[/#list]
+
+[/#list]
+* MEDIUM: ${total}
+[#list result.summary.issues as issue]
+* ${issue.severity}: ${issue.message}
+[/#list]
+
+[/#list]
+[/#list]
