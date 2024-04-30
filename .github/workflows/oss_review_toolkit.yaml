@@ -15,6 +15,4 @@ jobs:
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
           ort-config-repository: https://github.com/mariusarltmsg/ort-config.git
-          report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.path=.ort/config/text-templates/NOTICE_SUMMARY2.ftl
-
-
+          report-formats: WebApp,StaticHtml,PlainTextTemplate -O PlainTextTemplate=template.path=.ort/config/text-templates/vulnerability_report.ftl
