@@ -40,6 +40,8 @@ jobs:
         uses: snyk/actions/setup@master
       - name: Setup Node
         uses: actions/setup-node@v4
+        with:
+          node-version: 18
       - name: Setup JDK ${{ inputs.jdk-version }}
         uses: actions/setup-java@v4
         with:
