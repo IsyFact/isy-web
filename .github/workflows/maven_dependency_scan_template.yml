@@ -38,6 +38,8 @@ jobs:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Setup snyk
         uses: snyk/actions/setup@master
+      - name: Run SNYK for Node
+        uses: snyk/actions/node@master
       - name: Setup JDK ${{ inputs.jdk-version }}
         uses: actions/setup-java@v4
         with:
