@@ -49,7 +49,7 @@ jobs:
      #     distribution: temurin
      #     cache: maven
       - name: Setup Maven Action
-        uses: s4u/setup-maven-action@v1
+        uses: s4u/setup-maven-action@< version >
       - name: Run Snyk Node
         uses: snyk/actions/node@master
       - name: Create dependency snapshot to monitor for vulnerabilities
