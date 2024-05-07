@@ -42,18 +42,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-     # - name: Setup JDK ${{ inputs.jdk-version }}
-     #   uses: actions/setup-java@v4
-     #   with:
-     #     java-version: ${{ inputs.jdk-version }}
-     #     distribution: temurin
-     #     cache: maven
-      - name: Setup Maven Action
-        uses: s4u/setup-maven-action@v1.12.0
-      - name: Run Snyk Node
-        uses: snyk/actions/node@master
+      - name: Setup JDK ${{ inputs.jdk-version }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ inputs.jdk-version }}
+          distribution: temurin
+          cache: maven
+      #- name: Run Snyk Node
+      #  uses: snyk/actions/node@master
       - name: Create dependency snapshot to monitor for vulnerabilities
         run: >
           snyk monitor 
-          --maven-aggregate-project 
+      #    --maven-aggregate-project
           --target-reference=${{ inputs.snyk-reference }} --org=${{ inputs.snyk-organization }}
