@@ -9,7 +9,7 @@ include::glossary:licence:partial$licence.adoc[]
 |Name |Art |Version
 m|isy-web |Bibliothek |v6.0.0
 |====
-:linkaktuell: Konzept isy-web-angular (Anmerkung: Dies ist noch ein Closed Source Baustein)
+:linkaktuell: xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Baustein isy-web-angular - Konzept]
 include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
 
 [[einleitung]]
