@@ -16,7 +16,7 @@
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
         <node.version>v18.13.0</node.version>
         <skip.js.tests>false</skip.js.tests>
-        <commons-io.version>2.4</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-logging.version>1.2</commons-logging.version>
     </properties>
