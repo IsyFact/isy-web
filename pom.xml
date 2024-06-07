@@ -22,7 +22,6 @@
     <properties>
         <isyfact-boms.version>3.0.0</isyfact-boms.version>
         <revision>0.0.0-SNAPSHOT</revision>
-        <commons-fileupload.version>1.4</commons-fileupload.version>
         <geronimo-el_2.2_spec.version>1.0.1</geronimo-el_2.2_spec.version>
         <geronimo-servlet_2.5_spec.version>1.2</geronimo-servlet_2.5_spec.version>
         <myfaces-api.version>2.0.15</myfaces-api.version>
@@ -43,11 +42,6 @@
                 <version>${isyfact-boms.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons-fileupload.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.geronimo.specs</groupId>
