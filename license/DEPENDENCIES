@@ -5,7 +5,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
     Apache License, Version 2.0:
 
 				* Apache Commons BeanUtils (Commons-beanutils:commons-beanutils:1.7.0 - http://commons.apache.org/proper/commons-beanutils/)
-				* Apache Commons Codec (commons-codec:commons-codec:1.9 - http://commons.apache.org/proper/commons-codec/)			
+				* Apache Commons Codec (commons-codec:commons-codec:1.9 - http://commons.apache.org/proper/commons-codec/)
 				* Apache Commons IO (commons-io:commons-io:2.4 - http://commons.apache.org/io/)
 				* Apache Commons Lang (org.apache.commons:commons-lang3:3.4 - http://commons.apache.org/proper/commons-lang/)	
 				* Apache Commons Logging (commons-logging:commons-logging:1.2 - http://commons.apache.org/proper/commons-logging/)	
