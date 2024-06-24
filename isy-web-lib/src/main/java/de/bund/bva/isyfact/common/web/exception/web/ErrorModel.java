@@ -21,8 +21,6 @@ import java.io.Serializable;
 /**
  * Model für den Error-View.
  * 
- * @author Capgemini
- * @version $Id: ErrorModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

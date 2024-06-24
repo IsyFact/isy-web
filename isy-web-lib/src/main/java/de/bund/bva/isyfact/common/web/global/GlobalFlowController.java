@@ -36,8 +36,6 @@ import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
  * Ein globaler Controller der Zustände für einen konkreten Flow kontrolliert und Querschnittsfunktionalität
  * anbietet.
  *
- * @author Capgemini
- * @version $Id: GlobalFlowController.java 128983 2015-01-27 16:42:36Z sdm_tgroeger $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

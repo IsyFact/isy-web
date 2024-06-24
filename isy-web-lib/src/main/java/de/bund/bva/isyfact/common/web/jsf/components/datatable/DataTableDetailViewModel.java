@@ -23,7 +23,6 @@ import java.util.Set;
 /**
  * Verwaltet der Zustand der Detailansicht, bzw. für welche Tabelleneinträge diese aktiv ist.
  *
- * @author msg
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

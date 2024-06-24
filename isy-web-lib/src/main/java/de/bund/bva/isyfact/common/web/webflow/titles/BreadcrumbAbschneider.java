@@ -27,8 +27,6 @@ import java.util.LinkedList;
  * Die ersten Breadcrumbs werden mit "..." ohne Links ersetzt. Navigiert man anhand der Breadcrumbs zurück,
  * werden die Links wieder sichtbar.
  * 
- * @author Capgemini
- * @version $Id: BreadcrumbAbschneider.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @since 2.1.2
  */
 @Deprecated

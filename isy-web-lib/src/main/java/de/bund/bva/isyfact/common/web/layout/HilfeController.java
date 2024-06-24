@@ -22,7 +22,6 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  * Controller-Klasse für den Hilfe-Button.
  * Bietet Funktionen zum Ein- und Ausblenden des Hilfebuttons und zum generieren der URL zum Hilfe-Wiki.
  *
- * @author msg
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */
