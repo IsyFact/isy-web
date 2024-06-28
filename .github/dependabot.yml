@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    target-branch: "release/5.x"
+    directory: "/"
+    schedule:
+      interval: daily
+    groups:
+      isyfact-standards:
+        patterns:
+          - "de.bund.bva.isyfact:isyfact-standards"
+          - "de.bund.bva.isyfact:isyfact-standards-bom"
+          - "de.bund.bva.isyfact:isyfact-products-bom"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "npm"
+    target-branch: "release/5.x"
+    directory: "/isy-web-lib"
+    schedule:
+      interval: daily
+
+  - package-ecosystem: github-actions
+    target-branch: "release/5.x"
+    directory: "/"
+    schedule:
+      interval: weekly
