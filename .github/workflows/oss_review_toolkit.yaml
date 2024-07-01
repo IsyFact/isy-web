@@ -15,4 +15,6 @@ jobs:
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
           ort-config-repository: https://github.com/mariusarltmsg/ort-config.git
+          docker-cli-args:
+            --mount type=bind,source=${{ github.workspace }}/ort-data/,target=/home/ort \
           report-formats: WebApp,StaticHtml,HtmlTemplate -O HtmlTemplate=template.path=.ort/config/text-templates/test_template.ftl
