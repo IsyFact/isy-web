@@ -20,5 +20,5 @@ jobs:
         uses: oss-review-toolkit/ort-ci-github-action@v1
         with:
           docker-cli-args:
-            --mount type=bind,source=/home/runner/work/isy-web/isy-web/report_template.ftl,target=/home/ort
-          report-formats: WebApp,StaticHtml,HtmlTemplate -O HtmlTemplate=template.path=report_template.ftl
+            --mount type=bind,source=/home/runner/work/isy-web/isy-web/report_template.ftl,target=/home/ort/.ort/templates
+          report-formats: WebApp,StaticHtml,HtmlTemplate -O HtmlTemplate=template.path=/home/ort/.ort/templates/report_template.ftl
