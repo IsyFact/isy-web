@@ -19,4 +19,4 @@ jobs:
         with:
           docker-cli-args:
             --mount type=bind,source=${{ github.workspace }}/report_template.ftl,target=/home/ort/templates
-          report-formats: WebApp,StaticHtml,HtmlTemplate -O HtmlTemplate=template.path=report_template.ftl
+          report-formats: WebApp,StaticHtml,HtmlTemplate -O HtmlTemplate=template.path=templates/report_template.ftl
