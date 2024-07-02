@@ -13,7 +13,7 @@ jobs:
         run: cat "/${{ github.workspace }}/ort-data/vulnerability_report.ftl"
       - name: Download template
         run: |
-         curl -o report_template.ftl https://github.com/IsyFact/isy-github-actions-templates/blob/mariusarltmsg-patch-1/ort-config/report_template.ftl
+         curl -o report_template.ftl https://raw.githubusercontent.com/IsyFact/isy-github-actions-templates/mariusarltmsg-patch-1/ort-config/report_template.ftl
          pwd
          ls
       - name: Run GitHub Action for ORT
