@@ -29,8 +29,6 @@ import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
  * Stellt gemeinsame Methoden für das Erstellen des GUI- und LOG-Fehlertextes für die unterschiedlichen
  * Exception Handler bereit.
  *
- * @author Capgemini
- * @version $Id: FehlertextUtil.java 143397 2015-07-30 08:49:32Z sdm_apheino $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

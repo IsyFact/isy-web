@@ -56,7 +56,6 @@ import javax.faces.context.ResponseWriter;
  * the current EL scope, such as managed bean names. It would be a good naming convention to start their names
  * with <code>_</code>.
  *
- * @author Capgemini
  * @since 1.2
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
@@ -173,7 +172,6 @@ public class OmniOutputFormat extends HtmlOutputFormat {
      * slightly less verbose.
      *
      * @since 1.1
-     * @author Capgemini
      */
     private static class State {
 

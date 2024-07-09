@@ -27,7 +27,6 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
  * Eingebunden wird dieser Handler durch eine Definition im "parentFlow", der einen
  * {@link TransitionExecutingFlowExecutionExceptionHandler} erzeugt.
  *
- * @author msg
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

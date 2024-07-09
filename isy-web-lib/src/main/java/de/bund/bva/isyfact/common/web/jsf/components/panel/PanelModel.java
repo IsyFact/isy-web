@@ -22,8 +22,6 @@ import java.io.Serializable;
  * Das Panel Model für die Nutzung des rf:panel Tags. Jedes GUI-Model sollte pro Panel ein entsprechendes
  * Model bereitstellen. Es dient zur Speichern des Status und zur Konfiguration des Panel Initialzustands.
  * 
- * @author Capgemini
- * @version $Id: PanelModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

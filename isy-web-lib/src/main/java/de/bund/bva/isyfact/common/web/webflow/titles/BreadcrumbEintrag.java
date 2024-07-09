@@ -21,8 +21,6 @@ import java.io.Serializable;
 /**
  * Enthält die Informationen für einen Eintrag im Breadcrumb.
  * 
- * @author Capgemini
- * @version $Id: BreadcrumbEintrag.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 @Deprecated
 public class BreadcrumbEintrag implements Serializable {

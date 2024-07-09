@@ -26,8 +26,6 @@ import java.util.List;
  *
  * @param <I> Der konkrete Tabelleneintrag.
  *
- * @author msg
- * @author Capgemini
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

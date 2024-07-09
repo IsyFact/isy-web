@@ -50,8 +50,6 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
  * <p>
  * Methode {@link #renderSingleCheckbox(FacesContext, HtmlCheckbox)} rendert kein Label mehr.
  *
- * @author Capgemini
- * @version $Id: NoLabelHtmlCheckboxRenderer.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

@@ -22,7 +22,6 @@ import java.util.List;
  * Das Modell eines Tabellenkontrollers bei der alle möglichen Tabelleeinträgen im Hauptspeicher gespeichert
  * werden.
  *
- * @author msg
  *
  * @param <I>
  *            Der konkrete Tabelleneintrag.

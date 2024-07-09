@@ -31,8 +31,6 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
 /**
  * Ist der Controller fuer das Template "Basis".
  *
- * @author Capgemini
- * @version $Id: BasisController.java 144984 2015-08-18 13:53:33Z sdm_bpiatkowski $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

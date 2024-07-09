@@ -33,8 +33,6 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
  * Warnings verursacht.
  *
  * @param <T> Typparameter
- * @author msg
- * @author Capgemini
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

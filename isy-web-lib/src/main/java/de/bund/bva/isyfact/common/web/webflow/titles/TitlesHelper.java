@@ -9,8 +9,6 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 /**
  * Helper-Klasse für den Seitentitel.
  *
- * @author Capgemini
- * @version $Id:$
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

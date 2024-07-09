@@ -26,7 +26,6 @@ import java.util.List;
  *
  * @param <I> Der konkrete Tabelleneintrag
  *
- * @author  msg
  *
  * @see DataTableRequest
  * @deprecated This module is deprecated and will be removed in a future release.
