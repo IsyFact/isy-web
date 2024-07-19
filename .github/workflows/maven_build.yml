@@ -10,22 +10,26 @@ on:
       - 'release/**'
 
 jobs:
+  Version:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/next_version.yml@v1.0.0
+
   Maven:
+    needs: [Version]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.0.0
     with:
       jdk-version: 8
       maven-opts: '-s ./.github/settings.xml -pl !isy-web-doc -Dskip.js.tests=true'
       checkout-lfs: true
-      version: '5.4.0-SNAPSHOT'
+      version: ${{ needs.Version.outputs.next-version }}
     secrets:
       GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
   Snapshot:
     if: github.event_name == 'push'
-    needs: [Maven]
+    needs: [Version, Maven]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.0.0
     with:
-      version: '5.4.0-SNAPSHOT'
+      version: ${{ needs.Version.outputs.next-version }}
       checkout-lfs: true
       maven-opts: '-s ./.github/settings.xml -pl !isy-web-doc -Dskip.js.tests=true'
       deploy-url-snapshot: 'https://maven.pkg.github.com/IsyFact/isy-web'
