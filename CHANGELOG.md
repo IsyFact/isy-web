@@ -1,5 +1,8 @@
 # Changelog
 
+## v6.1.0
+- `IFS-3938`: IsyFact Versionsanhebung auf 3.1.0
+
 ## v6.0.2
 - `IFS-3760`: IsyFact Versionsanhebung auf 3.0.1
 - `IFS-3800`: Apache Commons IO entfernt, Versionsverwaltung durch IsyFact
