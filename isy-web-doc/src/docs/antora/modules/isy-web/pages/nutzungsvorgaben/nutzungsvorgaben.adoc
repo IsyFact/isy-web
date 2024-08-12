@@ -7,7 +7,7 @@ include::glossary:licence:partial$licence.adoc[]
 [cols="5m,2,3",options="header"]
 |====
 |Name |Art |Version
-|isy-web |Bibliothek |v6.0.0
+|isy-web |Bibliothek |v6.1.0
 |====
 :linkaktuell: https://isyfact.github.io/isy-angular-widgets/documentation/[Baustein isy-web-angular - Nutzungsvorgaben]
 include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
