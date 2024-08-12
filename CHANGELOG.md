@@ -1,6 +1,12 @@
 # Changelog
 
+## v6.1.0
+- `IFS-3938`: IsyFact Versionsanhebung auf 3.1.0
+
 ## v6.0.2
+- `IFS-3658` Externe Links verweisen direkt auf Zielressource statt auf literaturextern in isy-documentation
+  #### _Breaking Change:_
+  * isy-sicherheit wird nicht mehr unterstützt
 - `IFS-3760`: IsyFact Versionsanhebung auf 3.0.1
 - `IFS-3800`: Apache Commons IO entfernt, Versionsverwaltung durch IsyFact
 - `IFS-2813`: Commons FileUpload entfernt, Versionsverwaltung durch IsyFact
@@ -24,9 +30,6 @@
 - `IFS-2275`: Dokumentation als deprecated markiert
 - `ISY-150`: DIN Norm 91379 Erweiterung des charpicker um weitere Sonderzeichen
 - `ISY-344`: Umstellung von isy-sicherheit auf isy-security
-- `IFS-3658` Externe Links verweisen direkt auf Zielressource statt auf literaturextern in isy-documentation 
-  #### _Breaking Change:_
-  * isy-sicherheit wird nicht mehr unterstützt
 
 ## 5.3.4
 
