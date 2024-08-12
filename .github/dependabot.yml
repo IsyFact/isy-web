@@ -9,7 +9,7 @@ updates:
       prefix: "chore(deps)"
 
   - package-ecosystem: "github-actions"
-    target-branch: "release/5.x"
+    target-branch: "release/6.x"
     directory: "/"
     schedule:
       interval: "weekly"
