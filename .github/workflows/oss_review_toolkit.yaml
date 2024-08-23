@@ -1,0 +1,15 @@
+name: Maven Dependency Scan
+on:
+  push:
+    branches:
+      - develop
+      - release/**
+    paths:
+      - 'pom.xml'
+  workflow_dispatch:
+  schedule:
+    - cron: "5 0 * * *"
+
+jobs:
+  ORT:
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@v1.5.0
