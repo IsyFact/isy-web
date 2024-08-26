@@ -22,8 +22,6 @@ import java.io.Serializable;
  * Jeder Controller, welcher für eine Maske oder einen Teilbereich einer Maske zuständig ist, muss ein
  * spezfisches Masken-Model bereitstellen.
  * 
- * @author Capgemini
- * @version $Id: AbstractMaskenModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

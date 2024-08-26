@@ -28,8 +28,6 @@ import org.springframework.webflow.execution.RequestContextHolder;
  * @param <T>
  *            Das spezifische AbstractMaskenModel.
  *
- * @author Capgemini
- * @version $Id: AbstractGuiController.java 130157 2015-02-11 16:02:52Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

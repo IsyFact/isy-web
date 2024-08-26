@@ -61,8 +61,6 @@ import de.bund.bva.isyfact.logging.LogKategorie;
  * hinzugefügt wird, wird der existierende Eintrag von derselben Gruppe (wenn vorhanden) inkl. aller
  * nachfolgenden Einträgen entfernt.
  *
- * @author Capgemini
- * @version $Id: TitlesListener.java 143397 2015-07-30 08:49:32Z sdm_apheino $
  */
 @Deprecated
 public class BreadcrumbListener extends FlowExecutionListenerAdapter {

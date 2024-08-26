@@ -52,8 +52,6 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.util.JavascriptUtils;
  * Methode {@link #renderRadio(FacesContext, HtmlRadio)} und {@link #decode(FacesContext, UIComponent)} kann
  * jetzt das Input Element auch relativ suchen.
  *
- * @author Capgemini
- * @version $Id: NoLabelHtmlRadioRenderer.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

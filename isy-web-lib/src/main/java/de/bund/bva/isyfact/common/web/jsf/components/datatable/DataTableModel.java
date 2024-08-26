@@ -33,8 +33,6 @@ import java.util.List;
  * <li>Im {@link #getDataModel()} findet man die aktuell angezeigte Tabelleneinträge.</li>
  * </ul>
  *
- * @author msg
- * @author Capgemini
  *
  * @param <I>
  *            Der konkrete Tabelleneintrag.
@@ -55,7 +53,6 @@ public class DataTableModel<I extends DataTableItem> implements Serializable {
      * <li>Detailauswahl</li>
      * </ul>
      *
-     * @author msg
      */
     public enum DatatableOperationMode {
         /** Die Tabelle wird client-seitig betrieben */

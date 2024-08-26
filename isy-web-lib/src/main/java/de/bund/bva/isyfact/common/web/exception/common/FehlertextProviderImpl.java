@@ -25,8 +25,6 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
 /**
  * Kapselt den Zugriff auf das Resources-Bundle mit den Nachrichten.
  * 
- * @author Capgemini
- * @version $Id: FehlertextProviderImpl.java 130854 2015-02-18 10:42:27Z sdm_mhartung $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

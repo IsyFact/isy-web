@@ -8,8 +8,6 @@ package de.bund.bva.isyfact.common.web.jsf.components.navigationmenu.konstanten;
  *
  * Anwendung: gui.navbar.applikationsgruppe.<Integer>.anwendung.<Eigenschaft>
  *
- * @author Capgemini
- * @version $Id:$
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

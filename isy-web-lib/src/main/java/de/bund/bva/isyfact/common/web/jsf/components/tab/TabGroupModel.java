@@ -23,8 +23,6 @@ import java.io.Serializable;
  * entsprechendes Model bereitstellen. Es dient zur Speichern des Status und zur Konfiguration des
  * Initialzustands.
  * 
- * @author Capgemini
- * @version $Id: TabGroupModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

@@ -24,8 +24,6 @@ import org.springframework.webflow.execution.repository.support.CompositeFlowExe
  * Erweitert die Klasse @ CompositeFlowExecutionKey} , damit Snapshots für den Breadcrumb von gewöhnlichen
  * Snapshots unterschieden werden können.
  * 
- * @author Capgemini
- * @version $Id: BreadcrumbAwareFlowExecutionKey.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  */
 @Deprecated
 public class BreadcrumbAwareFlowExecutionKey extends CompositeFlowExecutionKey {

@@ -24,7 +24,6 @@ import java.util.Objects;
 /**
  * Das Filtermodell einer Tabelle mit Filter-Zeile.
  *
- * @author msg
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

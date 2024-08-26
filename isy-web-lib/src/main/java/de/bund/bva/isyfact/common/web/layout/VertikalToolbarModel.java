@@ -19,7 +19,6 @@ package de.bund.bva.isyfact.common.web.layout;
 /**
  * Ist das Model fuer die vertikale Toolbar.
  *
- * @author Capgemini
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

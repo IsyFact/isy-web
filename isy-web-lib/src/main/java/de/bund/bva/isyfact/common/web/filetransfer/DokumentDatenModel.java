@@ -3,7 +3,6 @@ package de.bund.bva.isyfact.common.web.filetransfer;
 import java.io.Serializable;
 
 /**
- * @author msg
  *
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.

@@ -39,8 +39,6 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 /**
  * Eine Controller, welcher Funktionen zum Darstellen von Nachrichten bietet.
  *
- * @author Capgemini
- * @version $Id: MessageController.java 137590 2015-05-27 11:23:46Z sdm_apheino $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

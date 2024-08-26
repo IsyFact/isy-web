@@ -1,128 +1,139 @@
 # Changelog
 
-## v6.0.0
-- IFS-2008: Anbindung der HttpEncodingAutoConfiguration
-- IFS-1156: Für Data Table: Farbliche Hervorhebung der in Detail-Ansicht gezeigten Zeile
-- IFS-1946: HttpHeaderNestedDiagnosticContextFilter entfernt, da bereits in Isy-Aufrufkontext definiert
-- IFS-1616: Anpassung an Spring Boot Version 2.7.2
-- IFS-1344: Umstellung auf CI-Friendly builds
-- IFE-424: Implementierung eines Nutzerbereichs
-- IFE-431: Nutzungsvorgaben um Hinweis auf Rundung bei der Eingabe von Geldbeträgen als Fließkommazahl ergänzt
-- IFS-1512: Migration der Dokumentation zu Antora
-- IFS-1552: Einheitliche Verwendung von Maven-Properties für Versionsnummern
-- IFS-1973: Quellcode von `isy-style` in `isy-web` verlagert
-  - JSF Anwendungen müssen nicht mehr `isy-style` anbinden
-- IFS-1334: Positionierung von Tooltips gefixt
-- IFS-2430: Klassen und Komponenten als deprecated markiert
-- IFS-2275: Dokumentation als deprecated markiert
-- ISY-150: DIN Norm 91379 Erweiterung des charpicker um weitere Sonderzeichen
-- ISY-344: Umstellung von isy-sicherheit auf isy-security
+## v6.1.0
+- `IFS-3938`: IsyFact Versionsanhebung auf 3.1.0
+
+## v6.0.2
+- `IFS-3658` Externe Links verweisen direkt auf Zielressource statt auf literaturextern in isy-documentation
   #### _Breaking Change:_
   * isy-sicherheit wird nicht mehr unterstützt
+- `IFS-3760`: IsyFact Versionsanhebung auf 3.0.1
+- `IFS-3800`: Apache Commons IO entfernt, Versionsverwaltung durch IsyFact
+- `IFS-2813`: Commons FileUpload entfernt, Versionsverwaltung durch IsyFact
+- `IFS-3797`: Webpack Versionsanhebung auf 5.76.0 
+- `IFS-3760`: UAParser.js Versionsanhebung auf 0.7.33
+
+## v6.0.0
+- `IFS-2008`: Anbindung der HttpEncodingAutoConfiguration
+- `IFS-1156`: Für Data Table: Farbliche Hervorhebung der in Detail-Ansicht gezeigten Zeile
+- `IFS-1946`: HttpHeaderNestedDiagnosticContextFilter entfernt, da bereits in Isy-Aufrufkontext definiert
+- `IFS-1616`: Anpassung an Spring Boot Version 2.7.2
+- `IFS-1344`: Umstellung auf CI-Friendly builds
+- `IFE-424`: Implementierung eines Nutzerbereichs
+- `IFE-431`: Nutzungsvorgaben um Hinweis auf Rundung bei der Eingabe von Geldbeträgen als Fließkommazahl ergänzt
+- `IFS-1512`: Migration der Dokumentation zu Antora
+- `IFS-1552`: Einheitliche Verwendung von Maven-Properties für Versionsnummern
+- `IFS-1973`: Quellcode von `isy-style` in `isy-web` verlagert
+  - JSF Anwendungen müssen nicht mehr `isy-style` anbinden
+- `IFS-1334`: Positionierung von Tooltips gefixt
+- `IFS-2430`: Klassen und Komponenten als deprecated markiert
+- `IFS-2275`: Dokumentation als deprecated markiert
+- `ISY-150`: DIN Norm 91379 Erweiterung des charpicker um weitere Sonderzeichen
+- `ISY-344`: Umstellung von isy-sicherheit auf isy-security
 
 ## 5.3.4
 
-- IFS-1642: Anhebung Node Version 16.16.0
+- `IFS-1642`: Anhebung Node Version 16.16.0
 
 ## 5.3.3
 
-- IFS-1492: Fehler in `selectlist` JavaScript Code behoben
+- `IFS-1492`: Fehler in `selectlist` JavaScript Code behoben
   - Der Fehler befindet sich im JavaScript Code, der die Darstellung der Komponente verzögert (`TimeHandler`-Funktion). Damit wird die Ausführung weiterer `TimeHandler`-Funktionen verhindert, bspw. wenn beide `selectlist` und `browsecollect` verwendet werden. Der Fehler ist mit v5.1.0 eingeführt worden.
-- IFS-1155: Download von Dateien mit Leerzeichen in den Namen behoben
+- `IFS-1155`: Download von Dateien mit Leerzeichen in den Namen behoben
 
 ## 5.3.2
 
-- Ursprüngliche (vor IFE-141) Reihenfolge der Funktionen in onload.js wiederhergestellt.
+- Ursprüngliche (vor `IFE-141`) Reihenfolge der Funktionen in onload.js wiederhergestellt.
   - browseCollect und selectLists haben spezielle Behandlung für modale Dialoge und müssen nach den modalen Dialogen initialisiert werden.
 - `WebFlowAutoConfiguration` registriert automatisch alle `FlowExecutionListener` Beans aus dem Spring Kontext.
-- IFS-1384: Verwendung von JSF-Konvertern bei read-only Feldern
+- `IFS-1384`: Verwendung von JSF-Konvertern bei read-only Feldern
 
 ## v5.3.1
 
-- IFS-1397: Anhebung auf Isyfact-erweiterungen 2.4.1 mit Spring Boot 2.5.12 (Fix CVE-2022-22965)
+- `IFS-1397`: Anhebung auf Isyfact-erweiterungen 2.4.1 mit Spring Boot 2.5.12 (Fix `CVE-2022`-22965)
 
 ## v5.3.0
 
-- IFS-686: Property-Dateien auf Unicode Escapes umgestellt
-- IFS-970: Anhebung auf IF 2.4
+- `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
+- `IFS-970`: Anhebung auf IF 2.4
     - Maven Dependency Convergency Fehler behoben
-- IFE-455: Dependencies aktualisiert, um Sicherheitslücken zu schließen
-- IFS-601: Aktualisierung auf JPA 2.2.
-- IFE-311: Fehlende Selektion bei der Navigation behoben
-- IFE-177: Fix IFE-30 übernommen, damit readonly-Dropdowns als Labels dargestellt werden.
-- IFE-471: Entfernen des Fehlerschlüssels aus den Fehler-Tooltips
+- `IFE-455`: Dependencies aktualisiert, um Sicherheitslücken zu schließen
+- `IFS-601`: Aktualisierung auf JPA 2.2.
+- `IFE-311`: Fehlende Selektion bei der Navigation behoben
+- `IFE-177`: Fix `IFE-30` übernommen, damit readonly-Dropdowns als Labels dargestellt werden.
+- `IFE-471`: Entfernen des Fehlerschlüssels aus den Fehler-Tooltips
 
 ## v5.2.0
 
-- IFS-1115: Version Anhebung von IsyFact Standards auf 2.3.0
+- `IFS-1115`: Version Anhebung von IsyFact Standards auf 2.3.0
 - Die Darstellung des DIN SPEC Charpickers in Modalenfenstern ist falsch (betrifft isy-style 5.2.0 und 5.3.0)
 
 ## v5.1.0
 
-- IFS-932: IFS-931 IFS-848 auf IFS 2.2 portiert
-- IFS-931 IFS-848: Din Spec Charpicker implementiert
+- `IFS-932`: `IFS-931` `IFS-848` auf IFS 2.2 portiert
+- `IFS-931` `IFS-848`: Din Spec Charpicker implementiert
   - Breaking Changes: Um einen Charpicker anzubinden muss das Attribut `charpicker` eines Input-Elements auf `dinSpec` (neu) oder `special` (alt) gesetzt werden.
   - Nutzungsvorgaben um Informationen zum CharPicker ergänzt
-- IFE-133: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
+- `IFE-133`: Fehlende Sonderzeichen in SpecialCharPicker werden nun unterstützt:
     * 0130 - Latin Capital Letter I with Dot above
     * 0131 - Latin Small Letter I dotless
-- IFE-57:
+- `IFE-57`:
   - Readonly Felder zu actionInput, formActionInput und actionInputWithFourEyes hinzugefügt.
   - Darstellung von Readonly Felder für Input Controlls vereinheitlicht.
-- IFE-204: Unterstuetzung von ES6 in isy-web
+- `IFE-204`: Unterstuetzung von ES6 in isy-web
   - uglify durch terser ersetzt
   - in JS-Sourcen: var wurde auf let/const umgestellt
   - Kommentare in JS-Sourcen wurden auf Englisch übersetzt
-- IFE-206: Umstellung von grunt auf webpack
+- `IFE-206`: Umstellung von grunt auf webpack
   - JS-Sourcen werden jetzt mit webpack gebundlet
   - Umstrukturierung Sourcen: Files, die einen build durchlaufen (minimization/bundling) und nicht nur 1 zu 1 kopiert werden, liegen nicht mehr unter src/resources sondern unter src/js bzw src/css
   - Neues JS bundle: META-INF/resources/js/isyweb.bundle.js
     - enthält onload.js, sidebar-collapse.js, specialcharpicker.js, tastatursteuerung.js
   - Neues CSS bundle: META-INF/resources/css/isyweb.css
     - enthält specialcharpicker.css
-- IFE-141: teilt onload.js auf einzelne Komponenten auf
-- IFE-271: Funktionalität von buttonInjectPost wiederhergestellt
-- IFE-247: HttpRequestHandlerAdapter Bean nur bei Bedarf in WebFlowAutoConfiguration erstellen
+- `IFE-141`: teilt onload.js auf einzelne Komponenten auf
+- `IFE-271`: Funktionalität von buttonInjectPost wiederhergestellt
+- `IFE-247`: HttpRequestHandlerAdapter Bean nur bei Bedarf in WebFlowAutoConfiguration erstellen
 
 ## v5.0.0
 
-- IFS-411: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird
-- IFE-95: Nachdokumentation für Eingabefeld ohne Label
-- IFS-505: Upgrade auf Isyfact 2.
+- `IFS-411`: Javadoc Kommentare angepasst, damit nur die Firma angezeigt wird
+- `IFE-95`: Nachdokumentation für Eingabefeld ohne Label
+- `IFS-505`: Upgrade auf Isyfact 2.
 Wichtige Änderungen:
   - Umstellung auf isyfact-Namespace anstelle von pliscommon
   - Umstellung auf Java Config inklusive Spring Autokonfiguration
   - SetCharacterEncodingFilter und SecurityFilter wird jetzt automatisch von Isy-Web gesetzt
-- IFE-102: navigationMenu: farbiger Balken wird über die border-top-color von .navbar-submenu statt durch ein eigenes div gesetzt
-- IFE-139: JavaScript Anpassungen für IE11
-- IFS-111: Dokumentation von Konzept JSF überarbeitet
-- IFS-112: Dokumentation von Nutzungsvorgaben JSF überarbeitet
-- IFS-63: Kapitelergänzung Bestätigungsdialog
-- IFS-89: Textänderung bei Querschnittliche Texte
-- IFS-352: Zentrales AsciiDoc Changelog anlegen
-- IFS-335: Dokumententitel auf Titelseite anpassen
-- IFS-75: Schutz gegen CSRF-Attacken beschrieben
+- `IFE-102`: navigationMenu: farbiger Balken wird über die border-top-color von .navbar-submenu statt durch ein eigenes div gesetzt
+- `IFE-139`: JavaScript Anpassungen für IE11
+- `IFS-111`: Dokumentation von Konzept JSF überarbeitet
+- `IFS-112`: Dokumentation von Nutzungsvorgaben JSF überarbeitet
+- `IFS-63`: Kapitelergänzung Bestätigungsdialog
+- `IFS-89`: Textänderung bei Querschnittliche Texte
+- `IFS-352`: Zentrales AsciiDoc Changelog anlegen
+- `IFS-335`: Dokumententitel auf Titelseite anpassen
+- `IFS-75`: Schutz gegen CSRF-Attacken beschrieben
 
 ## 4.9.1 (Einschränkungen in Firefox, siehe Hinweise)
 
 ### Hinweise zum Upgrade auf v4.9.1
-- IFE-139: IE11 unterstützt aufgrund des Upgrades auf JQuery3 .`removeAttr()` für `onclick` nicht mehr. 
+- `IFE-139`: IE11 unterstützt aufgrund des Upgrades auf JQuery3 .`removeAttr()` für `onclick` nicht mehr. 
 Stattdessen wird `prop("onclick", null)` in Kombination mit `unbind("click")` verwendet.
-- IFE-139: `isy:buttonInjectPost` funktioniert in Firefox nicht. 
-Siehe IFE-271.
-- IFS-97: Der CSS-Pfad der `linksNavigationAbstandRechts` in der applikation.xhtml hat sich geändert. 
+- `IFE-139`: `isy:buttonInjectPost` funktioniert in Firefox nicht. 
+Siehe `IFE-271`.
+- `IFS-97`: Der CSS-Pfad der `linksNavigationAbstandRechts` in der applikation.xhtml hat sich geändert. 
 Dadurch funktioniert die CSS-Druckansicht Verarbeitung der Isy-Style nicht mehr korrekt. 
-Siehe IFE-275.
+Siehe `IFE-275`.
 - Die ID-Vergabe der HTML Widgets hat sich geändert. 
 Die ID eines Html-Elements setzt sich nun aus allen Parent-Elementen zusammen.
 Bestehende GUI-Tests könnten dadurch inkompatibel werden.
 
 ## v4.9.0 (nicht lauffähig in IE11, siehe Hinweise)
-- IFE-58: isy:input analog zu formInput erstellt
-- IFE-64: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
-- IFE-80: Datepicker: Verarbeitung unsicheres Datum
-- IFE-85: TitlesListener-Funktionalität: Aufspaltung des TitlesListener in zwei Klassen. Die Seitentitel-Funktionalität ist standardmäßig aktiv, die Breadcrumb-Funktionalität standardmäßig deaktiv (und deprecated).
-- IFE-52: SmartComparator und Abhängigkeit auf commons-lang3 ausgebaut
+- `IFE-58`: isy:input analog zu formInput erstellt
+- `IFE-64`: Hilfe-Controller: Icon angepasst (Symbol/Größe/Position)
+- `IFE-80`: Datepicker: Verarbeitung unsicheres Datum
+- `IFE-85`: TitlesListener-Funktionalität: Aufspaltung des TitlesListener in zwei Klassen. Die Seitentitel-Funktionalität ist standardmäßig aktiv, die Breadcrumb-Funktionalität standardmäßig deaktiv (und deprecated).
+- `IFE-52`: SmartComparator und Abhängigkeit auf commons-lang3 ausgebaut
 
 ## 4.8.2
 
@@ -130,76 +141,76 @@ Bestehende GUI-Tests könnten dadurch inkompatibel werden.
 - Diese Version funktioniert wieder mit IE11
 
 ## v4.8.1 (nicht lauffähig in IE11, siehe Hinweise)
-- IFS-421: initialisierenListickerSevlet: Fehler behoben
-- IFS-426: fehlende Aktualisierung durch IFS-73 im dataTableDetailButton nachgeholt
+- `IFS-421`: initialisierenListickerSevlet: Fehler behoben
+- `IFS-426`: fehlende Aktualisierung durch `IFS-73` im dataTableDetailButton nachgeholt
 
 ### Known Issues / Bugs
 - Diese Version funktioniert nicht im IE11 (Version sollte nicht verwendet werden)
 
 ## v4.8.0
 
-- IFE-16: Support für IE8 eingestellt, Entfernung von row-df
-- IFE-18: Attribute in GUI-Controls bereinigt
-- IFE-21: Klasse SmartComparator als @Deprecated annotiert
-- IFE-30: Dropdown Komponente im readonly-Modus nicht mehr per Tastatur bedienbar
-- IFE-32: Ladezeitpunkt der Custom-Stylesheet Dateien korrigiert
-- IFE-34: Fehler bei deaktivierten Default Buttons behoben
-- IFE-35: Es wurde die Möglichkeit geschaffen, Listpicker mithilfe eines Servlets zu filtern. Dies stellt eine Alternative zum Filtern mittels Ajax dar.
-- IFE-44: Anhebung der commons-fileupload Version auf 1.3.3
-- IFE-48: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
-- IFE-51: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
-- IFE-59: Definition der Standardfarbe des Headers über die Portalfarbe (s. `isy-style`).
-- IFE-62: Obsoletes Parent-POM durch Open Source Parent POM ersetzt
-- IFE-66: Dropdown-4-Eyes Readonly-Label um Icon ergänzt
-- IFS-198: Fehlerbehandlung in eigenes FlowHandlerMapping überführt
-- IFS-307: Products-BOM eingebunden, Update el-api auf 3.0.0
-- IFS-222: Filter Reihenfolge für Encoding angepasst
+- `IFE-16`: Support für IE8 eingestellt, Entfernung von row-df
+- `IFE-18`: Attribute in GUI-Controls bereinigt
+- `IFE-21`: Klasse SmartComparator als @Deprecated annotiert
+- `IFE-30`: Dropdown Komponente im readonly-Modus nicht mehr per Tastatur bedienbar
+- `IFE-32`: Ladezeitpunkt der Custom-Stylesheet Dateien korrigiert
+- `IFE-34`: Fehler bei deaktivierten Default Buttons behoben
+- `IFE-35`: Es wurde die Möglichkeit geschaffen, Listpicker mithilfe eines Servlets zu filtern. Dies stellt eine Alternative zum Filtern mittels Ajax dar.
+- `IFE-44`: Anhebung der commons-fileupload Version auf 1.3.3
+- `IFE-48`: Update auf jQuery 3.3.1 und Bootstrap 3.3.7
+- `IFE-51`: Unterstützung Fontawesome-5 und Fontawesome-4 Icons
+- `IFE-59`: Definition der Standardfarbe des Headers über die Portalfarbe (s. `isy-style`).
+- `IFE-62`: Obsoletes Parent-POM durch Open Source Parent POM ersetzt
+- `IFE-66`: Dropdown-4-Eyes Readonly-Label um Icon ergänzt
+- `IFS-198`: Fehlerbehandlung in eigenes FlowHandlerMapping überführt
+- `IFS-307`: Products-BOM eingebunden, Update el-api auf 3.0.0
+- `IFS-222`: Filter Reihenfolge für Encoding angepasst
 
 ### Hinweise zum Upgrade
 
 - Liegen Anpassungen der Klasse `HeaderHelper` bezüglich der Standardfarbe (`DEFAULT_COLOR`) vor, sollten diese enfernt werden, da die Standardfarbe nun durch die Portalfarbe bestimmt wird.
 - Durch Upgrade auf JQuery3 unterstützt der IE11 .removeAttr() für "onclick" nicht mehr. Dadurch funktionieren unter anderem Tabreiter in IE11 nicht mehr.
-- Der CSS-Pfad der linksNavigationAbstandRechts in der applikation.xhtml hat sich geändert. Dadurch funktioniert die CSS-Druckansicht Verarbeitung der Isy-Style nicht mehr korrekt. Siehe IFE-275
+- Der CSS-Pfad der linksNavigationAbstandRechts in der applikation.xhtml hat sich geändert. Dadurch funktioniert die CSS-Druckansicht Verarbeitung der Isy-Style nicht mehr korrekt. Siehe `IFE-275`
 
 ## v4.7.0
 
-- IFS-96 : Autoscroll Funktion für Tab-Controls
-- IFS-142: Neuimplementierung Breadcrumb
-- IFS-150: OptimisticLockHandler zur Behandlung von OptimisticLockExceptions
-- IFS-153: Listpicker Positions-Autofocus im Dropdownfenster
-- IFS-154: Datepicker zeigt nach manueller Eingabe eingegebenes Datum
-- IFS-163: Unterstützung für IE8 eingestellt
-- IFS-165: UI-Block wird bei manchen Fehlermeldungen nicht deaktiviert
-- IFS-182: Datepicker um Übernahme des heutigen Datums erweitert
-- IFS-202: DownloadHelper hinzugefügt
+- `IFS-96` : Autoscroll Funktion für Tab-Controls
+- `IFS-142`: Neuimplementierung Breadcrumb
+- `IFS-150`: OptimisticLockHandler zur Behandlung von OptimisticLockExceptions
+- `IFS-153`: Listpicker Positions-Autofocus im Dropdownfenster
+- `IFS-154`: Datepicker zeigt nach manueller Eingabe eingegebenes Datum
+- `IFS-163`: Unterstützung für IE8 eingestellt
+- `IFS-165`: UI-Block wird bei manchen Fehlermeldungen nicht deaktiviert
+- `IFS-182`: Datepicker um Übernahme des heutigen Datums erweitert
+- `IFS-202`: DownloadHelper hinzugefügt
 
 ## v4.6.0
 
-- IFS-55: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
-- IFS-58: Alte Breadcrumb-Implementierung als Deprecated erklärt.
-- IFS-74: isy-style aus Build herausgelöst. Die isy-style muss als zusätzliche Maven-Dependency eingebunden werden.
-- IFS-82: Ausrichtung von Tabelleninhalten mittig, links- und rechtsbündig möglich.
-- IFS-86: GUI-Performance-Optimmierung.
-- IFS-87: Ajax-Funktionalität im buttonToolbar.xhtml deaktivierbar gemacht.
-- IFS-91: Patch für JSF Composite Components und JSTL-Tags.
-- IFS-93: Rendering von Eingabefeldern im Readonly-Modus auf Label geändert.
-- IFS-94: Neue Widgets: formsNumericInput und formNumericInputWithFourEyes.
-- IFS-97: Einklappbare Linksnavigation.
-- IFS-99: 
+- `IFS-55`: Vervollständigung der Datumseingabe im DatePicker bei zweistelliger Jahreszahl.
+- `IFS-58`: Alte Breadcrumb-Implementierung als Deprecated erklärt.
+- `IFS-74`: isy-style aus Build herausgelöst. Die isy-style muss als zusätzliche Maven-Dependency eingebunden werden.
+- `IFS-82`: Ausrichtung von Tabelleninhalten mittig, links- und rechtsbündig möglich.
+- `IFS-86`: GUI-Performance-Optimmierung.
+- `IFS-87`: Ajax-Funktionalität im buttonToolbar.xhtml deaktivierbar gemacht.
+- `IFS-91`: Patch für JSF Composite Components und JSTL-Tags.
+- `IFS-93`: Rendering von Eingabefeldern im Readonly-Modus auf Label geändert.
+- `IFS-94`: Neue Widgets: formsNumericInput und formNumericInputWithFourEyes.
+- `IFS-97`: Einklappbare Linksnavigation.
+- `IFS-99`: 
     * Links und Hauptnavigation wird nun durch gui.linksnavigation.* und gui.navbar.applikationsgruppe.* Properties aufgebaut.
     * navigation.xhtml wurde durch navigationMenu.xhtml ersetzt
-- IFS-100: Cache-Period auf 24 Stunden gesetzt.
-- IFS-101: Tab-Widgets blockieren bei Tab-Wechsel.
-- IFS-107: Konfiguration von Farben, Texten und Logos.
-- IFS-112: Grunt Maven Plugin durch Frontend Maven Plugin ersetzt.
+- `IFS-100`: Cache-Period auf 24 Stunden gesetzt.
+- `IFS-101`: Tab-Widgets blockieren bei Tab-Wechsel.
+- `IFS-107`: Konfiguration von Farben, Texten und Logos.
+- `IFS-112`: Grunt Maven Plugin durch Frontend Maven Plugin ersetzt.
 
 ## v4.5.2
 
-- IFS-92: Austausch des Icon-Fonts durch Font Awesome.
+- `IFS-92`: Austausch des Icon-Fonts durch Font Awesome.
 
 ## v4.5.0
 
-- IFS-34: formUpload übernommen.
+- `IFS-34`: formUpload übernommen.
 
 ### Hinweise zum Upgrade
 
@@ -208,12 +219,12 @@ Bestehende GUI-Tests könnten dadurch inkompatibel werden.
 
 ## v4.4.0
 
-- IFS-39: Ein generischer Bestätigungsdialog ist nun verfügbar.
+- `IFS-39`: Ein generischer Bestätigungsdialog ist nun verfügbar.
 - RF-161: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
-- IFS-60: Datatable zeigt einen Hinweis, wenn eine Tabelle keine Treffer enthält.
-- IFS-56: Die Checkbox in Überschriftzeilen von Treffertabellen ist nun eine Tri-State-Checkbox.
-- IFS-61: Die Darstellung sortierbarer Spalten von Tabellen wurde verbessert.
-- IFS-41: In Listpickern kann der Schlüssel aufgelöst werden (siehe Attribut `inputComplement`). Das Feature funktioniert nur für Listpicker, die eine Inputmask definiert haben.
+- `IFS-60`: Datatable zeigt einen Hinweis, wenn eine Tabelle keine Treffer enthält.
+- `IFS-56`: Die Checkbox in Überschriftzeilen von Treffertabellen ist nun eine Tri-State-Checkbox.
+- `IFS-61`: Die Darstellung sortierbarer Spalten von Tabellen wurde verbessert.
+- `IFS-41`: In Listpickern kann der Schlüssel aufgelöst werden (siehe Attribut `inputComplement`). Das Feature funktioniert nur für Listpicker, die eine Inputmask definiert haben.
 
 ## v4.3.3
 
@@ -225,7 +236,7 @@ Bestehende GUI-Tests könnten dadurch inkompatibel werden.
 
 ## v4.3.2
 
-- IFS-17: Umbenennung der Artifact-ID und Group-ID
+- `IFS-17`: Umbenennung der Artifact-ID und Group-ID
 
 ### Bugfixes
 
@@ -241,7 +252,7 @@ Bestehende GUI-Tests könnten dadurch inkompatibel werden.
 
 ### Bugfixes
 
-- IFS-30:
+- `IFS-30`:
   - Das Sortieren von DataTables im Client-Mode funktioniert wieder.
   - Fix: "." im Attribut reference bzw. referenceId führt dazu, dass AJAX Aufrufe nicht behandelt werden. Betrifft folgende Komponenten:
     - formSelectOneDropdown.xhtml
@@ -252,7 +263,7 @@ Bestehende GUI-Tests könnten dadurch inkompatibel werden.
 
 #### Neuerungen
 
-- IFS-29:
+- `IFS-29`:
   - Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
   - DataTable übernimmt Änderungen von DataTable3.
   - Einführung von <h>-Tags für Überschriften von Panels.
@@ -265,12 +276,12 @@ Bestehende GUI-Tests könnten dadurch inkompatibel werden.
     - formListpicker
     - formCurrencyInput
     - formBrowseAndCollect
-- IFS-18: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
-- IFS-23: Eingabe von Geldbeträgen mit mehr als zwei Nachkommastellen
+- `IFS-18`: Optionales Anzeigen der Versionsnummer im Seiten-Titel.
+- `IFS-23`: Eingabe von Geldbeträgen mit mehr als zwei Nachkommastellen
 
 ### Hinweise zum Upgrade
 
-- Tabs: Anwendungen die das Attribut preload (tabContent) auf true gesetzt haben, ohne das Attribut skipAction (tabHeader) explizit auch auf true gesetzt zu haben, müssen skipAction nun auch explizit auf true setzen (siehe oben: Bugfix IFRF-24). 
+- Tabs: Anwendungen die das Attribut preload (tabContent) auf true gesetzt haben, ohne das Attribut skipAction (tabHeader) explizit auch auf true gesetzt zu haben, müssen skipAction nun auch explizit auf true setzen (siehe oben: Bugfix `IFRF-24`). 
 Generell ist darauf zu achten, dass beide Attribute denselben Wert haben. 
 Wenn die Werte in der Anwendung überhaupt nicht explizit gesetzt werden, muss nichts unternommen werden.
 

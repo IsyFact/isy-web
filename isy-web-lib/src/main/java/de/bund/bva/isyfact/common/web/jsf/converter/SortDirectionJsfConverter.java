@@ -28,7 +28,6 @@ import de.bund.bva.isyfact.common.web.jsf.components.datatable.SortDirection;
 /**
  * JSF Converter für ein Datum, das im Format "dd.MM.yyyy" dargestellt werden soll.
  *
- * @author Capgemini
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

@@ -19,8 +19,6 @@ package de.bund.bva.isyfact.common.web.layout;
 /**
  * Ist das Model zum Informationsbereich.
  * 
- * @author Capgemini
- * @version $Id: InformationsbereichModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

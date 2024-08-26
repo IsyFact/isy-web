@@ -19,8 +19,6 @@ package de.bund.bva.isyfact.common.web.layout;
 /**
  * Ist das Model für die Toolbar.
  *
- * @author Capgemini
- * @version $Id: SeitentoolbarModel.java 124705 2014-11-06 12:05:12Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */
