@@ -21,8 +21,6 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
 /**
  * Model-Klasse fuer Maskenmodel vom Typ "Basis-Seite".
  *
- * @author Capgemini
- * @version $Id: BasisModel.java 144984 2015-08-18 13:53:33Z sdm_bpiatkowski $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

@@ -24,8 +24,6 @@ import de.bund.bva.isyfact.common.web.GuiController;
  * @param <T>
  *            Das spezifische Maskemodel.
  *
- * @author Capgemini
- * @version $Id: RfGuiController.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

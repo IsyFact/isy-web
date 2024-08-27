@@ -5,15 +5,15 @@ on:
 
 jobs:
   Build:
-    uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.4.0
     with:
       maven-opts: '-pl isy-web-lib -Dskip.js.tests=true'
       checkout-lfs: true
       version: ${{ github.ref_name }}
 
-  Deploy:
+  DeployMavenCentral:
     needs: [Build]
-    uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.5.0
     with:
       maven-opts: '-pl isy-web-lib -Dskip.js.tests=true -P centralRelease'
       checkout-lfs: true

@@ -28,7 +28,6 @@ import com.google.common.collect.Sets;
 /**
  * Das Auswahlmodell einer Tabelle.
  *
- * @author msg
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */
@@ -39,7 +38,6 @@ public class DataTableSelectionModel implements Serializable {
      * Damit die Tabelle auch ohne JS funktioniert müssen wir JSF glauben lassen, dass wir einen Boolean pro
      * Checkbox verwalten.
      *
-     * @author msg
      */
     protected final class SelectionMapper extends AbstractMap<Long, Boolean> {
 

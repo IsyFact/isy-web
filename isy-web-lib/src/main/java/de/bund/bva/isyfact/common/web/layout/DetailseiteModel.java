@@ -21,8 +21,6 @@ import de.bund.bva.isyfact.common.web.global.AbstractMaskenModel;
 /**
  * Model-Klasse fuer Maskenmodel vom Typ "Detailseite".
  * 
- * @author Capgemini
- * @version $Id: DetailseiteModel.java 123758 2014-10-10 10:01:14Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

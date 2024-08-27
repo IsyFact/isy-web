@@ -25,8 +25,6 @@ import de.bund.bva.isyfact.util.exception.MessageSourceFehlertextProvider;
  * verändern werden, um das Laden von Fehlertexten zu beeinflussen. Standmäßig wird die Ausnahme-ID anhand
  * {@link MessageSourceFehlertextProvider} geladen.
  * 
- * @author Capgemini
- * @version $Id:$
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

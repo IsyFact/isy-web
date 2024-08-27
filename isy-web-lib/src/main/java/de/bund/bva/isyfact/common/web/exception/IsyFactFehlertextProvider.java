@@ -26,8 +26,6 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
  * Diese Klasse stellt Methoden zum Auslesen von Fehlertexten auf Basis von AusnahmeIDs und Parametern zur
  * Verfügung.
  *
- * @author Capgemini
- * @version $Id: IsyFactFehlertextProvider.java 130620 2015-02-17 08:49:16Z sdm_tgroeger $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

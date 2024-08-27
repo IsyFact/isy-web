@@ -24,8 +24,6 @@ package de.bund.bva.isyfact.common.web.konstanten;
  * <li>PLWEB00YYY - Allgemein
  * </ul>
  *
- * @author Capgemini
- * @version $Id: FehlerSchluessel.java 134126 2015-04-08 13:52:30Z sdm_ahoerning $
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */

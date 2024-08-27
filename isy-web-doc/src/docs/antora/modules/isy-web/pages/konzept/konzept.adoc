@@ -7,9 +7,9 @@ include::glossary:licence:partial$licence.adoc[]
 [cols="5,2,3",options="header"]
 |====
 |Name |Art |Version
-m|isy-web |Bibliothek |v6.0.0
+m|isy-web |Bibliothek |v6.1.0
 |====
-:linkaktuell: Konzept isy-web-angular (Anmerkung: Dies ist noch ein Closed Source Baustein)
+:linkaktuell: xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Baustein isy-web-angular - Konzept]
 include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
 
 [[einleitung]]
@@ -23,7 +23,7 @@ Eine davon ist die Komponente GUI (s. <<image-IFRefArcITSysGUI>>).
 .Softwaretechnische Architektur eines IT-Systems (GUI hervorgehoben)
 image::konzept/IFRefArcITSysGUI.png[align="center"]
 
-Dieses Konzept baut auf dem xref:isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI] auf und beschreibt die Architektur der GUI-Komponente, umgesetzt mit den Technologien JSF und Spring Web Flow.
+Dieses Konzept baut auf dem xref:3.1.x@isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI] auf und beschreibt die Architektur der GUI-Komponente, umgesetzt mit den Technologien JSF und Spring Web Flow.
 Es enthält darüber hinaus architektonische und technische Vorgaben, die bei der Umsetzung der GUI-Komponente zu beachten sind.
 Es streift Aspekte der verwendeten Technologien, wo nötig, setzt in der Breite aber eine gewisse Vorkenntnis voraus.
 
@@ -67,7 +67,7 @@ Hierzu werden folgende Themenbereiche genauer definiert:
 Web-Anwendungen sind besonderen Gefährdungen ausgesetzt.
 Folgende Anforderungen müssen bei der Entwicklung von Web-Anwendungen berücksichtigt werden:
 
-* Entwickler müssen sich mit den TOP10 Risiken für Web-Anwendungen gemäß OWASP vertraut machen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-owasp[OWASP Top 10])
+* Entwickler müssen sich mit den TOP10 Risiken für Web-Anwendungen gemäß OWASP vertraut machen (siehe https://owasp.org/Top10/[OWASP Top 10])
 * Vertrauliche Informationen dürfen nicht als GET-Parameter übermittelt werden.
 Dies verhindert, dass solche Informationen ungewollt in Log-Dateien, Caches usw.
 gespeichert werden.
@@ -78,7 +78,7 @@ Die Übersicht der Basistechnologien soll dem Leser einen einfacheren Einstieg i
 Zusätzlich findet sich noch ein Verweis auf die konkret eingesetzten Implementierungen.
 Hierbei werden auch Architekturprinzipien angesprochen, welche in den Technologien Verwendung finden.
 
-Für detaillierte Informationen über die verwendeten Technologien sei auf entsprechende Literatur verwiesen: xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[JavaServer Faces], xref:glossary:literaturextern:inhalt.adoc#litextern-swf[Spring Web Flow] und xref:glossary:literaturextern:inhalt.adoc#litextern-spring[Spring].
+Für detaillierte Informationen über die verwendeten Technologien sei auf entsprechende Literatur verwiesen: https://de.wikipedia.org/wiki/Jakarta_Server_Faces[JavaServer Faces], https://spring.io/projects/spring-webflow[Spring Web Flow] und https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/[Spring].
 
 [[jsf-facelets]]
 === JSF / Facelets
@@ -88,7 +88,7 @@ Der Schwerpunkt von JSF ist die Bereitstellung grafischer Komponenten wie z.B. T
 Das zentrale Konzept hinter JSF ist die Erstellung eines Komponentenbaumes aus diesen grafischen Komponenten.
 Aus diesem Komponentenbaum wird schließlich die auszuliefernde HTML-Seite generiert.
 
-Die IsyFact setzt die Referenzimplementierung von Oracle (xref:glossary:literaturextern:inhalt.adoc#litextern-javaserver-faces[JavaServer Faces]) ein und erweitert diese im Bereich der Komponenten um die Bibliothek xref:glossary:literaturextern:inhalt.adoc#litextern-tomahawk[Apache Tomahawk].
+Die IsyFact setzt die Referenzimplementierung von Oracle (https://www.oracle.com/java/technologies/javaserverfaces.html[JavaServer Faces]) ein und erweitert diese im Bereich der Komponenten um die Bibliothek https://svn.apache.org/repos/asf/myfaces/site/publish/tomahawk/index.html[Apache Tomahawk].
 
 *Facelets* ist eine Template-Engine und die Standard-View-Technologie von JSF.
 Facelets löst in dieser Funktion JSP ab.
@@ -99,12 +99,12 @@ Im Gegensatz zu Taglibs erfolgt ein Include der Komponente und kein Aufruf von J
 
 Facelets bieten vielfältige Möglichkeiten, Vorlagenfragmente zu einer Gesamtseite zusammenzusetzen, um z.B. auf jeder Seite einen einheitlichen Seitenrahmen zu realisieren.
 Weiter können Facelets mit herkömmlichen HTML-Editoren bearbeitet werden und sind somit einfacher zu verstehen und zu editieren.
-Als Implementierung kommt wiederum die Referenzimplementierung von Oracle (xref:glossary:literaturextern:inhalt.adoc#litextern-javaserver-faces[JavaServer Faces]) zum Einsatz.
+Als Implementierung kommt wiederum die Referenzimplementierung von Oracle (https://www.oracle.com/java/technologies/javaserverfaces.html[JavaServer Faces]) zum Einsatz.
 
 [[bearbeitungsmodell-einer-jsf-anfrage]]
 ==== Bearbeitungsmodell einer JSF Anfrage
 
-Die Spezifikation der Java Server Faces definiert einen sogenannten Lebenszyklus xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[JavaServer Faces], den eine JSF-Anwendung mit jedem Aufruf erneut durchläuft.
+Die Spezifikation der Java Server Faces definiert einen sogenannten Lebenszyklus https://de.wikipedia.org/wiki/Jakarta_Server_Faces[JavaServer Faces], den eine JSF-Anwendung mit jedem Aufruf erneut durchläuft.
 Dieser Lebenszyklus ist in sechs _Phasen_ (englisch _Phases_) aufgeteilt.
 
 [[image-PhasemodJSF]]
@@ -251,7 +251,7 @@ Die Variante der Session Serialisierung ist zwar einfacher, beinhaltet aber auch
 Die Session des Servers wird zum Speichern von verschiedensten Daten genutzt, der Zugriff auf sie ist frei möglich.
 Dies führt in der Praxis dazu, dass unkontrolliert große Datenmengen in der Session abgelegt werden.
 Diese großen Datenmengen lassen sich dann nicht mehr effizient persistieren.
-Daher wurde diese Option in der xref:isyfact-standards-doku:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] ausgeschlossen.
+Daher wurde diese Option in der xref:3.1.x@isyfact-standards-doku:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] ausgeschlossen.
 Die Details dazu, wie in Spring Web Flow die zu speichernden Daten einer Session ermittelt werden, finden sich in Kapitel <<session-behandlung>>.
 
 [[jquery]]
@@ -265,7 +265,7 @@ Die Oberfläche muss jedoch auch mit deaktiviertem JavaScript mit Komforteinschr
 [[architektur]]
 == Architektur einer JSF-GUI
 
-Die Architektur von xref:glossary:glossary:master.adoc#glossar-gui[GUIs] mit JSF und Spring Web Flow hält sich an die Vorgaben aus der xref:isyfact-standards-doku:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] sowie die architektonischen Vorgaben aus dem xref:isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI].
+Die Architektur von xref:glossary:glossary:master.adoc#glossar-gui[GUIs] mit JSF und Spring Web Flow hält sich an die Vorgaben aus der xref:3.1.x@isyfact-standards-doku:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] sowie die architektonischen Vorgaben aus dem xref:3.1.x@isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI].
 Sie besitzt, aufgrund der Vorgaben und der eingesetzten Technologien, folgende Eigenschaften:
 
 * Nutzung des MVC-Patterns
@@ -293,7 +293,7 @@ Die grau hinterlegten Teile werden durch die IsyFact konfiguriert und bereitgest
 [[aufbau-gui-komponente]]
 === Aufbau der GUI-Komponente
 
-Wie im xref:isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI] beschrieben, besteht die GUI-Komponente aus Dialog-Komponenten und einem gemeinsamen AWK-Wrapper.
+Wie im xref:3.1.x@isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI] beschrieben, besteht die GUI-Komponente aus Dialog-Komponenten und einem gemeinsamen AWK-Wrapper.
 Der Schnitt der Komponenten ist fachlich motiviert und in der Systemspezifikation beschrieben.
 
 Die Dialog-Komponenten einer GUI-Komponente können einen gemeinsamen AWK-Wrapper und in ihren Modellen gemeinsame Klassen verwenden.
@@ -499,10 +499,10 @@ Die Nutzung der durch das Bedienkonzept definierten Elemente und durch den Baust
 ==== Absicherung von JSF-GUIs
 
 Die Absicherung von Masken erfolgt auf Ebene des Dialogablaufs über Spring Web Flow.
-Die Berechtigungsprüfung verwendet dabei den in <<KonzeptSecurity>> beschriebenen Baustein Security der IsyFact.
+Die Berechtigungsprüfung verwendet dabei den xref:3.1.x@isyfact-standards-doku:isy-security:konzept/master.adoc[Baustein Security].
 
 Für die Anbindung von Spring Web Flow an den Baustein Security wird das Spring Security-Interface `AccessDecisionManager` durch die Klasse `WebDelegatingAccessDecisionManager` implementiert.
-In der Implementierung wird mittels einer Abfrage an `Berechtigungsmanager` aus dem Security-Baustein geprüft, ob ein Anwender die notwendigen Berechtigungen besitzt (siehe dazu <<NutzungsvorgabenSecurity>>).
+In der Implementierung wird mittels einer Abfrage an `Berechtigungsmanager` aus dem Security-Baustein geprüft, ob ein Anwender die notwendigen Berechtigungen besitzt (siehe dazu xref:3.1.x@isyfact-standards-doku:isy-security:nutzungsvorgaben/master.adoc[]).
 
 [[verwendung-csrf-schutz]]
 ==== Verwendung des CSRF-Schutzes
@@ -602,7 +602,7 @@ Die Konvertierung findet in diesem Fall nicht durch einen Konverter statt, sonde
 
 Die Validierung und Prüfung der in der GUI erfassten Daten soll entweder vollständig durch die GUI oder aber vollständig im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] durchgeführt werden.
 Die Validierung in der GUI ist dabei bevorzugt.
-In diesem Falle wird der Validierungsmechanismus von Spring Web Flow verwendet (s. Abschnitt 5.10 in der Dokumentation des xref:glossary:literaturextern:inhalt.adoc#litextern-jsf-wiki[JavaServer Faces], xref:glossary:literaturextern:inhalt.adoc#litextern-swf[Spring Web Flows] ).
+In diesem Falle wird der Validierungsmechanismus von Spring Web Flow verwendet (s. Abschnitt 5.10 in der Dokumentation des https://de.wikipedia.org/wiki/Jakarta_Server_Faces[JavaServer Faces], https://spring.io/projects/spring-webflow/[Spring Web Flows]).
 Standard-JSF-Validatoren oder -Konverter sollten für die Validierung aus den im Abschnitt <<datenkonvertierung-fuer-darstellung-und-eingabe>> genannten Gründen nicht verwendet werden.
 
 [[vorgaben-javascript]]
@@ -622,7 +622,7 @@ Bei der Verwendung von JavaScript sind grundsätzlich die folgenden Vorgaben ein
  var requestValue = getParameterValue(“searchString“);
  eval(requestValue)
 
-Dies ermöglicht es jeden beliebigen JavaScript Code per Injektion auf einem Client ausführen zu lassen:
+Dies ermöglicht es, jeden beliebigen JavaScript-Code per Injektion auf einem Client ausführen zu lassen:
 
  www.mySite.de?searchString=alert(‚hallo‘)
 
@@ -703,7 +703,7 @@ Die Verwendung von z.B. des View-Names als „Namespace“ vermeidet, Funktionen
 Mit diesem Konstrukt wird verhindert, dass die Definition neuer Funktionen und Variablen (versehentlich) Elemente aus dem globalen Kontext überschreiben.
 Die Deklaration von wiederverwendbaren Funktion- bzw. Namespace-Definitionen muss außerhalb dieser `function()` erfolgen.
 
-Jede JavaScript Datei beginnt demnach mit:
+Jede JavaScript-Datei beginnt demnach mit:
 
  (function(){
 

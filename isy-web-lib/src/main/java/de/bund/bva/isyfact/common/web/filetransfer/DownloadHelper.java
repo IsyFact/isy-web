@@ -25,7 +25,6 @@ import de.bund.bva.isyfact.common.web.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
- * @author msg
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use isy-angular-widgets instead.
  */
@@ -138,7 +137,6 @@ public class DownloadHelper {
      * org.omnifaces.util.LocalFaces
      * </pre>
      *
-     * @author msg
      */
     private static final class Faces {
 
