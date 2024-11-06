@@ -17,7 +17,7 @@ jobs:
     needs: [Version]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.6.0
     with:
-#      maven-opts: '-s ./.github/settings.xml -pl isy-web-lib -Dskip.js.tests=true'
+      maven-opts: '-s ./.github/settings.xml -pl isy-web-lib -Dskip.js.tests=true'
       checkout-lfs: true
       version: ${{ needs.Version.outputs.next-version }}
 
