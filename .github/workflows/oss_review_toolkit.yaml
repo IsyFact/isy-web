@@ -1,4 +1,4 @@
-name: Maven Dependency Scan
+name: Maven Dependency Scan (ORT)
 on:
   push:
     branches:
@@ -8,8 +8,6 @@ on:
     paths:
       - 'pom.xml'
   workflow_dispatch:
-  schedule:
-    - cron: "5 0 * * *"
 
 jobs:
   ORT:
