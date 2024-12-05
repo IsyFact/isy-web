@@ -1,6 +1,9 @@
 name: isyfact-jsf-doku
 title: JavaServer Faces (JSF)
-version: '6.2.x'
+version:
+  master: '6.2.x'
+  release/(*): $1
+  (*): $1
 display_version: '6.2'
 start_page: isy-web:konzept/konzept.adoc
 nav:

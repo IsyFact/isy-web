@@ -7,7 +7,10 @@ include::glossary:licence:partial$licence.adoc[]
 [cols="5,2,3",options="header"]
 |====
 |Name |Art |Version
-m|isy-web |Bibliothek |v6.2.0
+
+m|isy-web
+|Bibliothek
+|{page-component-display-version}
 |====
 :linkaktuell: xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Baustein isy-web-angular - Konzept]
 include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
@@ -23,7 +26,7 @@ Eine davon ist die Komponente GUI (s. <<image-IFRefArcITSysGUI>>).
 .Softwaretechnische Architektur eines IT-Systems (GUI hervorgehoben)
 image::konzept/IFRefArcITSysGUI.png[align="center"]
 
-Dieses Konzept baut auf dem xref:3.1.x@isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI] auf und beschreibt die Architektur der GUI-Komponente, umgesetzt mit den Technologien JSF und Spring Web Flow.
+Dieses Konzept baut auf dem xref:isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI] auf und beschreibt die Architektur der GUI-Komponente, umgesetzt mit den Technologien JSF und Spring Web Flow.
 Es enthält darüber hinaus architektonische und technische Vorgaben, die bei der Umsetzung der GUI-Komponente zu beachten sind.
 Es streift Aspekte der verwendeten Technologien, wo nötig, setzt in der Breite aber eine gewisse Vorkenntnis voraus.
 
@@ -251,7 +254,7 @@ Die Variante der Session Serialisierung ist zwar einfacher, beinhaltet aber auch
 Die Session des Servers wird zum Speichern von verschiedensten Daten genutzt, der Zugriff auf sie ist frei möglich.
 Dies führt in der Praxis dazu, dass unkontrolliert große Datenmengen in der Session abgelegt werden.
 Diese großen Datenmengen lassen sich dann nicht mehr effizient persistieren.
-Daher wurde diese Option in der xref:3.1.x@isyfact-standards-doku:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] ausgeschlossen.
+Daher wurde diese Option in der xref:isyfact-standards-doku:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] ausgeschlossen.
 Die Details dazu, wie in Spring Web Flow die zu speichernden Daten einer Session ermittelt werden, finden sich in Kapitel <<session-behandlung>>.
 
 [[jquery]]
@@ -265,7 +268,7 @@ Die Oberfläche muss jedoch auch mit deaktiviertem JavaScript mit Komforteinschr
 [[architektur]]
 == Architektur einer JSF-GUI
 
-Die Architektur von xref:glossary:glossary:master.adoc#glossar-gui[GUIs] mit JSF und Spring Web Flow hält sich an die Vorgaben aus der xref:3.1.x@isyfact-standards-doku:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] sowie die architektonischen Vorgaben aus dem xref:3.1.x@isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI].
+Die Architektur von xref:glossary:glossary:master.adoc#glossar-gui[GUIs] mit JSF und Spring Web Flow hält sich an die Vorgaben aus der xref:isyfact-standards-doku:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] sowie die architektonischen Vorgaben aus dem xref:isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI].
 Sie besitzt, aufgrund der Vorgaben und der eingesetzten Technologien, folgende Eigenschaften:
 
 * Nutzung des MVC-Patterns
@@ -293,7 +296,7 @@ Die grau hinterlegten Teile werden durch die IsyFact konfiguriert und bereitgest
 [[aufbau-gui-komponente]]
 === Aufbau der GUI-Komponente
 
-Wie im xref:3.1.x@isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI] beschrieben, besteht die GUI-Komponente aus Dialog-Komponenten und einem gemeinsamen AWK-Wrapper.
+Wie im xref:isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Web-GUI] beschrieben, besteht die GUI-Komponente aus Dialog-Komponenten und einem gemeinsamen AWK-Wrapper.
 Der Schnitt der Komponenten ist fachlich motiviert und in der Systemspezifikation beschrieben.
 
 Die Dialog-Komponenten einer GUI-Komponente können einen gemeinsamen AWK-Wrapper und in ihren Modellen gemeinsame Klassen verwenden.
@@ -499,10 +502,10 @@ Die Nutzung der durch das Bedienkonzept definierten Elemente und durch den Baust
 ==== Absicherung von JSF-GUIs
 
 Die Absicherung von Masken erfolgt auf Ebene des Dialogablaufs über Spring Web Flow.
-Die Berechtigungsprüfung verwendet dabei den xref:3.1.x@isyfact-standards-doku:isy-security:konzept/master.adoc[Baustein Security].
+Die Berechtigungsprüfung verwendet dabei den xref:isyfact-standards-doku:isy-security:konzept/master.adoc[Baustein Security].
 
 Für die Anbindung von Spring Web Flow an den Baustein Security wird das Spring Security-Interface `AccessDecisionManager` durch die Klasse `WebDelegatingAccessDecisionManager` implementiert.
-In der Implementierung wird mittels einer Abfrage an `Berechtigungsmanager` aus dem Security-Baustein geprüft, ob ein Anwender die notwendigen Berechtigungen besitzt (siehe dazu xref:3.1.x@isyfact-standards-doku:isy-security:nutzungsvorgaben/master.adoc[]).
+In der Implementierung wird mittels einer Abfrage an `Berechtigungsmanager` aus dem Security-Baustein geprüft, ob ein Anwender die notwendigen Berechtigungen besitzt (siehe dazu xref:isyfact-standards-doku:isy-security:nutzungsvorgaben/master.adoc[]).
 
 [[verwendung-csrf-schutz]]
 ==== Verwendung des CSRF-Schutzes

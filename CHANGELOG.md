@@ -4,6 +4,7 @@
 
 ## v6.2.0
 - `IFS-4006`: IsyFact Versionsanhebung auf 3.2.0
+- `IFS-4249`: Setzen der Antora-Version für die Online-Dokumentation durch Git
 
 ## v6.1.0
 - `IFS-3938`: IsyFact Versionsanhebung auf 3.1.0
