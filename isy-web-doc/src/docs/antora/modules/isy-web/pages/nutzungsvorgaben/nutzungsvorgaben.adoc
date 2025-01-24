@@ -40,7 +40,7 @@ Es folgen generelle Vorgaben zum Arbeiten mit JSF, insbesondere zu den Themen, d
 Diese Vorgaben umfassen sowohl Hinweise zur Programmierung als auch Konfiguration.
 Es folgt eine detaillierte Beschreibung der bereitgestellten Seiten- und Bedienelemente auf Basis von JSF.
 
-Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept].
+Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzept].
 
 [[benoetigte-bibliotheken]]
 == Benötigte Bibliotheken
@@ -59,7 +59,7 @@ Bei Verwendung des IsyFact-BOMs wird die Version automatisch ermittelt.
 </dependency>
 ----
 
-Für die Erstellung von Web-GUIs existieren Vorgaben in Form eines xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzepts].
+Für die Erstellung von Web-GUIs existieren Vorgaben in Form eines xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzepts].
 Der Baustein Bedienkonzept legt Anforderungen an die Gestaltung und Nutzbarkeit von Oberflächen fest.
 Die Bibliothek `isy-web` enthält die CSS-, JavaScript-, Bilddateien und  Schriftarten des Bedienkonzepts zur produktiven Nutzung aufbereitet.
 
@@ -1012,7 +1012,7 @@ Hierdurch werden alle Fehler, unabhängig von ihren JSF-IDs, in einer Liste darg
 <h:messages/>
 ----
 
-Die Darstellung von Fehlern und Validierungsnachrichten wird auch im xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept] beschrieben.
+Die Darstellung von Fehlern und Validierungsnachrichten wird auch im xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzept] beschrieben.
 
 [[umgang-mit-validierungsfehlern]]
 ==== Umgang mit Validierungsfehlern
@@ -1287,7 +1287,7 @@ Zum Beispiel sollten nicht benötigte Elemente ausgeblendet und Farben für den 
 Für die Druckvorschau einer Seite sollten die benutzten Widgets so aufbereitet werden, dass alle Inhalte auf der Seite
 angezeigt werden (z.B. bei Tabs alle Tabs anzeigen).
 
-Im xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept] finden sich Beispiele für Druckansichten.
+Im xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzept] finden sich Beispiele für Druckansichten.
 
 [[image-seitendruck1]]
 image::nutzungsvorgaben/Browser_Druckfunktion.png[align="center"]

@@ -38,7 +38,7 @@ Bei mehrschrittigen Datenerfassungen muss die Behandlung der Transaktion mit ein
 [[einhaltung-bedienkonzept]]
 === Einhaltung Bedienkonzept
 
-Die Applikation muss auf die Vorgaben des xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzepts] überprüft werden.
+Die Applikation muss auf die Vorgaben des xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzepts] überprüft werden.
 
 [[flow-konfiguration]]
 === Flow Konfiguration

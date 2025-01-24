@@ -43,7 +43,7 @@ Schließlich enthält es noch ein Kapitel zum Thema Session Behandlung.
 
 Im Anhang steht eine Checkliste, die als Ausgangspunkt für die Qualitätssicherung der nach diesem Konzept umgesetzten xref:glossary:glossary:master.adoc#glossar-gui[GUIs] dienen soll.
 
-Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept].
+Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzept].
 
 [[zielsetzung]]
 === Zielsetzung des Bausteins JSF
@@ -143,7 +143,7 @@ Das Mapping der Controls auf die Daten geschieht über die in JSF verwendete Exp
 Mit der EL werden direkt die Attribute des zugehörigen Beans genutzt.
 
 Ein weiterer Vorteil von Facelets ist die Verwendung von Templates.
-Durch diese ist es möglich, bereits einen zum xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept] konformen Rahmen zur Verfügung zu stellen, in welchen die
+Durch diese ist es möglich, bereits einen zum xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzept] konformen Rahmen zur Verfügung zu stellen, in welchen die
 Applikation lediglich durch definierte Einfügungen ihre Inhalte einbetten.
 
 [[taglibs]]
@@ -487,7 +487,7 @@ Die folgenden Abschnitte beschreiben allgemeine Vorgaben bei der Verwendung JSF-
 [[verwendung-von-jsf-widgets]]
 ==== Verwendung von JSF-Widgets
 
-Für die Arbeit mit JSF werden gemäß dem xref:isyfact-standards-doku:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept] sowohl Seitenelemente als auch Bedienelemente bereitgestellt.
+Für die Arbeit mit JSF werden gemäß dem xref:isy-bedienkonzept-doc:ROOT:bedienkonzept.adoc[Bedienkonzept] sowohl Seitenelemente als auch Bedienelemente bereitgestellt.
 Seitenelemente helfen, den Seitenrahmen aufzubauen und erleichtern so einen zum Bedienkonzept konformen Aufbau der Masken.
 Bedienelemente helfen, die Masken selbst zu strukturieren und bieten vorgefertigte Widgets zur Anzeige und Eingabe von Daten.
 Daneben gibt es noch einige spezielle Komponenten, z.B. um den Fokus beim Laden der Maske zu setzen oder eine Druckansicht bereitzustellen.
