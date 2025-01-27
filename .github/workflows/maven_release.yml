@@ -11,7 +11,7 @@ jobs:
       checkout-lfs: true
       version: ${{ github.ref_name }}
 
-  DeployMavenCentral:
+  DeployReleaseVersion:
     needs: [Build]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.6.0
     with:
@@ -21,6 +21,7 @@ jobs:
       deploy-server-id: ossrh
       sbom: true
       sign: true
+      environment: 'Release'
     secrets:
       GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
       GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
