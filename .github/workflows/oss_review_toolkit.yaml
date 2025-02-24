@@ -14,3 +14,4 @@ jobs:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/oss_review_toolkit_template.yml@feature/ifs-3956-main_ort
     secrets:
       ANTORA_TRIGGER_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
+
