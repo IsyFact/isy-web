@@ -1,6 +1,7 @@
 # Changelog
 
 ## v6.3.0
+- `IFS-4549`: Veröffentlichen von Versionen der Online-Doku zentralisieren
 
 ## v6.2.0
 - `IFS-4006`: IsyFact Versionsanhebung auf 3.2.0
