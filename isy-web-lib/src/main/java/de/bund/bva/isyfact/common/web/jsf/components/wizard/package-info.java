@@ -1,4 +1,3 @@
-
 /**
  * Enthält die Java-Klassen für den Wizard.
  */

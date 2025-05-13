@@ -1,4 +1,3 @@
-
 /**
  * Enthält Java-Klassen der Panel JSF Composite Component.
  */

@@ -1,4 +1,3 @@
-
 /**
  * Enthält die Java-Klassen für die Tab JSF Composite Component.
  */

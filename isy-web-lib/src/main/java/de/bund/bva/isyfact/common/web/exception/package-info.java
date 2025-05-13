@@ -1,5 +1,4 @@
-
-/** 
+/**
  * Dieses Package enthält Exceptionklassen sowie Implementierungen für das Excpetion Handling in Webflows, 
  * JSF und AWK.
  */

@@ -1,4 +1,3 @@
-
 -- isy-webflow Datenbankschema
 --
 -- Der Inhalt dieses SQL-Skripts wird in das Tabellenerzeugungs-Skript der

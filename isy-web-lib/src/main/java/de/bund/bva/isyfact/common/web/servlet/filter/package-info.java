@@ -1,4 +1,3 @@
-
 /**
  * Enthält Filterdefinitionen für den Servlet-Container.
  */

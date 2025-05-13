@@ -1,4 +1,3 @@
-
 /**
  * Enthält spezifische Logik für die IsyFact-spezifischen Composite Components.
  */

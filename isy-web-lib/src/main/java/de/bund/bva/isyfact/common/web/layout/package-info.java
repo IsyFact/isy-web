@@ -1,4 +1,3 @@
-
 /**
  * Enthält Layout-spezfischen Code zur Nutzung des Styleguides.
  */
