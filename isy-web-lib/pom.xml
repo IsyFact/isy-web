@@ -208,12 +208,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
         <!-- Servlet -->
         <!-- Wird durch den Tomcat bereitgestellt -->
         <dependency>
