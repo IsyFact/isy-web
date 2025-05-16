@@ -17,7 +17,6 @@
         <node.version>v18.13.0</node.version>
         <skip.js.tests>false</skip.js.tests>
         <commons-collections.version>3.2.2</commons-collections.version>
-        <commons-logging.version>1.2</commons-logging.version>
     </properties>
 
     <dependencies>
