@@ -12,6 +12,8 @@ on:
 jobs:
   Version:
     uses: IsyFact/isyfact-standards/.github/workflows/next_version.yml@master
+    with:
+      next-version: 6.0.3
 
   Maven:
     needs: [Version]
