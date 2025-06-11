@@ -1,6 +1,5 @@
 name: isyfact-jsf-doku
-title: JavaServer Faces (JSF)
-#version: '6.2.0'
+title: Baustein JSF
 prerelease: false
 start_page: isy-web:konzept/konzept.adoc
 nav:

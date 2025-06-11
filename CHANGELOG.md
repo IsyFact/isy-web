@@ -1,9 +1,8 @@
 # Changelog
 
-## v6.3.0
-- `IFS-4549`: Veröffentlichen von Versionen der Online-Doku zentralisieren
-
 ## v6.2.0
+- `IFS-4747`: Anpassung der Verweise auf Baustein Angular & Umbenennung der Antora-Komponente
+- `IFS-4549`: Veröffentlichen von Versionen der Online-Doku zentralisieren
 - `IFS-4006`: IsyFact Versionsanhebung auf 3.2.0
 - `IFS-4249`: Setzen der Antora-Version für die Online-Dokumentation durch Git
 
