@@ -14,8 +14,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 @Component
 public class ResourceCacheHeaderFilter implements Filter {
 
-    private Log log = LogFactory.getLog(ResourceCacheHeaderFilter.class);
+    private final Logger logger = LoggerFactory.getLogger(ResourceCacheHeaderFilter.class);
 
     /**
      * Access to the configuration.
@@ -124,7 +124,7 @@ public class ResourceCacheHeaderFilter implements Filter {
                                 httpResponse.setHeader(werte[0], werte[1]);
                             }
                         } catch (Exception e) {
-                            this.log.warn("Der Header " + werte[0] + " konnte nicht gesetzt werden: ", e);
+                            this.logger.warn("Der Header {} konnte nicht gesetzt werden: ", werte[0], e);
                         }
                     }
                 }
