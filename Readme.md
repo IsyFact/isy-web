@@ -15,3 +15,8 @@ Der Baustein beinhaltet folgende Dokumente.
 ## Changelog
 
 Der Changelog befindet sich [hier](CHANGELOG.md).
+
+### Lizenz
+
+Die Software des Projekts ist unter der Apache License, Version 2.0 ([Apache-2.0](LICENSE)) lizenziert.
+Die Dokumentation des Projekts ist unter der Namensnennung 4.0 International ([CC-BY-4.0](isy-web-doc/src/docs/antora/LICENSE)) lizenziert.

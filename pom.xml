@@ -16,7 +16,6 @@
 
     <modules>
         <module>isy-web-lib</module>
-        <module>isy-web-doc</module>
     </modules>
 
     <properties>
