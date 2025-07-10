@@ -92,4 +92,4 @@ Die unter xref:konzept/konzept.adoc#vorgaben-javascript[Vorgaben zur Verwendung 
 === Regeln der sicheren Softwareentwicklung
 
 Bei der Entwicklung von Web-Anwendungen müssen in besonderem Maße Sicherheitsaspekte berücksichtigt werden.
-Die entsprechenden Regeln sind im xref:3.2.1@isyfact-standards-doku:isy-sicherheit:konzept/master.adoc[Konzept Sicherheit] beschrieben.
+Die entsprechenden Regeln sind im xref:3.3.0@isyfact-standards-doku:isy-sicherheit:konzept/master.adoc[Konzept Sicherheit] beschrieben.
