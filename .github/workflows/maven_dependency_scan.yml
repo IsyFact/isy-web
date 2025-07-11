@@ -1,18 +1,20 @@
-name: Dependency Scan
+name: Maven Dependency Scan
 on:
   push:
     branches:
       - master
-      - 'feature/**'
       - 'release/**'
     paths:
       - '**/pom.xml'
       - '**/package.json'
       - '**/package-lock.json'
+  workflow_dispatch:
+  schedule:
+      - cron: "5 0 * * *"
 
 jobs:
   Dependencies:
-    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.4.0
+    uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_dependency_scan_template.yml@v1.6.0
     with:
       snyk-reference: $GITHUB_REF_NAME
       snyk-organization: ${{ vars.SNYK_ORG_ID }}
