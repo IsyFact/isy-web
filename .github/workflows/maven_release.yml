@@ -18,7 +18,7 @@ jobs:
       maven-opts: '-pl isy-web-lib -Dskip.js.tests=true -P centralRelease'
       checkout-lfs: true
       version: ${{ github.ref_name }}
-      deploy-server-id: ossrh
+      deploy-server-id: central
       sbom: true
       sign: true
       environment: 'Release'
