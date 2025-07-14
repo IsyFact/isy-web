@@ -30,8 +30,8 @@ jobs:
     with:
       version: ${{ needs.Version.outputs.next-version }}
       checkout-lfs: true
-      maven-opts: '-s ./.github/settings.xml -pl isy-web-lib -Dskip.js.tests=true'
-      deploy-url-snapshot: 'https://maven.pkg.github.com/IsyFact/isy-web'
+      maven-opts: '-DaltDeploymentRepository=github::default::https://maven.pkg.github.com/IsyFact/isy-web'
+      deploy-server-id: github
     secrets:
       DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
       DEPLOY_SERVER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
