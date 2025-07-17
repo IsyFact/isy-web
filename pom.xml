@@ -75,7 +75,7 @@
 
     <profiles>
         <profile>
-            <id>centralRelease</id>
+            <id>webRelease</id>
             <build>
                 <plugins>
                     <!-- Avoid SNAPSHOT-versions in releases. -->
