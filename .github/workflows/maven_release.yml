@@ -15,7 +15,7 @@ jobs:
     needs: [Build]
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.6.0
     with:
-      maven-opts: '-pl isy-web-lib -Dskip.js.tests=true -P centralRelease'
+      maven-opts: '-pl isy-web-lib -Dskip.js.tests=true -P webRelease'
       checkout-lfs: true
       version: ${{ github.ref_name }}
       deploy-server-id: central
