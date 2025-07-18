@@ -5,7 +5,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
     </parent>
 
     <artifactId>isy-web-parent</artifactId>
@@ -20,7 +20,7 @@
     </modules>
 
     <properties>
-        <isyfact-boms.version>3.1.0</isyfact-boms.version>
+        <isyfact-boms.version>3.1.1</isyfact-boms.version>
         <revision>0.0.0-SNAPSHOT</revision>
         <geronimo-el_2.2_spec.version>1.0.1</geronimo-el_2.2_spec.version>
         <geronimo-servlet_2.5_spec.version>1.2</geronimo-servlet_2.5_spec.version>
@@ -72,4 +72,48 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>webRelease</id>
+            <build>
+                <plugins>
+                    <!-- Avoid SNAPSHOT-versions in releases. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-no-snapshots</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireReleaseDeps>
+                                            <message>Keine SNAPSHOT-Abhängigkeiten erlaubt!</message>
+                                        </requireReleaseDeps>
+                                        <requireReleaseVersion>
+                                            <message>Keine SNAPSHOT-Versionen erlaubt!</message>
+                                        </requireReleaseVersion>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -1,5 +1,8 @@
 # Changelog
 
+## v6.1.1
+- `IFS-4716`: IsyFact Versionsanhebung auf 3.1.1
+ 
 ## v6.1.0
 - `IFS-3938`: IsyFact Versionsanhebung auf 3.1.0
 
