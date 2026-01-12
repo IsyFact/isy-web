@@ -58,9 +58,9 @@ Dazu zählen:
 Hierzu werden folgende Themenbereiche genauer definiert:
 
 * Konfiguration der Dialog Abläufe (Flow)
-* Anbindung der Backend-Services (Spring Beans)
+* Anbindung des Anwendungskerns (Spring Beans)
 
-*Einfachheit des Session-Managements:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche wiederverwendbaren Services zur Verfügung gestellt werden.
+*Einfachheit des Session-Managements:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche Möglichkeiten dazu Verfügung gestellt werden.
 
 [[sicherheitsanforderungen]]
 === Sicherheitsanforderungen
@@ -330,9 +330,7 @@ Der Flow wird als XML-Datei im Ordner der Komponente hinterlegt.
 [[controller]]
 ==== Controller
 
-Das Controller-Bean ist ein vom Komponenten-Flow aufzurufendes *zustandsloses* Spring Bean,
-welches Änderungen an den Daten des Models vornimmt oder diese aufbereitet bzw.
-Services des Anwendungskern-Wrappers aufruft.
+Das Controller-Bean ist ein vom Komponenten-Flow aufzurufendes *zustandsloses* Spring Bean, welches Änderungen an den Daten des Models vornimmt oder diese aufbereitet bzw. Schnittstellen des Anwendungskern-Wrappers aufruft.
 Das Model Bean wird dem Controller mit jedem Aufruf übergeben.
 
 [ARCHITEKTURREGEL]
