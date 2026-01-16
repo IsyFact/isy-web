@@ -60,7 +60,7 @@ Hierzu werden folgende Themenbereiche genauer definiert:
 * Konfiguration der Dialog Abläufe (Flow)
 * Anbindung des Anwendungskerns (Spring Beans)
 
-*Einfachheit des Session-Managements:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche Möglichkeiten dazu Verfügung gestellt werden.
+*Einfachheit des Session-Managements:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche Möglichkeiten dazu zur Verfügung gestellt werden.
 
 [[sicherheitsanforderungen]]
 === Sicherheitsanforderungen
