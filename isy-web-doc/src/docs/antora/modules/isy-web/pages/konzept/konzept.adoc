@@ -58,9 +58,9 @@ Dazu zählen:
 Hierzu werden folgende Themenbereiche genauer definiert:
 
 * Konfiguration der Dialog Abläufe (Flow)
-* Anbindung der Backend-Services (Spring Beans)
+* Anbindung des Anwendungskerns (Spring Beans)
 
-*Einfachheit des Session-Managements:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche wiederverwendbaren Services zur Verfügung gestellt werden.
+*Einfachheit des Session-Managements:* Hier wird definiert, wie die Behandlung von Session Informationen erfolgen soll und welche Möglichkeiten dazu zur Verfügung gestellt werden.
 
 [[sicherheitsanforderungen]]
 === Sicherheitsanforderungen
@@ -213,7 +213,7 @@ Flow zurückgeht, auch der alte Status zum Zeitpunkt dieses Request angezeigt we
 Die GUI-Komponente und der Anwendungskern sind Teil derselben Web-Applikation und werden per Spring-Konfiguration miteinander verbunden.
 
 Oft gibt es den Fall, dass über die GUI eine Aktion in einer anderen Anwendung ausgelöst werden soll.
-Ein Beispiel dafür ist die GUI einer xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung] zur Datenerfassung, wobei die Speicherung der Daten über einen Service einer anderen Fachanwendung implementiert ist.
+Ein Beispiel dafür ist die GUI einer xref:glossary::terms-definitions.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung] zur Datenerfassung, wobei die Speicherung der Daten über einen xref:glossary::terms-definitions.adoc#service[Service] einer anderen Fachanwendung implementiert ist.
 In diesem Fall enthält der Anwendungskern der Fachanwendung zur Datenerfassung nur wenig Funktionalität: in ihm werden die Daten für den Serviceaufruf der nachgelagerten Fachanwendung aufbereitet und der Serviceaufruf selbst durchgeführt.
 Wichtig in diesem Fall ist, dass es nach Zielarchitektur keine Transaktionen über Serviceaufrufe hinweg gibt.
 
@@ -330,9 +330,7 @@ Der Flow wird als XML-Datei im Ordner der Komponente hinterlegt.
 [[controller]]
 ==== Controller
 
-Das Controller-Bean ist ein vom Komponenten-Flow aufzurufendes *zustandsloses* Spring Bean,
-welches Änderungen an den Daten des Models vornimmt oder diese aufbereitet bzw.
-Services des Anwendungskern-Wrappers aufruft.
+Das Controller-Bean ist ein vom Komponenten-Flow aufzurufendes *zustandsloses* Spring Bean, welches Änderungen an den Daten des Models vornimmt oder diese aufbereitet bzw. Schnittstellen des Anwendungskern-Wrappers aufruft.
 Das Model Bean wird dem Controller mit jedem Aufruf übergeben.
 
 [ARCHITEKTURREGEL]
