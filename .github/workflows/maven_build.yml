@@ -15,6 +15,8 @@ jobs:
 
   Maven:
     needs: [Version]
+    permissions:
+      contents: read
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_build_template.yml@v1.6.0
     with:
       maven-opts: '-pl isy-web-lib -Dskip.js.tests=true'
