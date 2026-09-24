@@ -11,6 +11,8 @@ on:
 
 jobs:
   Version:
+    permissions:
+      contents: read
     uses: IsyFact/isy-github-actions-templates/.github/workflows/next_version.yml@v1.6.0
 
   Maven:
