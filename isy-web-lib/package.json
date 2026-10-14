@@ -24,7 +24,7 @@
   "devDependencies": {
     "css-loader": "^6.7.2",
     "css-minimizer-webpack-plugin": "^4.0.0",
-    "eslint": "^7.32.0",
+    "eslint": "^10.8.1",
     "eslint-plugin-es": "^4.1.0",
     "eslint-webpack-plugin": "^2.6.0",
     "jasmine-core": "^4.1.1",
